@@ -47,6 +47,18 @@ class Piano(KeyboardPart):
     midiInstrument = 'acoustic grand'
 
 
+class ElectricPiano(KeyboardPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Electric piano")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Electric piano", "E.Pno.")
+
+    midiInstrument = 'electric piano 1'
+
+
 class Harpsichord(KeyboardPart):
     @staticmethod
     def title(_=_base.translate):
@@ -117,14 +129,132 @@ class Celesta(KeyboardPart):
     midiInstrument = 'celesta'
 
 
+class SynthPart(KeyboardPart):
+    """Base class for synth parts.
+
+    This is similar to _base.PianoStaffPart, except either
+    upperVoices or lowerVoices can be set to zero, creating
+    a single staff for writing monophonic lines.
+    """
+    def createWidgets(self, layout):
+        super(SynthPart, self).createWidgets(layout)
+
+        self.upperVoices.setMinimum(0)
+        self.lowerVoices.setMinimum(0)
+
+    def translateWidgets(self):
+        super(SynthPart, self).translateWidgets()
+        self.upperVoices.setToolTip(_(
+            "Set to 0 to disable the right-hand part altogether."))
+        self.lowerVoices.setToolTip(_(
+            "Set to 0 to disable the left-hand part altogether."))
+
+    def build(self, data, builder):
+        """ Setup structure for a 1- or 2-staff PianoStaff. """
+        p = ly.dom.PianoStaff()
+        builder.setInstrumentNamesFromPart(p, self, data)
+        s = ly.dom.Sim(p)
+        upperCount = self.upperVoices.value()
+        lowerCount = self.lowerVoices.value()
+        if upperCount and lowerCount:
+            # add two staves, with a respective number of voices.
+            self.buildStaff(data, builder, 'right', 1, upperCount, s)
+            self.buildStaff(data, builder, 'left', 0, lowerCount, s, "bass")
+        elif upperCount:
+            self.buildStaff(data, builder, 'right', 1, upperCount, s)
+        elif lowerCount:
+            self.buildStaff(data, builder, 'left', 0, lowerCount, s, "bass")
+        data.nodes.append(p)
+
+
+class SynthLead(SynthPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Synth lead")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Synth lead", "Syn.Ld.")
+
+    def createWidgets(self, layout):
+        super(SynthLead, self).createWidgets(layout)
+
+        # This is intended primarily for monophonic parts in treble clef,
+        # so omit lower voices by default
+        self.lowerVoices.setValue(0)
+
+    midiInstrument = 'lead 1 (square)'
+
+
+class SynthPad(SynthPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Synth pad")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Synth pad", "Syn.Pad")
+
+    midiInstrument = 'pad 2 (warm)'
+
+
+class SynthBass(SynthPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Synth bass")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Synth bass", "Syn.Bass")
+
+    def createWidgets(self, layout):
+        super(SynthBass, self).createWidgets(layout)
+
+        # This is intended primarily for monophonic parts in bass clef,
+        # so omit upper voices by default
+        self.upperVoices.setValue(0)
+
+    midiInstrument = 'synth bass 1'
+
+
+class SynthStrings(SynthPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Synth strings")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Synth strings", "Syn.Str.")
+
+    midiInstrument = 'synthstrings 1'
+
+
+class SynthBrass(SynthPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Synth brass")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Synth brass", "Syn.Br.")
+
+    midiInstrument = 'synthbrass 1'
+
+
 register(
     lambda: _("Keyboard instruments"),
     [
         Piano,
+        ElectricPiano,
         Harpsichord,
         Clavichord,
         Organ,
         Celesta,
+        SynthLead,
+        SynthPad,
+        SynthBass,
+        SynthStrings,
+        SynthBrass,
     ])
 
 

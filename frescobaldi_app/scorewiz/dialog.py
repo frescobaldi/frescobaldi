@@ -24,7 +24,7 @@ The Score Wizard dialog.
 
 from PyQt5.QtCore import pyqtSignal, QSettings, QUrl
 from PyQt5.QtWidgets import (
-    QDialog, QDialogButtonBox, QTabWidget, QVBoxLayout, QWidget)
+    QDialog, QDialogButtonBox, QGroupBox, QTabWidget, QVBoxLayout, QWidget)
 
 import app
 import indent
@@ -32,6 +32,8 @@ import qutil
 import userguide
 import ly.document
 import ly.dom
+import ly.music
+import ly.util
 
 
 class ScoreWizardDialog(QDialog):
@@ -42,6 +44,7 @@ class ScoreWizardDialog(QDialog):
         super(ScoreWizardDialog, self).__init__(mainwindow)
         self.addAction(mainwindow.actionCollection.help_whatsthis)
         self._pitchLanguage = None
+        self.mainwindow = mainwindow
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -89,6 +92,10 @@ class ScoreWizardDialog(QDialog):
 
     def reset(self):
         self.tabs.currentWidget().widget().clear()
+
+    def resetAll(self):
+        for tab in self.header, self.parts, self.settings:
+            tab.widget().clear()
 
     def setPitchLanguage(self, language):
         if language != self._pitchLanguage:
@@ -138,6 +145,23 @@ class ScoreWizardDialog(QDialog):
         dlg.exec_()
         dlg.cleanup()
 
+    def readScore(self):
+        """Read the score of an existing document."""
+        self.resetAll()
+        cursor = self.mainwindow.textCursor()
+        text = cursor.document().toPlainText()
+        # Parse the music
+        music = ly.music.document(ly.document.Document(text))
+        for item in music:
+            if isinstance(item, ly.music.items.Header):
+                self.header.readFromMusicItem(item)
+            elif isinstance(item, ly.music.items.Assignment):
+                name = item.name()
+                if name == 'global':
+                    self.settings.readFromMusicItem(item)
+                elif name.endswith('Part'):
+                    self.parts.readFromMusicItem(item)
+
 
 class Page(QWidget):
     """A Page in the tab widget.
@@ -174,14 +198,56 @@ class Header(Page):
         from . import header
         return header.HeaderWidget(parent)
 
+    def readFromMusicItem(self, headerBlock):
+        """Read an existing header block as a ly.music.items.Header."""
+        widget = self.widget()
+        for item in headerBlock:
+            name = item.name()
+            value = item.value()
+            if name in widget.edits:
+                widget.edits[name].setText(value.plaintext())
+
 
 class Parts(Page):
+    def __init__(self, dialog):
+        super(Parts, self).__init__(dialog)
+        # Directory mapping assignment identifiers to the corresponding
+        # Part class. For example: self._partTypes['jazzGuitar'] == JazzGuitar
+        self._partTypes = {}
+
     def title(self):
         return _("&Parts")
 
     def createWidget(self, parent):
         from . import score
         return score.ScorePartsWidget(parent)
+
+    def readFromMusicItem(self, assignment):
+        """Read a part definition from an ly.music.items.Assignment."""
+        from . import score
+        widget = self.widget()
+        if not self._partTypes:
+            # This is only needed when reading from an existing score,
+            # so generate it the first time it is used.
+            from . import build, parts
+            for category in parts.categories:
+                for item in category.items:
+                    self._partTypes[ly.util.mkid(item.__name__)] = item
+        name = assignment.name()
+        # Make sure this is, in fact, a part definition before proceeding.
+        # We already check this in ScoreWizardDialog.readScore(), but it never
+        # hurts to be safe...
+        if name.endswith('Part'):
+            try:
+                # TODO: Handle containers
+                parent = widget.scoreView
+                part = self._partTypes[name[:-4]]
+                box = QGroupBox(widget.partSettings)
+                item = score.PartItem(parent, part, box)
+            except KeyError:
+                # Unrecognized part type; fall back on a piano staff since
+                # they can hold almost anything.
+                partType = self._partTypes['piano']
 
 
 class Settings(Page):
@@ -191,5 +257,47 @@ class Settings(Page):
     def createWidget(self, parent):
         from . import settings
         return settings.SettingsWidget(parent)
+
+    def readFromMusicItem(self, assignment):
+        """Read settings from an ly.music.items.Assignment."""
+        from . import scoreproperties
+        widget = self.widget()
+        sp = widget.scoreProperties
+        for item in assignment.value():
+            if isinstance(item, ly.music.items.KeySignature):
+                pitch = item.pitch()
+                # pitch.alter is a fractions.Fraction
+                key = (pitch.note, pitch.alter.numerator)
+                if key in scoreproperties.keys:
+                    sp.keyNote.setCurrentIndex(scoreproperties.keys.index(key))
+                for mode, translation in scoreproperties.modes:
+                    if mode == item.mode():
+                        sp.keyMode.setCurrentText(translation())
+                        break
+            elif isinstance(item, ly.music.items.Partial):
+                length = item.partial_length()
+                midiDuration = (length.denominator, length.numerator)
+                if midiDuration in scoreproperties.midiDurations:
+                    # index 0 is "None"
+                    sp.pickup.setCurrentIndex(
+                        scoreproperties.midiDurations.index(midiDuration) + 1
+                    )
+            elif isinstance(item, ly.music.items.Tempo):
+                fraction = item.fraction()
+                midiDuration = (fraction.denominator, fraction.numerator)
+                if midiDuration in scoreproperties.midiDurations:
+                    sp.metronomeNote.setCurrentIndex(
+                        scoreproperties.midiDurations.index(midiDuration)
+                    )
+                tempo = item.tempo()
+                if tempo:
+                    sp.metronomeValue.setCurrentText(str(tempo[0]))
+                if item.text():
+                    sp.tempo.setText(item.text().plaintext())
+            elif isinstance(item, ly.music.items.TimeSignature):
+                # Note item.fraction().numerator is always 1
+                fraction = "{0}/{1}".format(item.numerator(),
+                                            item.fraction().denominator)
+                sp.timeSignature.setCurrentText(fraction)
 
 

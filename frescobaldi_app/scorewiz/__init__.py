@@ -36,6 +36,7 @@ class ScoreWizard(plugin.MainWindowPlugin):
         self.actionCollection = ac = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.scorewiz.triggered.connect(self.showDialog)
+        ac.scorewizFromCurrent.triggered.connect(self.showDialogFromCurrent)
         self._dlg = None
 
     def dialog(self):
@@ -46,7 +47,13 @@ class ScoreWizard(plugin.MainWindowPlugin):
         return self._dlg
 
     def showDialog(self):
+        """Show the dialog for creating a new score from scratch."""
         self.dialog().show()
+
+    def showDialogFromCurrent(self):
+        """Show the dialog for creating a new score from an existing score."""
+        self.dialog().show()
+        self.dialog().readScore()
 
 
 class Actions(actioncollection.ActionCollection):
@@ -57,7 +64,12 @@ class Actions(actioncollection.ActionCollection):
         self.scorewiz.setShortcut(QKeySequence("Ctrl+Shift+N"))
         self.scorewiz.setMenuRole(QAction.NoRole)
 
+        self.scorewizFromCurrent = QAction(parent)
+        self.scorewizFromCurrent.setIcon(icons.get("tools-score-wizard"))
+        self.scorewizFromCurrent.setMenuRole(QAction.NoRole)
+
     def translateUI(self):
         self.scorewiz.setText(_("Score &Wizard..."))
+        self.scorewizFromCurrent.setText(_("From C&urrent Document..."))
 
 
