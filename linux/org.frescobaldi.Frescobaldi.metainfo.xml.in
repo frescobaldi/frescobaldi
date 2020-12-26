@@ -67,6 +67,37 @@
   <translation type="gettext">frescobaldi</translation>
 
   <releases>
+    <release version="3.1.3" date="2020-12-26">
+      <description>
+        <p>Notes:</p>
+        <ul>
+          <li>This release contains several bug fixes and improvements. It is probably the last release in the 3.1 version range</li>
+          <li>Full history and credits for this release are available at https://github.com/frescobaldi/frescobaldi/compare/v3.1.2...v3.1.3</li>
+        </ul>
+        <p>Features:</p>
+        <ul>
+          <li>a Clear Music View button and menu action were added</li>
+        </ul>
+        <p>Bug fixes:</p>
+        <ul>
+          <li>fixed "NameError: name 'imp' is not defined" when importing</li>
+          <li>fixed search of generated files on macOS for some Unicode file names</li>
+          <li>fixed selection of Python on Mac OS:</li>
+          <ul>
+            <li>select the system Python 2 or 3 according to LilyPond's version</li>
+            <li>support MacPorts' LilyPond tools</li>
+            <li>add option to allow forcing the use of the tools' #! lines (useful for self-compiled or other nonstandard LilyPond installations)</li>
+          </ul>
+          <li>fixed "AttributeError: 'PreviewJob' object has no attribute 'lilypond_version'"</li>
+          <li>fixed Ghostscript error on Mac with MacPorts' LilyPond 2.21.x</li>
+        </ul>
+        <p>Translations:</p>
+        <ul>
+          <li>Updated translations: Dutch, Czech, Russian</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="3.1.2" date="2020-04-13">
       <description>
         <p>Bug fixes:</p>
