@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2020-04-23 12:26+0200\n"
+"POT-Creation-Date: 2020-12-26 11:12+0100\n"
 "PO-Revision-Date: 2020-11-29 20:51+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -312,7 +312,7 @@ msgstr "Táhnout"
 msgid "Drag File"
 msgstr "Přetáhnout soubor"
 
-#: ../../frescobaldi_app/copy2image.py:159 ../../frescobaldi_app/mainwindow.py:1364
+#: ../../frescobaldi_app/copy2image.py:159 ../../frescobaldi_app/mainwindow.py:1366
 #: ../../frescobaldi_app/docbrowser/browser.py:249
 #: ../../frescobaldi_app/fonts/dialog.py:177
 msgid "&Copy"
@@ -372,13 +372,13 @@ msgstr "Kopírovat soubor {png} do schránky."
 #: ../../frescobaldi_app/copy2image.py:219
 #: ../../frescobaldi_app/engrave/custom.py:260
 #: ../../frescobaldi_app/fonts/musicfonts.py:617
-#: ../../frescobaldi_app/preferences/lilypond.py:377
+#: ../../frescobaldi_app/preferences/lilypond.py:387
 msgid "SVG"
 msgstr "SVG"
 
 #: ../../frescobaldi_app/copy2image.py:220
 #: ../../frescobaldi_app/engrave/custom.py:238
-#: ../../frescobaldi_app/preferences/lilypond.py:374
+#: ../../frescobaldi_app/preferences/lilypond.py:384
 msgid "PDF"
 msgstr "PDF"
 
@@ -573,7 +573,7 @@ msgid "&Save"
 msgstr "&Uložit"
 
 #: ../../frescobaldi_app/documentcontextmenu.py:72
-#: ../../frescobaldi_app/mainwindow.py:1332
+#: ../../frescobaldi_app/mainwindow.py:1334
 msgid "Save &As..."
 msgstr "Uložit &jako..."
 
@@ -582,7 +582,7 @@ msgid "&Close"
 msgstr "&Zavřít"
 
 #: ../../frescobaldi_app/documentcontextmenu.py:74
-#: ../../frescobaldi_app/mainwindow.py:1345
+#: ../../frescobaldi_app/mainwindow.py:1347
 msgid "Close Other Documents"
 msgstr "Zavřít jiné dokumenty"
 
@@ -910,86 +910,86 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../../frescobaldi_app/mainwindow.py:1165
+#: ../../frescobaldi_app/mainwindow.py:1167
 msgid "Main Toolbar"
 msgstr "Hlavní nástrojový pruh"
 
-#: ../../frescobaldi_app/mainwindow.py:1166
+#: ../../frescobaldi_app/mainwindow.py:1168
 msgid "Music View Toolbar"
 msgstr "Nástrojový pruh pro pohled na noty"
 
-#: ../../frescobaldi_app/mainwindow.py:1321
+#: ../../frescobaldi_app/mainwindow.py:1323
 msgctxt "action: new document"
 msgid "&New Document"
 msgstr "&Nový dokument"
 
-#: ../../frescobaldi_app/mainwindow.py:1322
+#: ../../frescobaldi_app/mainwindow.py:1324
 msgctxt "action: new document"
 msgid "New"
 msgstr "Nový"
 
-#: ../../frescobaldi_app/mainwindow.py:1323
+#: ../../frescobaldi_app/mainwindow.py:1325
 #: ../../frescobaldi_app/macosx/globalmenu.py:71
 msgid "&Open..."
 msgstr "&Otevřít..."
 
-#: ../../frescobaldi_app/mainwindow.py:1324
+#: ../../frescobaldi_app/mainwindow.py:1326
 #: ../../frescobaldi_app/macosx/globalmenu.py:102
 msgid "Open &Recent"
 msgstr "Otevřít ne&dávný"
 
-#: ../../frescobaldi_app/mainwindow.py:1325
+#: ../../frescobaldi_app/mainwindow.py:1327
 msgid "Insert from &File..."
 msgstr "Vložit ze &souboru..."
 
-#: ../../frescobaldi_app/mainwindow.py:1327
+#: ../../frescobaldi_app/mainwindow.py:1329
 msgid "Insert the contents of a file at the current cursor position."
 msgstr "Vložit obsah souboru v nynější poloze ukazatele."
 
-#: ../../frescobaldi_app/mainwindow.py:1328
+#: ../../frescobaldi_app/mainwindow.py:1330
 msgid "Open Current Directory"
 msgstr "Otevřít nynější adresář"
 
-#: ../../frescobaldi_app/mainwindow.py:1329
+#: ../../frescobaldi_app/mainwindow.py:1331
 msgid "Open Command Prompt"
 msgstr "Otevřít výzvu k příkazu"
 
-#: ../../frescobaldi_app/mainwindow.py:1330
+#: ../../frescobaldi_app/mainwindow.py:1332
 msgid "&Save Document"
 msgstr "&Uložit dokument"
 
-#: ../../frescobaldi_app/mainwindow.py:1331
+#: ../../frescobaldi_app/mainwindow.py:1333
 #: ../../frescobaldi_app/externalchanges/widget.py:113
 msgid "Save"
 msgstr "Uložit"
 
-#: ../../frescobaldi_app/mainwindow.py:1333
+#: ../../frescobaldi_app/mainwindow.py:1335
 msgid "Save Copy or Selection As..."
 msgstr "Uložit kopii nebo výběr jako..."
 
-#: ../../frescobaldi_app/mainwindow.py:1334
+#: ../../frescobaldi_app/mainwindow.py:1336
 msgid "&Rename/Move File..."
 msgstr "&Přejmenovat/Přesunout soubor..."
 
-#: ../../frescobaldi_app/mainwindow.py:1335
+#: ../../frescobaldi_app/mainwindow.py:1337
 #: ../../frescobaldi_app/externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Uložit vše"
 
-#: ../../frescobaldi_app/mainwindow.py:1336
+#: ../../frescobaldi_app/mainwindow.py:1338
 msgid "Re&load"
 msgstr "Nahrát &znovu"
 
-#: ../../frescobaldi_app/mainwindow.py:1337
+#: ../../frescobaldi_app/mainwindow.py:1339
 #: ../../frescobaldi_app/externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Nahrát vše znovu"
 
-#: ../../frescobaldi_app/mainwindow.py:1338
+#: ../../frescobaldi_app/mainwindow.py:1340
 msgid "Check for External Changes..."
 msgstr "Prověřit na vnější změny..."
 
-#: ../../frescobaldi_app/mainwindow.py:1340
+#: ../../frescobaldi_app/mainwindow.py:1342
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -997,158 +997,158 @@ msgstr ""
 "Otevře okno, aby se prověřilo, zda byly otevřené dokumenty změněny nebo "
 "smazány jinými programy."
 
-#: ../../frescobaldi_app/mainwindow.py:1342
+#: ../../frescobaldi_app/mainwindow.py:1344
 msgid "Print Source..."
 msgstr "Vytisknout zdroj..."
 
-#: ../../frescobaldi_app/mainwindow.py:1343
+#: ../../frescobaldi_app/mainwindow.py:1345
 msgid "&Close Document"
 msgstr "&Zavřít dokument"
 
-#: ../../frescobaldi_app/mainwindow.py:1344 ../../frescobaldi_app/panel.py:108
+#: ../../frescobaldi_app/mainwindow.py:1346 ../../frescobaldi_app/panel.py:108
 #: ../../frescobaldi_app/search/__init__.py:120
 #: ../../frescobaldi_app/viewers/__init__.py:351
 #: ../../frescobaldi_app/viewers/manuscript/__init__.py:77
 msgid "Close"
 msgstr "Zavřít"
 
-#: ../../frescobaldi_app/mainwindow.py:1346
+#: ../../frescobaldi_app/mainwindow.py:1348
 msgid "Close All Documents"
 msgstr "Zavřít všechny dokumenty"
 
-#: ../../frescobaldi_app/mainwindow.py:1348
+#: ../../frescobaldi_app/mainwindow.py:1350
 msgid "Closes all documents but preserves the current session."
 msgstr "Zavře všechny dokumenty, ale zachová nynější sezení."
 
-#: ../../frescobaldi_app/mainwindow.py:1351
+#: ../../frescobaldi_app/mainwindow.py:1353
 msgid "Close All Documents and Session"
 msgstr "Zavřít všechny dokumenty a sezení"
 
-#: ../../frescobaldi_app/mainwindow.py:1354
+#: ../../frescobaldi_app/mainwindow.py:1356
 msgid "Closes all documents and leaves the current session."
 msgstr "Zavře všechny dokumenty a opustí současné sezení."
 
-#: ../../frescobaldi_app/mainwindow.py:1356
+#: ../../frescobaldi_app/mainwindow.py:1358
 #: ../../frescobaldi_app/macosx/globalmenu.py:77
 msgid "&Quit"
 msgstr "U&končit"
 
-#: ../../frescobaldi_app/mainwindow.py:1357
+#: ../../frescobaldi_app/mainwindow.py:1359
 #, python-brace-format
 msgid "Restart {appname}"
 msgstr "Spustit znovu {appname}"
 
-#: ../../frescobaldi_app/mainwindow.py:1359
+#: ../../frescobaldi_app/mainwindow.py:1361
 msgid "Export Source as Colored &HTML..."
 msgstr "Vyvést zdroj jako barevné &HTML..."
 
-#: ../../frescobaldi_app/mainwindow.py:1361
+#: ../../frescobaldi_app/mainwindow.py:1363
 msgid "&Undo"
 msgstr "&Zpět"
 
-#: ../../frescobaldi_app/mainwindow.py:1362
+#: ../../frescobaldi_app/mainwindow.py:1364
 msgid "Re&do"
 msgstr "Znov&u"
 
-#: ../../frescobaldi_app/mainwindow.py:1363
+#: ../../frescobaldi_app/mainwindow.py:1365
 msgid "Cu&t"
 msgstr "Vyjmou&t"
 
-#: ../../frescobaldi_app/mainwindow.py:1365
+#: ../../frescobaldi_app/mainwindow.py:1367
 msgid "Copy as Colored &HTML"
 msgstr "Kopírovat jako barevné &HTML"
 
-#: ../../frescobaldi_app/mainwindow.py:1366
+#: ../../frescobaldi_app/mainwindow.py:1368
 msgid "&Paste"
 msgstr "&Vložit"
 
-#: ../../frescobaldi_app/mainwindow.py:1367
+#: ../../frescobaldi_app/mainwindow.py:1369
 msgid "Select &All"
 msgstr "Vybr&at vše"
 
-#: ../../frescobaldi_app/mainwindow.py:1368
+#: ../../frescobaldi_app/mainwindow.py:1370
 msgid "Select &Block"
 msgstr "Vybrat &blok"
 
-#: ../../frescobaldi_app/mainwindow.py:1369
+#: ../../frescobaldi_app/mainwindow.py:1371
 msgid "Select &None"
 msgstr "Nevybrat nic"
 
-#: ../../frescobaldi_app/mainwindow.py:1370
+#: ../../frescobaldi_app/mainwindow.py:1372
 msgid "Select Whole Lines Up"
 msgstr "Vybrat celé řádky nahoru"
 
-#: ../../frescobaldi_app/mainwindow.py:1371
+#: ../../frescobaldi_app/mainwindow.py:1373
 msgid "Select Whole Lines Down"
 msgstr "Vybrat celé řádky dolů"
 
-#: ../../frescobaldi_app/mainwindow.py:1372
+#: ../../frescobaldi_app/mainwindow.py:1374
 msgid "&Find..."
 msgstr "&Najít..."
 
-#: ../../frescobaldi_app/mainwindow.py:1373
+#: ../../frescobaldi_app/mainwindow.py:1375
 msgid "Find Ne&xt"
 msgstr "Najít &další"
 
-#: ../../frescobaldi_app/mainwindow.py:1374
+#: ../../frescobaldi_app/mainwindow.py:1376
 msgid "Find Pre&vious"
 msgstr "Najít &předchozí"
 
-#: ../../frescobaldi_app/mainwindow.py:1375
+#: ../../frescobaldi_app/mainwindow.py:1377
 msgid "&Replace..."
 msgstr "Nah&radit..."
 
-#: ../../frescobaldi_app/mainwindow.py:1376
+#: ../../frescobaldi_app/mainwindow.py:1378
 #: ../../frescobaldi_app/macosx/globalmenu.py:123
 msgid "Pr&eferences..."
 msgstr "Na&stavení..."
 
-#: ../../frescobaldi_app/mainwindow.py:1378
+#: ../../frescobaldi_app/mainwindow.py:1380
 msgid "&Next Document"
 msgstr "&Další dokument"
 
-#: ../../frescobaldi_app/mainwindow.py:1379
+#: ../../frescobaldi_app/mainwindow.py:1381
 msgid "&Previous Document"
 msgstr "&Předchozí dokument"
 
-#: ../../frescobaldi_app/mainwindow.py:1380
+#: ../../frescobaldi_app/mainwindow.py:1382
 msgid "Wrap &Lines"
 msgstr "Zalamovat řá&dky"
 
-#: ../../frescobaldi_app/mainwindow.py:1381
+#: ../../frescobaldi_app/mainwindow.py:1383
 msgid "Scroll Up"
 msgstr "Projíždět nahoru"
 
-#: ../../frescobaldi_app/mainwindow.py:1382
+#: ../../frescobaldi_app/mainwindow.py:1384
 msgid "Scroll Down"
 msgstr "Projíždět dolů"
 
-#: ../../frescobaldi_app/mainwindow.py:1383
+#: ../../frescobaldi_app/mainwindow.py:1385
 msgid "&Goto Line..."
 msgstr "&Jít na řádek"
 
-#: ../../frescobaldi_app/mainwindow.py:1385
+#: ../../frescobaldi_app/mainwindow.py:1387
 #: ../../frescobaldi_app/macosx/globalmenu.py:129
 msgid "New &Window"
 msgstr "Nové &okno"
 
-#: ../../frescobaldi_app/mainwindow.py:1386
+#: ../../frescobaldi_app/mainwindow.py:1388
 msgid "&Fullscreen"
 msgstr "&Celá obrazovka"
 
-#: ../../frescobaldi_app/mainwindow.py:1388
+#: ../../frescobaldi_app/mainwindow.py:1390
 msgid "&User Guide"
 msgstr "Průvodce pro &uživatele"
 
-#: ../../frescobaldi_app/mainwindow.py:1389
+#: ../../frescobaldi_app/mainwindow.py:1391
 msgid "&What's This?"
 msgstr "&Co je toto?"
 
-#: ../../frescobaldi_app/mainwindow.py:1390
+#: ../../frescobaldi_app/mainwindow.py:1392
 msgid "Report a &Bug..."
 msgstr "Nahlásit chy&bu..."
 
-#: ../../frescobaldi_app/mainwindow.py:1391
+#: ../../frescobaldi_app/mainwindow.py:1393
 #: ../../frescobaldi_app/macosx/globalmenu.py:147
 #, python-brace-format
 msgid "&About {appname}..."
@@ -1212,67 +1212,67 @@ msgctxt "menu title"
 msgid "&Music"
 msgstr "No&ty"
 
-#: ../../frescobaldi_app/menu.py:292
+#: ../../frescobaldi_app/menu.py:293
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../../frescobaldi_app/menu.py:313
+#: ../../frescobaldi_app/menu.py:314
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Nástroje"
 
-#: ../../frescobaldi_app/menu.py:341
+#: ../../frescobaldi_app/menu.py:342
 msgctxt "submenu title"
 msgid "Code &Formatting"
 msgstr "&Formátování kódu"
 
-#: ../../frescobaldi_app/menu.py:351
+#: ../../frescobaldi_app/menu.py:352
 msgctxt "submenu title"
 msgid "Musical &Transformations"
 msgstr "&Proměny not"
 
-#: ../../frescobaldi_app/menu.py:362
+#: ../../frescobaldi_app/menu.py:363
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Slova písně"
 
-#: ../../frescobaldi_app/menu.py:374
+#: ../../frescobaldi_app/menu.py:375
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Výška tónu"
 
-#: ../../frescobaldi_app/menu.py:393
+#: ../../frescobaldi_app/menu.py:394
 msgctxt "submenu title"
 msgid "Rest"
 msgstr "Pomlka"
 
-#: ../../frescobaldi_app/menu.py:405
+#: ../../frescobaldi_app/menu.py:406
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rytmus"
 
-#: ../../frescobaldi_app/menu.py:430
+#: ../../frescobaldi_app/menu.py:431
 msgctxt "submenu title"
 msgid "&Directions"
 msgstr "&Směry"
 
-#: ../../frescobaldi_app/menu.py:440
+#: ../../frescobaldi_app/menu.py:441
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "&Rychlé odstranění"
 
-#: ../../frescobaldi_app/menu.py:457
+#: ../../frescobaldi_app/menu.py:458
 msgctxt "submenu title"
 msgid "&Directories"
 msgstr "&Adresáře"
 
-#: ../../frescobaldi_app/menu.py:471 ../../frescobaldi_app/macosx/globalmenu.py:128
+#: ../../frescobaldi_app/menu.py:472 ../../frescobaldi_app/macosx/globalmenu.py:128
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Okno"
 
-#: ../../frescobaldi_app/menu.py:491 ../../frescobaldi_app/macosx/globalmenu.py:145
+#: ../../frescobaldi_app/menu.py:492 ../../frescobaldi_app/macosx/globalmenu.py:145
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Nápověd&a"
@@ -1405,12 +1405,11 @@ msgid ""
 "page.<br>For more information on alternative ways of running Frescobaldi, "
 "see the <a href=\"{wiki}\">relevant Wiki page</a> on GitHub."
 msgstr ""
-"PyQtWebEngine byl záměrně vyloučen s balíku programu: "
-"v současnosti jeho zahrnutí vede k chybující aplikaci.<br><br>Na další "
-"podrobnosti se podívejte v <a href=\"{issue}\">problému #1244</a> na  stránce"
-" Frescobaldi "
-"na GitHubu.<br>Více informací o náhradních způsobech provozování Frescobaldi "
-"naleznete na <a href=\"{wiki}\">příslušné stránce Wiki</a> na GitHubu."
+"PyQtWebEngine byl záměrně vyloučen s balíku programu: v současnosti jeho "
+"zahrnutí vede k chybující aplikaci.<br><br>Na další podrobnosti se podívejte "
+"v <a href=\"{issue}\">problému #1244</a> na  stránce Frescobaldi na GitHubu."
+"<br>Více informací o náhradních způsobech provozování Frescobaldi naleznete "
+"na <a href=\"{wiki}\">příslušné stránce Wiki</a> na GitHubu."
 
 #: ../../frescobaldi_app/autocomplete/__init__.py:79
 msgid "Automatic &Completion"
@@ -1654,7 +1653,7 @@ msgid "Layout Control"
 msgstr "Ovládání rozvržení"
 
 #: ../../frescobaldi_app/engrave/custom.py:137
-#: ../../frescobaldi_app/preferences/lilypond.py:324
+#: ../../frescobaldi_app/preferences/lilypond.py:334
 msgid "Delete intermediate output files"
 msgstr "Smazat přechodné výstupní soubory"
 
@@ -1663,7 +1662,7 @@ msgid "Embed Source Code (LilyPond >= 2.19.39)"
 msgstr "Vložit zdrojový kód (LilyPond >= 2.19.39)"
 
 #: ../../frescobaldi_app/engrave/custom.py:139
-#: ../../frescobaldi_app/preferences/lilypond.py:332
+#: ../../frescobaldi_app/preferences/lilypond.py:342
 msgid "Run LilyPond with English messages"
 msgstr "Spustit LilyPond s anglickými zprávami"
 
@@ -1801,11 +1800,9 @@ msgid ""
 "Please derive either from ExtensionWidget or add extensions.ExtensionMixin "
 "as a second base class."
 msgstr ""
-"Třída doplňku panelu rozšíření '{classname}' není podtřídou "
-"ExtensionMixin.\n"
-"Získejte, prosím, buď z ExtensionWidget nebo přidejte"
-" extensions.ExtensionMixin "
-"jako druhou základní třídu."
+"Třída doplňku panelu rozšíření '{classname}' není podtřídou ExtensionMixin.\n"
+"Získejte, prosím, buď z ExtensionWidget nebo přidejte extensions."
+"ExtensionMixin jako druhou základní třídu."
 
 #: ../../frescobaldi_app/extensions/panel.py:73
 msgid "Extension Tool Panel failed to load"
@@ -1825,8 +1822,8 @@ msgstr ""
 "\n"
 "  {name}\n"
 "\n"
-"se nepodařilo nahrát kvůli nějaké výjimce. Spojte se, prosím, "
-"s udržovatelem rozšíření."
+"se nepodařilo nahrát kvůli nějaké výjimce. Spojte se, prosím, s udržovatelem "
+"rozšíření."
 
 #: ../../frescobaldi_app/extensions/settings.py:63
 #, python-brace-format
@@ -2175,8 +2172,8 @@ msgid ""
 "Show and select text and music fonts available in the LilyPond version of "
 "the current document"
 msgstr ""
-"Ukázat a vybrat písma pro text a noty dostupná ve verzi LilyPond nynějšího"
-" dokumentu"
+"Ukázat a vybrat písma pro text a noty dostupná ve verzi LilyPond nynějšího "
+"dokumentu"
 
 #: ../../frescobaldi_app/fonts/dialog.py:176
 msgid "Document Fonts"
@@ -2277,8 +2274,8 @@ msgid ""
 "approach necessarily sets the music font."
 msgstr ""
 "Stanovit písmo not.\n"
-"Toto je jen připomínka a nelze zrušit zaškrtnutí, protože "
-"přístup openLilyLib nutně nastavuje písmo not."
+"Toto je jen připomínka a nelze zrušit zaškrtnutí, protože přístup "
+"openLilyLib nutně nastavuje písmo not."
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:258
 msgid "Load openLilyLib"
@@ -2395,8 +2392,8 @@ msgid ""
 "Link fonts from the global music font repository\n"
 "to the current LilyPond installation."
 msgstr ""
-"Propojit písma ze světového úložiště s notovými písmy s nynější instalací"
-" LilyPondu."
+"Propojit písma ze světového úložiště s notovými písmy s nynější instalací "
+"LilyPondu."
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:163
 msgid "Fonts could not be installed!"
@@ -2421,10 +2418,10 @@ msgid ""
 "that are linked into a LilyPond installation. The font being removed "
 "includes real files and can therefore not be removed directly."
 msgstr ""
-"Aby se zabránilo trvalému poškození, Frescobaldi podporuje pouze odstraňování "
-"hudebních písem (noty), které jsou propojeny do instalace LilyPondu. Odebrané"
-" písmo"
-"zahrnuje skutečné soubory, a proto jej nelze přímo odebrat."
+"Aby se zabránilo trvalému poškození, Frescobaldi podporuje pouze "
+"odstraňování hudebních písem (noty), které jsou propojeny do instalace "
+"LilyPondu. Odebrané písmozahrnuje skutečné soubory, a proto jej nelze přímo "
+"odebrat."
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:537
 #: ../../frescobaldi_app/fonts/musicfonts.py:546
@@ -2572,9 +2569,8 @@ msgid ""
 "Filter results (type any part of the font family name. Regular Expressions "
 "supported.)"
 msgstr ""
-"Filtrovat výsledky (zadejte libovolnou část názvu rodiny písem. Regulární"
-" výrazy"
-"podporovány.)"
+"Filtrovat výsledky (zadejte libovolnou část názvu rodiny písem. Regulární "
+"výrazypodporovány.)"
 
 #: ../../frescobaldi_app/fonts/textfonts.py:113
 #, python-brace-format
@@ -3023,9 +3019,8 @@ msgid ""
 "Enter octaves of notes relative to the last note. See \"What's This\" for "
 "more information."
 msgstr ""
-"Zadejte oktávy not s  k poslední notě podmíněnou (relativní) výškou tónu. Pro"
-" další informace "
-"se podívejte na \"Co je toto\"."
+"Zadejte oktávy not s  k poslední notě podmíněnou (relativní) výškou tónu. "
+"Pro další informace se podívejte na \"Co je toto\"."
 
 #: ../../frescobaldi_app/midiinput/widget.py:216
 msgid ""
@@ -3046,17 +3041,16 @@ msgid ""
 "Enter notes keeping existing durations. See \"What's This\" for more "
 "information."
 msgstr ""
-"Zadávejte noty zachovávaje stávající doby trvání. Pro další informace "
-"se podívejte na \"Co je toto\"."
+"Zadávejte noty zachovávaje stávající doby trvání. Pro další informace se "
+"podívejte na \"Co je toto\"."
 
 #: ../../frescobaldi_app/midiinput/widget.py:224
 msgid ""
 "Enter notes keeping existing durations. Replaces notes in existing piece of "
 "music keeping rests and durations untouched."
 msgstr ""
-"Zadávejte noty zachovávaje stávající doby trvání. Nahradí noty ve stávajícím"
-" díle "
-"zachovávaje pomlky a doby trvání nedotčeny."
+"Zadávejte noty zachovávaje stávající doby trvání. Nahradí noty ve stávajícím "
+"díle zachovávaje pomlky a doby trvání nedotčeny."
 
 #: ../../frescobaldi_app/midiinput/widget.py:226
 msgid "Damper pedal"
@@ -3132,21 +3126,21 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "DOBA"
 
-#: ../../frescobaldi_app/musicview/__init__.py:114
+#: ../../frescobaldi_app/musicview/__init__.py:115
 msgctxt "window title"
 msgid "Music View"
 msgstr "Pohled na noty"
 
-#: ../../frescobaldi_app/musicview/__init__.py:115
+#: ../../frescobaldi_app/musicview/__init__.py:116
 msgid "&Music View"
 msgstr "Pohled na &noty"
 
-#: ../../frescobaldi_app/musicview/__init__.py:164
+#: ../../frescobaldi_app/musicview/__init__.py:165
 #: ../../frescobaldi_app/viewers/__init__.py:195
 msgid "Print Music"
 msgstr "Vytisknout noty"
 
-#: ../../frescobaldi_app/musicview/__init__.py:165
+#: ../../frescobaldi_app/musicview/__init__.py:166
 #: ../../frescobaldi_app/viewers/__init__.py:196
 msgid ""
 "As per your settings, you are about to print the file directly to CUPS.\n"
@@ -3159,68 +3153,74 @@ msgid ""
 "(If you are unsure, the answer is likely no.)"
 msgstr ""
 "Podle vašeho nastavení se chystáte soubor vytisknout přímo na CUPS.\n"
-"V systému macOS se to nedoporučuje, protože v tomto případě se "
-"nastavení systémového tiskového okna přehlíží.\n"
+"V systému macOS se to nedoporučuje, protože v tomto případě se nastavení "
+"systémového tiskového okna přehlíží.\n"
 "Můžete to vypnout v Nastavení hudby.\n"
 "\n"
 "Opravdu chcete tisknout na CUPS?\n"
 "\n"
 "(Pokud si nejste jisti, odpověď je pravděpodobně ne.)"
 
-#: ../../frescobaldi_app/musicview/__init__.py:253
+#: ../../frescobaldi_app/musicview/__init__.py:264
 #: ../../frescobaldi_app/viewers/__init__.py:339
 msgid "Select Music View Document"
 msgstr "Vybrat dokument s pohledem na noty"
 
-#: ../../frescobaldi_app/musicview/__init__.py:254
+#: ../../frescobaldi_app/musicview/__init__.py:265
 #: ../../frescobaldi_app/viewers/__init__.py:340
 msgid "&Print Music..."
 msgstr "Vy&tisknout noty..."
 
-#: ../../frescobaldi_app/musicview/__init__.py:255
+#: ../../frescobaldi_app/musicview/__init__.py:266
 #: ../../frescobaldi_app/viewers/__init__.py:341
 msgid "Zoom Music"
 msgstr "Zvětšení hudby"
 
-#: ../../frescobaldi_app/musicview/__init__.py:256
+#: ../../frescobaldi_app/musicview/__init__.py:267
 msgid "Save current View settings as default"
 msgstr "Nastavit nynější nastavení zobrazení jako výchozí."
 
-#: ../../frescobaldi_app/musicview/__init__.py:257
+#: ../../frescobaldi_app/musicview/__init__.py:268
 #: ../../frescobaldi_app/viewers/__init__.py:342
 msgid "&Maximize"
 msgstr "&Zvětšit"
 
-#: ../../frescobaldi_app/musicview/__init__.py:258
+#: ../../frescobaldi_app/musicview/__init__.py:269
 #: ../../frescobaldi_app/viewers/__init__.py:343
 msgid "&Jump to Cursor Position"
 msgstr "&Skočit na polohu ukazatele"
 
-#: ../../frescobaldi_app/musicview/__init__.py:259
+#: ../../frescobaldi_app/musicview/__init__.py:270
 #: ../../frescobaldi_app/viewers/__init__.py:344
 msgid "S&ynchronize with Cursor Position"
 msgstr "S&eřídit s polohou ukazatele"
 
-#: ../../frescobaldi_app/musicview/__init__.py:260
+#: ../../frescobaldi_app/musicview/__init__.py:271
 #: ../../frescobaldi_app/viewers/__init__.py:345
 msgid "Copy to &Image..."
 msgstr "Kopírovat do &obrázku..."
 
-#: ../../frescobaldi_app/musicview/__init__.py:261
+#: ../../frescobaldi_app/musicview/__init__.py:272
 msgid "Copy Selected &Text"
 msgstr "Kopírovat vybraný &text"
 
-#: ../../frescobaldi_app/musicview/__init__.py:262
+#: ../../frescobaldi_app/musicview/__init__.py:273
 #: ../../frescobaldi_app/viewers/__init__.py:346
 msgid "&Reload"
 msgstr "&Nahrát znovu"
 
-#: ../../frescobaldi_app/musicview/__init__.py:413
+#: ../../frescobaldi_app/musicview/__init__.py:274
+#: ../../frescobaldi_app/scorewiz/dialog.py:81
+#: ../../frescobaldi_app/sessions/dialog.py:268
+msgid "Clear"
+msgstr "Smazat"
+
+#: ../../frescobaldi_app/musicview/__init__.py:425
 #: ../../frescobaldi_app/viewers/__init__.py:613
 msgid "Choose the PDF document to display."
 msgstr "Vybrat dokument PDF k zobrazení."
 
-#: ../../frescobaldi_app/musicview/__init__.py:415
+#: ../../frescobaldi_app/musicview/__init__.py:427
 #: ../../frescobaldi_app/viewers/__init__.py:615
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
@@ -3289,8 +3289,8 @@ msgid ""
 "Converts the notes in the document or selection from relative to absolute "
 "pitch."
 msgstr ""
-"Převede noty v dokumentu nebo ve výběru z podmíněné (relativní) výšky tónu na "
-"nepodmíněnou (absolutní) výšku tónu."
+"Převede noty v dokumentu nebo ve výběru z podmíněné (relativní) výšky tónu "
+"na nepodmíněnou (absolutní) výšku tónu."
 
 #: ../../frescobaldi_app/pitch/__init__.py:169
 msgid "Convert Absolute to &Relative"
@@ -3301,9 +3301,8 @@ msgid ""
 "Converts the notes in the document or selection from absolute to relative "
 "pitch."
 msgstr ""
-"Převede noty v dokumentu nebo ve výběru z nepodmíněné (absolutní) výšky tónu"
-" na "
-"podmíněnou (relativní) výšku tónu."
+"Převede noty v dokumentu nebo ve výběru z nepodmíněné (absolutní) výšky tónu "
+"na podmíněnou (relativní) výšku tónu."
 
 #: ../../frescobaldi_app/pitch/__init__.py:173
 msgid "&Transpose..."
@@ -3364,9 +3363,8 @@ msgid ""
 "If checked, when converting absolute music to relative, a startpitch\n"
 "is added. Otherwise, no starting pitch is written."
 msgstr ""
-"Je-li zaškrtnuto, je při převádění nepodmíněných (absolutních) not na"
-" podmíněné "
-"(relativní)\n"
+"Je-li zaškrtnuto, je při převádění nepodmíněných (absolutních) not na "
+"podmíněné (relativní)\n"
 "přidána počáteční výška tónu. Jinak není zapsána žádná počáteční výška tónu."
 
 #: ../../frescobaldi_app/pitch/dialog.py:106
@@ -3429,8 +3427,8 @@ msgid ""
 "Please enter two absolute pitches, separated by a space, using the pitch "
 "name language \"{language}\"."
 msgstr ""
-"Zadejte, prosím, dvě nepodmíněné (absolutní) výšky tónů, oddělené mezerou, za "
-"použití jazyka výšky tónu \"{language}\"."
+"Zadejte, prosím, dvě nepodmíněné (absolutní) výšky tónů, oddělené mezerou, "
+"za použití jazyka výšky tónu \"{language}\"."
 
 #: ../../frescobaldi_app/pitch/pitch.py:155
 msgid ""
@@ -3739,9 +3737,8 @@ msgid ""
 "want to type HTML formatted code in a plain text editing environment."
 msgstr ""
 "Je-li povoleno, HTML je kopírován do schránky jako prostý text. Použijte, "
-"když chcete psát kód formátovaný v HTML v prostředí pro upravování"
-" nepodmíněného "
-"textu."
+"když chcete psát kód formátovaný v HTML v prostředí pro upravování "
+"nepodmíněného textu."
 
 #: ../../frescobaldi_app/preferences/editor.py:345
 msgid "Copy document body only"
@@ -4030,7 +4027,7 @@ msgid "Comment"
 msgstr "Poznámka"
 
 #: ../../frescobaldi_app/preferences/fontscolors.py:514
-#: ../../frescobaldi_app/preferences/lilypond.py:261
+#: ../../frescobaldi_app/preferences/lilypond.py:265
 #: ../../frescobaldi_app/scorewiz/settings.py:335
 msgid "LilyPond"
 msgstr "LilyPond"
@@ -4350,8 +4347,7 @@ msgid ""
 msgstr ""
 "Pokud je zaškrtnuto, Frescobaldi použije předlohu na vytvoření výchozího "
 "názvu souboru.\n"
-"{title} a {composer} budou nahrazeny názvem a skladatelem toho"
-"dokumentu"
+"{title} a {composer} budou nahrazeny názvem a skladatelem tohodokumentu"
 
 #: ../../frescobaldi_app/preferences/general.py:300
 msgid "Sessions"
@@ -4503,63 +4499,67 @@ msgstr "Nastavit jako &výchozí"
 msgid "default"
 msgstr "Výchozí"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:254
+#: ../../frescobaldi_app/preferences/lilypond.py:258
 msgid "Convert-ly:"
 msgstr "Convert-ly:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:255
+#: ../../frescobaldi_app/preferences/lilypond.py:259
 msgid "LilyPond-book:"
 msgstr "LilyPond-book:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:256
+#: ../../frescobaldi_app/preferences/lilypond.py:260
 msgid "Midi2ly:"
 msgstr "Midi2ly:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:257
+#: ../../frescobaldi_app/preferences/lilypond.py:261
 msgid "MusicXML2ly:"
 msgstr "MusicXML2ly:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:258
+#: ../../frescobaldi_app/preferences/lilypond.py:262
 msgid "ABC2ly:"
 msgstr "ABC2ly:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:262
+#: ../../frescobaldi_app/preferences/lilypond.py:266
 msgid "Label:"
 msgstr "Štítek:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:263
+#: ../../frescobaldi_app/preferences/lilypond.py:267
 msgid "How this version of LilyPond will be displayed."
 msgstr "Jak se bude tato verze LilyPondu zobrazovat."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:264
+#: ../../frescobaldi_app/preferences/lilypond.py:268
 msgid "LilyPond Command:"
 msgstr "Příkaz pro LilyPond:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:265
+#: ../../frescobaldi_app/preferences/lilypond.py:269
 msgid "Name or full path of the LilyPond program."
 msgstr "Název nebo úplná cesta k programu LilyPond."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:266
+#: ../../frescobaldi_app/preferences/lilypond.py:270
 msgid "Include in automatic version selection"
 msgstr "Zahrnout do automatického výběru verze"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:267
+#: ../../frescobaldi_app/preferences/lilypond.py:271
 msgid "General"
 msgstr "Obecné"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:268
+#: ../../frescobaldi_app/preferences/lilypond.py:272
 msgid "Tool Commands"
 msgstr "Příkazy"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:319
+#: ../../frescobaldi_app/preferences/lilypond.py:276
+msgid "Force use of the tools' #! lines"
+msgstr ""
+
+#: ../../frescobaldi_app/preferences/lilypond.py:329
 msgid "Running LilyPond"
 msgstr "Spuštění LilyPondu"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:320
+#: ../../frescobaldi_app/preferences/lilypond.py:330
 msgid "Save document if possible"
 msgstr "Uložit dokument, je-li to možné"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:322
+#: ../../frescobaldi_app/preferences/lilypond.py:332
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
@@ -4567,15 +4567,15 @@ msgstr ""
 "Je-li zaškrtnuto, dokument je uložen, když je místní nebo upravený.\n"
 "Jinak je pro běh LilyPondu použit dočasný soubor."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:326
+#: ../../frescobaldi_app/preferences/lilypond.py:336
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr "Je-li zaškrtnuto, LilyPond smaže prostřední soubory PostScript."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:327
+#: ../../frescobaldi_app/preferences/lilypond.py:337
 msgid "Embed Source Code files in publish mode"
 msgstr "Vložit soubory se zdrojovým kódem v režimu vydání"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:329
+#: ../../frescobaldi_app/preferences/lilypond.py:339
 msgid ""
 "If checked, the LilyPond source files will be embedded in the PDF\n"
 "when LilyPond is started in publish mode.\n"
@@ -4585,7 +4585,7 @@ msgstr ""
 "když je LilyPond spuštěn v režimu vydání.\n"
 "Tato vlastnost je dostupná od LilyPondu verze 2.19.39."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:334
+#: ../../frescobaldi_app/preferences/lilypond.py:344
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
@@ -4593,31 +4593,31 @@ msgstr ""
 "Je-li zaškrtnuto, výstupní zprávy LilyPondu budou v anglickém jazyce.\n"
 "To může být užitečné pro hlášení o chybách."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:336
+#: ../../frescobaldi_app/preferences/lilypond.py:346
 msgid "LilyPond include path:"
 msgstr "Cesta obsahující LilyPond:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:373
+#: ../../frescobaldi_app/preferences/lilypond.py:383
 msgid "Default output format"
 msgstr "Výchozí výstupní formát"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:376
+#: ../../frescobaldi_app/preferences/lilypond.py:386
 msgid "Create PDF (Portable Document Format) documents by default."
 msgstr ""
 "Vytvářet dokumenty PDF (Portable Document Format - přenositelný formát "
 "dokumentu) ve výchozím nastavení."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:379
+#: ../../frescobaldi_app/preferences/lilypond.py:389
 msgid "Create SVG (Scalable Vector Graphics) documents by default."
 msgstr ""
 "Vytvářet dokumenty SVG (Scalable Vector Graphics - škálovatelná vektorová "
 "grafika) ve výchozím nastavení."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:380
+#: ../../frescobaldi_app/preferences/lilypond.py:390
 msgid "Open default viewer after successful compile"
 msgstr "Po úspěšném překladu otevřít výchozí prohlížeč"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:382
+#: ../../frescobaldi_app/preferences/lilypond.py:392
 msgid ""
 "Shows the PDF or SVG music view when a compile job finishes successfully."
 msgstr ""
@@ -4825,8 +4825,8 @@ msgid ""
 msgstr ""
 "Pokud je zaškrtnuto, Frescobaldi použije jádro Arthur knihovny Poppleru\n"
 "pro tisk dokumentů PDF. Velkou výhodou jádra Arthur\n"
-"je to, že je založeno na vektorech, na rozdíl od výchozího základního jádra"
-" Splash,\n"
+"je to, že je založeno na vektorech, na rozdíl od výchozího základního jádra "
+"Splash,\n"
 "který je založen na rastru. Ale Arthur je experimentálnější."
 
 #: ../../frescobaldi_app/preferences/musicviewers.py:176
@@ -4838,8 +4838,8 @@ msgid ""
 "If checked, Frescobaldi tries to print a PDF document direcly using\n"
 "the CUPS server, if available."
 msgstr ""
-"Pokud je zaškrtnuto, Frescobaldi se pokusí dokument PDF vytisknout přímo"
-" pomocí\n"
+"Pokud je zaškrtnuto, Frescobaldi se pokusí dokument PDF vytisknout přímo "
+"pomocí\n"
 "serveru CUPS, pokud je dostupné."
 
 #: ../../frescobaldi_app/preferences/musicviewers.py:182
@@ -4978,10 +4978,10 @@ msgid ""
 "own layout setting, zoom factor, etc. If unchecked, the View will\n"
 "not change its settings when a different document is displayed."
 msgstr ""
-"Pokud je zaškrtnuto, každý dokument v pohledu na noty si bude pamatovat"
-" svoje\n"
-"vlastní nastavení rozvržení, násobek zvětšení atd. Pokud není zaškrtnuto,"
-" zobrazení\n"
+"Pokud je zaškrtnuto, každý dokument v pohledu na noty si bude pamatovat "
+"svoje\n"
+"vlastní nastavení rozvržení, násobek zvětšení atd. Pokud není zaškrtnuto, "
+"zobrazení\n"
 "nezmění své nastavení, když je zobrazen jiný dokument."
 
 #: ../../frescobaldi_app/preferences/tools.py:217
@@ -5001,9 +5001,8 @@ msgid "Enter a regular expression to match:"
 msgstr "Zadat regulární výraz k porovnání:"
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:268
-#, fuzzy
 msgid "&Print..."
-msgstr "Tisk..."
+msgstr "&Tisk..."
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:269
 msgid "Fit &Width"
@@ -5018,9 +5017,8 @@ msgid "Fit &Page"
 msgstr "Přizpůsobit &straně"
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:272
-#, fuzzy
 msgid "&Natural Size"
-msgstr "Velikost notové osnovy"
+msgstr "&Přirozená velikost"
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:273
 #: ../../frescobaldi_app/svgview/__init__.py:93
@@ -5039,30 +5037,26 @@ msgstr "&Oddálit"
 
 #. L10N: "Width" as in "Fit Width" (display in zoom menu)
 #: ../../frescobaldi_app/qpageview/viewactions.py:278
-#, fuzzy
 msgid "Width"
-msgstr "Přizpůsobit šířce"
+msgstr "Šířka"
 
 #. L10N: "Height" as in "Fit Height" (display in zoom menu)
 #: ../../frescobaldi_app/qpageview/viewactions.py:280
-#, fuzzy
 msgid "Height"
-msgstr "Přizpůsobit výšce"
+msgstr "Výška"
 
 #. L10N: "Page" as in "Fit Page" (display in zoom menu)
 #: ../../frescobaldi_app/qpageview/viewactions.py:282
-#, fuzzy
 msgid "Page"
-msgstr "Strana:"
+msgstr "Strana"
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:284
 msgid "Rotate &Left"
-msgstr ""
+msgstr "Otočit &vlevo"
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:285
-#, fuzzy
 msgid "Rotate &Right"
-msgstr "Strana vpravo"
+msgstr "Strana v&pravo"
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:286
 msgid "Single Pages"
@@ -5077,29 +5071,25 @@ msgid "Two Pages (first page left)"
 msgstr "Dvě strany (první strana vlevo)"
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:289
-#, fuzzy
 msgid "Raster"
-msgstr "Vložit"
+msgstr "Rastr"
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:290
-#, fuzzy
 msgid "Vertical"
-msgstr "Rozdělit &svisle"
+msgstr "Svisle"
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:291
-#, fuzzy
 msgid "Horizontal"
-msgstr "Rozdělit &vodorovně"
+msgstr "Vodorovně"
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:292
 #, fuzzy
 msgid "&Continuous"
-msgstr "Nádoby"
+msgstr "&Nepřetržité"
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:293
-#, fuzzy
 msgid "Re&load View"
-msgstr "Nahrát &znovu"
+msgstr "Nahrát pohled &znovu"
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:294
 msgid "Previous Page"
@@ -5118,9 +5108,8 @@ msgid "Next"
 msgstr "Další"
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:298
-#, fuzzy
 msgid "Magnifier"
-msgstr "Velikost lupy:"
+msgstr "Lupa"
 
 #: ../../frescobaldi_app/quickinsert/__init__.py:46
 #: ../../frescobaldi_app/quickinsert/__init__.py:70
@@ -5775,11 +5764,6 @@ msgstr "Odstranit výchozí heslo programu LilyPond"
 #: ../../frescobaldi_app/scorewiz/dialog.py:78
 msgid "Score Setup Wizard"
 msgstr "Průvodce pro způsob uspořádání notového zápisu"
-
-#: ../../frescobaldi_app/scorewiz/dialog.py:81
-#: ../../frescobaldi_app/sessions/dialog.py:268
-msgid "Clear"
-msgstr "Smazat"
 
 #: ../../frescobaldi_app/scorewiz/dialog.py:83
 msgid "Clears the current page of the Score Wizard."
@@ -6574,9 +6558,8 @@ msgid ""
 "you want to use in your document (by default: \"nederlands\")."
 msgstr ""
 "Vyberte vlastní ladění v rozbalovacím seznamu a zadejte zde vlastní ladění, "
-"např. <code>e, a d g b e'</code>. Použijte nepodmíněné (absolutní) názvy not"
-" ve "
-"stejném jazyku, který chcete použít ve svém dokumentu (ve výchozím "
+"např. <code>e, a d g b e'</code>. Použijte nepodmíněné (absolutní) názvy not "
+"ve stejném jazyku, který chcete použít ve svém dokumentu (ve výchozím "
 "nastavení: \"holandština\")."
 
 #: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:96
@@ -8211,11 +8194,11 @@ msgid ""
 msgstr ""
 "Operace vyžaduje restart Frescobaldi:\n"
 "\n"
-"    {} \ n"
+"   {}\n"
 "\n"
-"Některé nové funkce nemusí být dostupné dříve nebo se aplikace může"
-"dokonce stát nestálou. \ n"
-"\ n"
+"Některé nové funkce nemusí být dostupné dříve nebo se aplikace můžedokonce "
+"stát nestálou.\n"
+"\n"
 "Chcete nyní program spustit znovu?\n"
 "Můžete také nejprve uložit otevřené soubory a program znovu spustit ručně."
 
@@ -8328,108 +8311,7 @@ msgstr "Vybrat adresář"
 msgid "Select a file"
 msgstr "Vybrat soubor"
 
-<<<<<<< HEAD
 #: ../messages.py:26
-=======
-#: ../messages.py:27
-msgid "&Print..."
-msgstr "&Tisk..."
-
-#: ../messages.py:28
-msgid "Fit &Width"
-msgstr "Přizpůsobit šíř&ce"
-
-#: ../messages.py:29
-msgid "Fit &Height"
-msgstr "Přizpůsobit &výšce"
-
-#: ../messages.py:30
-msgid "Fit &Page"
-msgstr "Přizpůsobit &straně"
-
-#: ../messages.py:31
-msgid "&Natural Size"
-msgstr "&Přirozená velikost"
-
-#. L10N: "Width" as in "Fit Width" (display in zoom menu)
-#: ../messages.py:37
-msgid "Width"
-msgstr "Šířka"
-
-#. L10N: "Height" as in "Fit Height" (display in zoom menu)
-#: ../messages.py:39
-msgid "Height"
-msgstr "Výška"
-
-#. L10N: "Page" as in "Fit Page" (display in zoom menu)
-#: ../messages.py:41
-msgid "Page"
-msgstr "Strana"
-
-#: ../messages.py:43
-msgid "Rotate &Left"
-msgstr "Otočit &vlevo"
-
-#: ../messages.py:44
-msgid "Rotate &Right"
-msgstr "Strana v&pravo"
-
-#: ../messages.py:45
-msgid "Single Pages"
-msgstr "Jednoduché strany"
-
-#: ../messages.py:46
-msgid "Two Pages (first page right)"
-msgstr "Dvě strany (první strana vpravo)"
-
-#: ../messages.py:47
-msgid "Two Pages (first page left)"
-msgstr "Dvě strany (první strana vlevo)"
-
-#. L10N: "Raster", a layout type (like grid)
-#: ../messages.py:49
-msgid "Raster"
-msgstr "Rastr"
-
-#: ../messages.py:50
-msgid "Vertical"
-msgstr "Svisle"
-
-#: ../messages.py:51
-msgid "Horizontal"
-msgstr "Vodorovně"
-
-#: ../messages.py:52
-#, fuzzy
-msgid "&Continuous"
-msgstr "&Nepřetržité"
-
-#: ../messages.py:53
-msgid "Re&load View"
-msgstr "Nahrát pohled &znovu"
-
-#: ../messages.py:54
-msgid "Previous Page"
-msgstr "Předchozí strana"
-
-#: ../messages.py:55
-msgid "Previous"
-msgstr "Předchozí"
-
-#: ../messages.py:56
-msgid "Next Page"
-msgstr "Další strana"
-
-#: ../messages.py:57
-msgid "Next"
-msgstr "Další"
-
-#: ../messages.py:58
-msgid "Magnifier"
-msgstr "Lupa"
-
-#: ../messages.py:62
->>>>>>> c538c0be... Czech translation update (#1344)
 msgid "usage: "
 msgstr "Použití: "
 
@@ -8735,36 +8617,7 @@ msgctxt "QFontDatabase"
 msgid "Oblique"
 msgstr "Nesouměrné"
 
-<<<<<<< HEAD
 #: ../messages.py:97
-=======
-#: ../messages.py:133
-msgctxt "QFontDatabase"
-msgid "Normal"
-msgstr "Normální"
-
-#: ../messages.py:135
-msgctxt "QGnomeTheme"
-msgid "&OK"
-msgstr "&OK"
-
-#: ../messages.py:136
-msgctxt "QGnomeTheme"
-msgid "&Cancel"
-msgstr "&Zrušit"
-
-#: ../messages.py:137
-msgctxt "QGnomeTheme"
-msgid "&Save"
-msgstr "&Uložit"
-
-#: ../messages.py:138
-msgctxt "QGnomeTheme"
-msgid "&Close"
-msgstr "&Zavřít"
-
-#: ../messages.py:140
->>>>>>> c538c0be... Czech translation update (#1344)
 msgctxt "QInputContext"
 msgid "XIM"
 msgstr "XIM"
@@ -8779,36 +8632,7 @@ msgctxt "QMultiInputContext"
 msgid "Select IM"
 msgstr "Vybrat IM"
 
-<<<<<<< HEAD
 #: ../messages.py:103
-=======
-#: ../messages.py:146
-msgctxt "QPlatformTheme"
-msgid "OK"
-msgstr "OK"
-
-#: ../messages.py:147
-msgctxt "QPlatformTheme"
-msgid "Help"
-msgstr "Nápověda"
-
-#: ../messages.py:148
-msgctxt "QPlatformTheme"
-msgid "Apply"
-msgstr "Použít"
-
-#: ../messages.py:149
-msgctxt "QPlatformTheme"
-msgid "Reset"
-msgstr "Obnovit výchozí"
-
-#: ../messages.py:150
-msgctxt "QPlatformTheme"
-msgid "Open"
-msgstr "Otevřít"
-
-#: ../messages.py:151
->>>>>>> c538c0be... Czech translation update (#1344)
 msgctxt "QPlatformTheme"
 msgid "Save"
 msgstr "Uložit"
@@ -8823,16 +8647,7 @@ msgctxt "QPlatformTheme"
 msgid "Discard"
 msgstr "Zahodit"
 
-<<<<<<< HEAD
 #: ../messages.py:107
-=======
-#: ../messages.py:154
-msgctxt "QPlatformTheme"
-msgid "Restore Defaults"
-msgstr "Obnovit výchozí hodnoty"
-
-#: ../messages.py:156
->>>>>>> c538c0be... Czech translation update (#1344)
 msgctxt "QScrollBar"
 msgid "Bottom"
 msgstr "Dole"
@@ -9002,16 +8817,7 @@ msgctxt "QShortcut"
 msgid "Browser"
 msgstr "Prohlížeč"
 
-<<<<<<< HEAD
 #: ../messages.py:142
-=======
-#: ../messages.py:191
-msgctxt "QShortcut"
-msgid "Cancel"
-msgstr "Zrušit"
-
-#: ../messages.py:192
->>>>>>> c538c0be... Czech translation update (#1344)
 msgctxt "QShortcut"
 msgid "Caps Lock"
 msgstr "Caps Lock"
@@ -9096,16 +8902,7 @@ msgctxt "QShortcut"
 msgid "Esc"
 msgstr "Esc"
 
-<<<<<<< HEAD
 #: ../messages.py:159
-=======
-#: ../messages.py:209
-msgctxt "QShortcut"
-msgid "Exit"
-msgstr "Ukončit"
-
-#: ../messages.py:210
->>>>>>> c538c0be... Czech translation update (#1344)
 msgctxt "QShortcut"
 msgid "F%1"
 msgstr "F%1"
@@ -9255,16 +9052,7 @@ msgctxt "QShortcut"
 msgid "PgUp"
 msgstr "PgUp"
 
-<<<<<<< HEAD
 #: ../messages.py:189
-=======
-#: ../messages.py:240
-msgctxt "QShortcut"
-msgid "Play"
-msgstr "Přehrát"
-
-#: ../messages.py:241
->>>>>>> c538c0be... Czech translation update (#1344)
 msgctxt "QShortcut"
 msgid "Refresh"
 msgstr "Obnovit"
@@ -9444,16 +9232,7 @@ msgctxt "QShortcut"
 msgid "Volume Up"
 msgstr "Zvýšit hlasitost"
 
-<<<<<<< HEAD
 #: ../messages.py:225
-=======
-#: ../messages.py:277
-msgctxt "QShortcut"
-msgid "Zoom"
-msgstr "Zvětšení"
-
-#: ../messages.py:278
->>>>>>> c538c0be... Czech translation update (#1344)
 msgctxt "QShortcut"
 msgid "Zoom In"
 msgstr "Přiblížit"
@@ -9541,6 +9320,7 @@ msgstr ""
 "Jeho cílem je být výkonný, přesto lehký a snadno použitelný."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:14
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:77
 msgid "Features:"
 msgstr "Vlastnosti:"
 
@@ -9594,8 +9374,8 @@ msgstr "Zavedení MusicXML, MIDI a ABC"
 msgid ""
 "Modern user interface with configurable colors, fonts and keyboard shortcuts"
 msgstr ""
-"Pokrokové uživatelské rozhraní s nastavitelnými barvami, písmy a klávesovými"
-" zkratkami"
+"Pokrokové uživatelské rozhraní s nastavitelnými barvami, písmy a klávesovými "
+"zkratkami"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:27
 msgid ""
@@ -9603,11 +9383,9 @@ msgid ""
 "Italian, Czech, Russian, Spanish, Galician, Turkish, Polish, Brazillian "
 "Portugese and Ukrainian."
 msgstr ""
-"Přeloženo do následujících jazyků: holandština, angličtina, francouzština,"
-" němčina,"
-"italština, čeština, ruština, španělština, galicijština, turečtina, polština,"
-" brazilská"
-"portugalština a ukrajinština."
+"Přeloženo do následujících jazyků: holandština, angličtina, francouzština, "
+"němčina,italština, čeština, ruština, španělština, galicijština, turečtina, "
+"polština, brazilskáportugalština a ukrajinština."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:29
 msgid ""
@@ -9616,11 +9394,10 @@ msgid ""
 "Italian composer of keyboard music in the late Renaissance and early Baroque "
 "period."
 msgstr ""
-"Frescobaldi je navržen pro provoz na všech hlavních operačních systémech"
-" (Linux, Mac OS"
-"X a MS Windows). Je pojmenován podle Girolama Frescobaldiho (1583-1643),"
-"italského skladatele hudby pro klávesy v době pozdní renesance a raného"
-" baroka."
+"Frescobaldi je navržen pro provoz na všech hlavních operačních systémech "
+"(Linux, Mac OSX a MS Windows). Je pojmenován podle Girolama Frescobaldiho "
+"(1583-1643),italského skladatele hudby pro klávesy v době pozdní renesance a "
+"raného baroka."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:38
 msgid "Text editor and music view"
@@ -9647,245 +9424,368 @@ msgid "Score Wizard to quickly setup a music score"
 msgstr "Průvodce notovým zápisem pro rychlé nastavení notového zápisu"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:72
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:129
+msgid "Notes:"
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:74
+msgid ""
+"This release contains several bug fixes and improvements. It is probably the "
+"last release in the 3.1 version range"
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:75
+msgid ""
+"Full history and credits for this release are available at https://github."
+"com/frescobaldi/frescobaldi/compare/v3.1.2...v3.1.3"
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:79
+msgid "a Clear Music View button and menu action were added"
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:81
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:103
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:160
 msgid "Bug fixes:"
 msgstr "Opravy chyb:"
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:74
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:83
+msgid "fixed \"NameError: name 'imp' is not defined\" when importing"
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:84
+msgid "fixed search of generated files on macOS for some Unicode file names"
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:85
+msgid "fixed selection of Python on Mac OS:"
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:87
+msgid "select the system Python 2 or 3 according to LilyPond's version"
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:88
+#, fuzzy
+msgid "support MacPorts' LilyPond tools"
+msgstr "Obecné zavedení pro všechny nástroje LilyPond."
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:89
+msgid ""
+"add option to allow forcing the use of the tools' #! lines (useful for self-"
+"compiled or other nonstandard LilyPond installations)"
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:91
+msgid ""
+"fixed \"AttributeError: 'PreviewJob' object has no attribute "
+"'lilypond_version'\""
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:92
+msgid "fixed Ghostscript error on Mac with MacPorts' LilyPond 2.21.x"
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:94
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:124
+msgid "Translations:"
+msgstr "Překlady:"
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:96
+msgid "Updated translations: Dutch, Czech, Russian"
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:105
 msgid ""
 "Fixed the error \"AttributeError: 'NoneType' object has no attribute "
 "'cursor'\""
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:75
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:106
 #, fuzzy
 msgid "Fixed the \"Two Pages (first page right)\" mode"
 msgstr "Dvě strany (první strana vpravo)"
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:76
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:107
 msgid "Fixed pinch gesture zooming in Music View on Mac OS X"
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:77
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:108
 msgid "Fixed printing the music score on Mac OS X"
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:78
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:109
 msgid "Fixed cursor nagivation keyboard shortcuts on Mac OS X; new shortcuts:"
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:80
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:111
 msgid "next document: ctrl+tab"
 msgstr "Další dokument: Ctrl+Tab"
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:81
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:112
 msgid "previous document: ctrl+shift+tab"
 msgstr "Předchozí dokument: Ctrl+Shift+Tab"
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:82
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:113
 msgid "start of line: cmd+left"
 msgstr "Začátek řádku: Cmd+vlevo"
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:83
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:114
 msgid "end of line: cmd+right"
 msgstr "Konec řádku: Cmd+vpravo"
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:85
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:116
 msgid "Fixed the display of filenames in document tabs on Mac OS X"
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:86
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:117
 msgid "Fixed the global menu with no windows open on Mac OS X"
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:87
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:118
 msgid "Fixed the error with convert-ly on in the Mac app bundle"
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:89
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:138
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:162
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:120
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:169
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:193
 msgid "Improvements:"
 msgstr "Vylepšení:"
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:91
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:122
 msgid "German hyphenation patterns were added"
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:93
-msgid "Translations:"
-msgstr "Překlady:"
-
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:95
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:126
 msgid "Dutch translation updated by Wilbert Berendsen"
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:96
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:127
 msgid "Italian translation updated by Davide Liessi"
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:102
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:133
 msgid "Bugfixes:"
 msgstr "Opravy chyb:"
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:104
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:135
 msgid ""
 "Fixed the error AttributeError: 'PopplerDocument' has no attribute "
 "'ispresent'."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:105
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:136
 msgid ""
 "Fixed the error NameError: 'QPinchGesture' is not defined (pinch in music "
 "view)."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:106
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:137
 msgid ""
 "Fixed the error NameError: 'doc' is not defined (when printing on Mac OSX)."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:112
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:153
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:143
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:184
 msgid "Requirement changes:"
 msgstr "Požadavky:"
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:114
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:145
 msgid "Frescobaldi now requires Python3.3+"
 msgstr "Frescobaldi nyní vyžaduje Python3.3+"
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:116
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:157
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:147
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:188
 msgid "New features:"
 msgstr "Nové vlastnosti:"
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:118
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:149
 msgid ""
 "New \"Document Fonts\" dialog supporting text and music fonts and providing "
 "a font sample previewer."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:119
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:150
 msgid "Possibility to load external extensions."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:120
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:151
 msgid "New \"First System Only\" option in Custom Engrave."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:121
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:152
 #, fuzzy
 msgid "New \"Goto Line\" and \"Rename file\" commands."
 msgstr "Jiné příkazy:"
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:122
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:153
 msgid "Music View: view settings are remembered per-document."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:123
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:154
 msgid ""
 "Music View: copy to Image can copy/export to SVG, PDF and EPS in addition to "
 "PNG/JPG."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:124
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:155
 msgid ""
 "Music View: new commands to rotate left/right; new toolbar button to show/"
 "hide the magnifier."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:125
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:156
 msgid ""
 "Music View: new preferences Horizontal/Vertical and Continuous/non-"
 "continuous."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:126
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:157
 msgid ""
 "Music View: new raster layout mode (displays as many pages as fit in a View)."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:127
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:158
 msgid ""
 "Manuscript viewer: new toolbar buttons to rotate the pages left/right and to "
 "show/hide the magnifier."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:131
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:162
 msgid "Fixed seeking in MIDI player during playing stops sound."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:132
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:163
 msgid "Paper orientation is now properly handled in New Score Wizard."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:133
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:164
 msgid ""
 "Fixed discrepancy of LilyPond vs. system version of GhostScript on Linux."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:135
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:166
 msgid "Fixed includepaths on Windows."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:136
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:167
 msgid "Fixed the error NameError: name 'widgets' is not defined."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:140
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:171
 msgid ""
 "Score Wizard: Titles and Headers are now shown in preview; new checkbox to "
 "write/omit pitches after \\relative command; allow \"none\" for instrument "
 "names on first system."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:141
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:172
 msgid "Smarter behaviour of the autocompletion popup (#918, #922)."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:142
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:173
 msgid "New command File-&gt;Rename/Move."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:143
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:174
 msgid "Sessions can be grouped in the Sessions menu."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:144
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:175
 msgid "Show absolute path of include files in tooltip."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:145
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:176
 msgid "Restructure Tools Menu."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:146
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:177
 msgid "File Open toolbar button shows recent files menu on long click."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:147
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:178
 msgid "Added \"Blank Sheet Music\" template snippet."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:155
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:186
 #, fuzzy
 msgid "Frescobaldi now requires Python3.2+, Qt5, PyQt5, python-poppler-qt5."
 msgstr "Hlavním autorem Frescobaldi je {author}."
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:159
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:190
 msgid "Zoom with pinch gesture in Music View."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:160
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:191
 msgid ""
 "An option (enabled by default) to move the cursor to the end of the line "
 "when PageDown is pressed on the last line, and to move the cursor to the "
 "start of the first line if PageUp is pressed on the first line."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:164
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:195
 msgid "Retina display support in Music View."
 msgstr ""
+
+#~ msgctxt "QFontDatabase"
+#~ msgid "Normal"
+#~ msgstr "Normální"
+
+#~ msgctxt "QGnomeTheme"
+#~ msgid "&OK"
+#~ msgstr "&OK"
+
+#~ msgctxt "QGnomeTheme"
+#~ msgid "&Cancel"
+#~ msgstr "&Zrušit"
+
+#~ msgctxt "QGnomeTheme"
+#~ msgid "&Save"
+#~ msgstr "&Uložit"
+
+#~ msgctxt "QGnomeTheme"
+#~ msgid "&Close"
+#~ msgstr "&Zavřít"
+
+#~ msgctxt "QPlatformTheme"
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgctxt "QPlatformTheme"
+#~ msgid "Help"
+#~ msgstr "Nápověda"
+
+#~ msgctxt "QPlatformTheme"
+#~ msgid "Apply"
+#~ msgstr "Použít"
+
+#~ msgctxt "QPlatformTheme"
+#~ msgid "Reset"
+#~ msgstr "Obnovit výchozí"
+
+#~ msgctxt "QPlatformTheme"
+#~ msgid "Open"
+#~ msgstr "Otevřít"
+
+#~ msgctxt "QPlatformTheme"
+#~ msgid "Restore Defaults"
+#~ msgstr "Obnovit výchozí hodnoty"
+
+#~ msgctxt "QShortcut"
+#~ msgid "Cancel"
+#~ msgstr "Zrušit"
+
+#~ msgctxt "QShortcut"
+#~ msgid "Exit"
+#~ msgstr "Ukončit"
+
+#~ msgctxt "QShortcut"
+#~ msgid "Play"
+#~ msgstr "Přehrát"
+
+#~ msgctxt "QShortcut"
+#~ msgid "Zoom"
+#~ msgstr "Zvětšení"
 
 #~ msgid ""
 #~ "Unfortunately, this version of Frescobaldi is unable to print PDF "
@@ -10310,8 +10210,8 @@ msgstr ""
 #~ "tunes of Western European origin."
 #~ msgstr ""
 #~ "ABC je notační standard, který je stejně jako LilyPond navržen pro zápis "
-#~ "not v nepodmíněném textu. Byl navržen zejména pro folkové a tradiční melodie "
-#~ "původem ze západní Evropy."
+#~ "not v nepodmíněném textu. Byl navržen zejména pro folkové a tradiční "
+#~ "melodie původem ze západní Evropy."
 
 #~ msgid ""
 #~ "In this dialog there are two tabs. In the first you can set some "
@@ -10465,8 +10365,8 @@ msgstr ""
 #~ "This converts all `\\relative` music parts to absolute pitch names. It "
 #~ "removes, but honours, octave checks."
 #~ msgstr ""
-#~ "Toto převede všechny části s notami `\\relative` na názvy nepodmíněných výšek "
-#~ "tónů. Odstraní, ale dodrží, přerušení oktávy."
+#~ "Toto převede všechny části s notami `\\relative` na názvy nepodmíněných "
+#~ "výšek tónů. Odstraní, ale dodrží, přerušení oktávy."
 
 #~ msgid "Convert absolute music to relative"
 #~ msgstr "Převést noty s prostou výškou tónu na noty s &podmíněnou"
@@ -10757,8 +10657,8 @@ msgstr ""
 #~ "default."
 #~ msgstr ""
 #~ "Další dvě volby se dají použít, pokud dáváte přednost mít zdrojový kód v "
-#~ "režimu nepodmíněné (absolutní) výšku tónu, nebo upřednostňujete-li jiný jazyk "
-#~ "pro názvy tónů, než je ten výchozí."
+#~ "režimu nepodmíněné (absolutní) výšku tónu, nebo upřednostňujete-li jiný "
+#~ "jazyk pro názvy tónů, než je ten výchozí."
 
 #~ msgid ""
 #~ "At the bottom you have a text area that mimics the command line text used "
@@ -10784,10 +10684,10 @@ msgstr ""
 #~ "the distance to transpose over. The pitches may include octave marks. The "
 #~ "pitches must be entered in the pitch name language used in the document."
 #~ msgstr ""
-#~ "Při transponování not je potřeba zadat dvě nepodmíněné (absolutní) výšky tónu, "
-#~ "aby se určila vzdálenost, přes kterou převést. Výšky tónů mohou zahrnovat "
-#~ "značky pro oktávu. Výšky tónů se musí zadat v jazyku, ve kterém se udává "
-#~ "název výšky tónu, použitém v dokumentu."
+#~ "Při transponování not je potřeba zadat dvě nepodmíněné (absolutní) výšky "
+#~ "tónu, aby se určila vzdálenost, přes kterou převést. Výšky tónů mohou "
+#~ "zahrnovat značky pro oktávu. Výšky tónů se musí zadat v jazyku, ve kterém "
+#~ "se udává název výšky tónu, použitém v dokumentu."
 
 #~ msgid ""
 #~ "The music will then be transposed from the first pitch to the second, "
@@ -10819,8 +10719,8 @@ msgstr ""
 #~ "correctly handling key signatures, chordmode and octave checks."
 #~ msgstr ""
 #~ "Převáděcí funkce může převádět jak podmíněné (relativní výška tónu) tak "
-#~ "nepodmíněné (absolutní výška tónu) noty, správně zacházet s předznamenáními, "
-#~ "akordickým režimem a přerušením oktávy."
+#~ "nepodmíněné (absolutní výška tónu) noty, správně zacházet s "
+#~ "předznamenáními, akordickým režimem a přerušením oktávy."
 
 #~ msgid "Import Midi"
 #~ msgstr "Zavést MIDI"
@@ -14668,8 +14568,8 @@ msgstr ""
 #~ "</p>\n"
 #~ "\n"
 #~ "<p>\n"
-#~ "Převáděcí funkce může převádět jak podmíněné (relativní) tak nanepodmíněné "
-#~ "(absolutní) noty,\n"
+#~ "Převáděcí funkce může převádět jak podmíněné (relativní) tak "
+#~ "nanepodmíněné (absolutní) noty,\n"
 #~ "správně zacházet s předznamenáními, režimem akordů a zastaveními oktáv.\n"
 #~ "</p>\n"
 

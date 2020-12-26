@@ -1,5 +1,5 @@
-# #-#-#-#-#  common.pot (frescobaldi 3.1.2)  #-#-#-#-#
-# #-#-#-#-#  frescobaldi.pot (frescobaldi 3.1.2)  #-#-#-#-#
+# #-#-#-#-#  common.pot (frescobaldi 3.1.3)  #-#-#-#-#
+# #-#-#-#-#  frescobaldi.pot (frescobaldi 3.1.3)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the frescobaldi package.
@@ -8,11 +8,11 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"#-#-#-#-#  common.pot (frescobaldi 3.1.2)  #-#-#-#-#\n"
-"#-#-#-#-#  frescobaldi.pot (frescobaldi 3.1.2)  #-#-#-#-#\n"
-"Project-Id-Version: frescobaldi 3.1.2\n"
+"#-#-#-#-#  common.pot (frescobaldi 3.1.3)  #-#-#-#-#\n"
+"#-#-#-#-#  frescobaldi.pot (frescobaldi 3.1.3)  #-#-#-#-#\n"
+"Project-Id-Version: frescobaldi 3.1.3\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2020-04-13 08:04+0200\n"
+"POT-Creation-Date: 2020-12-26 11:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -444,7 +444,7 @@ msgid "{appname} is translated into the following languages:"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../frescobaldi_app/userguide/credits.md:114
+#: ../frescobaldi_app/userguide/credits.md:116
 msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"
