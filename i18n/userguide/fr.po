@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2020-04-23 12:26+0200\n"
+"POT-Creation-Date: 2020-12-26 11:19+0100\n"
 "PO-Revision-Date: 2014-12-26 14:18+0100\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -512,11 +512,21 @@ msgid "Relative mode for MIDI capturing"
 msgstr "Mode relatif pour la capture MIDI"
 
 #: ../../frescobaldi_app/userguide/credits.md:54
+#, fuzzy
+msgid "Score Wizard improvements"
+msgstr "Beaucoup de code, et améliorations de fonctions"
+
+#: ../../frescobaldi_app/userguide/credits.md:54
+#, fuzzy
+msgid "Score Wizard From Current Document"
+msgstr "Document en cours"
+
+#: ../../frescobaldi_app/userguide/credits.md:58
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} est traduit dans les langues suivantes :"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/credits.md:115
+#: ../../frescobaldi_app/userguide/credits.md:120
 msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"
@@ -4660,9 +4670,6 @@ msgstr ""
 
 #~ msgid "Convert-ly from LilyPond {version}"
 #~ msgstr "Lancer convert-ly depuis la version {version} de LilyPond"
-
-#~ msgid "Current Document"
-#~ msgstr "Document en cours"
 
 #~ msgid "Converted Document"
 #~ msgstr "Document converti"

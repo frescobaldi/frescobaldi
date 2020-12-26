@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frescobaldi 3.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2020-04-23 12:26+0200\n"
+"POT-Creation-Date: 2020-12-26 11:19+0100\n"
 "PO-Revision-Date: 2019-12-20 00:33+0100\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italiano <>\n"
@@ -529,11 +529,20 @@ msgid "Relative mode for MIDI capturing"
 msgstr "Modalità relativa per la cattura MIDI"
 
 #: ../../frescobaldi_app/userguide/credits.md:54
+#, fuzzy
+msgid "Score Wizard improvements"
+msgstr "Molti miglioramenti nel codice e in nuove funzionalità"
+
+#: ../../frescobaldi_app/userguide/credits.md:54
+msgid "Score Wizard From Current Document"
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/credits.md:58
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} è tradotto in queste lingue:"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/credits.md:115
+#: ../../frescobaldi_app/userguide/credits.md:120
 msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"
