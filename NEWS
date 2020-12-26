@@ -1,41 +1,27 @@
-Version 3.2
-~~~~~~~~~~~
-Released: 2020-xx-xx
-
-Notes:
- - The qpageview module, because of its generic nature, is now a separate project
-   at http://github.com/frescobaldi/qpageview. This package, used by the Music
-   View and other viewers, needs to be installed for Frescobaldi to work.
-
-Translations:
- - Some missing strings from Qt dialogs were added.
- - Updated translations: dutch.
-
-
-Version 3.1.2
+Version 3.1.3
 ~~~~~~~~~~~~~
-Released: 2020-04-13
+Released: 2020-12-26
 
 Notes:
- - This release contains several bugfixes for Mac OS X.
+ - This release contains several bug fixes and improvements. It is probably
+   the last release in the 3.1 version range.
  - Full history and credits for this release are available at
-   https://github.com/frescobaldi/frescobaldi/compare/v3.1.1...v3.1.2
+   https://github.com/frescobaldi/frescobaldi/compare/v3.1.2...v3.1.3
 
 Features:
- - Added a german hyphenation dictionary.
+ - a Clear Music View button and menu action were added
 
 Bugfixes:
- - Improved Python selection on Mac, required to run without errors the
-   LilyPond bundled scripts, such as convert-ly.
- - Fixed printing score on Mac.
- - Fixed pinch gesture zoom in music view on Mac.
- - Changed some keyboard shortcuts on Mac: Cmd+left and Cmd+right will now move
-   the cursor to the beginning and to the end of the line, respectively; new
-   shortcuts to navigate between documents are Ctrl+tab (next document) and
-   Ctrl+Shift+tab (previous document).
- - File names in document tabs are now shown correctly on Mac.
+ - fixed "NameError: name 'imp' is not defined" when importing
+ - fixed search of generated files on macOS for some Unicode file names
+ - fixed selection of Python on Mac OS:
+   * select the system Python 2 or 3 according to LilyPond's version
+   * support MacPorts' LilyPond tools
+   * add option to allow forcing the use of the tools' #! lines
+     (useful for self-compiled or other nonstandard LilyPond installations)
+ - fixed "AttributeError: 'PreviewJob' object has no attribute 'lilypond_version'"
+ - fixed Ghostscript error on Mac with MacPorts' LilyPond 2.21.x
 
 Translations:
- - Updated dutch and italian translations.
- - Userguide now has its own PO files in i18n/userguide, and the Frescobaldi
-   application itself has the PO files in i18n/frescobaldi, see README-translations.
+ - Updated translations: Dutch, Czech, Russian
+
