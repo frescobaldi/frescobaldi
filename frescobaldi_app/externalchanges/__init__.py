@@ -79,7 +79,7 @@ def changedDocuments():
 
 
 def display(documents):
-    """Diplay the window showing the specified Documents."""
+    """Display the window showing the specified Documents."""
     from . import widget
     window = widget.window()
     window.setDocuments(documents)

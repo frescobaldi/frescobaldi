@@ -138,7 +138,7 @@ with the '-h' option), but can be easily adapted to other configurations.
 For Linux distribution packagers
 ================================
 
-See the secion Dependencies for the dependencies that need to be installed.
+See the section Dependencies for the dependencies that need to be installed.
 Be sure that all python packages belong to the same Python version Frescobaldi
 uses.
 

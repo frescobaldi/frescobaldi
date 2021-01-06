@@ -19,7 +19,7 @@
 
 
 """
-Downlaod music fonts from the openlilylib-resources Github repository
+Download music fonts from the openlilylib-resources Github repository
 """
 
 CATALOGUE_URL = (
