@@ -495,7 +495,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/documentfonts.md:33
 msgid ""
-"The tab {page_musicfonts} provids a list of available music fonts and a "
+"The tab {page_musicfonts} provides a list of available music fonts and a "
 "number of controls to manage font installation in the current LilyPond "
 "installation."
 msgstr ""
@@ -866,7 +866,7 @@ msgid ""
 "The `Text Fonts` tab populates a list of all text fonts that are available "
 "to LilyPond (which may differ from fonts seen by other programs). Each font "
 "may or may not include subfamilies (such as *Condensed*, *Display* etc.) and "
-"eventually one or mulitple weights, for which a short sample text is "
+"eventually one or multiple weights, for which a short sample text is "
 "displayed."
 msgstr ""
 
@@ -1893,7 +1893,7 @@ msgstr ""
 msgid ""
 "A great effort was done to port Frescobaldi to Python3 and Qt5, which "
 "brought more stability and durability, and better multilingual support. As a "
-"result, *Frescobaldi 3* was released in Feburary 2017."
+"result, *Frescobaldi 3* was released in February 2017."
 msgstr ""
 
 #. NOTE: markdown formatting
