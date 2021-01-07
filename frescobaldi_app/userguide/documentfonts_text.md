@@ -5,7 +5,7 @@
 The `Text Fonts` tab populates a list of all text fonts that are available to
 LilyPond (which may differ from fonts seen by other programs). Each font may or
 may not include subfamilies (such as *Condensed*, *Display* etc.) and eventually
-one or mulitple weights, for which a short sample text is displayed.
+one or multiple weights, for which a short sample text is displayed.
 
 Note that this list is created by running LilyPond with the
 `-d-show-available-fonts` command line option, which may take some time. It is
