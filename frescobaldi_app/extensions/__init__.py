@@ -62,7 +62,7 @@ class Extension(QObject):
     Ensures integration in the Tools menu and other places,
     and provides common APIs both for the extension to
     access resources and for the application to interact
-    with the extention.
+    with the extension.
 
     An Extension provides a number of convenience functions to
     objects that could also be retrieved through other means,
@@ -669,7 +669,7 @@ class Extensions(QObject):
                     inactive.append("{} => {}".format(ext, dep[1]))
             if incoming:
                 # If there remain incoming edges we have a
-                # circular depencency (according to Kahn's algorithm)
+                # circular dependency (according to Kahn's algorithm)
                 self._failed_dependencies['circular'] = [
                     ext for ext in incoming.keys()]
         # List of extensions with all dependencies resolved,
@@ -792,7 +792,7 @@ class Extensions(QObject):
         return sorted(result)
 
     def is_extension_exception(self, traceback):
-        """Check if the given traceback points to an exception occuring
+        """Check if the given traceback points to an exception occurring
         within an extension. If so, return a tuple with
         - extension name (display name)
         - first maintainer

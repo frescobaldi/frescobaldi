@@ -103,7 +103,7 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
         return None
 
     def removeShortcuts(self, shortcuts):
-        """Find and remove shorcuts of the given list."""
+        """Find and remove shortcuts of the given list."""
         for data in self.iterShortcuts():
             s1, collection, name = data[:3]
             for s2 in shortcuts:

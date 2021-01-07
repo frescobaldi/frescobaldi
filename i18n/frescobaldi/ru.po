@@ -4874,7 +4874,7 @@ msgstr "Печать PDF-файлов с помощью CUPS, если дост�
 
 #: ../../frescobaldi_app/preferences/musicviewers.py:178
 msgid ""
-"If checked, Frescobaldi tries to print a PDF document direcly using\n"
+"If checked, Frescobaldi tries to print a PDF document directly using\n"
 "the CUPS server, if available."
 msgstr ""
 "Если параметр включён, программа Frescobaldi будет пытаться\n"
@@ -9611,8 +9611,8 @@ msgstr ""
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:27
 msgid ""
 "Translated into the following languages: Dutch, English, French, German, "
-"Italian, Czech, Russian, Spanish, Galician, Turkish, Polish, Brazillian "
-"Portugese and Ukrainian."
+"Italian, Czech, Russian, Spanish, Galician, Turkish, Polish, Brazilian "
+"Portuguese and Ukrainian."
 msgstr ""
 "Программа переведена на следующие языки: голландский, английский, "
 "французский, немецкий, итальянский, чешский, русский, испанский, "
@@ -9753,7 +9753,7 @@ msgid "Fixed printing the music score on Mac OS X"
 msgstr "Исправлена печать партитуры в Mac OS X"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:109
-msgid "Fixed cursor nagivation keyboard shortcuts on Mac OS X; new shortcuts:"
+msgid "Fixed cursor navigation keyboard shortcuts on Mac OS X; new shortcuts:"
 msgstr ""
 "Исправлены комбинации клавиш курсорной навигации в Mac OS X; новые "
 "комбинации клавиш:"
