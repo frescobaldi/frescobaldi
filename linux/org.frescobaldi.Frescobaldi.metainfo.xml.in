@@ -24,7 +24,7 @@
       <li>Smart layout-control functions like coloring specific objects in the PDF</li>
       <li>MusicXML, Midi and ABC import</li>
       <li>Modern user interface with configurable colors, fonts and keyboard shortcuts</li>
-      <li>Translated into the following languages: Dutch, English, French, German, Italian, Czech, Russian, Spanish, Galician, Turkish, Polish, Brazillian Portugese and Ukrainian.</li>
+      <li>Translated into the following languages: Dutch, English, French, German, Italian, Czech, Russian, Spanish, Galician, Turkish, Polish, Brazilian Portuguese and Ukrainian.</li>
     </ul>
     <p>
       Frescobaldi is designed to run on all major operating systems (Linux, Mac OS X
@@ -106,7 +106,7 @@
           <li>Fixed the "Two Pages (first page right)" mode</li>
           <li>Fixed pinch gesture zooming in Music View on Mac OS X</li>
           <li>Fixed printing the music score on Mac OS X</li>
-          <li>Fixed cursor nagivation keyboard shortcuts on Mac OS X; new shortcuts:</li>
+          <li>Fixed cursor navigation keyboard shortcuts on Mac OS X; new shortcuts:</li>
           <ul>
             <li>next document: ctrl+tab</li>
             <li>previous document: ctrl+shift+tab</li>

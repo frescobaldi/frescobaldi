@@ -30,7 +30,7 @@ fonts for use in the score document.
 
 = Music Fonts =
 
-The tab {page_musicfonts} provids a list of available music fonts and a number
+The tab {page_musicfonts} provides a list of available music fonts and a number
 of controls to manage font installation in the current LilyPond installation.
 
 = Font Command =
