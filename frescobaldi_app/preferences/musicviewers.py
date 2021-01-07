@@ -175,7 +175,7 @@ class Printing(preferences.Group):
             "which is raster-based. But Arthur is more experimental."))
         self.useCups.setText(_("Print PDF documents directly to CUPS if available."))
         self.useCups.setToolTip(_(
-            "If checked, Frescobaldi tries to print a PDF document direcly using\n"
+            "If checked, Frescobaldi tries to print a PDF document directly using\n"
             "the CUPS server, if available."))
         self.resolutionLabel.setText(_("Resolution:"))
         self.resolution.setToolTip(_(
