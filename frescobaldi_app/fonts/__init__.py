@@ -90,7 +90,7 @@ class Fonts(plugin.MainWindowPlugin):
             from . import oldfontsdialog
             dlg = oldfontsdialog.DocumentFontsDialog(self.mainwindow())
             if dlg.exec_():
-                text = dlg.document_font_code()
+                cmd = dlg.document_font_code()
                 # NOTE: How to translate this to the dialog context?
                 # if state[-1] != "paper":
                 cmd = "\\paper {{\n{0}}}\n".format(cmd)
