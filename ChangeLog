@@ -4,6 +4,9 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 3.2 -- current
 
+* New preference feature: music view preference for "Strict Paging": when
+  enabled, the pageup/pagedown keys always page to the previous or next page
+  instead of simply scrolling a screenful.
 * Improvements to the Score Wizard, contributed by Benjamin Johnson (#1343):
   - Various new instruments, mostly guitar, synth and bass related
   - New command File->New->Score Wizard from current document, which reads some
