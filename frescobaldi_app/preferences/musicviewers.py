@@ -62,11 +62,13 @@ class MusicView(preferences.Group):
         layout.addWidget(self.enableKineticScrolling, 0, 0)
         self.showScrollbars = QCheckBox(toggled=self.changed)
         layout.addWidget(self.showScrollbars, 0, 1)
+        self.enableStrictPaging = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.enableStrictPaging, 0, 2)
         self.showShadow = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.showShadow, 0, 2)
+        layout.addWidget(self.showShadow, 0, 3)
 
         self.arthurBackend = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.arthurBackend, 1, 0, 1, 3)
+        layout.addWidget(self.arthurBackend, 1, 0, 1, 4)
 
         self.magnifierSizeLabel = QLabel()
         self.magnifierSizeSlider = QSlider(Qt.Horizontal, valueChanged=self.changed)
@@ -77,8 +79,8 @@ class MusicView(preferences.Group):
         self.magnifierSizeSpinBox.valueChanged.connect(self.magnifierSizeSlider.setValue)
         self.magnifierSizeSlider.valueChanged.connect(self.magnifierSizeSpinBox.setValue)
         layout.addWidget(self.magnifierSizeLabel, 2, 0)
-        layout.addWidget(self.magnifierSizeSlider, 2, 1)
-        layout.addWidget(self.magnifierSizeSpinBox, 2, 2)
+        layout.addWidget(self.magnifierSizeSlider, 2, 1, 1, 2)
+        layout.addWidget(self.magnifierSizeSpinBox, 2, 3)
 
         self.magnifierScaleLabel = QLabel()
         self.magnifierScaleSlider = QSlider(Qt.Horizontal, valueChanged=self.changed)
@@ -89,8 +91,8 @@ class MusicView(preferences.Group):
         self.magnifierScaleSpinBox.valueChanged.connect(self.magnifierScaleSlider.setValue)
         self.magnifierScaleSlider.valueChanged.connect(self.magnifierScaleSpinBox.setValue)
         layout.addWidget(self.magnifierScaleLabel, 3, 0)
-        layout.addWidget(self.magnifierScaleSlider, 3, 1)
-        layout.addWidget(self.magnifierScaleSpinBox, 3, 2)
+        layout.addWidget(self.magnifierScaleSlider, 3, 1, 1, 2)
+        layout.addWidget(self.magnifierScaleSpinBox, 3, 3)
 
         app.translateUI(self)
 
@@ -98,6 +100,9 @@ class MusicView(preferences.Group):
         # L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
         self.enableKineticScrolling.setText(_("Kinetic Scrolling"))
         self.showScrollbars.setText(_("Show Scrollbars"))
+        self.enableStrictPaging.setText(_("Strict Paging"))
+        self.enableStrictPaging.setToolTip(_(
+            "If checked, PageUp and PageDown always page to the previous of next page instead of scrolling."))
         self.showShadow.setText(_("Shadow"))
         self.showShadow.setToolTip(_(
             "If checked, Frescobaldi draws a shadow around the pages."))
@@ -124,6 +129,8 @@ class MusicView(preferences.Group):
         self.enableKineticScrolling.setChecked(kineticScrollingActive)
         showScrollbars = s.value("show_scrollbars", True, bool)
         self.showScrollbars.setChecked(showScrollbars)
+        strictPaging = s.value("strict_paging", False, bool)
+        self.enableStrictPaging.setChecked(strictPaging)
         shadow = s.value("shadow", True, bool)
         self.showShadow.setChecked(shadow)
         useArthur = s.value("arthurbackend", False, bool)
@@ -136,6 +143,7 @@ class MusicView(preferences.Group):
         s.beginGroup("musicview")
         s.setValue("kinetic_scrolling", self.enableKineticScrolling.isChecked())
         s.setValue("show_scrollbars", self.showScrollbars.isChecked())
+        s.setValue("strict_paging", self.enableStrictPaging.isChecked())
         s.setValue("shadow", self.showShadow.isChecked())
         s.setValue("arthurbackend", self.arthurBackend.isChecked())
         s.setValue("magnifier/size", self.magnifierSizeSlider.value())
