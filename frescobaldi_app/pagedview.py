@@ -93,6 +93,9 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         self.readSettings()
 
     def readSettings(self):
+        # strict paging with pageup/pagedown
+        self.strictPagingEnabled = QSettings().value("musicview/strict_paging", True, bool)
+
         # shadow/margin
         shadow = QSettings().value("musicview/shadow", True, bool)
         oldshadow, self.dropShadowEnabled = self.dropShadowEnabled, shadow
