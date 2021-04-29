@@ -7,13 +7,13 @@
 # Serj Poltavski <serge.uliss@gmail.com>, 2009.
 # Artem Zolochevskiy <artem.zolochevskiy@gmail.com>, 2009.
 # Mikhail Iglizky <m0003r@gmail.com>, 2012.
-# Olesya Gerasimenko <translation-team@basealt.ru>, 2020.
+# Olesya Gerasimenko <translation-team@basealt.ru>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2021-01-07 17:37+0100\n"
-"PO-Revision-Date: 2020-07-28 10:08+0300\n"
+"PO-Revision-Date: 2021-04-29 16:20+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
 "Language: ru\n"
@@ -4584,7 +4584,7 @@ msgstr "Команды инструментов"
 
 #: ../../frescobaldi_app/preferences/lilypond.py:276
 msgid "Force use of the tools' #! lines"
-msgstr ""
+msgstr "Принудительно использовать линейки инструментов #!"
 
 #: ../../frescobaldi_app/preferences/lilypond.py:329
 msgid "Running LilyPond"
@@ -5685,9 +5685,8 @@ msgid "Score &Wizard..."
 msgstr "Мастер &партитуры..."
 
 #: ../../frescobaldi_app/scorewiz/__init__.py:73
-#, fuzzy
 msgid "From C&urrent Document..."
-msgstr "Текущий документ"
+msgstr "Из &текущего документа..."
 
 #: ../../frescobaldi_app/scorewiz/build.py:133
 msgid "Music follows here."
@@ -6293,15 +6292,13 @@ msgid "Pno."
 msgstr "P-te"
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:53
-#, fuzzy
 msgid "Electric piano"
-msgstr "Электро-бас-гитара"
+msgstr "Электропианино"
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:57
-#, fuzzy
 msgctxt "abbreviation for Electric piano"
 msgid "E.Pno."
-msgstr "P-te"
+msgstr "P-te e."
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:65
 msgid "Harpsichord"
@@ -6348,62 +6345,57 @@ msgid "Cel."
 msgstr "Cel."
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:148
-#, fuzzy
 msgid "Set to 0 to disable the right-hand part altogether."
-msgstr "Установите 0, чтобы убрать педаль."
+msgstr "Установите 0, чтобы убрать всю правую часть."
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:150
-#, fuzzy
 msgid "Set to 0 to disable the left-hand part altogether."
-msgstr "Установите 0, чтобы убрать педаль."
+msgstr "Установите 0, чтобы убрать всю левую часть."
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:173
 msgid "Synth lead"
-msgstr ""
+msgstr "Синтезаторный ведущий голос"
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:177
 msgctxt "abbreviation for Synth lead"
 msgid "Syn.Ld."
-msgstr ""
+msgstr "V. p. sin."
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:192
 msgid "Synth pad"
-msgstr ""
+msgstr "Синтезаторный подклад"
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:196
 msgctxt "abbreviation for Synth pad"
 msgid "Syn.Pad"
-msgstr ""
+msgstr "Pad sin."
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:204
-#, fuzzy
 msgid "Synth bass"
-msgstr "Контрабас"
+msgstr "Синтезаторный бас"
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:208
-#, fuzzy
 msgctxt "abbreviation for Synth bass"
 msgid "Syn.Bass"
-msgstr "Бас"
+msgstr "B. sin."
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:223
-#, fuzzy
 msgid "Synth strings"
-msgstr "Струнные"
+msgstr "Синтезаторные струнные"
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:227
 msgctxt "abbreviation for Synth strings"
 msgid "Syn.Str."
-msgstr ""
+msgstr "Str. sin."
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:235
 msgid "Synth brass"
-msgstr ""
+msgstr "Синтезаторные духовые"
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:239
 msgctxt "abbreviation for Synth brass"
 msgid "Syn.Br."
-msgstr ""
+msgstr "Ott. sin."
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:245
 msgid "Keyboard instruments"
@@ -6704,26 +6696,22 @@ msgid "Guitar A-sus4 tuning"
 msgstr "Настройка гитары — A-sus4 (ля-sus4)"
 
 #: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:326
-#, fuzzy
 msgid "Acoustic guitar"
-msgstr "Классическая гитара"
+msgstr "Акустическая гитара"
 
 #: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:330
-#, fuzzy
 msgctxt "abbreviation for Acoustic guitar"
 msgid "A.Gt."
-msgstr "Chit. j."
+msgstr "Chit. ac."
 
 #: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:338
-#, fuzzy
 msgid "Electric guitar"
-msgstr "Электро-бас-гитара"
+msgstr "Электрогитара"
 
 #: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:342
-#, fuzzy
 msgctxt "abbreviation for Electric guitar"
 msgid "E.Gt."
-msgstr "Chit. j."
+msgstr "Chit. e."
 
 #: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:350
 msgid "Jazz guitar"
@@ -6735,15 +6723,13 @@ msgid "J.Gt."
 msgstr "Chit. j."
 
 #: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:362
-#, fuzzy
 msgid "Acoustic bass"
-msgstr "Электро-бас-гитара"
+msgstr "Акустическая бас-гитара"
 
 #: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:366
-#, fuzzy
 msgctxt "abbreviation for Acoustic bass"
 msgid "A.Bs."
-msgstr "Chit. b. e."
+msgstr "Chit. b. ac."
 
 #: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:372
 msgid "Bass tuning"
@@ -9657,23 +9643,27 @@ msgstr "Мастер партитуры для быстрого создания
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:72
 msgid "Notes:"
-msgstr ""
+msgstr "Примечания:"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:74
 msgid ""
 "This release contains several bug fixes and improvements. It is probably the "
 "last release in the 3.1 version range"
 msgstr ""
+"В этой версии исправлены несколько ошибок и внесён ряд улучшений. Скорее"
+" всего, она станет последней в серии 3.1."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:75
 msgid ""
 "Full history and credits for this release are available at https://github."
 "com/frescobaldi/frescobaldi/compare/v3.1.2...v3.1.3"
 msgstr ""
+"Полный список изменений и благодарности: https://github."
+"com/frescobaldi/frescobaldi/compare/v3.1.2...v3.1.3"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:79
 msgid "a Clear Music View button and menu action were added"
-msgstr ""
+msgstr "добавлена кнопка предпросмотра и соответствующий пункт меню"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:81
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:103
@@ -9682,45 +9672,49 @@ msgid "Bug fixes:"
 msgstr "Исправления ошибок:"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:83
-#, fuzzy
 msgid "fixed \"NameError: name 'imp' is not defined\" when importing"
-msgstr "Исправлена ошибка «NameError: name 'widgets' is not defined»."
+msgstr "исправлена ошибка импорта «NameError: name 'imp' is not defined»"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:84
 msgid "fixed search of generated files on macOS for some Unicode file names"
 msgstr ""
+"исправлен поиск сгенерированных файлов в Mac OS (для некоторых файлов в"
+" кодировке Юникод)"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:85
 msgid "fixed selection of Python on Mac OS:"
-msgstr ""
+msgstr "исправлен выбор Python в Mac OS:"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:87
 msgid "select the system Python 2 or 3 according to LilyPond's version"
-msgstr ""
+msgstr "выбор системы Python 2 или 3 в соответствии с версией LilyPond"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:88
-#, fuzzy
 msgid "support MacPorts' LilyPond tools"
-msgstr "Общий импорт для всех инструментов LilyPond."
+msgstr "поддержка средств MacPorts для работы с LilyPond"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:89
 msgid ""
 "add option to allow forcing the use of the tools' #! lines (useful for self-"
 "compiled or other nonstandard LilyPond installations)"
 msgstr ""
+"добавлена возможность включения принудительного использования линеек"
+" инструментов #! (полезно для самостоятельно собранных или прочих"
+" нестандартных установок LilyPond)"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:91
-#, fuzzy
 msgid ""
 "fixed \"AttributeError: 'PreviewJob' object has no attribute "
 "'lilypond_version'\""
 msgstr ""
-"Исправлена ошибка «AttributeError: 'NoneType' object has no attribute "
-"'cursor'»."
+"исправлена ошибка «AttributeError: 'PreviewJob' object has no attribute "
+"'lilypond_version'»"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:92
 msgid "fixed Ghostscript error on Mac with MacPorts' LilyPond 2.21.x"
 msgstr ""
+"исправлена ошибка Ghostscript при использовании MacPorts для работы с"
+" LilyPond 2.21.x в системе Mac"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:94
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:124
@@ -9729,7 +9723,7 @@ msgstr "Переводы:"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:96
 msgid "Updated translations: Dutch, Czech, Russian"
-msgstr ""
+msgstr "Обновлены переводы: голландский, чешский, русский"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:105
 msgid ""
