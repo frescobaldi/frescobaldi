@@ -30,6 +30,29 @@ from . import _base
 from . import register
 
 
+class Structure(_base.Part):
+    """Part type intended for laying out a piece's structure (breaks,
+    bar lines, etc.) separately from its musical content.
+
+    See the snippet titled "Using an extra voice for breaks" in the
+    Lilypond Notation Reference, section 4.3.1, for an example --
+    in that case, using an extra voice rather than a separate part.
+    """
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Structure")
+
+    def build(self, data, builder):
+        p = ly.dom.Devnull()
+        a = data.assign('structure')
+        ly.dom.Identifier(a.name, p)
+        s = ly.dom.Seq(a)
+        ly.dom.Identifier(data.globalName, s).after = 1
+        ly.dom.LineComment(_("Structure follows here."), s)
+        ly.dom.BlankLine(s)
+        data.nodes.append(p)
+
+
 class Chords(_base.ChordNames, _base.Part):
     @staticmethod
     def title(_=_base.translate):
@@ -72,6 +95,7 @@ class Staff(_base.Part):
 register(
     lambda: _("Special"),
     [
+        Structure,
         Chords,
         BassFigures,
         #Staff,
