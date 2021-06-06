@@ -326,6 +326,27 @@ class SynthBrass(SynthPart):
         'synthbrass 2',
     )
 
+class SynthFx(SynthPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Synth effects")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Synth effects", "Syn.Fx.")
+
+    midiInstrument = 'fx 3 (crystal)'
+    midiInstruments = (
+        'fx 1 (rain)',
+        'fx 2 (soundtrack)',
+        'fx 3 (crystal)',
+        'fx 4 (atmosphere)',
+        'fx 5 (brightness)',
+        'fx 6 (goblins)',
+        'fx 7 (echoes)',
+        'fx 8 (sci-fi)',
+    )
+
 
 register(
     lambda: _("Keyboard instruments"),
@@ -341,6 +362,7 @@ register(
         SynthBass,
         SynthStrings,
         SynthBrass,
+        SynthFx,
     ])
 
 
