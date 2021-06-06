@@ -45,6 +45,12 @@ class Piano(KeyboardPart):
         return _("abbreviation for Piano", "Pno.")
 
     midiInstrument = 'acoustic grand'
+    midiInstruments = (
+        'acoustic grand',
+        'bright acoustic',
+        'electric grand',
+        'honky-tonk',
+    )
 
 
 class ElectricPiano(KeyboardPart):
@@ -57,6 +63,10 @@ class ElectricPiano(KeyboardPart):
         return _("abbreviation for Electric piano", "E.Pno.")
 
     midiInstrument = 'electric piano 1'
+    midiInstruments = (
+        'electric piano 1',
+        'electric piano 2',
+    )
 
 
 class Harpsichord(KeyboardPart):
@@ -93,10 +103,17 @@ class Organ(KeyboardPart):
         return _("abbreviation for Organ", "Org.")
 
     midiInstrument = 'church organ'
+    midiInstruments = (
+        'drawbar organ',
+        'percussive organ',
+        'rock organ',
+        'church organ',
+        'reed organ',
+    )
 
     def createWidgets(self, layout):
         super(Organ, self).createWidgets(layout)
-        grid = layout.itemAt(layout.count() - 1).layout()
+        grid = layout.itemAt(layout.count() - 2).layout()
         self.pedalVoices = QSpinBox(minimum=0, maximum=4, value=1)
         self.pedalVoicesLabel = QLabel()
         self.pedalVoicesLabel.setBuddy(self.pedalVoices)
@@ -136,6 +153,43 @@ class SynthPart(KeyboardPart):
     upperVoices or lowerVoices can be set to zero, creating
     a single staff for writing monophonic lines.
     """
+    # Derived classes should only include the subset of instruments
+    # appropriate for that part type.
+    # For example, SynthLead only includes the lead instruments.
+    midiInstruments = (
+        'synth bass 1',
+        'synth bass 2',
+        'synthstrings 1',
+        'synthstrings 2',
+        'synth voice',
+        'synthbrass 1',
+        'synthbrass 2',
+        'lead 1 (square)',
+        'lead 2 (sawtooth)',
+        'lead 3 (calliope)',
+        'lead 4 (chiff)',
+        'lead 5 (charang)',
+        'lead 6 (voice)',
+        'lead 7 (fifths)',
+        'lead 8 (bass+lead)',
+        'pad 1 (new age)',
+        'pad 2 (warm)',
+        'pad 3 (polysynth)',
+        'pad 4 (choir)',
+        'pad 5 (bowed)',
+        'pad 6 (metallic)',
+        'pad 7 (halo)',
+        'pad 8 (sweep)',
+        'fx 1 (rain)',
+        'fx 2 (soundtrack)',
+        'fx 3 (crystal)',
+        'fx 4 (atmosphere)',
+        'fx 5 (brightness)',
+        'fx 6 (goblins)',
+        'fx 7 (echoes)',
+        'fx 8 (sci-fi)',
+    )
+
     def createWidgets(self, layout):
         super(SynthPart, self).createWidgets(layout)
 
@@ -184,6 +238,16 @@ class SynthLead(SynthPart):
         self.lowerVoices.setValue(0)
 
     midiInstrument = 'lead 1 (square)'
+    midiInstruments = (
+        'lead 1 (square)',
+        'lead 2 (sawtooth)',
+        'lead 3 (calliope)',
+        'lead 4 (chiff)',
+        'lead 5 (charang)',
+        'lead 6 (voice)',
+        'lead 7 (fifths)',
+        'lead 8 (bass+lead)',
+    )
 
 
 class SynthPad(SynthPart):
@@ -196,6 +260,16 @@ class SynthPad(SynthPart):
         return _("abbreviation for Synth pad", "Syn.Pad")
 
     midiInstrument = 'pad 2 (warm)'
+    midiInstruments = (
+        'pad 1 (new age)',
+        'pad 2 (warm)',
+        'pad 3 (polysynth)',
+        'pad 4 (choir)',
+        'pad 5 (bowed)',
+        'pad 6 (metallic)',
+        'pad 7 (halo)',
+        'pad 8 (sweep)',
+    )
 
 
 class SynthBass(SynthPart):
@@ -215,6 +289,10 @@ class SynthBass(SynthPart):
         self.upperVoices.setValue(0)
 
     midiInstrument = 'synth bass 1'
+    midiInstruments = (
+        'synth bass 1',
+        'synth bass 2',
+    )
 
 
 class SynthStrings(SynthPart):
@@ -227,6 +305,10 @@ class SynthStrings(SynthPart):
         return _("abbreviation for Synth strings", "Syn.Str.")
 
     midiInstrument = 'synthstrings 1'
+    midiInstruments = (
+        'synthstrings 1',
+        'synthstrings 2',
+    )
 
 
 class SynthBrass(SynthPart):
@@ -239,6 +321,10 @@ class SynthBrass(SynthPart):
         return _("abbreviation for Synth brass", "Syn.Br.")
 
     midiInstrument = 'synthbrass 1'
+    midiInstruments = (
+        'synthbrass 1',
+        'synthbrass 2',
+    )
 
 
 register(

@@ -113,6 +113,8 @@ class SingleVoicePart(Part):
 
 class PianoStaffPart(Part):
     """Base class for parts creating a piano staff."""
+    midiInstruments = ()  # may contain a list of MIDI instruments.
+
     def createWidgets(self, layout):
         self.label = QLabel(wordWrap=True)
         self.upperVoicesLabel = QLabel()
@@ -131,6 +133,20 @@ class PianoStaffPart(Part):
         grid.addWidget(self.lowerVoices, 1, 1)
         layout.addLayout(grid)
 
+        if self.midiInstruments:
+            self.createMidiInstrumentWidgets(layout)
+
+    def createMidiInstrumentWidgets(self, layout):
+        self.midiInstrumentLabel = QLabel()
+        self.midiInstrumentSelection = QComboBox()
+        self.midiInstrumentSelection.addItems(self.midiInstruments)
+        self.midiInstrumentSelection.setCurrentIndex(
+            self.midiInstruments.index(self.midiInstrument))
+        box = QHBoxLayout()
+        layout.addLayout(box)
+        box.addWidget(self.midiInstrumentLabel)
+        box.addWidget(self.midiInstrumentSelection)
+
     def translateWidgets(self):
         self.label.setText('{0} <i>({1})</i>'.format(
             _("Adjust how many separate voices you want on each staff."),
@@ -138,11 +154,20 @@ class PianoStaffPart(Part):
               "like a fugue.")))
         self.upperVoicesLabel.setText(_("Right hand:"))
         self.lowerVoicesLabel.setText(_("Left hand:"))
+        if self.midiInstruments:
+            self.translateMidiInstrumentWidgets()
+
+    def translateMidiInstrumentWidgets(self):
+        self.midiInstrumentLabel.setText(_("MIDI instrument:"))
 
     def buildStaff(self, data, builder, name, octave, numVoices=1, node=None, clef=None):
         """Build a staff with the given number of voices and name."""
         staff = ly.dom.Staff(name, parent=node)
-        builder.setMidiInstrument(staff, self.midiInstrument)
+        if self.midiInstruments:
+            builder.setMidiInstrument(staff,
+                self.midiInstrumentSelection.currentText())
+        else:
+            builder.setMidiInstrument(staff, self.midiInstrument)
         c = ly.dom.Seqr(staff)
         if clef:
             ly.dom.Clef(clef, c)
