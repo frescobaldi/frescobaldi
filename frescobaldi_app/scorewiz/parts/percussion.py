@@ -127,6 +127,20 @@ class Steelpan(PitchedPercussionPart):
     midiInstrument = 'steel drums'
 
 
+class Dulcimer(PitchedPercussionPart):
+    # This is intended for hammered dulcimer, as opposed to fretted types
+    # like the Appalachian dulcimer.
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Dulcimer")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Dulcimer", "Dul.")
+
+    midiInstrument = 'dulcimer'
+
+
 class Glockenspiel(PitchedPercussionPart):
     @staticmethod
     def title(_=_base.translate):
@@ -257,6 +271,7 @@ register(
         Vibraphone,
         TubularBells,
         Steelpan,
+        Dulcimer,
         Glockenspiel,
         Carillon,
         Drums,
