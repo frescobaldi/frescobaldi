@@ -115,6 +115,18 @@ class TubularBells(PitchedPercussionPart):
     midiInstrument = 'tubular bells'
 
 
+class Steelpan(PitchedPercussionPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Steelpan")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Steelpan", "Pan")
+
+    midiInstrument = 'steel drums'
+
+
 class Glockenspiel(PitchedPercussionPart):
     @staticmethod
     def title(_=_base.translate):
@@ -244,6 +256,7 @@ register(
         Marimba,
         Vibraphone,
         TubularBells,
+        Steelpan,
         Glockenspiel,
         Carillon,
         Drums,
