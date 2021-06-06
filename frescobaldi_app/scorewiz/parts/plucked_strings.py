@@ -253,7 +253,7 @@ class Ukulele(TablaturePart):
     def short(_=_base.translate):
         return _("abbreviation for Ukulele", "Uk.")
 
-    midiInstrument = 'acoustic guitar (steel)'
+    midiInstrument = 'acoustic guitar (nylon)'
     tunings = (
         ('ukulele-tuning', lambda: _("Ukulele tuning")),
         ('ukulele-d-tuning', lambda: _("Ukulele D-tuning")),
