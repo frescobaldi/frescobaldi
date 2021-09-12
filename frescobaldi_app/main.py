@@ -86,6 +86,10 @@ def parse_commandline():
 
     args = QApplication.arguments()
 
+    # Decode arguments to properly handle Unicode on Windows
+    if os.name == 'nt':
+        args = [os.fsdecode(bytes(arg, 'mbcs')) for arg in args]
+
     # Strip interpreter name and its command line options on Windows
     if os.name == 'nt':
         while args:
