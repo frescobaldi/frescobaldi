@@ -97,6 +97,7 @@ tweaks = (
     'revert',
     'set',
     'unset',
+    'etc',
 )
 
 # modes book, bookpart and score
