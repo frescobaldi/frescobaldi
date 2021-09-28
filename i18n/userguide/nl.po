@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2020-12-26 11:12+0100\n"
+"POT-Creation-Date: 2021-09-28 21:34+0200\n"
 "PO-Revision-Date: 2019-11-06 16:23+0100\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
@@ -497,7 +497,7 @@ msgid "{appname} is translated into the following languages:"
 msgstr "{appname} is vertaald in de volgende talen:"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/credits.md:116
+#: ../../frescobaldi_app/userguide/credits.md:119
 msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"
