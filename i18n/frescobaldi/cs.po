@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2021-01-07 17:37+0100\n"
+"POT-Creation-Date: 2021-09-28 21:21+0200\n"
 "PO-Revision-Date: 2020-11-29 20:51+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -789,11 +789,11 @@ msgstr "Soubor"
 msgid "File to be opened"
 msgstr "Soubor k otevření"
 
-#: ../../frescobaldi_app/main.py:138
+#: ../../frescobaldi_app/main.py:142
 msgid "Can't run Frescobaldi"
 msgstr "Nelze spustit Frescobaldi"
 
-#: ../../frescobaldi_app/main.py:139
+#: ../../frescobaldi_app/main.py:143
 #, python-brace-format
 msgid ""
 "We are sorry, but Frescobaldi can't run properly.\n"
@@ -1299,41 +1299,41 @@ msgstr "&Tisk"
 msgid "Music Preview"
 msgstr "Náhled na noty"
 
-#: ../../frescobaldi_app/pagedview.py:184
+#: ../../frescobaldi_app/pagedview.py:187
 #, python-brace-format
 msgid "Print {filename}"
 msgstr "Tisk {filename}"
 
-#: ../../frescobaldi_app/pagedview.py:186
+#: ../../frescobaldi_app/pagedview.py:189
 #: ../../frescobaldi_app/docbrowser/browser.py:227
 #: ../../frescobaldi_app/userguide/browser.py:85
 #: ../../frescobaldi_app/userguide/browser.py:115
 msgid "Print"
 msgstr "Tisk"
 
-#: ../../frescobaldi_app/pagedview.py:207 ../../frescobaldi_app/pagedview.py:229
+#: ../../frescobaldi_app/pagedview.py:210 ../../frescobaldi_app/pagedview.py:232
 msgid "Printing Error"
 msgstr "Chyba tisku"
 
-#: ../../frescobaldi_app/pagedview.py:209
+#: ../../frescobaldi_app/pagedview.py:212
 #, python-brace-format
 msgid "An error occurred (code: {num}):"
 msgstr "Vyskytla se chyba (code: {num}):"
 
-#: ../../frescobaldi_app/pagedview.py:216
+#: ../../frescobaldi_app/pagedview.py:219
 msgid "Preparing to print..."
 msgstr "Připravuje se tisk..."
 
-#: ../../frescobaldi_app/pagedview.py:224
+#: ../../frescobaldi_app/pagedview.py:227
 #, python-brace-format
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Tiskne se strana {page} ({num} z {total})..."
 
-#: ../../frescobaldi_app/pagedview.py:230
+#: ../../frescobaldi_app/pagedview.py:233
 msgid "Could not send the document to the printer."
 msgstr "Dokument se nepodařilo poslat tiskárně."
 
-#: ../../frescobaldi_app/pagedview.py:242
+#: ../../frescobaldi_app/pagedview.py:245
 #, python-brace-format
 msgid "{num} of {total}"
 msgstr "{num} z {total}"
@@ -1623,7 +1623,7 @@ msgid "Output Format:"
 msgstr "Výstupní formát:"
 
 #: ../../frescobaldi_app/engrave/custom.py:130
-#: ../../frescobaldi_app/preferences/musicviewers.py:180
+#: ../../frescobaldi_app/preferences/musicviewers.py:188
 msgid "Resolution:"
 msgstr "Rozlišení:"
 
@@ -4744,23 +4744,34 @@ msgstr ""
 "namáhají procesor. 10 ms by mělo být dobrou hodnotou."
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../../frescobaldi_app/preferences/musicviewers.py:99
+#: ../../frescobaldi_app/preferences/musicviewers.py:101
 msgid "Kinetic Scrolling"
 msgstr "Pohybové projíždění"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:100
+#: ../../frescobaldi_app/preferences/musicviewers.py:102
 msgid "Show Scrollbars"
 msgstr "Ukázat posuvníky"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:101
+#: ../../frescobaldi_app/preferences/musicviewers.py:103
+#, fuzzy
+msgid "Strict Paging"
+msgstr "Řetězec"
+
+#: ../../frescobaldi_app/preferences/musicviewers.py:105
+msgid ""
+"If checked, PageUp and PageDown always page to the previous of next page "
+"instead of scrolling."
+msgstr ""
+
+#: ../../frescobaldi_app/preferences/musicviewers.py:106
 msgid "Shadow"
 msgstr "Stín"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:103
+#: ../../frescobaldi_app/preferences/musicviewers.py:108
 msgid "If checked, Frescobaldi draws a shadow around the pages."
 msgstr "Pokud je zaškrtnuto, Frescobaldi vykreslí kolem stránek stín."
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:104
+#: ../../frescobaldi_app/preferences/musicviewers.py:109
 msgid ""
 "Use vector based backend (Arthur) for rendering PDF documents on screen "
 "(experimental!)"
@@ -4768,7 +4779,7 @@ msgstr ""
 "K vykreslení dokumentů PDF na obrazovce použít vektorové jádro (Arthur)"
 "(pokusné!)"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:106
+#: ../../frescobaldi_app/preferences/musicviewers.py:111
 msgid ""
 "If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
 "library for PDF rendering on screen. The Arthur backend is faster\n"
@@ -4778,45 +4789,45 @@ msgstr ""
 "k vykreslování PDF na obrazovce. Jádro Arthur je rychlejší\n"
 "než výchozí jádro Splash, ale experimentálnější."
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:109
+#: ../../frescobaldi_app/preferences/musicviewers.py:114
 msgid "Display of Music"
 msgstr "Zobrazení not"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:110
+#: ../../frescobaldi_app/preferences/musicviewers.py:115
 msgid "Magnifier Size:"
 msgstr "Velikost lupy:"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:112
+#: ../../frescobaldi_app/preferences/musicviewers.py:117
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "Velikost zvětšovacího skla (Ctrl+klepnutí v pohledu na noty)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../../frescobaldi_app/preferences/musicviewers.py:114
+#: ../../frescobaldi_app/preferences/musicviewers.py:119
 msgid " pixels"
 msgstr " pixelů"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:115
+#: ../../frescobaldi_app/preferences/musicviewers.py:120
 msgid "Magnifier Scale:"
 msgstr "Měřítko lupy:"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:117
+#: ../../frescobaldi_app/preferences/musicviewers.py:122
 msgid "Magnification of the magnifier."
 msgstr "Zvětšení lupy."
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:118
+#: ../../frescobaldi_app/preferences/musicviewers.py:123
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:169
+#: ../../frescobaldi_app/preferences/musicviewers.py:177
 msgid "Printing of Music"
 msgstr "Tisk not"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:170
+#: ../../frescobaldi_app/preferences/musicviewers.py:178
 msgid "Use vector based backend (Arthur) for printing PDF documents"
 msgstr "Pro tisk dokumentů PDF použít jádro založené na vektorech (Arthur)"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:172
+#: ../../frescobaldi_app/preferences/musicviewers.py:180
 msgid ""
 "If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
 "library for printing PDF documents. A big advantage of the Arthur backend\n"
@@ -4829,11 +4840,11 @@ msgstr ""
 "Splash,\n"
 "který je založen na rastru. Ale Arthur je experimentálnější."
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:176
+#: ../../frescobaldi_app/preferences/musicviewers.py:184
 msgid "Print PDF documents directly to CUPS if available."
 msgstr "Tisknout dokumenty PDF přímo na CUPS, pokud je dostupné."
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:178
+#: ../../frescobaldi_app/preferences/musicviewers.py:186
 msgid ""
 "If checked, Frescobaldi tries to print a PDF document directly using\n"
 "the CUPS server, if available."
@@ -4842,7 +4853,7 @@ msgstr ""
 "pomocí\n"
 "serveru CUPS, pokud je dostupné."
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:182
+#: ../../frescobaldi_app/preferences/musicviewers.py:190
 msgid "Set the resolution if Frescobaldi prints using raster images."
 msgstr ""
 "Nastavit rozlišení, pokud Frescobaldi tiskne za použití rastrových obrázků."
