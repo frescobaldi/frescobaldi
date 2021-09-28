@@ -33,7 +33,7 @@ the generated command should be used.
 {openlilylib} has a *notation-fonts* package with advanced functionality to load
 notation fonts (together with text fonts) which Fresocbaldi makes available too.
 With the openLilyLib approach notation fonts are *always* loaded, therefore the
-“music” font selection can not be unchecked.
+"music" font selection can not be unchecked.
 
 *NOTE:* In order for this to work the two openLilyLib packages `oll-core` and
 `notation-fonts` have to be installed and available.
@@ -53,7 +53,7 @@ The same consideration regarding the *notation-fonts* package.
   various score items) to match the characteristics of the given font. By
   default these are loaded automatically by the font command *\useNotationFont*.
   However, in some cases it may be necessary to *not* use the default stylesheet
-  (e.g. for better integration with the project's “include” strategy) or to
+  (e.g. for better integration with the project's "include" strategy) or to
   provide a custom stylesheet, which has to be the name of a file that LilyPond
   can find.
 

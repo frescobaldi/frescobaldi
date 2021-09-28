@@ -17,7 +17,7 @@ and generating the command to choose a set of fonts in a document.
 
 * *Music Font Repository:* Typically one will want to store music fonts
   in a dedicated directory. If this directory is selected here the
-  Document Fonts dialog can easily install the fonts in the “current”
+  Document Fonts dialog can easily install the fonts in the "current"
   LilyPond installation.
 * *Auto Install:* If this box is checked fonts are installed into the
   current LilyPond installation whenever the Document Fonts dialog is

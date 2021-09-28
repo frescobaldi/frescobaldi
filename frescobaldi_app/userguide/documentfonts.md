@@ -5,7 +5,7 @@ tools to browse available text fonts, to browse available music fonts and manage
 their installation in a given LilyPond instance. It includes a configurable
 font-setting command generator for use in LilyPond documents and provides a
 intelligently cached preview to see and compare the impact of font settings on a
-variety of provided sample scores, custom files and the “current document“.
+variety of provided sample scores, custom files and the "current document".
 
 The dialog is tied to the specific LilyPond installation that would be used for
 a compilation (see {page_lilyversion}). All fonts are specific to that LilyPond
