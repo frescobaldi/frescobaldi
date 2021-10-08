@@ -167,15 +167,6 @@ class LilyPondJob(Job):
         cmd.extend(self.backend_args())
         self.set_input_file()
 
-        # By default, the PATH environment variable for app bundles is empty.
-        # Setting it in __init__ is too early, since lilypond_info can be
-        # changed in the custom engraving dialog; configure_command is called
-        # just before starting the process.
-        if sys.platform.startswith('darwin'):
-            import macosx
-            if macosx.inside_app_bundle() and self.lilypond_info.frommacports():
-                self.environment['PATH'] = self.lilypond_info.bindir()
-
     def d_option(self, key):
         return self._d_options.get(key, None)
 
