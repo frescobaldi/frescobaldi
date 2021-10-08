@@ -301,7 +301,8 @@ class LilyPondInfo(object):
     @CachedProperty.cachedproperty(depends=(abscommand, bindir))
     def frommacports(self):
         """Return True if this LilyPond is provided by MacPorts."""
-        if sys.platform.startswith('darwin'):
+        bindir = self.bindir()
+        if sys.platform.startswith('darwin') and bindir:
             import subprocess
             portbin = os.path.abspath(self.bindir() + '/port')
             if os.path.isfile(portbin) and os.access(portbin, os.X_OK):
