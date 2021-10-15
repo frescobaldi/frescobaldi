@@ -164,8 +164,12 @@ class PianoStaffPart(Part):
         """Build a staff with the given number of voices and name."""
         staff = ly.dom.Staff(name, parent=node)
         if self.midiInstruments:
-            builder.setMidiInstrument(staff,
-                self.midiInstrumentSelection.currentText())
+            midiInstrument = self.midiInstrumentSelection.currentText()
+            if midiInstrument == 'percussive organ' and name != 'right':
+                # The Hammond B3, which this MIDI instrument is intended
+                # to emulate, only supports percussion on the upper manual
+                midiInstrument = 'drawbar organ'
+            builder.setMidiInstrument(staff, midiInstrument)
         else:
             builder.setMidiInstrument(staff, self.midiInstrument)
         c = ly.dom.Seqr(staff)
