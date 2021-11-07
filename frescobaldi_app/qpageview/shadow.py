@@ -37,10 +37,10 @@ class ShadowViewMixin:
 
     def paintEvent(self, ev):
         if self.dropShadowEnabled:
-            width = self._pageLayout.spacing / 2
+            width = round(self._pageLayout.spacing / 2.0)
             # make the rect slightly larger, so we "see" shadow of pages that
             # would be outside view normally.
-            rect = ev.rect().adjusted(-width, -width, width / 2, width / 2)
+            rect = ev.rect().adjusted(-width, -width, int(width // 2), int(width // 2))
             painter = QPainter(self.viewport())
             for page, rect in self.pagesToPaint(rect, painter):
                 self.drawDropShadow(page, painter, width)
@@ -48,19 +48,19 @@ class ShadowViewMixin:
 
     def drawDropShadow(self, page, painter, width):
         """Draw a drop shadow of width pixels around the Page.
-        
+
         The painter is already translated to the topleft corner of the Page.
-        
+
         """
         width = round(width)
-        rect = page.rect().adjusted(width / 2, width / 2, 0, 0)
+        rect = page.rect().adjusted(int(width // 2), int(width // 2), 0, 0)
         color = QColor(Qt.black)
         pen = QPen()
         pen.setWidth(1)
         pen.setJoinStyle(Qt.MiterJoin)
         for i in range(width):
             f = (width-i)/width
-            color.setAlpha(200**f + 55*f)
+            color.setAlpha(int(200**f + 55*f))
             pen.setColor(color)
             painter.setPen(pen)
             painter.drawRect(rect.adjusted(-i, -i, i, i))

@@ -146,11 +146,11 @@ class AbstractRenderer:
 
     def map(self, key, box):
         """Return a QTransform converting from Key coordinates to a box.
-        
+
         The box should be a QRectF or QRect, and describes the original area of
         the page.  The returned matrix can be used to convert e.g. tile
         coordinates to the position on the original page.
-        
+
         """
         t = QTransform()
         t.translate(box.x(), box.y())
@@ -182,17 +182,17 @@ class AbstractRenderer:
 
     def render(self, page, key, tile, paperColor=None):
         """Generate a QImage for tile of the Page.
-        
+
         The width, height and rotation to render at should be taken from the
         key, as the page could be resized or rotated in the mean time.
-        
+
         The default implementation prepares the image, a painter and then
         calls draw() to actually draw the contents.
-        
+
         If the paperColor is not specified, it will be read from the Page's
         paperColor attribute (if not None) or else from the renderer's
         paperColor attribute.
-        
+
         """
         if paperColor is None:
             paperColor = page.paperColor or self.paperColor
@@ -200,7 +200,7 @@ class AbstractRenderer:
         i = QImage(tile.w, tile.h, self.imageFormat)
         i.fill(paperColor)
         painter = QPainter(i)
-        
+
         # rotate the painter accordingly
         util.rotate(painter, key.rotation, tile.w, tile.h, True)
 
@@ -241,7 +241,7 @@ class AbstractRenderer:
         key = self.key(page, ratio)
 
         # paint rect in tile coordinates
-        target = QRect(rect.x() * ratio, rect.y() * ratio, rect.width() * ratio, rect.height() * ratio)
+        target = QRect(int(rect.x() * ratio), int(rect.y() * ratio), int(rect.width() * ratio), int(rect.height() * ratio))
 
         # tiles to paint
         tiles = [t for t in self.tiles(key.width, key.height) if QRect(*t) & target]
@@ -314,7 +314,7 @@ class AbstractRenderer:
                 vscale = key.height / height
                 for t in tileset:
                     # scale to our image size
-                    r = QRect(t.x * hscale, t.y * vscale, t.w * hscale, t.h * vscale) & target
+                    r = QRect(int(t.x * hscale), int(t.y * vscale), int(t.w * hscale), int(t.h * vscale)) & target
                     if r and QRegion(r).subtracted(region):
                         # we have an image that can be drawn in rect r
                         source = QRectF(r.x() / hscale - t.x, r.y() / vscale - t.y,

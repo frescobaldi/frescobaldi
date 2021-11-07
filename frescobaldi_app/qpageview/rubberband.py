@@ -41,7 +41,7 @@ class Rubberband(QWidget):
     """A Rubberband to select a rectangular region.
 
     A Rubberband is added to a View with view.setRubberband().
-    
+
     The Rubberband lets the user select a rectangular region. When the
     selection is changed, the `selectionChanged` signal is emitted, having the
     selection rectangle in layout coordinates as argument.
@@ -51,7 +51,7 @@ class Rubberband(QWidget):
         showbutton (Qt.RightButton), the button used to drag a new rectangle
 
         dragbutton (Qt.LeftButton), the button to alter an existing rectangle
-        
+
         trackSelection (False), whether to continuously emit selectionChanged().
                 When True, selectionChanged() is emitted on every change, when
                 False, the signal is only emitted when the mouse button is
@@ -93,7 +93,7 @@ class Rubberband(QWidget):
         color.setAlpha(150)
         painter.setPen(color)
         # XXX can this adjustment be done smarter?
-        adjust = -1 / self.devicePixelRatio()
+        adjust = int(-1 / self.devicePixelRatio())
         painter.drawRect(self.rect().adjusted(0, 0, adjust, adjust))
 
         # Pseudo-handles at the corners and sides
@@ -148,21 +148,21 @@ class Rubberband(QWidget):
             self.setCursor(cursor)
         else:
             self.unsetCursor()
-    
+
     def hasSelection(self):
         """Return True when there is a selection."""
         return bool(self._selection)
-    
+
     def selection(self):
         """Return our selection rectangle, relative to the view's layout position."""
         return self._selection
-    
+
     def selectedPages(self):
         """Yield tuples (page, rect) describing the selection.
-        
+
         Every rect is intersected with the page rect and translated to the
         page's position.
-        
+
         """
         rect = self.selection()
         if rect:
@@ -170,7 +170,7 @@ class Rubberband(QWidget):
             layout = view.pageLayout()
             for page in layout.pagesAt(rect):
                 yield page, rect.intersected(page.geometry()).translated(-page.pos())
-    
+
     def selectedPage(self):
         """Returns (page, rect) if there is a selection.
 
@@ -211,10 +211,10 @@ class Rubberband(QWidget):
 
     def selectedLinks(self):
         """Yield tuples (page, links) for every page in the selection.
-        
+
         links is a non-empty set() of Link instances on that page that intersect
         with the selection.
-        
+
         """
         for page, rect in self.selectedPages():
             links = page.linksIn(rect)
@@ -234,19 +234,19 @@ class Rubberband(QWidget):
         else:
             self.hide()
             self._setSelectionFromGeometry(QRect())
-    
+
     def clearSelection(self):
         """Hide ourselves and clear the selection."""
         self.hide()
         self._dragging = False
         self._setSelectionFromGeometry(QRect())
-        
+
     def _setSelectionFromGeometry(self, rect):
         """(Internal) Called to emit the selectionChanged signal.
-        
+
         Only emits the signal when the selection really changed.
         The rect should be our geometry or an empty QRect().
-        
+
         """
         if rect:
             view = self.parent().parent()
@@ -254,16 +254,16 @@ class Rubberband(QWidget):
         old, self._selection = self._selection, rect
         if rect != old:
             self.selectionChanged.emit(rect)
-    
+
     def _setLayoutOffset(self, pos):
         """Store the position as offset from the layout, and also from the page
         at that position. Used for keeping the same spot on zoom change.
-        
+
         """
         view = self.parent().parent()
         pos = pos - view.layoutPosition()
         self._layoutOffset = view.pageLayout().pos2offset(pos)
-    
+
     def _getLayoutOffset(self):
         """Get the stored layout offset position back, after zoom or move."""
         view = self.parent().parent()
@@ -340,7 +340,7 @@ class Rubberband(QWidget):
             geom = QRect(self._getLayoutOffset(), self.size() * factor)
             self.setGeometry(geom)
             self._setSelectionFromGeometry(geom)
-    
+
     def eventFilter(self, viewport, ev):
         """Act on events in the viewport:
 

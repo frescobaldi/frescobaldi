@@ -156,7 +156,7 @@ class Magnifier(QWidget):
 
     def moveEvent(self, ev):
         """Called on move, updates the contents."""
-        # we also update on paint events, but they are not generated if the 
+        # we also update on paint events, but they are not generated if the
         # magnifiers fully covers the viewport
         self.update()
 
@@ -240,8 +240,8 @@ class Magnifier(QWidget):
                 factor = 1.1 ** (ev.angleDelta().y() / 120)
                 g = self.geometry()
                 c = g.center()
-                g.setWidth(min(max(g.width() * factor, self.MIN_SIZE), self.MAX_SIZE))
-                g.setHeight(min(max(g.height() * factor, self.MIN_SIZE), self.MAX_SIZE))
+                g.setWidth(int(min(max(g.width() * factor, self.MIN_SIZE), self.MAX_SIZE)))
+                g.setHeight(int(min(max(g.height() * factor, self.MIN_SIZE), self.MAX_SIZE)))
                 g.moveCenter(c)
                 self.setGeometry(g)
             else:
@@ -278,13 +278,13 @@ class Magnifier(QWidget):
 
         # the virtual position of the whole scaled-up layout
         ev_rect = ev.rect().translated(our_rect.topLeft())
-        
+
         # draw shadow border?
         shadow = False
         if hasattr(view, "drawDropShadow") and view.dropShadowEnabled:
             shadow = True
             shadow_width = layout.spacing * scale // 2
-        
+
         painter = QPainter(self)
         for p in layout.pagesAt(region.boundingRect()):
             # get a (reused) the copy of the page
