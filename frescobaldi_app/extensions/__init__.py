@@ -799,9 +799,9 @@ class Extensions(QObject):
         - extension key.
         If the exception is *not* from an extension return None"""
         regex = re.compile(
-            '\s*File \"({root}){sep}(.*)\"'.format(
+            r'\s*File "({root}){sep}(.*)"'.format(
             sep=os.sep,
-            root=self.root_directory()))
+            root=re.escape(self.root_directory())))
         for line in traceback:
             m = regex.match(line)
             if m:
