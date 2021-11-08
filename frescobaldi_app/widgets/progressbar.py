@@ -71,8 +71,8 @@ class TimedProgressBar(QProgressBar):
         """
         self._hideTimer.stop()
         self._timeline.stop()
-        self._timeline.setDuration(total * 1000)
-        self._timeline.setCurrentTime(elapsed * 1000)
+        self._timeline.setDuration(int(total * 1000))
+        self._timeline.setCurrentTime(int(elapsed * 1000))
         self.setValue(self._timeline.currentFrame())
         self._timeline.resume()
         if self._hideWhileIdle and not self._hidden:
