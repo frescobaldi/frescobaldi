@@ -259,7 +259,7 @@ class PopplerRenderer(render.AbstractRenderer):
         (See AbstractPage.print().)
 
         """
-        source = self.map(key, page.pageRect()).mapRect(QRectF(*tile))
+        source = self.map(key, page.pageRect()).mapRect(QRectF(*tile)).toRect()   # rounded
         target = QRectF(0, 0, tile.w, tile.h)
         if key.rotation & 1:
             target.setSize(target.size().transposed())

@@ -48,7 +48,7 @@ class AbstractPage(util.Rectangular):
 
     ...that normally do not change during its lifetime:
 
-        `pageWidth`     the original width  (by default in points, `dpi` is 72.0 
+        `pageWidth`     the original width  (by default in points, `dpi` is 72.0
         `pageHeight`    the original height   but can be changed at class level)
 
     ... that can be modified by the user (having defaults at the class level):
@@ -174,15 +174,15 @@ class AbstractPage(util.Rectangular):
 
     def defaultSize(self):
         """Return the pageSize() scaled and rotated (if needed).
-        
+
         Based on scaleX, scaleY, and computedRotation attributes.
-        
+
         """
         s = QSizeF(self.pageWidth * self.scaleX, self.pageHeight * self.scaleY)
         if self.computedRotation & 1:
             s.transpose()
         return s
-        
+
     def updateSize(self, dpiX, dpiY, zoomFactor):
         """Set the width and height attributes of the page.
 
@@ -286,7 +286,7 @@ class AbstractPage(util.Rectangular):
 
         pdf = QPdfWriter(filename)
         pdf.setCreator("qpageview")
-        pdf.setResolution(resolution)
+        pdf.setResolution(int(resolution))
 
         layout = pdf.pageLayout()
         layout.setMode(layout.FullPageMode)
@@ -350,7 +350,7 @@ class AbstractPage(util.Rectangular):
             svg.setFileName(filename)
         else:
             svg.setOutputDevice(filename)
-        svg.setResolution(resolution)
+        svg.setResolution(int(resolution))
         svg.setSize(targetSize.toSize())
         svg.setViewBox(QRectF(0, 0, targetSize.width(), targetSize.height()))
         return self.output(svg, source, paperColor)
@@ -381,31 +381,31 @@ class AbstractPage(util.Rectangular):
 
     def group(self):
         """Return the group the page belongs to.
-        
+
         This could be some document structure, so that different Page objects
         could refer to the same graphical contents, preventing double caching.
-        
+
         This object is used together with the value returned by ident() as a key
         to cache the page. The idea is that the contents of the page are
         uniquely identified by the objects returned by group() and ident().
-        
+
         This way, when the same document is opened in multiple page instances,
         only one copy resides in the (global) cache.
-        
+
         By default, the page object itself is returned.
-        
+
         """
         return self
-        
+
     def ident(self):
         """Return a value that identifies the page within the group returned
         by group().
-        
+
         By default, None is returned.
-        
+
         """
         return None
-    
+
     def mapToPage(self, width=None, height=None):
         """Return a MapToPage object, that can map original to Page coordinates.
 
@@ -426,10 +426,10 @@ class AbstractPage(util.Rectangular):
 
     def text(self, rect):
         """Implement this method to get the text at the specified rectangle.
-        
+
         The rectangle should be in page coordinates. The default implementation
         simply returns an empty string.
-        
+
         """
         return ""
 
@@ -437,22 +437,22 @@ class AbstractPage(util.Rectangular):
         """Implement this method to load our links."""
         from . import link
         return link.Links()
-    
+
     def links(self):
         """Return the Links object, containing Link objects.
-        
+
         Every Link denotes a clickable area on a Page, in coordinates 0.0-1.0.
         The Links object makes it possible to quickly find a link on a Page.
         This is cached after the first request, you should implement the
         getLinks() method to load the links.
-        
+
         """
         try:
             return self._links
         except AttributeError:
             links = self._links = self.getLinks()
         return links
-    
+
     def linksAt(self, point):
         """Return a list() of zero or more links touched by QPoint point.
 
@@ -468,9 +468,9 @@ class AbstractPage(util.Rectangular):
 
     def linksIn(self, rect):
         """Return an unordered set of links enclosed in rectangle.
-        
+
         The rectangle is in page coordinates.
-        
+
         """
         return self.links().inside(*self.mapFromPage(1, 1).rect(rect).getCoords())
 
@@ -481,9 +481,9 @@ class AbstractPage(util.Rectangular):
 
 class AbstractRenderedPage(AbstractPage):
     """A Page that has a renderer that performs caching and painting.
-    
+
     The renderer lives in the renderer attribute.
-    
+
     """
     def __init__(self, renderer=None):
         if renderer is not None:

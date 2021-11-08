@@ -365,9 +365,9 @@ class ScrollArea(QAbstractScrollArea):
                 speed = speed * 1000 / self.scrollupdatespersec / time
                 # compute diff to scroll
                 sx = abs(speed.x())
-                diffx = sx * (sx + 1) / 2
+                diffx = int(sx * (sx + 1) / 2)
                 sy = abs(speed.y())
-                diffy = sy * (sy + 1) / 2
+                diffy = int(sy * (sy + 1) / 2)
                 if speed.x() < 0: diffx = -diffx
                 if speed.y() < 0: diffy = -diffy
                 self.kineticScrollBy(QPoint(diffx, diffy))
@@ -444,8 +444,8 @@ class KineticScroller(Scroller):
         dy = diff.y()
 
         # solve speed*(speed+1)/2 = delta to ensure 1+2+3+...+speed is as close as possible under delta..
-        sx = (math.sqrt(1 + 8 * abs(dx)) - 1) // 2
-        sy = (math.sqrt(1 + 8 * abs(dy)) - 1) // 2
+        sx = int(math.sqrt(1 + 8 * abs(dx)) - 1) // 2
+        sy = int(math.sqrt(1 + 8 * abs(dy)) - 1) // 2
 
         # compute the amount of displacement still needed because we're dealing with integer values.
         # Since this function is called for exact moves (not free scrolling)
