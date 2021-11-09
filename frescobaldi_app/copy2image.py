@@ -63,7 +63,6 @@ class Dialog(QDialog):
         self._exporter = None
         self.runJob = qpageview.backgroundjob.SingleRun()
         self.imageViewer = qpageview.imageview.ImageView()
-        self.imageViewer.fitNaturalSizeEnabled = False
         self.typeLabel = QLabel()
         self.typeCombo = QComboBox()
         self.typeCombo.addItems([''] * len(self.exportTypes()))
