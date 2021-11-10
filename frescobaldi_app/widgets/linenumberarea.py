@@ -80,7 +80,7 @@ class LineNumberArea(QWidget):
             if geom.top() >= ev.rect().bottom():
                 break
             if block.isVisible() and geom.bottom() > ev.rect().top() + 1:
-                rect.moveTop(geom.top())
+                rect.moveTop(int(geom.top()))
                 text = format(block.blockNumber() + 1, 'd')
                 painter.drawText(rect, Qt.AlignRight, text)
             block = block.next()
