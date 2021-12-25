@@ -102,7 +102,7 @@ class MusicView(preferences.Group):
         self.showScrollbars.setText(_("Show Scrollbars"))
         self.enableStrictPaging.setText(_("Strict Paging"))
         self.enableStrictPaging.setToolTip(_(
-            "If checked, PageUp and PageDown always page to the previous of next page instead of scrolling."))
+            "If checked, PageUp and PageDown always page to the previous or next page instead of scrolling."))
         self.showShadow.setText(_("Shadow"))
         self.showShadow.setToolTip(_(
             "If checked, Frescobaldi draws a shadow around the pages."))
