@@ -99,7 +99,7 @@ class Browser(QWidget):
         ws.setFontSize(QWebEngineSettings.DefaultFontSize, size)
         fixed = textformats.formatData('editor').font
         ws.setFontFamily(QWebEngineSettings.FixedFont, fixed.family())
-        ws.setFontSize(QWebEngineSettings.DefaultFixedFontSize, fixed.pointSizeF() * 96 / 72)
+        ws.setFontSize(QWebEngineSettings.DefaultFixedFontSize, int(fixed.pointSizeF() * 96 / 72))
         self.webview.page().profile().setHttpAcceptLanguage(','.join(lilydoc.network.langs()))
 
     def keyPressEvent(self, ev):
