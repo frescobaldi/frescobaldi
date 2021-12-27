@@ -182,9 +182,9 @@ def mixcolor(color1, color2, mix):
     """Returns a QColor as if color1 is painted on color2 with alpha value mix (0.0 - 1.0)."""
     r1, g1, b1 = color1.red(), color1.green(), color1.blue()
     r2, g2, b2 = color2.red(), color2.green(), color2.blue()
-    r = r1 * mix + r2 * (1 - mix)
-    g = g1 * mix + g2 * (1 - mix)
-    b = b1 * mix + b2 * (1 - mix)
+    r = int(r1 * mix + r2 * (1 - mix))
+    g = int(g1 * mix + g2 * (1 - mix))
+    b = int(b1 * mix + b2 * (1 - mix))
     return QColor(r, g, b)
 
 
