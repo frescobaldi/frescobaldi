@@ -87,7 +87,7 @@ class LinePainter(QObject):
             n = block.next()
             if n.isValid() and not n.isVisible():
                 # draw a line
-                y = edit.blockBoundingGeometry(block).translated(offset).bottom() - 1
+                y = int(edit.blockBoundingGeometry(block).translated(offset).bottom() - 1)
                 x1 = ev.rect().left()
                 x2 = ev.rect().right()
                 painter.drawLine(x1, y, x2, y)
