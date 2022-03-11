@@ -32,7 +32,7 @@ class LineEdit(QLineEdit):
     """A QLineEdit with a clear button. No additional methods."""
     def __init__(self, *args, **kwargs):
         super(LineEdit, self).__init__(*args, **kwargs)
-        self._clearButton = b = QToolButton(self, iconSize=QSize(16,16), autoRaise=True)
+        self._clearButton = b = QToolButton(self, iconSize=QSize(16, 16), autoRaise=True)
         b.setFixedSize(QSize(16, 16))
         b.setStyleSheet("QToolButton { border: none; }")
         b.clicked.connect(self.clear)
@@ -55,7 +55,7 @@ class LineEdit(QLineEdit):
         b = self._clearButton
         if self.text():
             frame = self.style().pixelMetric(QStyle.PM_DefaultFrameWidth)
-            y = max(0, (self.height() - b.height()) / 2)
+            y = max(0, (self.height() - b.height()) // 2)
             if self.layoutDirection() == Qt.RightToLeft:
                 x = frame + 2
             else:
