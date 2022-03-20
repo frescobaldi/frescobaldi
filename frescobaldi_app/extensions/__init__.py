@@ -537,7 +537,7 @@ class Extensions(QObject):
 
     def __init__(self, mainwindow):
         super(Extensions, self).__init__()
-        self._mainwindow = mainwindow
+        self._mainwindow = mainwindow.objectName()
         # Resources are handled on the global Extensions level because
         # in a number of cases they are independent from an actually
         # loaded Extension object (i.e. have to be functional before loading
@@ -824,7 +824,10 @@ class Extensions(QObject):
 
     def mainwindow(self):
         """Reference to the main window."""
-        return self._mainwindow
+        for w in app.windows:
+            if w.objectName() == self._mainwindow:
+                return w
+        return app.windows[0]
 
     def menu(self, target):
         """Create and return a nested Extensions menu,
