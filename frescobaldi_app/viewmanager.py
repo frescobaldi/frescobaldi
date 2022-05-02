@@ -332,7 +332,7 @@ class ViewManager(QSplitter):
             splitter.setOrientation(orientation)
             size = splitter.sizes()[0]
             splitter.addWidget(newspace)
-            splitter.setSizes([size / 2, size / 2])
+            splitter.setSizes([size // 2, size // 2])
         elif splitter.orientation() == orientation:
             index = splitter.indexOf(viewspace)
             splitter.insertWidget(index + 1, newspace)
@@ -346,7 +346,7 @@ class ViewManager(QSplitter):
             splitter.setSizes(sizes)
             size = newsplitter.sizes()[0]
             newsplitter.addWidget(newspace)
-            newsplitter.setSizes([size / 2, size / 2])
+            newsplitter.setSizes([size // 2, size // 2])
         self._viewSpaces.insert(0, newspace)
         newspace.showDocument(viewspace.document())
         if active:

@@ -87,10 +87,10 @@ class Job(object):
     title_changed = signals.Signal() # title (string)
 
     def __init__(self,
-        command=[],
+        command="",
         args=None,
         directory="",
-        environment={},
+        environment=None,
         title="",
         input="",
         output="",
@@ -98,13 +98,13 @@ class Job(object):
         runner=None,
         decode_errors='strict',
         encoding='latin1'):
-        self.command = command if type(command) == list else [command]
+        self.command = list(command) if isinstance(command, (list, tuple)) else [command]
         self._input = input
         self._output = output
         self._runner = runner
         self._arguments = args if args else []
         self._directory = directory
-        self.environment = environment
+        self.environment = environment or {}
         self._encoding = encoding
         self.success = None
         self.error = None
@@ -148,7 +148,7 @@ class Job(object):
 
     def directory(self):
         return self._directory
-        
+
     def set_directory(self, directory):
         self._directory = directory
 

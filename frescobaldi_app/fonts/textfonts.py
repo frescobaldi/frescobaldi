@@ -32,6 +32,7 @@ from PyQt5.QtWidgets import (
     QAction,
     QApplication,
     QLabel,
+    QLineEdit,
     QMenu,
     QTreeView,
     QVBoxLayout,
@@ -47,7 +48,6 @@ from PyQt5.QtGui import (
 import app
 import job
 import signals
-from widgets.lineedit import LineEdit
 
 
 # List of notation fonts currently installed.
@@ -67,7 +67,7 @@ class TextFontsWidget(QWidget):
 
         self.status_label = QLabel(wordWrap=True)
         self.tree_view = tv = QTreeView()
-        self.filter_edit = LineEdit()
+        self.filter_edit = QLineEdit(clearButtonEnabled=True)
         tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
         tv.setContextMenuPolicy(Qt.CustomContextMenu)
         tv.customContextMenuRequested.connect(self.show_context_menu)

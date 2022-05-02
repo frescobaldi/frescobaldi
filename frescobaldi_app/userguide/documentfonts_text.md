@@ -15,7 +15,7 @@ Below the tree view is an entry field where a filter expression can be entered
 that incrementally filters the list to quickly locate fonts. Searching is case
 insensitive, and by default strings may be anywhere in the font name: the filter
 `lib` will equally show `Liberation` and `Linux Libertine`. Filter expressions
-support regular expressions, of which particularly the “border” characters are
+support regular expressions, of which particularly the "border" characters are
 of interest:
 
 * *^*: Beginning of string: *^Lib* will now hide *Linux Libertine*

@@ -28,12 +28,11 @@ from PyQt5.QtCore import QSettings, Qt, QUrl
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
 from PyQt5.QtWebEngineWidgets import QWebEnginePage, QWebEngineView, QWebEngineSettings
-from PyQt5.QtWidgets import QComboBox, QMenu, QToolBar, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QComboBox, QLineEdit, QMenu, QToolBar, QVBoxLayout, QWidget
 
 import app
 import icons
 import helpers
-import widgets.lineedit
 import lilypondinfo
 import lilydoc.manager
 import lilydoc.network
@@ -53,7 +52,7 @@ class Browser(QWidget):
         self.webview = QWebEngineView(self, contextMenuPolicy=Qt.CustomContextMenu)
         self.webview.setPage(WebEnginePage(self.webview))
         self.chooser = QComboBox(sizeAdjustPolicy=QComboBox.AdjustToContents)
-        self.search = SearchEntry(maximumWidth=200)
+        self.search = SearchEntry(maximumWidth=200, clearButtonEnabled=True)
 
         layout.addWidget(self.toolbar)
         layout.addWidget(self.webview)
@@ -99,7 +98,7 @@ class Browser(QWidget):
         ws.setFontSize(QWebEngineSettings.DefaultFontSize, size)
         fixed = textformats.formatData('editor').font
         ws.setFontFamily(QWebEngineSettings.FixedFont, fixed.family())
-        ws.setFontSize(QWebEngineSettings.DefaultFixedFontSize, fixed.pointSizeF() * 96 / 72)
+        ws.setFontSize(QWebEngineSettings.DefaultFixedFontSize, int(fixed.pointSizeF() * 96 / 72))
         self.webview.page().profile().setHttpAcceptLanguage(','.join(lilydoc.network.langs()))
 
     def keyPressEvent(self, ev):
@@ -258,7 +257,7 @@ class Browser(QWidget):
         helpers.openUrl(url)
 
 
-class SearchEntry(widgets.lineedit.LineEdit):
+class SearchEntry(QLineEdit):
     """A line edit that clears itself when ESC is pressed."""
     def keyPressEvent(self, ev):
         if ev.key() == Qt.Key_Escape:

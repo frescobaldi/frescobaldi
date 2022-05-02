@@ -10,14 +10,14 @@ section at the bottom of this page for details about the caching strategy.
 == Example Source ==
 
 There are three main sources for the score to be previewed: provided default
-examples, the “current document“, and arbitrary custom files, each with their
+examples, the "current document", and arbitrary custom files, each with their
 own considerations.
 
 = Default Examples =
 
 A selection of examples has been provided to demonstrate a range of typical
 notation use cases. They have been chosen and tailored to showcase the use of
-fonts in short examples. Of particular interest is the “Glyphs” example that
+fonts in short examples. Of particular interest is the "Glyphs" example that
 shows a representative selection of available glyphs as a traditional specimen
 sheet.
 
