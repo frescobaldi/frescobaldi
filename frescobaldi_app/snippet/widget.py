@@ -25,14 +25,13 @@ The snippets widget.
 from PyQt5.QtCore import QEvent, QItemSelectionModel, QModelIndex, Qt
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import (
-    QAction, QApplication, QCompleter, QFileDialog, QHBoxLayout, QMenu,
-    QMessageBox, QPushButton, QSplitter, QTextBrowser, QToolButton,
+    QAction, QApplication, QCompleter, QFileDialog, QHBoxLayout, QLineEdit,
+    QMenu, QMessageBox, QPushButton, QSplitter, QTextBrowser, QToolButton,
     QTreeView, QVBoxLayout, QWidget)
 
 import app
 import userguide
 import icons
-import widgets.lineedit
 import textformats
 import actioncollectionmanager
 
@@ -391,9 +390,9 @@ class Widget(QWidget):
         self.treeView.resizeColumnToContents(1)
 
 
-class SearchLineEdit(widgets.lineedit.LineEdit):
+class SearchLineEdit(QLineEdit):
     def __init__(self, *args):
-        super(SearchLineEdit, self).__init__(*args)
+        super(SearchLineEdit, self).__init__(*args, clearButtonEnabled=True)
 
     def event(self, ev):
         if ev.type() == QEvent.KeyPress and any(ev.matches(key) for key in (

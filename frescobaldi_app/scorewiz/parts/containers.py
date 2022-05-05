@@ -30,7 +30,6 @@ from PyQt5.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QGroupBox,
 import ly.dom
 import listmodel
 import symbols
-import widgets.lineedit
 from scorewiz import scoreproperties
 
 from . import _base
@@ -169,7 +168,7 @@ class Book(_base.Group):
     def createWidgets(self, layout):
         self.bookOutputInfo = QLabel(wordWrap=True)
         self.bookOutputLabel = QLabel()
-        self.bookOutput = widgets.lineedit.LineEdit()
+        self.bookOutput = QLineEdit(clearButtonEnabled=True)
         self.bookOutputFileName = QRadioButton()
         self.bookOutputSuffix = QRadioButton(checked=True)
 

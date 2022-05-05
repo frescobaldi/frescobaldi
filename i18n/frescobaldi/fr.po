@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2021-01-07 17:37+0100\n"
+"POT-Creation-Date: 2021-09-28 21:42+0200\n"
 "PO-Revision-Date: 2014-12-26 14:18+0100\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -810,11 +810,11 @@ msgstr "fichier"
 msgid "File to be opened"
 msgstr "Fichier à ouvrir"
 
-#: ../../frescobaldi_app/main.py:138
+#: ../../frescobaldi_app/main.py:142
 msgid "Can't run Frescobaldi"
 msgstr "Impossible de démarrer Fresocbaldi"
 
-#: ../../frescobaldi_app/main.py:139
+#: ../../frescobaldi_app/main.py:143
 #, python-brace-format
 msgid ""
 "We are sorry, but Frescobaldi can't run properly.\n"
@@ -1338,23 +1338,23 @@ msgstr "Im&primer"
 msgid "Music Preview"
 msgstr "Aperçu"
 
-#: ../../frescobaldi_app/pagedview.py:184
+#: ../../frescobaldi_app/pagedview.py:187
 #, python-brace-format
 msgid "Print {filename}"
 msgstr "Imprimer {filename}"
 
-#: ../../frescobaldi_app/pagedview.py:186
+#: ../../frescobaldi_app/pagedview.py:189
 #: ../../frescobaldi_app/docbrowser/browser.py:227
 #: ../../frescobaldi_app/userguide/browser.py:85
 #: ../../frescobaldi_app/userguide/browser.py:115
 msgid "Print"
 msgstr "Imprimer"
 
-#: ../../frescobaldi_app/pagedview.py:207 ../../frescobaldi_app/pagedview.py:229
+#: ../../frescobaldi_app/pagedview.py:210 ../../frescobaldi_app/pagedview.py:232
 msgid "Printing Error"
 msgstr "Erreur d'impression"
 
-#: ../../frescobaldi_app/pagedview.py:209
+#: ../../frescobaldi_app/pagedview.py:212
 #, fuzzy, python-brace-format
 msgid "An error occurred (code: {num}):"
 msgstr ""
@@ -1362,20 +1362,20 @@ msgstr ""
 "\n"
 "%1"
 
-#: ../../frescobaldi_app/pagedview.py:216
+#: ../../frescobaldi_app/pagedview.py:219
 msgid "Preparing to print..."
 msgstr ""
 
-#: ../../frescobaldi_app/pagedview.py:224
+#: ../../frescobaldi_app/pagedview.py:227
 #, python-brace-format
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Impression de la page {page} ({num} de {total})..."
 
-#: ../../frescobaldi_app/pagedview.py:230
+#: ../../frescobaldi_app/pagedview.py:233
 msgid "Could not send the document to the printer."
 msgstr "Impossible d'envoyer le document à l'imprimante."
 
-#: ../../frescobaldi_app/pagedview.py:242
+#: ../../frescobaldi_app/pagedview.py:245
 #, python-brace-format
 msgid "{num} of {total}"
 msgstr "{num} sur {total}"
@@ -1664,7 +1664,7 @@ msgid "Output Format:"
 msgstr "Format de sortie :"
 
 #: ../../frescobaldi_app/engrave/custom.py:130
-#: ../../frescobaldi_app/preferences/musicviewers.py:180
+#: ../../frescobaldi_app/preferences/musicviewers.py:188
 msgid "Resolution:"
 msgstr "Résolution :"
 
@@ -4761,79 +4761,90 @@ msgstr ""
 "adéquate."
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../../frescobaldi_app/preferences/musicviewers.py:99
+#: ../../frescobaldi_app/preferences/musicviewers.py:101
 msgid "Kinetic Scrolling"
 msgstr "Défilement dynamique"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:100
+#: ../../frescobaldi_app/preferences/musicviewers.py:102
 msgid "Show Scrollbars"
 msgstr "Afficher les barres de défilement"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:101
+#: ../../frescobaldi_app/preferences/musicviewers.py:103
+#, fuzzy
+msgid "Strict Paging"
+msgstr "Chaîne de caractères"
+
+#: ../../frescobaldi_app/preferences/musicviewers.py:105
+msgid ""
+"If checked, PageUp and PageDown always page to the previous of next page "
+"instead of scrolling."
+msgstr ""
+
+#: ../../frescobaldi_app/preferences/musicviewers.py:106
 msgid "Shadow"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:103
+#: ../../frescobaldi_app/preferences/musicviewers.py:108
 #, fuzzy
 msgid "If checked, Frescobaldi draws a shadow around the pages."
 msgstr ""
 "Si coché, Frescobaldi ne raccourcira pas les noms de fichier dans la sortie "
 "du journal."
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:104
+#: ../../frescobaldi_app/preferences/musicviewers.py:109
 msgid ""
 "Use vector based backend (Arthur) for rendering PDF documents on screen "
 "(experimental!)"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:106
+#: ../../frescobaldi_app/preferences/musicviewers.py:111
 msgid ""
 "If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
 "library for PDF rendering on screen. The Arthur backend is faster\n"
 "than the default Splash backend, but more experimental."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:109
+#: ../../frescobaldi_app/preferences/musicviewers.py:114
 #, fuzzy
 msgid "Display of Music"
 msgstr "Afficher les noms de Grob"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:110
+#: ../../frescobaldi_app/preferences/musicviewers.py:115
 msgid "Magnifier Size:"
 msgstr "Taille de la loupe :"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:112
+#: ../../frescobaldi_app/preferences/musicviewers.py:117
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "Taille de la loupe (Ctrl+Clic dans l'aperçu)"
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../../frescobaldi_app/preferences/musicviewers.py:114
+#: ../../frescobaldi_app/preferences/musicviewers.py:119
 msgid " pixels"
 msgstr " pixels"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:115
+#: ../../frescobaldi_app/preferences/musicviewers.py:120
 msgid "Magnifier Scale:"
 msgstr "Échelle de zoom :"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:117
+#: ../../frescobaldi_app/preferences/musicviewers.py:122
 msgid "Magnification of the magnifier."
 msgstr "Niveau de zoom de la loupe"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:118
+#: ../../frescobaldi_app/preferences/musicviewers.py:123
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:169
+#: ../../frescobaldi_app/preferences/musicviewers.py:177
 #, fuzzy
 msgid "Printing of Music"
 msgstr "&Imprimer la partition..."
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:170
+#: ../../frescobaldi_app/preferences/musicviewers.py:178
 msgid "Use vector based backend (Arthur) for printing PDF documents"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:172
+#: ../../frescobaldi_app/preferences/musicviewers.py:180
 msgid ""
 "If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
 "library for printing PDF documents. A big advantage of the Arthur backend\n"
@@ -4841,17 +4852,17 @@ msgid ""
 "which is raster-based. But Arthur is more experimental."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:176
+#: ../../frescobaldi_app/preferences/musicviewers.py:184
 msgid "Print PDF documents directly to CUPS if available."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:178
+#: ../../frescobaldi_app/preferences/musicviewers.py:186
 msgid ""
 "If checked, Frescobaldi tries to print a PDF document directly using\n"
 "the CUPS server, if available."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:182
+#: ../../frescobaldi_app/preferences/musicviewers.py:190
 msgid "Set the resolution if Frescobaldi prints using raster images."
 msgstr "Définir la résolution si Frescobaldi imprime en utilisant des images."
 

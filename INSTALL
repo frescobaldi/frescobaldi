@@ -69,7 +69,7 @@ module from pygame; or, as a last resort, embedding the PortMidi C-library via
 ctypes. MIDI is optional.
 
 Required:
-    Python (>= 3.3):
+    Python (>= 3.6):
         http://www.python.org/
     Qt5 (>= 5.9):
         http://qt.io/

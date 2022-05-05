@@ -33,13 +33,12 @@ import re
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import (
-    QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel)
+    QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel, QLineEdit)
 
 import ly.dom
 import completionmodel
 import listmodel
 import symbols
-import widgets.lineedit
 import widgets.tempobutton
 
 
@@ -246,7 +245,7 @@ class ScoreProperties(object):
     # Tempo indication
     def createTempoWidget(self):
         self.tempoLabel = QLabel()
-        self.tempo = widgets.lineedit.LineEdit()
+        self.tempo = QLineEdit(clearButtonEnabled=True)
         completionmodel.complete(self.tempo, "scorewiz/completion/scoreproperties/tempo")
         self.tempo.completer().setCaseSensitivity(Qt.CaseInsensitive)
         self.tempoLabel.setBuddy(self.tempo)

@@ -2,8 +2,10 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 3.2 -- current
+Changes in 3.2 -- May 5th, 2022
 
+* Many small fixes to make Frescobaldi work with Python 3.10, where no floating
+  point values may be given to functions that require an integer argument.
 * New preference feature: music view preference for "Strict Paging": when
   enabled, the pageup/pagedown keys always page to the previous or next page
   instead of simply scrolling a screenful.
@@ -16,10 +18,17 @@ Changes in 3.2 -- current
     because of its generic nature, a separate project at
     http://github.com/frescobaldi/qpageview . This package needs to be
     installed for Frescobaldi to work; it is used by the Music View and other
-    viewers inside Frescobaldi.
+    viewers inside Frescobaldi. Because of this, be sure to remove Frescobaldi
+    completely and then install qpageview and Frescobaldi, otherwise it still
+    finds the old qpageview inside the frescobaldi_app folder.
+* Bug fixes:
+  - Fixed a crash when a main window was closed (often on Mac OS X) (#1427)
 * Translations:
   - some missing strings from Qt dialogs were added (WB, #1224)
-  - updated nl translation by Wilbert Berendsen
+  - new Japanese translation by Jun Tamura, thanks!
+  - updated Dutch translation by Wilbert Berendsen
+  - updated Italian translation by Federico Bruni
+  - updated Russian translation by Olesya Gerasimenko
 
 
 Changes in 3.1.3 -- Christmas 2020

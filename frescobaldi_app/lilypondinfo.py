@@ -38,6 +38,8 @@ import job.queue
 import util
 import qutil
 
+if sys.platform.startswith('darwin'):
+    import macosx
 
 _infos = None   # this can hold a list of configured LilyPondInfo instances
 
@@ -181,7 +183,21 @@ class LilyPondInfo(object):
                 os.path.join('/Applications', 'LilyPond.app', 'Contents', 'Resources', 'bin'),
                 os.path.join('/opt', 'local', 'bin'),
                 os.path.join('/opt', 'lilypond', 'bin'),
+                # Default path for Homebrew on MacOS arm64.
+                '/opt/homebrew/bin',
+                # Default path for Homebrew on MacOS x86_64.
+                '/usr/local/bin',
             ]
+            if macosx.inside_app_bundle():
+                # By default, the PATH environment variable for app bundles
+                # does not contain the path which is required for lilypond
+                # and other helper programs like gs.
+                # Add the lilypond path to PATH to find the helper programs
+                # for Homebrew, Macports and other local installations.
+                exe = util.findexe(self.command, path)
+                if exe:
+                    bindir = os.path.dirname(exe)
+                    os.environ['PATH'] = bindir + ':' + os.environ['PATH']
         else:
             path = None
         return util.findexe(self.command, path) or False
@@ -301,7 +317,8 @@ class LilyPondInfo(object):
     @CachedProperty.cachedproperty(depends=(abscommand, bindir))
     def frommacports(self):
         """Return True if this LilyPond is provided by MacPorts."""
-        if sys.platform.startswith('darwin'):
+        bindir = self.bindir()
+        if sys.platform.startswith('darwin') and bindir:
             import subprocess
             portbin = os.path.abspath(self.bindir() + '/port')
             if os.path.isfile(portbin) and os.access(portbin, os.X_OK):
@@ -350,7 +367,6 @@ class LilyPondInfo(object):
                 toolpath += '.py'
             command = [self.python(), toolpath]
         elif sys.platform.startswith('darwin'):
-            import macosx
             command = macosx.best_python(self, original_command)
             if command is None:
                 return None

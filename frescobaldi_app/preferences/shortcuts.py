@@ -27,7 +27,7 @@ import itertools
 from PyQt5.QtCore import QSettings, Qt
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import (
-    QAction, QMessageBox, QPushButton, QTreeWidget, QTreeWidgetItem,
+    QAction, QLineEdit, QMessageBox, QPushButton, QTreeWidget, QTreeWidgetItem,
     QVBoxLayout)
 
 import app
@@ -38,7 +38,6 @@ import preferences
 
 from widgets.shortcuteditdialog import ShortcutEditDialog
 from widgets.schemeselector import SchemeSelector
-from widgets.lineedit import LineEdit
 
 _lastaction = '' # last selected action name (saved during running but not on exit)
 
@@ -53,7 +52,7 @@ class Shortcuts(preferences.Page):
 
         self.scheme = SchemeSelector(self)
         layout.addWidget(self.scheme)
-        self.searchEntry = LineEdit()
+        self.searchEntry = QLineEdit(clearButtonEnabled=True)
         self.searchEntry.setPlaceholderText(_("Search..."))
         layout.addWidget(self.searchEntry)
         self.tree = QTreeWidget(self)

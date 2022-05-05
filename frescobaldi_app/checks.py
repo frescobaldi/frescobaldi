@@ -27,6 +27,7 @@ translation infrastructure is not yet set up.
 """
 
 import os
+import importlib.util
 import sys
 
 import appinfo
@@ -82,7 +83,7 @@ if v < r:
 # Check popplerqt5 availability
 import importlib
 # when Python version requirement > 3.4 we can use importlib.find_spec() -- WB
-if not importlib.find_loader('popplerqt5'):
+if importlib.util.find_spec('popplerqt5') is None:
     error("The 'popplerqt5' module can't be found.",
         "Frescobaldi can't find the 'popplerqt5' module. This module is "
         "required for the display of PDF documents. The module is in the "
@@ -91,7 +92,7 @@ if not importlib.find_loader('popplerqt5'):
 
 
 # Check qpageview availability
-if not importlib.find_loader('qpageview'):
+if importlib.util.find_spec('qpageview') is None:
     error("The 'qpageview' module can't be found.",
         "Frescobaldi can't find the 'qpageview' module. This module is "
         "required for the Music View and other viewers inside Frescobaldi, "
