@@ -39,7 +39,7 @@ class LilyChooser(QComboBox):
         self.load()
 
     def translateUI(self):
-        self.setToolTip(_("Choose the desired LilyPond version."""))
+        self.setToolTip(_("Choose the desired LilyPond version."))
 
     def setLilyPondInfo(self, info):
         """Set the current LilyPond info (one of lilypondinfo.infos())."""
@@ -73,5 +73,3 @@ class LilyChooser(QComboBox):
             self.setCurrentIndex(index)
         finally:
             self.blockSignals(block)
-
-
