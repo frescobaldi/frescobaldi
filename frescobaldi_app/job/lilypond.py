@@ -117,8 +117,7 @@ class LilyPondJob(Job):
             "default_output_target", "pdf", str)
         self.embed_source_code = s.value("embed_source_code", False, bool)
         if s.value("no_translation", False, bool):
-            self.environment['LANG'] = 'C'
-            self.environment['LC_ALL'] = 'C'
+            self.environment['LC_MESSAGES'] = 'C'
         self.set_title("{0} {1} [{2}]".format(
             os.path.basename(self.lilypond_info.command),
             self.lilypond_info.versionString(), doc.documentName()))
