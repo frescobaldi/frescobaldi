@@ -82,7 +82,7 @@ start_music = (
     'alternative {',
     'relative',
     'transpose',
-    'partcombine',
+    'partCombine',
     'keepWithTag #\'',
     'removeWithTag #\'',
     'new',
