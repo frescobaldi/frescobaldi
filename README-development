@@ -257,20 +257,11 @@ of testing and development, you don't even need to install Python at all.
    frescobaldi on GitHub or send them via e-mail.
 
 
-Release notes
-=============
+New release checklist
+=====================
 
-Every new feature, bugfix or important change should be documented in the
-NEWS file (which replaced the old ChangeLog file).
+Checklist before uploading a new release:
 
-When code is ready for a new release, you should set the expected release
-date in the NEWS file, possibly one week later, to give translators the
-chance to update translations.  Then run `make news` in the top directory.
-This will launch the `appstreamcli news-to-metainfo` script, which parses
-the NEWS file and copies the new release notes to the AppStream metainfo
-file (used by Linux software centers).  Last step is updating the PO
-files, so new release notes can be translated.
-
-NOTE: `appstreamcli news-to-metainfo` does not copy the elements listed
-in the Translations section of the NEWS file.  This is intentional.
+- Update the ChangeLog.
+- Add the new release tag in linux/org.frescobaldi.Frescobaldi.metainfo.xml.in.
 
