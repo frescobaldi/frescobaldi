@@ -56,6 +56,7 @@ import qutil
 import helpers
 import panelmanager
 import engrave
+import reformat
 import scorewiz
 import snippet
 import externalchanges
@@ -595,9 +596,11 @@ class MainWindow(QMainWindow):
         else:
             url = doc.url()
 
-        if QSettings().value("strip_trailing_whitespace", False, bool):
-            import reformat
+        s = QSettings()
+        if s.value("strip_trailing_whitespace", False, bool):
             reformat.remove_trailing_whitespace(QTextCursor(doc))
+        if s.value("format", False, bool):
+            reformat.reformat(QTextCursor(doc))
 
         # we only support local files for now
         filename = url.toLocalFile()
