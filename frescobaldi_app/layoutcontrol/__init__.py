@@ -36,11 +36,6 @@ _debugmodes = {
         lambda: _("Annotate Spacing"),
         lambda: _("Use LilyPond's \"annotate spacing\" option to\n"
           "display measurement information")),
-    'control-points':
-        ('-ddebug-control-points',
-        lambda: _("Display Control Points"),
-        lambda: _("Display the control points that "
-          "determine curve shapes")),
     'directions':
         ('-ddebug-directions',
         lambda: _("Color explicit directions"),
@@ -73,7 +68,6 @@ def modelist():
     """
     Return the names of the debug modes in defined order
     """
-    yield 'control-points'
     yield 'voices'
     yield 'directions'
     yield 'grob-anchors'
