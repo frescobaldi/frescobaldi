@@ -21,7 +21,7 @@
 A line number area to be used in a QPlainTextEdit.
 """
 
-from PyQt5.QtCore import QEvent, QPoint, QRect, QSize, Qt
+from PyQt5.QtCore import QEvent, QPoint, QRectF, QSize, Qt
 from PyQt5.QtGui import QFontMetrics, QMouseEvent, QPainter
 from PyQt5.QtWidgets import QApplication, QWidget
 
@@ -72,7 +72,7 @@ class LineNumberArea(QWidget):
             return
         painter = QPainter(self)
         painter.setFont(edit.font())
-        rect = QRect(0, 0, self.width() - 2, QFontMetrics(edit.font()).height())
+        rect = QRectF(0, 0, self.width() - 2, QFontMetrics(edit.font()).height())
         block = edit.firstVisibleBlock()
         while block.isValid():
             geom = edit.blockBoundingGeometry(block)

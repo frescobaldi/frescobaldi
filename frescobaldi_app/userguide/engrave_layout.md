@@ -11,22 +11,10 @@ The following Layout Control options are currently implemented:
 Verbose Output
 :   Adds the `--verbose` option to the LilyPond commandline, causing LilyPond
     to print lots of information in the log window.
-    
+
 Point-and-Click
 :   Enables the point and click navigation links in the Music View. Enabled by
     default.
-
-Display Control Points
-:   Slurs, Ties and other similar objects are drawn in LilyPond as third-order
-    Bezier curves, which means that their shape is controlled by four
-    "control-points" (first and last ones tell where the curve ends are placed,
-    and the middle ones affect the curvature).
-    
-    Changing the shape of these objects involves moving these control-points
-    around, and it's helpful to see where they actually are.
-    
-    This option will display the inner control-points as red crosses and
-    connects them to the outer (starting) points with thin lines.
 
 Color `\voiceXXX`
 :   This mode highlights voices that have been explicitly set with one of the

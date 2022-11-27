@@ -82,7 +82,7 @@ start_music = (
     'alternative {',
     'relative',
     'transpose',
-    'partcombine',
+    'partCombine',
     'keepWithTag #\'',
     'removeWithTag #\'',
     'new',
@@ -97,6 +97,7 @@ tweaks = (
     'revert',
     'set',
     'unset',
+    'etc',
 )
 
 # modes book, bookpart and score

@@ -117,6 +117,9 @@ The following people contributed to {appname}:
 {lang_zh}:
 :  !Anthony Fok
 
+{lang_ja}:
+:  !Jun Tamura
+
 And of course, a big *Thank You* goes to the LilyPond developers, who create
 such an excellent music engraver!
 
@@ -133,6 +136,7 @@ lang_es     languagename es
 lang_fr     languagename fr
 lang_gl     languagename gl
 lang_it     languagename it
+lang_ja     languagename ja
 lang_nl     languagename nl
 lang_pl     languagename pl
 lang_pt_br  languagename pt_BR

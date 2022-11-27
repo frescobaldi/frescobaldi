@@ -1,38 +1,14 @@
-# Portuguese translations for frescobaldi package
-# Traduções em português para o pacote frescobaldi.
-# Copyright (C) 2012 THE frescobaldi'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the frescobaldi package.
-#
-# Édio Mazera <mazera3@gmail.com>, 2012.
-# Arnaldo Russo <arnaldorusso@gmail.com>, 2014.
-msgid ""
-msgstr ""
-"Project-Id-Version: frescobaldi 2.0.2\n"
-"Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2021-09-28 21:42+0200\n"
-"PO-Revision-Date: 2014-08-21 14:03-0200\n"
-"Last-Translator: Arnaldo Russo\n"
-"Language-Team: Brazilian Portuguese <kde-i18n-doc@kde.org>\n"
-"Language: pt_BR\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 1.2\n"
-
 #: ../../frescobaldi_app/userguide/404.md:1
-#, fuzzy
 msgid "Not Found"
-msgstr "Nenhum fragmento encontrado"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/404.md:3
 msgid "Cannot load the requested userguide resource {userguide_page}."
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/abc_import.md:1
-#, fuzzy
 msgid "Import ABC"
-msgstr "&Importar"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/abc_import.md:3
@@ -49,12 +25,11 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/abc_import.md:10
-#, fuzzy
 msgid ""
 "In this dialog there are two tabs. In the first you can set some parameters "
 "for the abc2ly import. In the second you can set some actions on the "
 "imported LilyPond source code."
-msgstr "O nome completo do local do documento atual."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/abc_import.md:14
 #: ../../frescobaldi_app/userguide/midi_import.md:10
@@ -65,9 +40,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/abc_import.md:16
-#, fuzzy
 msgid "The abc2ly tab"
-msgstr "A aba musicxml2ly"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/abc_import.md:18
 #: ../../frescobaldi_app/userguide/midi_import.md:14
@@ -82,9 +56,8 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/abc_import.md:24
 #: ../../frescobaldi_app/userguide/midi_import.md:21
 #: ../../frescobaldi_app/userguide/musicxml_import.md:31
-#, fuzzy
 msgid "You can also change the LilyPond version to use."
-msgstr "Versão LilyPond em uso"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/abc_import.md:26
@@ -139,9 +112,8 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/abc_import.md:45
 #: ../../frescobaldi_app/userguide/midi_import.md:42
 #: ../../frescobaldi_app/userguide/musicxml_import.md:52
-#, fuzzy
 msgid "Remove fraction duration scaling:"
-msgstr "&Remover fração durante escala:"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/abc_import.md:46
@@ -156,9 +128,8 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/abc_import.md:51
 #: ../../frescobaldi_app/userguide/midi_import.md:48
 #: ../../frescobaldi_app/userguide/musicxml_import.md:58
-#, fuzzy
 msgid "Engrave directly:"
-msgstr "Gerar diretamente:"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/abc_import.md:52
 #: ../../frescobaldi_app/userguide/midi_import.md:49
@@ -170,7 +141,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/about.md:1
 msgid "About Frescobaldi"
-msgstr "Sobre Frescobaldi"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/about.md:3
@@ -179,9 +150,6 @@ msgid ""
 "Girolamo_Frescobaldi Girolamo Frescobaldi (1583-1643)], an Italian organist "
 "and composer."
 msgstr ""
-"Frescobaldi foi nomeado após [http://en.wikipedia.org/wiki/"
-"Girolamo_Frescobaldi Girolamo Frescobaldi (1583-1643)], um compositor e "
-"organista Italiano."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/about.md:8
@@ -190,13 +158,10 @@ msgid ""
 "mailinglist at [frescobaldi@googlegroups.com] ([http://groups.google.com/"
 "group/frescobaldi more info])."
 msgstr ""
-"A página do Frescobaldi está em [http://www.frescobaldi.org/] e a lista de "
-"discussões em frescobaldi@googlegroups.com."
 
 #: ../../frescobaldi_app/userguide/auto-completion.md:1
-#, fuzzy
 msgid "Auto-completion"
-msgstr "&Completar Automaticamente"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/auto-completion.md:3
 msgid ""
@@ -244,7 +209,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/contributing.md:1
 msgid "Contributing"
-msgstr "Contribuindo"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/contributing.md:3
@@ -253,18 +218,12 @@ msgid ""
 "project to create a user friendly LilyPond music score editor. The goal is "
 "to make Frescobaldi available on all major platforms."
 msgstr ""
-"Frescobaldi é um projeto de [http://www.gnu.org/philosophy/free-sw.html "
-"Software Livre] para criar uma interface amigável ao editor de partituras "
-"musicais LilyPond. O objetivo é tornar Frescobaldi disponível em todas as "
-"maiores plataformas."
 
 #: ../../frescobaldi_app/userguide/contributing.md:7
 msgid ""
 "Frescobaldi is developed in a public GitHub repository at {url}. There you "
 "can browse or checkout the source code and report bugs and wishes."
 msgstr ""
-"Frescobaldi é desenvolvido no repositório público GitHub em {url}. Lá você "
-"pode encontrar o código e conferi-lo, bem como reportar bugs e melhorias."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/contributing.md:10
@@ -275,12 +234,6 @@ msgid ""
 "distribution of Frescobaldi. If you want to add functionality you can find "
 "information about the source code structure in the file `README-development`."
 msgstr ""
-"Você pode contribuir em simplesmente utilizar o Frescobaldi e reportar bugs "
-"e sugestões. Traduções são sempre muito bem vindas. Como criar novas "
-"traduções está descrita no aquivo `README-translations` no código fonte do "
-"Frescobaldi. Se você quiser adicionar funcionabilidades, você pode encontrar "
-"informações sobre a estrutura do código fonte no arquivo `README-"
-"development`."
 
 #: ../../frescobaldi_app/userguide/create_midi.md:1
 msgid "How to generate a MIDI file?"
@@ -297,7 +250,7 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/create_midi.md:7
 #: ../../frescobaldi_app/userguide/var_output.md:12
 msgid "For example:"
-msgstr "Por exemplo:"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/create_midi.md:23
@@ -308,12 +261,11 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/creating.md:1
 msgid "Creating new files"
-msgstr "Criando novos arquivos"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/creating.md:3
-#, fuzzy
 msgid "New document"
-msgstr "Novo documento"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/creating.md:5
 msgid ""
@@ -345,9 +297,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/creating.md:22
-#, fuzzy
 msgid "New from template"
-msgstr "Novo a partir do Modelo"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/creating.md:24
 msgid "You can also select {menu} and select a template there."
@@ -366,9 +317,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/creating.md:31
-#, fuzzy
 msgid "Using the Score Wizard"
-msgstr "Usando o Assiste de de Configuração de Partitura"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/creating.md:33
@@ -378,32 +328,28 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:3
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
-msgstr "{appname} é escrito em {python} e usa o quite de ferramentas {qt}."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:5
 msgid ""
 "The Music View is powered by the {poppler} library by {authors} and others."
 msgstr ""
-"O  Visualizador de Música é fornecido por bibliotecas {poppler}  e outros "
-"{authors}."
 
 #: ../../frescobaldi_app/userguide/credits.md:7
 msgid "Most of the bundled icons are created by {tango}."
-msgstr "A maioria dos pacotes de ícones são criados por {tango}."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:9
-#, fuzzy
 msgid "The following people contributed to {appname}:"
-msgstr "As seguintes substituições serão feitas:"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:12
 msgid "Main author and core developer"
-msgstr "Autor principal e equipe de desenvolvedores"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:15
-#, fuzzy
 msgid "Modal Transpose"
-msgstr "&Transporte"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:18
 msgid "Quick Insert buttons for grace notes"
@@ -430,28 +376,24 @@ msgid "various other improvements"
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:33
-#, fuzzy
 msgid "Layout control modes"
-msgstr "Modo de controle de Layout"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:33
-#, fuzzy
 msgid "various other contributions"
-msgstr "Contribuindo"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:38
 msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:41
-#, fuzzy
 msgid "MIDI capturing"
-msgstr "Captura MIDI"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:44
-#, fuzzy
 msgid "Finding lots of bugs"
-msgstr "Encontrando vários bugs"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:47
 msgid "Many code and feature improvements"
@@ -462,22 +404,20 @@ msgid "work on proper Python 3 support"
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:51
-#, fuzzy
 msgid "Relative mode for MIDI capturing"
-msgstr "Parar captura MIDI"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:54
 msgid "Score Wizard improvements"
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:54
-#, fuzzy
 msgid "Score Wizard From Current Document"
-msgstr "Documento Atual"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:58
 msgid "{appname} is translated into the following languages:"
-msgstr "{appname} é traduzido para os seguintes idiomas:"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/credits.md:123
@@ -485,8 +425,6 @@ msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"
 msgstr ""
-"E claro, um grande *Muito Obrigado* para todos os desenvolvedores do "
-"LilyPond que criaram essa excelente ferramenta de notação musical!"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts.md:3
@@ -553,9 +491,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/documentfonts_command.md:1
-#, fuzzy
 msgid "Font Settings Command"
-msgstr "Comando de Impressão"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts_command.md:3
@@ -715,9 +652,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/documentfonts_music.md:30
-#, fuzzy
 msgid "Managing Music Fonts"
-msgstr "Manuseiando Arquivos"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/documentfonts_music.md:32
 msgid ""
@@ -726,9 +662,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/documentfonts_music.md:35
-#, fuzzy
 msgid "Local Font Repository"
-msgstr "Saltar para posição do cursor"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/documentfonts_music.md:37
 msgid ""
@@ -740,9 +675,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/documentfonts_music.md:43
-#, fuzzy
 msgid "Installing Music Fonts"
-msgstr "&Imprimir Música"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts_music.md:45
@@ -791,9 +725,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/documentfonts_preview.md:1
-#, fuzzy
 msgid "Document Fonts Preview"
-msgstr "Fonte do Documento...."
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts_preview.md:3
@@ -819,9 +752,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/documentfonts_preview.md:16
-#, fuzzy
 msgid "Default Examples"
-msgstr "Estilo Padrão"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/documentfonts_preview.md:18
 msgid ""
@@ -833,9 +765,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/documentfonts_preview.md:24
-#, fuzzy
 msgid "Custom Files"
-msgstr "Inserir do Arquivo"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/documentfonts_preview.md:26
 msgid ""
@@ -872,9 +803,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/documentfonts_preview.md:49
-#, fuzzy
 msgid "Preview Caching"
-msgstr "Marca Anterior"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts_preview.md:51
@@ -948,9 +878,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/documentfonts_text.md:26
-#, fuzzy
 msgid "Selecting Text Fonts"
-msgstr "Texto Selecionado"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts_text.md:28
@@ -975,9 +904,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/docvars.md:1
-#, fuzzy
 msgid "Document Variables"
-msgstr "Variáveis do Documento"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/docvars.md:3
@@ -990,16 +918,15 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/docvars.md:8
 msgid "The following variables are recognized:"
-msgstr "As seguintes variáveis são reconhecidas:"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/docvars.md:10
-#, fuzzy
 msgid "General variables"
-msgstr "Variáveis Genéricas"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/docvars.md:12
 msgid "mode"
-msgstr "modo"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/docvars.md:13
 msgid ""
@@ -1009,16 +936,15 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/docvars.md:16
 msgid "filename"
-msgstr "nome do arquivo"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/docvars.md:17
 msgid "Compiles another LilyPond document instead of the current."
-msgstr "Compilar outro documento LilyPond em vez do atual."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/docvars.md:19
-#, fuzzy
 msgid "name"
-msgstr "nome"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/docvars.md:20
@@ -1029,57 +955,49 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/docvars.md:24
 msgid "encoding"
-msgstr "codificação"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/docvars.md:25
 msgid "Use another encoding than the default UTF-8."
-msgstr "Use another encoding than the default UTF-8."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/docvars.md:27
 msgid "version"
-msgstr "versão"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/docvars.md:28
 msgid ""
 "Set the LilyPond version to use, can be used for non-LilyPond documents."
 msgstr ""
-"Definir a versão do LilyPond que usar, e pode ser usada para documentos não "
-"LilyPond."
 
 #: ../../frescobaldi_app/userguide/docvars.md:30
-#, fuzzy
 msgid "Indentation variables"
-msgstr "variáveis de Indentação"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/docvars.md:32
 #: ../../frescobaldi_app/userguide/docvars.md:38
 #: ../../frescobaldi_app/userguide/docvars.md:45
 msgid "number"
-msgstr "número"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/docvars.md:33
-#, fuzzy
 msgid "The visible width of a tab character in the editor, by default 8."
-msgstr "A largura de um caractere de tabulação, por padrão 8."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/docvars.md:36
 msgid "Whether to use tabs in indent, by default {no}."
-msgstr "Se deseja usar guias no parágrafo, por padrão {no}."
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/docvars.md:39
-#, fuzzy
 msgid ""
 "The number of spaces each indent level uses, by default 2. This value is "
 "ignored when `indent-tabs` is set to {yes}."
 msgstr ""
-"O número de espaços, cada parágrafo usa por padrão o nível 2. Esse valor é "
-"ignorado quando `indent-tabs` está configurado para {yes}."
 
 #: ../../frescobaldi_app/userguide/docvars.md:43
-#, fuzzy
 msgid "Whether to use tabs elsewhere in the document, by default {no}."
-msgstr "Se deseja usar guias em outras partes do documento, por padrão {yes}."
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/docvars.md:46
@@ -1087,14 +1005,10 @@ msgid ""
 "How many spaces to insert when Tab is pressed in the middle of text, by "
 "default 8. This value is ignored when `document-tabs` is set to {yes}."
 msgstr ""
-"O número de espaços para inserir quando Tab é pressionado no meio do texto, "
-"por padrão é 8. Esse valor pode ser ignorado quando `document-tabs` é "
-"configurado para {yes}."
 
 #: ../../frescobaldi_app/userguide/editing.md:1
-#, fuzzy
 msgid "Editing Files"
-msgstr "Editando Arquivos"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/editing.md:3
 msgid ""
@@ -1143,24 +1057,23 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/engrave_custom.md:20
 msgid "The following replacements will be made:"
-msgstr "As seguintes substituições serão feitas:"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/engrave_custom.md:23
 msgid "The LilyPond executable"
-msgstr "O executável LilyPond"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/engrave_custom.md:26
 msgid "All the include paths"
-msgstr "Todos os caminhos incluídos"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/engrave_custom.md:29
 msgid "The filename of the document"
-msgstr "O nome do arquivo do documento"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/engrave_layout.md:1
-#, fuzzy
 msgid "Layout control mode"
-msgstr "Modo de controle de Layout"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/engrave_layout.md:3
 msgid ""
@@ -1176,9 +1089,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/engrave_layout.md:9
-#, fuzzy
 msgid "The following Layout Control options are currently implemented:"
-msgstr "As seguintes variáveis ​​são reconhecidas:"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/engrave_layout.md:11
 msgid "Verbose Output"
@@ -1331,9 +1243,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/engrave_layout.md:94
-#, fuzzy
 msgid "Include Custom File"
-msgstr "Inserir do Arquivo"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/engrave_layout.md:95
 msgid ""
@@ -1357,9 +1268,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/engrave_layout_configure.md:1
-#, fuzzy
 msgid "Configuring the Layout Control options"
-msgstr "Configurando as opções de Controle de Layout"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/engrave_layout_configure.md:3
 msgid ""
@@ -1424,9 +1334,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/engrave_preview.md:1
-#, fuzzy
 msgid "Preview mode"
-msgstr "Modo de Visualização"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/engrave_preview.md:3
@@ -1451,9 +1360,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/engrave_publish.md:1
-#, fuzzy
 msgid "Publish mode"
-msgstr "Modo Publicação"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/engrave_publish.md:3
 msgid ""
@@ -1470,9 +1378,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/engraving.md:1
-#, fuzzy
 msgid "Engraving Scores"
-msgstr "A&bortar trabalho de Decodificação"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/engraving.md:3
@@ -1481,9 +1388,6 @@ msgid ""
 "options. There are four modes Frescobaldi can compile scores in: *Preview*, "
 "*Publish*, *Layout Control* and *Custom*."
 msgstr ""
-"Para gerar uma partitura, Frescobaldi usa LilyPond com corretas opções de "
-"comandos. Existem quatro modos do Frescobaldi compilar as partituras: "
-"*Preview*, *Publish*, *Layout Control* and *Custom*."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/engraving.md:7
@@ -1492,9 +1396,6 @@ msgid ""
 "so that there is two-way navigation between the music view and the LilyPond "
 "source."
 msgstr ""
-"O *Preview mode* renderiza o PDF com pontos e informações de cliques "
-"habilitados, assim há duas maneiras de navegar entre a visualização da "
-"música e o código fonte do LilyPond."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/engraving.md:10
@@ -1504,7 +1405,6 @@ msgid ""
 "resulting PDF file and doesn't reveal hard-coded information about the "
 "directories on your computer."
 msgstr ""
-"O modo *Publish* é usado para produzir o PDF final, que se quer compartilhar."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/engraving.md:14
@@ -1512,8 +1412,6 @@ msgid ""
 "The *Layout Control mode* can be used to enable specific features that can "
 "help in controlling and fine-tuning the layout of a score."
 msgstr ""
-"O *Layout Control mode* pode ser usado para habilitar funções específicas "
-"que ajudam no controle e ajustes finos do layout da partitura."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/engraving.md:17
@@ -1522,13 +1420,9 @@ msgid ""
 "command in detail. This dialog also has options to let LilyPond engrave a "
 "score to PostScript, SVG or PNG images, or to a PDF using the EPS backend."
 msgstr ""
-"O *Custom mode* abre o diálogo permitindo especificar o comando LilyPond em "
-"detalhe. Aqui também tem a opção de deixar o LilyPond gerar a partitura em "
-"PostScript, SVG ou imagens PNG, ou em PDF usando o backend do EPS."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/engraving.md:21
-#, fuzzy
 msgid ""
 "All commands to run LilyPond can be found in the *LilyPond* menu. Pressing "
 "the LilyPond symbol in the toolbar engraves the document in preview mode, or "
@@ -1536,9 +1430,6 @@ msgid ""
 "option, Frescobaldi will run LilyPond automatically every time the document "
 "is modified (in preview mode)."
 msgstr ""
-"Todos os comandos do LilyPond podem ser usados no *LilyPond* menu. E se você "
-"habilitar a opção *Automatic engrave*, Frescobaldi irá gerar o Lilypond "
-"automaticamente, toda vez que o documento for modificado (em modo preview)."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/experimental_features.md:3
@@ -1578,14 +1469,12 @@ msgid "Editing items in the SVG view"
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/export.md:1
-#, fuzzy
 msgid "Exporting files"
-msgstr "Exportando Arquivos"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/ext_configuration.md:1
-#, fuzzy
 msgid "Configuring Extensions"
-msgstr "Configurando as opções de Controle de Layout"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/ext_configuration.md:3
 msgid ""
@@ -1711,9 +1600,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/ext_usage.md:7
-#, fuzzy
 msgid "Menus"
-msgstr "&Menu"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/ext_usage.md:9
@@ -1732,9 +1620,8 @@ msgid "Musicview context menu"
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/ext_usage.md:16
-#, fuzzy
 msgid "Manuscriptview context menu"
-msgstr "Visualizar Música"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/ext_usage.md:17
@@ -1742,9 +1629,8 @@ msgid "*Additional places may be added over time*"
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/ext_usage.md:19
-#, fuzzy
 msgid "Tool Panel"
-msgstr "Comando do Usuário"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/ext_usage.md:21
 msgid ""
@@ -1754,9 +1640,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/extending.md:1
-#, fuzzy
 msgid "Extending Frescobaldi"
-msgstr "Sobre Frescobaldi"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/extending.md:3
@@ -1802,9 +1687,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/externalchanges.md:1
-#, fuzzy
 msgid "Monitoring external changes"
-msgstr "Monitorando modificações externas"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/externalchanges.md:3
 msgid ""
@@ -1843,7 +1727,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/getstarted.md:1
 msgid "Getting Started"
-msgstr "Primeiros Passos"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/getstarted.md:3
 msgid ""
@@ -1934,15 +1818,13 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/history.md:1
 msgid "History of Frescobaldi"
-msgstr "Historia do Frescobaldi"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/history.md:3
 msgid ""
 "Frescobaldi has its roots in LilyKDE, which was a plugin for KDE3's editor "
 "Kate. LilyKDE was written in Python and released in 2007 on Christmas."
 msgstr ""
-"Frescobaldi tem sua origem no LilyKDE, que era um plugin para o editor Kate "
-"do KDE3. LilyKDE foi escrito em Python e lançado no Natal de 2007."
 
 #: ../../frescobaldi_app/userguide/history.md:6
 msgid ""
@@ -1953,26 +1835,14 @@ msgid ""
 "public release, on Christmas 2008. On Christmas 2009 version 1.0.0 was "
 "released and on Christmas 2010 version 1.2.0."
 msgstr ""
-"Quando foi lançada a versão 4 do KDE, não foi possível imediatamente fazer o "
-"plugin em Python para o Kate. Dessa forma o LilyKDE passou a ser um "
-"aplicativo independente, envolvendo o editor Kate, e foi renomeado para "
-"Frescobaldi. Ainda mantém o uso do aplicativo Okular do KDE para abrir os "
-"documentos PDF. Frescobaldi 0.7 teve seu primeiro lançamento público no "
-"Natal de 2008. No Natal de 2009 foi lançada a versão 1.0.0 e no Natal de "
-"2010 a versão 1.2.0."
 
 #: ../../frescobaldi_app/userguide/history.md:13
-#, fuzzy
 msgid ""
 "At that time it was decided to move away from the KDE4 libraries and just "
 "use Python and Qt4 which are easily available on all major computing "
 "platforms. Frescobaldi 2.0 is a complete rewrite from scratch, and was "
 "released at Christmas 2011."
 msgstr ""
-"Neste momento foi decidido abandonar o uso das bibliotecas do KDE4 e "
-"utilizar somente Python e Qt4 que são facilmente encontradas para as maiores "
-"plataformas computacionais. Frescobaldi 2.0 foi reescrito do princípio e sua "
-"data de lançamento foi marcada no Natal de 2011."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/history.md:18
@@ -2007,9 +1877,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/import.md:1
-#, fuzzy
 msgid "Importing files"
-msgstr "Importar Arquivo"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/import_all.md:1
 msgid "(Generic) Import"
@@ -2073,20 +1942,17 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/index.md:1
 msgid "Frescobaldi Manual"
-msgstr "Manual Frescobaldi"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/index.md:3
 msgid ""
 "Frescobaldi is a light-weight, but powerful editor for LilyPond music files. "
 "This manual is written by {author} and documents {appname} version {version}."
 msgstr ""
-"Frescobaldi é um editor leve e poderoso para arquivos de música LilyPond. "
-"Esse manual é escrito por {author} e os documentos {appname} em versão "
-"{version}."
 
 #: ../../frescobaldi_app/userguide/index.md:8
 msgid "How to get help inside Frescobaldi"
-msgstr "Como encontrar ajuda dentro do Frescobaldi"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/index.md:10
 msgid ""
@@ -2094,13 +1960,10 @@ msgid ""
 "Many user interface items also have \"What's This\" information which can be "
 "revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}."
 msgstr ""
-"Em muitos diálogos há botões de ajuda ou você pode clicar em {key_help}. "
-"Muitos itens da interfácie têm informações como \"O que é isso\" que podem "
-"ser reveladas ao pressionar {key_whatsthis} ou selecionando {menu_whatsthis}."
 
 #: ../../frescobaldi_app/userguide/intro.md:1
 msgid "Introduction"
-msgstr "Introdução"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/intro.md:3
@@ -2111,12 +1974,6 @@ msgid ""
 "which LilyPond can then compile and output beautiful engraving, by default "
 "but not restricted to, PDF."
 msgstr ""
-"[http://lilypond.org LilyPond] é um Software Livre de notação musical, "
-"produzindo partituras musicais, prontas para impressão, de extrema qualidade "
-"a partir da compilação de arquivos textos bastante simples. Os arquivos de "
-"entrada podem ser criados virtualmente em qualquer editor de texto, os quais "
-"LilyPond pode compilar e gerar belas partituras, que por padrão são geradas "
-"em PDF, mas não restritas a esse formato."
 
 #: ../../frescobaldi_app/userguide/intro.md:10
 msgid ""
@@ -2125,11 +1982,6 @@ msgid ""
 "but if you read the {getting_started} section of this User Guide, you'll "
 "pickup some LilyPond basics to get you started."
 msgstr ""
-"Frescobaldi é um aplicativo desenvolvido para fazer editoração de partituras "
-"musicais LilyPond de maneira rápida e fácil. Você ainda vai precisar "
-"aprender a lingugem LilyPond, mas você pode ler a seção {getting_started} do "
-"Manual do Usuário, e você poderá começar com algumas notações básicas de "
-"LiliPond."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/intro.md:15
@@ -2138,13 +1990,10 @@ msgid ""
 "Learning Manual from [http://lilypond.org/doc/ LilyPond's excellent online "
 "documentation]."
 msgstr ""
-"Assim que você tiver aprendido o básico, o próximo passo seria utilizar o "
-"Manual do LilyPond [http://lilypond.org/doc/ Excelente documentação online "
-"de LilyPond]."
 
 #: ../../frescobaldi_app/userguide/lyrics.md:1
 msgid "Lyrics"
-msgstr "Letra"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/lyrics.md:3
 msgid ""
@@ -2178,9 +2027,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/managing.md:1
-#, fuzzy
 msgid "Managing Files"
-msgstr "Manuseiando Arquivos"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/manuscriptview.md:3
@@ -2246,9 +2094,8 @@ msgid "Synchronize the document cursor with the view (automatic following)"
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/manuscriptview.md:34
-#, fuzzy
 msgid "Edit in place"
-msgstr "Editar Fragmentos"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/manuscriptview.md:36
 msgid ""
@@ -2265,9 +2112,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/midi_import.md:1
-#, fuzzy
 msgid "Import Midi"
-msgstr "Exportar como HTML"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/midi_import.md:3
@@ -2277,17 +2123,15 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/midi_import.md:6
-#, fuzzy
 msgid ""
 "In this dialog there are two tabs. In the first you can set some parameters "
 "for the midi2ly import. In the second you can set some actions on the "
 "imported LilyPond source code."
-msgstr "O nome completo do local do documento atual."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/midi_import.md:12
-#, fuzzy
 msgid "The midi2ly tab"
-msgstr "A aba musicxml2ly"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/midi_import.md:18
 msgid ""
@@ -2336,9 +2180,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/modal_transpose.md:1
-#, fuzzy
 msgid "Modal transpose"
-msgstr "&Transporte"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/modal_transpose.md:3
 msgid ""
@@ -2398,9 +2241,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/musicview.md:1
-#, fuzzy
 msgid "The Music View"
-msgstr "Visualizar Música"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/musicview.md:3
 msgid "The Music View displays the PDF document created by LilyPond."
@@ -2466,9 +2308,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/musicview_editinplace.md:3
-#, fuzzy
 msgid "In this dialog you can edit one line of the text document."
-msgstr "Neste diálogo você pode editar uma linha do texto do documento."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/musicview_editinplace.md:5
 msgid ""
@@ -2485,9 +2326,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/musicxml_export.md:1
-#, fuzzy
 msgid "Export Music XML"
-msgstr "Exportar como HTML"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/musicxml_export.md:3
 msgid "Convert LilyPond source to MusicXML (without using LilyPond)."
@@ -2509,17 +2349,15 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/musicxml_import.md:6
-#, fuzzy
 msgid ""
 "In this dialog there are two tabs. In the first you can set some parameters "
 "for the musicxml2ly import. In the second you can set some actions on the "
 "imported LilyPond source code."
-msgstr "O nome completo do local do documento atual."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/musicxml_import.md:12
-#, fuzzy
 msgid "The musicxml2ly tab"
-msgstr "A aba musicxml2ly"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/musicxml_import.md:23
 msgid ""
@@ -2554,7 +2392,6 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/nomusic.md:1
 msgid "After engraving a score, the Music View does not show the music"
 msgstr ""
-"Após gerar a partitura, a função Visualizar Música não exibirá a música"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/nomusic.md:3
@@ -2570,7 +2407,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/nomusic.md:8
 msgid "Do you use an exotic way to specify the output filename?"
-msgstr "Você usou algum jeito exótico para o Nome do Arquivo?"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/nomusic.md:10
@@ -2580,10 +2417,6 @@ msgid ""
 "output filename or -suffix. Frescobaldi even searches `\\include` files for "
 "commands like `\\bookOutputName` and `\\bookOutputSuffix`."
 msgstr ""
-"Frescobaldi é capaz de determinar o nome dos arquivos de saída através dos "
-"documentos e dos comandos LilyPond que especificam o sufixo ou o Nome do "
-"Arquivo de saída. Frescobaldi também procura por `\\include` Arquivos "
-"através dos comandos `\\bookOutputName` and `\\bookOutputSuffix`."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/nomusic.md:16
@@ -2593,15 +2426,10 @@ msgid ""
 "filenames. In that case you can override the base name(s) using the "
 "[var_output `output`] document variable."
 msgstr ""
-"Se você usar Esquemas de códigos mais complicados no seu documento, para "
-"especificar o Nome do Arquivo de Saída, talvez o Frescobaldi não consiga "
-"determinar corretamente o Nome do Arquivo. Nesse caso você pode sobrescrever "
-"a base de nome(s) usando a [var_output `output`] variável"
 
 #: ../../frescobaldi_app/userguide/outline.md:1
-#, fuzzy
 msgid "Document Outline"
-msgstr "Navegador de Documentação"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/outline.md:3
 msgid ""
@@ -2655,30 +2483,25 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/pitch.md:1
 msgid "Pitch Manipulation"
-msgstr "Manipulação de Tom"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/pitch.md:4
 msgid ""
 "Frescobaldi offers the following pitch-manipulating functions, all in the "
 "menu {menu}:"
 msgstr ""
-"Frescobaldi oferece as seguintes funções de manipulação de Tom, todas menu "
-"{menu}:"
 
 #: ../../frescobaldi_app/userguide/pitch.md:7
-#, fuzzy
 msgid "Pitch language"
-msgstr "Idioma para Nome do Tom"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/pitch.md:8
-#, fuzzy
 msgid "This translates pitch names in the whole document or a selection."
-msgstr "Transpõe todas as notas no documento ou seleção."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/pitch.md:10
-#, fuzzy
 msgid "Convert relative music to absolute"
-msgstr "Converte Relativo para &Absoluto"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/pitch.md:11
@@ -2686,13 +2509,10 @@ msgid ""
 "This converts all `\\relative` music parts to absolute pitch names. It "
 "removes, but honours, octave checks."
 msgstr ""
-"Converte todos `\\relativos` nas partes da música para nome absoluto do Tom. "
-"Isso remove, mas mantém, a checagem de oitavas."
 
 #: ../../frescobaldi_app/userguide/pitch.md:14
-#, fuzzy
 msgid "Convert absolute music to relative"
-msgstr "Converter &Absoluto para Relativo"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/pitch.md:15
@@ -2702,10 +2522,6 @@ msgid ""
 "expressions relative, it may be necessary to select music from the first "
 "expression, leaving out higher-level opening braces."
 msgstr ""
-"Checa todas as expressões, mudando a intro de modo `\\relative` e expressões "
-"contendo Tom. Se você quiser separar as sub-expressões, será necessário "
-"selecionar a música, a partir da primeira expressão, deixando de fora as "
-"chaves delimitadoras do nível maior de hierarquia."
 
 #: ../../frescobaldi_app/userguide/preferences.md:3
 msgid ""
@@ -2891,11 +2707,10 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_general.md:22
-#, fuzzy
 msgid ""
 "Also, you can specify a default folder in which you keep your LilyPond "
 "documents."
-msgstr "A pasta padrão para seus documentos LilyPond (opcional)."
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_general.md:25
@@ -2935,9 +2750,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_helpers.md:14
-#, fuzzy
 msgid "Printing Music"
-msgstr "&Imprimir Música"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_helpers.md:16
 msgid ""
@@ -2995,9 +2809,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:15
-#, fuzzy
 msgid "Remote URL"
-msgstr "&Remover"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:17
 msgid ""
@@ -3027,8 +2840,6 @@ msgstr ""
 msgid ""
 "Here you can configure how LilyPond is run when you engrave your document."
 msgstr ""
-"Aqui você pode configurar como o LilyPond será rodado para gerar o seu "
-"documento."
 
 #: ../../frescobaldi_app/userguide/prefs_lilypond.md:5
 msgid ""
@@ -3036,9 +2847,6 @@ msgid ""
 "here, and configure Frescobaldi to automatically choose the right one, based "
 "on the version number that is set in the document. See {link}."
 msgstr ""
-"Se você tem múltiplas versões do LilyPond instaladas, você pode especificá-"
-"las aqui e configurar o Frescobaldi automaticamente para escolher a versão "
-"certa, baseado no número da versão que é definida no documento. Veja {link}."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_lilypond.md:9
@@ -3078,14 +2886,12 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:6
-#, fuzzy
 msgid "The LilyPond version command looks like:"
-msgstr "Versão LilyPond em uso"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:12
-#, fuzzy
 msgid "The document variable looks like:"
-msgstr "variáveis do Documento"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:18
 msgid ""
@@ -3140,11 +2946,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:3
-#, fuzzy
 msgid "Here you can configure how music is displayed and printed."
 msgstr ""
-"Aqui você pode configurar como o LilyPond será rodado para gerar o seu "
-"documento."
 
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:5
 msgid ""
@@ -3185,9 +2988,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_paths.md:11
-#, fuzzy
 msgid "Music fonts"
-msgstr "&Visualizar Música"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_paths.md:13
 msgid ""
@@ -3245,11 +3047,11 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_tools.md:3
 msgid "Here you can change the settings for various tools."
-msgstr "Aqui você pode modificar as configurações de várias Ferramentas."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/quickinsert.md:1
 msgid "The Quick Insert Panel"
-msgstr "O Painel Inserção Rápida"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/quickinsert.md:3
 msgid ""
@@ -3316,7 +3118,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/rhythm.md:1
 msgid "Rhythm manipulation"
-msgstr "Manipulação de Ritmo"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/rhythm.md:3
 msgid ""
@@ -3325,10 +3127,6 @@ msgid ""
 "possible to double or halve the length of notes, to add or remove dots and "
 "to remove scaling factors."
 msgstr ""
-"As funções de Ritmo do Frescobaldi alteram a duração de notas, acordes, "
-"pausas, etcetera. Usando essas funções, todas no menu {menu}, é possível "
-"dobrar ou dividir a duração das notas, para adicionar ou remover pontos e "
-"para remover escalas de fator."
 
 #: ../../frescobaldi_app/userguide/rhythm.md:8
 msgid ""
@@ -3337,18 +3135,12 @@ msgid ""
 "prefer the option implicit per line, which always specifies the duration for "
 "the first note, chord or rest on a line."
 msgstr ""
-"É possível também modificar o jeito como o ritmo é especificado: para cada "
-"nota (explícita), ou somente quando a duração modificar (implícita). Alguns "
-"usuáros preferem a opção implícita por linha, que especifica a duração para "
-"a primeira nota, acorde ou pausa em uma linha."
 
 #: ../../frescobaldi_app/userguide/rhythm.md:13
 msgid ""
 "The last three menu commands can copy, paste or apply a rhythm that is "
 "entered in a dialog."
 msgstr ""
-"Os últimos três comandos podem copiar, colar ou aplicar o ritmo que é "
-"selecionado no diálogo."
 
 #: ../../frescobaldi_app/userguide/rhythm.md:16
 msgid ""
@@ -3361,7 +3153,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/scorewiz.md:1
 msgid "The Score Wizard"
-msgstr "Assistente de Configuração de Partitura"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/scorewiz.md:3
 msgid ""
@@ -3428,7 +3220,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/search_replace.md:1
 msgid "Search and replace"
-msgstr "Procurar e substituir"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/search_replace.md:3
 msgid ""
@@ -3527,14 +3319,12 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:1
-#, fuzzy
 msgid "Snippet Editor"
-msgstr "Editor de Fragmento"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:3
-#, fuzzy
 msgid "Here you can edit the text of the snippet."
-msgstr "Aqui você pode digitar para selecionar o fragmento."
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/snippet_editor.md:5
@@ -3545,13 +3335,12 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:9
-#, fuzzy
 msgid "The following variables can be used:"
-msgstr "As seguintes variáveis pode ser usadas:"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:12
 msgid "Place the snippet in the insert menu, grouped by the (optional) value."
-msgstr "Coloque o fragmento no menu Inserir, agrupados pelo valor (opcional)."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:15
 msgid ""
@@ -3562,44 +3351,41 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:20
 msgid "The mnemonic to type to select the snippet."
-msgstr "O mnemônico a digitar para selecionar o fragmento."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:23
 msgid "Do not auto-indent the snippet after inserting."
-msgstr "Não auto-recuo o fragmento após a inserção."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:26
 msgid "The icon to show in menu and snippet list."
-msgstr "O ícone a exibir no menu e lista de fragmentos."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:29
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
 msgstr ""
-"O símbolo mostrado no menu e lista fragmentos. Símbolos são ícones que usam "
-"a cor do texto padrão e pode ser encontrada em {directory}."
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:33
 msgid "Execute the snippet as a Python script. See {link}."
-msgstr "Execute o fragmento como um script Python. Consulte {link}."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:36
 msgid "One of more of the following words (separated with spaces or commas):"
 msgstr ""
-"Uma ou mais das seguintes palavras (separadas com espaços ou vírgulas):"
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:36
 msgid "Requires text to be selected."
-msgstr "Requer que o texto seja selecionado."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:36
 msgid "Adjusts the selection to not include starting and trailing whitespace."
-msgstr "Ajusta a seleção para não incluir espaços em branco no início."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:36
 msgid "Selects all inserted text."
-msgstr " Seleciona todo o texto inserido."
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/snippet_editor.md:42
@@ -3608,17 +3394,14 @@ msgid ""
 "Here, you can insert variables prefixed with a `$`. A double `$` will be "
 "replaced with a single one. The following variables are recognized:"
 msgstr ""
-"A outra linha do fragmento define o texto a ser inserido no editor. Aqui "
-"você pode inserir variáveis pré fixadas com um `$`. E um duplo `$` será "
-"substituído com um simples. As seguites variáveis são reconhecidas:"
 
 #: ../../frescobaldi_app/userguide/snippet_import_export.md:1
 msgid "Importing and exporting snippets"
-msgstr "Importando e exportando fragmentos"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_import_export.md:3
 msgid "Snippets can be imported from and exported to XML files."
-msgstr "Fragmentos podem ser importados e exportados como arquivos XML."
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/snippet_import_export.md:5
@@ -3629,11 +3412,6 @@ msgid ""
 "selecting {menu_export}, and then choose a file name, preferably ending in `."
 "xml`."
 msgstr ""
-"Para exportar fragmentos, selecione o fragmento pelo gerenciador, ou filtro "
-"de fragmentos usando a barra de procura e selecionando nenhum, assim todos "
-"os fragmentos visíveis serão exportados. Exportar fragmentos através do "
-"{menu_export}, e depois escolher o nome do Arquivo, preferencialmente "
-"terminando em `.xml`."
 
 #: ../../frescobaldi_app/userguide/snippet_import_export.md:11
 msgid ""
@@ -3677,7 +3455,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_python.md:1
 msgid "Python Snippets"
-msgstr "Python Fragmentos"
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/snippet_python.md:3
@@ -3685,30 +3463,25 @@ msgid ""
 "Python snippets can read and should set the variable `text`. The variable "
 "`text` contains the currently selected text (which may be an empty string)."
 msgstr ""
-"Os fragmentos Python podem ler e devem setar as variáveis de `text`. As "
-"variáveis `text` contêm a seleção corrente do texto (que podem ser strings "
-"vazias)."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/snippet_python.md:7
 msgid "You may set `text` to a string or a list of strings."
-msgstr "Você pode setar o `text` para uma string ou lista de strings."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_python.md:9
 msgid "Other variables that may be referenced:"
-msgstr "Outras variáveis que podem ser referenciadas:"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_python.md:12
 msgid "A list of strings describing the type of text the cursor is at."
-msgstr "A lista de strings que descreve o tipo de texto em que o cursor está."
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_python.md:15
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
 msgstr ""
-"O QTextCursor atual é que dá acesso ao documento. No entanto, não altera o "
-"documento através do cursor."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/snippet_python.md:19
@@ -3716,9 +3489,6 @@ msgid ""
 "When setting `text` to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
 msgstr ""
-"Quando definir o `text` para uma lista, ao invés de uma string, você pode "
-"usar esse valor para especificar o lugar onde o cursor irá se posicionar, "
-"após inserir um fragmento."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/snippet_python.md:23
@@ -3727,9 +3497,6 @@ msgid ""
 "together with `CURSOR` to select text when inserting the string parts of the "
 "list."
 msgstr ""
-"Quando definir o `text` para uma lista, ao invés de uma string, esse valor "
-"pode ser usado como `CURSOR` para selecionar o texto que será inserida a "
-"string em partes da lista."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/snippet_python.md:28
@@ -3738,9 +3505,6 @@ msgid ""
 "instead of inserting the text from the `text` variable. In this case you may "
 "alter the document through the `cursor`."
 msgstr ""
-"Quando você define uma função com esse nome, ela é chamada sem os "
-"argumentos, ao invés de inserir o texto da variável `text`. Nesse caso você "
-"pode alterar o documento através do `cursor`."
 
 #: ../../frescobaldi_app/userguide/snippets.md:3
 msgid ""
@@ -3778,7 +3542,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/toc.md:1
 msgid "Table of Contents"
-msgstr "Sumário"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/transpose.md:3
 msgid ""
@@ -3821,21 +3585,18 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/troubleshooting.md:1
 msgid "Troubleshooting"
-msgstr "Resolvendo Problemas"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/troubleshooting.md:3
 msgid ""
 "Sometimes things don't go the way you would expect; this section may give "
 "some solutions."
 msgstr ""
-"Algumas vezes as coisas não funcionam do jeito que você espera; essa sessão "
-"pode dar algumas soluções."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/var_output.md:1
-#, fuzzy
 msgid "The `output` document variable"
-msgstr "Variáveis `output` do Documento"
+msgstr ""
 
 #: ../../frescobaldi_app/userguide/var_output.md:3
 msgid ""
@@ -3843,21 +3604,16 @@ msgid ""
 "determination and makes Frescobaldi look for output documents (PDF, MIDI, "
 "etc.) with the specified basename, or comma-separated list of names."
 msgstr ""
-"Setando essa variável irá suprimir o nome automático de Arquivo de Saída e "
-"fará com que o Frescobaldi olhe para os nomes dos documentos (PDF, MIDI, "
-"etc.) com o nome base especificado, ou lista de nomes separadas por vírgulas."
 
 #: ../../frescobaldi_app/userguide/var_output.md:7
 msgid ""
 "If a name ends with a directory separator, output files are looked for in "
 "the specified directory."
 msgstr ""
-"Se o nome termina com um separador de Diretório, o Nome de Saída será "
-"procurado no diretório especificado."
 
 #: ../../frescobaldi_app/userguide/var_output.md:10
 msgid "All names are relative to the document's filename."
-msgstr "Todos os nomes são relativos para o Nome do Arquivo."
+msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/var_output.md:27
@@ -3868,4449 +3624,3 @@ msgid ""
 "output name, such as `\\bookOutputName`, etc); or when the automatic output "
 "file name determination does not work due to complicated LilyPond code."
 msgstr ""
-"Você pode setar essa variável se a saída automática do nome do Arquivo de "
-"Saída consumir tempo (pois Frescobaldi faz um parse do documento em todas as "
-"variáveis do documento, procurando por comandos LilyPond que especifiquem o "
-"Nome de Arquivo de Saída, como em `\\bookOutputName`, etc); ou quando o Nome "
-"de saída não funciona por complicações no código LilyPond."
-
-#~ msgid "About {appname}"
-#~ msgstr "Sobre {appname}"
-
-#~ msgid "About"
-#~ msgstr "Sobre"
-
-#~ msgid "Credits"
-#~ msgstr "Créditos"
-
-#~ msgid "Version"
-#~ msgstr "Versão"
-
-#~ msgid "Version {version}"
-#~ msgstr "Versão {version}"
-
-#~ msgid "A LilyPond Music Editor"
-#~ msgstr "Um Editor de música LilyPond"
-
-#~ msgid "Copyright (c) {year} by {author}"
-#~ msgstr "Copyright (c) {year} por {author}"
-
-#~ msgid "Send an e-mail message to the maintainers."
-#~ msgstr "Enviar uma mensagem de e-mail para os mantenedores."
-
-#~ msgid "Translated by Your Name."
-#~ msgstr ""
-#~ "Traduzido por Édio Mazera \n"
-#~ "mazera3@gmail.com"
-
-#~ msgid "Licensed under the {gpl}."
-#~ msgstr "Sob a Licença {gpl}."
-
-#~ msgid "LilyPond Files"
-#~ msgstr "Arquivo LilyPond"
-
-#~ msgid "LaTeX Files"
-#~ msgstr "Arquivo LaTex"
-
-#~ msgid "DocBook Files"
-#~ msgstr "Arquivo DocBook"
-
-#~ msgid "HTML Files"
-#~ msgstr "Arquivo HTML "
-
-#~ msgid "Texinfo Files"
-#~ msgstr "Arquivo Texinfo"
-
-#~ msgid "Scheme Files"
-#~ msgstr "Arquivo Scheme"
-
-#~ msgid "All Files"
-#~ msgstr "Todos os Arquivos"
-
-#~ msgid "&Mark Current Line"
-#~ msgstr "&Marcar Linha Atual"
-
-#~ msgid "Clear &Error Marks"
-#~ msgstr "Limpar Marcas de &Erro"
-
-#~ msgid "Clear &All Marks"
-#~ msgstr "Limpar Todas &as Marcas"
-
-#~ msgid "Next Mark"
-#~ msgstr "Próxima Marca"
-
-#~ msgid "Previous Mark"
-#~ msgstr "Marca Anterior"
-
-#, fuzzy
-#~ msgid "Go to previous position"
-#~ msgstr "Saltar para posição do cursor"
-
-#~ msgid "Back"
-#~ msgstr "Voltar"
-
-#, fuzzy
-#~ msgid "Go to next position"
-#~ msgstr "Saltar para posição do cursor"
-
-#~ msgid "Forward"
-#~ msgstr "Ir"
-
-#~ msgid "From version:"
-#~ msgstr "Da versão:"
-
-#~ msgid "To version:"
-#~ msgstr "Para a versão:"
-
-#~ msgid "Save convert-ly messages in document"
-#~ msgstr "Salvar mensagens convert-ly em documento"
-
-#~ msgid ""
-#~ "If checked, the messages of convert-ly are appended as a comment to the "
-#~ "end of the document."
-#~ msgstr ""
-#~ "Se marcada, as mensagens de convert-ly são anexados como um comentário ao "
-#~ "final do documento."
-
-#~ msgid "&Messages"
-#~ msgstr "&Mensagens"
-
-#~ msgid "&Changes"
-#~ msgstr "Altera&cões"
-
-#~ msgid "Run Again"
-#~ msgstr "Executar Novamente"
-
-#, fuzzy
-#~ msgid "Save as file"
-#~ msgstr "Salvar Arquivo"
-
-#~ msgid "<unknown>"
-#~ msgstr "<unknown>"
-
-#~ msgid "Convert-ly from LilyPond {version}"
-#~ msgstr "Convert-ly do LilyPond {version}"
-
-#~ msgid "Converted Document"
-#~ msgstr "Documento Convertido"
-
-#~ msgid "(set in document)"
-#~ msgstr "(definido no documento)"
-
-#~ msgid "Both 'from' and 'to' versions need to be set."
-#~ msgstr "Ambas versões 'de' e 'para' precisam ser definidas."
-
-#~ msgid ""
-#~ "Could not start {convert_ly}:\n"
-#~ "\n"
-#~ "{message}\n"
-#~ msgstr ""
-#~ "Impossível iniciar {convert_ly}:\n"
-#~ "\n"
-#~ "{message}\n"
-
-#~ msgid "The document has not been changed."
-#~ msgstr "Este documento não foi alterado."
-
-#~ msgctxt "dialog title"
-#~ msgid "Save File"
-#~ msgstr "Salvar Arquivo"
-
-#, fuzzy
-#~ msgid "Text Files"
-#~ msgstr "Arquivo Texinfo"
-
-#~ msgid "DPI:"
-#~ msgstr "DPI:"
-
-#~ msgid "Paper Color"
-#~ msgstr "Cor do Papel:"
-
-#, fuzzy
-#~ msgid "Convert image to grayscale."
-#~ msgstr "Converter Relativo para &Absoluto"
-
-#~ msgid "Auto-crop"
-#~ msgstr "crop-automática"
-
-#~ msgid "Antialias"
-#~ msgstr "Antialias"
-
-#~ msgid "Drag"
-#~ msgstr "Arrastar"
-
-#~ msgid "Drag the image as a PNG file."
-#~ msgstr "Arraste a imagem como um arquivo PNG."
-
-#~ msgid "&Copy to Clipboard"
-#~ msgstr "&Copiar para Área de Transferência"
-
-#~ msgid "&Save As..."
-#~ msgstr "&Salvar Como..."
-
-#~ msgid "Image from {filename}"
-#~ msgstr "imagem de {filename}"
-
-#~ msgid "Save Image As"
-#~ msgstr "Salvar Imagem Como"
-
-#~ msgid "Error"
-#~ msgstr "Erro"
-
-#~ msgid "Could not save the image."
-#~ msgstr "Não foi possível salvar a imagem."
-
-#~ msgid "Cut and Assign"
-#~ msgstr "Cortar e Atribuir"
-
-#~ msgid ""
-#~ "Please enter the name for the variable to assign the selected text to:"
-#~ msgstr ""
-#~ "Por favor, insira o nome para a variável para atribuir o texto "
-#~ "selecionado para:"
-
-#, fuzzy
-#~ msgid "Could not write to: {url}"
-#~ msgstr ""
-#~ "Não foi possível carregar documento não-locais:\n"
-#~ "\n"
-#~ "{url}"
-
-#~ msgid "Untitled"
-#~ msgstr "Sem Título"
-
-#~ msgid "Untitled ({num})"
-#~ msgstr "Sem Título ({num})"
-
-#~ msgid "Cut and Assign..."
-#~ msgstr "Cortar e Atribuir..."
-
-#~ msgid "Syntax &Highlighting"
-#~ msgstr "Sintaxe Rea&lçado"
-
-#~ msgid "&Automatic Indent"
-#~ msgstr "Numeração &Automática"
-
-#~ msgid "Re-&Indent"
-#~ msgstr "Renume&rar"
-
-#~ msgid "&Format"
-#~ msgstr "&Formatar"
-
-#~ msgid "&Update with convert-ly..."
-#~ msgstr "a&tualizar com convert-ly..."
-
-#, fuzzy
-#~ msgid "Remove &Comments"
-#~ msgstr "&Remover hifenização"
-
-#, fuzzy
-#~ msgid "Remove &Articulations"
-#~ msgstr "&Remover hifenização"
-
-#, fuzzy
-#~ msgid "Remove &Slurs"
-#~ msgstr "&Remover"
-
-#, fuzzy
-#~ msgid "Remove &Beams"
-#~ msgstr "&Remover hifenização"
-
-#, fuzzy
-#~ msgid "Remove &Ligatures"
-#~ msgstr "&Remover"
-
-#, fuzzy
-#~ msgid "Remove &Dynamics"
-#~ msgstr "&Remover hifenização"
-
-#, fuzzy
-#~ msgid "Remove &Fingerings"
-#~ msgstr "&Remover hifenização"
-
-#~ msgid "&Save"
-#~ msgstr "&Salvar"
-
-#~ msgid "Save &As..."
-#~ msgstr "S&alvar Como..."
-
-#~ msgid "&Close"
-#~ msgstr "Fe&char"
-
-#~ msgid "Close Other Documents"
-#~ msgstr "Fechar Outros Documentos"
-
-#, fuzzy
-#~ msgid "Always &Engrave This Document"
-#~ msgstr "&Sempre Decodifique Este Documento"
-
-#, fuzzy
-#~ msgctxt "menu title"
-#~ msgid "&Documents"
-#~ msgstr "&Documento"
-
-#~ msgid "[always engraved]"
-#~ msgstr "[sempre decodificado]"
-
-#, fuzzy
-#~ msgid "Edit in Place"
-#~ msgstr "Editar novamente"
-
-#, fuzzy
-#~ msgid "An internal error has occurred in extension '{name}':"
-#~ msgstr "Um erro interno ocorreu:"
-
-#, fuzzy
-#~ msgid "Extension Error"
-#~ msgstr "Erro Interno"
-
-#~ msgid "An internal error has occurred:"
-#~ msgstr "Um erro interno ocorreu:"
-
-#~ msgid "Internal Error"
-#~ msgstr "Erro Interno"
-
-#~ msgid "Email Bug Report..."
-#~ msgstr "Email Relatório de Erros..."
-
-#, fuzzy
-#~ msgid "An error occurred in extension '{name}'"
-#~ msgstr "Um erro interno ocorreu:"
-
-#~ msgid "Optionally describe below what you were doing:"
-#~ msgstr "Opcionalmente descreva abaixo o que você estava fazendo:"
-
-#, fuzzy
-#~ msgid "Command completed"
-#~ msgstr "Linha de comando:"
-
-#~ msgid ""
-#~ "Could not start {program}.\n"
-#~ "Please check path and permissions."
-#~ msgstr ""
-#~ "Impossível iniciar {program}.\n"
-#~ "Verifique o caminho e permissões."
-
-#~ msgid "Colors:"
-#~ msgstr "Cores:"
-
-#~ msgid "Added"
-#~ msgstr "Adicionado"
-
-#~ msgid "Changed"
-#~ msgstr "Alterado"
-
-#~ msgid "Deleted"
-#~ msgstr "Excluído"
-
-#~ msgid "Links:"
-#~ msgstr "Links:"
-
-#~ msgid "First Change"
-#~ msgstr "Primeira Alteração"
-
-#~ msgid "Next Change"
-#~ msgstr "Próxima Alteração"
-
-#~ msgid "Top"
-#~ msgstr "Topo"
-
-#~ msgid "Hyphenate Lyrics Text"
-#~ msgstr "Hifenizar Texto da Letra"
-
-#~ msgid "Please select a language:"
-#~ msgstr "Por favor selecione um idioma:"
-
-#~ msgid "Select Color"
-#~ msgstr "Selecionar Cor"
-
-#, fuzzy
-#~ msgid "Choose the desired LilyPond version."
-#~ msgstr "Slogan com data e versão LilyPond"
-
-#~ msgid "&Hyphenate Lyrics Text..."
-#~ msgstr "&Hifenizar texto da letra ..."
-
-#~ msgid "&Remove hyphenation"
-#~ msgstr "&Remover hifenização"
-
-#~ msgid "&Copy Lyrics with hyphenation removed"
-#~ msgstr "&Copiar Letra com hifenização removida"
-
-#~ msgid "show program's version number and exit"
-#~ msgstr "mostrar número da versão do programa e sair"
-
-#~ msgid "ENC"
-#~ msgstr "ENC"
-
-#~ msgid "Encoding to use"
-#~ msgstr "Codificação utilizada"
-
-#~ msgid "NUM"
-#~ msgstr "NUM"
-
-#~ msgid "Line number to go to, starting at 1"
-#~ msgstr "Número de linha, iniciando em 1"
-
-#~ msgid "Column to go to, starting at 0"
-#~ msgstr "Coluna para ir, iniciando em 0"
-
-#~ msgid "NAME"
-#~ msgstr "NAME"
-
-#~ msgid "Session to start ('{none}' for empty session)"
-#~ msgstr "Sessão a iniciar ('{none}\" para a sessão vazia)"
-
-#, fuzzy
-#~ msgid "List the session names and exit"
-#~ msgstr "exibir esta mensagem de ajuda e sair"
-
-#, fuzzy
-#~ msgid "file"
-#~ msgstr "nome do arquivo"
-
-#, fuzzy
-#~ msgid "Can't run Frescobaldi"
-#~ msgstr "Sobre Frescobaldi"
-
-#~ msgid "[modified]"
-#~ msgstr "[modificado]"
-
-#~ msgctxt "dialog title"
-#~ msgid "Close Document"
-#~ msgstr "Fechar Documento"
-
-#~ msgid ""
-#~ "The document \"{name}\" has been modified.\n"
-#~ "Do you want to save your changes or discard them?"
-#~ msgstr ""
-#~ "O documento \"{name}\" foi modificado.\n"
-#~ "Você deseja salvar as alterações ou descartá-las?"
-
-#~ msgid "Tab Bar"
-#~ msgstr "Aba Barra"
-
-#, fuzzy
-#~ msgid "Could not read from: {url}"
-#~ msgstr ""
-#~ "Não foi possível carregar documento não-locais:\n"
-#~ "\n"
-#~ "{url}"
-
-#, fuzzy
-#~ msgid "Could not read:"
-#~ msgstr ""
-#~ "Não foi possível carregar documento não-locais:\n"
-#~ "\n"
-#~ "{url}"
-
-#~ msgctxt "dialog title"
-#~ msgid "Open File"
-#~ msgstr "Abrir Arquivo"
-
-#, fuzzy
-#~ msgctxt "dialog title"
-#~ msgid "Rename/Move File"
-#~ msgstr "Salvar Arquivo"
-
-#, fuzzy
-#~ msgid "Could not delete: {url}"
-#~ msgstr ""
-#~ "Não foi possível carregar documento não-locais:\n"
-#~ "\n"
-#~ "{url}"
-
-#~ msgctxt "dialog title"
-#~ msgid "Save Copy"
-#~ msgstr "Salvar Copia"
-
-#~ msgctxt "dialog title"
-#~ msgid "Save Selection"
-#~ msgstr "Salvar Seleção"
-
-#, fuzzy
-#~ msgid "Could not reload:"
-#~ msgstr ""
-#~ "Não foi possível carregar documento não-locais:\n"
-#~ "\n"
-#~ "{url}"
-
-#~ msgctxt "dialog title"
-#~ msgid "Insert From File"
-#~ msgstr "Inserir do Arquivo"
-
-#~ msgctxt "dialog title"
-#~ msgid "Print Source"
-#~ msgstr "Imprimir Fonte"
-
-#~ msgid "Export as HTML"
-#~ msgstr "Exportar como HTML"
-
-#~ msgid ""
-#~ "Please describe the issue or feature request.\n"
-#~ "Provide as much information as possible.\n"
-#~ "\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Por favor, descreva o problema ou pedido de recurso.\n"
-#~ "Forneça o máximo de informações possíveis.\n"
-#~ "\n"
-#~ "\n"
-
-#~ msgid "Main Toolbar"
-#~ msgstr "Barra de Ferramentas Principal"
-
-#~ msgid "Music View Toolbar"
-#~ msgstr "Barra de Ferramentas Visualizar Música"
-
-#~ msgctxt "action: new document"
-#~ msgid "&New"
-#~ msgstr "&Novo"
-
-#~ msgid "&Open..."
-#~ msgstr "&Abrir..."
-
-#~ msgid "Open &Recent"
-#~ msgstr "Abrir &Recente"
-
-#~ msgid "Insert from &File..."
-#~ msgstr "&Inserir Arquivo ..."
-
-#, fuzzy
-#~ msgid "Insert the contents of a file at the current cursor position."
-#~ msgstr "Fechar Todos os Documentos e sair da sessão atual."
-
-#~ msgid "Open Current Directory"
-#~ msgstr "Abrir Diretório Atual"
-
-#~ msgid "Save Copy or Selection As..."
-#~ msgstr "Copiar ou Salvar Seleção como ..."
-
-#, fuzzy
-#~ msgid "&Rename/Move File..."
-#~ msgstr "Re&nomear"
-
-#~ msgid "Save All"
-#~ msgstr "Salvar Todos"
-
-#~ msgid "Print Source..."
-#~ msgstr "Imprimir Fonte..."
-
-#, fuzzy
-#~ msgid "Close All Documents"
-#~ msgstr "Fechar Todos os Documentos"
-
-#, fuzzy
-#~ msgid "Closes all documents but preserves the current session."
-#~ msgstr "Fechar Todos os Documentos e sair da sessão atual."
-
-#, fuzzy
-#~ msgid "Close All Documents and Session"
-#~ msgstr "Fechar Todos os Documentos"
-
-#~ msgid "Closes all documents and leaves the current session."
-#~ msgstr "Fechar Todos os Documentos e sair da sessão atual."
-
-#~ msgid "&Quit"
-#~ msgstr "&Sair"
-
-#, fuzzy
-#~ msgid "Restart {appname}"
-#~ msgstr "Sobre {appname}"
-
-#~ msgid "Export Source as Colored &HTML..."
-#~ msgstr "Exportar Fonte como &HTML..."
-
-#~ msgid "&Undo"
-#~ msgstr "&Desfazer"
-
-#~ msgid "Re&do"
-#~ msgstr "&Refazer "
-
-#~ msgid "Cu&t"
-#~ msgstr "Cor&tar"
-
-#~ msgid "&Copy"
-#~ msgstr "&Copiar"
-
-#~ msgid "Copy as Colored &HTML"
-#~ msgstr "Copiar como &HTML "
-
-#~ msgid "&Paste"
-#~ msgstr "Co&lar"
-
-#~ msgid "Select &All"
-#~ msgstr "Selecion&ar Todos"
-
-#~ msgid "Select &Block"
-#~ msgstr "Selecionar &Bloco"
-
-#~ msgid "Select &None"
-#~ msgstr "Selecionar &Nenhum"
-
-#~ msgid "Select Whole Lines Up"
-#~ msgstr "Selecionar linhas completas Acima"
-
-#~ msgid "Select Whole Lines Down"
-#~ msgstr "Selecionar linhas completas Abaixo"
-
-#~ msgid "&Find..."
-#~ msgstr "&Localizar..."
-
-#~ msgid "Find Ne&xt"
-#~ msgstr "Localizar Pró&ximo"
-
-#~ msgid "Find Pre&vious"
-#~ msgstr "Lo&calizar Anterior"
-
-#~ msgid "&Replace..."
-#~ msgstr "Substitui&r"
-
-#~ msgid "Pr&eferences..."
-#~ msgstr "Pr&eferências..."
-
-#~ msgid "&Next Document"
-#~ msgstr "Próximo Docume&nto"
-
-#~ msgid "&Previous Document"
-#~ msgstr "Documento An&terior"
-
-#~ msgid "Scroll Up"
-#~ msgstr "Rolar para cima"
-
-#~ msgid "Scroll Down"
-#~ msgstr "Rolar para Baixo"
-
-#~ msgid "New &Window"
-#~ msgstr "Nova Ja&nela"
-
-#~ msgid "&Fullscreen"
-#~ msgstr "Tela C&heia"
-
-#~ msgid "&User Guide"
-#~ msgstr "Guia do &Usuário"
-
-#~ msgid "&What's This?"
-#~ msgstr "O que é Isto&?"
-
-#~ msgid "Report a &Bug..."
-#~ msgstr "Relatar um E&rro..."
-
-#~ msgid "&About {appname}..."
-#~ msgstr "&Sobre {appname}..."
-
-#~ msgctxt "menu title"
-#~ msgid "&File"
-#~ msgstr "&Arquivo"
-
-#, fuzzy
-#~ msgctxt "submenu title"
-#~ msgid "Close (advanced)"
-#~ msgstr "Fechar Documento"
-
-#, fuzzy
-#~ msgctxt "submenu title"
-#~ msgid "&Import/Export"
-#~ msgstr "&Importar"
-
-#, fuzzy
-#~ msgctxt "submenu title"
-#~ msgid "&Print"
-#~ msgstr "Im&primir"
-
-#~ msgctxt "menu title"
-#~ msgid "&Edit"
-#~ msgstr "&Editar"
-
-#~ msgctxt "menu title"
-#~ msgid "&View"
-#~ msgstr "&Visualizar"
-
-#, fuzzy
-#~ msgctxt "submenu title"
-#~ msgid "&Folding"
-#~ msgstr "codificação"
-
-#, fuzzy
-#~ msgctxt "menu title"
-#~ msgid "&Music"
-#~ msgstr "&Visualizar Música"
-
-#~ msgctxt "menu title"
-#~ msgid "&LilyPond"
-#~ msgstr "&LilyPond"
-
-#~ msgctxt "menu title"
-#~ msgid "&Tools"
-#~ msgstr "Ferramen&tas"
-
-#, fuzzy
-#~ msgctxt "submenu title"
-#~ msgid "Code &Formatting"
-#~ msgstr "&Formatar"
-
-#~ msgctxt "submenu title"
-#~ msgid "&Lyrics"
-#~ msgstr "&Letras"
-
-#~ msgctxt "submenu title"
-#~ msgid "&Pitch"
-#~ msgstr "&Tom"
-
-#, fuzzy
-#~ msgctxt "submenu title"
-#~ msgid "Rest"
-#~ msgstr "Restaurar"
-
-#~ msgctxt "submenu title"
-#~ msgid "&Rhythm"
-#~ msgstr "&Ritmo"
-
-#, fuzzy
-#~ msgctxt "submenu title"
-#~ msgid "&Directions"
-#~ msgstr "Duração"
-
-#, fuzzy
-#~ msgctxt "submenu title"
-#~ msgid "&Quick Remove"
-#~ msgstr "&Remover"
-
-#, fuzzy
-#~ msgctxt "submenu title"
-#~ msgid "&Directories"
-#~ msgstr "Achar Diretório"
-
-#~ msgctxt "menu title"
-#~ msgid "&Window"
-#~ msgstr "Ja&nela"
-
-#~ msgctxt "menu title"
-#~ msgid "&Help"
-#~ msgstr "A&juda"
-
-#~ msgid "Document:"
-#~ msgstr "Documento:"
-
-#~ msgid "&Print"
-#~ msgstr "Im&primir"
-
-#~ msgid "Music Preview"
-#~ msgstr "Visualizar Música"
-
-#~ msgid "Print {filename}"
-#~ msgstr "Imprimir {filename}"
-
-#~ msgid "Print"
-#~ msgstr "Imprimir"
-
-#~ msgid "Printing Error"
-#~ msgstr "Erro de Impressão"
-
-#~ msgid "Printing page {page} ({num} of {total})..."
-#~ msgstr "Imprimir página {page} ({num} de {total})..."
-
-#~ msgid "Could not send the document to the printer."
-#~ msgstr "Não foi possível enviar o documento para a impressora."
-
-#~ msgid "Close"
-#~ msgstr "Fechar"
-
-#, fuzzy
-#~ msgid "&Viewers"
-#~ msgstr "&Visualizar"
-
-#, fuzzy
-#~ msgid "&Coding"
-#~ msgstr "codificação"
-
-#, fuzzy
-#~ msgid "&MIDI"
-#~ msgstr "MIDI"
-
-#~ msgid "Split &Horizontally"
-#~ msgstr "Dividir &Horizontalmente"
-
-#~ msgid "Split &Vertically"
-#~ msgstr "Dividir &Verticalmente"
-
-#~ msgid "&Close View"
-#~ msgstr "Fe&char Exibição"
-
-#~ msgid "Line: {line}, Col: {column}"
-#~ msgstr "Linha: {line}, Col: {column}"
-
-#~ msgid "&Close Current View"
-#~ msgstr "Fe&char Exibição Atual"
-
-#~ msgid "Close &Other Views"
-#~ msgstr "Fechar &Outras Visualizações"
-
-#~ msgid "&Next View"
-#~ msgstr "Pró&xima"
-
-#~ msgid "&Previous View"
-#~ msgstr "An&terior "
-
-#~ msgid "Automatic &Completion"
-#~ msgstr "&Completar Automaticamente"
-
-#~ msgid "Show C&ompletions Popup"
-#~ msgstr "Exibir Popup C&ompletos"
-
-#~ msgid "Special Characters"
-#~ msgstr "Caracteres Especiais"
-
-#~ msgid "Special Charac&ters"
-#~ msgstr "Carac&teres Especiais"
-
-#~ msgid "Documentation Browser"
-#~ msgstr "Navegador de Documentação"
-
-#~ msgid "&Documentation Browser"
-#~ msgstr "Navegador de &Documentação"
-
-#~ msgid "Home"
-#~ msgstr "Casa"
-
-#~ msgid "Print..."
-#~ msgstr "Imprimir..."
-
-#~ msgid "&LilyPond Documentation"
-#~ msgstr "Documentação &LilyPond"
-
-#~ msgid "&Contextual LilyPond Help"
-#~ msgstr "Ajuda LilyPond &Contextual"
-
-#~ msgid "Search..."
-#~ msgstr "Pesquisar..."
-
-#~ msgid "(local)"
-#~ msgstr "(local)"
-
-#~ msgid "({hostname})"
-#~ msgstr "({hostname})"
-
-#~ msgid "Copy &Link"
-#~ msgstr "Copiar &Link"
-
-#~ msgid "Open Link in &New Window"
-#~ msgstr "Abrir Link em &Nova Janela"
-
-#~ msgid "Open Document in &New Window"
-#~ msgstr "Abrir Documento em &Nova Janela"
-
-#~ msgid "LilyPond Source"
-#~ msgstr "Fonte LilyPond"
-
-#~ msgid "Documents"
-#~ msgstr "Documentos"
-
-#~ msgid "Docum&ents"
-#~ msgstr "Docum&entos"
-
-#, fuzzy
-#~ msgid "Save selected documents"
-#~ msgstr "Salvar Seleção"
-
-#, fuzzy
-#~ msgid "Close selected documents"
-#~ msgstr "Fechar Outros Documentos"
-
-#, fuzzy
-#~ msgid "Close all untitled documents"
-#~ msgstr "Fechar Todos os Documentos"
-
-#, fuzzy
-#~ msgid "Abort engraving job"
-#~ msgstr "A&bortar trabalho de Decodificação"
-
-#~ msgid "Warning"
-#~ msgstr "Aviso"
-
-#~ msgid "&Always Engrave [{docname}]"
-#~ msgstr "&Sempre Decodifique [{docname}]"
-
-#~ msgid "&Always Engrave This Document"
-#~ msgstr "&Sempre Decodifique Este Documento"
-
-#, fuzzy
-#~ msgid "No LilyPond installation found"
-#~ msgstr "Documentação &LilyPond"
-
-#~ msgid "Engrave"
-#~ msgstr "Grave"
-
-#~ msgid "&Engrave (preview)"
-#~ msgstr "D&ecodificar (visualizar)"
-
-#~ msgid "Engrave (&publish)"
-#~ msgstr "Decodificar (&publicar)"
-
-#, fuzzy
-#~ msgid "Engrave (&layout control)"
-#~ msgstr "Codificar (publicar)"
-
-#~ msgid "Engrave (&custom)..."
-#~ msgstr "De&codificar (personalizado)..."
-
-#~ msgid "Abort Engraving &Job"
-#~ msgstr "A&bortar trabalho de Decodificação"
-
-#, fuzzy
-#~ msgid "Automatic E&ngrave"
-#~ msgstr "Grave"
-
-#, fuzzy
-#~ msgid "Open LilyPond &Data Directory"
-#~ msgstr "Abrir Diretório Atual"
-
-#~ msgid "Engrave custom"
-#~ msgstr "Decodificar personalizado"
-
-#~ msgid "LilyPond Version:"
-#~ msgstr "Versão LilyPond:"
-
-#~ msgid "Output Format:"
-#~ msgstr "Formatar Saída:"
-
-#~ msgid "Resolution:"
-#~ msgstr "Resolução:"
-
-#, fuzzy
-#~ msgid "Antialias Factor:"
-#~ msgstr "Antialias"
-
-#, fuzzy
-#~ msgid "Engraving mode:"
-#~ msgstr "A&bortar trabalho de Decodificação"
-
-#, fuzzy
-#~ msgid "First System Only"
-#~ msgstr "Usar Ícones do Sistema"
-
-#, fuzzy
-#~ msgid "Layout Control"
-#~ msgstr "Contribuindo"
-
-#~ msgid "Delete intermediate output files"
-#~ msgstr "Excluir os arquivos de saída intermediários"
-
-#~ msgid "Run LilyPond with English messages"
-#~ msgstr "Executar LilyPond com mensagens em Inglês"
-
-#~ msgid "Run LilyPond"
-#~ msgstr "Executar LilyPond"
-
-#~ msgid "PDF"
-#~ msgstr "PDF"
-
-#~ msgid "PostScript"
-#~ msgstr "PostScript"
-
-#~ msgid "PNG"
-#~ msgstr "PNG"
-
-#~ msgid "SVG"
-#~ msgstr "SVG"
-
-#~ msgid "PDF (EPS Backend)"
-#~ msgstr "PDF (EPS Backend)"
-
-#~ msgid "Encapsulated PostScript (EPS Backend)"
-#~ msgstr "Encapsulated PostScript (EPS Backend)"
-
-#~ msgid "PNG (EPS Backend)"
-#~ msgstr "PNG (EPS Backend)"
-
-#~ msgid "Generated &Files"
-#~ msgstr "Arquivos &Gerados"
-
-#~ msgid "No files available"
-#~ msgstr "Nenhum arquivo atual"
-
-#, fuzzy
-#~ msgid "Failed to load:"
-#~ msgstr ""
-#~ "Não foi possível carregar documento não-locais:\n"
-#~ "\n"
-#~ "{url}"
-
-#, fuzzy
-#~ msgid "Missing:"
-#~ msgstr "Expressando"
-
-#, fuzzy
-#~ msgid "&Extensions"
-#~ msgstr "Nenhuma Seção"
-
-#, fuzzy
-#~ msgid "Modified Files"
-#~ msgstr "Arquivo XML"
-
-#, fuzzy
-#~ msgid "Save"
-#~ msgstr "&Salvar"
-
-#, fuzzy
-#~ msgid "Show Difference..."
-#~ msgstr "Pr&eferências..."
-
-#, fuzzy
-#~ msgid "Enable watching documents for external changes"
-#~ msgstr "Este documento não foi alterado."
-
-#, fuzzy
-#~ msgid "[deleted]"
-#~ msgstr "Excluído"
-
-#, fuzzy
-#~ msgid "Could not save:"
-#~ msgstr "Não foi possível salvar a imagem."
-
-#, fuzzy
-#~ msgid "Please save the document using the \"Save As...\" dialog."
-#~ msgid_plural "Please save the documents using the \"Save As...\" dialog."
-#~ msgstr[0] "Sempre salve a lista de documentos nesta sessão"
-#~ msgstr[1] "Sempre salve a lista de documentos nesta sessão"
-
-#, fuzzy
-#~ msgid "Document on Disk"
-#~ msgstr "Fonte do Documento...."
-
-#, fuzzy
-#~ msgctxt "dialog title"
-#~ msgid "Export MusicXML File"
-#~ msgstr "Exportar como HTML"
-
-#~ msgid "XML Files"
-#~ msgstr "Arquivo XML"
-
-#~ msgid ""
-#~ "Can't write to destination:\n"
-#~ "\n"
-#~ "{url}\n"
-#~ "\n"
-#~ "{error}"
-#~ msgstr ""
-#~ "Não é possível escrever o destino:\n"
-#~ "\n"
-#~ "{url}\n"
-#~ "\n"
-#~ "{error}"
-
-#, fuzzy
-#~ msgctxt "dialog title"
-#~ msgid "Export Audio File"
-#~ msgstr "Exportar como HTML"
-
-#, fuzzy
-#~ msgid "WAV Files"
-#~ msgstr "Todos os Arquivos"
-
-#, fuzzy
-#~ msgid "Export Music&XML..."
-#~ msgstr "&Imprimir Música..."
-
-#, fuzzy
-#~ msgid "Export Audio..."
-#~ msgstr "E&xportar"
-
-#, fuzzy
-#~ msgid "MusicXML Files"
-#~ msgstr "Arquivo XML"
-
-#, fuzzy
-#~ msgid "Midi Files"
-#~ msgstr "Arquivo XML"
-
-#, fuzzy
-#~ msgid "ABC Files"
-#~ msgstr "Todos os Arquivos"
-
-#, fuzzy
-#~ msgctxt "dialog title"
-#~ msgid "Import"
-#~ msgstr "&Importar"
-
-#, fuzzy
-#~ msgctxt "dialog title"
-#~ msgid "Import a midi file"
-#~ msgstr "Importar Arquivo"
-
-#, fuzzy
-#~ msgctxt "dialog title"
-#~ msgid "Import an abc file"
-#~ msgstr "Importar Arquivo"
-
-#, fuzzy
-#~ msgid "Import..."
-#~ msgstr "&Importar"
-
-#, fuzzy
-#~ msgid "Import MusicXML..."
-#~ msgstr "&Imprimir Música..."
-
-#, fuzzy
-#~ msgid "Import Midi..."
-#~ msgstr "&Imprimir Música..."
-
-#, fuzzy
-#~ msgid "Import abc..."
-#~ msgstr "&Importar"
-
-#, fuzzy
-#~ msgid "Import beaming"
-#~ msgstr "Importar Fragmento "
-
-#, fuzzy
-#~ msgid "Run midi2ly"
-#~ msgstr "Executar LilyPond"
-
-#, fuzzy
-#~ msgid "Import Music XML"
-#~ msgstr "Exportar como HTML"
-
-#, fuzzy
-#~ msgid "Import rest positions"
-#~ msgstr "Saltar para posição do cursor"
-
-#, fuzzy
-#~ msgid "Import page layout"
-#~ msgstr "Importar Fragmento "
-
-#, fuzzy
-#~ msgid "After Import"
-#~ msgstr "&Importar"
-
-#, fuzzy
-#~ msgid "LilyPond version:"
-#~ msgstr "Versão LilyPond:"
-
-#, fuzzy
-#~ msgid "Remove fraction duration scaling"
-#~ msgstr "&Remover hifenização"
-
-#, fuzzy
-#~ msgid "Engrave directly"
-#~ msgstr "Decodificar personalizado"
-
-#, fuzzy
-#~ msgid "&Document Fonts..."
-#~ msgstr "Fonte do Documento...."
-
-#, fuzzy
-#~ msgid "Document Fonts"
-#~ msgstr "Fonte do Documento...."
-
-#, fuzzy
-#~ msgid "Copy font command to clipboard"
-#~ msgstr "&Copiar para Área de Transferência"
-
-#, fuzzy
-#~ msgid "Text Fonts"
-#~ msgstr "Arquivo Texinfo"
-
-#, fuzzy
-#~ msgid "Music Fonts"
-#~ msgstr "Arquivo XML"
-
-#, fuzzy
-#~ msgid "Font Command"
-#~ msgstr "Comando do Usuário"
-
-#, fuzzy
-#~ msgid "Roman"
-#~ msgstr "Fonte Roman:"
-
-#, fuzzy
-#~ msgid "Typewriter"
-#~ msgstr "Fonte Typewriter:"
-
-#, fuzzy
-#~ msgid "Traditional"
-#~ msgstr "Duração"
-
-#, fuzzy
-#~ msgid "Set music font"
-#~ msgstr "Quando salvar documentos"
-
-#, fuzzy
-#~ msgid "Default stylesheet"
-#~ msgstr "Estilo Padrão"
-
-#, fuzzy
-#~ msgid "Remove..."
-#~ msgstr "&Remover"
-
-#, fuzzy
-#~ msgid "Remove selected music font"
-#~ msgstr "Salvar Seleção"
-
-#, fuzzy
-#~ msgid "Fonts could not be installed!"
-#~ msgstr "Este documento não foi alterado."
-
-#, fuzzy
-#~ msgid "Font family could not be removed!"
-#~ msgstr "Este documento não foi alterado."
-
-#, fuzzy
-#~ msgid "Font installation failed:"
-#~ msgstr "Documentação &LilyPond"
-
-#, fuzzy
-#~ msgid "Font removal failed:"
-#~ msgstr "Documentação &LilyPond"
-
-#, fuzzy
-#~ msgid "Font"
-#~ msgstr "Fonte:"
-
-#, fuzzy
-#~ msgid "OpenType"
-#~ msgstr "Abrir"
-
-#, fuzzy
-#~ msgid ""
-#~ "Please select the three global fonts to use for <code>\\roman</code>, "
-#~ "<code>\\sans</code>, and <code>\\typewriter</code> respectively."
-#~ msgstr ""
-#~ "Por favor, selecione as três fontes globais para usar <code>\\roman</"
-#~ "code>, <code> \\sans</code>, e <code>\\typewriter</code>, "
-#~ "respectivamente..Você também deve definir o tamanho da pauta o tamanho da "
-#~ "pauta global que você usa no documento (20 por padrão)."
-
-#~ msgid "Roman Font:"
-#~ msgstr "Fonte Roman:"
-
-#~ msgid "Sans Font:"
-#~ msgstr "Fonte Sans:"
-
-#~ msgid "Typewriter Font:"
-#~ msgstr "Fonte Typewriter:"
-
-#, fuzzy
-#~ msgid "Select sample score"
-#~ msgstr "Selecionar o Diretório"
-
-#, fuzzy
-#~ msgid "Configuration Files"
-#~ msgstr "Editando Arquivos"
-
-#, fuzzy
-#~ msgid "Searched Font Directories"
-#~ msgstr "Diretório Atual"
-
-#, fuzzy
-#~ msgid "Available Fonts"
-#~ msgstr "Fontes Globais"
-
-#~ msgid "Starting {job}..."
-#~ msgstr "Iniciando {job}..."
-
-#~ msgid "Aborting {job}..."
-#~ msgstr "Abortando {job}..."
-
-#~ msgid "Could not read from the process."
-#~ msgstr "Não foi possível ler o processo."
-
-#~ msgid "An unknown error occurred."
-#~ msgstr "An unknown error occurred."
-
-#~ msgid "Exited with return code {code}."
-#~ msgstr "Encerrado com código de retorno {code}."
-
-#~ msgid "Exited with exit status {status}."
-#~ msgstr "Encerrado com status de saída {status}."
-
-#~ msgid "Completed successfully in {time}."
-#~ msgstr "Concluído com êxito em {time}."
-
-#, fuzzy
-#~ msgid "Run external command"
-#~ msgstr "Outros comandos:"
-
-#, fuzzy
-#~ msgid "Display Paper Columns"
-#~ msgstr "Cor do Papel:"
-
-#, fuzzy
-#~ msgid "Layout Control Options"
-#~ msgstr "Contribuindo"
-
-#~ msgid "Help"
-#~ msgstr "Ajuda"
-
-#~ msgid "Run LilyPond with verbose output"
-#~ msgstr "Executar LilyPond com saída detalhada"
-
-#~ msgid "Run LilyPond in preview mode (with Point and Click)"
-#~ msgstr "Executar LilyPond em modo visualização (com Ponto e clique)"
-
-#, fuzzy
-#~ msgid "Include Custom File:"
-#~ msgstr "Inserir do Arquivo"
-
-#~ msgid "LilyPond Log"
-#~ msgstr "Log LilyPond"
-
-#~ msgid "LilyPond &Log"
-#~ msgstr "&Log LilyPond"
-
-#~ msgid "Next Error Message"
-#~ msgstr "Próxima Mensagem de Erro"
-
-#~ msgid "Previous Error Message"
-#~ msgstr "Mensagem de Erro Anterior"
-
-#~ msgid "Click to edit this file"
-#~ msgstr "Click para editar este arquivo"
-
-#, fuzzy
-#~ msgid "New Score with &Wizard..."
-#~ msgstr "Assistente de Configuração de Partitura"
-
-#~ msgid "New from &Template"
-#~ msgstr "Novo a partir do &Modelo"
-
-#, fuzzy
-#~ msgctxt "submenu title"
-#~ msgid "&Import"
-#~ msgstr "&Importar"
-
-#~ msgctxt "menu title"
-#~ msgid "&Session"
-#~ msgstr "&Sessão"
-
-#~ msgid "MIDI Input"
-#~ msgstr "Entrada MIDI"
-
-#~ msgid "MIDI I&nput"
-#~ msgstr "E&ntrada MIDI"
-
-#, fuzzy
-#~ msgctxt "midi input"
-#~ msgid "Start capturing"
-#~ msgstr "Configurações MIDI"
-
-#~ msgctxt "midi input"
-#~ msgid "Start MIDI capturing"
-#~ msgstr "Começar captura MIDI"
-
-#, fuzzy
-#~ msgctxt "midi input"
-#~ msgid "Stop capturing"
-#~ msgstr "Configurações MIDI"
-
-#~ msgctxt "midi input"
-#~ msgid "Stop MIDI capturing"
-#~ msgstr "Parar captura MIDI"
-
-#, fuzzy
-#~ msgctxt "midi input"
-#~ msgid "Switch accidental style"
-#~ msgstr "Acidentes"
-
-#, fuzzy
-#~ msgid "Key signature"
-#~ msgstr "Fórmula de compasso:"
-
-#, fuzzy
-#~ msgid ""
-#~ "Enter simultaneously played notes as chords. See \"What's This\" for more "
-#~ "information."
-#~ msgstr ""
-#~ "Digite o texto para procurar na lista de fragmentos.\n"
-#~ "Consulte \"O que é isto\" para mais informações."
-
-#~ msgid ""
-#~ "Notes which are played simultaneously are written as chords. As a "
-#~ "consequence they are not written before the last key is lifted. Of course "
-#~ "single can also be entered."
-#~ msgstr ""
-#~ "Notas que são executadas simultaneamente são escritas como acordes. Como "
-#~ "consequências, elas não são escritas depois que a a última tecla seja "
-#~ "solta. Uma nota simples também pode ser anotada."
-
-#, fuzzy
-#~ msgid "Relative mode"
-#~ msgstr "Modo de Visualização"
-
-#, fuzzy
-#~ msgid ""
-#~ "Enter octaves of notes relative to the last note. See \"What's This\" for "
-#~ "more information."
-#~ msgstr ""
-#~ "Digite o texto para procurar na lista de fragmentos.\n"
-#~ "Consulte \"O que é isto\" para mais informações."
-
-#, fuzzy
-#~ msgid "Re-pitch mode"
-#~ msgstr "Modo de Visualização"
-
-#, fuzzy
-#~ msgid ""
-#~ "Enter notes keeping existing durations. See \"What's This\" for more "
-#~ "information."
-#~ msgstr ""
-#~ "Digite o texto para procurar na lista de fragmentos.\n"
-#~ "Consulte \"O que é isto\" para mais informações."
-
-#~ msgid "MIDI"
-#~ msgstr "MIDI"
-
-#~ msgid "MIDI &Player"
-#~ msgstr "&Tocador MIDI"
-
-#~ msgctxt "midi player"
-#~ msgid "Pause"
-#~ msgstr "Pausa"
-
-#~ msgctxt "midi player"
-#~ msgid "Play"
-#~ msgstr "Tocar"
-
-#~ msgctxt "midi player"
-#~ msgid "Stop"
-#~ msgstr "Pare"
-
-#~ msgctxt "midi player"
-#~ msgid "Restart"
-#~ msgstr "Restaurar"
-
-#~ msgid "Tempo"
-#~ msgstr "Andamento"
-
-#~ msgid "No output found!"
-#~ msgstr "Nenhuma saída encontrada!"
-
-#~ msgctxt "midi lcd screen"
-#~ msgid "LOADED"
-#~ msgstr "LOADED"
-
-#~ msgctxt "midi lcd screen"
-#~ msgid "TOTAL"
-#~ msgstr "TOTAL"
-
-#~ msgctxt "midi lcd screen"
-#~ msgid "TIME"
-#~ msgstr "TEMPO"
-
-#~ msgctxt "midi lcd screen"
-#~ msgid "TEMPO"
-#~ msgstr "ANDAMENTO"
-
-#~ msgctxt "midi lcd screen"
-#~ msgid "BEAT"
-#~ msgstr "BEAT"
-
-#~ msgctxt "window title"
-#~ msgid "Music View"
-#~ msgstr "Visualizar Música"
-
-#~ msgid "&Music View"
-#~ msgstr "&Visualizar Música"
-
-#, fuzzy
-#~ msgid "Print Music"
-#~ msgstr "&Imprimir Música..."
-
-#~ msgid "Select Music View Document"
-#~ msgstr "Selecionar Documento Visualizar Música"
-
-#~ msgid "&Print Music..."
-#~ msgstr "&Imprimir Música..."
-
-#~ msgid "Zoom Music"
-#~ msgstr "Zoom da Música"
-
-#~ msgid "&Jump to Cursor Position"
-#~ msgstr "Saltar para posição do cursor"
-
-#, fuzzy
-#~ msgid "S&ynchronize with Cursor Position"
-#~ msgstr "Saltar para posição do cursor"
-
-#~ msgid "Copy to &Image..."
-#~ msgstr "Copiar como &Imagem..."
-
-#, fuzzy
-#~ msgid "Copy Selected &Text"
-#~ msgstr "Texto Selecionado"
-
-#~ msgid "&Reload"
-#~ msgstr "&Recarregar"
-
-#~ msgid "Choose the PDF document to display."
-#~ msgstr "Escolher o documento PDF para exibir."
-
-#~ msgid ""
-#~ "Choose the PDF document to display or drag the file to another "
-#~ "application or location."
-#~ msgstr ""
-#~ "Escolha o documento PDF para exibir ou arrastar o arquivo para outra "
-#~ "aplicação ou localização."
-
-#, fuzzy
-#~ msgid "Object Editor"
-#~ msgstr "editor de Fragmento"
-
-#, fuzzy
-#~ msgid "O&bject Editor"
-#~ msgstr "editor de Fragmento"
-
-#~ msgid "Pitch Name &Language"
-#~ msgstr "&Idioma para Nome do Tom"
-
-#~ msgid ""
-#~ "Change the LilyPond language used for pitch names in this document or in "
-#~ "the selection."
-#~ msgstr ""
-#~ "Alterar o idioma LilyPond utilizado para nome do tom neste documento ou "
-#~ "na seleção."
-
-#~ msgid "Convert Relative to &Absolute"
-#~ msgstr "Converter Relativo para &Absoluto"
-
-#~ msgid ""
-#~ "Converts the notes in the document or selection from relative to absolute "
-#~ "pitch."
-#~ msgstr ""
-#~ "Converte as notas no documento ou seleção em relação ao tom absoluto."
-
-#~ msgid "Convert Absolute to &Relative"
-#~ msgstr "Converter &Absoluto para Relativo"
-
-#~ msgid ""
-#~ "Converts the notes in the document or selection from absolute to relative "
-#~ "pitch."
-#~ msgstr ""
-#~ "Converte as notas no documento ou seleção de absoluto para tom relativo."
-
-#~ msgid "&Transpose..."
-#~ msgstr "&Transporte..."
-
-#~ msgid "Transposes all notes in the document or selection."
-#~ msgstr "Transpõe todas as notas no documento ou seleção."
-
-#, fuzzy
-#~ msgid "&Modal Transpose..."
-#~ msgstr "&Transporte..."
-
-#, fuzzy
-#~ msgid ""
-#~ "Transposes all notes in the document or selection within a given mode."
-#~ msgstr "Transpõe todas as notas no documento ou seleção."
-
-#, fuzzy
-#~ msgid ""
-#~ "Transforms all notes in the document or selection to an optional mode."
-#~ msgstr "Transpõe todas as notas no documento ou seleção."
-
-#, fuzzy
-#~ msgid "Simplify Accidentals"
-#~ msgstr "Acidentes"
-
-#~ msgid "Pitch Name Language"
-#~ msgstr "Idioma para Nome do Tom"
-
-#~ msgid "(for LilyPond below 2.14), or"
-#~ msgstr "(para LilyPond abaixo 2.14), ou"
-
-#~ msgid "(for LilyPond 2.14 and higher.)"
-#~ msgstr "(para LilyPond  2.14 e superior.)"
-
-#~ msgid "Transpose"
-#~ msgstr "Transporte"
-
-#~ msgid ""
-#~ "Please enter two absolute pitches, separated by a space, using the pitch "
-#~ "name language \"{language}\"."
-#~ msgstr ""
-#~ "Por favor digite dois tons absolutos, separados por um espaço, utilizando "
-#~ "a linguagem de nome de tom \"{language}\"."
-
-#, fuzzy
-#~ msgid "usage: "
-#~ msgstr "Uso: %s\n"
-
-#~ msgid "show this help message and exit"
-#~ msgstr "exibir esta mensagem de ajuda e sair"
-
-#~ msgctxt "CloseButton"
-#~ msgid "Close Tab"
-#~ msgstr "Fechar Aba"
-
-#~ msgctxt "QDialogButtonBox"
-#~ msgid "Apply"
-#~ msgstr "Aplicar"
-
-#~ msgctxt "QDialogButtonBox"
-#~ msgid "&Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgctxt "QDialogButtonBox"
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgctxt "QDialogButtonBox"
-#~ msgid "Close"
-#~ msgstr "Fechar"
-
-#~ msgctxt "QDialogButtonBox"
-#~ msgid "Close without Saving"
-#~ msgstr "Fechar sem salvar"
-
-#~ msgctxt "QDialogButtonBox"
-#~ msgid "Discard"
-#~ msgstr "Descartar"
-
-#~ msgctxt "QDialogButtonBox"
-#~ msgid "Help"
-#~ msgstr "Ajuda"
-
-#~ msgctxt "QDialogButtonBox"
-#~ msgid "&OK"
-#~ msgstr "Ok"
-
-#~ msgctxt "QDialogButtonBox"
-#~ msgid "OK"
-#~ msgstr "Ok"
-
-#~ msgctxt "QDialogButtonBox"
-#~ msgid "Open"
-#~ msgstr "Abrir"
-
-#, fuzzy
-#~ msgctxt "QDialogButtonBox"
-#~ msgid "&Save"
-#~ msgstr "&Salvar"
-
-#~ msgctxt "QDialogButtonBox"
-#~ msgid "Save"
-#~ msgstr "Salvar"
-
-#~ msgctxt "QDialog"
-#~ msgid "What's This?"
-#~ msgstr "O que é Isto?"
-
-#, fuzzy
-#~ msgctxt "QDockWidget"
-#~ msgid "Close"
-#~ msgstr "Fechar"
-
-#, fuzzy
-#~ msgctxt "QDockWidget"
-#~ msgid "Closes the dock widget"
-#~ msgstr "Fechar Outros Documentos"
-
-#~ msgctxt "QFileDialog"
-#~ msgid "All Files (*)"
-#~ msgstr "Todos os Arquivos (*)"
-
-#, fuzzy
-#~ msgctxt "QFileDialog"
-#~ msgid "Back"
-#~ msgstr "Voltar"
-
-#~ msgctxt "QFileDialog"
-#~ msgid "Change to detail view mode"
-#~ msgstr "Mudar para o modo de visualização"
-
-#~ msgctxt "QFileDialog"
-#~ msgid "Change to list view mode"
-#~ msgstr "Mudar para visualização em Lista"
-
-#, fuzzy
-#~ msgctxt "QFileDialog"
-#~ msgid "Create a New Folder"
-#~ msgstr "Criar Nova Pasta"
-
-#~ msgctxt "QFileDialog"
-#~ msgid "Create New Folder"
-#~ msgstr "Criar Nova Pasta"
-
-#, fuzzy
-#~ msgctxt "QFileDialog"
-#~ msgid "&Delete"
-#~ msgstr "Excluído"
-
-#, fuzzy
-#~ msgctxt "QFileDialog"
-#~ msgid "Detail View"
-#~ msgstr "Detalhe da Visualização"
-
-#~ msgctxt "QFileDialog"
-#~ msgid "File"
-#~ msgstr "Arquivo"
-
-#, fuzzy
-#~ msgctxt "QFileDialog"
-#~ msgid "File &name:"
-#~ msgstr "Nome do Arquivo:"
-
-#~ msgctxt "QFileDialog"
-#~ msgid "Files of type:"
-#~ msgstr "Arquivos do tipo:"
-
-#~ msgctxt "QFileDialog"
-#~ msgid "Find Directory"
-#~ msgstr "Achar Diretório"
-
-#~ msgctxt "QFileDialog"
-#~ msgid "Folder"
-#~ msgstr "Pasta"
-
-#, fuzzy
-#~ msgctxt "QFileDialog"
-#~ msgid "Forward"
-#~ msgstr "Ir"
-
-#~ msgctxt "QFileDialog"
-#~ msgid "Go back"
-#~ msgstr "Voltar"
-
-#, fuzzy
-#~ msgctxt "QFileDialog"
-#~ msgid "Go forward"
-#~ msgstr "Ir"
-
-#, fuzzy
-#~ msgctxt "QFileDialog"
-#~ msgid "Go to the parent directory"
-#~ msgstr "Abrir Diretório Atual"
-
-#, fuzzy
-#~ msgctxt "QFileDialog"
-#~ msgid "List View"
-#~ msgstr "Lista"
-
-#~ msgctxt "QFileDialog"
-#~ msgid "&New Folder"
-#~ msgstr "Nova Pasta"
-
-#, fuzzy
-#~ msgctxt "QFileDialog"
-#~ msgid "&Open"
-#~ msgstr "&Abrir"
-
-#, fuzzy
-#~ msgctxt "QFileDialog"
-#~ msgid "Parent Directory"
-#~ msgstr "Diretório Atual"
-
-#, fuzzy
-#~ msgctxt "QFileDialog"
-#~ msgid "Remove"
-#~ msgstr "&Remover"
-
-#, fuzzy
-#~ msgctxt "QFileDialog"
-#~ msgid "&Rename"
-#~ msgstr "Renomear"
-
-#~ msgctxt "QFileDialog"
-#~ msgid "Show "
-#~ msgstr "Mostrar"
-
-#~ msgctxt "QFileDialog"
-#~ msgid "Show &hidden files"
-#~ msgstr "Mostrar arquivos ocultos"
-
-#~ msgctxt "QFileSystemModel"
-#~ msgid "Computer"
-#~ msgstr "Computador"
-
-#, fuzzy
-#~ msgctxt "QFileSystemModel"
-#~ msgid "Date Modified"
-#~ msgstr "[modificado]"
-
-#~ msgctxt "QFileSystemModel"
-#~ msgid "Name"
-#~ msgstr "Nome"
-
-#~ msgctxt "QFileSystemModel"
-#~ msgid "Size"
-#~ msgstr "Tamanho"
-
-#, fuzzy
-#~ msgctxt "QFileSystemModel"
-#~ msgid "Type"
-#~ msgstr "Tipo:"
-
-#~ msgctxt "QFontDatabase"
-#~ msgid "Black"
-#~ msgstr "Preto"
-
-#~ msgctxt "QFontDatabase"
-#~ msgid "Bold"
-#~ msgstr "Negrito"
-
-#, fuzzy
-#~ msgctxt "QMultiInputContext"
-#~ msgid "Select IM"
-#~ msgstr "Selecion&ar Todos"
-
-#, fuzzy
-#~ msgctxt "QPlatformTheme"
-#~ msgid "Save"
-#~ msgstr "&Salvar"
-
-#, fuzzy
-#~ msgctxt "QPlatformTheme"
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#, fuzzy
-#~ msgctxt "QPlatformTheme"
-#~ msgid "Discard"
-#~ msgstr "Descartar"
-
-#~ msgctxt "QScrollBar"
-#~ msgid "Left edge"
-#~ msgstr "Canto esquerdo"
-
-#~ msgctxt "QScrollBar"
-#~ msgid "Right edge"
-#~ msgstr "Canto direito"
-
-#~ msgctxt "QScrollBar"
-#~ msgid "Scroll down"
-#~ msgstr "Rolar para baixo"
-
-#~ msgctxt "QScrollBar"
-#~ msgid "Scroll here"
-#~ msgstr "Rolar aqui"
-
-#~ msgctxt "QScrollBar"
-#~ msgid "Scroll left"
-#~ msgstr "Rolar para esquerda"
-
-#~ msgctxt "QScrollBar"
-#~ msgid "Scroll right"
-#~ msgstr "Rolar para a direita"
-
-#~ msgctxt "QScrollBar"
-#~ msgid "Scroll up"
-#~ msgstr "Rolar para cima"
-
-#~ msgctxt "QScrollBar"
-#~ msgid "Top"
-#~ msgstr "Topo"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Add Favorite"
-#~ msgstr "Adicionar Favorito"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Adjust Brightness"
-#~ msgstr "Ajustar Brilho"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Audio Forward"
-#~ msgstr "Ir"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Audio Random Play"
-#~ msgstr "Tocar Randômico"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Audio Repeat"
-#~ msgstr "Repetir"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Audio Rewind"
-#~ msgstr "Voltar"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Back"
-#~ msgstr "Voltar"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Back Forward"
-#~ msgstr "Ir"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Backspace"
-#~ msgstr "Voltar"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Backtab"
-#~ msgstr "Voltar"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Battery"
-#~ msgstr "Batria"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Browser"
-#~ msgstr "Navegador"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Clear"
-#~ msgstr "Limpar"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Close"
-#~ msgstr "Fechar"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Copy"
-#~ msgstr "&Copiar"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Cut"
-#~ msgstr "Cor&tar"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Del"
-#~ msgstr "Excluído"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Delete"
-#~ msgstr "Excluído"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Display"
-#~ msgstr "Mostrar"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Documents"
-#~ msgstr "Documentos"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Forward"
-#~ msgstr "Ir"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Go"
-#~ msgstr "Ir"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Help"
-#~ msgstr "Ajuda"
-
-#~ msgctxt "QShortcut"
-#~ msgid "History"
-#~ msgstr "Histórico"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Home Page"
-#~ msgstr "Próxima Página"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Insert"
-#~ msgstr "&Inserir"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Left"
-#~ msgstr "Esquerda"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Media Pause"
-#~ msgstr "Pausa"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Media Play"
-#~ msgstr "Tocar"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Media Previous"
-#~ msgstr "Marca Anterior"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Media Record"
-#~ msgstr "Gravar"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Media Stop"
-#~ msgstr "Parar"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Menu"
-#~ msgstr "&Menu"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Music"
-#~ msgstr "&Visualizar Música"
-
-#~ msgctxt "QShortcut"
-#~ msgid "News"
-#~ msgstr "Novidades"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Open URL"
-#~ msgstr "Abrir URL"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Option"
-#~ msgstr "Opções"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Paste"
-#~ msgstr "Co&lar"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Pause"
-#~ msgstr "Pausa"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Reload"
-#~ msgstr "Recarregar"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Right"
-#~ msgstr "Direita"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Save"
-#~ msgstr "&Salvar"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Scroll Lock"
-#~ msgstr "Rolar para Baixo"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "ScrollLock"
-#~ msgstr "Rolar para Baixo"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Search"
-#~ msgstr "Pesquisar:"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Select"
-#~ msgstr "Selecion&ar Todos"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Send"
-#~ msgstr "Enviar"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Space"
-#~ msgstr "Espaço"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Spellchecker"
-#~ msgstr "Correção de palavras"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Spreadsheet"
-#~ msgstr "Folha de Estilo"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Stop"
-#~ msgstr "Pare"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Subtitle"
-#~ msgstr "Subtítulo"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Suspend"
-#~ msgstr "Suspender"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Tab"
-#~ msgstr "Tab"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Time"
-#~ msgstr "Tempo"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Tools"
-#~ msgstr "Ferramentas"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Top Menu"
-#~ msgstr "&Menu"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Up"
-#~ msgstr "Up"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "View"
-#~ msgstr "&Visualizar"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Volume Down"
-#~ msgstr "Abaixar Volume"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Volume Mute"
-#~ msgstr "Mudo"
-
-#~ msgctxt "QShortcut"
-#~ msgid "Volume Up"
-#~ msgstr "Aumentar Volume"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Zoom In"
-#~ msgstr "Mais Zoom"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Zoom Out"
-#~ msgstr "Menos Zoom"
-
-#, fuzzy
-#~ msgctxt "QTabBar"
-#~ msgid "Scroll Left"
-#~ msgstr "Rolar para esquerda"
-
-#, fuzzy
-#~ msgctxt "QTabBar"
-#~ msgid "Scroll Right"
-#~ msgstr "Rolar para a direita"
-
-#, fuzzy
-#~ msgctxt "QTextControl"
-#~ msgid "&Undo"
-#~ msgstr "&Desfazer"
-
-#, fuzzy
-#~ msgctxt "QTextControl"
-#~ msgid "Cu&t"
-#~ msgstr "Cor&tar"
-
-#, fuzzy
-#~ msgctxt "QTextControl"
-#~ msgid "&Copy"
-#~ msgstr "&Copiar"
-
-#, fuzzy
-#~ msgctxt "QTextControl"
-#~ msgid "&Paste"
-#~ msgstr "Co&lar"
-
-#, fuzzy
-#~ msgctxt "QTextControl"
-#~ msgid "Delete"
-#~ msgstr "Excluído"
-
-#, fuzzy
-#~ msgctxt "QTextControl"
-#~ msgid "Select All"
-#~ msgstr "Selecion&ar Todos"
-
-#, fuzzy
-#~ msgctxt "QWhatsThisAction"
-#~ msgid "What's This?"
-#~ msgstr "O que é Isto?"
-
-#~ msgid "Preferences"
-#~ msgstr "Preferências"
-
-#~ msgid "General Preferences"
-#~ msgstr "Preferências Gerais"
-
-#, fuzzy
-#~ msgid "Music Preferences"
-#~ msgstr "Preferências"
-
-#~ msgid "LilyPond Preferences"
-#~ msgstr "Preferências LilyPond"
-
-#~ msgid "MIDI Settings"
-#~ msgstr "Configurações MIDI"
-
-#~ msgid "LilyPond Documentation"
-#~ msgstr "Documentação Lilypond"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Atalhos de Teclado"
-
-#, fuzzy
-#~ msgid "Editor Preferences"
-#~ msgstr "Preferências do Editor"
-
-#~ msgid "Fonts & Colors"
-#~ msgstr "Fontes & Cores"
-
-#~ msgid "Tools"
-#~ msgstr "Ferramentas"
-
-#, fuzzy
-#~ msgid "Extensions"
-#~ msgstr "&Sessão"
-
-#~ msgid "Add paths or URLs. See \"What's This\" for more information."
-#~ msgstr ""
-#~ "Adicionar caminhos ou URLs. Consulte \"O que é isto\" para mais "
-#~ "informações."
-
-#~ msgid "Preferred Language:"
-#~ msgstr "Linguagem Preferidas"
-
-#~ msgid "English (untranslated)"
-#~ msgstr "Inglês (não-traduzido)"
-
-#~ msgid "Font:"
-#~ msgstr "Fonte:"
-
-#~ msgid "Please enter a local path or a URL:"
-#~ msgstr "Por favor entre com um endereço ou URL:"
-
-#, fuzzy
-#~ msgid "View Preferences"
-#~ msgstr "Preferências"
-
-#~ msgid "Wrap long lines by default"
-#~ msgstr "Quebrar linhas longas por padrão"
-
-#, fuzzy
-#~ msgid "Highlighting Options"
-#~ msgstr "Sintaxe Rea&lçado"
-
-#, fuzzy
-#~ msgid "Indenting Preferences"
-#~ msgstr "Preferências"
-
-#, fuzzy
-#~ msgid "The visible width of a Tab character in the editor."
-#~ msgstr "A largura de um caractere de tabulação, por padrão 8."
-
-#, fuzzy
-#~ msgid "Tab"
-#~ msgstr "Tab"
-
-#, fuzzy
-#~ msgid "Keyboard Preferences"
-#~ msgstr "Preferências LilyPond"
-
-#, fuzzy
-#~ msgid "Source Export Preferences"
-#~ msgstr "Preferências"
-
-#, fuzzy
-#~ msgid "Show line numbers"
-#~ msgstr "Número de Cordas"
-
-#, fuzzy
-#~ msgid "Copy document body only"
-#~ msgstr "Agrupar documentos por diretório"
-
-#, fuzzy
-#~ msgid "Typographical Quotes"
-#~ msgstr "Simples Aspas Tipográficas"
-
-#, fuzzy
-#~ msgid "Current language"
-#~ msgstr "Linha Atual"
-
-#, fuzzy
-#~ msgid "General Settings"
-#~ msgstr "Preferências Gerais"
-
-#, fuzzy
-#~ msgid "Use Extensions"
-#~ msgstr "Usar linhas de extensão"
-
-#, fuzzy
-#~ msgid "Extension API: {apiversion}"
-#~ msgstr "Versão {version}"
-
-#, fuzzy
-#~ msgid "API version"
-#~ msgstr "versão"
-
-#, fuzzy
-#~ msgid "Short Description"
-#~ msgstr "Curta Fermata"
-
-#~ msgid "Use this scheme for printing"
-#~ msgstr "Usar este esquema para impressão"
-
-#~ msgid "Base Colors"
-#~ msgstr "Cores Básicas"
-
-#~ msgid "Default Styles"
-#~ msgstr "Estilo Padrão"
-
-#~ msgid "Text"
-#~ msgstr "Texto"
-
-#~ msgid "Background"
-#~ msgstr "Pano de Fundo"
-
-#~ msgid "Bold"
-#~ msgstr "Negrito"
-
-#~ msgid "Italic"
-#~ msgstr "Itálico"
-
-#~ msgid "Underline"
-#~ msgstr "Sublinhado"
-
-#~ msgid "Selected Text"
-#~ msgstr "Texto Selecionado"
-
-#~ msgid "Selection Background"
-#~ msgstr "Seleciona Pano de Fundo"
-
-#~ msgid "Current Line"
-#~ msgstr "Linha Atual"
-
-#~ msgid "Marked Line"
-#~ msgstr "Linha Marcada"
-
-#~ msgid "Error Line"
-#~ msgstr "Erro na Linha"
-
-#~ msgid "Search Result"
-#~ msgstr "Procurar Resultados"
-
-#~ msgid "Variable"
-#~ msgstr "Variável"
-
-#~ msgid "Value"
-#~ msgstr "Valor"
-
-#~ msgid "LilyPond"
-#~ msgstr "LilyPond"
-
-#~ msgid "Pitch"
-#~ msgstr "Tom"
-
-#~ msgid "Octave"
-#~ msgstr "Oitava"
-
-#~ msgid "Duration"
-#~ msgstr "Duração"
-
-#~ msgid "Accidental"
-#~ msgstr "Acidentes"
-
-#~ msgid "String Number"
-#~ msgstr "Número de Cordas"
-
-#~ msgid "Slur"
-#~ msgstr "Ligadura"
-
-#~ msgid "Dynamic"
-#~ msgstr "Dinâmica"
-
-#~ msgid "Articulation"
-#~ msgstr "Articulação"
-
-#~ msgid "Chord"
-#~ msgstr "Acorde"
-
-#~ msgid "Repeat"
-#~ msgstr "Repetir"
-
-#~ msgid "Specifier"
-#~ msgstr "Especificar"
-
-#~ msgid "User Command"
-#~ msgstr "Comando do Usuário"
-
-#~ msgid "Lyric Mode"
-#~ msgstr "Modo Letra"
-
-#~ msgid "Lyric Text"
-#~ msgstr "Texto da Letra"
-
-#~ msgid "Delimiter"
-#~ msgstr "Delimitador"
-
-#~ msgid "Context"
-#~ msgstr "Contexto"
-
-#~ msgid "User Variable"
-#~ msgstr "Usar Variáveis"
-
-#~ msgid "Tag"
-#~ msgstr "Tag"
-
-#~ msgid "Attribute"
-#~ msgstr "Atributo"
-
-#~ msgid "Scheme"
-#~ msgstr "Esquema"
-
-#~ msgid "Number"
-#~ msgstr "Número"
-
-#~ msgid "LilyPond Environment"
-#~ msgstr "Ambinte Lilypond"
-
-#~ msgid "Constant"
-#~ msgstr "Constante"
-
-#~ msgid "Symbol"
-#~ msgstr "Símbolo"
-
-#~ msgid "Texinfo"
-#~ msgstr "Texinfo"
-
-#~ msgid "Block"
-#~ msgstr "Bloco"
-
-#~ msgid "Verbatim"
-#~ msgstr "Textual"
-
-#~ msgid "Language:"
-#~ msgstr "Linguagem:"
-
-#~ msgid "No Translation"
-#~ msgstr "Não Traduzido"
-
-#~ msgid "System Default Language (if available)"
-#~ msgstr "Idioma Padrão do Sistema (se disponível)"
-
-#~ msgid "Style:"
-#~ msgstr "Estilo:"
-
-#~ msgid "Use System Icons"
-#~ msgstr "Usar Ícones do Sistema"
-
-#, fuzzy
-#~ msgid "Show Close Button on Document tabs"
-#~ msgstr "Fechar Outros Documentos"
-
-#, fuzzy
-#~ msgid "Sessions and Files"
-#~ msgstr "Arquivo LilyPond"
-
-#, fuzzy
-#~ msgid "New Document"
-#~ msgstr "Novo documento"
-
-#, fuzzy
-#~ msgid "Create an empty document"
-#~ msgstr "Criar um Documento vazio"
-
-#~ msgid "Create a document that contains the LilyPond version statement"
-#~ msgstr "Criar um Documento que contanha a versão do LilyPond"
-
-#, fuzzy
-#~ msgid "Create a document from a template:"
-#~ msgstr "Criar um documento de um modelo"
-
-#~ msgid "Keep backup copy"
-#~ msgstr "Manter cópia de backup"
-
-#~ msgid "Remember cursor position, bookmarks, etc."
-#~ msgstr "Lembrar posição do cursor, bookmarks, etc."
-
-#~ msgid "Default directory:"
-#~ msgstr "Diretório padrão:"
-
-#~ msgid "The default folder for your LilyPond documents (optional)."
-#~ msgstr "A pasta padrão para seus documentos LilyPond (opcional)."
-
-#, fuzzy
-#~ msgid "Sessions"
-#~ msgstr "&Sessão"
-
-#~ msgid "Session to load if Frescobaldi is started without arguments"
-#~ msgstr "Sessão para carregar se Frescobaldi é iniciado sem argumentos"
-
-#~ msgid "Start with no session"
-#~ msgstr "Iniciar com nenhuma sessão"
-
-#~ msgid "Start with last used session"
-#~ msgstr "Iniciar com a última seção usada"
-
-#~ msgid "Start with session:"
-#~ msgstr "Iniciar com sessão:"
-
-#~ msgid "MIDI:"
-#~ msgstr "MIDI:"
-
-#~ msgid "Shell:"
-#~ msgstr "Shell:"
-
-#, fuzzy
-#~ msgid "No theme found."
-#~ msgstr "Nenhum tema encontrado"
-
-#~ msgid ""
-#~ "Can't read from source:\n"
-#~ "\n"
-#~ "{url}\n"
-#~ "\n"
-#~ "{error}"
-#~ msgstr ""
-#~ "Não é possível ler a partir da fonte:\n"
-#~ "\n"
-#~ "{url}\n"
-#~ "\n"
-#~ "{error}"
-
-#, fuzzy
-#~ msgid "No shortcuts found."
-#~ msgstr "Nenhuma atalho encontrado"
-
-#~ msgid "LilyPond versions to use"
-#~ msgstr "Versão LilyPond em uso"
-
-#~ msgid "Automatically choose LilyPond version from document"
-#~ msgstr "Escolher automaticamente a versão do documento LilyPond"
-
-#~ msgid ""
-#~ "If checked, the document's version determines the LilyPond version to "
-#~ "use.\n"
-#~ "See \"What's This\" for more information."
-#~ msgstr ""
-#~ "Se marcada, a versão do documento determina a versão LilyPond a usar.\n"
-#~ "Consulte \"O que é isto\" para mais informações."
-
-#~ msgid "Set as &Default"
-#~ msgstr "Configurar como Pa&drão"
-
-#~ msgid "default"
-#~ msgstr "padrão"
-
-#~ msgid "How this version of LilyPond will be displayed."
-#~ msgstr "Como essa versão do LilyPond será exibida."
-
-#~ msgid "LilyPond Command:"
-#~ msgstr "Comando LilyPond:"
-
-#~ msgid "Name or full path of the LilyPond program."
-#~ msgstr "Nome ou caminho completo do programa LilyPond."
-
-#, fuzzy
-#~ msgid "General"
-#~ msgstr "Arquivos &Gerados"
-
-#, fuzzy
-#~ msgid "Tool Commands"
-#~ msgstr "Comando do Usuário"
-
-#~ msgid "Save document if possible"
-#~ msgstr "Salvar documento se possível"
-
-#, fuzzy
-#~ msgid "Default output format"
-#~ msgstr "Formatar Saída:"
-
-#~ msgid ""
-#~ "The MIDI port to play music to. See \"What's This\" for more information."
-#~ msgstr ""
-#~ "A porta MIDI para reproduzir música. Consulte \"O que é isto\" para mais "
-#~ "informações."
-
-#, fuzzy
-#~ msgid "Input port:"
-#~ msgstr "Porta de entrada:"
-
-#, fuzzy
-#~ msgid ""
-#~ "The MIDI port to get input from to write notes  See \"What's This\" for "
-#~ "more information."
-#~ msgstr ""
-#~ "A porta MIDI para reproduzir música. Consulte \"O que é isto\" para mais "
-#~ "informações."
-
-#~ msgid "Refresh MIDI ports"
-#~ msgstr "Atualizar portas MIDI"
-
-#~ msgid "Close unused MIDI output"
-#~ msgstr "Fechar saída MIDI sem uso"
-
-#~ msgid ""
-#~ "Closes unused MIDI ports after one minute. See \"What's This\" for more "
-#~ "information."
-#~ msgstr ""
-#~ "Fechar saída MIDI sem uso após um minuto. Veja \"O que é isto\" para mais "
-#~ "informação."
-
-#, fuzzy
-#~ msgid ""
-#~ "Polling time for MIDI input. See \"What's This\" for more information."
-#~ msgstr ""
-#~ "Adicionar caminhos ou URLs. Consulte \"O que é isto\" para mais "
-#~ "informações."
-
-#~ msgid "Show Scrollbars"
-#~ msgstr "Mostrar barra de rolagem"
-
-#, fuzzy
-#~ msgid "Display of Music"
-#~ msgstr "Mostrar"
-
-#~ msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
-#~ msgstr ""
-#~ "Tamanho da lente de aumento (Ctrl + Clique na Visualização da Música)."
-
-#, fuzzy
-#~ msgid "Printing of Music"
-#~ msgstr "&Imprimir Música"
-
-#, fuzzy
-#~ msgid "Set the resolution if Frescobaldi prints using raster images."
-#~ msgstr "Sessão para carregar se Frescobaldi é iniciado sem argumentos"
-
-#, fuzzy
-#~ msgid "Music Font Preview Cache:"
-#~ msgstr "Visualizar Música"
-
-#~ msgid "Shortcut"
-#~ msgstr "Atalho"
-
-#, fuzzy
-#~ msgid "Menu {name}"
-#~ msgstr "Menu {name}"
-
-#~ msgid "Other commands:"
-#~ msgstr "Outros comandos:"
-
-#~ msgid "&Edit Shortcut for \"{name}\""
-#~ msgstr "&Editar Atalho para \"{name}\""
-
-#~ msgid "(no shortcut)"
-#~ msgstr "(nenhum atalho)"
-
-#~ msgid "(default)"
-#~ msgstr "(padrão)"
-
-#~ msgid "Show log when a job is started"
-#~ msgstr "Exibir log quando um trabalho é iniciado"
-
-#~ msgid "Music View"
-#~ msgstr "Visualizar Música"
-
-#, fuzzy
-#~ msgid "Only load updated PDF documents"
-#~ msgstr "Fechar Todos os Documentos"
-
-#~ msgid "Group documents by directory"
-#~ msgstr "Agrupar documentos por diretório"
-
-#, fuzzy
-#~ msgid "&Print..."
-#~ msgstr "Imprimir..."
-
-#~ msgid "Fit &Width"
-#~ msgstr "Ajustar a &largura"
-
-#~ msgid "Fit &Height"
-#~ msgstr "Ajustar a &Altura"
-
-#~ msgid "Fit &Page"
-#~ msgstr "Ajustar a &Página"
-
-#, fuzzy
-#~ msgid "&Natural Size"
-#~ msgstr "Tamanho da Pauta"
-
-#~ msgid "Original &Size"
-#~ msgstr "Tamanho Orginal"
-
-#~ msgid "Zoom &In"
-#~ msgstr "M&enos Zoom"
-
-#~ msgid "Zoom &Out"
-#~ msgstr "Mais Z&oom"
-
-#, fuzzy
-#~ msgid "Width"
-#~ msgstr "Ajustar a largura"
-
-#, fuzzy
-#~ msgid "Height"
-#~ msgstr "Ajustar a Altura"
-
-#, fuzzy
-#~ msgid "Page"
-#~ msgstr "Ajustar a Página"
-
-#, fuzzy
-#~ msgid "Single Pages"
-#~ msgstr "Linha de Barras Simples"
-
-#, fuzzy
-#~ msgid "Raster"
-#~ msgstr "Co&lar"
-
-#, fuzzy
-#~ msgid "Vertical"
-#~ msgstr "Dividir &Verticalmente"
-
-#, fuzzy
-#~ msgid "Horizontal"
-#~ msgstr "Dividir &Horizontalmente"
-
-#, fuzzy
-#~ msgid "&Continuous"
-#~ msgstr "Conteúdos"
-
-#, fuzzy
-#~ msgid "Re&load View"
-#~ msgstr "Fe&char Exibição"
-
-#, fuzzy
-#~ msgid "Previous Page"
-#~ msgstr "Marca Anterior"
-
-#, fuzzy
-#~ msgid "Previous"
-#~ msgstr "Marca Anterior"
-
-#, fuzzy
-#~ msgid "Next Page"
-#~ msgstr "Próxima Alteração"
-
-#, fuzzy
-#~ msgid "Next"
-#~ msgstr "Próximo:"
-
-#~ msgid "Quick Insert"
-#~ msgstr "Inserção rápida"
-
-#~ msgid "Quick &Insert"
-#~ msgstr "&Inserção rápida"
-
-#~ msgid "Use short notation for some articulations like staccato."
-#~ msgstr "Usar notação abreviada para algumas articulações como staccato."
-
-#~ msgid "Remove articulations etc."
-#~ msgstr "Remover articulações, etc."
-
-#~ msgid "Articulations"
-#~ msgstr "Articulações"
-
-#~ msgid "Staccatissimo"
-#~ msgstr "Staccatissimo"
-
-#~ msgid "Staccato"
-#~ msgstr "Staccato"
-
-#~ msgid "Tenuto"
-#~ msgstr "Tenuto"
-
-#~ msgid "Trill"
-#~ msgstr "Trill"
-
-#~ msgid "Turn"
-#~ msgstr "Retorno"
-
-#~ msgid "Up prall"
-#~ msgstr "Prall Acima"
-
-#~ msgid "Up mordent"
-#~ msgstr "Mordente Acima"
-
-#~ msgid "Signs"
-#~ msgstr "Sinais"
-
-#~ msgid "Short fermata"
-#~ msgstr "Curta Fermata"
-
-#~ msgid "Very long fermata"
-#~ msgstr "Fermata muito longa"
-
-#~ msgid "Segno"
-#~ msgstr "Sinais"
-
-#~ msgid "Varcoda"
-#~ msgstr "Varcoda"
-
-#~ msgid "Signumcongruentiae"
-#~ msgstr "Signumcongruentiae"
-
-#~ msgid "Other"
-#~ msgstr "Outro"
-
-#~ msgid "Upbow"
-#~ msgstr "Curva Acima"
-
-#~ msgid "Downbow"
-#~ msgstr "Curva Abaixo"
-
-#~ msgid "Snappizzicato"
-#~ msgstr "Snappizzicato"
-
-#~ msgid "Open (e.g. brass)"
-#~ msgstr "Abrir (e.g. brass)"
-
-#~ msgid "Stopped (e.g. brass)"
-#~ msgstr "Parado (brass, por exemplo)"
-
-#~ msgid "Thumb"
-#~ msgstr "Dedo polegar"
-
-#~ msgid "Left heel"
-#~ msgstr "Mão Esquerda"
-
-#~ msgid "Right heel"
-#~ msgstr "Mão Direita"
-
-#~ msgid "Left toe"
-#~ msgstr "Pé esquerdo"
-
-#~ msgid "Right toe"
-#~ msgstr "Pé direito"
-
-#~ msgid "Repeat start"
-#~ msgstr "Iniciar Repetição"
-
-#~ msgid "Repeat both"
-#~ msgstr "Repetir ambos"
-
-#~ msgid "Repeat end"
-#~ msgstr "Terminar Repetição"
-
-#~ msgid "Repeat both (old)"
-#~ msgstr "Repetir ambos (antigo)"
-
-#~ msgid "Repeat both (classic)"
-#~ msgstr "Repetir ambos (clássico)"
-
-#~ msgid "Tick bar line"
-#~ msgstr "Linha Barra de Tick"
-
-#~ msgid "Single bar line"
-#~ msgstr "Linha de Barras Simples"
-
-#~ msgid "Small-Wide-Small bar line"
-#~ msgstr "Pequena-Grande- Pequena barra de linha"
-
-#~ msgid "Wide-Small bar line"
-#~ msgstr "Grande-Pequenas linha de barra"
-
-#~ msgid "Double wide bar line"
-#~ msgstr "Barras duplas largas"
-
-#~ msgid "Segno bar line"
-#~ msgstr "Linha de Barra Sinais"
-
-#, fuzzy
-#~ msgid "Single wide bar line"
-#~ msgstr "Linha de Barras Simples"
-
-#, fuzzy
-#~ msgid "Angled repeat start"
-#~ msgstr "Iniciar Repetição"
-
-#, fuzzy
-#~ msgid "Angled repeat end"
-#~ msgstr "Terminar Repetição"
-
-#, fuzzy
-#~ msgid "Angled repeat both"
-#~ msgstr "Repetir ambos"
-
-#, fuzzy
-#~ msgid "Kievan bar line"
-#~ msgstr "Linha de Barra Sinais"
-
-#~ msgid "Breathing Signs"
-#~ msgstr "Sinal de Respiração"
-
-#~ msgid "Default Breathing Sign"
-#~ msgstr "Sinal de Respiração Padrão"
-
-#~ msgid "Straight Breathing Sign"
-#~ msgstr "Linha Sinal de Respiração"
-
-#~ msgid "Straight Caesura"
-#~ msgstr "Linha Caesura"
-
-#~ msgid "{name} ({key})"
-#~ msgstr "{name} ({key})"
-
-#~ msgid "Configure Keyboard Shortcut ({key})"
-#~ msgstr "Configurar Atalho de Teclado ({key})"
-
-#~ msgid "Spanners"
-#~ msgstr "Chaves"
-
-#~ msgid "Slurs, spanners, etcetera."
-#~ msgstr "Ligaduras, chaves, etc.."
-
-#~ msgid "Zigzag Glissando"
-#~ msgstr "Zigzag Glissando"
-
-#~ msgid "Trill Glissando"
-#~ msgstr "Trill Glissando"
-
-#~ msgid "Up"
-#~ msgstr "Up"
-
-#~ msgid "Neutral"
-#~ msgstr "Neutro"
-
-#, fuzzy
-#~ msgid "Change all R to s in this document or in the selection."
-#~ msgstr "Transpõe todas as notas no documento ou seleção."
-
-#, fuzzy
-#~ msgid "Change all s to R in this document or in the selection."
-#~ msgstr ""
-#~ "Alterar o idioma LilyPond utilizado para nome do tom neste documento ou "
-#~ "na seleção."
-
-#, fuzzy
-#~ msgid "Change all \\rest with r in this document or in the selection."
-#~ msgstr ""
-#~ "Alterar o idioma LilyPond utilizado para nome do tom neste documento ou "
-#~ "na seleção."
-
-#~ msgid "&Double durations"
-#~ msgstr "&Dupla duração"
-
-#~ msgid "Double all the durations in the selection."
-#~ msgstr "Dobrar todas as durações na seleção"
-
-#~ msgid "&Undot durations"
-#~ msgstr "&Desfazer duração"
-
-#~ msgid "&Remove durations"
-#~ msgstr "Remover duração"
-
-#~ msgid "Remove all durations from the selection."
-#~ msgstr "Remover todas as durações da seleção."
-
-#~ msgid "Make durations implicit (remove repeated durations)."
-#~ msgstr "Fazer durações implícitas (remove durações repetida)."
-
-#~ msgid ""
-#~ "Make durations implicit (remove repeated durations), except for the first "
-#~ "duration in a line."
-#~ msgstr ""
-#~ "Fazer durações implícitas (remove durações repetidas), exceto para a "
-#~ "primeiro duração de uma linha."
-
-#~ msgid ""
-#~ "Make durations explicit (add duration to every note, even if it is the "
-#~ "same as the preceding note)."
-#~ msgstr ""
-#~ "Fazer durações explícitas (adicionar durações repetidas), inclusive para "
-#~ "a a nota precedente."
-
-#~ msgid "&Apply rhythm..."
-#~ msgstr "&Aplicar Ritmo..."
-
-#~ msgid "Apply an entered rhythm to the selected music."
-#~ msgstr "Aplicar uma entrada de ritmo para a música selecionada."
-
-#~ msgid "&Copy rhythm"
-#~ msgstr "&Copiar ritmo"
-
-#~ msgid "Copy the rhythm of the selected music."
-#~ msgstr "Copiar Ritmo da música selecionada"
-
-#~ msgid "&Paste rhythm"
-#~ msgstr "Colar Ritmo"
-
-#~ msgid "Paste a rhythm to the selected music."
-#~ msgstr "Colar Ritmo para a música selecionada."
-
-#~ msgid "Apply Rhythm"
-#~ msgstr "Aplicar Ritmo"
-
-#, fuzzy
-#~ msgid "Score &Wizard..."
-#~ msgstr "Assistente de Configuração de Partitura"
-
-#~ msgid "Music follows here."
-#~ msgstr "Música segue aqui."
-
-#~ msgid "Score Setup Wizard"
-#~ msgstr "Assistente de Configuração de Partitura"
-
-#~ msgid "Clear"
-#~ msgstr "Limpar"
-
-#~ msgid "&Titles and Headers"
-#~ msgstr "Títulos e Cabeçalhos"
-
-#~ msgid "&Parts"
-#~ msgstr "Partes"
-
-#~ msgid "&Score settings"
-#~ msgstr "Configurações &Partitura"
-
-#~ msgid "bottom of first page"
-#~ msgstr "inferior da primeira página"
-
-#~ msgid "bottom of last page"
-#~ msgstr "inferior da última página"
-
-#~ msgid "Title"
-#~ msgstr "Título"
-
-#~ msgid "Subtitle"
-#~ msgstr "Subtítulo"
-
-#~ msgid "Subsubtitle"
-#~ msgstr "Sub-subtítulo"
-
-#~ msgid "Instrument"
-#~ msgstr "Instrumento"
-
-#~ msgid "Composer"
-#~ msgstr "Compositor"
-
-#~ msgid "Arranger"
-#~ msgstr "Arranjador"
-
-#~ msgid "Poet"
-#~ msgstr "Poeta"
-
-#~ msgid "Copyright"
-#~ msgstr "Copyright"
-
-#~ msgid "Tagline"
-#~ msgstr "Slogan"
-
-#~ msgid "&Remove"
-#~ msgstr "&Remover"
-
-#~ msgid "Time signature:"
-#~ msgstr "Fórmula de compasso:"
-
-#~ msgid "Metronome mark:"
-#~ msgstr "Marca de Metrônomo:"
-
-#~ msgid "Tempo indication:"
-#~ msgstr "Indicador de Tempo:"
-
-#~ msgid "Use typographical quotes"
-#~ msgstr "Usar Aspas Tipográficas"
-
-#~ msgid "Suppress the default tagline output by LilyPond."
-#~ msgstr "Suprimir saída slogan padrão LilyPond."
-
-#~ msgid "Remove bar numbers"
-#~ msgstr "Remover número de barras"
-
-#~ msgid ""
-#~ "Suppress the display of measure numbers at the beginning of every system."
-#~ msgstr ""
-#~ "Suprimir a exibição de números de compasso no início de cada sistema."
-
-#~ msgid "Create MIDI output"
-#~ msgstr "Criar saída MIDI"
-
-#~ msgid "Show metronome mark"
-#~ msgstr "Exibir marcas de metrônomo"
-
-#~ msgid ""
-#~ "If checked, show the metronome mark at the beginning of the score. The "
-#~ "MIDI output also uses the metronome setting."
-#~ msgstr ""
-#~ "Se marcado, mostra a marca de metrônomo no início da partitura. A saída "
-#~ "MIDI usa também a configuração do metrônomo."
-
-#~ msgid "Paper size:"
-#~ msgstr "Tamanho do Papel:"
-
-#, fuzzy
-#~ msgid "Orientation:"
-#~ msgstr "Duração"
-
-#~ msgid "Landscape"
-#~ msgstr "Paisagem"
-
-#, fuzzy
-#~ msgid "Rotated"
-#~ msgstr "Nova Ja&nela"
-
-#~ msgid "Short"
-#~ msgstr "Curta"
-
-#~ msgid "Instrument names"
-#~ msgstr "Nomes dos Instrumentos"
-
-#~ msgid "Use long or short instrument names before the first system."
-#~ msgstr "Use nomes instrumento longo ou curto antes do primeiro sistema."
-
-#~ msgid "Use short, long or no instrument names before the next systems."
-#~ msgstr ""
-#~ "Use nomes curtos e longos ou nenhum instrumento antes do próximo sistema."
-
-#~ msgid "Which language to use for the instrument names."
-#~ msgstr "Qual a linguagem a ser usada para os nomes do instrumento."
-
-#~ msgid "The LilyPond language you want to use for the pitch names."
-#~ msgstr "A linguagem LilyPond que pretende utilizar para os nomes dos tons."
-
-#~ msgid "Version:"
-#~ msgstr "Versão:"
-
-#~ msgid "The LilyPond version you will be using for this document."
-#~ msgstr "A versão LilyPond que você estará usando para este documento."
-
-#~ msgid "No settings available."
-#~ msgstr "Nenhuma configuração atual."
-
-#~ msgid "Adjust how many separate voices you want on each staff."
-#~ msgstr ""
-#~ "Ajustar a forma como muitas vozes distintas que deseja em cada pauta"
-
-#~ msgid ""
-#~ "This is primarily useful when you write polyphonic music like a fuge."
-#~ msgstr ""
-#~ "Isso é útil principalmente quando você escreve música polifônica como uma "
-#~ "Fuga."
-
-#~ msgid "Right hand:"
-#~ msgstr "Mão direita"
-
-#~ msgid "Left hand:"
-#~ msgstr "Mão esquerda"
-
-#~ msgid ""
-#~ "Show predefined guitar fret diagrams below the chord names (LilyPond 2.12 "
-#~ "and above)."
-#~ msgstr ""
-#~ "Exibir diagramas trastes predefinidos de violão abaixo os nomes de "
-#~ "acordes (LilyPond 2,12ou superior)."
-
-#~ msgid "Chords follow here."
-#~ msgstr "Acordes seguem aqui."
-
-#~ msgid "Semi-German"
-#~ msgstr "Semi-German"
-
-#~ msgid "Trumpet in C"
-#~ msgstr "Trompete em C"
-
-#~ msgctxt "abbreviation for Trumpet in C"
-#~ msgid "Tr.C."
-#~ msgstr "Tr.C."
-
-#~ msgid "Trumpet in Bb"
-#~ msgstr "Trumpet in Bb"
-
-#~ msgctxt "abbreviation for Trumpet in Bb"
-#~ msgid "Tr.Bb."
-#~ msgstr "Tr.Bb."
-
-#, fuzzy
-#~ msgid "Cornet in Bb"
-#~ msgstr "Trumpet in Bb"
-
-#, fuzzy
-#~ msgctxt "abbreviation for Cornet in Bb"
-#~ msgid "Crt.Bb."
-#~ msgstr "Tr.Bb."
-
-#, fuzzy
-#~ msgid "Mellophone"
-#~ msgstr "Xylophone"
-
-#~ msgid "Trombone"
-#~ msgstr "Trombone"
-
-#~ msgctxt "abbreviation for Trombone"
-#~ msgid "Trb."
-#~ msgstr "Trb."
-
-#~ msgid "Tuba"
-#~ msgstr "Tuba"
-
-#~ msgctxt "abbreviation for Tuba"
-#~ msgid "Tb."
-#~ msgstr "Tb."
-
-#~ msgid "Staff Group"
-#~ msgstr "Grupo da Pauta"
-
-#~ msgid "Square"
-#~ msgstr "Quadrado"
-
-#~ msgid "Type:"
-#~ msgstr "Tipo:"
-
-#~ msgid "Output Filename:"
-#~ msgstr "Arquivo de Saída"
-
-#~ msgid "Filename"
-#~ msgstr "Nome do Arquivo"
-
-#~ msgid "Suffix"
-#~ msgstr "Sufixo"
-
-#~ msgid "Set to 0 to disable the pedal altogether."
-#~ msgstr "Defina como 0 para desativar o pedal completamente."
-
-#~ msgid "Keyboard instruments"
-#~ msgstr "Instrumentos de Teclas"
-
-#~ msgid "Timpani"
-#~ msgstr "Timpani"
-
-#~ msgctxt "abbreviation for Timpani"
-#~ msgid "Tmp."
-#~ msgstr "Tempo"
-
-#~ msgid "Xylophone"
-#~ msgstr "Xylophone"
-
-#~ msgctxt "abbreviation for Xylophone"
-#~ msgid "Xyl."
-#~ msgstr "Xyl."
-
-#~ msgid "Upper staff:"
-#~ msgstr "Pauta Superior:"
-
-#~ msgid "Lower staff:"
-#~ msgstr "Pauta Inferior:"
-
-#~ msgid "Set the number of voices to 0 to disable the second staff."
-#~ msgstr "Definir o número de vozes a 0 para desabilitar a segunda pauta."
-
-#~ msgid "Vibraphone"
-#~ msgstr "Vibraphone"
-
-#~ msgctxt "abbreviation for Vibraphone"
-#~ msgid "Vib."
-#~ msgstr "Vib."
-
-#~ msgid "Tubular bells"
-#~ msgstr "Tubular bells"
-
-#~ msgctxt "abbreviation for Tubular bells"
-#~ msgid "Tub."
-#~ msgstr "Tub."
-
-#~ msgid "Manual staff:"
-#~ msgstr "Pauta Manua:"
-
-#~ msgid "Pedal staff:"
-#~ msgstr "Pauta Pedal:"
-
-#~ msgid "Voices:"
-#~ msgstr "Vozes:"
-
-#~ msgid "keep some distance."
-#~ msgstr "manter alguma distância."
-
-#~ msgid "Timbales-style (2 lines)"
-#~ msgstr "Timbales-style (2 lines)"
-
-#~ msgid "Staff type:"
-#~ msgstr "Tipo de Pauta:"
-
-#~ msgid "Tuning:"
-#~ msgstr "Afinação"
-
-#~ msgid "Normal staff"
-#~ msgstr "Pauta Normal"
-
-#~ msgid "Tablature"
-#~ msgstr "Tablatura"
-
-#~ msgid "Four strings (instead of five)"
-#~ msgstr "Quatro cordas (ao invés de cinco)"
-
-#~ msgid "Electric bass"
-#~ msgstr "Electric bass"
-
-#~ msgid "Plucked strings"
-#~ msgstr "Cordas dedilhadas"
-
-#~ msgid "Use extender lines"
-#~ msgstr "Usar linhas de extensão"
-
-#~ msgid "Staff"
-#~ msgstr "Pauta"
-
-#~ msgid "Special"
-#~ msgstr "Especial"
-
-#~ msgid "Violin"
-#~ msgstr "Violin"
-
-#~ msgctxt "abbreviation for Violin"
-#~ msgid "Vl."
-#~ msgstr "Vl."
-
-#~ msgid "Viola"
-#~ msgstr "Viola"
-
-#~ msgctxt "abbreviation for Viola"
-#~ msgid "Vla."
-#~ msgstr "Vla."
-
-#~ msgid "Contrabass"
-#~ msgstr "Contrabass"
-
-#~ msgid "Strings"
-#~ msgstr "Cordas"
-
-#~ msgid "Stanzas:"
-#~ msgstr "Estrofes:"
-
-#~ msgid "The number of stanzas."
-#~ msgstr "O número de estrofes."
-
-#~ msgid "Show the pitch range of the voice at the beginning of the staff."
-#~ msgstr "Exibir a tessitura da voz no início da pauta"
-
-#~ msgid "Lyrics follow here."
-#~ msgstr "Letra segue aqui."
-
-#~ msgid "Soprano"
-#~ msgstr "Soprano"
-
-#~ msgid "Tenor"
-#~ msgstr "Tenor"
-
-#~ msgctxt "abbreviation for Tenor"
-#~ msgid "T."
-#~ msgstr "T."
-
-#~ msgid "Lead sheet"
-#~ msgstr "Folha de Estilo"
-
-#~ msgid ""
-#~ "The Lead Sheet provides a staff with chord names above and lyrics below "
-#~ "it. A second staff is optional."
-#~ msgstr ""
-#~ "A Folha de Estilo fornece uma pauta com nomes de acordes e letras acima e "
-#~ "abaixo dela.A segunda pauta é opcional."
-
-#~ msgid "Add accompaniment staff"
-#~ msgstr "Adicionar pauta de acompanhamento"
-
-#~ msgid ""
-#~ "Adds an accompaniment staff and also puts an accompaniment voice in the "
-#~ "upper staff."
-#~ msgstr ""
-#~ "Acrescenta pauta de acompanhamento e também coloca uma voz de "
-#~ "acompanhamento napauta superior."
-
-#~ msgid "Hint: For a double choir you can use two choir parts."
-#~ msgstr "Dica: Para um coro duplo você pode usar duas partes coro."
-
-#~ msgid "Voicing:"
-#~ msgstr "Expressando"
-
-#~ msgid "Rehearsal MIDI files"
-#~ msgstr "Ensaiar arquivo MIDI"
-
-#~ msgid "Rehearsal MIDI files:"
-#~ msgstr "Ensaiar arquivo MIDI:"
-
-#~ msgid "Distribute stanzas"
-#~ msgstr "Distribuir estrofes"
-
-#~ msgid "One set of stanzas is distributed across the staves."
-#~ msgstr "Um conjunto de estrofes é distribuída entre as pautas."
-
-#~ msgid "Vocal"
-#~ msgstr "Vocal"
-
-#~ msgid "Contrabassoon"
-#~ msgstr "Contrabassoon"
-
-#~ msgid "Sopranino Sax"
-#~ msgstr "Sopranino Sax"
-
-#~ msgctxt "abbreviation for Sopranino Sax"
-#~ msgid "SiSx."
-#~ msgstr "SiSx."
-
-#~ msgid "Soprano Sax"
-#~ msgstr "Soprano Sax"
-
-#~ msgctxt "abbreviation for Soprano Sax"
-#~ msgid "SoSx."
-#~ msgstr "SoSx."
-
-#~ msgid "Tenor Sax"
-#~ msgstr "Tenor Sax"
-
-#~ msgctxt "abbreviation for Tenor Sax"
-#~ msgid "TSx."
-#~ msgstr "TSx."
-
-#, fuzzy
-#~ msgid "Sopranino recorder"
-#~ msgstr "Soprano recorder"
-
-#, fuzzy
-#~ msgctxt "abbreviation for Sopranino recorder"
-#~ msgid "Si.rec."
-#~ msgstr "T.rec."
-
-#~ msgid "Soprano recorder"
-#~ msgstr "Soprano recorder"
-
-#~ msgid "Tenor recorder"
-#~ msgstr "Tenor recorder"
-
-#~ msgctxt "abbreviation for Tenor recorder"
-#~ msgid "T.rec."
-#~ msgstr "T.rec."
-
-#, fuzzy
-#~ msgid "Contra Bass recorder"
-#~ msgstr "Soprano recorder"
-
-#, fuzzy
-#~ msgctxt "abbreviation for Contra Bass recorder"
-#~ msgid "Cb.rec."
-#~ msgstr "T.rec."
-
-#, fuzzy
-#~ msgid "Subcontra Bass recorder"
-#~ msgstr "Soprano recorder"
-
-#, fuzzy
-#~ msgctxt "abbreviation for Subcontra Bass recorder"
-#~ msgid "Scb.rec."
-#~ msgstr "T.rec."
-
-#~ msgid "Woodwinds"
-#~ msgstr "Woodwinds"
-
-#~ msgid "Search:"
-#~ msgstr "Pesquisar:"
-
-#, fuzzy
-#~ msgid "Find Previous"
-#~ msgstr "Lo&calizar Anterior"
-
-#, fuzzy
-#~ msgid "Find Next"
-#~ msgstr "Localizar Pró&ximo"
-
-#~ msgid "&Case"
-#~ msgstr "&Case"
-
-#~ msgid "Case Sensitive"
-#~ msgstr "Case Sensitive"
-
-#~ msgid "&Regex"
-#~ msgstr "&Regex"
-
-#~ msgid "Regular Expression"
-#~ msgstr "Expressão Regular"
-
-#~ msgid "The total number of matches"
-#~ msgstr "O número total de correspondências"
-
-#~ msgid "Replace:"
-#~ msgstr "Substituir:"
-
-#~ msgid "Re&place"
-#~ msgstr "Substituir &p"
-
-#~ msgid "Replaces the next occurrence of the search term."
-#~ msgstr "Substitui a próxima ocorrência do termo de pesquisa."
-
-#~ msgid "&All"
-#~ msgstr "Todos &a"
-
-#~ msgid ""
-#~ "Replaces all occurrences of the search term in the document or selection."
-#~ msgstr ""
-#~ "Substitui todas as ocorrências do termo de pesquisa no documento ou "
-#~ "seleção."
-
-#~ msgid "Manage Sessions"
-#~ msgstr "Gerenciar Sessões"
-
-#~ msgid "&Import..."
-#~ msgstr "&Importar"
-
-#~ msgid "E&xport..."
-#~ msgstr "E&xportar"
-
-#, fuzzy
-#~ msgid "Switches to the selected session."
-#~ msgstr "Copiar Ritmo da música selecionada"
-
-#, fuzzy
-#~ msgid "JSON Files"
-#~ msgstr "Arquivo Scheme"
-
-#, fuzzy
-#~ msgctxt "dialog title"
-#~ msgid "Import session"
-#~ msgstr "Saltar para posição do cursor"
-
-#, fuzzy
-#~ msgctxt "dialog title"
-#~ msgid "Export session"
-#~ msgstr "Nenhuma Seção"
-
-#~ msgid "Always save the list of documents in this session"
-#~ msgstr "Sempre salve a lista de documentos nesta sessão"
-
-#, fuzzy
-#~ msgid "Replace global path"
-#~ msgstr "Remover articulações, etc."
-
-#, fuzzy
-#~ msgid "Remove all paths."
-#~ msgstr "Remover articulações, etc."
-
-#~ msgctxt "New Session"
-#~ msgid "&New..."
-#~ msgstr "&Nova..."
-
-#~ msgid "&Manage..."
-#~ msgstr "&Gerenciar..."
-
-#~ msgid "No Session"
-#~ msgstr "Nenhuma Seção"
-
-#, fuzzy
-#~ msgid "&Line Numbers"
-#~ msgstr "Número de Cordas"
-
-#, fuzzy
-#~ msgid "&Fold Current Region"
-#~ msgstr "&Marcar Linha Atual"
-
-#, fuzzy
-#~ msgid "Fold &Top Region"
-#~ msgstr "&Marcar Linha Atual"
-
-#, fuzzy
-#~ msgid "&Unfold Current Region"
-#~ msgstr "&Marcar Linha Atual"
-
-#, fuzzy
-#~ msgid "Fold &All"
-#~ msgstr "Todos &a"
-
-#, fuzzy
-#~ msgid "Delete Line(s)"
-#~ msgstr "Selecionar linhas completas Acima"
-
-#, fuzzy
-#~ msgid "Next Blank Line"
-#~ msgstr "Próxima Alteração"
-
-#, fuzzy
-#~ msgid "Previous Blank Line"
-#~ msgstr "Marca Anterior"
-
-#~ msgid "Single Typographical Quotes"
-#~ msgstr "Simples Aspas Tipográficas"
-
-#~ msgid "Double Typographical Quotes"
-#~ msgstr "Dupla Aspas Tipográficas"
-
-#~ msgid "Tuplets"
-#~ msgstr "Quiálteras"
-
-#~ msgid "LilyPond Version"
-#~ msgstr "Versão LilyPond"
-
-#, fuzzy
-#~ msgid "Repeat unfold"
-#~ msgstr "Terminar Repetição"
-
-#~ msgid "Upper case selection"
-#~ msgstr "Selecionar MAIÚSCULA"
-
-#~ msgid "Title case selection"
-#~ msgstr "Selecionar caso Titulo"
-
-#~ msgid "Tagline with date and LilyPond version"
-#~ msgstr "Slogan com data e versão LilyPond"
-
-#~ msgid "Header Template"
-#~ msgstr "Modelo de Cabeçalho"
-
-#~ msgid "No Tagline"
-#~ msgstr "Sem Slogan"
-
-#~ msgid "No Barnumbers"
-#~ msgstr "Sem Número de Barra"
-
-#~ msgid "Midi Tempo"
-#~ msgstr "Andamento Midi"
-
-#~ msgid "Staff Size"
-#~ msgstr "Tamanho da Pauta"
-
-#, fuzzy
-#~ msgctxt "snippet: add comment characters"
-#~ msgid "Comment"
-#~ msgstr "descomentado"
-
-#, fuzzy
-#~ msgctxt "snippet: remove comment characters"
-#~ msgid "Uncomment"
-#~ msgstr "descomentado"
-
-#~ msgid "Last note or chord"
-#~ msgstr "Última nota ou acorde"
-
-#~ msgid "Color"
-#~ msgstr "Cor"
-
-#~ msgid "Basic Leadsheet"
-#~ msgstr "Folha de Estilo"
-
-#~ msgid "Choir Hymn"
-#~ msgstr "Hino Coral"
-
-#~ msgid "Edit Snippet"
-#~ msgstr "Editar Fragmentos"
-
-#~ msgid "New Snippet"
-#~ msgstr "Novo fragmento."
-
-#~ msgid "Snippet Text:"
-#~ msgstr "Texto do Fragmento:"
-
-#~ msgid "Title:"
-#~ msgstr "Título"
-
-#~ msgid "Shortcut:"
-#~ msgstr "Atalho:"
-
-#~ msgid "Empty Snippet"
-#~ msgstr "Fragmento Vazio"
-
-#~ msgid "A snippet can't be empty."
-#~ msgstr "Um fragmento não pode ficar vazio."
-
-#, fuzzy
-#~ msgid ""
-#~ "The snippet has been modified.\n"
-#~ "Do you want to save your changes or discard them?"
-#~ msgstr ""
-#~ "O documento \"{name}\" foi modificado.\n"
-#~ "Você deseja salvar as alterações ou descartá-las?"
-
-#~ msgid "The current date in YYYY-MM-DD format."
-#~ msgstr "A data atual no formato YYYY-MM-DD."
-
-#~ msgid "The version of the default LilyPond program."
-#~ msgstr "A versão do programa LilyPond padrão."
-
-#~ msgid "The version of Frescobaldi."
-#~ msgstr "A versão do Frescobaldi"
-
-#~ msgid "The URL of the current document."
-#~ msgstr "A URL do documento atual."
-
-#~ msgid "The full local filename of the current document."
-#~ msgstr "O nome completo do local do documento atual."
-
-#~ msgid "The name of the current document."
-#~ msgstr "O nome do documento atual."
-
-#~ msgid ""
-#~ "Selects text from here to the position given using the <code>$CURSOR</"
-#~ "code> variable"
-#~ msgstr ""
-#~ "Seleciona o texto daqui para a posição determinada usando a variável "
-#~ "<code>$CURSOR</code>"
-
-#~ msgid ""
-#~ "The selected text if available. If not, the text cursor is moved here."
-#~ msgstr ""
-#~ "O texto selecionado, se disponível. Se não, o cursor de texto é movido "
-#~ "aqui."
-
-#~ msgid "No snippets found."
-#~ msgstr "Nenhum fragmento encontrado"
-
-#~ msgctxt "dialog title"
-#~ msgid "Import Snippets"
-#~ msgstr "Importar Fragmento "
-
-#~ msgid "New Snippets"
-#~ msgstr "Novo Fragmento"
-
-#~ msgid "Updated Snippets"
-#~ msgstr "Fragmentos Atualizados"
-
-#~ msgid "Unchanged Snippets"
-#~ msgstr "Fragmentos Inalterados"
-
-#~ msgid "Choose which snippets you want to import:"
-#~ msgstr "Escolher quais fragmentos que você deseja importar:"
-
-#~ msgid "There are no new or updated snippets in the file."
-#~ msgstr "Não há fragmentos novos ou atualizados no arquivo."
-
-#~ msgid "Snippet error"
-#~ msgstr "Fragmento errado"
-
-#, fuzzy
-#~ msgctxt "menu title"
-#~ msgid "Sn&ippets"
-#~ msgstr "Fragmentos"
-
-#, fuzzy
-#~ msgctxt "dialog title"
-#~ msgid "Restore Built-in Snippets"
-#~ msgstr "Python Fragmentos"
-
-#, fuzzy
-#~ msgid "Restore Checked Snippets"
-#~ msgstr "Fragmentos Atualizados"
-
-#, fuzzy
-#~ msgid "Deleted Snippets"
-#~ msgstr "Fragmentos Atualizados"
-
-#, fuzzy
-#~ msgid "Changed Snippets"
-#~ msgstr "Fragmentos Inalterados"
-
-#~ msgid "Save as Template"
-#~ msgstr "Salvar como modelo"
-
-#, fuzzy
-#~ msgid "Run LilyPond when creating a new document from this template"
-#~ msgstr "Criar um documento de um modelo"
-
-#, fuzzy
-#~ msgid "Overwrite Template?"
-#~ msgstr "Novo a partir do Modelo"
-
-#~ msgid "Snippets"
-#~ msgstr "Fragmentos"
-
-#~ msgid "&Snippets"
-#~ msgstr "Fragmento&s"
-
-#~ msgid "Save as Template..."
-#~ msgstr "Salvar como modelo..."
-
-#, fuzzy
-#~ msgid "Copy to &Snippet..."
-#~ msgstr "Copiar como &Imagem..."
-
-#~ msgid "Manage Templates..."
-#~ msgstr "Gerenciar Modelos..."
-
-#, fuzzy
-#~ msgid "Manage &Snippets..."
-#~ msgstr "Fragmento&s"
-
-#~ msgid "&Menu"
-#~ msgstr "&Menu"
-
-#~ msgid "&Add..."
-#~ msgstr "&Adicionar..."
-
-#~ msgid "Add a new snippet. ({key})"
-#~ msgstr "Adicionar um novo fragmento. ({key})"
-
-#~ msgid "&Edit..."
-#~ msgstr "&Editar"
-
-#~ msgid "Edit the current snippet. ({key})"
-#~ msgstr "Editar fragmento atual. ({key})"
-
-#~ msgid "A&pply"
-#~ msgstr "A&plicar"
-
-#~ msgid "Apply the current snippet."
-#~ msgstr "Aplicar o fragmento atual."
-
-#~ msgid "Import snippets from a file."
-#~ msgstr "Importar fragmentos para um arquivo."
-
-#~ msgid "Export snippets to a file."
-#~ msgstr "Exportar fragmentos para um arquivo."
-
-#~ msgid "&Help"
-#~ msgstr "A&juda"
-
-#~ msgid ""
-#~ "Enter text to search in the snippets list.\n"
-#~ "See \"What's This\" for more information."
-#~ msgstr ""
-#~ "Digite o texto para procurar na lista de fragmentos.\n"
-#~ "Consulte \"O que é isto\" para mais informações."
-
-#~ msgid ""
-#~ "Enter text to search in the snippets list, and press Enter to apply the "
-#~ "currently selected snippet."
-#~ msgstr ""
-#~ "Digite o texto para procurar na lista de fragmentos, e pressione Enter "
-#~ "para aplicar o fragmento selecionado."
-
-#~ msgid ""
-#~ "If the search text fully matches the value of the '{name}' variable of a "
-#~ "snippet, that snippet is selected."
-#~ msgstr ""
-#~ "Se o texto de pesquisa totalmente coincide com o valor do '{name}' "
-#~ "variável de um fragmento, que fragmento é selecionado."
-
-#~ msgid ""
-#~ "E.g. entering {menu} will show all snippets that are displayed in the "
-#~ "insert menu."
-#~ msgstr ""
-#~ "Por exemplo, entrar {menu} vai mostrar todos os fragmentos que são "
-#~ "exibidos no menu Inserir."
-
-#~ msgctxt "dialog title"
-#~ msgid "Export {num} Snippet"
-#~ msgid_plural "Export {num} Snippets"
-#~ msgstr[0] "Exportar {num} Fragmento"
-#~ msgstr[1] "Exportar {num} Trechos"
-
-#, fuzzy
-#~ msgctxt "window title"
-#~ msgid "SVG View"
-#~ msgstr "Visualizar"
-
-#, fuzzy
-#~ msgid "SV&G View"
-#~ msgstr "&Visualizar"
-
-#, fuzzy
-#~ msgid "Page:"
-#~ msgstr "Ajustar a Página"
-
-#~ msgid "Toolbar"
-#~ msgstr "Barra de Ferramentas"
-
-#~ msgid "Start"
-#~ msgstr "Iniciar"
-
-#~ msgid "Contents"
-#~ msgstr "Conteúdos"
-
-#~ msgid "(no key defined)"
-#~ msgstr "(nenhuma tecla definida)"
-
-#~ msgid "Up:"
-#~ msgstr "Up:"
-
-#~ msgid "Next:"
-#~ msgstr "Próximo:"
-
-#, fuzzy
-#~ msgid "Next Chapter:"
-#~ msgstr "Próxima Alteração"
-
-#~ msgid "See also:"
-#~ msgstr "Veja também:"
-
-#, fuzzy
-#~ msgid "Git not found"
-#~ msgstr "Nenhum fragmento encontrado"
-
-#, fuzzy
-#~ msgid ""
-#~ "Frescobaldi is run from within a Git repository, but Git does not appear "
-#~ "to be working. Git support will be disabled. If you have Git installed, "
-#~ "you can specify its location in the Preferences dialog."
-#~ msgstr ""
-#~ "Frescobaldi é mantido através de um repositório Git, mas o Git não é "
-#~ "instalado. Vou continuar sem o suporte a Git, mas talvez você queira "
-#~ "checar quais as consequências a tomar. Se você <em>tem</em> o Git "
-#~ "instalado, você deve setar o caminho do executável na Caixa de "
-#~ "Preferências."
-
-#~ msgid "The given directory '{rootdir} doesn't seem to be a Git repository."
-#~ msgstr "O diretório '{rootdir} não parece ser um repositório Git."
-
-#~ msgid "Git Checkout Error"
-#~ msgstr "Erro em Git Checkout"
-
-#, fuzzy
-#~ msgid "Missing files in {name}"
-#~ msgstr "Imprimir {filename}"
-
-#, fuzzy
-#~ msgid "Close other documents"
-#~ msgstr "Fechar Outros Documentos"
-
-#, fuzzy
-#~ msgid "Close all documents"
-#~ msgstr "Fechar Todos os Documentos"
-
-#, fuzzy
-#~ msgid "Show Help"
-#~ msgstr "Nenhuma Ajuda"
-
-#, fuzzy
-#~ msgid "Pager"
-#~ msgstr "Ajustar a Página"
-
-#, fuzzy
-#~ msgid "Show toolbar"
-#~ msgstr "Mostrar barra de rolagem"
-
-#, fuzzy
-#~ msgid "Open music document(s)"
-#~ msgstr "Quando salvar documentos"
-
-#, fuzzy
-#~ msgid "Open"
-#~ msgstr "Abrir"
-
-#, fuzzy
-#~ msgid "Close document"
-#~ msgstr "Fechar Documento"
-
-#~ msgid "Fit Width"
-#~ msgstr "Ajustar a largura"
-
-#~ msgid "Fit Height"
-#~ msgstr "Ajustar a Altura"
-
-#~ msgid "Fit Page"
-#~ msgstr "Ajustar a Página"
-
-#, fuzzy
-#~ msgid "Show..."
-#~ msgstr "Mostrar"
-
-#, fuzzy
-#~ msgid "Close..."
-#~ msgstr "Fechar"
-
-#, fuzzy
-#~ msgid "Zoom"
-#~ msgstr "Mais Zoom"
-
-#, fuzzy
-#~ msgid "Manuscript"
-#~ msgstr "PostScript"
-
-#, fuzzy
-#~ msgid "Manuscript Viewer"
-#~ msgstr "Visualizar Música"
-
-#, fuzzy
-#~ msgid "Select Manuscript Document"
-#~ msgstr "Selecionar Documento Visualizar Música"
-
-#, fuzzy
-#~ msgid "Close other manuscripts"
-#~ msgstr "Fechar Outros Documentos"
-
-#~ msgid "Start recording a key sequence."
-#~ msgstr "Iniciar a gravação de uma sequência de teclas."
-
-#~ msgid "Clear the key sequence."
-#~ msgstr "Limpar a sequência de teclas."
-
-#~ msgid "Input"
-#~ msgstr "Entrada"
-
-#, fuzzy
-#~ msgid "Restart Required"
-#~ msgstr "Restaurar"
-
-#~ msgid "Scheme:"
-#~ msgstr "Esquema:"
-
-#, fuzzy
-#~ msgid "Re&name..."
-#~ msgstr "Re&nomear"
-
-#, fuzzy
-#~ msgid "&Export..."
-#~ msgstr "E&xportar"
-
-#~ msgid "Add Scheme"
-#~ msgstr "Adicionar Esquema"
-
-#~ msgid "Please enter a name for the new scheme:"
-#~ msgstr "Por favor entre o nome do novo esquema:"
-
-#, fuzzy
-#~ msgid "Rename"
-#~ msgstr "Renomear"
-
-#, fuzzy
-#~ msgid "New name:"
-#~ msgstr "Novo nome:"
-
-#~ msgctxt "dialog title"
-#~ msgid "Import color theme"
-#~ msgstr "Importar tema de cores"
-
-#, fuzzy
-#~ msgctxt "dialog title"
-#~ msgid "Export {name}"
-#~ msgstr "Exportar {name}"
-
-#~ msgctxt "window title"
-#~ msgid "Edit Shortcut"
-#~ msgstr "Editar Atalho"
-
-#~ msgid "&No shortcut"
-#~ msgstr "&Nenhum atalho"
-
-#~ msgid "Use a &custom shortcut:"
-#~ msgstr "Usar um atalho personalizado:"
-
-#~ msgid "Alternative #{num}:"
-#~ msgstr "Alternativo #{num}:"
-
-#~ msgid "Primary shortcut:"
-#~ msgstr "Atalho Primário:"
-
-#~ msgid "Conflict with: {name}"
-#~ msgstr "Conflito com: {name}"
-
-#~ msgid "Here you can edit the shortcuts for {name}"
-#~ msgstr "Aqui você pode editar os atalhos para {name}"
-
-#~ msgctxt "no keyboard shortcut"
-#~ msgid "none"
-#~ msgstr "nenhum"
-
-#~ msgid "Use &default shortcut ({name})"
-#~ msgstr "Usar atalho pa&drão ({name})"
-
-#~ msgid "The tempo is set as you click this button."
-#~ msgstr "O tempo é definido assim que clique o botão."
-
-#~ msgid ""
-#~ "Tap this button to set the tempo.\n"
-#~ "\n"
-#~ "The average speed of clicking is used; wait 3 seconds to \"reset\"."
-#~ msgstr ""
-#~ "Aperte esse botão para setar o tempo.\n"
-#~ "\n"
-#~ "A média da velocidade de cliques será usada; espere 3 segundos para "
-#~ "\"reset\"."
-
-#~ msgid "Open file dialog"
-#~ msgstr "Abrir Arquivo"
-
-#~ msgid "Select a directory"
-#~ msgstr "Selecionar o Diretório"
-
-#~ msgid "Select a file"
-#~ msgstr "Selecionar o Arquivo"
-
-#~ msgid "Global Fonts"
-#~ msgstr "Fontes Globais"
-
-#~ msgctxt "submenu title"
-#~ msgid "&Export"
-#~ msgstr "&Exportar"
-
-#~ msgid "Could not load the {name} module."
-#~ msgstr "Não foi possível ler o módulo {name}."
-
-#~ msgid "PDF Document"
-#~ msgstr "Documento PDF "
-
-#~ msgid "Command line:"
-#~ msgstr "Linha de comando:"
-
-#~ msgid "When saving documents"
-#~ msgstr "Quando salvar documentos"
-
-#, fuzzy
-#~ msgid "When creating new documents"
-#~ msgstr "Quando criar novos documentos"
-
-#, fuzzy
-#~ msgid "Use Frescobaldi's print dialog"
-#~ msgstr "Manual Frescobaldi"
-
-#~ msgid ""
-#~ "Successfully checked out branch {name}.\n"
-#~ "Changes will take effect after restart.\n"
-#~ "Do you want to restart now?"
-#~ msgstr ""
-#~ "Sucesso em Checked out branch {name}.\n"
-#~ "As mudanças terão efeito após a reinicialização.\n"
-#~ "Você quer reiniciar agora?"
-
-#~ msgid "Operating System"
-#~ msgstr "Sistema Operacional"
-
-#~ msgid "Usage"
-#~ msgstr "Uso"
-
-#~ msgid "Usage: %s\n"
-#~ msgstr "Uso: %s\n"
-
-#~ msgid "Options"
-#~ msgstr "Opções"
-
-#, fuzzy
-#~ msgid "MXL Files"
-#~ msgstr "Arquivo XML"
-
-#, fuzzy
-#~ msgctxt "menu title"
-#~ msgid "&Insert"
-#~ msgstr "&Inserir"
-
-#~ msgid "{appname} [options] file ..."
-#~ msgstr "{appname} [opções] arquivo ..."
-
-#~ msgid ""
-#~ "Can't load non-local document:\n"
-#~ "\n"
-#~ "{url}"
-#~ msgstr ""
-#~ "Não foi possível carregar documento não-locais:\n"
-#~ "\n"
-#~ "{url}"
-
-#, fuzzy
-#~ msgid ""
-#~ "Could not reload the document:\n"
-#~ "\n"
-#~ "{url}"
-#~ msgstr ""
-#~ "Não foi possível carregar documento não-locais:\n"
-#~ "\n"
-#~ "{url}"
-
-#, fuzzy
-#~ msgid "The document could not be saved."
-#~ msgstr "Este documento não foi alterado."
-
-#, fuzzy
-#~ msgid "One document could not be saved."
-#~ msgstr "Este documento não foi alterado."
-
-#~ msgid ""
-#~ "Can't write to destination:\n"
-#~ "\n"
-#~ "{url}"
-#~ msgstr ""
-#~ "Não é possível escrever o destino:\n"
-#~ "\n"
-#~ "{url}"
-
-#~ msgid "Staff Size:"
-#~ msgstr "Tamanho da Pauta:"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Home"
-#~ msgstr "Casa"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Hot Links"
-#~ msgstr "Links:"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Keyboard Brightness Up"
-#~ msgstr "Instrumentos de Teclas"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Keyboard Menu"
-#~ msgstr "Instrumentos de Teclas"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Mail Forward"
-#~ msgstr "Ir"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Meeting"
-#~ msgstr "Configurações MIDI"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Menu PB"
-#~ msgstr "&Menu"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Messenger"
-#~ msgstr "&Mensagens"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Power Off"
-#~ msgstr "Pauta Inferior:"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Print"
-#~ msgstr "Imprimir"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Print Screen"
-#~ msgstr "Imprimir Fonte"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Reply"
-#~ msgstr "Substituir:"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Travel"
-#~ msgstr "Grave"
-
-#, fuzzy
-#~ msgid "Write the LilyPond version in a new document"
-#~ msgstr "A versão LilyPond que você estará usando para este documento."
-
-#, fuzzy
-#~ msgid "Open File at C&ursor"
-#~ msgstr "Abrir Arquivo"
-
-#, fuzzy
-#~ msgid "Setup New Score (in current document)..."
-#~ msgstr "O nome do documento atual."
-
-#~ msgid ""
-#~ "<p>If this setting is enabled, the document is searched for a LilyPond "
-#~ "<code>\\version</code> command or a <code>version</code> document "
-#~ "variable.</p>\n"
-#~ "<p>The LilyPond version command looks like:</p>\n"
-#~ "<pre>\\version \"2.14.0\"</pre>\n"
-#~ "<p>The document variable looks like:</p>\n"
-#~ "<pre>-*- version: 2.14.0;</pre>\n"
-#~ "<p>somewhere (in a comments section) in the first or last 5 lines of the "
-#~ "document. This way the LilyPond version to use can also be specified in "
-#~ "non-LilyPond documents like HTML, LaTeX, etc.</p>\n"
-#~ "<p>If the document specifies a version, the oldest suitable LilyPond "
-#~ "version is chosen. Otherwise, the default version is chosen.</p>\n"
-#~ msgstr ""
-#~ "<p>If this setting is enabled, the document is searched for a LilyPond "
-#~ "<code>\\version</code> command or a <code>version</code> document "
-#~ "variable.</p>\n"
-#~ "<p>The LilyPond version command looks like:</p>\n"
-#~ "<pre>\\version \"2.14.0\"</pre>\n"
-#~ "<p>The document variable looks like:</p>\n"
-#~ "<pre>-*- version: 2.14.0;</pre>\n"
-#~ "<p>somewhere (in a comments section) in the first or last 5 lines of the "
-#~ "document. This way the LilyPond version to use can also be specified in "
-#~ "non-LilyPond documents like HTML, LaTeX, etc.</p>\n"
-#~ "<p>If the document specifies a version, the oldest suitable LilyPond "
-#~ "version is chosen. Otherwise, the default version is chosen.</p>\n"
-
-#, fuzzy
-#~ msgid "The following replacements will be made in the command line:"
-#~ msgstr "As seguintes substituições serão feitas:"
-
-#, fuzzy
-#~ msgid "Whether to use tabs in indent, by default `no`."
-#~ msgstr "Se deseja usar guias no parágrafo, por padrão {no}."
-
-#, fuzzy
-#~ msgid "Whether to use tabs elsewhere in the document, by default `yes`."
-#~ msgstr ""
-#~ "Se deseja usar guias em outras partes do documento, por padrão {yes}."
-
-#, fuzzy
-#~ msgid ""
-#~ "The Music View is powered by the [http://poppler.freedesktop.org/ "
-#~ "Poppler] library by {authors} and others."
-#~ msgstr ""
-#~ "O  Visualizador de Música é fornecido por bibliotecas {poppler}  e outros "
-#~ "{authors}."
-
-#, fuzzy
-#~ msgid ""
-#~ "Most of the bundled icons are created by [http://tango.freedesktop.org/ "
-#~ "The Tango Desktop Project]."
-#~ msgstr "A maioria dos pacotes de ícones são criados por {tango}."
-
-#, fuzzy
-#~ msgid ""
-#~ "{appname} is written in [http://www.python.org/ Python] and uses the "
-#~ "[http://qt-project.org/ Qt] toolkit."
-#~ msgstr "{appname} é escrito em {python} e usa o quite de ferramentas {qt}."
-
-#~ msgid "Python"
-#~ msgstr "Python"
-
-#~ msgid "Qt4"
-#~ msgstr "Qt4"
-
-#~ msgid "Poppler"
-#~ msgstr "Poppler"
-
-#~ msgid "The Tango Desktop Project"
-#~ msgstr "The Tango Desktop Project"
-
-#~ msgctxt "menu title"
-#~ msgid "Tools"
-#~ msgstr "Ferramentas"
-
-#~ msgctxt "menu title"
-#~ msgid "Edit"
-#~ msgstr "Editar"
-
-#, fuzzy
-#~ msgid "Engrave (Preview)"
-#~ msgstr "D&ecodificar (visualizar)"
-
-#, fuzzy
-#~ msgid "The following Debug Modes are currently implemented:"
-#~ msgstr "As seguintes variáveis ​​são reconhecidas:"
-
-#, fuzzy
-#~ msgid "Engrave (Publication)"
-#~ msgstr "Codificar (publicar)"
-
-#, fuzzy
-#~ msgid "Engrave (Custom)"
-#~ msgstr "Decodificar personalizado"
-
-#~ msgid "No help has been found on this topic."
-#~ msgstr "Nenhuma ajuda foi encontrado sobre esse assunto."
-
-#~ msgid "What's This"
-#~ msgstr "O que é Isto"
-
-#~ msgid "Engrave (publish)"
-#~ msgstr "Codificar (publicar)"
-
-#~ msgid "Clear Error Marks"
-#~ msgstr "Limpar Marcas de Erro"
-
-#~ msgid "Copy to Image..."
-#~ msgstr "Copiar como Imagem..."
-
-#~ msgid "Edit"
-#~ msgstr "Editar"
-
-#~ msgid "Other Tools"
-#~ msgstr "Outras Ferramentas"
-
-#~ msgid "<p>Some other important tools are listed here.</p>\n"
-#~ msgstr ""
-#~ "<p>Algumas outras ferramentas importantes estão listados aqui.</p>\n"
-
-#~ msgid "Frescobaldi's main author is {author}."
-#~ msgstr "autor principal Frescobaldi é{author}."
-
-#~ msgid "The editor"
-#~ msgstr "O Editor"
-
-#, fuzzy
-#~ msgid "More information."
-#~ msgstr "Texinfo"
-
-#~ msgid "You can put document variables in comments."
-#~ msgstr "Você pode colocar as variáveis do documento nos comentários."
-
-#, fuzzy
-#~ msgid "The \"{output}\" document variable"
-#~ msgstr "variáveis do Documento"
-
-#, fuzzy
-#~ msgid "Session"
-#~ msgstr "&Sessão"
-
-#, fuzzy
-#~ msgctxt "New Session"
-#~ msgid "New"
-#~ msgstr "&Novo"
-
-#, fuzzy
-#~ msgid "more info"
-#~ msgstr "Texinfo"
-
-#~ msgid "Setup New Score..."
-#~ msgstr "Configurar Nova Partitura..."
-
-#~ msgid "Snippet editor"
-#~ msgstr "editor de Fragmento"
-
-#~ msgid "Snippets..."
-#~ msgstr "Fragmento..."
-
-#, fuzzy
-#~ msgid "Engrave (layout control mode)"
-#~ msgstr "Codificar (publicar)"
-
-#, fuzzy
-#~ msgid "Engraving: (custom mode)"
-#~ msgstr "A&bortar trabalho de Decodificação"
-
-#, fuzzy
-#~ msgid "Engraving: Preview mode"
-#~ msgstr "A&bortar trabalho de Decodificação"
-
-#, fuzzy
-#~ msgid "Preview options to use"
-#~ msgstr "Versão LilyPond em uso"
-
-#~ msgid "This shortcut conflicts with the following command:"
-#~ msgid_plural "This shortcut conflicts with the following commands:"
-#~ msgstr[0] "Este atalho conflita com o seguinte comando:"
-#~ msgstr[1] "Este conflita com atalho dos seguintes comandos:"
-
-#~ msgid "Shortcut Conflict"
-#~ msgstr "Conflito de atalho"
-
-#~ msgid "Edit again"
-#~ msgstr "Editar novamente"
-
-#~ msgctxt "New Scheme"
-#~ msgid "&New..."
-#~ msgstr "&Nova..."
-
-#~ msgid ""
-#~ "No print command to print a PostScript file could be found.\n"
-#~ "\n"
-#~ "Therefore the document will be printed using raster images at "
-#~ "{resolution} DPI. It is recommended to print using a dedicated PDF "
-#~ "viewer.\n"
-#~ "\n"
-#~ "Do you want to continue?"
-#~ msgstr ""
-#~ "Nenhum comando de impressão para imprimir um arquivo PostScript pode ser "
-#~ "encontrado.\n"
-#~ "\n"
-#~ "Portanto, o documento será impresso usando imagens de varredura em "
-#~ "{resolution} DPI. Recomenda-se imprimir usando um visualizador de PDF "
-#~ "dedicado.\n"
-#~ "\n"
-#~ "Você deseja continuar?"
-
-#~ msgid "LilyPond {version}"
-#~ msgstr "LilyPond {version}"
-
-#~ msgctxt "submenu title"
-#~ msgid "Music &View"
-#~ msgstr "&Visualizar Música"

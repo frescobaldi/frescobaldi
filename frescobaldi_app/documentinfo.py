@@ -218,7 +218,7 @@ class DocumentInfo(plugin.DocumentPlugin):
             scratch = scratchdir.scratchdir(self.document())
             if create:
                 scratch.saveDocument()
-            if filename and self.lydocinfo().include_args():
+            if filename:
                 includepath.insert(0, os.path.dirname(filename))
             if create or (scratch.path() and os.path.exists(scratch.path())):
                 filename = scratch.path()

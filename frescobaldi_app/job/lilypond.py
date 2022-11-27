@@ -117,8 +117,7 @@ class LilyPondJob(Job):
             "default_output_target", "pdf", str)
         self.embed_source_code = s.value("embed_source_code", False, bool)
         if s.value("no_translation", False, bool):
-            self.environment['LANG'] = 'C'
-            self.environment['LC_ALL'] = 'C'
+            self.environment['LC_MESSAGES'] = 'C'
         self.set_title("{0} {1} [{2}]".format(
             os.path.basename(self.lilypond_info.command),
             self.lilypond_info.versionString(), doc.documentName()))
@@ -166,15 +165,6 @@ class LilyPondJob(Job):
         cmd.extend(self.paths(self.includepath))
         cmd.extend(self.backend_args())
         self.set_input_file()
-
-        # By default, the PATH environment variable for app bundles is empty.
-        # Setting it in __init__ is too early, since lilypond_info can be
-        # changed in the custom engraving dialog; configure_command is called
-        # just before starting the process.
-        if sys.platform.startswith('darwin'):
-            import macosx
-            if macosx.inside_app_bundle() and self.lilypond_info.frommacports():
-                self.environment['PATH'] = self.lilypond_info.bindir()
 
     def d_option(self, key):
         return self._d_options.get(key, None)

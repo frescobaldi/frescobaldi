@@ -59,9 +59,6 @@ debugLayoutOptions =
         (cond-inc (ly:get-option 'debug-custom-file)))
     ;; include preview options depending on the
     ;; presence or absence of command line switches
-    (if (ly:get-option 'debug-control-points)
-        ;; display control points
-        (cond-inc "display-control-points.ily"))
     (if (ly:get-option 'debug-voices)
         ;; color \voiceXXX music
         (cond-inc "color-voices.ily"))

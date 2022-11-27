@@ -74,7 +74,7 @@ class About(QWidget):
 
         size = QSize(100, 100)
         pic = QLabel()
-        pic.setPixmap(icons.get("frescobaldi").pixmap(size))
+        pic.setPixmap(icons.get("org.frescobaldi.Frescobaldi").pixmap(size))
         pic.setFixedSize(size)
         layout.addWidget(pic, 0, Qt.AlignHCenter)
 
@@ -109,7 +109,7 @@ def html():
     version = _("Version {version}").format(version = appinfo.version)
     description = _("A LilyPond Music Editor")
     copyright = _("Copyright (c) {year} by {author}").format(
-        year = "2008-2020",
+        year = "2008-2022",
         author = """<a href="mailto:{0}" title="{1}">{2}</a>""".format(
             appinfo.maintainer_email,
             _("Send an e-mail message to the maintainers."),

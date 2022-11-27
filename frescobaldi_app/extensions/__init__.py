@@ -537,7 +537,7 @@ class Extensions(QObject):
 
     def __init__(self, mainwindow):
         super(Extensions, self).__init__()
-        self._mainwindow = mainwindow
+        self._mainwindow = mainwindow.objectName()
         # Resources are handled on the global Extensions level because
         # in a number of cases they are independent from an actually
         # loaded Extension object (i.e. have to be functional before loading
@@ -799,9 +799,9 @@ class Extensions(QObject):
         - extension key.
         If the exception is *not* from an extension return None"""
         regex = re.compile(
-            '\s*File \"({root}){sep}(.*)\"'.format(
+            r'\s*File "({root}){sep}(.*)"'.format(
             sep=os.sep,
-            root=self.root_directory()))
+            root=re.escape(self.root_directory())))
         for line in traceback:
             m = regex.match(line)
             if m:
@@ -824,7 +824,10 @@ class Extensions(QObject):
 
     def mainwindow(self):
         """Reference to the main window."""
-        return self._mainwindow
+        for w in app.windows:
+            if w.objectName() == self._mainwindow:
+                return w
+        return app.windows[0]
 
     def menu(self, target):
         """Create and return a nested Extensions menu,

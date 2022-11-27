@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frescobaldi 3.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2021-01-07 17:37+0100\n"
+"POT-Creation-Date: 2021-09-28 21:42+0200\n"
 "PO-Revision-Date: 2019-12-20 00:33+0100\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italiano <>\n"
@@ -221,10 +221,11 @@ msgid "Auto-completion"
 msgstr "Completamento automatico"
 
 #: ../../frescobaldi_app/userguide/auto-completion.md:3
+#, fuzzy
 msgid ""
 "If not disabled in the {menu_tools} menu Frescobaldi assists the user with "
 "auto-completion suggestions. As soon as two characters are entered in a "
-"“word” a list with matching completions is collected, both from a list of "
+"\"word\" a list with matching completions is collected, both from a list of "
 "valid LilyPond terms (trying to only suggest words that are suitable in the "
 "current context) and from parsing the current document."
 msgstr ""
@@ -542,7 +543,7 @@ msgid "{appname} is translated into the following languages:"
 msgstr "{appname} è tradotto in queste lingue:"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/credits.md:120
+#: ../../frescobaldi_app/userguide/credits.md:123
 msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"
@@ -552,6 +553,7 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts.md:3
+#, fuzzy
 msgid ""
 "The `Document Fonts` dialog which is accessible through {menu_dialog} "
 "provides tools to browse available text fonts, to browse available music "
@@ -559,7 +561,7 @@ msgid ""
 "includes a configurable font-setting command generator for use in LilyPond "
 "documents and provides a intelligently cached preview to see and compare the "
 "impact of font settings on a variety of provided sample scores, custom files "
-"and the “current document“."
+"and the \"current document\"."
 msgstr ""
 "La finestra di dialogo \"Caratteri del documento\", accessibile da "
 "{menu_dialog}, fornisce degli strumenti per vedere i tipi di carattere "
@@ -733,11 +735,12 @@ msgstr "Stile openLilyLib"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts_command.md:33
+#, fuzzy
 msgid ""
 "{openlilylib} has a *notation-fonts* package with advanced functionality to "
 "load notation fonts (together with text fonts) which Fresocbaldi makes "
 "available too. With the openLilyLib approach notation fonts are *always* "
-"loaded, therefore the “music” font selection can not be unchecked."
+"loaded, therefore the \"music\" font selection can not be unchecked."
 msgstr ""
 "Il pacchetto *notation-fonts* di {openlilylib} contiene funzionalità "
 "avanzate per il caricamento di tipi di carattere della notazione (insieme ai "
@@ -791,6 +794,7 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts_command.md:51
+#, fuzzy
 msgid ""
 "*Font stylesheets:* openLilyLib provides default stylesheets for each "
 "supported font, adjusting the visual appearance (e.g. line thickness of "
@@ -798,7 +802,7 @@ msgid ""
 "default these are loaded automatically by the font command *"
 "\\useNotationFont*. However, in some cases it may be necessary to *not* use "
 "the default stylesheet (e.g. for better integration with the project's "
-"“include” strategy) or to provide a custom stylesheet, which has to be the "
+"\"include\" strategy) or to provide a custom stylesheet, which has to be the "
 "name of a file that LilyPond can find."
 msgstr ""
 "*Fogli di stile del carattere:* openLilyLib fornisce fogli di stile "
@@ -1022,9 +1026,10 @@ msgid "Example Source"
 msgstr "Sorgente dell'esempio"
 
 #: ../../frescobaldi_app/userguide/documentfonts_preview.md:12
+#, fuzzy
 msgid ""
 "There are three main sources for the score to be previewed: provided default "
-"examples, the “current document“, and arbitrary custom files, each with "
+"examples, the \"current document\", and arbitrary custom files, each with "
 "their own considerations."
 msgstr ""
 "Ci sono tre principali sorgenti per la partitura da visualizzare "
@@ -1036,10 +1041,11 @@ msgid "Default Examples"
 msgstr "Esempi predefeniti"
 
 #: ../../frescobaldi_app/userguide/documentfonts_preview.md:18
+#, fuzzy
 msgid ""
 "A selection of examples has been provided to demonstrate a range of typical "
 "notation use cases. They have been chosen and tailored to showcase the use "
-"of fonts in short examples. Of particular interest is the “Glyphs” example "
+"of fonts in short examples. Of particular interest is the \"Glyphs\" example "
 "that shows a representative selection of available glyphs as a traditional "
 "specimen sheet."
 msgstr ""
@@ -1178,13 +1184,14 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts_text.md:14
+#, fuzzy
 msgid ""
 "Below the tree view is an entry field where a filter expression can be "
 "entered that incrementally filters the list to quickly locate fonts. "
 "Searching is case insensitive, and by default strings may be anywhere in the "
 "font name: the filter `lib` will equally show `Liberation` and `Linux "
 "Libertine`. Filter expressions support regular expressions, of which "
-"particularly the “border” characters are of interest:"
+"particularly the \"border\" characters are of interest:"
 msgstr ""
 "Sotto la vista ad albero c'è un campo di inserimento dove si può digitare un "
 "espressione filtro che filtri in modo incrementale l'elenco per individuare "
@@ -2139,11 +2146,12 @@ msgid "Installing Extensions"
 msgstr "Installazione delle estensioni"
 
 #: ../../frescobaldi_app/userguide/ext_installation.md:3
+#, fuzzy
 msgid ""
 "In order to use extensions an arbitrary base directory has to be created and "
 "made known to Frescobaldi in {menu_preferences_extensions}, in the first "
-"group “General Settings”. In the same place the check box “Use Extensions” "
-"has to be checked."
+"group \"General Settings\". In the same place the check box \"Use Extensions"
+"\" has to be checked."
 msgstr ""
 "Per poter usare le estensioni bisogna creare una directory di base a piacere "
 "e renderla nota a Frescobaldi in {menu_preferences_extensions}, nel primo "
@@ -2151,8 +2159,9 @@ msgstr ""
 "la casella \"Usa le estensioni\"."
 
 #: ../../frescobaldi_app/userguide/ext_installation.md:8
+#, fuzzy
 msgid ""
-"Extensions are “installed” by copying the whole extension directory into the "
+"Extensions are installed by copying the whole extension directory into the "
 "base directory and restarting Frescobaldi. Upon program start Frescobaldi "
 "searches the base directory and loads any compatible extensions "
 "automatically. If an extension is deactivated, only its metadata info is "
@@ -4093,10 +4102,11 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_paths.md:18
+#, fuzzy
 msgid ""
 "*Music Font Repository:* Typically one will want to store music fonts in a "
 "dedicated directory. If this directory is selected here the Document Fonts "
-"dialog can easily install the fonts in the “current” LilyPond installation."
+"dialog can easily install the fonts in the \"current\" LilyPond installation."
 msgstr ""
 "*Deposito dei tipi di carattere musicali:* tipicamente si vorranno salvare i "
 "font musicali in una directory dedicata.  Se si sceglie questa directory, la "

@@ -15,15 +15,6 @@ parsed.
 The modes use the following configuration variables:
 
 
-Display Control Points
-:   These variables can be redefined in input files:
-    
-    * !`debug-control-points-color` (`red`)
-    * !`debug-control-points-line-thickness` (`0.05`)
-    * !`debug-control-points-cross-thickness` (`0.1`)
-    * !`debug-control-points-cross-size` (`0.7`)
-
-
 Color \voiceXXX
 :   These variables currently can't be redefined in input files.
 

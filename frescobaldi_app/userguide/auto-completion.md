@@ -2,7 +2,7 @@
 
 If not disabled in the {menu_tools} menu Frescobaldi assists the user with
 auto-completion suggestions. As soon as two characters are entered in a
-“word” a list with matching completions is collected, both from a list of
+"word" a list with matching completions is collected, both from a list of
 valid LilyPond terms (trying to only suggest words that are suitable in the
 current context) and from parsing the current document.
 
