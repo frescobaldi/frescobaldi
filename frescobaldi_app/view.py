@@ -94,17 +94,18 @@ class View(QPlainTextEdit):
         - handle Tab and Backtab to change the indent
 
         """
-        if ev in (
-                # avoid the line separator, makes no sense in plain text
-                QKeySequence.InsertLineSeparator,
-                # those can better be called via the menu actions, then they
-                # work better
-                QKeySequence.Undo,
-                QKeySequence.Redo,
-            ):
+        if (ev.type() == QEvent.ShortcutOverride
+              and (ev.matches(QKeySequence.Undo) or ev.matches(QKeySequence.Redo))):
+            # QPlainTextEdit accepts ShortcutOverride for Undo and Redo, which
+            # override the shortcut and causes a KeyPress to be broadcast
+            # instead of a Shortcut, preventing it from reaching our QActions
+            # and making it handled by the QPlainTextEdit instead.
             return False
-        # handle Tab and Backtab
+
         if ev.type() == QEvent.KeyPress:
+            if ev.type() == QEvent.KeyPress and ev.matches(QKeySequence.InsertLineSeparator):
+                return False
+
             cursor = self.textCursor()
             if ev.key() == Qt.Key_Tab and ev.modifiers() == Qt.NoModifier:
                 # tab pressed, insert a tab when no selection and in text,
@@ -143,7 +144,7 @@ class View(QPlainTextEdit):
         Currently handles:
 
         - indent change on Enter, }, # or >
-        
+
         - update the tooltip info when Ctrl is pressed
 
         """
