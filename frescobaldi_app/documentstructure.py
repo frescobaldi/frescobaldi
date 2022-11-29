@@ -29,6 +29,8 @@ from PyQt5.QtCore import QSettings
 import app
 import plugin
 
+import lydocument
+import ly.document
 
 default_outline_patterns = [
 r"(?P<title>\\(score|book|bookpart))\b",
@@ -104,10 +106,31 @@ class DocumentStructure(plugin.DocumentPlugin):
     def outline(self):
         """Return the document outline as a series of match objects."""
         if self._outline is None:
-            self._outline = list(outline_re().finditer(self.document().toPlainText()))
+            active_code = self.remove_comments()
+            self._outline = list(outline_re().finditer(active_code))
             self.document().contentsChanged.connect(self.invalidate)
             app.settingsChanged.connect(self.invalidate, -999)
         return self._outline
 
+    def remove_comments(self):
+        """Remove Lilypond comments from text"""
+        def whiteout_section(cursor, start, end):
+            spaces = ''.join(' ' for x in range(start, end))
+            with cursor.document as doc:
+                doc[start:end] = spaces
 
+        doc = ly.document.Document(self.document().toPlainText())
+        cursor = lydocument.Cursor(doc)
+        source = ly.document.Source(cursor, True, tokens_with_position=True)
+        start = 0
+        for token in source:
+            if isinstance(token, ly.lex.BlockCommentStart):
+                start = token.pos
+            elif isinstance(token, ly.lex.BlockCommentEnd):
+                if start:
+                    whiteout_section(cursor, start, token.end)
+                    start = 0
+            elif isinstance(token, ly.lex.Comment):
+                whiteout_section(cursor, token.pos, token.end)
+        return cursor.document.plaintext()
 
