@@ -32,46 +32,56 @@ import plugin
 import lydocument
 import ly.document
 
+# default outline patterns that are ignored in comments
 default_outline_patterns = [
 r"(?P<title>\\(score|book|bookpart))\b",
 r"^\\(paper|layout|header)\b",
 r"\\(new|context)\s+[A-Z]\w+",
-r"(?P<title>BEGIN[^\n]*)[ \t]*$",
 r"^[a-zA-Z]+\s*=",
 r"^<<",
 r"^\{",
 r"^\\relative([ \t]+\w+[',]*)?",
+]
+
+# default outline patterns that are matched also in comments
+default_outline_patterns_comments = [
+r"(?P<title>BEGIN[^\n]*)[ \t]*$",
 r"\b(?P<alert>(FIXME|HACK|XXX+)\b\W*\w+)",
 ]
 
 
 # cache the outline regexp
 _outline_re = None
+_outline_re_comments = None
 
 
 def outline_re():
-    """Return the expression to look for document outline items."""
+    """Return the expression to look for document outline items excluding comments."""
     global _outline_re
     if _outline_re is None:
         _outline_re = create_outline_re()
     return _outline_re
 
+def outline_re_comments():
+    """Return the expression to look for document outline items in whole document
+    (including comments)."""
+    global _outline_re_comments
+    if _outline_re_comments is None:
+        _outline_re_comments = create_outline_re_comments()
+    return _outline_re_comments
 
 def _reset_outline_re():
     global _outline_re
+    global _outline_re_comments
     _outline_re = None
+    _outline_re_comments = None
 
 
 app.settingsChanged.connect(_reset_outline_re, -999)
 
 
-def create_outline_re():
+def create_outline_re_from_patterns(rx):
     """Create and return the expression to look for document outline items."""
-    try:
-        rx = QSettings().value("documentstructure/outline_patterns",
-                               default_outline_patterns, str)
-    except TypeError:
-        rx = []
     # suffix duplicate named groups with a number
     groups = {}
     new_rx = []
@@ -92,6 +102,26 @@ def create_outline_re():
     rx = '|'.join(new_rx)
     return re.compile(rx, re.MULTILINE | re.UNICODE)
 
+def create_outline_re():
+    """Create and return the expression to look for document outline items
+    excluding comments."""
+    try:
+        rx = QSettings().value("documentstructure/outline_patterns",
+                               default_outline_patterns, str)
+    except TypeError:
+        rx = []
+    return create_outline_re_from_patterns(rx)
+
+def create_outline_re_comments():
+    """Create and return the expression to look for document outline items
+    in whole document (including comments)."""
+    try:
+        rx = QSettings().value("documentstructure/outline_patterns_comments",
+                               default_outline_patterns_comments, str)
+    except TypeError:
+        rx = []
+    return create_outline_re_from_patterns(rx)
+
 
 class DocumentStructure(plugin.DocumentPlugin):
     def __init__(self, document):
@@ -106,8 +136,14 @@ class DocumentStructure(plugin.DocumentPlugin):
     def outline(self):
         """Return the document outline as a series of match objects."""
         if self._outline is None:
+            # match patterns excluding comments
             active_code = self.remove_comments()
-            self._outline = list(outline_re().finditer(active_code))
+            outline_list = list(outline_re().finditer(active_code))
+            # match patterns including comments
+            outline_comments_list = list(outline_re_comments().finditer(self.document().toPlainText()))
+            # merge lists and sort by start position
+            self._outline = outline_list + outline_comments_list
+            self._outline.sort(key=lambda match: match.start())
             self.document().contentsChanged.connect(self.invalidate)
             app.settingsChanged.connect(self.invalidate, -999)
         return self._outline
