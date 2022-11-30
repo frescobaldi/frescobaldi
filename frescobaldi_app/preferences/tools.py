@@ -240,18 +240,33 @@ class Outline(preferences.Group):
         self.patternList.layout().addWidget(self.defaultButton, 3, 1)
         self.patternList.layout().addWidget(self.patternList.listBox, 0, 0, 5, 1)
         self.patternList.changed.connect(self.changed)
+        self.labelComments = QLabel()
+        self.patternListComments = OutlinePatterns()
+        self.patternListComments.listBox.setDragDropMode(QAbstractItemView.InternalMove)
+        self.defaultButtonComments = QPushButton(clicked=self.reloadDefaultsComments)
+        self.patternListComments.layout().addWidget(self.defaultButtonComments, 3, 1)
+        self.patternListComments.layout().addWidget(self.patternListComments.listBox, 0, 0, 5, 1)
+        self.patternListComments.changed.connect(self.changed)
         layout.addWidget(self.label)
         layout.addWidget(self.patternList)
+        layout.addWidget(self.labelComments)
+        layout.addWidget(self.patternListComments)
         app.translateUI(self)
 
     def translateUI(self):
         self.setTitle(_("Outline"))
         self.defaultButton.setText(_("Default"))
         self.defaultButton.setToolTip(_("Restores the built-in outline patterns."))
-        self.label.setText(_("Patterns to match in text that are shown in outline:"))
+        self.label.setText(_("Patterns to match in text (excluding comments) that are shown in outline:"))
+        self.defaultButtonComments.setText(_("Default"))
+        self.defaultButtonComments.setToolTip(_("Restores the built-in outline patterns."))
+        self.labelComments.setText(_("Patterns to match in text (including comments) that are shown in outline:"))
 
     def reloadDefaults(self):
         self.patternList.setValue(documentstructure.default_outline_patterns)
+
+    def reloadDefaultsComments(self):
+        self.patternListComments.setValue(documentstructure.default_outline_patterns_comments)
 
     def loadSettings(self):
         s = QSettings()
@@ -260,7 +275,12 @@ class Outline(preferences.Group):
             patterns = s.value("outline_patterns", documentstructure.default_outline_patterns, str)
         except TypeError:
             patterns = []
+        try:
+            patterns_comments = s.value("outline_patterns_comments", documentstructure.default_outline_patterns_comments, str)
+        except TypeError:
+            patterns_comments = []
         self.patternList.setValue(patterns)
+        self.patternListComments.setValue(patterns_comments)
 
     def saveSettings(self):
         s = QSettings()
