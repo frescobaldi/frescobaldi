@@ -282,19 +282,11 @@ def _load_module(name):
     Raises ImportError when the module can't be found.
 
     """
-    from importlib.machinery import PathFinder
-    from importlib.util import module_from_spec
-
-    spec = None
+    import imp
+    path = None
     for n in name.split('.'):
-        if spec is not None:
-            path = spec.submodule_search_locations
-        else:
-            path = None
-        spec = PathFinder.find_spec(n, path)
-        if spec is None:
-            raise ImportError
-    return module_from_spec(spec)
+        file_handle, path, desc = imp.find_module(n, path and [path])
+    return imp.load_module(n, file_handle, path, desc)
 
 
 # these functions try to import PortMIDI, returning the module
@@ -329,3 +321,5 @@ def _do_import_ctypes():
     """This tries to load PortMIDI via ctypes."""
     from . import ctypes_pypm
     return ctypes_pypm
+
+

@@ -20,7 +20,7 @@ iscc = 'c:\\Program Files\\Inno Setup 5\\ISCC'
 target_dir = 'frozen'
 
 # import standard modules and cx_Freeze
-import importlib.util
+import imp
 import os
 import py_compile
 import shutil
@@ -35,7 +35,7 @@ sys.path.insert(0, '..')
 from frescobaldi_app import appinfo
 
 # find pypm by adding the dir of pygame to sys.path
-sys.path.extend(importlib.util.find_spec('pygame').submodule_search_locations)
+sys.path.append(imp.find_module('pygame')[1])
 
 includes = [
     'sip',
@@ -182,3 +182,4 @@ Filename: "{{app}}\\frescobaldi.exe";\
 )
 
 subprocess.Popen([iscc, '-'], stdin=subprocess.PIPE).communicate(inno_script)
+
