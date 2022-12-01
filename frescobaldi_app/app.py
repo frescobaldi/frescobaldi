@@ -127,6 +127,7 @@ def instantiate():
     qApp = QApplication(args) 
     QApplication.setApplicationName(appinfo.name)
     QApplication.setApplicationVersion(appinfo.version)
+    QApplication.setDesktopFileName(appinfo.desktop_file_name)
     QApplication.setOrganizationName(appinfo.name)
     QApplication.setOrganizationDomain(appinfo.domain)
     if sys.platform.startswith('darwin'):
