@@ -16,8 +16,8 @@ works when you have explicitly created a session and set it to automatically
 add files on save to it. See also {sessions}.
 
 Under *When saving documents*, you can choose what to do when a document is 
-saved, such as remembering the cursor position and marked lines, or leaving 
-a backup copy of the document (with a `~` appended).
+saved, such as remembering the cursor position and marked lines, formatting,
+or leaving a backup copy of the document (with a `~` appended).
 
 Also, you can specify a default folder in which you keep your LilyPond 
 documents.

@@ -5,7 +5,10 @@ the document text.
 
 You can specify what to search for by entering a list of regular expressions.
 
-In those expressions, `^` matches at the beginning of every line, and `$` 
+Those expressions are grouped in two sections: one that matches the whole text (including comments)
+and one that only matches the active code (excluding comments).
+
+In regular expressions, `^` matches at the beginning of every line, and `$` 
 matches at the end of a line.
 
 Normally when an expressions matches text, the whole match is displayed as 
