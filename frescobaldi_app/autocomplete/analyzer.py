@@ -238,6 +238,16 @@ class Analyzer(object):
             self.column = self.lastpos
         return completiondata.midi_instruments
 
+    def string_tuning(self):
+        """Complete stringTunings = #... """
+        try:
+            i = self.tokens.index('stringTunings', -7, -1)
+        except ValueError:
+            return
+        if self.last != '#':
+           self.column = self.lastpos
+        return completiondata.string_tunings
+
     def font_name(self):
         """Complete #'font-name = #"..."""
         try:
