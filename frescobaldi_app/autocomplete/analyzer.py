@@ -583,6 +583,7 @@ class Analyzer(object):
         lp.ParseWith: (
             markup_top,
             engraver,
+            string_tuning,
             context_variable_set,
             with_,
         ),
