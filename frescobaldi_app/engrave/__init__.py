@@ -25,7 +25,7 @@ Actions to engrave the music in the documents.
 import os
 
 from PyQt5.QtCore import QSettings, Qt, QUrl
-from PyQt5.QtGui import QKeySequence
+from PyQt5.QtGui import QKeySequence, QTextCursor
 from PyQt5.QtWidgets import QAction, QApplication, QMessageBox
 
 import app
@@ -36,6 +36,7 @@ import job.attributes
 import job.lilypond
 import plugin
 import icons
+import reformat
 import signals
 import panelmanager
 import variables
@@ -210,10 +211,15 @@ class Engraver(plugin.MainWindowPlugin):
         (i.e. the document is modified and has a local filename)
 
         """
-        if QSettings().value("lilypond_settings/save_on_run", False, bool):
+        s = QSettings()
+        if s.value("lilypond_settings/save_on_run", False, bool):
             doc = self.mainwindow().currentDocument()
             if doc.isModified() and doc.url().toLocalFile():
                 try:
+                    if s.value("strip_trailing_whitespace", False, bool):
+                        reformat.remove_trailing_whitespace(QTextCursor(doc))
+                    if s.value("format", False, bool):
+                        reformat.reformat(QTextCursor(doc))
                     doc.save()
                 except IOError:
                     pass ## saving was not possible (e.g. happens when read only)

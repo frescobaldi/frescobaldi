@@ -95,7 +95,7 @@ class Errors(plugin.DocumentPlugin):
                 url = m.group(1).decode(enc)
                 filename = m.group(2).decode(enc)
                 filename = util.normpath(filename)
-                line, column = int(m.group(3)), int(m.group(4) or 0)
+                line, column = int(m.group(3)), int(m.group(4) or 1) - 1
                 self._refs[url] = Reference(filename, line, column)
 
     def cursor(self, url, load=False):

@@ -40,6 +40,7 @@ license = "GPL"
 # this one is used everywhere in the application
 appname = "Frescobaldi"
 
+desktop_file_name = "org.frescobaldi.Frescobaldi.desktop"
 
 # required versions of important dependencies
 required_python_version = (3, 3)

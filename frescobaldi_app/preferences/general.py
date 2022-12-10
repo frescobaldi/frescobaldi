@@ -211,9 +211,11 @@ class SessionsAndFiles(preferences.Group):
         self.stripwsp = QCheckBox(toggled=self.changed)
         self.backup = QCheckBox(toggled=self.changed)
         self.metainfo = QCheckBox(toggled=self.changed)
+        self.format = QCheckBox(toggled=self.changed)
         save_layout.addWidget(self.stripwsp)
         save_layout.addWidget(self.backup)
         save_layout.addWidget(self.metainfo)
+        save_layout.addWidget(self.format)
         basedir_layout = QHBoxLayout()
         save_layout.addLayout(basedir_layout)
 
@@ -288,6 +290,7 @@ class SessionsAndFiles(preferences.Group):
             "with a new version.\n"
             "If checked those backup copies are retained."))
         self.metainfo.setText(_("Remember cursor position, bookmarks, etc."))
+        self.format.setText(_("Format document"))
 
         self.basedirLabel.setText(_("Default directory:"))
         self.basedirLabel.setToolTip(_("The default folder for your LilyPond documents (optional)."))
@@ -334,6 +337,7 @@ class SessionsAndFiles(preferences.Group):
         self.stripwsp.setChecked(s.value("strip_trailing_whitespace", False, bool))
         self.backup.setChecked(s.value("backup_keep", False, bool))
         self.metainfo.setChecked(s.value("metainfo", True, bool))
+        self.format.setChecked(s.value("format", False, bool))
         self.basedir.setPath(s.value("basedir", "", str))
         self.customFilename.setChecked(s.value("custom_default_filename", False, bool))
         self.filenameTemplate.setText(s.value("default_filename_template", "{composer}-{title}", str))
@@ -376,6 +380,7 @@ class SessionsAndFiles(preferences.Group):
         s.setValue("strip_trailing_whitespace", self.stripwsp.isChecked())
         s.setValue("backup_keep", self.backup.isChecked())
         s.setValue("metainfo", self.metainfo.isChecked())
+        s.setValue("format", self.format.isChecked())
         s.setValue("basedir", self.basedir.path())
         s.setValue("custom_default_filename", self.customFilename.isChecked())
         s.setValue("default_filename_template", self.filenameTemplate.text())

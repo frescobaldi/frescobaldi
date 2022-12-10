@@ -219,11 +219,9 @@ class Dialog(QDialog):
 
         self.job = j = job.Job(command, encoding='utf-8')
         if QSettings().value("lilypond_settings/no_translation", False, bool):
-            j.environment['LANG'] = 'C'
-            j.environment['LC_ALL'] = 'C'
+            j.environment['LC_MESSAGES'] = 'C'
         else:
-            j.environment.pop('LANG', None)
-            j.environment.pop('LC_ALL', None)
+            j.environment.pop('LC_MESSAGES', None)
 
         j.done.connect(self.slotJobDone)
         app.job_queue().add_job(j, 'generic')

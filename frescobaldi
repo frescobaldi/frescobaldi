@@ -28,6 +28,12 @@ frescobaldi_app contains the rest of the application.
 
 import sys
 
+# Enable all Python warnings, unless overridden (with
+# "python -W<something> frescobaldi").
+if not sys.warnoptions:
+    import warnings
+    warnings.simplefilter("default")
+
 from frescobaldi_app import toplevel
 toplevel.install()              # Add the path to frescobaldi_app to sys.path
 

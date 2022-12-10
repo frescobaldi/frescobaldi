@@ -29,45 +29,62 @@ from PyQt5.QtCore import QSettings
 import app
 import plugin
 
+import lydocument
+import ly.document
 
+# default outline patterns that are ignored in comments
 default_outline_patterns = [
 r"(?P<title>\\(score|book|bookpart))\b",
 r"^\\(paper|layout|header)\b",
 r"\\(new|context)\s+[A-Z]\w+",
-r"(?P<title>BEGIN[^\n]*)[ \t]*$",
 r"^[a-zA-Z]+\s*=",
 r"^<<",
 r"^\{",
 r"^\\relative([ \t]+\w+[',]*)?",
+]
+
+# default outline patterns that are matched also in comments
+default_outline_patterns_comments = [
+r"(?P<title>BEGIN[^\n]*)[ \t]*$",
 r"\b(?P<alert>(FIXME|HACK|XXX+)\b\W*\w+)",
 ]
 
 
 # cache the outline regexp
 _outline_re = None
+_outline_re_comments = None
 
 
-def outline_re():
-    """Return the expression to look for document outline items."""
-    global _outline_re
-    if _outline_re is None:
-        _outline_re = create_outline_re()
-    return _outline_re
-
+def outline_re(comments):
+    """Return the expression to look for document outline items.
+    If comments is True it is used to search in the whole document,
+    if it is False comments are excluded."""
+    v = '_outline_re'+('_comments' if comments else '')
+    if globals()[v] is None:
+        globals()[v] = create_outline_re(comments)
+    return globals()[v]
 
 def _reset_outline_re():
     global _outline_re
+    global _outline_re_comments
     _outline_re = None
+    _outline_re_comments = None
 
 
 app.settingsChanged.connect(_reset_outline_re, -999)
 
 
-def create_outline_re():
-    """Create and return the expression to look for document outline items."""
+def create_outline_re(comments):
+    """Create and return the expression to look for document outline items.
+    If comments is True it is used to search in the whole document,
+    if it is False comments are excluded."""
     try:
-        rx = QSettings().value("documentstructure/outline_patterns",
-                               default_outline_patterns, str)
+        if comments:
+            rx = QSettings().value("documentstructure/outline_patterns_comments",
+                                   default_outline_patterns_comments, str)
+        else:
+            rx = QSettings().value("documentstructure/outline_patterns",
+                                default_outline_patterns, str)
     except TypeError:
         rx = []
     # suffix duplicate named groups with a number
@@ -104,10 +121,37 @@ class DocumentStructure(plugin.DocumentPlugin):
     def outline(self):
         """Return the document outline as a series of match objects."""
         if self._outline is None:
-            self._outline = list(outline_re().finditer(self.document().toPlainText()))
+            # match patterns excluding comments
+            active_code = self.remove_comments()
+            outline_list = list(outline_re(False).finditer(active_code))
+            # match patterns including comments
+            outline_list_comments = list(outline_re(True).finditer(self.document().toPlainText()))
+            # merge lists and sort by start position
+            self._outline = outline_list + outline_list_comments
+            self._outline.sort(key=lambda match: match.start())
             self.document().contentsChanged.connect(self.invalidate)
             app.settingsChanged.connect(self.invalidate, -999)
         return self._outline
 
+    def remove_comments(self):
+        """Remove Lilypond comments from text"""
+        def whiteout_section(cursor, start, end):
+            spaces = ''.join(' ' for x in range(start, end))
+            with cursor.document as doc:
+                doc[start:end] = spaces
 
+        doc = ly.document.Document(self.document().toPlainText())
+        cursor = lydocument.Cursor(doc)
+        source = ly.document.Source(cursor, True, tokens_with_position=True)
+        start = 0
+        for token in source:
+            if isinstance(token, ly.lex.BlockCommentStart):
+                start = token.pos
+            elif isinstance(token, ly.lex.BlockCommentEnd):
+                if start:
+                    whiteout_section(cursor, start, token.end)
+                    start = 0
+            elif isinstance(token, ly.lex.Comment):
+                whiteout_section(cursor, token.pos, token.end)
+        return cursor.document.plaintext()
 
