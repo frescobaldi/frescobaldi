@@ -47,62 +47,50 @@
          ,sym
          ,val)))
 
-debugLayoutOptions =
-#(define-void-function (parser location)()
-   (let*
-    ((lily-version-new (lilypond-greater-than? '(2 19 21)))
-     (cond-inc
-      ;; conditionally choose the syntax to include a file
-      ;; based on the current LilyPond version
-      (lambda (filename)
-        (if lily-version-new
+#(define (string-or-false? x)
+   (or (string? x)
+       (not x)))
+
+debugLayoutOption =
+#(define-void-function (parser location option-name filename)
+   (symbol? string-or-false?)
+    (if (ly:get-option option-name)
+        ;; conditionally choose the syntax to include a file
+        ;; based on the current LilyPond version
+        (if (lilypond-greater-than? '(2 19 21))
             (ly:parser-include-string (format #f "\\include \"./~a\"" filename))
-            (ly:parser-include-string parser (format #f "\\include \"./~a\"" filename))))))
-    ;; include the optional custom file first.
-    ;; This way it can for example define configuration variables.
-    (if (ly:get-option 'debug-custom-file)
-        ;; Add a custom file for debugging layout
-        (cond-inc (ly:get-option 'debug-custom-file)))
-    ;; include preview options depending on the
-    ;; presence or absence of command line switches
-    (if (ly:get-option 'debug-voices)
-        ;; color \voiceXXX music
-        (cond-inc "color-voices.ily"))
-    (if (ly:get-option 'debug-directions)
-        ;; color grobs switched with \xxxUp or \xxxDown
-        (cond-inc "color-directions.ily"))
-    (if (ly:get-option 'debug-grob-anchors)
-        ;; Add a dot for the anchor of each grob
-        (cond-inc "display-grob-anchors.ily"))
-    (if (ly:get-option 'debug-grob-names)
-        ;; Add a dot for the anchor of each grob
-        (cond-inc "display-grob-names.ily"))
-    (if (ly:get-option 'debug-paper-columns)
-        ;; Add a dot for the anchor of each grob
-        (cond-inc "info-paper-columns.ily"))
-    (if (ly:get-option 'debug-display-skylines)
-        ;; display skylines
-        ;; -> this is very intrusive, so handle with care!
-        ;; should be switched off by default
-        (ly:set-option 'debug-skylines #t))
-    ;; the option should be named debug-skylines,
-    ;; this name clash has to be resolved!
-    (if (ly:get-option 'debug-annotate-spacing)
-        ;; Add a dot for the anchor of each grob
-        (cond-inc "annotate-spacing.ily"))))
+            (ly:parser-include-string parser (format #f "\\include \"./~a\"" filename)))))
 
-\debugLayoutOptions
+%% Add a custom file for debugging layout. Include it first:
+%% this way it can for example define configuration variables.
+\debugLayoutOption #'debug-custom-file
+                   #(let ((custom-file (ly:get-option 'debug-custom-file)))
+                      (and custom-file (symbol->string custom-file)))
 
-%{
-  The following code should later be included in LilyPond's
-  initialisation phase, at a point
-  when any (ly:set-option ...) commands in the input file(s) have
-  been already parsed.
+%% include preview options depending on the
+%% presence or absence of command line switches
 
-#(if (ly:get-option 'debug-layout)
-     ;; check for additional command line options
-     #{
-       \debugLayoutOptions
-     #})
+\debugLayoutOption #'debug-voices "color-voices.ily"
 
-%}
+%% color grobs switched with \xxxUp or \xxxDown
+\debugLayoutOption #'debug-directions "color-directions.ily"
+
+%% Add a dot for the anchor of each grob
+\debugLayoutOption #'debug-grob-anchors "display-grob-anchors.ily"
+
+%% Add a dot for the anchor of each grob
+\debugLayoutOption #'debug-grob-names "display-grob-names.ily"
+
+\debugLayoutOption #'debug-paper-columns "info-paper-columns.ily"
+
+%% display skylines
+%% -> this is very intrusive, so handle with care!
+%% should be switched off by default
+#(if (ly:get-option 'debug-display-skylines)
+     (ly:set-option 'debug-skylines #t))
+
+%% the option should be named debug-skylines,
+%% this name clash has to be resolved!
+
+%% Add a dot for the anchor of each grob
+\debugLayoutOption #'debug-annotate-spacing "annotate-spacing.ily"
