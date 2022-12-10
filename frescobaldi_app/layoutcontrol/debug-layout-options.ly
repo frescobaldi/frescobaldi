@@ -41,6 +41,12 @@
 
 \include "./lilypond-version-predicates.ily"
 
+#(define-macro (define-default sym val)
+  `(define ,sym
+     (if (defined? ',sym)
+         ,sym
+         ,val)))
+
 debugLayoutOptions =
 #(define-void-function (parser location)()
    (let*

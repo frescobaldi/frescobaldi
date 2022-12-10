@@ -42,13 +42,10 @@
 }
 
 % Define appearance
-#(cond ((not (defined? 'debug-direction-up-color))
-        (define debug-direction-up-color blue)))
-#(cond ((not (defined? 'debug-direction-down-color))
-        (define debug-direction-down-color blue)))
-#(cond ((not (defined? 'debug-direction-grob-list))
-        (define debug-direction-grob-list 
-          (map car all-grob-descriptions))))
+#(define-default debug-direction-up-color blue)
+#(define-default debug-direction-down-color blue)
+#(define-default debug-direction-grob-list
+   (map car all-grob-descriptions))
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Directions set with ^ and _ %

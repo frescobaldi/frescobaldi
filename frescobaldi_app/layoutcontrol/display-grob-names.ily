@@ -42,18 +42,14 @@
 }
 
 % Define appearance
-#(cond ((not (defined? 'debug-grob-names-color))
-        (define debug-grob-names-color darkcyan)))
+#(define-default debug-grob-names-color darkcyan)
+
 % Which grobs to print the dot to?
 % Possible values:
 % - 'all-grobs
 % - Name of a grob (as symbol)
 % - List of grob names
-#(cond ((not (defined? 'debug-grob-names-grob-list))
-        ;(define debug-grob-names-grob-list '(NoteHead Stem))))
-        ;(define debug-grob-names-grob-list 'NoteHead )))
-        (define debug-grob-names-grob-list 
-          (map car all-grob-descriptions))))
+#(define-default debug-grob-names-grob-list (map car all-grob-descriptions))
 
 #(define (add-text)
    (lambda (grob)
