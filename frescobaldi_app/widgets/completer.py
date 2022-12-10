@@ -212,7 +212,7 @@ class Completer(QCompleter):
         cursor.insertText(self.completionModel().data(index, Qt.EditRole))
 
     def insertPartialCompletion(self, index):
-        """Called when a tab key is pressed. Here index in current index item selected
+        r"""Called when a tab key is pressed. Here index in current index item selected
 
         function to check for partial similar text in suggestions
         example:
