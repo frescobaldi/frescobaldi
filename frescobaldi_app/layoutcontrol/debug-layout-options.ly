@@ -56,8 +56,8 @@ debugLayoutOptions =
       ;; based on the current LilyPond version
       (lambda (filename)
         (if lily-version-new
-            (ly:parser-include-string (format "\\include \"./~a\"" filename))
-            (ly:parser-include-string parser (format "\\include \"./~a\"" filename))))))
+            (ly:parser-include-string (format #f "\\include \"./~a\"" filename))
+            (ly:parser-include-string parser (format #f "\\include \"./~a\"" filename))))))
     ;; include the optional custom file first.
     ;; This way it can for example define configuration variables.
     (if (ly:get-option 'debug-custom-file)
