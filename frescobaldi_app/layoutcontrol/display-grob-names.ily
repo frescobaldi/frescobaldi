@@ -97,12 +97,6 @@
                    (/ ref-text-stil-length 2)
                    X)))))))
 
-% needs to be here for 2.16.2
-#(define-public (symbol-list-or-symbol? x)
-   (if (list? x)
-       (every symbol? x)
-       (symbol? x)))
-
 #(define (add-grob-names l)
    ;; possible values for l:
    ;;   'all-grobs (adds text to all grobs, where possible)

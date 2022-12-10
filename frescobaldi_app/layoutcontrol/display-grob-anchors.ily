@@ -95,12 +95,6 @@
               stencil
               dot-stil))))))
 
-% needs to be here for 2.16.2
-#(define-public (symbol-list-or-symbol? x)
-   (if (list? x)
-       (every symbol? x)
-       (symbol? x)))
-
 #(define (add-dot-to-grobs l)
    ;; possible values for l:
    ;;   'all-grobs (adds red-dots to all grobs, where possible)
