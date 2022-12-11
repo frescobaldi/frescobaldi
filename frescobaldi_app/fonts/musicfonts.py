@@ -265,7 +265,7 @@ class MusicFontFamily(QObject):
     sizes_list = ['11', '13', '14', '16', '18', '20', '23', '26']
     # Regular expression to determine a LilyPond music font
     font_re = re.compile(
-        '(?P<family>.*)-(?P<size>brace|\d\d)\.(?P<type>otf|svg|woff)$')
+        r'(?P<family>.*)-(?P<size>brace|\d\d)\.(?P<type>otf|svg|woff)$')
 
     @classmethod
     def parse_filename(cls, file):
