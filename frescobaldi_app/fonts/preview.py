@@ -234,7 +234,7 @@ class FontsPreviewWidget(QWidget):
             it will be injected *after* our paper block.
             """
             nonlocal sample_content, global_size
-            match = re.match('#\(set-global-staff-size \d+\)', sample_content)
+            match = re.match(r'#\(set-global-staff-size \d+\)', sample_content)
             if match:
                 global_size = match.group(0)
                 sample_content = sample_content[len(global_size):]

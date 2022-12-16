@@ -492,7 +492,7 @@ class TextFonts(QObject):
         """Parse the LilyPond log and push entries to the various
         lists and dictionaries. Parsing the actual font style
         definition is deferred to add_style_to_family()."""
-        regexp = re.compile('(.*)\\-\d+')
+        regexp = re.compile(r'(.*)\\-\d+')
         families = {}
         config_files = []
         config_dirs = []
