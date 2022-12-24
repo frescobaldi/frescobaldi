@@ -39,15 +39,10 @@
 }
 
 % Define appearance
-#(cond ((not (defined? 'debug-voice-one-color))
-        (define debug-voice-one-color darkred)))
-#(cond ((not (defined? 'debug-voice-two-color))
-        (define debug-voice-two-color darkblue)))
-#(cond ((not (defined? 'debug-voice-three-color))
-        (define debug-voice-three-color darkgreen)))
-#(cond ((not (defined? 'debug-voice-four-color))
-        (define debug-voice-four-color darkmagenta)))
-
+#(define-default debug-voice-one-color darkred)
+#(define-default debug-voice-two-color darkblue)
+#(define-default debug-voice-three-color darkgreen)
+#(define-default debug-voice-four-color darkmagenta)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 % here goes the snippet: %

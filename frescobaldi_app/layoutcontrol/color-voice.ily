@@ -34,58 +34,28 @@
   status = "ready" % aiming to be 'official'
 }
 
-% Function to determine the used LilyPond version.
-\include "lilypond-version-predicates.ily"
-
-colorVoiceTemporary = 
-#(define-music-function (parser location color)
-   (color?)
-   ;; With newer LilyPond versions this improves the behaviour
-   ;; of color-voices and color-directions.
-   ;; When one of them is set and the other is set in addition,
-   ;; now when the second is reverted the coloring of the first
-   ;; will still be active.
-   #{
-     \temporary\override NoteHead #'color = #color
-     \temporary\override Stem #'color = #color
-     \temporary\override Beam #'color = #color
-     \temporary\override Flag #'color = #color
-     \temporary\override Accidental #'color = #color
-     \temporary\override Rest #'color = #color
-     \temporary\override Dots #'color = #color
-   #})
-
-colorVoiceOld = 
+colorVoice =
 #(define-music-function (parser location color)
    (color?)
    #{
-     \override NoteHead #'color = #color
-     \override Stem #'color = #color
-     \override Beam #'color = #color
-     \override Flag #'color = #color
-     \override Accidental #'color = #color
-     \override Rest #'color = #color
-     \override Dots #'color = #color
+     \temporary\override NoteHead.color = #color
+     \temporary\override Stem.color = #color
+     \temporary\override Beam.color = #color
+     \temporary\override Flag.color = #color
+     \temporary\override Accidental.color = #color
+     \temporary\override Rest.color = #color
+     \temporary\override Dots.color = #color
    #})
-
-colorVoice = 
-#(define-music-function (parser location color)
-   (color?)
-   (if (lilypond-greater-than-or-equal? '(2 17 6))
-       ;; \temporary was introduced in 2.17.6
-        #{ \colorVoiceTemporary #color #}
-        #{ \colorVoiceOld #color #}
-   ))
 
 unColorVoice = 
 #(define-music-function (parser location)()
    #{
-     \revert NoteHead #'color
-     \revert Stem #'color
-     \revert Beam #'color
-     \revert Flag #'color
-     \revert Accidental #'color
-     \revert Rest #'color
-     \revert Dots #'color
+     \revert NoteHead.color
+     \revert Stem.color
+     \revert Beam.color
+     \revert Flag.color
+     \revert Accidental.color
+     \revert Rest.color
+     \revert Dots.color
    #})
      
