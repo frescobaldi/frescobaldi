@@ -88,6 +88,7 @@ start_music = (
     'new',
     'context',
     'with',
+    'unfoldRepeats',
 )
 
 # tweak commands may be assigned, in toplevel
