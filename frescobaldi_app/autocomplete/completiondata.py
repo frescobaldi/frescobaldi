@@ -65,6 +65,7 @@ inputmodes = (
     'lyrics',
     'lyricmode {',
     'addlyrics {',
+    'notemode {',
 )
 
 # commands that only occur at the global file level
@@ -81,6 +82,8 @@ start_music = (
     'repeat',
     'alternative {',
     'relative',
+    'absolute',
+    'fixed',
     'transpose',
     'partCombine',
     'keepWithTag #\'',
