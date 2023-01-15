@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 3.2\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2021-09-25 23:28+0900\n"
-"PO-Revision-Date: 2021-12-05 22:32+0900\n"
+"POT-Creation-Date: 2021-09-28 21:42+0200\n"
+"PO-Revision-Date: 2023-01-15 10:09+0900\n"
 "Last-Translator: Jun Tamura <j.tamura@me.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: ../frescobaldi_app/about.py:49
 #, python-brace-format
@@ -222,7 +222,7 @@ msgstr "現在のドキュメント"
 
 #: ../frescobaldi_app/convert_ly.py:175
 msgid "Converted Document"
-msgstr ""
+msgstr "変換されたドキュメント"
 
 #: ../frescobaldi_app/convert_ly.py:200
 msgid "(set in document)"
@@ -231,6 +231,7 @@ msgstr "（ドキュメント内の設定）"
 #: ../frescobaldi_app/convert_ly.py:214
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr ""
+"‘このバージョンから’ と ‘このバージョンへ’ の両方を設定する必要があります。"
 
 #: ../frescobaldi_app/convert_ly.py:237
 #, python-brace-format
@@ -242,7 +243,7 @@ msgstr ""
 
 #: ../frescobaldi_app/convert_ly.py:247
 msgid "The document has not been changed."
-msgstr ""
+msgstr "ドキュメントは変更されませんでした。"
 
 #: ../frescobaldi_app/convert_ly.py:255 ../frescobaldi_app/mainwindow.py:590
 msgctxt "dialog title"
@@ -256,7 +257,7 @@ msgstr ""
 #: ../frescobaldi_app/copy2image.py:143
 #: ../frescobaldi_app/scorewiz/parts/containers.py:70
 msgid "Type:"
-msgstr ""
+msgstr "形式:"
 
 #: ../frescobaldi_app/copy2image.py:146
 msgid "DPI:"
@@ -264,7 +265,7 @@ msgstr ""
 
 #: ../frescobaldi_app/copy2image.py:147
 msgid "Background:"
-msgstr ""
+msgstr "背景:"
 
 #: ../frescobaldi_app/copy2image.py:148
 msgid "Paper Color"
@@ -272,7 +273,7 @@ msgstr ""
 
 #: ../frescobaldi_app/copy2image.py:149
 msgid "Gray"
-msgstr ""
+msgstr "グレースケール"
 
 #: ../frescobaldi_app/copy2image.py:150
 msgid "Convert image to grayscale."
@@ -280,15 +281,15 @@ msgstr ""
 
 #: ../frescobaldi_app/copy2image.py:151
 msgid "Auto-crop"
-msgstr ""
+msgstr "自動トリミング"
 
 #: ../frescobaldi_app/copy2image.py:152
 msgid "Antialias"
-msgstr ""
+msgstr "アンチエイリアス"
 
 #: ../frescobaldi_app/copy2image.py:153
 msgid "Scale 2x"
-msgstr ""
+msgstr "2倍でレンダリング"
 
 #: ../frescobaldi_app/copy2image.py:155
 msgid ""
@@ -298,11 +299,11 @@ msgstr ""
 
 #: ../frescobaldi_app/copy2image.py:157
 msgid "Drag"
-msgstr ""
+msgstr "ドラッグ"
 
 #: ../frescobaldi_app/copy2image.py:158
 msgid "Drag File"
-msgstr ""
+msgstr "ファイルとしてドラッグ"
 
 #: ../frescobaldi_app/copy2image.py:159 ../frescobaldi_app/mainwindow.py:1374
 #: ../frescobaldi_app/docbrowser/browser.py:249
@@ -312,7 +313,7 @@ msgstr "コピー(&C)"
 
 #: ../frescobaldi_app/copy2image.py:160
 msgid "Copy &File"
-msgstr ""
+msgstr "ファイルとしてコピー(&F)"
 
 #: ../frescobaldi_app/copy2image.py:161
 msgid "&Save As..."
@@ -381,7 +382,7 @@ msgstr ""
 #: ../frescobaldi_app/copy2image.py:231
 #, python-brace-format
 msgid "Image from {filename}"
-msgstr ""
+msgstr "画像: {filename}"
 
 #: ../frescobaldi_app/copy2image.py:317
 msgid "Save Image As"
@@ -1331,7 +1332,7 @@ msgstr "垂直に分割(&V)"
 
 #: ../frescobaldi_app/viewmanager.py:84
 msgid "&Close View"
-msgstr ""
+msgstr "ビューを閉じる(&C)"
 
 #: ../frescobaldi_app/viewmanager.py:207
 #, python-brace-format
@@ -2335,8 +2336,8 @@ msgstr ""
 
 #: ../frescobaldi_app/fonts/oldfontsdialog.py:76
 msgid ""
-"Please select the three global fonts to use for <code>\\roman</code>, <code>"
-"\\sans</code>, and <code>\\typewriter</code> respectively."
+"Please select the three global fonts to use for <code>\\roman</code>, "
+"<code>\\sans</code>, and <code>\\typewriter</code> respectively."
 msgstr ""
 
 #: ../frescobaldi_app/fonts/oldfontsdialog.py:79
@@ -3031,11 +3032,11 @@ msgstr "カーソル位置に同期してスクロール(&S)"
 #: ../frescobaldi_app/musicview/__init__.py:271
 #: ../frescobaldi_app/viewers/__init__.py:345
 msgid "Copy to &Image..."
-msgstr ""
+msgstr "画像としてコピー(&I)…"
 
 #: ../frescobaldi_app/musicview/__init__.py:272
 msgid "Copy Selected &Text"
-msgstr ""
+msgstr "選択されたテキストをコピー(&T)"
 
 #: ../frescobaldi_app/musicview/__init__.py:273
 #: ../frescobaldi_app/viewers/__init__.py:346
@@ -3111,7 +3112,7 @@ msgstr ""
 
 #: ../frescobaldi_app/pitch/__init__.py:165
 msgid "Convert Relative to &Absolute"
-msgstr "相対表記から絶対表記へ変換"
+msgstr "相対表記から絶対表記へ変換(&A)"
 
 #: ../frescobaldi_app/pitch/__init__.py:167
 msgid ""
@@ -3121,7 +3122,7 @@ msgstr ""
 
 #: ../frescobaldi_app/pitch/__init__.py:169
 msgid "Convert Absolute to &Relative"
-msgstr "絶対表記から相対表記へ変換"
+msgstr "絶対表記から相対表記へ変換(&R)"
 
 #: ../frescobaldi_app/pitch/__init__.py:171
 msgid ""
@@ -4177,9 +4178,9 @@ msgid ""
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
 "empty to use the operating system default application."
 msgstr ""
-"以下に、さまざまなファイルタイプを開くためのコマンドを入力できます。 <code>"
-"$f</ code>はファイル名に置き換えられ、<code>$u</ code>はURLに置き換えられま"
-"す。 オペレーティングシステムのデフォルトアプリケーションを使用するには、"
+"以下に、さまざまなファイルタイプを開くためのコマンドを入力できます。 "
+"<code>$f</ code>はファイル名に置き換えられ、<code>$u</ code>はURLに置き換えら"
+"れます。 オペレーティングシステムのデフォルトアプリケーションを使用するには、"
 "フィールドを空のままにします。"
 
 #: ../frescobaldi_app/preferences/helpers.py:92
@@ -5179,7 +5180,7 @@ msgstr ""
 
 #: ../frescobaldi_app/rest/__init__.py:75
 msgid "Replace positioned rests with plain rests"
-msgstr ""
+msgstr "位置が指定された休符を普通の休符に置換"
 
 #: ../frescobaldi_app/rest/__init__.py:77
 msgid "Change all \\rest with r in this document or in the selection."
@@ -5219,7 +5220,7 @@ msgstr ""
 
 #: ../frescobaldi_app/rhythm/__init__.py:165
 msgid "Remove &scaling"
-msgstr ""
+msgstr "演奏時間の変更を削除(&s)"
 
 #: ../frescobaldi_app/rhythm/__init__.py:167
 msgid "Remove all scaling (*n, *n/m) from the durations in the selection."
@@ -5227,7 +5228,7 @@ msgstr ""
 
 #: ../frescobaldi_app/rhythm/__init__.py:168
 msgid "Remove scaling with &fractions"
-msgstr ""
+msgstr "演奏時間の分数による変更を削除(&f)"
 
 #: ../frescobaldi_app/rhythm/__init__.py:170
 msgid ""
@@ -9031,10 +9032,12 @@ msgstr ""
 
 #: ../linux/org.frescobaldi.Frescobaldi.desktop.in:3
 #: ../linux/org.frescobaldi.Frescobaldi.desktop.in:4
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:6
 msgid "Frescobaldi"
 msgstr ""
 
 #: ../linux/org.frescobaldi.Frescobaldi.desktop.in:5
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:7
 msgid "LilyPond Music Editor"
 msgstr ""
 
@@ -9044,4 +9047,411 @@ msgstr ""
 
 #: ../linux/org.frescobaldi.Frescobaldi.desktop.in:14
 msgid "lilypond;editor;sheet music;"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:10
+msgid ""
+"Frescobaldi is an advanced text editor to edit LilyPond sheet music files. "
+"It aims to be powerful, yet lightweight and easy to use."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:14
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:77
+#, fuzzy
+#| msgid "Key signature:"
+msgid "Features:"
+msgstr "調号:"
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:16
+msgid "Powerful text editor with syntax highlighting and automatic completion"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:17
+msgid "Music view with advanced Point &amp; Click"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:18
+msgid "Midi player to proof-listen LilyPond-generated MIDI files"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:19
+msgid "Midi capturing to enter music"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:20
+msgid "Powerful Score Wizard to quickly setup a music score"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:21
+msgid "Snippet Manager to store and apply text snippets, templates or scripts"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:22
+msgid ""
+"Use multiple versions of LilyPond, automatically selects the correct version"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:23
+msgid "Built-in LilyPond documentation browser and built-in User Guide"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:24
+msgid ""
+"Smart layout-control functions like coloring specific objects in the PDF"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:25
+msgid "MusicXML, Midi and ABC import"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:26
+msgid ""
+"Modern user interface with configurable colors, fonts and keyboard shortcuts"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:27
+msgid ""
+"Translated into the following languages: Dutch, English, French, German, "
+"Italian, Czech, Russian, Spanish, Galician, Turkish, Polish, Brazilian "
+"Portuguese and Ukrainian."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:29
+msgid ""
+"Frescobaldi is designed to run on all major operating systems (Linux, Mac OS "
+"X and MS Windows). It is named after Girolamo Frescobaldi (1583-1643), an "
+"Italian composer of keyboard music in the late Renaissance and early Baroque "
+"period."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:38
+msgid "Text editor and music view"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:42
+msgid "Change the input without leaving the music view"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:46
+msgid "Zoom with the magnifier glass"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:50
+msgid "Syntax highlighting and automatic completion"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:54
+msgid "Snippet manager and editor"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:58
+msgid "Score Wizard to quickly setup a music score"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:72
+msgid "Notes:"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:74
+msgid ""
+"This release contains several bug fixes and improvements. It is probably the "
+"last release in the 3.1 version range"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:75
+msgid ""
+"Full history and credits for this release are available at https://github."
+"com/frescobaldi/frescobaldi/compare/v3.1.2...v3.1.3"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:79
+msgid "a Clear Music View button and menu action were added"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:81
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:103
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:160
+msgid "Bug fixes:"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:83
+msgid "fixed \"NameError: name 'imp' is not defined\" when importing"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:84
+msgid "fixed search of generated files on macOS for some Unicode file names"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:85
+msgid "fixed selection of Python on Mac OS:"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:87
+msgid "select the system Python 2 or 3 according to LilyPond's version"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:88
+msgid "support MacPorts' LilyPond tools"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:89
+msgid ""
+"add option to allow forcing the use of the tools' #! lines (useful for self-"
+"compiled or other nonstandard LilyPond installations)"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:91
+msgid ""
+"fixed \"AttributeError: 'PreviewJob' object has no attribute "
+"'lilypond_version'\""
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:92
+msgid "fixed Ghostscript error on Mac with MacPorts' LilyPond 2.21.x"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:94
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:124
+#, fuzzy
+#| msgid "No Translation"
+msgid "Translations:"
+msgstr "翻訳無し"
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:96
+msgid "Updated translations: Dutch, Czech, Russian"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:105
+msgid ""
+"Fixed the error \"AttributeError: 'NoneType' object has no attribute "
+"'cursor'\""
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:106
+#, fuzzy
+#| msgid "Two Pages (first page right)"
+msgid "Fixed the \"Two Pages (first page right)\" mode"
+msgstr "2ページ（最初のページを右）"
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:107
+msgid "Fixed pinch gesture zooming in Music View on Mac OS X"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:108
+msgid "Fixed printing the music score on Mac OS X"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:109
+msgid "Fixed cursor navigation keyboard shortcuts on Mac OS X; new shortcuts:"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:111
+msgid "next document: ctrl+tab"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:112
+msgid "previous document: ctrl+shift+tab"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:113
+msgid "start of line: cmd+left"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:114
+msgid "end of line: cmd+right"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:116
+msgid "Fixed the display of filenames in document tabs on Mac OS X"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:117
+msgid "Fixed the global menu with no windows open on Mac OS X"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:118
+msgid "Fixed the error with convert-ly on in the Mac app bundle"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:120
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:169
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:193
+#, fuzzy
+#| msgid "Remove &Comments"
+msgid "Improvements:"
+msgstr "コメントを削除(&C)"
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:122
+msgid "German hyphenation patterns were added"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:126
+msgid "Dutch translation updated by Wilbert Berendsen"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:127
+msgid "Italian translation updated by Davide Liessi"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:133
+msgid "Bugfixes:"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:135
+msgid ""
+"Fixed the error AttributeError: 'PopplerDocument' has no attribute "
+"'ispresent'."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:136
+msgid ""
+"Fixed the error NameError: 'QPinchGesture' is not defined (pinch in music "
+"view)."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:137
+msgid ""
+"Fixed the error NameError: 'doc' is not defined (when printing on Mac OSX)."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:143
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:184
+msgid "Requirement changes:"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:145
+msgid "Frescobaldi now requires Python3.3+"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:147
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:188
+msgid "New features:"
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:149
+msgid ""
+"New \"Document Fonts\" dialog supporting text and music fonts and providing "
+"a font sample previewer."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:150
+msgid "Possibility to load external extensions."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:151
+msgid "New \"First System Only\" option in Custom Engrave."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:152
+msgid "New \"Goto Line\" and \"Rename file\" commands."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:153
+#, fuzzy
+#| msgid "Remember View settings per-document"
+msgid "Music View: view settings are remembered per-document."
+msgstr "ドキュメント毎にビュー設定を記憶"
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:154
+msgid ""
+"Music View: copy to Image can copy/export to SVG, PDF and EPS in addition to "
+"PNG/JPG."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:155
+msgid ""
+"Music View: new commands to rotate left/right; new toolbar button to show/"
+"hide the magnifier."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:156
+msgid ""
+"Music View: new preferences Horizontal/Vertical and Continuous/non-"
+"continuous."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:157
+msgid ""
+"Music View: new raster layout mode (displays as many pages as fit in a View)."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:158
+msgid ""
+"Manuscript viewer: new toolbar buttons to rotate the pages left/right and to "
+"show/hide the magnifier."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:162
+msgid "Fixed seeking in MIDI player during playing stops sound."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:163
+msgid "Paper orientation is now properly handled in New Score Wizard."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:164
+msgid ""
+"Fixed discrepancy of LilyPond vs. system version of GhostScript on Linux."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:166
+msgid "Fixed includepaths on Windows."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:167
+msgid "Fixed the error NameError: name 'widgets' is not defined."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:171
+msgid ""
+"Score Wizard: Titles and Headers are now shown in preview; new checkbox to "
+"write/omit pitches after \\relative command; allow \"none\" for instrument "
+"names on first system."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:172
+msgid "Smarter behaviour of the autocompletion popup (#918, #922)."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:173
+msgid "New command File-&gt;Rename/Move."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:174
+msgid "Sessions can be grouped in the Sessions menu."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:175
+msgid "Show absolute path of include files in tooltip."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:176
+msgid "Restructure Tools Menu."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:177
+msgid "File Open toolbar button shows recent files menu on long click."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:178
+msgid "Added \"Blank Sheet Music\" template snippet."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:186
+msgid "Frescobaldi now requires Python3.2+, Qt5, PyQt5, python-poppler-qt5."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:190
+msgid "Zoom with pinch gesture in Music View."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:191
+msgid ""
+"An option (enabled by default) to move the cursor to the end of the line "
+"when PageDown is pressed on the last line, and to move the cursor to the "
+"start of the first line if PageUp is pressed on the first line."
+msgstr ""
+
+#: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:195
+msgid "Retina display support in Music View."
 msgstr ""
