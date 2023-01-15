@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 3.2\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2021-09-28 21:42+0200\n"
-"PO-Revision-Date: 2023-01-15 10:09+0900\n"
+"PO-Revision-Date: 2023-01-15 21:25+0900\n"
 "Last-Translator: Jun Tamura <j.tamura@me.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -802,6 +802,8 @@ msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
 msgstr ""
+"ドキュメント “{name}” は変更されました。\n"
+"変更を保存しますか？それとも破棄しますか？"
 
 #: ../frescobaldi_app/mainwindow.py:372
 msgid "Tab Bar"
@@ -837,12 +839,12 @@ msgstr ""
 #: ../frescobaldi_app/mainwindow.py:658
 msgctxt "dialog title"
 msgid "Save Copy"
-msgstr ""
+msgstr "コピーを保存"
 
 #: ../frescobaldi_app/mainwindow.py:664
 msgctxt "dialog title"
 msgid "Save Selection"
-msgstr ""
+msgstr "選択範囲を保存"
 
 #: ../frescobaldi_app/mainwindow.py:709
 #: ../frescobaldi_app/externalchanges/widget.py:240
@@ -1721,7 +1723,7 @@ msgstr ""
 
 #: ../frescobaldi_app/extensions/__init__.py:836
 msgid "&Extensions"
-msgstr ""
+msgstr "機能拡張(&E)"
 
 #: ../frescobaldi_app/extensions/__init__.py:859
 msgid ""
@@ -2917,22 +2919,22 @@ msgstr "MIDI プレイヤー(&P)"
 #: ../frescobaldi_app/miditool/__init__.py:97
 msgctxt "midi player"
 msgid "Pause"
-msgstr ""
+msgstr "一時停止"
 
 #: ../frescobaldi_app/miditool/__init__.py:98
 msgctxt "midi player"
 msgid "Play"
-msgstr ""
+msgstr "再生"
 
 #: ../frescobaldi_app/miditool/__init__.py:99
 msgctxt "midi player"
 msgid "Stop"
-msgstr ""
+msgstr "停止"
 
 #: ../frescobaldi_app/miditool/__init__.py:100
 msgctxt "midi player"
 msgid "Restart"
-msgstr "再起動"
+msgstr "再開"
 
 #: ../frescobaldi_app/miditool/widget.py:104
 msgid "Tempo"
@@ -3309,7 +3311,7 @@ msgstr "ツール"
 
 #: ../frescobaldi_app/preferences/__init__.py:296
 msgid "Extensions"
-msgstr ""
+msgstr "機能拡張"
 
 #: ../frescobaldi_app/preferences/documentation.py:67
 msgid "Paths to LilyPond Documentation"
@@ -3583,12 +3585,12 @@ msgstr "一般設定"
 
 #: ../frescobaldi_app/preferences/extensions.py:96
 msgid "Use Extensions"
-msgstr ""
+msgstr "機能拡張を使用する"
 
 #: ../frescobaldi_app/preferences/extensions.py:97
 #, python-brace-format
 msgid "Extension API: {apiversion}"
-msgstr ""
+msgstr "機能拡張 API: {apiversion}"
 
 #: ../frescobaldi_app/preferences/extensions.py:99
 msgid "If unchecked don't look for extensions."
@@ -3596,7 +3598,7 @@ msgstr ""
 
 #: ../frescobaldi_app/preferences/extensions.py:155
 msgid "Installed Extensions"
-msgstr ""
+msgstr "インストールされている機能拡張"
 
 #: ../frescobaldi_app/preferences/extensions.py:157
 #: ../frescobaldi_app/snippet/model.py:58
@@ -3647,7 +3649,7 @@ msgstr ""
 
 #: ../frescobaldi_app/preferences/extensions.py:323
 msgid "Extension Configuration"
-msgstr ""
+msgstr "機能拡張の設定"
 
 #: ../frescobaldi_app/preferences/extensions.py:325
 msgid ""
@@ -7253,6 +7255,8 @@ msgid ""
 "The snippet has been modified.\n"
 "Do you want to save your changes or discard them?"
 msgstr ""
+"コード断片は変更されました。\n"
+"変更を保存しますか？それとも破棄しますか？"
 
 #: ../frescobaldi_app/snippet/edit.py:230
 msgid "Click to change the keyboard shortcut."
@@ -7642,11 +7646,11 @@ msgstr ""
 
 #: ../frescobaldi_app/viewers/__init__.py:338
 msgid "Show Help"
-msgstr ""
+msgstr "ヘルプを表示"
 
 #: ../frescobaldi_app/viewers/__init__.py:347
 msgid "Show toolbar"
-msgstr ""
+msgstr "ツールバーを表示"
 
 #: ../frescobaldi_app/viewers/__init__.py:348
 msgid "Open music document(s)"
@@ -7678,7 +7682,7 @@ msgstr ""
 
 #: ../frescobaldi_app/viewers/contextmenu.py:100
 msgid "Show..."
-msgstr ""
+msgstr "表示…"
 
 #: ../frescobaldi_app/viewers/contextmenu.py:129
 msgid "Close..."
@@ -7686,7 +7690,7 @@ msgstr "閉じる…"
 
 #: ../frescobaldi_app/viewers/contextmenu.py:151
 msgid "Zoom"
-msgstr ""
+msgstr "拡大/縮小"
 
 #: ../frescobaldi_app/viewers/popplerwidget.py:174
 #, python-brace-format
@@ -7705,7 +7709,7 @@ msgstr ""
 #: ../frescobaldi_app/viewers/manuscript/__init__.py:40
 #: ../frescobaldi_app/viewers/manuscript/__init__.py:82
 msgid "Manuscript"
-msgstr ""
+msgstr "原稿"
 
 #: ../frescobaldi_app/viewers/manuscript/__init__.py:41
 msgid "Manuscript Viewer"
@@ -7714,7 +7718,7 @@ msgstr "原稿ビューア"
 #: ../frescobaldi_app/viewers/manuscript/__init__.py:53
 msgctxt "dialog title"
 msgid "Open Manuscript(s)"
-msgstr ""
+msgstr "原稿を開く"
 
 #: ../frescobaldi_app/viewers/manuscript/__init__.py:73
 msgid "Select Manuscript Document"
@@ -7722,19 +7726,19 @@ msgstr ""
 
 #: ../frescobaldi_app/viewers/manuscript/__init__.py:74
 msgid "Open manuscript(s)"
-msgstr ""
+msgstr "原稿を開く"
 
 #: ../frescobaldi_app/viewers/manuscript/__init__.py:76
 msgid "Close manuscript"
-msgstr ""
+msgstr "原稿を閉じる"
 
 #: ../frescobaldi_app/viewers/manuscript/__init__.py:78
 msgid "Close other manuscripts"
-msgstr ""
+msgstr "他の原稿を閉じる"
 
 #: ../frescobaldi_app/viewers/manuscript/__init__.py:79
 msgid "Close all manuscripts"
-msgstr ""
+msgstr "全ての原稿を閉じる"
 
 #: ../frescobaldi_app/viewers/manuscript/widget.py:37
 #, python-brace-format
@@ -7956,7 +7960,7 @@ msgstr ""
 
 #: messages.py:54
 msgid "Previous Page"
-msgstr ""
+msgstr "前のページ"
 
 #: messages.py:55
 msgid "Previous"
@@ -7964,7 +7968,7 @@ msgstr ""
 
 #: messages.py:56
 msgid "Next Page"
-msgstr ""
+msgstr "次のページ"
 
 #: messages.py:57
 msgid "Next"
@@ -7972,7 +7976,7 @@ msgstr ""
 
 #: messages.py:58
 msgid "Magnifier"
-msgstr ""
+msgstr "拡大鏡"
 
 #: messages.py:62
 msgid "usage: "
@@ -7993,7 +7997,7 @@ msgstr ""
 #: messages.py:69
 msgctxt "CloseButton"
 msgid "Close Tab"
-msgstr ""
+msgstr "タブを閉じる"
 
 #: messages.py:71
 msgctxt "QDialogButtonBox"
@@ -8018,12 +8022,12 @@ msgstr "閉じる"
 #: messages.py:75
 msgctxt "QDialogButtonBox"
 msgid "Close without Saving"
-msgstr ""
+msgstr "保存せずに閉じる"
 
 #: messages.py:76
 msgctxt "QDialogButtonBox"
 msgid "Discard"
-msgstr ""
+msgstr "破棄"
 
 #: messages.py:77
 msgctxt "QDialogButtonBox"
@@ -8043,7 +8047,7 @@ msgstr ""
 #: messages.py:80
 msgctxt "QDialogButtonBox"
 msgid "Open"
-msgstr ""
+msgstr "開く"
 
 #: messages.py:81
 msgctxt "QDialogButtonBox"
@@ -8058,12 +8062,12 @@ msgstr "保存(&S)"
 #: messages.py:83
 msgctxt "QDialogButtonBox"
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: messages.py:85
 msgctxt "QDialog"
 msgid "What's This?"
-msgstr ""
+msgstr "これは何？"
 
 #: messages.py:87
 msgctxt "QDockWidget"
