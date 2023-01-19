@@ -157,7 +157,6 @@ class LilyDocPathsList(widgets.listedit.ListEdit):
             icon = icons.get('lilypond-run'))
         urlreq = widgets.urlrequester.UrlRequester()
         urlreq.lineEdit.setCompleter(QCompleter([
-            "http://lilypond.org/doc/v2.12/",
             "http://lilypond.org/doc/stable/",
             "http://lilypond.org/doc/latest/",
             ], urlreq.lineEdit))
