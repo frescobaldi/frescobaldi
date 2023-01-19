@@ -61,6 +61,7 @@ class Browser(QWidget):
         ac.help_back.triggered.connect(self.webview.back)
         ac.help_forward.triggered.connect(self.webview.forward)
         ac.help_home.triggered.connect(self.showHomePage)
+        ac.help_web_browser_homepage.triggered.connect(self.openWebBrowserHomePage)
         ac.help_web_browser.triggered.connect(self.openWebBrowser)
         ac.help_print.triggered.connect(self.slotPrint)
 
@@ -72,6 +73,8 @@ class Browser(QWidget):
         tb.addSeparator()
         tb.addAction(ac.help_home)
         tb.addAction(ac.help_web_browser)
+        w = tb.widgetForAction(ac.help_web_browser)
+        w.addAction(ac.help_web_browser_homepage)
         tb.addAction(ac.help_print)
         tb.addSeparator()
         tb.addWidget(self.chooser)
@@ -226,6 +229,9 @@ class Browser(QWidget):
         self.webview.load(self.getHomePageUrl())
 
     def openWebBrowser(self):
+        helpers.openUrl(self.webview.url())
+
+    def openWebBrowserHomePage(self):
         helpers.openUrl(self.getHomePageUrl())
 
     def slotPrint(self):
@@ -247,8 +253,8 @@ class Browser(QWidget):
             a.setText(_("Copy &Link"))
             menu.addAction(a)
             menu.addSeparator()
-            a = menu.addAction(icons.get("window-new"), _("Open Link in &New Window"))
-            a.triggered.connect((lambda url: lambda: self.slotNewWindow(url))(d.linkUrl()))
+            a = menu.addAction(icons.get("internet-web-browser"), _("Open Link in Web Browser"))
+            a.triggered.connect((lambda url: lambda: self.slotNewWindow(url))(hit.linkUrl()))
         else:
             if d.selectedText():
                 a = self.webview.pageAction(QWebEnginePage.Copy)
@@ -256,7 +262,7 @@ class Browser(QWidget):
                 a.setText(_("&Copy"))
                 menu.addAction(a)
                 menu.addSeparator()
-            a = menu.addAction(icons.get("window-new"), _("Open Document in &New Window"))
+            a = menu.addAction(icons.get("internet-web-browser"), _("Open Current Page in Web Browser"))
             a.triggered.connect((lambda url: lambda: self.slotNewWindow(url))(self.webview.url()))
         if menu.actions():
             menu.exec_(self.webview.mapToGlobal(pos))
