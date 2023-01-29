@@ -135,7 +135,7 @@ class PianoStaffPart(Part):
         self.label.setText('{0} <i>({1})</i>'.format(
             _("Adjust how many separate voices you want on each staff."),
             _("This is primarily useful when you write polyphonic music "
-              "like a fuge.")))
+              "like a fugue.")))
         self.upperVoicesLabel.setText(_("Right hand:"))
         self.lowerVoicesLabel.setText(_("Left hand:"))
 
