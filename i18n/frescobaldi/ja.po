@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 3.2\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2023-01-14 17:48+0100\n"
-"PO-Revision-Date: 2023-01-16 00:07+0900\n"
+"PO-Revision-Date: 2023-02-05 01:33+0900\n"
 "Last-Translator: Jun Tamura <j.tamura@me.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -240,6 +240,9 @@ msgid ""
 "\n"
 "{message}\n"
 msgstr ""
+"{convert_ly} を開始できませんでした:\n"
+"\n"
+"{message}\n"
 
 #: ../frescobaldi_app/convert_ly.py:245
 msgid "The document has not been changed."
@@ -252,7 +255,7 @@ msgstr "ファイルを保存"
 
 #: ../frescobaldi_app/convert_ly.py:254
 msgid "Text Files"
-msgstr ""
+msgstr "テキストファイル"
 
 #: ../frescobaldi_app/copy2image.py:143
 #: ../frescobaldi_app/scorewiz/parts/containers.py:69
@@ -269,7 +272,7 @@ msgstr "背景:"
 
 #: ../frescobaldi_app/copy2image.py:148
 msgid "Paper Color"
-msgstr ""
+msgstr "紙の色"
 
 #: ../frescobaldi_app/copy2image.py:149
 msgid "Gray"
@@ -277,7 +280,7 @@ msgstr "グレースケール"
 
 #: ../frescobaldi_app/copy2image.py:150
 msgid "Convert image to grayscale."
-msgstr ""
+msgstr "画像をグレースケールに変換する。"
 
 #: ../frescobaldi_app/copy2image.py:151
 msgid "Auto-crop"
@@ -296,6 +299,8 @@ msgid ""
 "Render twice as large and scale back down\n"
 "(recommended for small DPI values)."
 msgstr ""
+"2倍の大きさでレンダリングし、スケールダウンする\n"
+"(DPI値が小さい場合に推奨)。"
 
 #: ../frescobaldi_app/copy2image.py:157
 msgid "Drag"
@@ -4074,13 +4079,11 @@ msgstr ""
 
 #: ../frescobaldi_app/preferences/general.py:292
 msgid "Remember cursor position, bookmarks, etc."
-msgstr "カーソル位置、ブックマークなどを記憶する。"
+msgstr "カーソル位置、ブックマークなどを記憶。"
 
 #: ../frescobaldi_app/preferences/general.py:293
-#, fuzzy
-#| msgid "Converted Document"
 msgid "Format document"
-msgstr "変換されたドキュメント"
+msgstr "ドキュメントを整形"
 
 #: ../frescobaldi_app/preferences/general.py:295
 msgid "Default directory:"
@@ -4293,7 +4296,7 @@ msgstr "ツールコマンド"
 
 #: ../frescobaldi_app/preferences/lilypond.py:276
 msgid "Force use of the tools' #! lines"
-msgstr ""
+msgstr "ツールの “#!” 行を強制的に使用"
 
 #: ../frescobaldi_app/preferences/lilypond.py:329
 msgid "Running LilyPond"
@@ -4446,7 +4449,7 @@ msgstr ""
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
 #: ../frescobaldi_app/preferences/musicviewers.py:101
 msgid "Kinetic Scrolling"
-msgstr ""
+msgstr "慣性スクロール"
 
 #: ../frescobaldi_app/preferences/musicviewers.py:102
 msgid "Show Scrollbars"
@@ -4454,7 +4457,7 @@ msgstr "スクロールバーを表示"
 
 #: ../frescobaldi_app/preferences/musicviewers.py:103
 msgid "Strict Paging"
-msgstr ""
+msgstr "厳密なページング"
 
 #: ../frescobaldi_app/preferences/musicviewers.py:105
 msgid ""
@@ -4500,7 +4503,7 @@ msgstr ""
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
 #: ../frescobaldi_app/preferences/musicviewers.py:119
 msgid " pixels"
-msgstr ""
+msgstr " ピクセル"
 
 #: ../frescobaldi_app/preferences/musicviewers.py:120
 msgid "Magnifier Scale:"
@@ -4597,7 +4600,7 @@ msgstr "{name} メニュー"
 
 #: ../frescobaldi_app/preferences/shortcuts.py:132
 msgid "Other commands:"
-msgstr ""
+msgstr "他のコマンド:"
 
 #: ../frescobaldi_app/preferences/shortcuts.py:193
 #, python-brace-format
@@ -4669,18 +4672,16 @@ msgid "Restores the built-in outline patterns."
 msgstr ""
 
 #: ../frescobaldi_app/preferences/tools.py:260
-#, fuzzy
-#| msgid "Patterns to match in text that are shown in outline:"
 msgid ""
 "Patterns to match in text (excluding comments) that are shown in outline:"
-msgstr "アウトラインで表示されるテキストにマッチするパターン:"
+msgstr ""
+"アウトラインで表示されるテキスト（コメントを除く）にマッチするパターン:"
 
 #: ../frescobaldi_app/preferences/tools.py:263
-#, fuzzy
-#| msgid "Patterns to match in text that are shown in outline:"
 msgid ""
 "Patterns to match in text (including comments) that are shown in outline:"
-msgstr "アウトラインで表示されるテキストにマッチするパターン:"
+msgstr ""
+"アウトラインで表示されるテキスト（コメントを含む）にマッチするパターン:"
 
 #: ../frescobaldi_app/preferences/tools.py:297
 msgid "Enter a regular expression to match:"
@@ -4705,7 +4706,7 @@ msgstr ""
 
 #: ../frescobaldi_app/quickinsert/articulations.py:100
 msgid "Remove articulations etc."
-msgstr ""
+msgstr "アーティキュレーション等を削除する。"
 
 #: ../frescobaldi_app/quickinsert/articulations.py:108
 #: ../frescobaldi_app/quickinsert/articulations.py:146
@@ -5674,27 +5675,27 @@ msgstr ""
 
 #: ../frescobaldi_app/scorewiz/parts/_base.py:136
 msgid "Adjust how many separate voices you want on each staff."
-msgstr ""
+msgstr "各譜表に必要な独立した声部の数を調整します。"
 
 #: ../frescobaldi_app/scorewiz/parts/_base.py:137
 msgid "This is primarily useful when you write polyphonic music like a fuge."
-msgstr ""
+msgstr "これは主にフーガのような多声音楽を書くときに役立ちます。"
 
 #: ../frescobaldi_app/scorewiz/parts/_base.py:139
 msgid "Right hand:"
-msgstr ""
+msgstr "右手:"
 
 #: ../frescobaldi_app/scorewiz/parts/_base.py:140
 msgid "Left hand:"
-msgstr ""
+msgstr "左手:"
 
 #: ../frescobaldi_app/scorewiz/parts/_base.py:189
 msgid "Chord style:"
-msgstr ""
+msgstr "コード スタイル:"
 
 #: ../frescobaldi_app/scorewiz/parts/_base.py:190
 msgid "Guitar fret diagrams"
-msgstr ""
+msgstr "ギター用フレット ダイアグラム"
 
 #: ../frescobaldi_app/scorewiz/parts/_base.py:192
 msgid ""
@@ -5846,7 +5847,7 @@ msgstr ""
 
 #: ../frescobaldi_app/scorewiz/parts/containers.py:70
 msgid "Connect Barlines"
-msgstr ""
+msgstr "小節線を接続"
 
 #: ../frescobaldi_app/scorewiz/parts/containers.py:71
 msgid "If checked, barlines are connected between the staves."
@@ -5858,7 +5859,7 @@ msgstr ""
 
 #: ../frescobaldi_app/scorewiz/parts/containers.py:120
 msgid "Piece:"
-msgstr ""
+msgstr "曲（楽章）名:"
 
 #: ../frescobaldi_app/scorewiz/parts/containers.py:121
 msgid "Opus:"
@@ -5866,7 +5867,7 @@ msgstr "作品番号:"
 
 #: ../frescobaldi_app/scorewiz/parts/containers.py:122
 msgid "Properties"
-msgstr ""
+msgstr "プロパティ"
 
 #: ../frescobaldi_app/scorewiz/parts/containers.py:150
 msgid "Book Part"
@@ -5948,7 +5949,7 @@ msgstr ""
 
 #: ../frescobaldi_app/scorewiz/parts/keyboard.py:108
 msgid "Pedal:"
-msgstr ""
+msgstr "ペダル:"
 
 #: ../frescobaldi_app/scorewiz/parts/keyboard.py:110
 msgid "Set to 0 to disable the pedal altogether."
@@ -6050,12 +6051,12 @@ msgstr ""
 #: ../frescobaldi_app/scorewiz/parts/percussion.py:82
 #: ../frescobaldi_app/scorewiz/parts/plucked_strings.py:405
 msgid "Upper staff:"
-msgstr ""
+msgstr "上段:"
 
 #: ../frescobaldi_app/scorewiz/parts/percussion.py:83
 #: ../frescobaldi_app/scorewiz/parts/plucked_strings.py:406
 msgid "Lower staff:"
-msgstr ""
+msgstr "下段:"
 
 #: ../frescobaldi_app/scorewiz/parts/percussion.py:85
 msgid "Set the number of voices to 0 to disable the second staff."
@@ -6117,11 +6118,11 @@ msgstr ""
 #: ../frescobaldi_app/scorewiz/parts/percussion.py:184
 #: ../frescobaldi_app/scorewiz/parts/plucked_strings.py:317
 msgid "Voices:"
-msgstr ""
+msgstr "声部:"
 
 #: ../frescobaldi_app/scorewiz/parts/percussion.py:186
 msgid "Remove stems"
-msgstr ""
+msgstr "符幹を削除"
 
 #: ../frescobaldi_app/scorewiz/parts/percussion.py:187
 msgid "Remove the stems from the drum notes."
@@ -6165,11 +6166,11 @@ msgstr ""
 
 #: ../frescobaldi_app/scorewiz/parts/plucked_strings.py:83
 msgid "Staff type:"
-msgstr ""
+msgstr "譜の種類:"
 
 #: ../frescobaldi_app/scorewiz/parts/plucked_strings.py:89
 msgid "Tuning:"
-msgstr ""
+msgstr "調弦:"
 
 #: ../frescobaldi_app/scorewiz/parts/plucked_strings.py:91
 msgid ""
@@ -6184,16 +6185,16 @@ msgstr ""
 
 #: ../frescobaldi_app/scorewiz/parts/plucked_strings.py:202
 msgid "Normal staff"
-msgstr ""
+msgstr "通常の譜"
 
 #: ../frescobaldi_app/scorewiz/parts/plucked_strings.py:203
 msgid "Tablature"
-msgstr ""
+msgstr "タブ譜"
 
 #. L10N: Both a Normal and a Tablature staff
 #: ../frescobaldi_app/scorewiz/parts/plucked_strings.py:205
 msgid "Both"
-msgstr ""
+msgstr "両方"
 
 #: ../frescobaldi_app/scorewiz/parts/plucked_strings.py:212
 msgid "Mandolin"
@@ -6264,7 +6265,7 @@ msgstr ""
 
 #: ../frescobaldi_app/scorewiz/parts/plucked_strings.py:268
 msgid "Four strings (instead of five)"
-msgstr ""
+msgstr "4弦（5弦ではなく）"
 
 #: ../frescobaldi_app/scorewiz/parts/plucked_strings.py:287
 msgid "Classical guitar"
@@ -6392,11 +6393,11 @@ msgstr "撥弦楽器"
 #: ../frescobaldi_app/scorewiz/parts/special.py:36
 #: ../frescobaldi_app/scorewiz/parts/vocal.py:202
 msgid "Chord names"
-msgstr ""
+msgstr "コード ネーム"
 
 #: ../frescobaldi_app/scorewiz/parts/special.py:49
 msgid "Use extender lines"
-msgstr ""
+msgstr "継続線を使用"
 
 #: ../frescobaldi_app/scorewiz/parts/special.py:57
 #: ../frescobaldi_app/scorewiz/parts/strings.py:106
