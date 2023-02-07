@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.16\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2021-09-28 21:42+0200\n"
+"POT-Creation-Date: 2023-02-07 13:54+0100\n"
 "PO-Revision-Date: 2016-05-03 15:53+0600\n"
 "Last-Translator: Henning Hraban Ramm <hraban@fiee.net>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -648,8 +648,8 @@ msgid ""
 "*Font stylesheets:* openLilyLib provides default stylesheets for each "
 "supported font, adjusting the visual appearance (e.g. line thickness of "
 "various score items) to match the characteristics of the given font. By "
-"default these are loaded automatically by the font command *"
-"\\useNotationFont*. However, in some cases it may be necessary to *not* use "
+"default these are loaded automatically by the font command "
+"*\\useNotationFont*. However, in some cases it may be necessary to *not* use "
 "the default stylesheet (e.g. for better integration with the project's "
 "\"include\" strategy) or to provide a custom stylesheet, which has to be the "
 "name of a file that LilyPond can find."
@@ -1208,55 +1208,25 @@ msgid ""
 "default."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:20
-#, fuzzy
-msgid ""
-"Slurs, Ties and other similar objects are drawn in LilyPond as third-order "
-"Bezier curves, which means that their shape is controlled by four \"control-"
-"points\" (first and last ones tell where the curve ends are placed, and the "
-"middle ones affect the curvature)."
-msgstr ""
-"Phrasierungs- und Bindebögen sowie ähnliche Objekte werden von LilyPond als "
-"Bezierkurven dritter Ordnung gezeichnet, ihre Form wird also durch vier "
-"\"Kontrollpunkte\" festgelegt. Der erste und der letzte Punkt legen die "
-"Endpunkte der Kurve fest, während die mittleren deren Verlauf steuern. Um "
-"Kurven zu verändern, müssen diese Kontrollpunkte verändert werden, und es "
-"ist nützlich zu sehen, wo sie sich tatsächlich befinden."
-
-#: ../../frescobaldi_app/userguide/engrave_layout.md:25
-msgid ""
-"Changing the shape of these objects involves moving these control-points "
-"around, and it's helpful to see where they actually are."
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/engrave_layout.md:28
-#, fuzzy
-msgid ""
-"This option will display the inner control-points as red crosses and "
-"connects them to the outer (starting) points with thin lines."
-msgstr ""
-"Dieser Debug-Modus stellt die inneren Kontrollpunkte als (rote) Kreuze dar "
-"und verbindet sie mit den Endpunkten durch dünne Linien."
-
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_layout.md:31
+#: ../../frescobaldi_app/userguide/engrave_layout.md:19
 #, fuzzy
 msgid "Color `\\voiceXXX`"
 msgstr "Färbe \\voiceXXX ein"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_layout.md:32
+#: ../../frescobaldi_app/userguide/engrave_layout.md:20
 #, fuzzy
 msgid ""
-"This mode highlights voices that have been explicitly set with one of the `"
-"\\voiceXXX` commands. This is useful when dealing with polyphony issues."
+"This mode highlights voices that have been explicitly set with one of the "
+"`\\voiceXXX` commands. This is useful when dealing with polyphony issues."
 msgstr ""
-"Dieser Modus hebt Stimmen hervor, die explizit mit einem der <code>"
-"\\voiceXXX</code>-Befehle festgelegt wurden. Dies kann bei der Behandlung "
-"von Problemen mit Mehrstimmigkeit nützlich sein."
+"Dieser Modus hebt Stimmen hervor, die explizit mit einem der "
+"<code>\\voiceXXX</code>-Befehle festgelegt wurden. Dies kann bei der "
+"Behandlung von Problemen mit Mehrstimmigkeit nützlich sein."
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_layout.md:36
+#: ../../frescobaldi_app/userguide/engrave_layout.md:24
 #, fuzzy
 msgid ""
 "This mode colors items whose directions have been explicitly set with either "
@@ -1267,14 +1237,14 @@ msgstr ""
 "entweder durch die vordefinierten Befehle <code>\\xxxUp</code> etc. oder die "
 "Richtungsoperatoren <code>^</code> und <code>_</code>."
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:40
+#: ../../frescobaldi_app/userguide/engrave_layout.md:28
 msgid "Please note how this mode and the previous are related:"
 msgstr ""
 "Beachten Sie bitte die Wechselwirkung zwischen diesem und dem vorhergehenden "
 "Modus:"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_layout.md:42
+#: ../../frescobaldi_app/userguide/engrave_layout.md:30
 #, fuzzy
 msgid ""
 "When the condition for one of the the modes is reverted using `\\oneVoice` "
@@ -1286,7 +1256,7 @@ msgstr ""
 "code> oder <code>\\xxxNeutral</code> zurückgesetzt, werden die Farben zu "
 "Schwarz zurückgesetzt, ggfs. auch für den jeweils anderen Debug-Modus."
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:47
+#: ../../frescobaldi_app/userguide/engrave_layout.md:35
 #, fuzzy
 msgid ""
 "If the score is engraved with LilyPond version 2.17.6 or later this problem "
@@ -1296,14 +1266,14 @@ msgstr ""
 "später übersetzt werden, da hier die <code>\\temporary</code>-Direktive "
 "eingesetzt werden kann."
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:51
+#: ../../frescobaldi_app/userguide/engrave_layout.md:39
 msgid ""
 "In LilyPond, all graphical objects have an anchor (a reference point). What "
 "is a reference point?  It's a special point that defines the object's "
 "position."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:55
+#: ../../frescobaldi_app/userguide/engrave_layout.md:43
 #, fuzzy
 msgid ""
 "Think about geometry: if you have to define where a figure is placed on a "
@@ -1319,21 +1289,21 @@ msgstr ""
 "Mittelpunkt dieses Kreises ist bei (-1, 3)\". \"Untere linke Ecke\" und "
 "\"Mittelpunkt\" wären in diesem Fall die Ankerpunkte der Formen."
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:60
+#: ../../frescobaldi_app/userguide/engrave_layout.md:48
 msgid ""
 "\"Lower left corner\" and \"center\" would be the reference points for "
 "square and circle."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:63
+#: ../../frescobaldi_app/userguide/engrave_layout.md:51
 msgid "This Mode displays a red dot for each grob's anchor point."
 msgstr "Dieser Modus zeigt einen (roten) Punkt am Ankerpunkt jedes Objekts an."
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:66
+#: ../../frescobaldi_app/userguide/engrave_layout.md:54
 msgid "This mode prints a grob's name next to it."
 msgstr "Dieser Modus zeigt die Namen eines Objekts neben demselben."
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:68
+#: ../../frescobaldi_app/userguide/engrave_layout.md:56
 #, fuzzy
 msgid ""
 "The main purpose of this layout control option is to retrieve information "
@@ -1344,7 +1314,7 @@ msgstr ""
 "bereitzustellen, was nützlich sein kann, wenn Sie nicht wissen, wo Sie die "
 "verfügbaren Objekteigenschaften nachschlagen können."
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:72
+#: ../../frescobaldi_app/userguide/engrave_layout.md:60
 #, fuzzy
 msgid ""
 "Please note that displaying grob anchors and displaying grob names is "
@@ -1354,7 +1324,7 @@ msgstr ""
 "ausschließt, da beide Funktionen die Druckfunktion des Objekts "
 "überschreiben. Sind beide Modi aktiv, werden nur die Ankerpunkte angezeigt."
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:75
+#: ../../frescobaldi_app/userguide/engrave_layout.md:63
 #, fuzzy
 msgid ""
 "When both modes are active, only the grob anchors are displayed. Please also "
@@ -1368,7 +1338,7 @@ msgstr ""
 "allem dann nützlich werden, wenn es möglich ist, die Namen einzelner Objekte "
 "anzuzeigen."
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:81
+#: ../../frescobaldi_app/userguide/engrave_layout.md:69
 msgid ""
 "LilyPond uses \"Skylines\" to calculate the vertical dimensions of its "
 "graphical objects in order to prevent collisions. This mode draws lines "
@@ -1380,11 +1350,11 @@ msgstr ""
 "Dieser Modus stellt diese Skylines grafisch dar und ist somit hilfreich bei "
 "der Behandlung von Problemen mit der vertikalen Anordnung."
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:86
+#: ../../frescobaldi_app/userguide/engrave_layout.md:74
 msgid "Debug Paper Columns"
 msgstr "\"Papierspalten\" korrigieren"
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:87
+#: ../../frescobaldi_app/userguide/engrave_layout.md:75
 msgid ""
 "LilyPond organises the horizontal spacing in \"paper columns\". This mode "
 "prints a lot of spacing information about these entities."
@@ -1392,7 +1362,7 @@ msgstr ""
 "LilyPond organisiert die horizontale Ausrichtung nach \"Papierspalten\". "
 "Dieser Modus stellt eine Menge Layoutinformationen über diese Einheiten dar."
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:91
+#: ../../frescobaldi_app/userguide/engrave_layout.md:79
 msgid ""
 "LilyPond has a built-in function that prints lots of information about "
 "distances on the paper, which is very useful when debugging the page layout."
@@ -1401,11 +1371,11 @@ msgstr ""
 "räumliche Aufteilung sowie Abstände auf dem Papier darstellt. Sie ist sehr "
 "nützlich für das Debuggen des Seitenlayouts."
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:94
+#: ../../frescobaldi_app/userguide/engrave_layout.md:82
 msgid "Include Custom File"
 msgstr "Beliebige Datei einfügen"
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:95
+#: ../../frescobaldi_app/userguide/engrave_layout.md:83
 #, fuzzy
 msgid ""
 "This mode offers the opportunity to add one's own Debug Modes by including a "
@@ -1420,14 +1390,14 @@ msgstr ""
 "vor allen anderen Debug-Modi interpretiert und kann somit dafür verwendet "
 "werden, diese zu konfigurieren."
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:100
+#: ../../frescobaldi_app/userguide/engrave_layout.md:88
 msgid ""
 "This file will be parsed before any of the other Layout Control Modes so you "
 "may use it to configure them."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_layout.md:103
+#: ../../frescobaldi_app/userguide/engrave_layout.md:91
 #, fuzzy
 msgid ""
 "The given string will be literally included in an `\\include` directive, so "
@@ -1471,18 +1441,17 @@ msgid "The modes use the following configuration variables:"
 msgstr "Die Modi verwenden die folgenden Konfigurationsvariablen:"
 
 #: ../../frescobaldi_app/userguide/engrave_layout_configure.md:19
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:37
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:54
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:69
-msgid "These variables can be redefined in input files:"
-msgstr "Diese Variablen können in Eingabedateien überschrieben werden:"
-
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:28
 msgid "These variables currently can't be redefined in input files."
 msgstr ""
 "Diese Variablen können in Eingabedateien derzeit nicht überschrieben werden."
 
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:43
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:28
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:45
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:60
+msgid "These variables can be redefined in input files:"
+msgstr "Diese Variablen können in Eingabedateien überschrieben werden:"
+
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:34
 msgid ""
 "Defines for which grobs the explicit direction through operators is "
 "monitored. By default all grobs are watched, but alternatively one can "
@@ -1492,7 +1461,7 @@ msgstr ""
 "überwacht wird. Als Standard werden alle Objekte beachtet, alternativ kann "
 "jedoch auch eine Liste mit Objektnamen verwendet werden wie z.B."
 
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:59
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:50
 msgid ""
 "Defines for which grobs the anchor points will be displayed. By default all "
 "grobs are watched, but alternatively one can provide a list of grobs such as "
@@ -1502,7 +1471,7 @@ msgstr ""
 "werden alle Objekte beachtet, alternativ kann jedoch auch eine Liste mit "
 "Objektnamen verwendet werden wie z.B."
 
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:74
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:65
 msgid ""
 "Defines for which grobs the names will be displayed. By default all grobs "
 "are watched, but alternatively one can provide a list of grobs such as e.g."
@@ -1511,7 +1480,7 @@ msgstr ""
 "werden alle Objekte beachtet, alternativ kann jedoch auch eine Liste mit "
 "Objektnamen verwendet werden wie z.B."
 
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:82
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:73
 msgid ""
 "The remaining modes are built-in to LilyPond and don't have any "
 "configuration options."
@@ -1770,8 +1739,8 @@ msgstr "Installiere nach:"
 msgid ""
 "In order to use extensions an arbitrary base directory has to be created and "
 "made known to Frescobaldi in {menu_preferences_extensions}, in the first "
-"group \"General Settings\". In the same place the check box \"Use Extensions"
-"\" has to be checked."
+"group \"General Settings\". In the same place the check box \"Use "
+"Extensions\" has to be checked."
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/ext_installation.md:8
@@ -2729,32 +2698,39 @@ msgid ""
 "You can specify what to search for by entering a list of regular expressions."
 msgstr ""
 
-#. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/outline_configure.md:8
 msgid ""
-"In those expressions, `^` matches at the beginning of every line, and `$` "
+"Those expressions are grouped in two sections: one that matches the whole "
+"text (including comments) and one that only matches the active code "
+"(excluding comments)."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../../frescobaldi_app/userguide/outline_configure.md:11
+msgid ""
+"In regular expressions, `^` matches at the beginning of every line, and `$` "
 "matches at the end of a line."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/outline_configure.md:11
+#: ../../frescobaldi_app/userguide/outline_configure.md:14
 msgid ""
 "Normally when an expressions matches text, the whole match is displayed as "
 "an item in the outline."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/outline_configure.md:14
+#: ../../frescobaldi_app/userguide/outline_configure.md:17
 msgid "You can also use named groups, with the {code} named group syntax."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/outline_configure.md:16
+#: ../../frescobaldi_app/userguide/outline_configure.md:19
 msgid ""
 "You can use the name `text` or `title`. In that case, only the named part of "
 "a match is displayed. If the `title` name is used, it is displayed in a bold "
 "font."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/outline_configure.md:20
+#: ../../frescobaldi_app/userguide/outline_configure.md:23
 msgid "For more information about regular expressions, see {link}."
 msgstr ""
 
@@ -2980,8 +2956,8 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/prefs_general.md:18
 msgid ""
 "Under *When saving documents*, you can choose what to do when a document is "
-"saved, such as remembering the cursor position and marked lines, or leaving "
-"a backup copy of the document (with a `~` appended)."
+"saved, such as remembering the cursor position and marked lines, formatting, "
+"or leaving a backup copy of the document (with a `~` appended)."
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_general.md:22
@@ -3186,8 +3162,8 @@ msgstr ""
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:3
 msgid ""
-"If this setting is enabled, the document is searched for a LilyPond `"
-"\\version` command or a `version` document variable."
+"If this setting is enabled, the document is searched for a LilyPond "
+"`\\version` command or a `version` document variable."
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:6
@@ -3963,6 +3939,28 @@ msgid ""
 "output name, such as `\\bookOutputName`, etc); or when the automatic output "
 "file name determination does not work due to complicated LilyPond code."
 msgstr ""
+
+#, fuzzy
+#~ msgid ""
+#~ "Slurs, Ties and other similar objects are drawn in LilyPond as third-"
+#~ "order Bezier curves, which means that their shape is controlled by four "
+#~ "\"control-points\" (first and last ones tell where the curve ends are "
+#~ "placed, and the middle ones affect the curvature)."
+#~ msgstr ""
+#~ "Phrasierungs- und Bindebögen sowie ähnliche Objekte werden von LilyPond "
+#~ "als Bezierkurven dritter Ordnung gezeichnet, ihre Form wird also durch "
+#~ "vier \"Kontrollpunkte\" festgelegt. Der erste und der letzte Punkt legen "
+#~ "die Endpunkte der Kurve fest, während die mittleren deren Verlauf "
+#~ "steuern. Um Kurven zu verändern, müssen diese Kontrollpunkte verändert "
+#~ "werden, und es ist nützlich zu sehen, wo sie sich tatsächlich befinden."
+
+#, fuzzy
+#~ msgid ""
+#~ "This option will display the inner control-points as red crosses and "
+#~ "connects them to the outer (starting) points with thin lines."
+#~ msgstr ""
+#~ "Dieser Debug-Modus stellt die inneren Kontrollpunkte als (rote) Kreuze "
+#~ "dar und verbindet sie mit den Endpunkten durch dünne Linien."
 
 #~ msgid "About {appname}"
 #~ msgstr "Über {appname}"
@@ -5437,8 +5435,8 @@ msgstr ""
 #~ "Please select the three global fonts to use for <code>\\roman</code>, "
 #~ "<code>\\sans</code>, and <code>\\typewriter</code> respectively."
 #~ msgstr ""
-#~ "Bitte wählen Sie die drei globalen Schriftarten aus, die für <code>"
-#~ "\\roman</code>, <code>\\sans</code>, und <code>\\typewriter</code> "
+#~ "Bitte wählen Sie die drei globalen Schriftarten aus, die für "
+#~ "<code>\\roman</code>, <code>\\sans</code>, und <code>\\typewriter</code> "
 #~ "benutzt werden."
 
 #~ msgid "Roman Font:"
@@ -10655,9 +10653,9 @@ msgstr ""
 #~ "<code>\\voiceXXX</code> commands. This is useful when dealing with "
 #~ "polyphony issues."
 #~ msgstr ""
-#~ "Dieser Modus hebt Stimmen hervor, die explizit mit einem der <code>"
-#~ "\\voiceXXX</code>-Befehle festgelegt wurden. Dies kann bei der Behandlung "
-#~ "von Problemen mit Mehrstimmigkeit nützlich sein."
+#~ "Dieser Modus hebt Stimmen hervor, die explizit mit einem der "
+#~ "<code>\\voiceXXX</code>-Befehle festgelegt wurden. Dies kann bei der "
+#~ "Behandlung von Problemen mit Mehrstimmigkeit nützlich sein."
 
 #~ msgid ""
 #~ "This mode colors items whose directions have been explicitly set with "
@@ -10670,10 +10668,10 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "When the condition for one of the the modes is reverted using <code>"
-#~ "\\oneVoice</code> or <code>\\stemNeutral</code> colors are reverted to "
-#~ "black and will also revert the highlighting of the other Debug Mode with "
-#~ "LilyPond versions up to 2.17.5."
+#~ "When the condition for one of the the modes is reverted using "
+#~ "<code>\\oneVoice</code> or <code>\\stemNeutral</code> colors are reverted "
+#~ "to black and will also revert the highlighting of the other Debug Mode "
+#~ "with LilyPond versions up to 2.17.5."
 #~ msgstr ""
 #~ "Wird die Bedingung für einen der Modi durch Befehle wie <code>\\oneVoice</"
 #~ "code> oder <code>\\xxxNeutral</code> zurückgesetzt, werden die Farben zu "
@@ -11102,9 +11100,9 @@ msgstr ""
 #~ msgstr "Weitere Informationen"
 
 #~ msgid ""
-#~ "In this page you can enter commands to open different file types. <code>"
-#~ "$f</code> is replaced with the filename, <code>$u</code> with the URL. "
-#~ "Leave a field empty to use the operating system default application."
+#~ "In this page you can enter commands to open different file types. "
+#~ "<code>$f</code> is replaced with the filename, <code>$u</code> with the "
+#~ "URL. Leave a field empty to use the operating system default application."
 #~ msgstr ""
 #~ "Auf dieser Seite können Sie Befehle eingeben, um verschiedene Dateitypen "
 #~ "zu öffnen. <code>$f</code> wird durch den Dateinamen ersetzt, <code>$u</"
@@ -11509,8 +11507,8 @@ msgstr ""
 #~ "B: bass clef\n"
 #~ "\n"
 #~ "So when you want to create music paper for a four-part mixed choir score, "
-#~ "first set the number of staves per system to 4. Then enter \"SATB"
-#~ "\" (without the quotes) here."
+#~ "first set the number of staves per system to 4. Then enter "
+#~ "\"SATB\" (without the quotes) here."
 #~ msgstr ""
 #~ "Um Schlüssel einzurichten, wählen Sie zuerst die Zahl der Notenzeilen pro "
 #~ "System. Dann geben Sie so viele Buchstaben (S, A, T oder B) ein wie es "
