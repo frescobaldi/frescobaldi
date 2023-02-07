@@ -2127,9 +2127,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/midi_import.md:1
-#, fuzzy
 msgid "Import MIDI"
-msgstr "导入Midi"
+msgstr "导入MIDI"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/midi_import.md:3

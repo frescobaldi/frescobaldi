@@ -45,7 +45,6 @@ msgstr "Importer ABC"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/abc_import.md:3
-#, fuzzy
 msgid ""
 "Using {menu_import}, you can import an ABC file using the command line tool "
 "`abc2ly` from the LilyPond package."
@@ -54,7 +53,6 @@ msgstr ""
 "`abc2ly`, inclus dans LilyPond."
 
 #: ../../frescobaldi_app/userguide/abc_import.md:6
-#, fuzzy
 msgid ""
 "ABC is a notation standard which like LilyPond is designed to notate music "
 "in plain text. It was designed primarily for folk and traditional tunes of "
@@ -95,7 +93,6 @@ msgid "In this tab you have the following options:"
 msgstr "Dans cet onglet, vous disposez des options suivantes :"
 
 #: ../../frescobaldi_app/userguide/abc_import.md:22
-#, fuzzy
 msgid "This option can be used to retain the beaming from the ABC notation."
 msgstr ""
 "Cette option peut être utilisée pour garder les ligatures de la notation ABC."
@@ -483,7 +480,6 @@ msgid "Quick Insert buttons for grace notes"
 msgstr "Boutons d’insertion rapide pour les appoggiatures"
 
 #: ../../frescobaldi_app/userguide/credits.md:18
-#, fuzzy
 msgid "MusicXML, MIDI and ABC im- and export"
 msgstr "Importation et exportation en MusicXML, MIDI et ABC"
 
@@ -648,7 +644,6 @@ msgstr ""
 "la manière dont la commande de réglage de la police est générée."
 
 #: ../../frescobaldi_app/userguide/documentfonts.md:43
-#, fuzzy
 msgid ""
 "On the right side of the dialog a large area is reserved for a (cached) "
 "preview of various scores using all combinations."
@@ -743,7 +738,6 @@ msgstr "Style openLilyLib"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts_command.md:33
-#, fuzzy
 msgid ""
 "{openlilylib} has a *notation-fonts* package with advanced functionality to "
 "load notation fonts (together with text fonts) which Frescobaldi makes "
@@ -767,7 +761,6 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts_command.md:41
-#, fuzzy
 msgid ""
 "*Load openLilyLib*: This should be unchecked if *oll-core* is already loaded/"
 "included elsewhere in the score files."
@@ -1438,7 +1431,6 @@ msgstr "Notez la façon dont ce mode et le précédent sont liés :"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/engrave_layout.md:30
-#, fuzzy
 msgid ""
 "When the condition for one of the the modes is reverted using `\\oneVoice` "
 "or `\\stemNeutral`, colors are reverted to black and will also revert the "
@@ -2642,13 +2634,11 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/midi_import.md:1
-#, fuzzy
 msgid "Import MIDI"
 msgstr "Importer MIDI"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/midi_import.md:3
-#, fuzzy
 msgid ""
 "Using {menu_import}, you can import a MIDI file using the command line tool "
 "`midi2ly` from the LilyPond package."

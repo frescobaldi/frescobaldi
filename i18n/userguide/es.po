@@ -30,7 +30,6 @@ msgstr "Importar ABC"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/abc_import.md:3
-#, fuzzy
 msgid ""
 "Using {menu_import}, you can import an ABC file using the command line tool "
 "`abc2ly` from the LilyPond package."
@@ -44,10 +43,7 @@ msgid ""
 "ABC is a notation standard which like LilyPond is designed to notate music "
 "in plain text. It was designed primarily for folk and traditional tunes of "
 "Western European origin."
-msgstr ""
-"Abc es un estándar de notación que, como LilyPond, está diseñado para la "
-"notación de música como texto sencillo.  Principalmente está orientado a las "
-"melodías tradicionales y del folklore de origen europeo occidental."
+msgstr "ABC es un estándar de notación que, como LilyPond, está diseñado para la notación de música como texto sencillo.  Principalmente está orientado a las melodías tradicionales y del folklore de origen europeo occidental."
 
 #: ../../frescobaldi_app/userguide/abc_import.md:10
 msgid ""
@@ -80,7 +76,6 @@ msgid "In this tab you have the following options:"
 msgstr "En esta pestaña tiene las siguientes opciones:"
 
 #: ../../frescobaldi_app/userguide/abc_import.md:22
-#, fuzzy
 msgid "This option can be used to retain the beaming from the ABC notation."
 msgstr "Esta opción se puede usar para retener el barrado de la notación ABC."
 
@@ -451,7 +446,6 @@ msgid "Quick Insert buttons for grace notes"
 msgstr "Botones de inserción rápida para notas de adorno"
 
 #: ../../frescobaldi_app/userguide/credits.md:18
-#, fuzzy
 msgid "MusicXML, MIDI and ABC im- and export"
 msgstr "Importación y exportación de MusicXML, MIDI y Abc"
 
@@ -1300,7 +1294,6 @@ msgstr "Observe cómo se relacionean este modo y los anteriores::"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/engrave_layout.md:30
-#, fuzzy
 msgid ""
 "When the condition for one of the the modes is reverted using `\\oneVoice` "
 "or `\\stemNeutral`, colors are reverted to black and will also revert the "
@@ -2523,13 +2516,11 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/midi_import.md:1
-#, fuzzy
 msgid "Import MIDI"
 msgstr "Importar MIDI"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/midi_import.md:3
-#, fuzzy
 msgid ""
 "Using {menu_import}, you can import a MIDI file using the command line tool "
 "`midi2ly` from the LilyPond package."

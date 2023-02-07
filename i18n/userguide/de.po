@@ -79,7 +79,6 @@ msgid "In this tab you have the following options:"
 msgstr "Unter diesem Reiter haben Sie folgende Möglichkeiten:"
 
 #: ../../frescobaldi_app/userguide/abc_import.md:22
-#, fuzzy
 msgid "This option can be used to retain the beaming from the ABC notation."
 msgstr ""
 "Mit dieser Option können Sie die Balkenverbindungen aus der ABC-Notation "
@@ -2319,7 +2318,6 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/midi_import.md:1
-#, fuzzy
 msgid "Import MIDI"
 msgstr "MIDI importieren"
 
