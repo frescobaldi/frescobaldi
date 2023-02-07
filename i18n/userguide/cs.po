@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2023-02-07 13:54+0100\n"
+"POT-Creation-Date: 2023-02-07 14:05+0100\n"
 "PO-Revision-Date: 2017-05-11 13:13+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -35,16 +35,18 @@ msgstr "Zavést ABC"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/abc_import.md:3
+#, fuzzy
 msgid ""
-"Using {menu_import}, you can import an abc file using the command line tool "
+"Using {menu_import}, you can import an ABC file using the command line tool "
 "`abc2ly` from the LilyPond package."
 msgstr ""
 "Pomocí {menu_import} můžete zavést soubor ABC pomocí nástroje pro příkazový "
 "řádek `abc2ly` z balíku LilyPondu."
 
 #: ../../frescobaldi_app/userguide/abc_import.md:6
+#, fuzzy
 msgid ""
-"Abc is a notation standard which like LilyPond is designed to notate music "
+"ABC is a notation standard which like LilyPond is designed to notate music "
 "in plain text. It was designed primarily for folk and traditional tunes of "
 "Western European origin."
 msgstr ""
@@ -83,7 +85,8 @@ msgid "In this tab you have the following options:"
 msgstr "Na této kartě máte následující volby:"
 
 #: ../../frescobaldi_app/userguide/abc_import.md:22
-msgid "This option can be used to retain the beaming from the abc notation."
+#, fuzzy
+msgid "This option can be used to retain the beaming from the ABC notation."
 msgstr "Této volby lze použít k ponechání trámců z notace ABC."
 
 #: ../../frescobaldi_app/userguide/abc_import.md:24
@@ -443,7 +446,8 @@ msgid "Quick Insert buttons for grace notes"
 msgstr "Tlačítka pro rychlé vložení pro ozdoby"
 
 #: ../../frescobaldi_app/userguide/credits.md:18
-msgid "MusicXML, Midi and Abc im- and export"
+#, fuzzy
+msgid "MusicXML, MIDI and ABC im- and export"
 msgstr "Zavedení a vyvedení MusicXML, MIDI a ABC"
 
 #: ../../frescobaldi_app/userguide/credits.md:23
@@ -578,7 +582,7 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/documentfonts.md:43
 msgid ""
 "On the right side of the dialog a large area is reserved for a (cached) "
-"preview of various scores using all combinations"
+"preview of various scores using all combinations."
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/documentfonts_command.md:1
@@ -649,7 +653,7 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/documentfonts_command.md:33
 msgid ""
 "{openlilylib} has a *notation-fonts* package with advanced functionality to "
-"load notation fonts (together with text fonts) which Fresocbaldi makes "
+"load notation fonts (together with text fonts) which Frescobaldi makes "
 "available too. With the openLilyLib approach notation fonts are *always* "
 "loaded, therefore the \"music\" font selection can not be unchecked."
 msgstr ""
@@ -665,7 +669,7 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/documentfonts_command.md:41
 msgid ""
 "*Load openLilyLib*: This should be unchecked if *oll-core* is already loaded/"
-"included elsewhere in the score files"
+"included elsewhere in the score files."
 msgstr ""
 
 #. NOTE: markdown formatting
@@ -764,7 +768,7 @@ msgid ""
 "If a directory is made known as a local repository for music fonts (see "
 "{paths}) its content can easily be used as a source for font installation in "
 "arbitrary numbers of LilyPond instances. The easiest way to make use of this "
-"is to download or clone the font repository from Github ({notationfonts}) "
+"is to download or clone the font repository from GitHub ({notationfonts}) "
 "and save it in this location."
 msgstr ""
 
@@ -973,7 +977,7 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/documentfonts_text.md:23
 msgid ""
 "*\\b*: word boundaries: *tu* will show *Century Schoolbook* and *Ubuntu "
-"Mono* while *tu\\b* will suppress the *Century*"
+"Mono* while *tu\\b* will suppress the *Century*."
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/documentfonts_text.md:26
@@ -1279,11 +1283,12 @@ msgstr "Všimněte si, prosím, jak tento a předchozí režim souvisejí:"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/engrave_layout.md:30
+#, fuzzy
 msgid ""
 "When the condition for one of the the modes is reverted using `\\oneVoice` "
 "or `\\stemNeutral`, colors are reverted to black and will also revert the "
 "highlighting of the other Layout Control mode with LilyPond versions up to "
-"2.17.5.\""
+"2.17.5."
 msgstr ""
 "Když je podmínka pro jeden z režimů obrácena pomocí příkazů `\\oneVoice` "
 "nebo `\\stemNeutral`, barvy se vrátí k černé a také vrátí zvýraznění jiného "
@@ -2487,13 +2492,15 @@ msgstr ""
 "odkazů v tom okně."
 
 #: ../../frescobaldi_app/userguide/midi_import.md:1
-msgid "Import Midi"
+#, fuzzy
+msgid "Import MIDI"
 msgstr "Zavést MIDI"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/midi_import.md:3
+#, fuzzy
 msgid ""
-"Using {menu_import}, you can import a Midi file using the command line tool "
+"Using {menu_import}, you can import a MIDI file using the command line tool "
 "`midi2ly` from the LilyPond package."
 msgstr ""
 "Pomocí {menu_import} můžete zavést soubor MIDI pomocí nástroje pro příkazový "
