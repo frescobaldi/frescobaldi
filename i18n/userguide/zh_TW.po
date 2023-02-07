@@ -2126,7 +2126,6 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/midi_import.md:1
-#, fuzzy
 msgid "Import MIDI"
 msgstr "匯入MIDI"
 
