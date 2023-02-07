@@ -37,7 +37,7 @@ the current LilyPond instance.
 If a directory is made known as a local repository for music fonts (see
 {paths}) its content can easily be used as a source for font installation
 in arbitrary numbers of LilyPond instances. The easiest way to make use of this
-is to download or clone the font repository from Github ({notationfonts}) and
+is to download or clone the font repository from GitHub ({notationfonts}) and
 save it in this location.
 
 = Installing Music Fonts =

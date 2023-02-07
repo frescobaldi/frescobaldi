@@ -31,7 +31,7 @@ the generated command should be used.
 = openLilyLib Style
 
 {openlilylib} has a *notation-fonts* package with advanced functionality to load
-notation fonts (together with text fonts) which Fresocbaldi makes available too.
+notation fonts (together with text fonts) which Frescobaldi makes available too.
 With the openLilyLib approach notation fonts are *always* loaded, therefore the
 "music" font selection can not be unchecked.
 
@@ -40,7 +40,7 @@ With the openLilyLib approach notation fonts are *always* loaded, therefore the
 
 * *Load openLilyLib*:
 This should be unchecked if *oll-core* is already loaded/included elsewhere in
-the score files
+the score files.
 * *Load notation-fonts package*:
 The same consideration regarding the *notation-fonts* package.
 * *Load font extensions:* Some fonts include additional glyphs beyond the
