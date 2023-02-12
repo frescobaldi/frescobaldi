@@ -200,10 +200,8 @@ class ViewSpace(QWidget):
     def updateCursorPosition(self):
         cur = self.activeView().textCursor()
         line = cur.blockNumber() + 1
-        try:
-            column = cur.positionInBlock()
-        except AttributeError: # only in very recent PyQt5
-            column = cur.position() - cur.block().position()
+        # Convert 16-bit QChar offset to UTF-8 column number as used by Lilypond.
+        column = len(cur.block().text().encode('utf_16_le')[:cur.positionInBlock()*2].decode('utf_16_le')) + 1
         self.status.positionLabel.setText(_("Line: {line}, Col: {column}").format(
             line = line, column = column))
 
