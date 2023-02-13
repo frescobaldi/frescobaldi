@@ -254,7 +254,7 @@ class Browser(QWidget):
             menu.addAction(a)
             menu.addSeparator()
             a = menu.addAction(icons.get("internet-web-browser"), _("Open Link in Web Browser"))
-            a.triggered.connect((lambda url: lambda: self.slotNewWindow(url))(hit.linkUrl()))
+            a.triggered.connect((lambda url: lambda: self.slotNewWindow(url))(d.linkUrl()))
         else:
             if d.selectedText():
                 a = self.webview.pageAction(QWebEnginePage.Copy)
@@ -298,5 +298,3 @@ class WebEnginePage(QWebEnginePage):
             self.view().parent().sourceViewer().showReply(lilydoc.network.get(url))
             return False
         return super().acceptNavigationRequest(url, type, isMainFrame)
-
-
