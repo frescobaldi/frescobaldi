@@ -69,7 +69,7 @@ module from pygame; or, as a last resort, embedding the PortMidi C-library via
 ctypes. MIDI is optional.
 
 Required:
-    Python (>= 3.7):
+    Python (>= 3.8):
         http://www.python.org/
     Qt5 (>= 5.9):
         http://qt.io/
@@ -157,4 +157,3 @@ You can remove the hyph_*.dic files from frescobaldi_app/hyphdicts, and make
 Frescobaldi depend on a package that installs hyphenation dictionaries in
 /usr/share/hyphen/ (or another dictionary listed by default in frescobaldi_app/
 hyphendialog.py). Do not remove the hyphdicts directory entirely.
-
