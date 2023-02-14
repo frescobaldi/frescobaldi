@@ -975,9 +975,7 @@ class MainWindow(QMainWindow):
         line_count = self.currentDocument().blockCount()
         view = self.currentView()
         cur = view.textCursor()
-        current_block = cur.block()
-        current_line = current_block.firstLineNumber()
-        char_pos = cur.position() - current_block.position()
+        current_line = cur.blockNumber() + 1
         loc_pos = view.cursorRect(cur).bottomLeft()
         pos = view.viewport().mapToGlobal(loc_pos)
 
@@ -992,14 +990,13 @@ class MainWindow(QMainWindow):
         dlg_result = dlg.exec()
         if dlg_result:
             line = dlg.intValue()
-            cur = QTextCursor(self.currentDocument().findBlockByNumber(line - 1))
-            new_block = cur.block()
-            if new_block.length() > char_pos:
-                cur.setPosition(cur.position() + char_pos)
-            else:
-                cur.setPosition(cur.position() + new_block.length() - 1)
-            view.setTextCursor(cur)
-            view.centerCursor()
+            if line != current_line:
+                cur = QTextCursor(self.currentDocument().findBlockByNumber(line - 1))
+                line_text = cur.block().text()
+                indent = len(line_text) - len(line_text.lstrip(' \t'))
+                cur.movePosition(QTextCursor.NextCharacter, QTextCursor.MoveAnchor, indent)
+                view.setTextCursor(cur)
+                view.centerCursor()
 
     def selectFullLinesUp(self):
         """Select lines upwards, selecting full lines."""
