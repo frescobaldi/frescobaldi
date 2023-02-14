@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2023-02-07 14:05+0100\n"
-"PO-Revision-Date: 2023-02-04 01:14+0100\n"
+"PO-Revision-Date: 2023-02-14 20:25+0100\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -908,7 +908,6 @@ msgid "Local Font Repository"
 msgstr "Dépôt de polices local"
 
 #: ../../frescobaldi_app/userguide/documentfonts_music.md:37
-#, fuzzy
 msgid ""
 "If a directory is made known as a local repository for music fonts (see "
 "{paths}) its content can easily be used as a source for font installation in "
@@ -1216,7 +1215,6 @@ msgstr "*$* : Fin de la chaîne"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts_text.md:23
-#, fuzzy
 msgid ""
 "*\\b*: word boundaries: *tu* will show *Century Schoolbook* and *Ubuntu "
 "Mono* while *tu\\b* will suppress the *Century*."
