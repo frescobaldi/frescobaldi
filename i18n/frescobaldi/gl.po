@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2023-02-07 14:05+0100\n"
+"POT-Creation-Date: 2023-02-15 05:51+0000\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -138,7 +138,7 @@ msgid "Go to previous position"
 msgstr "Ir á anterior liña en branco."
 
 #: ../../frescobaldi_app/browseriface.py:136
-#: ../../frescobaldi_app/docbrowser/__init__.py:87
+#: ../../frescobaldi_app/docbrowser/__init__.py:90
 #: ../../frescobaldi_app/userguide/browser.py:81
 #, fuzzy
 msgid "Back"
@@ -149,7 +149,7 @@ msgid "Go to next position"
 msgstr ""
 
 #: ../../frescobaldi_app/browseriface.py:138
-#: ../../frescobaldi_app/docbrowser/__init__.py:88
+#: ../../frescobaldi_app/docbrowser/__init__.py:91
 #: ../../frescobaldi_app/userguide/browser.py:82
 msgid "Forward"
 msgstr ""
@@ -217,7 +217,7 @@ msgstr "Gardar PDF"
 
 #: ../../frescobaldi_app/convert_ly.py:155 ../../frescobaldi_app/copy2image.py:230
 #: ../../frescobaldi_app/editinplace.py:160
-#: ../../frescobaldi_app/docbrowser/browser.py:155
+#: ../../frescobaldi_app/docbrowser/browser.py:160
 #, fuzzy
 msgid "<unknown>"
 msgstr "descoñecido"
@@ -328,7 +328,7 @@ msgid "Drag File"
 msgstr "Gardar PDF"
 
 #: ../../frescobaldi_app/copy2image.py:159 ../../frescobaldi_app/mainwindow.py:1377
-#: ../../frescobaldi_app/docbrowser/browser.py:248
+#: ../../frescobaldi_app/docbrowser/browser.py:262
 #: ../../frescobaldi_app/fonts/dialog.py:177
 msgid "&Copy"
 msgstr "&Copiar"
@@ -791,8 +791,8 @@ msgid "Line number to go to, starting at 1"
 msgstr "Número de liña ao que saltar, comezando por 1"
 
 #: ../../frescobaldi_app/main.py:63
-msgid "Column to go to, starting at 0"
-msgstr "Columna á que ir, comezando por 0"
+msgid "Column to go to, starting at 1"
+msgstr "Columna á que ir, comezando por 1"
 
 #: ../../frescobaldi_app/main.py:64
 msgid "NAME"
@@ -1392,7 +1392,7 @@ msgid "Print {filename}"
 msgstr "Imprimir 1 ficheiro"
 
 #: ../../frescobaldi_app/pagedview.py:189
-#: ../../frescobaldi_app/docbrowser/browser.py:226
+#: ../../frescobaldi_app/docbrowser/browser.py:240
 #: ../../frescobaldi_app/userguide/browser.py:85
 #: ../../frescobaldi_app/userguide/browser.py:115
 #, fuzzy
@@ -1454,11 +1454,11 @@ msgstr ""
 msgid "&MIDI"
 msgstr "Reproducir MIDI"
 
-#: ../../frescobaldi_app/viewmanager.py:77 ../../frescobaldi_app/viewmanager.py:439
+#: ../../frescobaldi_app/viewmanager.py:77 ../../frescobaldi_app/viewmanager.py:437
 msgid "Split &Horizontally"
 msgstr ""
 
-#: ../../frescobaldi_app/viewmanager.py:80 ../../frescobaldi_app/viewmanager.py:440
+#: ../../frescobaldi_app/viewmanager.py:80 ../../frescobaldi_app/viewmanager.py:438
 msgid "Split &Vertically"
 msgstr ""
 
@@ -1467,25 +1467,25 @@ msgstr ""
 msgid "&Close View"
 msgstr "Vistas de ferramen&tas"
 
-#: ../../frescobaldi_app/viewmanager.py:207
+#: ../../frescobaldi_app/viewmanager.py:205
 #, python-brace-format
 msgid "Line: {line}, Col: {column}"
 msgstr ""
 
-#: ../../frescobaldi_app/viewmanager.py:441
+#: ../../frescobaldi_app/viewmanager.py:439
 msgid "&Close Current View"
 msgstr ""
 
-#: ../../frescobaldi_app/viewmanager.py:442
+#: ../../frescobaldi_app/viewmanager.py:440
 #, fuzzy
 msgid "Close &Other Views"
 msgstr "Pechar outros documentos"
 
-#: ../../frescobaldi_app/viewmanager.py:443
+#: ../../frescobaldi_app/viewmanager.py:441
 msgid "&Next View"
 msgstr ""
 
-#: ../../frescobaldi_app/viewmanager.py:444
+#: ../../frescobaldi_app/viewmanager.py:442
 #, fuzzy
 msgid "&Previous View"
 msgstr "Anterior"
@@ -1537,56 +1537,61 @@ msgid "&Documentation Browser"
 msgstr "Documentación de LilyPond"
 
 #. L10N: Home page of the LilyPond manual
-#: ../../frescobaldi_app/docbrowser/__init__.py:90
+#: ../../frescobaldi_app/docbrowser/__init__.py:93
 msgid "Home"
 msgstr "Inicio"
 
-#: ../../frescobaldi_app/docbrowser/__init__.py:91
+#: ../../frescobaldi_app/docbrowser/__init__.py:94
+#: ../../frescobaldi_app/docbrowser/browser.py:265
+#, fuzzy
+msgid "Open Current Page in Web Browser"
+msgstr "Abrir o cartafol actual"
+
+#: ../../frescobaldi_app/docbrowser/__init__.py:95
+msgid "Open Homepage in Web Browser"
+msgstr ""
+
+#: ../../frescobaldi_app/docbrowser/__init__.py:96
 #, fuzzy
 msgid "Print..."
 msgstr "Imprimir"
 
-#: ../../frescobaldi_app/docbrowser/__init__.py:92
+#: ../../frescobaldi_app/docbrowser/__init__.py:97
 #, fuzzy
 msgid "&LilyPond Documentation"
 msgstr "Documentación de LilyPond:"
 
-#: ../../frescobaldi_app/docbrowser/__init__.py:93
+#: ../../frescobaldi_app/docbrowser/__init__.py:98
 #, fuzzy
 msgid "&Contextual LilyPond Help"
 msgstr "A&xuda de LilyPond"
 
-#: ../../frescobaldi_app/docbrowser/browser.py:112
+#: ../../frescobaldi_app/docbrowser/browser.py:117
 #: ../../frescobaldi_app/preferences/shortcuts.py:56
 #: ../../frescobaldi_app/snippet/widget.py:181
 msgid "Search..."
 msgstr "Busca..."
 
-#: ../../frescobaldi_app/docbrowser/browser.py:152
+#: ../../frescobaldi_app/docbrowser/browser.py:157
 #, fuzzy
 msgid "(local)"
 msgstr "Vocal"
 
-#: ../../frescobaldi_app/docbrowser/browser.py:154
+#: ../../frescobaldi_app/docbrowser/browser.py:159
 #, python-brace-format
 msgid "({hostname})"
 msgstr ""
 
-#: ../../frescobaldi_app/docbrowser/browser.py:239
+#: ../../frescobaldi_app/docbrowser/browser.py:253
 #: ../../frescobaldi_app/musicview/contextmenu.py:63
 #: ../../frescobaldi_app/viewers/contextmenu.py:72
 msgid "Copy &Link"
 msgstr "Copiar &ligazón"
 
-#: ../../frescobaldi_app/docbrowser/browser.py:242
-#: ../../frescobaldi_app/musicview/contextmenu.py:57
-#: ../../frescobaldi_app/viewers/contextmenu.py:66
-msgid "Open Link in &New Window"
+#: ../../frescobaldi_app/docbrowser/browser.py:256
+#, fuzzy
+msgid "Open Link in Web Browser"
 msgstr "Abrir a ligazón nunha &nova fiestra"
-
-#: ../../frescobaldi_app/docbrowser/browser.py:251
-msgid "Open Document in &New Window"
-msgstr "Abrir o documento nunha &nova fiestra"
 
 #: ../../frescobaldi_app/docbrowser/sourceviewer.py:57
 #, fuzzy
@@ -3325,6 +3330,11 @@ msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
 msgstr ""
+
+#: ../../frescobaldi_app/musicview/contextmenu.py:57
+#: ../../frescobaldi_app/viewers/contextmenu.py:66
+msgid "Open Link in &New Window"
+msgstr "Abrir a ligazón nunha &nova fiestra"
 
 #: ../../frescobaldi_app/musicview/widget.py:197
 #: ../../frescobaldi_app/viewers/popplerwidget.py:271
@@ -9933,6 +9943,9 @@ msgstr "Quitar silencios"
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:58
 msgid "Score Wizard to quickly setup a music score"
 msgstr ""
+
+#~ msgid "Open Document in &New Window"
+#~ msgstr "Abrir o documento nunha &nova fiestra"
 
 #, fuzzy
 #~ msgid "Translations:"

@@ -60,7 +60,7 @@ def parse_commandline():
     parser.add_argument('-l', '--line', type=int, metavar=_("NUM"),
         help=_("Line number to go to, starting at 1"))
     parser.add_argument('-c', '--column', type=int, metavar=_("NUM"),
-        help=_("Column to go to, starting at 0"), default=0)
+        help=_("Column to go to, starting at 1"), default=0)
     parser.add_argument('--start', metavar=_("NAME"),
         help=_("Session to start ('{none}' for empty session)").format(none="-"),
         dest="session")
@@ -248,8 +248,24 @@ def main():
 
     if urls and args.line is not None:
         # set the last loaded document active and apply navigation if requested
-        pos = doc.findBlockByNumber(args.line - 1).position() + args.column
         cursor = QTextCursor(doc)
-        cursor.setPosition(pos)
+        if args.line < 1:
+            args.line = args.column = 1
+        elif args.column < 1:
+            args.column = 1
+        block = doc.findBlockByNumber(args.line - 1)
+        if block.isValid():
+            line_text = block.text()
+            if len(line_text) >= self._column:
+                qchar_offset = len(line_text[:self._column - 1].encode('utf_16_le')) // 2
+                cursor.setPosition(block.position() + qchar_offset)
+                # escape to in front of what might be the middle of a composed glyph
+                cursor.movePosition(QTextCursor.NextCharacter)
+                cursor.movePosition(QTextCursor.PreviousCharacter)
+            else:
+                cursor.setPosition(block.position())
+                cursor.movePosition(QTextCursor.EndOfBlock)
+        else:
+            cursor.movePosition(QTextCursor.End)
         win.currentView().setTextCursor(cursor)
         win.currentView().centerCursor()

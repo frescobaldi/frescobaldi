@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frescobaldi 3.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2023-02-07 14:05+0100\n"
+"POT-Creation-Date: 2023-02-15 05:51+0000\n"
 "PO-Revision-Date: 2019-12-20 00:33+0100\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italiano <>\n"
@@ -38,14 +38,19 @@ msgstr "Importa ABC"
 msgid ""
 "Using {menu_import}, you can import an ABC file using the command line tool "
 "`abc2ly` from the LilyPond package."
-msgstr "Dal menù {menu_import} è possibile importare un file ABC usando lo strumento a linea di comando `abc2ly` incluso in LilyPond."
+msgstr ""
+"Dal menù {menu_import} è possibile importare un file ABC usando lo strumento "
+"a linea di comando `abc2ly` incluso in LilyPond."
 
 #: ../../frescobaldi_app/userguide/abc_import.md:6
 msgid ""
 "ABC is a notation standard which like LilyPond is designed to notate music "
 "in plain text. It was designed primarily for folk and traditional tunes of "
 "Western European origin."
-msgstr "ABC è uno standard della notazione musicale che, come LilyPond, è progettato per rappresentare la musica in testo semplice. Fu ideato principalmente per le canzoni folk e tradizionali dell'Europa occidentale."
+msgstr ""
+"ABC è uno standard della notazione musicale che, come LilyPond, è progettato "
+"per rappresentare la musica in testo semplice. Fu ideato principalmente per "
+"le canzoni folk e tradizionali dell'Europa occidentale."
 
 #: ../../frescobaldi_app/userguide/abc_import.md:10
 msgid ""
@@ -79,7 +84,9 @@ msgstr "In questa scheda ci sono le seguenti opzioni:"
 
 #: ../../frescobaldi_app/userguide/abc_import.md:22
 msgid "This option can be used to retain the beaming from the ABC notation."
-msgstr "Si può usare questa opzione per mantenere la disposizione delle travature della notazione ABC."
+msgstr ""
+"Si può usare questa opzione per mantenere la disposizione delle travature "
+"della notazione ABC."
 
 #: ../../frescobaldi_app/userguide/abc_import.md:24
 #: ../../frescobaldi_app/userguide/midi_import.md:21
@@ -471,7 +478,8 @@ msgstr "Pulsanti di inserimento veloce per abbellimenti"
 
 #: ../../frescobaldi_app/userguide/credits.md:18
 msgid "MusicXML, MIDI and ABC im- and export"
-msgstr "Pulsanti per l'importazione e l'esportazione in formato MusicXML, MIDI e ABC"
+msgstr ""
+"Pulsanti per l'importazione e l'esportazione in formato MusicXML, MIDI e ABC"
 
 #: ../../frescobaldi_app/userguide/credits.md:23
 msgid "Kinetic Scrolling for the Music View"
@@ -637,7 +645,9 @@ msgstr ""
 msgid ""
 "On the right side of the dialog a large area is reserved for a (cached) "
 "preview of various scores using all combinations."
-msgstr "Sul lato destro della finestra di dialogo un ampio spazio viene riservato all'anteprima (con cache) di varie partiture che usano tutte le combinazioni."
+msgstr ""
+"Sul lato destro della finestra di dialogo un ampio spazio viene riservato "
+"all'anteprima (con cache) di varie partiture che usano tutte le combinazioni."
 
 #: ../../frescobaldi_app/userguide/documentfonts_command.md:1
 msgid "Font Settings Command"
@@ -752,7 +762,9 @@ msgstr ""
 msgid ""
 "*Load openLilyLib*: This should be unchecked if *oll-core* is already loaded/"
 "included elsewhere in the score files."
-msgstr "*Carica openLilyLib*: questa casella deve essere non selezionata se *oll-core* è già caricato/incluso da qualche parte nei file della partitura."
+msgstr ""
+"*Carica openLilyLib*: questa casella deve essere non selezionata se *oll-"
+"core* è già caricato/incluso da qualche parte nei file della partitura."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts_command.md:44
@@ -900,7 +912,13 @@ msgid ""
 "arbitrary numbers of LilyPond instances. The easiest way to make use of this "
 "is to download or clone the font repository from GitHub ({notationfonts}) "
 "and save it in this location."
-msgstr "Se una directory viene resa nota come repository locale dei caratteri musicali (vedi {paths}), il suo contenuto può essere facilmente usato come sorgente per l'installazione di caratteri in un qualsiasi numero di istanze di LilyPond. Il modo più semplice per far uso di ciò è scaricare o clonare il repository di GitHub dei tipi di carattere ({notationfonts}) e salvarlo in questa posizione."
+msgstr ""
+"Se una directory viene resa nota come repository locale dei caratteri "
+"musicali (vedi {paths}), il suo contenuto può essere facilmente usato come "
+"sorgente per l'installazione di caratteri in un qualsiasi numero di istanze "
+"di LilyPond. Il modo più semplice per far uso di ciò è scaricare o clonare "
+"il repository di GitHub dei tipi di carattere ({notationfonts}) e salvarlo "
+"in questa posizione."
 
 #: ../../frescobaldi_app/userguide/documentfonts_music.md:43
 msgid "Installing Music Fonts"
@@ -1197,7 +1215,9 @@ msgstr "*$*: Fine stringa"
 msgid ""
 "*\\b*: word boundaries: *tu* will show *Century Schoolbook* and *Ubuntu "
 "Mono* while *tu\\b* will suppress the *Century*."
-msgstr "*\\b*: confini parola: *tu* mostrerà *Century Schoolbook* e *Ubuntu Mono* mentre *tu\\b* nasconderà *Century*."
+msgstr ""
+"*\\b*: confini parola: *tu* mostrerà *Century Schoolbook* e *Ubuntu Mono* "
+"mentre *tu\\b* nasconderà *Century*."
 
 #: ../../frescobaldi_app/userguide/documentfonts_text.md:26
 msgid "Selecting Text Fonts"
@@ -2856,7 +2876,9 @@ msgstr "Importa MIDI"
 msgid ""
 "Using {menu_import}, you can import a MIDI file using the command line tool "
 "`midi2ly` from the LilyPond package."
-msgstr "Dal menù {menu_import} è possibile importare un file MIDI usando lo strumento a linea di comando `midi2ly` incluso in LilyPond."
+msgstr ""
+"Dal menù {menu_import} è possibile importare un file MIDI usando lo "
+"strumento a linea di comando `midi2ly` incluso in LilyPond."
 
 #: ../../frescobaldi_app/userguide/midi_import.md:6
 msgid ""
