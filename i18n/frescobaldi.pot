@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 3.2\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2023-02-07 14:05+0100\n"
+"POT-Creation-Date: 2023-02-16 22:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,7 +129,7 @@ msgid "Go to previous position"
 msgstr ""
 
 #: ../frescobaldi_app/browseriface.py:136
-#: ../frescobaldi_app/docbrowser/__init__.py:87
+#: ../frescobaldi_app/docbrowser/__init__.py:90
 #: ../frescobaldi_app/userguide/browser.py:81
 msgid "Back"
 msgstr ""
@@ -139,7 +139,7 @@ msgid "Go to next position"
 msgstr ""
 
 #: ../frescobaldi_app/browseriface.py:138
-#: ../frescobaldi_app/docbrowser/__init__.py:88
+#: ../frescobaldi_app/docbrowser/__init__.py:91
 #: ../frescobaldi_app/userguide/browser.py:82
 msgid "Forward"
 msgstr ""
@@ -203,7 +203,7 @@ msgstr ""
 
 #: ../frescobaldi_app/convert_ly.py:155 ../frescobaldi_app/copy2image.py:230
 #: ../frescobaldi_app/editinplace.py:160
-#: ../frescobaldi_app/docbrowser/browser.py:155
+#: ../frescobaldi_app/docbrowser/browser.py:160
 msgid "<unknown>"
 msgstr ""
 
@@ -302,8 +302,8 @@ msgstr ""
 msgid "Drag File"
 msgstr ""
 
-#: ../frescobaldi_app/copy2image.py:159 ../frescobaldi_app/mainwindow.py:1377
-#: ../frescobaldi_app/docbrowser/browser.py:248
+#: ../frescobaldi_app/copy2image.py:159 ../frescobaldi_app/mainwindow.py:1374
+#: ../frescobaldi_app/docbrowser/browser.py:262
 #: ../frescobaldi_app/fonts/dialog.py:177
 msgid "&Copy"
 msgstr ""
@@ -551,7 +551,7 @@ msgid "&Save"
 msgstr ""
 
 #: ../frescobaldi_app/documentcontextmenu.py:72
-#: ../frescobaldi_app/mainwindow.py:1345
+#: ../frescobaldi_app/mainwindow.py:1342
 msgid "Save &As..."
 msgstr ""
 
@@ -560,7 +560,7 @@ msgid "&Close"
 msgstr ""
 
 #: ../frescobaldi_app/documentcontextmenu.py:74
-#: ../frescobaldi_app/mainwindow.py:1358
+#: ../frescobaldi_app/mainwindow.py:1355
 msgid "Close Other Documents"
 msgstr ""
 
@@ -860,12 +860,12 @@ msgstr ""
 msgid "Export as HTML"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:989
+#: ../frescobaldi_app/mainwindow.py:987
 #, python-brace-format
 msgid "Goto Line Number (1-{num}):"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1038
+#: ../frescobaldi_app/mainwindow.py:1035
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -873,243 +873,243 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1178
+#: ../frescobaldi_app/mainwindow.py:1175
 msgid "Main Toolbar"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1179
+#: ../frescobaldi_app/mainwindow.py:1176
 msgid "Music View Toolbar"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1334
+#: ../frescobaldi_app/mainwindow.py:1331
 msgctxt "action: new document"
 msgid "&New Document"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1335
+#: ../frescobaldi_app/mainwindow.py:1332
 msgctxt "action: new document"
 msgid "New"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1336
+#: ../frescobaldi_app/mainwindow.py:1333
 #: ../frescobaldi_app/macosx/globalmenu.py:71
 msgid "&Open..."
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1337
+#: ../frescobaldi_app/mainwindow.py:1334
 #: ../frescobaldi_app/macosx/globalmenu.py:102
 msgid "Open &Recent"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1338
+#: ../frescobaldi_app/mainwindow.py:1335
 msgid "Insert from &File..."
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1340
+#: ../frescobaldi_app/mainwindow.py:1337
 msgid "Insert the contents of a file at the current cursor position."
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1341
+#: ../frescobaldi_app/mainwindow.py:1338
 msgid "Open Current Directory"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1342
+#: ../frescobaldi_app/mainwindow.py:1339
 msgid "Open Command Prompt"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1343
+#: ../frescobaldi_app/mainwindow.py:1340
 msgid "&Save Document"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1344
+#: ../frescobaldi_app/mainwindow.py:1341
 #: ../frescobaldi_app/externalchanges/widget.py:113
 msgid "Save"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1346
+#: ../frescobaldi_app/mainwindow.py:1343
 msgid "Save Copy or Selection As..."
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1347
+#: ../frescobaldi_app/mainwindow.py:1344
 msgid "&Rename/Move File..."
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1348
+#: ../frescobaldi_app/mainwindow.py:1345
 #: ../frescobaldi_app/externalchanges/widget.py:117
 msgid "Save All"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1349
+#: ../frescobaldi_app/mainwindow.py:1346
 msgid "Re&load"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1350
+#: ../frescobaldi_app/mainwindow.py:1347
 #: ../frescobaldi_app/externalchanges/widget.py:108
 msgid "Reload All"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1351
+#: ../frescobaldi_app/mainwindow.py:1348
 msgid "Check for External Changes..."
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1353
+#: ../frescobaldi_app/mainwindow.py:1350
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1355
+#: ../frescobaldi_app/mainwindow.py:1352
 msgid "Print Source..."
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1356
+#: ../frescobaldi_app/mainwindow.py:1353
 msgid "&Close Document"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1357 ../frescobaldi_app/panel.py:108
+#: ../frescobaldi_app/mainwindow.py:1354 ../frescobaldi_app/panel.py:108
 #: ../frescobaldi_app/search/__init__.py:120
 #: ../frescobaldi_app/viewers/__init__.py:351
 #: ../frescobaldi_app/viewers/manuscript/__init__.py:77
 msgid "Close"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1359
+#: ../frescobaldi_app/mainwindow.py:1356
 msgid "Close All Documents"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1361
+#: ../frescobaldi_app/mainwindow.py:1358
 msgid "Closes all documents but preserves the current session."
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1364
+#: ../frescobaldi_app/mainwindow.py:1361
 msgid "Close All Documents and Session"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1367
+#: ../frescobaldi_app/mainwindow.py:1364
 msgid "Closes all documents and leaves the current session."
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1369
+#: ../frescobaldi_app/mainwindow.py:1366
 #: ../frescobaldi_app/macosx/globalmenu.py:77
 msgid "&Quit"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1370
+#: ../frescobaldi_app/mainwindow.py:1367
 #, python-brace-format
 msgid "Restart {appname}"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1372
+#: ../frescobaldi_app/mainwindow.py:1369
 msgid "Export Source as Colored &HTML..."
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1374
+#: ../frescobaldi_app/mainwindow.py:1371
 msgid "&Undo"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1375
+#: ../frescobaldi_app/mainwindow.py:1372
 msgid "Re&do"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1376
+#: ../frescobaldi_app/mainwindow.py:1373
 msgid "Cu&t"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1378
+#: ../frescobaldi_app/mainwindow.py:1375
 msgid "Copy as Colored &HTML"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1379
+#: ../frescobaldi_app/mainwindow.py:1376
 msgid "&Paste"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1380
+#: ../frescobaldi_app/mainwindow.py:1377
 msgid "Select &All"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1381
+#: ../frescobaldi_app/mainwindow.py:1378
 msgid "Select &Block"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1382
+#: ../frescobaldi_app/mainwindow.py:1379
 msgid "Select &None"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1383
+#: ../frescobaldi_app/mainwindow.py:1380
 msgid "Select Whole Lines Up"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1384
+#: ../frescobaldi_app/mainwindow.py:1381
 msgid "Select Whole Lines Down"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1385
+#: ../frescobaldi_app/mainwindow.py:1382
 msgid "&Find..."
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1386
+#: ../frescobaldi_app/mainwindow.py:1383
 msgid "Find Ne&xt"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1387
+#: ../frescobaldi_app/mainwindow.py:1384
 msgid "Find Pre&vious"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1388
+#: ../frescobaldi_app/mainwindow.py:1385
 msgid "&Replace..."
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1389
+#: ../frescobaldi_app/mainwindow.py:1386
 #: ../frescobaldi_app/macosx/globalmenu.py:123
 msgid "Pr&eferences..."
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1391
+#: ../frescobaldi_app/mainwindow.py:1388
 msgid "&Next Document"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1392
+#: ../frescobaldi_app/mainwindow.py:1389
 msgid "&Previous Document"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1393
+#: ../frescobaldi_app/mainwindow.py:1390
 msgid "Wrap &Lines"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1394
+#: ../frescobaldi_app/mainwindow.py:1391
 msgid "Scroll Up"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1395
+#: ../frescobaldi_app/mainwindow.py:1392
 msgid "Scroll Down"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1396
+#: ../frescobaldi_app/mainwindow.py:1393
 msgid "&Goto Line..."
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1398
+#: ../frescobaldi_app/mainwindow.py:1395
 #: ../frescobaldi_app/macosx/globalmenu.py:129
 msgid "New &Window"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1399
+#: ../frescobaldi_app/mainwindow.py:1396
 msgid "&Fullscreen"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1401
+#: ../frescobaldi_app/mainwindow.py:1398
 msgid "&User Guide"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1402
+#: ../frescobaldi_app/mainwindow.py:1399
 msgid "&What's This?"
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1403
+#: ../frescobaldi_app/mainwindow.py:1400
 msgid "Report a &Bug..."
 msgstr ""
 
-#: ../frescobaldi_app/mainwindow.py:1404
+#: ../frescobaldi_app/mainwindow.py:1401
 #: ../frescobaldi_app/macosx/globalmenu.py:147
 #, python-brace-format
 msgid "&About {appname}..."
@@ -1266,7 +1266,7 @@ msgid "Print {filename}"
 msgstr ""
 
 #: ../frescobaldi_app/pagedview.py:189
-#: ../frescobaldi_app/docbrowser/browser.py:226
+#: ../frescobaldi_app/docbrowser/browser.py:240
 #: ../frescobaldi_app/userguide/browser.py:85
 #: ../frescobaldi_app/userguide/browser.py:115
 msgid "Print"
@@ -1319,11 +1319,11 @@ msgstr ""
 msgid "&MIDI"
 msgstr ""
 
-#: ../frescobaldi_app/viewmanager.py:77 ../frescobaldi_app/viewmanager.py:439
+#: ../frescobaldi_app/viewmanager.py:77 ../frescobaldi_app/viewmanager.py:437
 msgid "Split &Horizontally"
 msgstr ""
 
-#: ../frescobaldi_app/viewmanager.py:80 ../frescobaldi_app/viewmanager.py:440
+#: ../frescobaldi_app/viewmanager.py:80 ../frescobaldi_app/viewmanager.py:438
 msgid "Split &Vertically"
 msgstr ""
 
@@ -1331,24 +1331,24 @@ msgstr ""
 msgid "&Close View"
 msgstr ""
 
-#: ../frescobaldi_app/viewmanager.py:207
+#: ../frescobaldi_app/viewmanager.py:205
 #, python-brace-format
 msgid "Line: {line}, Col: {column}"
 msgstr ""
 
-#: ../frescobaldi_app/viewmanager.py:441
+#: ../frescobaldi_app/viewmanager.py:439
 msgid "&Close Current View"
 msgstr ""
 
-#: ../frescobaldi_app/viewmanager.py:442
+#: ../frescobaldi_app/viewmanager.py:440
 msgid "Close &Other Views"
 msgstr ""
 
-#: ../frescobaldi_app/viewmanager.py:443
+#: ../frescobaldi_app/viewmanager.py:441
 msgid "&Next View"
 msgstr ""
 
-#: ../frescobaldi_app/viewmanager.py:444
+#: ../frescobaldi_app/viewmanager.py:442
 msgid "&Previous View"
 msgstr ""
 
@@ -1395,51 +1395,54 @@ msgid "&Documentation Browser"
 msgstr ""
 
 #. L10N: Home page of the LilyPond manual
-#: ../frescobaldi_app/docbrowser/__init__.py:90
+#: ../frescobaldi_app/docbrowser/__init__.py:93
 msgid "Home"
 msgstr ""
 
-#: ../frescobaldi_app/docbrowser/__init__.py:91
+#: ../frescobaldi_app/docbrowser/__init__.py:94
+#: ../frescobaldi_app/docbrowser/browser.py:265
+msgid "Open Current Page in Web Browser"
+msgstr ""
+
+#: ../frescobaldi_app/docbrowser/__init__.py:95
+msgid "Open Homepage in Web Browser"
+msgstr ""
+
+#: ../frescobaldi_app/docbrowser/__init__.py:96
 msgid "Print..."
 msgstr ""
 
-#: ../frescobaldi_app/docbrowser/__init__.py:92
+#: ../frescobaldi_app/docbrowser/__init__.py:97
 msgid "&LilyPond Documentation"
 msgstr ""
 
-#: ../frescobaldi_app/docbrowser/__init__.py:93
+#: ../frescobaldi_app/docbrowser/__init__.py:98
 msgid "&Contextual LilyPond Help"
 msgstr ""
 
-#: ../frescobaldi_app/docbrowser/browser.py:112
+#: ../frescobaldi_app/docbrowser/browser.py:117
 #: ../frescobaldi_app/preferences/shortcuts.py:56
 #: ../frescobaldi_app/snippet/widget.py:181
 msgid "Search..."
 msgstr ""
 
-#: ../frescobaldi_app/docbrowser/browser.py:152
+#: ../frescobaldi_app/docbrowser/browser.py:157
 msgid "(local)"
 msgstr ""
 
-#: ../frescobaldi_app/docbrowser/browser.py:154
+#: ../frescobaldi_app/docbrowser/browser.py:159
 #, python-brace-format
 msgid "({hostname})"
 msgstr ""
 
-#: ../frescobaldi_app/docbrowser/browser.py:239
+#: ../frescobaldi_app/docbrowser/browser.py:253
 #: ../frescobaldi_app/musicview/contextmenu.py:63
 #: ../frescobaldi_app/viewers/contextmenu.py:72
 msgid "Copy &Link"
 msgstr ""
 
-#: ../frescobaldi_app/docbrowser/browser.py:242
-#: ../frescobaldi_app/musicview/contextmenu.py:57
-#: ../frescobaldi_app/viewers/contextmenu.py:66
-msgid "Open Link in &New Window"
-msgstr ""
-
-#: ../frescobaldi_app/docbrowser/browser.py:251
-msgid "Open Document in &New Window"
+#: ../frescobaldi_app/docbrowser/browser.py:256
+msgid "Open Link in Web Browser"
 msgstr ""
 
 #: ../frescobaldi_app/docbrowser/sourceviewer.py:57
@@ -3048,6 +3051,11 @@ msgstr ""
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
+msgstr ""
+
+#: ../frescobaldi_app/musicview/contextmenu.py:57
+#: ../frescobaldi_app/viewers/contextmenu.py:66
+msgid "Open Link in &New Window"
 msgstr ""
 
 #: ../frescobaldi_app/musicview/widget.py:197
