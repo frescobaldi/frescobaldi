@@ -22,7 +22,7 @@ Simple event filter that alters the behaviour of cursor-moving keys in a text
 edit (QTextEdit or QPlainTextEdit).
 """
 
-from PyQt5.QtCore import QEvent, QObject, QSettings
+from PyQt5.QtCore import QEvent, QObject
 from PyQt5.QtGui import QKeySequence, QTextCursor
 
 

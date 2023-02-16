@@ -34,11 +34,10 @@ TODO:
 """
 
 
-from PyQt5.QtCore import Qt, QUrl
+from PyQt5.QtCore import QUrl
 from PyQt5.QtWidgets import QMenu
 
 import app
-import document
 import qutil
 import panelmanager
 

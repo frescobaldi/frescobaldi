@@ -23,7 +23,6 @@ Inter-Process Communication with already running Frescobaldi instances.
 
 
 import os
-import sys
 
 from PyQt5.QtCore import QSettings
 from PyQt5.QtNetwork import QLocalServer, QLocalSocket

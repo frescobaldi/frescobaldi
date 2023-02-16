@@ -22,7 +22,6 @@ target_dir = 'frozen'
 # import standard modules and cx_Freeze
 import importlib.util
 import os
-import py_compile
 import shutil
 import subprocess
 import sys

@@ -22,12 +22,10 @@ Run LilyPond to get various types of output.
 """
 
 
-from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtCore import Qt
 
-import app
 import job
 import log
-import qutil
 import widgets.dialog
 
 

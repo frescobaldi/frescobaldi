@@ -29,7 +29,6 @@ that runs inside the displayed SVG file.
 
 
 import os
-import sys
 
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QFile, QIODevice, QObject, QSettings, QUrl
 from PyQt5.QtGui import QTextCharFormat, QTextCursor

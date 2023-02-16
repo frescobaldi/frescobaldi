@@ -32,9 +32,6 @@ from PyQt5.QtWidgets import QApplication
 
 import appinfo          # Information about our application
 import app              # Instantiate global signals etc
-import install          # Update QSettings structure etc. if needed
-import guistyle         # Setup GUI style
-import i18n.setup       # Setup language
 import remote           # IPC with other Frescobaldi instances
 
 
@@ -199,11 +196,6 @@ def main():
     import sessions         # Initialize our own named session support
 
     # boot Frescobaldi-specific stuff that should be running on startup
-    import viewhighlighter  # highlight arbitrary ranges in text
-    import progress         # creates progress bar in view space
-    import musicpos         # shows music time in statusbar
-    import autocomplete     # auto-complete input
-    import wordboundary     # better wordboundary behaviour for the editor
 
     if sys.platform.startswith('darwin'):
         import macosx.setup

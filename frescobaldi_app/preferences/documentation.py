@@ -22,7 +22,7 @@ Documentation preferences.
 """
 
 
-from PyQt5.QtCore import QSettings, Qt
+from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import (QComboBox, QCompleter, QFontComboBox,
     QGridLayout, QLabel, QSpinBox, QVBoxLayout)
 

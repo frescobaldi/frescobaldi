@@ -19,7 +19,7 @@ from PyQt5.QtGui import QTextCursor
 import time
 import weakref
 
-from PyQt5.QtCore import QObject, QSettings, QThread, pyqtSignal
+from PyQt5.QtCore import QSettings, QThread, pyqtSignal
 
 import midihub
 import midifile.event

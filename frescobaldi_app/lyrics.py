@@ -25,7 +25,7 @@ Commands for manipulating Lyrics.
 import re
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QKeySequence, QTextCursor
+from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QAction, QApplication
 
 import ly.lex.lilypond

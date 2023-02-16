@@ -31,7 +31,6 @@ from PyQt5.QtWidgets import (QApplication, QCheckBox, QDoubleSpinBox,
                              QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
 
 import app
-import icons
 import preferences
 import textformats
 import qutil

@@ -42,7 +42,6 @@ from PyQt5.QtGui import (
 )
 from PyQt5.QtWidgets import (
     QAbstractItemView,
-    QDialog,
     QHeaderView,
     QMenu,
     QStyle,
@@ -408,7 +407,6 @@ class FailedModel(QStandardItemModel):
         exceptions = data['exceptions']
         if exceptions:
             # Handle extensions that failed to load properly
-            import traceback
             exceptions_item = self.exceptions_item = QStandardItem()
             exceptions_item.setFont(bold)
             exceptions_item.setText(_("Failed to load:"))
@@ -848,7 +846,6 @@ class Extensions(QObject):
         """Show a warning message box if extension(s) could either not
         be loaded or produced errors while parsing the extension infos."""
 
-        from PyQt5.QtCore import QCoreApplication
         import appinfo
         import qutil
         import widgets.dialog

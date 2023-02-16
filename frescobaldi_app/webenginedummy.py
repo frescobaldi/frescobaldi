@@ -25,7 +25,7 @@ A QWidget showing a "could not load PyQtWebEngine" message.
 import sys
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QLabel, QLayout, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QLabel, QVBoxLayout, QWidget
 
 import app
 

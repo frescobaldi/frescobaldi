@@ -24,7 +24,6 @@ and code for finding hyphenation dictionaries to present the user a  choice.
 
 
 import glob
-import locale
 import os
 
 from PyQt5.QtCore import QSettings, Qt

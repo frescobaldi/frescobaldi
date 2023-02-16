@@ -25,7 +25,6 @@ The Quick Insert panel spanners Tool.
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QHBoxLayout, QToolButton
 
-import app
 import icons
 import cursortools
 import tokeniter

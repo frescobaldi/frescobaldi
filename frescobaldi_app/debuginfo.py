@@ -24,7 +24,6 @@ Provides version information of important supporting modules.
 
 import functools
 import sys
-import os
 
 import app
 import appinfo

@@ -23,7 +23,6 @@ Analyze text to determine suitable completions.
 
 
 import re
-import os
 
 import ly.lex as lx
 import ly.lex.lilypond as lp

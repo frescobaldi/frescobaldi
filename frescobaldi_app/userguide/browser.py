@@ -32,10 +32,8 @@ from PyQt5.QtPrintSupport import QAbstractPrintDialog, QPrintDialog, QPrinter
 import app
 import helpers
 import icons
-import simplemarkdown
 
 from . import __path__
-from . import page
 from . import util
 
 

@@ -22,9 +22,7 @@ Insert snippets into a Document.
 """
 
 
-import sys
 
-from PyQt5.QtCore import QSettings
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QMessageBox
 
@@ -194,7 +192,6 @@ def insert_macro(text, view):
     """The macro snippet is a sequence of commands which are either
     Frescobaldi actions or other snippets.
     """
-    import re
     import actioncollectionmanager
     from . import model
 

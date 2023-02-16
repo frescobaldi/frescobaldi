@@ -28,7 +28,7 @@ import itertools
 import os
 import sys
 
-from PyQt5.QtCore import pyqtSignal, QMargins, QSettings, Qt
+from PyQt5.QtCore import QMargins, QSettings, Qt
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
 

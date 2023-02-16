@@ -27,11 +27,10 @@ from the MainWindow.
 """
 
 
-import sys
 import os
 
 from PyQt5.QtCore import QUrl
-from PyQt5.QtWidgets import QAction, QFileDialog, QMenu, QMenuBar
+from PyQt5.QtWidgets import QAction, QFileDialog, QMenu
 
 import app
 import util

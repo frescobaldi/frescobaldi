@@ -30,11 +30,9 @@ from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import (
     QAction, QGridLayout, QGroupBox, QMenu, QToolButton, QToolTip)
 
-import actioncollection
 import actioncollectionmanager
 import app
 import cursortools
-import widgets.shortcuteditdialog
 
 
 class ButtonGroup(QGroupBox):

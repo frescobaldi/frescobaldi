@@ -22,7 +22,6 @@ The Layout Control options widget.
 """
 
 
-import sys
 
 from PyQt5.QtCore import pyqtSignal, QSettings
 from PyQt5.QtWidgets import (QCheckBox, QHBoxLayout, QLineEdit, QToolButton,

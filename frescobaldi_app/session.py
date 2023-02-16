@@ -22,14 +22,9 @@ Stuff dealing with the QSessionManager.
 """
 
 
-import os
-import sys
 
-from PyQt5.QtCore import QObject, QSettings, Qt, QUrl
-from PyQt5.QtGui import QSessionManager
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtCore import QSettings, QUrl
 
-import appinfo
 import app
 import mainwindow
 

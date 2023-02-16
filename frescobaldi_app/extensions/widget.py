@@ -21,10 +21,9 @@
 Base ExtensionWidget for extensions
 """
 
-from PyQt5.QtCore import Qt, QObject
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QLabel, QVBoxLayout, QWidget
 
-import app
 
 from . import ExtensionMixin
 

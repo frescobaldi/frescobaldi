@@ -25,8 +25,7 @@ A widget and dialog to show an output preview of a LilyPond document.
 import os
 
 from PyQt5.QtCore import (
-    QSize,
-    Qt
+    QSize
 )
 from PyQt5.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QHBoxLayout,
                              QLabel, QStackedLayout, QVBoxLayout, QWidget)

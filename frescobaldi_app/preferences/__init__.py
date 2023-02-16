@@ -23,7 +23,7 @@ The Preferences Dialog.
 
 
 
-from PyQt5.QtCore import QSettings, QSize, Qt, pyqtSignal
+from PyQt5.QtCore import QSize, Qt, pyqtSignal
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import (
     QDialog, QDialogButtonBox, QGroupBox, QHBoxLayout, QListWidget,

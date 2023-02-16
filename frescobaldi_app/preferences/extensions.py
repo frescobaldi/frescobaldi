@@ -21,7 +21,6 @@
 Extensions preferences.
 """
 
-import re
 
 from PyQt5.QtCore import QSettings, Qt
 from PyQt5.QtGui import QFont, QStandardItem, QStandardItemModel

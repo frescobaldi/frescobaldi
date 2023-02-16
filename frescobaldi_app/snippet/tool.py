@@ -30,7 +30,6 @@ from PyQt5.QtWidgets import QAction
 
 import actioncollection
 import actioncollectionmanager
-import app
 import panel
 
 

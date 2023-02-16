@@ -22,7 +22,6 @@ Manages cursor positions of file-references in error messages.
 """
 
 
-import os
 import re
 import sys
 

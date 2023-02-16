@@ -24,13 +24,9 @@ Helper application preferences.
 
 from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import (
-    QCheckBox, QComboBox, QFileDialog, QGridLayout, QLabel, QVBoxLayout,
-    QWidget)
+    QFileDialog, QGridLayout, QLabel, QVBoxLayout)
 
 import app
-import util
-import qutil
-import icons
 import preferences
 import widgets.urlrequester
 

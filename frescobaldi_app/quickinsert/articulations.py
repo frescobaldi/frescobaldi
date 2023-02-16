@@ -22,7 +22,6 @@ The Quick Insert panel Articulations Tool.
 """
 
 
-import itertools
 
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QCheckBox, QHBoxLayout, QToolButton

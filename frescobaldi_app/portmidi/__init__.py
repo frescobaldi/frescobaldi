@@ -65,7 +65,6 @@ Note that you always have to specify the time when a note is to be played.
 
 """
 
-import atexit
 import collections
 
 

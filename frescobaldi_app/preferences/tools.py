@@ -24,11 +24,11 @@ Per-tool preferences.
 
 import re
 
-from PyQt5.QtCore import QSettings, Qt
+from PyQt5.QtCore import QSettings
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import (
     QAbstractItemView, QCheckBox, QDoubleSpinBox, QFontComboBox, QHBoxLayout,
-    QLabel, QPushButton, QVBoxLayout, QWidget)
+    QLabel, QPushButton, QVBoxLayout)
 
 import app
 import userguide

@@ -24,7 +24,6 @@ An Object Editor
 # Note: This is only a very first stub
 
 
-import sys
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QKeySequence

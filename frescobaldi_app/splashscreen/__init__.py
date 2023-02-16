@@ -21,7 +21,7 @@
 
 import os
 
-from PyQt5.QtCore import QEventLoop, QTimer, Qt
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtWidgets import QApplication, QSplashScreen
 

@@ -31,7 +31,6 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QAction
 
-import app
 import actioncollection
 import actioncollectionmanager
 import panel

@@ -30,7 +30,6 @@ from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QFontComboBox, QGridLayout, QLabel
 
 import app
-import qutil
 import widgets.dialog
 
 class DocumentFontsDialog(widgets.dialog.Dialog):

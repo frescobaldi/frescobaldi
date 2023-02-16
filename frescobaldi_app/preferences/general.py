@@ -39,11 +39,8 @@ from PyQt5.QtWidgets import (
 )
 
 import app
-import appinfo
-import icons
 import preferences
 import sessions
-import util
 import i18n
 import remote
 import language_names

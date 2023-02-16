@@ -24,12 +24,11 @@ Abstract base class for a Poppler based viewer widget.
 
 import collections
 import os
-import weakref
 
-from PyQt5.QtCore import pyqtSignal, QPoint, QRect, Qt, QTimer, QUrl
+from PyQt5.QtCore import pyqtSignal, QPoint, QRect, Qt, QUrl
 from PyQt5.QtGui import QCursor, QTextCharFormat
 from PyQt5.QtWidgets import (
-    QToolTip, QVBoxLayout, QHBoxLayout, QWidget, QToolBar)
+    QToolTip, QVBoxLayout)
 
 try:
     import popplerqt5
@@ -46,13 +45,11 @@ import app
 import helpers
 import textedit
 import textformats
-import contextmenu
 import viewhighlighter
 import widgets.dialog
 import userguide
 
 from . import abstractviewwidget
-from . import documents
 from . import pointandclick
 
 
@@ -282,7 +279,6 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         session object and load them in the viewer."""
         if name:
             import sessions
-            import qsettings
             g = sessions.sessionGroup(name)
             if g.contains("urls"): # the session is not new
                 ds = self.actionCollection.viewer_document_select

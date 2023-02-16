@@ -24,7 +24,7 @@ Recent files handling.
 
 import os
 
-from PyQt5.QtCore import QSettings, QUrl
+from PyQt5.QtCore import QSettings
 
 import app
 import qsettings

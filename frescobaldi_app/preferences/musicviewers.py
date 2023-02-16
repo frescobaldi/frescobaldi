@@ -22,15 +22,12 @@ Music View preferences.
 """
 
 
-import re
 import sys
 
 from PyQt5.QtCore import QSettings, Qt
-from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import (
-    QAbstractItemView, QCheckBox, QComboBox, QDoubleSpinBox, QFontComboBox,
-    QGridLayout, QHBoxLayout, QLabel, QPushButton, QSlider, QSpinBox,
-    QVBoxLayout, QWidget)
+    QCheckBox, QComboBox, QGridLayout, QLabel, QSlider, QSpinBox,
+    QVBoxLayout)
 
 import app
 import qutil

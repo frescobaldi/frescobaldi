@@ -22,7 +22,6 @@ The completer for Frescobaldi.
 """
 
 
-import re
 
 from PyQt5.QtGui import QTextCursor
 

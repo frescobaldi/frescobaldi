@@ -27,7 +27,6 @@ In the panelmanager module, the Panels are instantiated.
 """
 
 
-from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QAbstractButton, QDockWidget, QLabel
 
 import app

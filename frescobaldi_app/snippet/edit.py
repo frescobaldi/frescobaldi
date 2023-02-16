@@ -23,7 +23,6 @@ The dialog for editing a snippet
 
 
 
-import re
 
 from PyQt5.QtCore import QItemSelectionModel, QSize
 from PyQt5.QtGui import QIcon, QKeySequence, QTextCharFormat
@@ -46,7 +45,6 @@ import widgets
 from . import model
 from . import snippets
 from . import builtin
-from . import expand
 from . import highlight
 from . import completer
 

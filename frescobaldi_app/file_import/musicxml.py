@@ -29,7 +29,6 @@ from PyQt5.QtWidgets import (QCheckBox, QComboBox, QDialogButtonBox, QLabel)
 
 import app
 import qutil
-import job
 
 from . import toly_dialog
 

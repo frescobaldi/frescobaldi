@@ -37,10 +37,8 @@ import sys
 import weakref
 
 from PyQt5.QtCore import QSettings, QTimer, Qt, pyqtSignal
-from PyQt5.QtGui import QColor, QKeySequence, QPalette
 from PyQt5.QtWidgets import (
-    QAction, QActionGroup, QApplication, QComboBox, QFileDialog, QLabel,
-    QMessageBox, QSpinBox, QToolBar, QWidgetAction)
+    QAction, QComboBox, QFileDialog, QMessageBox, QToolBar, QWidgetAction)
 
 import app
 import actioncollection
@@ -48,7 +46,6 @@ import actioncollectionmanager
 import icons
 import pagedview
 import qpageview.document
-import qutil
 import panel
 import listmodel
 import gadgets.drag
@@ -60,7 +57,6 @@ from . import documents
 _zoomvalues = [50, 75, 100, 125, 150, 175, 200, 250, 300]
 
 # viewModes from qpageview:
-from qpageview import FixedScale, FitWidth, FitHeight, FitBoth
 
 
 def activate(func):
@@ -189,7 +185,6 @@ class AbstractViewPanel(panel.Panel):
             if (s.value("printing/directcups",
                        False if sys.platform.startswith('darwin') else True, bool)
                 and sys.platform.startswith('darwin')):
-                from PyQt5.QtCore import QUrl
                 from PyQt5.QtWidgets import QMessageBox
                 result =  QMessageBox.warning(self.mainwindow(),
                     _("Print Music"), _(

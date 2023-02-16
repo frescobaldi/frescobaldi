@@ -24,17 +24,14 @@ Export to non-lilypond file types.
 
 import os
 
-from PyQt5.QtCore import Qt, QUrl, QSize
-from PyQt5.QtGui import QKeySequence
+from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtWidgets import QAction, QFileDialog, QMessageBox
 
 import app
 import icons
 import actioncollection
 import actioncollectionmanager
-import documentinfo
 import plugin
-import tokeniter
 import appinfo
 import codecs
 import job

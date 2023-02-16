@@ -58,7 +58,6 @@ import panelmanager
 import engrave
 import reformat
 import scorewiz
-import snippet
 import externalchanges
 import browseriface
 import file_import

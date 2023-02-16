@@ -24,7 +24,7 @@ Some very simple ones are in this file, others in their own files.
 """
 
 
-from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QFrame, QToolButton
 
 import icons

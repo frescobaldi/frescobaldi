@@ -25,13 +25,12 @@ multiple views.
 """
 
 
-import contextlib
 import weakref
 
 from PyQt5.QtCore import QEvent, Qt, pyqtSignal
 from PyQt5.QtGui import QKeySequence, QPixmap
 from PyQt5.QtWidgets import (
-    QAction, QHBoxLayout, QLabel, QMenu, QProgressBar, QSplitter,
+    QAction, QHBoxLayout, QLabel, QMenu, QSplitter,
     QStackedWidget, QVBoxLayout, QWidget)
 
 import actioncollection

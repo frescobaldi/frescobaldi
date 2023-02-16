@@ -27,7 +27,6 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QAction, QActionGroup, QMenu, QMessageBox
 
 import app
-import mainwindow
 import plugin
 import vcs
 from .gitrepo import GitError

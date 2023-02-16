@@ -23,7 +23,6 @@ Functions manipulating QTextCursors and their selections.
 
 
 import contextlib
-import operator
 
 from PyQt5.QtGui import QTextBlock, QTextBlockUserData, QTextCursor
 

@@ -25,7 +25,6 @@ The default black color will be adjusted to the default Text color.
 
 import os
 
-from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QIconEngine, QImage, QPainter, QPixmap
 from PyQt5.QtWidgets import QApplication, QStyleOption
 from PyQt5.QtSvg import QSvgRenderer

@@ -22,7 +22,6 @@ All available part types.
 """
 
 
-import collections
 
 from PyQt5.QtCore import QAbstractItemModel, QModelIndex, Qt
 from PyQt5.QtWidgets import QApplication
@@ -45,17 +44,6 @@ def register(title, items, icon=None):
 
 # Import here the instrument / part type modules.
 # Every module will call the register() function to register its part types.
-from . import (
-    strings,
-    plucked_strings,
-    woodwind,
-    brass,
-    vocal,
-    keyboard,
-    percussion,
-    special,
-    containers,
-)
 
 
 

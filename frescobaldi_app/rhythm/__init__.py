@@ -24,7 +24,6 @@ Tools to edit durations of selected music.
 
 from PyQt5.QtWidgets import QAction
 
-import app
 import actioncollection
 import actioncollectionmanager
 import plugin

@@ -24,7 +24,7 @@ Simple dialogs to ask input from the user.
 
 from PyQt5.QtCore import QSettings, Qt
 from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import QCompleter, QColorDialog, QWidget
+from PyQt5.QtWidgets import QCompleter, QColorDialog
 
 import app
 import widgets.dialog

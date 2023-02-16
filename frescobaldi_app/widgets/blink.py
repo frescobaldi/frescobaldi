@@ -22,7 +22,7 @@ Shortly blinks a region on a widget.
 """
 
 from PyQt5.QtCore import QTimer, pyqtSignal
-from PyQt5.QtGui import QColor, QFontMetrics, QPainter, QPalette, QPen
+from PyQt5.QtGui import QFontMetrics, QPainter, QPalette, QPen
 from PyQt5.QtWidgets import QWidget
 
 

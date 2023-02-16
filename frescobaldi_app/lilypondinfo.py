@@ -23,13 +23,11 @@ Settings stuff and handling for different LilyPond versions.
 
 
 import glob
-import codecs
 import os
 import sys
 import re
 
-from PyQt5.QtCore import QEventLoop, QSettings, QTimer
-from PyQt5.QtWidgets import QProgressDialog
+from PyQt5.QtCore import QSettings
 
 import app
 import cachedproperty

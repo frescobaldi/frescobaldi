@@ -40,7 +40,6 @@ from PyQt5.QtWidgets import (
 import app
 import fonts
 import userguide
-import widgets.dialog
 
 from . import (
     fontcommand,

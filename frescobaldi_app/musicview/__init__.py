@@ -41,8 +41,7 @@ import weakref
 from PyQt5.QtCore import QSettings, QTimer, Qt, pyqtSignal
 from PyQt5.QtGui import QColor, QKeySequence, QPalette
 from PyQt5.QtWidgets import (
-    QAction, QActionGroup, QApplication, QComboBox, QLabel, QSpinBox,
-    QWidgetAction)
+    QAction, QApplication, QComboBox, QWidgetAction)
 
 import app
 import actioncollection
@@ -59,8 +58,6 @@ import gadgets.drag
 from . import documents
 
 # viewModes from qpageview:
-from qpageview import FixedScale, FitWidth, FitHeight, FitBoth
-from qpageview import Horizontal, Vertical
 
 
 def activate(func):
@@ -159,7 +156,6 @@ class MusicViewPanel(panel.Panel):
             if (s.value("printing/directcups",
                        False if sys.platform.startswith('darwin') else True, bool)
                 and sys.platform.startswith('darwin')):
-                from PyQt5.QtCore import QUrl
                 from PyQt5.QtWidgets import QMessageBox
                 result =  QMessageBox.warning(self.mainwindow(),
                     _("Print Music"), _(

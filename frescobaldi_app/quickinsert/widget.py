@@ -31,7 +31,6 @@ from PyQt5.QtWidgets import (QComboBox, QHBoxLayout, QLabel, QToolBox,
 import app
 import userguide.util
 import icons
-import symbols
 import gadgets.toolboxwheeler
 
 from . import articulations

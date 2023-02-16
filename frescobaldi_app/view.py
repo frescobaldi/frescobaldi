@@ -25,12 +25,11 @@ has support for showing multiple Views in a window.
 """
 
 
-import weakref
 
-from PyQt5.QtCore import QEvent, QMimeData, QSettings, Qt, QTimer, pyqtSignal
+from PyQt5.QtCore import QEvent, QMimeData, QSettings, Qt, QTimer
 from PyQt5.QtGui import (
     QContextMenuEvent, QKeySequence, QPainter, QTextCursor, QCursor)
-from PyQt5.QtWidgets import QApplication, QPlainTextEdit, QToolTip
+from PyQt5.QtWidgets import QPlainTextEdit, QToolTip
 
 import app
 import metainfo
