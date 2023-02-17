@@ -765,8 +765,8 @@ msgid "Line number to go to, starting at 1"
 msgstr "Radnummer att gå till, från 1"
 
 #: ../../frescobaldi_app/main.py:63
-msgid "Column to go to, starting at 0"
-msgstr "Kolumn att gå till, från 0"
+msgid "Column to go to, starting at 1"
+msgstr "Kolumn att gå till, från 1"
 
 #: ../../frescobaldi_app/main.py:64
 msgid "NAME"

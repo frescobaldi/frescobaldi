@@ -753,8 +753,8 @@ msgid "Line number to go to, starting at 1"
 msgstr "Přejít na řádek číslo. Začíná prvním"
 
 #: ../../frescobaldi_app/main.py:63
-msgid "Column to go to, starting at 0"
-msgstr "Přejít na sloupec. Začíná nulou"
+msgid "Column to go to, starting at 1"
+msgstr "Přejít na sloupec. Začíná prvním"
 
 #: ../../frescobaldi_app/main.py:64
 msgid "NAME"

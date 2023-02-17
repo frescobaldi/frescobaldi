@@ -758,8 +758,8 @@ msgid "Line number to go to, starting at 1"
 msgstr "Número de línea al que saltar, empezando por 1"
 
 #: ../../frescobaldi_app/main.py:63
-msgid "Column to go to, starting at 0"
-msgstr "Columna a la que ir, empezando por 0"
+msgid "Column to go to, starting at 1"
+msgstr "Columna a la que ir, empezando por 1"
 
 #: ../../frescobaldi_app/main.py:64
 msgid "NAME"

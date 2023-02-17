@@ -758,8 +758,8 @@ msgid "Line number to go to, starting at 1"
 msgstr "要到的行号，从1开始"
 
 #: ../../frescobaldi_app/main.py:63
-msgid "Column to go to, starting at 0"
-msgstr "要到的列，从0开始"
+msgid "Column to go to, starting at 1"
+msgstr "要到的列，从1开始"
 
 #: ../../frescobaldi_app/main.py:64
 msgid "NAME"

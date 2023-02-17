@@ -729,7 +729,7 @@ msgid "Line number to go to, starting at 1"
 msgstr ""
 
 #: ../frescobaldi_app/main.py:63
-msgid "Column to go to, starting at 0"
+msgid "Column to go to, starting at 1"
 msgstr ""
 
 #: ../frescobaldi_app/main.py:64

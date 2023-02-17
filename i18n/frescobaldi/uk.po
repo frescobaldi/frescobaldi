@@ -766,8 +766,8 @@ msgid "Line number to go to, starting at 1"
 msgstr "Номер рядка для переходу, починаючи з 1"
 
 #: ../../frescobaldi_app/main.py:63
-msgid "Column to go to, starting at 0"
-msgstr "Номер позиції для переходу, починаючи з 0"
+msgid "Column to go to, starting at 1"
+msgstr "Номер позиції для переходу, починаючи з 1"
 
 #: ../../frescobaldi_app/main.py:64
 msgid "NAME"

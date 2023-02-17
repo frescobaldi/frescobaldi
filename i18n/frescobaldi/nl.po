@@ -750,8 +750,8 @@ msgid "Line number to go to, starting at 1"
 msgstr "Ga naar regel (start met 1)"
 
 #: ../../frescobaldi_app/main.py:63
-msgid "Column to go to, starting at 0"
-msgstr "Ga naar kolom (start met 0)"
+msgid "Column to go to, starting at 1"
+msgstr "Ga naar kolom (start met 1)"
 
 #: ../../frescobaldi_app/main.py:64
 msgid "NAME"
