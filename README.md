@@ -24,7 +24,7 @@ Features:
 - Experimental export to MusicXML
 - Modern user interface with configurable colors, fonts and keyboard shortcuts
 - Translated into: Dutch, English, French, German, Italian, Swedish, Czech,
-  Russian, Spanish, Galician, Turkish, Polish, Brazilian and Ukrainian.
+  Russian, Spanish, Galician, Turkish, Polish, Brazilian, Ukrainian, and Japanese.
 
 Music functions:
 
