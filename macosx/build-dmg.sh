@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PYTHON_VERSION=3.7
+PYTHON_VERSION=3.10
 PYTHON="/opt/local/bin/python${PYTHON_VERSION}"
 QTROOT='/opt/local/libexec/qt5'
 
@@ -26,20 +26,27 @@ It is strongly recommended that no Python packages are active except for
 Frescobaldi's dependencies.
 You can achieve this for packages installed through MacPorts with
   sudo port deactivate active and not rdepof:frescobaldi and categories:python
+It is also recommended to deactivate Frescobaldi itself:
+  sudo port deactivate frescobaldi
+Moreover, due to a problem with packaging PyQtWebEngine (see #1244), as a
+temporary workaround it is recommended to deactivate it:
+  sudo port deactivate py${PYTHON_VERSION//.}-pyqt5-webengine qt5-qtwebengine
 EOF
 
 read -d '' USAGE <<- EOF
 Usage: $0 [-P <Python executable>] [-Q <root of Qt installation>]
-          [-a <architecture set>] [-d] [-h]
+          [-a <architecture set>] [-v] [-d] [-h]
   -P defaults to ${PYTHON}
   -Q defaults to ${QTROOT}
   -a defaults to the architecture of the current Python binary
+  -v = show output of mac-app.py
   -d = do not build the DMG disk image
   -h = show this help
-  <architecture set> must be either i386, x86_64 or intel (= i386 + x86_64)
+  <architecture set> must be one of the following:
+    x86_64, arm64, universal2
 EOF
 
-while getopts ":P:Q:a:dh" opt; do
+while getopts ":P:Q:a:vdh" opt; do
   case ${opt} in
     P)
       PYTHON=${OPTARG}
@@ -50,6 +57,9 @@ while getopts ":P:Q:a:dh" opt; do
     a)
       ARCH=${OPTARG}
       ARCHOPT='-r '${ARCH}
+      ;;
+    v)
+      VERBOSE=1
       ;;
     d)
       NODMG=1
@@ -99,6 +109,16 @@ fi
 echo The version of the .app bundle will be ${VERSION}.
 echo
 
+echo "Do you want to continue?"
+CONTINUE=''
+echo -n "Type y or Y for yes, anything else for no: "
+read CONTINUE
+echo
+if [[ "$CONTINUE" != 'y' && "$CONTINUE" != 'Y' ]]
+then
+  exit
+fi
+
 echo Building the .app bundle with mac-app.py.
 echo \(This step will likely give some warnings from /usr/bin/strip about malformed
 echo objects and print a long list of missing modules: you can safely ignore them.\)
@@ -107,59 +127,43 @@ echo
 # /usr/bin/strip: for architecture x86_64 object: .../dist/Frescobaldi.app/Contents/Frameworks/libgcc_s.1.dylib malformed object (unknown load command 11)
 # /usr/bin/strip: object: .../dist/Frescobaldi.app/Contents/MacOS/Frescobaldi malformed object (unknown load command 15)
 # /usr/bin/strip: object: .../dist/Frescobaldi.app/Contents/Frameworks/libstdc++.6.dylib malformed object (unknown load command 12)
-${PYTHON} mac-app.py -v ${VERSION} -a ${ARCHOPT} > /dev/null
+if [[ "${VERBOSE}" == 1 ]]
+then
+  ${PYTHON} mac-app.py -v ${VERSION} -a ${ARCHOPT}
+else
+  ${PYTHON} mac-app.py -v ${VERSION} -a ${ARCHOPT} > /dev/null
+fi
 echo
 
 APPBUNDLE=dist/Frescobaldi.app
 
-echo Copying libqsvg.dylib inside the .app bundle.
-echo
-cp ${QTROOT}/plugins/imageformats/libqsvg.dylib ${APPBUNDLE}/Contents/PlugIns/imageformats/
-
-echo Finalizing the .app bundle with macdeployqt.
-echo \(This step will likely give an error about the failed copy of libqsvg.dylib:
-echo you can safely ignore it.\)
-echo
-# The expected error is:
-# ERROR: file copy failed from "${MPPREFIX}/share/qt4/plugins/imageformats/libqsvg.dylib" 
-# ERROR:  to "dist/Frescobaldi.app/Contents/PlugIns/imageformats/libqsvg.dylib" 
-${QTROOT}/bin/macdeployqt ${APPBUNDLE}
-echo
-
-echo Removing PyQtWebEngine as a temporary workaround for \#1244.
-echo
-rm -r ${APPBUNDLE}/Contents/Frameworks/QtWebEngine*
-rm ${APPBUNDLE}/Contents/Resources/lib/python3.7/lib-dynload/PyQt5/QtWebEngine*
-zip -d ${APPBUNDLE}/Contents/Resources/lib/python37.zip "PyQt5/QtWebEngine*"
-echo
-
 check_fix_appbundle () {
   # $1 string: path to .app bundle
   # $2 string: requested architecture, if any, or empty string
-  # $3 boolean: propose to fix mixedintel?
+  # $3 boolean: propose to fix mixed?
   local MACHO=$(find $1 -type f -exec file {} + | grep Mach-O)
-  local NON32=$(echo "${MACHO}" | grep -v i386)
-  local NON64=$(echo "${MACHO}" | grep -v x86_64)
-  local MIXEDINTEL=''
-  if [[ "${NON32}" == '' ]]
+  local NOT_x86_64=$(echo "${MACHO}" | grep -v x86_64)
+  local NOT_arm64=$(echo "${MACHO}" | grep -v arm64)
+  local MIXED=''
+  if [[ "${NOT_arm64}" == '' ]]
   then
-    if [[ "${NON64}" == '' ]]
+    if [[ "${NOT_x86_64}" == '' ]]
     then
-      APPARCH=intel
+      APPARCH=universal2
     else
-      APPARCH=i386
-      if [[ "${NON64}" != "${MACHO}" ]]
+      APPARCH=arm64
+      if [[ "${NOT_x86_64}" != "${MACHO}" ]]
       then
-        MIXEDINTEL=1
+        MIXED=1
       fi
     fi
   else
-    if [[ "${NON64}" == '' ]]
+    if [[ "${NOT_x86_64}" == '' ]]
     then
       APPARCH=x86_64
-      if [[ "${NON32}" != "${MACHO}" ]]
+      if [[ "${NOT_arm64}" != "${MACHO}" ]]
       then
-        MIXEDINTEL=1
+        MIXED=1
       fi
     else
       APPARCH=unknown
@@ -173,7 +177,7 @@ check_fix_appbundle () {
   else
     if [[ "$2" != '' && "$2" != "${APPARCH}" ]]
     then
-      if [[ "${APPARCH}" == intel && ( "$2" == i386 || "$2" == x86_64 ) ]]
+      if [[ "${APPARCH}" == universal2 && ( "$2" == x86_64 || "$2" == arm64 ) ]]
       then
         echo "Warning: binary architecture set mismatch." 1>&2
         echo "The requested architecture $2 is included in the application bundle," 1>&2
@@ -189,11 +193,11 @@ check_fix_appbundle () {
       then
         ASREQUESTED=", as requested"
       fi
-      if [[ "${MIXEDINTEL}" == 1 ]]
+      if [[ "${MIXED}" == 1 ]]
       then
         echo "Warning: mixed binary architecture." 1>&2
         echo "The apparent architecture set of the .app bundle is ${APPARCH}${ASREQUESTED}," 1>&2
-        echo "but some Mach-O files contain both i386 and x86_64 code." 1>&2
+        echo "but some Mach-O files contain both x86_64 and arm64 code." 1>&2
         if [[ "$3" ]]
         then
           echo
@@ -204,9 +208,9 @@ check_fix_appbundle () {
           echo
           if [[ "$FIX_APPBUNDLE" == 'y' || "$FIX_APPBUNDLE" == 'Y' ]]
           then
-            mv $1 $1.mixedintel
-            ditto --arch ${APPARCH} $1.mixedintel $1
-            rm -r $1.mixedintel
+            mv $1 $1.mixed
+            ditto --arch ${APPARCH} $1.mixed $1
+            rm -r $1.mixed
             check_fix_appbundle "$1" "$2" ''
           fi
         fi

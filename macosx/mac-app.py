@@ -57,7 +57,7 @@ parser.add_argument('-p', '--portmidi', \
   help = 'full path of PortMIDI library (used only with \'-a\')', \
   default = dylib_name)
 parser.add_argument('-r', '--arch', \
-  help = 'architecture set to include, e.g. i386, x86_64, intel; \
+  help = 'architecture set to include: x86_64, arm64, universal2; \
   if the value is None, the architecture of the current Python binary is used \
   (used only with \'-a\')')
 args = parser.parse_args()
@@ -78,7 +78,7 @@ plist = dict(
     CFBundleExecutable            = appinfo.appname,
     CFBundleIdentifier            = 'org.{0}.{0}'.format(appinfo.name),
     CFBundleIconFile              = '{0}.icns'.format(appinfo.name),
-    NSHumanReadableCopyright      = u'Copyright © 2008-2014 Wilbert Berendsen.',
+    NSHumanReadableCopyright      = u'Copyright © 2008-2023 Wilbert Berendsen.',
     CFBundleDocumentTypes         = [
         {
             'CFBundleTypeExtensions': ['ly', 'lyi', 'ily'],
@@ -181,16 +181,3 @@ if args.standalone:
     for patchfile in patchlist:
         with open('patch/{0}'.format(patchfile), 'r') as input:
             Popen(["patch", "-R", "-d..", "-p0"], stdin=input)
-    print('removing file {0}/qt.conf'.format(app_resources))
-    os.remove('{0}/qt.conf'.format(app_resources))
-    imageformats_dest = 'dist/{0}.app/Contents/PlugIns/imageformats'.format(appinfo.appname)
-    print('creating directory {0}'.format(imageformats_dest))
-    os.makedirs(imageformats_dest, 0o0755)
-    print("""
-WARNING: To complete the creation of the standalone application bundle \
-you need to perform the following steps manually:
-
-- copy libqsvg.dylib from Qt's 'plugins/imageformats' directory to '{1}',
-- execute Qt's macdeployqt tool on dist/{0}.app \
-(you can safely ignore the error about the failed copy of libqsvg.dylib).
-""".format(appinfo.appname, imageformats_dest))
