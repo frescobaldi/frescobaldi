@@ -278,7 +278,7 @@ class EditorDocument(AbstractDocument):
             app.documentUrlChanged(self, url, old)
 
     def cursorAtPosition(self, line, column=None):
-        """Return a new QTextCursor set to the line and column given (each starting at 0).
+        """Return a new QTextCursor set to the line and column given (each starting at 1).
 
         This method avoids common pitfalls associated with arbitrarily setting the cursor
         position via setCursorPosition.
