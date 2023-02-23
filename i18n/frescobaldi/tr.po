@@ -793,8 +793,8 @@ msgid "Line number to go to, starting at 1"
 msgstr "Gidilecek satır numarası, sıra numarası 1'den başlamaktadır."
 
 #: ../../frescobaldi_app/main.py:63
-msgid "Column to go to, starting at 0"
-msgstr "Gidilecek sütun numarası, sıra numarası 0'dan başlamaktadır."
+msgid "Column to go to, starting at 1"
+msgstr "Gidilecek sütun numarası, sıra numarası 1'den başlamaktadır."
 
 #: ../../frescobaldi_app/main.py:64
 msgid "NAME"

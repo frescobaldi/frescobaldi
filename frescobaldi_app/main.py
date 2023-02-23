@@ -60,7 +60,7 @@ def parse_commandline():
     parser.add_argument('-l', '--line', type=int, metavar=_("NUM"),
         help=_("Line number to go to, starting at 1"))
     parser.add_argument('-c', '--column', type=int, metavar=_("NUM"),
-        help=_("Column to go to, starting at 0"), default=0)
+        help=_("Column to go to, starting at 1"))
     parser.add_argument('--start', metavar=_("NAME"),
         help=_("Session to start ('{none}' for empty session)").format(none="-"),
         dest="session")
@@ -248,8 +248,8 @@ def main():
 
     if urls and args.line is not None:
         # set the last loaded document active and apply navigation if requested
-        pos = doc.findBlockByNumber(args.line - 1).position() + args.column
-        cursor = QTextCursor(doc)
-        cursor.setPosition(pos)
-        win.currentView().setTextCursor(cursor)
-        win.currentView().centerCursor()
+        cursor = doc.cursorAtPosition(args.line, args.column)
+        view = win.currentView()
+        view.setTextCursor(cursor)
+        view.centerCursor()
+

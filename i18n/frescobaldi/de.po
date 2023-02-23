@@ -764,8 +764,8 @@ msgid "Line number to go to, starting at 1"
 msgstr "Ziel-Zeilennummer, beginnend mit 1"
 
 #: ../../frescobaldi_app/main.py:63
-msgid "Column to go to, starting at 0"
-msgstr "Ziel-Spalte, beginnend mit 0"
+msgid "Column to go to, starting at 1"
+msgstr "Ziel-Spalte, beginnend mit 1"
 
 #: ../../frescobaldi_app/main.py:64
 msgid "NAME"
