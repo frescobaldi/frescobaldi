@@ -2,10 +2,7 @@ README for developers
 =====================
 
 The Frescobaldi LilyPond sheet music editor is written in Python and uses
-Qt for its user interface, via the PyQt bindings (Python3 with Qt5 for the
-current development from version 3 onwards, Python2/3 with Qt4 for the previous
-stable release from version 2. Any future development will be done with
-Python3 and Qt5.)
+Qt for its user interface, via the PyQt bindings (Python3 and Qt5).
 
 All code and application data is in the frescobaldi_app/ directory. The
 frescobaldi script just imports frescobaldi_app.main.  You can simply run
@@ -57,7 +54,7 @@ So e.g. the resultfiles, highlighter or documentinfo modules contain classes
 for objects that coexist with a Document, and providing their own relevant
 methods, while keeping a weak reference to the Document.
 
-Exchange of messages is done as much as possible using signals (PyQt4 signals
+Exchange of messages is done as much as possible using signals (PyQt signals
 or from the signals module), or event filters, so adding new features changes as
 less existing code as possible.
 
@@ -65,7 +62,7 @@ less existing code as possible.
 Some important modules:
 
 main:           Entry point
-info:           Information about the application, such as the version
+appinfo:        Information about the application, such as the version
 toplevel:       Adds the path of frescobaldi_app to sys.path, clears __path__
                 so all modules inside frescobaldi_app can be imported as
                 toplevel modules and packages
@@ -88,7 +85,6 @@ symbols:        Provides icons of LilyPond-generated SVG files that draw
 Some completely generic modules (don't have anything to do with Frescobaldi or
 LilyPond):
 
-qpageview:      PDF viewer widget using the popplerqt5 binding to Poppler-Qt5
 signals:        An alternative to Qt signals that allows for connections to have
                 priorities, and objects don't have to be Qt objects
 cachedproperty: Caches properties that can be asynchronously computed
@@ -124,13 +120,13 @@ Write code so that adding or extending functionality later only adds lines, not
 changes or removes existing lines.
 
 Module imports: one per line. First the Python standard library imports, then
-PyQt4, then the generic Frescobaldi imports and then imports from the current
+PyQt, then the generic Frescobaldi imports and then imports from the current
 package. The different groups separated by a blank line:
 
     import os                       # stdlib imports
     import sys
 
-    from PyQt4.QtCore import ...    # PyQt4 imports
+    from PyQt5.QtCore import ...    # PyQt imports
 
     import app                      # generic Frescobaldi imports
     import icons
@@ -235,7 +231,7 @@ of testing and development, you don't even need to install Python at all.
 
 5. download the frescobaldi source code from GitHub:
 
-   git clone https://github.com/wbsoft/frescobaldi.git
+   git clone https://github.com/frescobaldi/frescobaldi.git
 
 6. go to the frescobaldi directory and copy all the files from the installed
    version, except for the frescobaldi_app directory:
