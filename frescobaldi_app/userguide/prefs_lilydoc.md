@@ -1,6 +1,9 @@
 === LilyPond Documentation ===
 
-Here you can add local paths or URLs pointing to LilyPond documentation.
+Here you can add local paths or remote URLs pointing to LilyPond documentation.
+
+The URLs to the latest stable and development LilyPond manuals are already
+set by default for user convenience.
 
 == Local path ==
 
