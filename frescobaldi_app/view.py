@@ -103,7 +103,7 @@ class View(QPlainTextEdit):
             return False
 
         if ev.type() == QEvent.KeyPress:
-            if ev.type() == QEvent.KeyPress and ev.matches(QKeySequence.InsertLineSeparator):
+            if ev.matches(QKeySequence.InsertLineSeparator):
                 return False
 
             cursor = self.textCursor()
