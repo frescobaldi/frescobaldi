@@ -27,6 +27,7 @@ import os
 from PyQt5.QtCore import QSettings, QUrl
 
 import app
+import appinfo
 import util
 import signals
 import qsettings
@@ -127,7 +128,7 @@ def urls():
     # split in local and non-local ones (local are preferred)
     user_prefixes = []
     local = []
-    remote = []
+    remote = [appinfo.lilydoc_stable, appinfo.lilydoc_development]
     for p in user_paths:
         user_prefixes.append(p) if os.path.isdir(p) else remote.append(p)
     remote.sort(key=util.naturalsort)
