@@ -27,9 +27,9 @@ import os
 import sys
 import platform
 import importlib.util
+import weakref
 
-
-from PyQt5.QtCore import QSettings, Qt, QThread
+from PyQt5.QtCore import QObject, QSettings, Qt, QThread
 from PyQt5.QtWidgets import QApplication, QMenuBar
 
 ### needed for QWebEngine
@@ -169,6 +169,18 @@ def restart():
     import subprocess
     subprocess.Popen(args)
 
+def _make_retranslate_callback(obj):
+    ref = weakref.ref(obj)
+    def retranslate():
+        found_obj = ref()
+        if found_obj is None:
+            # obj was already collected. Now remove this retranslator itself,
+            # we don't need it anymore.
+            languageChanged.disconnect(retranslate)
+            return
+        found_obj.translateUI()
+    return retranslate
+
 def translateUI(obj, priority=0):
     """Translates texts in the object.
 
@@ -176,9 +188,23 @@ def translateUI(obj, priority=0):
     The object must have a translateUI() method.  It is
     also called by this function.
 
+    This function only causes weak references to the object to be ingested, so
+    it does not prevent garbage-collecting the object, and will just not
+    retranslate it after the object is garbage-collected.  Furthermore, if the
+    object is a QObject, the function will refrain from retranslating it as soon
+    as the underlying C++ object is deleted, even if the Python object itself is
+    only garbage-collected later.  This means that a widget can safely
+    retranslate its subwidgets in its translateUI() method, since they are still
+    alive on the C++ level, as the widget itself is alive.  On the other hand,
+    for non-QObjects, keep in mind the contract: the object must be able to
+    retranslate itself without errors at any time until it is garbage-collected.
+
     """
-    languageChanged.connect(obj.translateUI, priority)
     obj.translateUI()
+    retranslator = _make_retranslate_callback(obj)
+    languageChanged.connect(retranslator, priority)
+    if isinstance(obj, QObject):
+        obj.destroyed.connect(lambda: languageChanged.disconnect(retranslator))
 
 def caption(title):
     """Returns a nice dialog or window title with appname appended."""

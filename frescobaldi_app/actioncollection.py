@@ -140,6 +140,8 @@ class ActionCollection(ActionCollectionBase):
         self._actions = dict(i for i in self.__dict__.items() if not i[0].startswith('_'))
         self.storeDefaults()
         self.load(False) # load the shortcuts without resettings defaults
+        # N.B. This relies on the ActionCollection's QActions not getting
+        # deleted in C++ other than through being garbage-collected in Python.
         app.translateUI(self)
 
     def createActions(self, parent=None):
@@ -358,5 +360,3 @@ class ShortcutCollection(ActionCollectionBase):
                 self.others[self.name].remove(ref)
             elif other is not self:
                 other.load()
-
-
