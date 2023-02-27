@@ -263,14 +263,20 @@ class MainWindow(QMainWindow):
 
     def updateFileActions(self):
         doc = self.currentDocument()
-        ac = self.actionCollection.file_rename
+        ac = self.actionCollection
         if doc:
             if doc.url().isEmpty():
-                ac.setEnabled(False)
+                ac.file_rename.setEnabled(False)
             elif doc.url().toLocalFile():
-                ac.setEnabled(True)
+                ac.file_rename.setEnabled(True)
             else:
-                ac.setEnabled(False)
+                ac.file_rename.setEnabled(False)
+            # Only enable reload if the document maps to a file, not if it's an
+            # "Untitled" document.
+            ac.file_reload.setEnabled(not doc.url().isEmpty())
+            # Only enable reloading all if we have at least one such document.
+            have_saved_document = any(not doc.url().isEmpty() for doc in self.documents())
+            ac.file_reload_all.setEnabled(have_saved_document)
 
     def updateDocActions(self):
         doc = self.currentDocument()
@@ -690,6 +696,7 @@ class MainWindow(QMainWindow):
 
         """
         d = self.currentDocument()
+        assert not d.url().isEmpty() # otherwise the button should have been disabled
         try:
             d.load(keepUndo=True)
         except IOError as e:
@@ -704,6 +711,9 @@ class MainWindow(QMainWindow):
         """Reloads all documents."""
         failures = []
         for d in self.historyManager.documents():
+            if d.url().isEmpty():
+                # ignore documents that were never saved (e.g. "Untitled")
+                continue
             try:
                 d.load(keepUndo=True)
             except IOError as e:
