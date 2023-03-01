@@ -91,7 +91,7 @@ class LogTool(preferences.Group):
         self.showlog.setText(_("Show log when a job is started"))
         self.rawview.setText(_("Display plain log output"))
         self.rawview.setToolTip(_(
-            "If checked, Frescobaldi will not shorten filenames in the log output."""))
+            "If checked, Frescobaldi will not shorten filenames in the log output."))
         self.hideauto.setText(_("Hide automatic engraving jobs"))
         self.hideauto.setToolTip(_(
             "If checked, Frescobaldi will not show the log for automatically\n"
@@ -312,5 +312,3 @@ def is_regex(text):
     except re.error:
         return False
     return True
-
-

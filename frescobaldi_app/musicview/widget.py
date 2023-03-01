@@ -276,4 +276,3 @@ class MusicView(QWidget):
                 cursor = self._links.cursor(link, True)
         from . import contextmenu
         contextmenu.show(pos, self.parent(), link, cursor)
-
