@@ -236,7 +236,7 @@ echo Building the DMG disk image with appdmg.
 echo
 DMGNAME=Frescobaldi-${VERSION}-${APPARCH}.dmg
 sed -e '/INSTALL/d' ../README.md > README.txt
-cp ../ChangeLog ChangeLog.txt
+cp ../CHANGELOG.md CHANGELOG.txt
 cp ../COPYING COPYING.txt
 appdmg --quiet appdmg/appdmg.json dist/${DMGNAME}
 APPDMG_EXITSTATUS=$?
@@ -247,7 +247,7 @@ fi
 cd dist
 openssl sha256 ${DMGNAME} > ${DMGNAME}.sha256
 cd ..
-rm {README,ChangeLog,COPYING}.txt
+rm {README,CHANGELOG,COPYING}.txt
 
 if [[ "${APPDMG_EXITSTATUS}" == 0 ]]
 then
