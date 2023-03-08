@@ -258,6 +258,6 @@ New release checklist
 
 Checklist before uploading a new release:
 
-- Update the ChangeLog.
+- Update CHANGELOG.md.
 - Add the new release tag in linux/org.frescobaldi.Frescobaldi.metainfo.xml.in.
 

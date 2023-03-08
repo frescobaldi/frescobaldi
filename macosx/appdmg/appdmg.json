@@ -6,7 +6,7 @@
     { "x": 449, "y": 320, "type": "link", "path": "/Applications"},
     { "x": 188, "y": 320, "type": "file", "path": "../dist/Frescobaldi.app"},
     { "x": 100, "y": 70, "type": "file", "path": "../README.txt" },
-    { "x": 100, "y": 185, "type": "file", "path": "../ChangeLog.txt" },
+    { "x": 100, "y": 185, "type": "file", "path": "../CHANGELOG.txt" },
     { "x": 540, "y": 70, "type": "file", "path": "../COPYING.txt" }
   ]
 }
