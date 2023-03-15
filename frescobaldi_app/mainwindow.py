@@ -263,14 +263,20 @@ class MainWindow(QMainWindow):
 
     def updateFileActions(self):
         doc = self.currentDocument()
-        ac = self.actionCollection.file_rename
+        ac = self.actionCollection
         if doc:
             if doc.url().isEmpty():
-                ac.setEnabled(False)
+                ac.file_rename.setEnabled(False)
             elif doc.url().toLocalFile():
-                ac.setEnabled(True)
+                ac.file_rename.setEnabled(True)
             else:
-                ac.setEnabled(False)
+                ac.file_rename.setEnabled(False)
+            # Only enable reload if the document maps to a file, not if it's an
+            # "Untitled" document.
+            ac.file_reload.setEnabled(not doc.url().isEmpty())
+            # Only enable reloading all if we have at least one such document.
+            have_saved_document = any(not doc.url().isEmpty() for doc in self.documents())
+            ac.file_reload_all.setEnabled(have_saved_document)
 
     def updateDocActions(self):
         doc = self.currentDocument()
@@ -690,6 +696,7 @@ class MainWindow(QMainWindow):
 
         """
         d = self.currentDocument()
+        assert not d.url().isEmpty() # otherwise the button should have been disabled
         try:
             d.load(keepUndo=True)
         except IOError as e:
@@ -704,6 +711,9 @@ class MainWindow(QMainWindow):
         """Reloads all documents."""
         failures = []
         for d in self.historyManager.documents():
+            if d.url().isEmpty():
+                # ignore documents that were never saved (e.g. "Untitled")
+                continue
             try:
                 d.load(keepUndo=True)
             except IOError as e:
@@ -975,9 +985,7 @@ class MainWindow(QMainWindow):
         line_count = self.currentDocument().blockCount()
         view = self.currentView()
         cur = view.textCursor()
-        current_block = cur.block()
-        current_line = current_block.firstLineNumber()
-        char_pos = cur.position() - current_block.position()
+        current_line = cur.blockNumber() + 1
         loc_pos = view.cursorRect(cur).bottomLeft()
         pos = view.viewport().mapToGlobal(loc_pos)
 
@@ -992,14 +1000,13 @@ class MainWindow(QMainWindow):
         dlg_result = dlg.exec()
         if dlg_result:
             line = dlg.intValue()
-            cur = QTextCursor(self.currentDocument().findBlockByNumber(line - 1))
-            new_block = cur.block()
-            if new_block.length() > char_pos:
-                cur.setPosition(cur.position() + char_pos)
-            else:
-                cur.setPosition(cur.position() + new_block.length() - 1)
-            view.setTextCursor(cur)
-            view.centerCursor()
+            if line != current_line:
+                cur = QTextCursor(self.currentDocument().findBlockByNumber(line - 1))
+                line_text = cur.block().text()
+                indent = len(line_text) - len(line_text.lstrip(' \t'))
+                cur.movePosition(QTextCursor.NextCharacter, QTextCursor.MoveAnchor, indent)
+                view.setTextCursor(cur)
+                view.centerCursor()
 
     def selectFullLinesUp(self):
         """Select lines upwards, selecting full lines."""

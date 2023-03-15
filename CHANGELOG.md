@@ -1,160 +1,213 @@
-ChangeLog of Frescobaldi, http://www.frescobaldi.org/
-=====================================================
+<!-- Please follow this spec: https://keepachangelog.com/
+[X.Y.Z] links to the GitHub list of commits in a tag/release are
+defined at the bottom of this file.
+-->
+# Changelog
+
+All notable changes to the Frescobaldi project are documented in this file.
+
+## [Unreleased]
+
+### Added
+
+- Add option to format on save (#1473)
+- Make all layout control options compatible with LilyPond 2.24 (#1489)
+- Default URLs to browse the documentation of LilyPond stable and unstable (#1538)
+- Updated translations: French, Italian and Japanese
+
+### Fixed
+
+- Linux: display application icon on Wayland (#1478)
+- Fix crash at startup when using Python >=3.11 (#1480)
+- Ignore inactive code in the Outline (#1482)
+- Fix cursor column position (#1517)
+- Small fixes to the behaviour of "Go to line number" (#1523)
+- Improve selection behavior in list of snippets (#1535)
+- Fix error when changing the application language in the preferences (#1540)
+- Linux: fix menus sometimes detached from its parent on Wayland (#1541)
+- Ignore never-saved files when reloading (#1542)
+
+### Changed
+
+- Require Python 3.8 (#1519)
+
+### Removed
+
+- Remove "Display control points" layout option (#1474)
 
 
-Changes in 3.2 -- May 5th, 2022
+## [3.2] - 2022-05-05
 
-* Many small fixes to make Frescobaldi work with Python 3.10, where no floating
-  point values may be given to functions that require an integer argument.
-* New preference feature: music view preference for "Strict Paging": when
+### Added
+
+- New preference feature: music view preference for "Strict Paging": when
   enabled, the pageup/pagedown keys always page to the previous or next page
   instead of simply scrolling a screenful.
-* Improvements to the Score Wizard, contributed by Benjamin Johnson (#1343):
+- Improvements to the Score Wizard, contributed by Benjamin Johnson (#1343):
   - Various new instruments, mostly guitar, synth and bass related
   - New command File->New->Score Wizard from current document, which reads some
     properties and score setup from the current document.
-* Dependencies change:
-  - the qpageview module, thus far in frescobaldi_app/qpageview, is now,
-    because of its generic nature, a separate project at
-    http://github.com/frescobaldi/qpageview . This package needs to be
-    installed for Frescobaldi to work; it is used by the Music View and other
-    viewers inside Frescobaldi. Because of this, be sure to remove Frescobaldi
-    completely and then install qpageview and Frescobaldi, otherwise it still
-    finds the old qpageview inside the frescobaldi_app folder.
-* Bug fixes:
-  - Fixed a crash when a main window was closed (often on Mac OS X) (#1427)
-* Translations:
+- Translations:
   - some missing strings from Qt dialogs were added (WB, #1224)
   - new Japanese translation by Jun Tamura, thanks!
-  - updated Dutch translation by Wilbert Berendsen
-  - updated Italian translation by Federico Bruni
-  - updated Russian translation by Olesya Gerasimenko
+  - updates: Dutch, Italian and Russian
+
+### Fixed
+
+- Many small fixes to make Frescobaldi work with Python 3.10, where no floating
+  point values may be given to functions that require an integer argument.
+- Fixed a crash when a main window was closed (often on Mac OS X) (#1427)
+
+### Changed
+
+- the qpageview module, thus far in frescobaldi_app/qpageview, is now,
+  because of its generic nature, a separate project at
+  http://github.com/frescobaldi/qpageview . This package needs to be
+  installed for Frescobaldi to work; it is used by the Music View and other
+  viewers inside Frescobaldi. Because of this, be sure to remove Frescobaldi
+  completely and then install qpageview and Frescobaldi, otherwise it still
+  finds the old qpageview inside the frescobaldi_app folder.
 
 
-Changes in 3.1.3 -- Christmas 2020
+## [3.1.3] - 2020-12-26
 
-* New features:
-  - new Clear music view button and menu action (wish #1235)
-* Bug fixes:
-  - fixed #1311 "NameError: name 'imp' is not defined" when importing
-  - fixed search of generated files on macOS for some Unicode file names
-  - fixed selection of Python on macOS:
-    - select the system Python 2 or 3 according to LilyPond's version
-    - support MacPorts' LilyPond tools
-    - add option to allow forcing the use of the tools' #! lines
-      (useful for self-compiled or other nonstandard LilyPond installations)
-  - fixed #1305 Ghostscript error on Mac with MacPorts' LilyPond 2.21.x
-* Translations:
-  - updated nl translation by Wilbert Berendsen
-  - updated ru translation by Olesya Gerasimenko
-  - updated cs translation by Pavel Fric
+### Added
 
+- new Clear music view button and menu action (wish #1235)
+- Translation updates: Dutch, Russian, Czech.
 
-Changes in 3.1.2 -- Easter 2020
+### Fixed
 
-* Bug fixes:
-  - fixed #1255, AttributeError: 'NoneType' object has no attribute 'cursor'
-  - fixed "Two Pages (first page right)" for both modes, other should be "left"
-  - fixed pinch gesture zoom in music view on Mac
-  - fixed #30, Printing score under Mac OS X
-  - fixed #860, OSX: Frescobaldi overrides critical cursor navigation keyboard shortcuts;
-    new shortcuts:
-    - next document: ctrl+tab
-    - previous document: ctrl+shift+tab
-    - start of line: cmd+left
-    - end of line: cmd+right
-  - fixed #1087, File names in document tabs are not shown correctly on Mac
-  - fixed #1272, Global menu with no windows on Mac is not working
-  - fixed #1232, Error using convert-ly in Frescobaldi 3.1 Mac app
-* Improvements:
-  - add DE hyphen patterns and copyright info (#1275)
-* Translations:
-  - Userguide now has its own PO files in i18n/userguide, and the Frescobaldi
-    application itself has the PO files in i18n/frescobaldi, see README-
-    translations.
-  - updated nl translation by Wilbert Berendsen
-  - updated Italian translation by Davide Liessi
+- fixed #1311 "NameError: name 'imp' is not defined" when importing
+- fixed search of generated files on macOS for some Unicode file names
+- fixed selection of Python on macOS:
+  - select the system Python 2 or 3 according to LilyPond's version
+  - support MacPorts' LilyPond tools
+  - add option to allow forcing the use of the tools' #! lines
+    (useful for self-compiled or other nonstandard LilyPond installations)
+- fixed #1305 Ghostscript error on Mac with MacPorts' LilyPond 2.21.x
 
 
-Changes in 3.1.1 -- January 4th, 2020
 
-* Bug fixes:
-  - fixed #1242, AttributeError: 'PopplerDocument' has no attribute 'ispresent'
-  - fixed #1234, NameError: 'QPinchGesture' is not defined (pinch in music view)
-  - fixed #1231, NameError: 'doc' is not defined (when printing on Mac OSX)
+## [3.1.2] - 2020-04-13
 
+### Added
 
-Changes in 3.1 -- December 27th, 2019
+- add DE hyphen patterns and copyright info (#1275)
+- updated translations: Dutch, Italian
 
-* Requirement changes:
-  - Frescobaldi now requires Python3.3+
-* New features:
-  - New "Document Fonts" dialog supporting text and music fonts
-    and providing a font sample previewer
-  - Possibility to load external extensions
-  - New "First System Only" option in Custom Engrave
-  - Goto Line command (#927, feature request #676)
-  - Rename file command (#1057, feature request #980)
-  - Music view:
-    - Copy to Image can copy/export to SVG, PDF and EPS in addtion to PNG/JPG
-    - New toolbar button to show/hide the magnifier
-    - New preference Horizontal / Vertical
-    - New preference Continuous / non-continuous (displays only current page(s))
-    - New commands to rotate left / right
-    - New raster layout mode (displays as many pages as fit in a View)
-    - View settings are remembered per-document
-  - Manuscript viewer:
-    - Toolbar buttons to rotate the pages left / right
-    - New toolbar button to show/hide the magnifier
-* Bug fixes:
-  - fixed #895 seeking in MIDI player during playing stops sound
-  - fixed #768, now paper orientation is properly handled in New Score Wizard
-  - fixed #705, discrepancy of LilyPond vs. system version of GhostScript
-    on Linux (#926)
-  - fixed #1094, includepaths on Windows (#1095)
-  - fixed #1121, NameError: name 'widgets' is not defined
-* Improvements:
-  - Score Wizard: Titles and Headers are shown in preview (#1216)
-  - Score Wizard: checkbox to write/omit pitches after \relative command
-  - Score Wizard: allow "none" for instrument names on first system (#1141)
-  - Smarter behaviour of the autocompletion popup (#918, #922)
-  - New command File->Rename/Move... (#980)
-  - Sessions can be grouped in the Sessions menu
-  - Show absolute path of include files in tooltip (#941)
-  - Restructure Tools Menu (#1080)
-  - File Open toolbar button shows recent files menu on long click
-  - Added "Blank Sheet Music" template snippet (#1139)
-* Internals:
-  - Multithreaded Job Queue preparing multicore support (#1103)
-  - Rewrite code handling external processes/jobs (#1100)
-  - Music (pre)views could previously only display PDF documents; this has been
-    rewritten so that many more formats can be displayed like SVG and images,
-    which will open up new possibilities for the music view and the manuscript
-    viewer (#1202)
-  - The SVG view and the LilyPond documentation browser now use QtWebEngine
-    instead of the deprecated QtWebKit
-* Translations:
-  - Userguide now has its own PO files. PO files for userguide and Frescobaldi
-    both are in 'i18n/xx_CC' directories, see README-translations
-  - updated nl translation by Wilbert Berendsen
-  - updated Italian translation by Federico Bruni
+### Fixed
+
+- fixed #1255, AttributeError: 'NoneType' object has no attribute 'cursor'
+- fixed "Two Pages (first page right)" for both modes, other should be "left"
+- fixed pinch gesture zoom in music view on Mac
+- fixed #30, Printing score under Mac OS X
+- fixed #860, OSX: Frescobaldi overrides critical cursor navigation keyboard shortcuts;
+  new shortcuts:
+  - next document: ctrl+tab
+  - previous document: ctrl+shift+tab
+  - start of line: cmd+left
+  - end of line: cmd+right
+- fixed #1087, File names in document tabs are not shown correctly on Mac
+- fixed #1272, Global menu with no windows on Mac is not working
+- fixed #1232, Error using convert-ly in Frescobaldi 3.1 Mac app
+
+### Changed
+
+- The userguide now has its own PO files in i18n/userguide, and the
+Frescobaldi application itself has the PO files in i18n/frescobaldi, see
+README-translations.
 
 
-Changes in 3.0.0 -- February 17th, 2017
+## [3.1.1] - 2020-01-04
 
-* Requirement changes:
-  - Frescobaldi now requires Python3.2+, Qt5, PyQt5, python-poppler-qt5
+### Fixed
 
-* New features:
-  - Zoom with pinch gesture in Music View, contributed by David Rydh
-  - An option (enabled by default) to move the cursor to the end of the line
-    when PageDown is pressed on the last line, and to move the cursor to the
-    start of the first line if PageUp is pressed on the first line
-* Improvements:
-  - Retina display support in Music View, contributed by David Rydh
+- fixed #1242, AttributeError: 'PopplerDocument' has no attribute 'ispresent'
+- fixed #1234, NameError: 'QPinchGesture' is not defined (pinch in music view)
+- fixed #1231, NameError: 'doc' is not defined (when printing on Mac OSX)
 
 
-Changes in 2.20.0 -- February 17th, 2017
+## [3.1] - 2019-12-27
+
+### Changed
+
+- Frescobaldi now requires Python3.3+
+- Userguide now has its own PO files. PO files for userguide and Frescobaldi
+  both are in 'i18n/xx_CC' directories, see README-translations
+
+### Added
+
+- New "Document Fonts" dialog supporting text and music fonts
+  and providing a font sample previewer
+- Possibility to load external extensions
+- New "First System Only" option in Custom Engrave
+- Goto Line command (#927, feature request #676)
+- Rename file command (#1057, feature request #980)
+- Music view:
+  - Copy to Image can copy/export to SVG, PDF and EPS in addtion to PNG/JPG
+  - New toolbar button to show/hide the magnifier
+  - New preference Horizontal / Vertical
+  - New preference Continuous / non-continuous (displays only current page(s))
+  - New commands to rotate left / right
+  - New raster layout mode (displays as many pages as fit in a View)
+  - View settings are remembered per-document
+- Manuscript viewer:
+  - Toolbar buttons to rotate the pages left / right
+  - New toolbar button to show/hide the magnifier
+- Translations: updated Dutch and Italian
+
+### Fixed
+
+- fixed #895 seeking in MIDI player during playing stops sound
+- fixed #768, now paper orientation is properly handled in New Score Wizard
+- fixed #705, discrepancy of LilyPond vs. system version of GhostScript
+  on Linux (#926)
+- fixed #1094, includepaths on Windows (#1095)
+- fixed #1121, NameError: name 'widgets' is not defined
+
+### Improvements
+
+- Score Wizard: Titles and Headers are shown in preview (#1216)
+- Score Wizard: checkbox to write/omit pitches after \relative command
+- Score Wizard: allow "none" for instrument names on first system (#1141)
+- Smarter behaviour of the autocompletion popup (#918, #922)
+- New command File->Rename/Move... (#980)
+- Sessions can be grouped in the Sessions menu
+- Show absolute path of include files in tooltip (#941)
+- Restructure Tools Menu (#1080)
+- File Open toolbar button shows recent files menu on long click
+- Added "Blank Sheet Music" template snippet (#1139)
+
+### Internals
+
+- Multithreaded Job Queue preparing multicore support (#1103)
+- Rewrite code handling external processes/jobs (#1100)
+- Music (pre)views could previously only display PDF documents; this has been
+  rewritten so that many more formats can be displayed like SVG and images,
+  which will open up new possibilities for the music view and the manuscript
+  viewer (#1202)
+- The SVG view and the LilyPond documentation browser now use QtWebEngine
+  instead of the deprecated QtWebKit
+
+
+## [3.0.0] - 2017-02-17
+
+### Added
+
+- Zoom with pinch gesture in Music View, contributed by David Rydh
+- An option (enabled by default) to move the cursor to the end of the line
+  when PageDown is pressed on the last line, and to move the cursor to the
+  start of the first line if PageUp is pressed on the first line
+- Retina display support in Music View, contributed by David Rydh
+
+### Changed
+
+- Frescobaldi now requires Python3.2+, Qt5, PyQt5, python-poppler-qt5
+
+<!-- 2.x.y releases (using old ChangeLog format) -->
+
+## 2.20.0 -- February 17th, 2017
 
 * New features:
   - New Manuscript viewer tool, displaying an "engraver's copy",
@@ -187,7 +240,7 @@ Changes in 2.20.0 -- February 17th, 2017
   - updated Czech by Pavel Fric
 
 
-Changes in 2.19.0 -- April 22nd, 2016
+## 2.19.0 -- April 22nd, 2016
 
 * Requirement changes:
   - Frescobaldi now requires python-ly 0.9.4
@@ -237,7 +290,7 @@ Changes in 2.19.0 -- April 22nd, 2016
   - updated: Dutch, Italian
 
 
-Changes in 2.18.2 -- December 26th, 2015
+## 2.18.2 -- December 26th, 2015
 
 * Requirement changes:
   - Frescobaldi now requires python-ly 0.9.3
@@ -255,7 +308,7 @@ Changes in 2.18.2 -- December 26th, 2015
   - updated: Dutch, French, Italian, Ukrainian
 
 
-Changes in 2.18.1 -- May 24th, 2015
+## 2.18.1 -- May 24th, 2015
 
 * New feature:
   - New command line option -V, showing version information of all supporting
@@ -281,7 +334,7 @@ Changes in 2.18.1 -- May 24th, 2015
   - updated: Dutch, Czech, Ukrainian, Chinese Simplified
 
 
-Changes in 2.18 -- March 7th, 2015
+## 2.18 -- March 7th, 2015
 
 * Important notes about installing and for packagers/distributors:
   - Frescobaldi is now dependent on the package 'python-ly'. This package
@@ -346,7 +399,7 @@ Changes in 2.18 -- March 7th, 2015
   - updated: nl, fr, ru, it
 
 
-Changes in 2.17.2 -- January 17th, 2015
+## 2.17.2 -- January 17th, 2015
 
 * Bugfixes:
   - fix AttributeError: 'unicode' object has no attribute 'insert' (issue #543)
@@ -354,13 +407,13 @@ Changes in 2.17.2 -- January 17th, 2015
   - updated: nl, fr, it
 
 
-Changes in 2.17.1 -- December 26th, 2014
+## 2.17.1 -- December 26th, 2014
 
 * Bugfix:
   - on quit, respect cancel (issue #531)
 
 
-Changes in 2.17 -- December 26th, 2014
+## 2.17 -- December 26th, 2014
 
 * New features:
   - Preference for the number of contextual lines to show at least, when the
@@ -410,7 +463,7 @@ Changes in 2.17 -- December 26th, 2014
   - new (partial): Chinese Traditional, Simplified and Hong Kong by Anthony Fok
 
 
-Changes in 2.0.16 -- June 9th, 2014
+## 2.0.16 -- June 9th, 2014
 
 * Translations:
   - updated: nl, fr, it
@@ -449,7 +502,7 @@ Changes in 2.0.16 -- June 9th, 2014
   - fix UnicodeDecodeError in lilypondinfo datadir method
 
 
-Changes in 2.0.15 -- March 11th, 2014
+## 2.0.15 -- March 11th, 2014
 
 * Translations:
   - updated: nl, fr
@@ -465,7 +518,7 @@ Changes in 2.0.15 -- March 11th, 2014
   - fix IndexError when typing 'variable ='
 
 
-Changes in 2.0.14 -- March 7th, 2014
+## 2.0.14 -- March 7th, 2014
 
 * Translations:
   - updated: nl, fr
@@ -520,7 +573,7 @@ Changes in 2.0.14 -- March 7th, 2014
     but it needs more testing and robustness before it is usable in Frescobaldi.
 
 
-Changes in 2.0.13 -- December 31st, 2013
+## 2.0.13 -- December 31st, 2013
 
 * Translations:
   - updated: nl, fr
@@ -544,7 +597,7 @@ Changes in 2.0.13 -- December 31st, 2013
     (the file was added, but the include files weren't written in the document)
 
 
-Changes in 2.0.12 -- December 26th, 2013
+## 2.0.12 -- December 26th, 2013
 
 * Translations:
   - updated: cs, nl, fr, es
@@ -593,7 +646,7 @@ Changes in 2.0.12 -- December 26th, 2013
     a document.
 
 
-Changes in 2.0.11 -- October 16th, 2013
+## 2.0.11 -- October 16th, 2013
 
 * Translations:
   - updated: cs, nl, fr, es
@@ -631,7 +684,7 @@ Changes in 2.0.11 -- October 16th, 2013
     path (happens when using e.g. \include "../blabla.ly") now works.
 
 
-Changes in 2.0.10 -- May 12th, 2013
+## 2.0.10 -- May 12th, 2013
 
 * Translations:
   - updated: nl, de, fr, cs, es, it
@@ -648,7 +701,7 @@ Changes in 2.0.10 -- May 12th, 2013
   - fix #143: don't count tremolo repeat as a duration
 
 
-Changes in 2.0.9 -- March 23rd, 2013
+## 2.0.9 -- March 23rd, 2013
 
 * Translations:
   - updated: nl, de, uk
@@ -694,7 +747,7 @@ Changes in 2.0.9 -- March 23rd, 2013
     engraved which didn't have yet the PDF displayed
 
 
-Changes in 2.0.8 -- September 14th, 2012
+## 2.0.8 -- September 14th, 2012
 
 * Translations:
   - updated: ru, cs
@@ -707,7 +760,7 @@ Changes in 2.0.8 -- September 14th, 2012
   - fix behaviour of 'output' variable
 
 
-Changes in 2.0.7 -- August 16th, 2012
+## 2.0.7 -- August 16th, 2012
 
 * Translations:
   - updated: nl, cs, it, fr, es
@@ -726,7 +779,7 @@ Changes in 2.0.7 -- August 16th, 2012
     is shown
 
 
-Changes in 2.0.6 -- April 30th, 2012
+## 2.0.6 -- April 30th, 2012
 
 * Translations:
   - New Ukrainian translation by Dmytro O. Redchuk
@@ -738,7 +791,7 @@ Changes in 2.0.6 -- April 30th, 2012
   - fix TypeError on opening LilyPond documentation in some cases on Mac OS X
 
 
-Changes in 2.0.5 -- April 25th, 2012
+## 2.0.5 -- April 25th, 2012
 
 * Translations:
   - updated: fr, nl, es
@@ -779,7 +832,7 @@ Changes in 2.0.5 -- April 25th, 2012
   - The CC-licensed zoom-{in,out} icons are now replaced with GPLled ones
 
 
-Changes in 2.0.4 -- March 7th, 2012
+## 2.0.4 -- March 7th, 2012
 
 * Translations:
   - updated: pl, nl, cs
@@ -803,7 +856,7 @@ Changes in 2.0.4 -- March 7th, 2012
   - fixed memory leak (closed documents that had been shown remained in memory)
 
 
-Changes in 2.0.3 -- February 17th, 2012
+## 2.0.3 -- February 17th, 2012
 
 * Translations:
   - New translation: Brazillian, by Édio Mazera, thanks!
@@ -828,7 +881,7 @@ Changes in 2.0.3 -- February 17th, 2012
     instead make Frescobaldi depend on the tango-icon-theme package.
 
 
-Changes in 2.0.2 -- January 16th, 2012
+## 2.0.2 -- January 16th, 2012
 
 * New features:
   - optionally run LilyPond with English (untranslated) messages
@@ -848,7 +901,7 @@ Changes in 2.0.2 -- January 16th, 2012
   - PDF now correctly updates when "Save document on compile" is enabled
 
 
-Changes in 2.0.1 -- January 8th, 2012
+## 2.0.1 -- January 8th, 2012
 
 * Updated translations: cs, de
 * Bug fixes:
@@ -859,7 +912,7 @@ Changes in 2.0.1 -- January 8th, 2012
   - new self-contained installer for MS Windows
 
 
-Changes in 2.0.0 -- December 26th, 2011
+## 2.0.0 -- December 26th, 2011
 
 * Updated translations: fr, nl, es, it, cs
 * Bug fixes:
@@ -873,7 +926,7 @@ Changes in 2.0.0 -- December 26th, 2011
   - the tab bar can be hidden via the main window context menu
 
 
-Changes in 1.9.5 -- December 20th, 2011
+## 1.9.5 -- December 20th, 2011
 
 * Updated translations: es, nl, cs
 * Bug fixes:
@@ -892,7 +945,7 @@ Changes in 1.9.5 -- December 20th, 2011
   - other small cosmetic improvements
 
 
-Changes in 1.9.4 -- December 5th, 2011
+## 1.9.4 -- December 5th, 2011
 
 * Updated translations: es, fr, nl
 * New features:
@@ -902,7 +955,7 @@ Changes in 1.9.4 -- December 5th, 2011
   - fix crash on 64bit Linux and Windows introduced in 1.9.3
 
 
-Changes in 1.9.3 -- December 1st, 2011
+## 1.9.3 -- December 1st, 2011
 
 * LilyPond Documentation browser:
   - multiple versions of LilyPond documentation can be browsed, local and remote
@@ -922,7 +975,7 @@ Changes in 1.9.3 -- December 1st, 2011
   - don't show the log if the user aborted a job
 
 
-Changes in 1.9.2 -- November 11th, 2011
+## 1.9.2 -- November 11th, 2011
 
 * Translation updates: es, nl
 * New features:
@@ -933,7 +986,7 @@ Changes in 1.9.2 -- November 11th, 2011
   - Import and export of snippets.
 
 
-Changes in 1.9.1 -- October 11th, 2011
+## 1.9.1 -- October 11th, 2011
 
 * Translation updates
 * Help in much more dialogs
@@ -957,14 +1010,14 @@ Changes in 1.9.1 -- October 11th, 2011
   - fix error message on saving settings if no LilyPond was installed
 
 
-Changes in 1.9.0 -- September 27th, 2011
+## 1.9.0 -- September 27th, 2011
 
 * Full rewrite, not depending on KDE4 libraries any more
 * Much more modular internal design, easier to add features
 * All translations imported
 
 
-Changes in 1.2.1 --
+## 1.2.1 --
 
 * Fixes:
   - Correct spacing alist names in LilyPond 2.14 in blank paper tool
@@ -974,7 +1027,7 @@ Changes in 1.2.1 --
   - Italian updated by Gianluca D'Orazio
 
 
-Changes in 1.2.0 -- December 26th, 2010
+## 1.2.0 -- December 26th, 2010
 
 * Translations:
   - Dutch updated by Wilbert Berendsen
@@ -986,7 +1039,7 @@ Changes in 1.2.0 -- December 26th, 2010
   - Polish updated by Piotr Komorowski
 
 
-Changes in 1.1.8 -- November 9th, 2010
+## 1.1.8 -- November 9th, 2010
 
 * All pitch name related functions (detection and translation) support
   the new \language LilyPond command (as of LilyPond 2.13.38).
@@ -1000,7 +1053,7 @@ Changes in 1.1.8 -- November 9th, 2010
   - French updated by Valentin Villenave
 
 
-Changes in 1.1.7 -- October 4th, 2010
+## 1.1.7 -- October 4th, 2010
 
 * New features:
   - New tool to download LilyPond binary releases. Go to Settings -> Configure
@@ -1024,7 +1077,7 @@ Changes in 1.1.7 -- October 4th, 2010
   - Turkish updated by Server Acim
 
 
-Changes in 1.1.6 -- September 10th, 2010
+## 1.1.6 -- September 10th, 2010
 
 * New features:
   - New built-in MIDI player using the KMidPart of KMid 2.4.0 or higher
@@ -1042,7 +1095,7 @@ Changes in 1.1.6 -- September 10th, 2010
   - make uninstall now possible
 
 
-Changes in 1.1.5 -- August 16th, 2010
+## 1.1.5 -- August 16th, 2010
 
 * Bugfixes and improvements:
   - Work-around a crash introduced in KDE 4.5 when using the --smart option
@@ -1056,13 +1109,13 @@ Changes in 1.1.5 -- August 16th, 2010
   - Turkish updated by Server Acim
 
 
-Changes in 1.1.4 -- July 28th, 2010
+## 1.1.4 -- July 28th, 2010
 
 * Bugfixes:
   - Fix Point and Click when running from 'run' script
 
 
-Changes in 1.1.3 -- July 25th, 2010
+## 1.1.3 -- July 25th, 2010
 
 * General:
   - Tabs can be reordered (can be turned off)
@@ -1092,7 +1145,7 @@ Changes in 1.1.3 -- July 25th, 2010
   - Turkish updated by Server Acim
 
 
-Changes in 1.1.2 -- July 8th, 2010
+## 1.1.2 -- July 8th, 2010
 
 * New features:
   - Segno bar line added (available in LilyPond 2.13.19 and higher)
@@ -1124,7 +1177,7 @@ Changes in 1.1.2 -- July 8th, 2010
   - Italian updated by Gianluca D'Orazio
 
 
-Changes in 1.1.1 -- May 3rd, 2010
+## 1.1.1 -- May 3rd, 2010
 
 * LilyPond Documentation Browser:
   - Indexing help items fixed with new website (2.13+)
@@ -1134,7 +1187,7 @@ Changes in 1.1.1 -- May 3rd, 2010
   - Turkish updated by Server Acim
 
 
-Changes in 1.1.0 -- March 26th, 2010
+## 1.1.0 -- March 26th, 2010
 
 * It is now possible to use multiple versions of LilyPond easily from within
   Frescobaldi. LilyPond instances can be configured under Settings, Paths.
@@ -1173,12 +1226,12 @@ Changes in 1.1.0 -- March 26th, 2010
 * Some workarounds for subtle SIP 4.10/KDE 4.4 garbage collection bugs
 
 
-Changes in 1.0.2 -- February 18th, 2010
+## 1.0.2 -- February 18th, 2010
 
 * Make Frescobaldi working with SIP 4.10 and KDE 4.4
 
 
-Changes in 1.0.1 -- January 17th, 2010
+## 1.0.1 -- January 17th, 2010
 
 * Translations:
   - New Galician translation by Manuel A. Vázquez
@@ -1190,7 +1243,7 @@ Changes in 1.0.1 -- January 17th, 2010
   - Some corrections in the default expansions of the Expansion Manager
 
 
-Changes in 1.0.0 -- December 26th, 2009
+## 1.0.0 -- December 26th, 2009
 
 * Editor:
   - Right-click menu action on \include command now opens the named file from
@@ -1241,7 +1294,7 @@ Changes in 1.0.0 -- December 26th, 2009
   - German updated by Georg Hennig
 
 
-Changes in 0.7.17 -- November 29th, 2009
+## 0.7.17 -- November 29th, 2009
 
 * Expansion Dialog:
   - It is now possible to assign keyboard shortcuts to snippets in the dialog
@@ -1277,7 +1330,7 @@ Changes in 0.7.17 -- November 29th, 2009
   - French updated by Ryan Kavanagh
 
 
-Changes in 0.7.16 -- November 15th, 2009
+## 0.7.16 -- November 15th, 2009
 
 * New command to transpose music
 * New commands for conversion between relative and absolute pitches
@@ -1291,7 +1344,7 @@ Changes in 0.7.16 -- November 15th, 2009
   - Spanish updated by Francisco Vila
 
 
-Changes in 0.7.15 -- October 13th, 2009
+## 0.7.15 -- October 13th, 2009
 
 * New LilyPond documentation browser providing context-sensitive help
 * New shortcuts:
@@ -1325,7 +1378,7 @@ Changes in 0.7.15 -- October 13th, 2009
   - Dutch updated by Wilbert Berendsen
 
 
-Changes in 0.7.14 -- September 12th, 2009
+## 0.7.14 -- September 12th, 2009
 
 * Log shows elapsed time after successful LilyPond run
 * Option to run LilyPond with --verbose output
@@ -1336,7 +1389,7 @@ Changes in 0.7.14 -- September 12th, 2009
   - Italian updated by Gianluca D'Orazio
 
 
-Changes in 0.7.13 -- August 9th, 2009
+## 0.7.13 -- August 9th, 2009
 
 * Make Frescobaldi working again in KDE 4.3 due to changes in KDE and PyQt-4.5
 * Translations:
@@ -1344,7 +1397,7 @@ Changes in 0.7.13 -- August 9th, 2009
   - Russian updated by S. Poltavski
 
 
-Changes in 0.7.12 -- July 1st, 2009
+## 0.7.12 -- July 1st, 2009
 
 * It is now possible to run LilyPond on remote documents and documents that have
   not been saved yet. In such cases Frescobaldi internally saves the LilyPond
@@ -1373,12 +1426,12 @@ Changes in 0.7.12 -- July 1st, 2009
   - Dutch updated by self
 
 
-Changes in 0.7.11 -- June 15th, 2009
+## 0.7.11 -- June 15th, 2009
 
 * Stability improvements
 
 
-Changes in 0.7.10 -- June 9th, 2009
+## 0.7.10 -- June 9th, 2009
 
 * Point and click: Shift-click in the PDF preview now selects music from current
   cursor position to new cursor position. So you can select a music fragment by
@@ -1400,7 +1453,7 @@ Changes in 0.7.10 -- June 9th, 2009
   - German translation updated by Georg Hennig (thanks!)
 
 
-Changes in 0.7.9 -- May 23rd, 2009
+## 0.7.9 -- May 23rd, 2009
 
 * Bugfixes:
   - spurious crashes seem to have been gone (by using thread locks on
@@ -1418,7 +1471,7 @@ Changes in 0.7.9 -- May 23rd, 2009
   - Predefined Guitar Fret option for Chord Names (also in Lead Sheet)
 
 
-Changes in 0.7.8 -- March 20th, 2009
+## 0.7.8 -- March 20th, 2009
 
 * New Polish translation by Piotr Komorowski, many thanks!
 * Updated translations: tr
@@ -1435,7 +1488,7 @@ Changes in 0.7.8 -- March 20th, 2009
   * Memory usage improvements (some unused objects were not garbage collected)
 
 
-Changes in 0.7.7 -- March 3rd, 2009
+## 0.7.7 -- March 3rd, 2009
 
 * New comprehensive User Guide in the help menu (F1 key)
 * Context sensitive Help buttons in most dialogs
@@ -1454,7 +1507,7 @@ Changes in 0.7.7 -- March 3rd, 2009
   * Avoid double entries in score wizard instrument name language combobox
 
 
-Changes in 0.7.6 -- February 21st, 2009
+## 0.7.6 -- February 21st, 2009
 
 * New context sensitive autocompletion feature, supporting:
   * general lilypond commands and markup commands (inside markup)
@@ -1464,7 +1517,7 @@ Changes in 0.7.6 -- February 21st, 2009
   * some often used scheme function names
 
 
-Changes in 0.7.5 -- February 12th, 2009
+## 0.7.5 -- February 12th, 2009
 
 * Translations updated: fr, it, nl
 * Frescobaldi now can be installed to non-standard install directories
@@ -1480,7 +1533,7 @@ Changes in 0.7.5 -- February 12th, 2009
     insertion points
 
 
-Changes in 0.7.4 -- January 31st, 2009
+## 0.7.4 -- January 31st, 2009
 
 * Translations updated: es, tr, it, nl
 * Auto-configures Okular in KDE 4.2 to enable point-and-click
@@ -1491,7 +1544,7 @@ Changes in 0.7.4 -- January 31st, 2009
 * Some Rumor bugs fixed
 
 
-Changes in 0.7.3 -- January 22nd, 2009
+## 0.7.3 -- January 22nd, 2009
 
 * Score Wizard: new "Try" button that shows score example
 * New rhythm menu actions to copy and paste rhythms
@@ -1508,7 +1561,7 @@ Changes in 0.7.3 -- January 22nd, 2009
   * Release tarballs now have prebuilt icons and translations
 
 
-Changes in 0.7.2 -- January 7th, 2009
+## 0.7.2 -- January 7th, 2009
 
 * New "Run LilyPond" icon (hand drawn in Inkscape, based on the LilyPond XPM)
 * Open Current Folder action
@@ -1519,7 +1572,7 @@ Changes in 0.7.2 -- January 7th, 2009
   * End startup notification if running instance found.
 
 
-Changes in 0.7.1 -- January 3rd, 2009
+## 0.7.1 -- January 3rd, 2009
 
 * Settings dialog
 * Show Path in window title option
@@ -1529,6 +1582,15 @@ Changes in 0.7.1 -- January 3rd, 2009
 * Misc other fixes and improvements
 
 
-Changes in 0.7 -- December 26th, 2008
+## 0.7 -- December 26th, 2008
 
 * Initial release.
+
+[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v3.2...master
+[3.2]: https://github.com/frescobaldi/frescobaldi/compare/v3.1.3...v3.2
+[3.1.3]: https://github.com/frescobaldi/frescobaldi/compare/v3.1.2...v3.1.3
+[3.1.2]: https://github.com/frescobaldi/frescobaldi/compare/v3.1.1...v3.1.2
+[3.1.1]: https://github.com/frescobaldi/frescobaldi/compare/v3.1...v3.1.1
+[3.1]: https://github.com/frescobaldi/frescobaldi/compare/v3.0.0...v3.1
+[3.0.0]: https://github.com/frescobaldi/frescobaldi/compare/v2.20.0...v3.0.0
+

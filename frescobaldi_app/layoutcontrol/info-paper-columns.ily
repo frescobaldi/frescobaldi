@@ -33,6 +33,6 @@
 
 % show information about paper-columns:
 \layout {
-  \override Score.PaperColumn #'stencil = #ly:paper-column::print
-  \override Score.NonMusicalPaperColumn #'stencil = #ly:paper-column::print
+  \override Score.PaperColumn.stencil = #ly:paper-column::print
+  \override Score.NonMusicalPaperColumn.stencil = #ly:paper-column::print
 }

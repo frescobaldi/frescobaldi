@@ -41,7 +41,7 @@ font-setting command is generated.
 = Preview =
 
 On the right side of the dialog a large area is reserved for a (cached) preview
-of various scores using all combinations
+of various scores using all combinations.
 
 #SUBDOCS
 documentfonts_text

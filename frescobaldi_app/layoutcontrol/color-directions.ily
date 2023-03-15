@@ -42,13 +42,10 @@
 }
 
 % Define appearance
-#(cond ((not (defined? 'debug-direction-up-color))
-        (define debug-direction-up-color blue)))
-#(cond ((not (defined? 'debug-direction-down-color))
-        (define debug-direction-down-color blue)))
-#(cond ((not (defined? 'debug-direction-grob-list))
-        (define debug-direction-grob-list 
-          (map car all-grob-descriptions))))
+#(define-default debug-direction-up-color blue)
+#(define-default debug-direction-down-color blue)
+#(define-default debug-direction-grob-list
+   (map car all-grob-descriptions))
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Directions set with ^ and _ %
@@ -65,7 +62,7 @@ colorizeDirection =
               ((1) debug-direction-up-color)
               ((-1) debug-direction-down-color)
               (else '()))))
-  #{ \override $(symbol->string item) #'color = #grob-colorize-dir #})
+  #{ \override $(symbol->string item) .color = #grob-colorize-dir #})
 
 mapGrobList =
 #(define-music-function (parser location)()
@@ -85,72 +82,72 @@ mapGrobList =
 
 dynamicUp = {
   \dynamicUp
-  \override DynamicText #'color = #debug-direction-up-color
-  \override DynamicLineSpanner #'color = #debug-direction-up-color
-  \override DynamicTextSpanner #'color = #debug-direction-up-color
-  \override Hairpin #'color = #debug-direction-up-color
+  \override DynamicText.color = #debug-direction-up-color
+  \override DynamicLineSpanner.color = #debug-direction-up-color
+  \override DynamicTextSpanner.color = #debug-direction-up-color
+  \override Hairpin.color = #debug-direction-up-color
 }
 
 dynamicDown = {
   \dynamicDown
-  \override DynamicText #'color = #debug-direction-down-color
-  \override DynamicLineSpanner #'color = #debug-direction-down-color
-  \override DynamicTextSpanner #'color = #debug-direction-down-color
-  \override Hairpin #'color = #debug-direction-down-color
+  \override DynamicText.color = #debug-direction-down-color
+  \override DynamicLineSpanner.color = #debug-direction-down-color
+  \override DynamicTextSpanner.color = #debug-direction-down-color
+  \override Hairpin.color = #debug-direction-down-color
 }
 
 dynamicNeutral = {
   \dynamicNeutral
-  \revert DynamicText #'color
-  \revert DynamicLineSpanner #'color
-  \revert DynamicTextSpanner #'color
-  \revert Hairpin #'color
+  \revert DynamicText.color
+  \revert DynamicLineSpanner.color
+  \revert DynamicTextSpanner.color
+  \revert Hairpin.color
 }
 
 
 slurUp = {
   \slurUp
-  \override Slur #'color = #debug-direction-up-color
+  \override Slur.color = #debug-direction-up-color
 }
 
 slurDown = {
   \slurDown
-  \override Slur #'color = #debug-direction-down-color
+  \override Slur.color = #debug-direction-down-color
 }
 
 slurNeutral = {
   \slurNeutral
-  \revert Slur #'color
+  \revert Slur.color
 }
 
 phrasingSlurUp = {
   \phrasingSlurUp
-  \override PhrasingSlur #'color = #debug-direction-up-color
+  \override PhrasingSlur.color = #debug-direction-up-color
 }
 
 phrasingSlurDown = {
   \phrasingSlurDown
-  \override PhrasingSlur #'color = #debug-direction-down-color
+  \override PhrasingSlur.color = #debug-direction-down-color
 }
 
 phrasingSlurNeutral = {
   \phrasingSlurNeutral
-  \revert PhrasingSlur #'color
+  \revert PhrasingSlur.color
 }
 
 tieUp = {
   \tieUp
-  \override Tie #'color = #debug-direction-up-color
+  \override Tie.color = #debug-direction-up-color
 }
 
 tieDown = {
   \tieDown
-  \override Tie #'color = #debug-direction-down-color
+  \override Tie.color = #debug-direction-down-color
 }
 
 tieNeutral = {
   \tieNeutral
-  \revert Tie #'color
+  \revert Tie.color
 }
 
 \include "color-voice.ily"

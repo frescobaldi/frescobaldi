@@ -159,6 +159,7 @@ class Widget(QTreeWidget):
 
     def slotItemClicked(self, item):
         """Called when the user clicks an item."""
+        item.setSelected(True)
         cursor = self.cursorForItem(item)
         cursor.movePosition(cursor.StartOfBlock)
         import browseriface

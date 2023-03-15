@@ -21,7 +21,7 @@ of interest:
 * *^*: Beginning of string: *^Lib* will now hide *Linux Libertine*
 * *$*: End of string
 * *\b*: word boundaries: *tu* will show *Century Schoolbook* and *Ubuntu Mono*
-while *tu\b* will suppress the *Century*
+while *tu\b* will suppress the *Century*.
 
 == Selecting Text Fonts ==
 

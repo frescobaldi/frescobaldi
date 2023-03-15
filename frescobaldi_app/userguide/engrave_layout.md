@@ -24,14 +24,14 @@ Color explicit directions
 :   This mode colors items whose directions have been explicitly set with either
     the predefined commands `\xxxUp` etc. or the directional operators
     `^` and `_`.
-    
+
     Please note how this mode and the previous are related:
-    
+
     When the condition for one of the the modes is reverted using `\oneVoice`
     or `\stemNeutral`, colors are reverted to black and will also revert the
     highlighting of the other Layout Control mode with LilyPond versions up
-    to 2.17.5."
-    
+    to 2.17.5.
+
     If the score is engraved with LilyPond version 2.17.6 or later this problem
     isn't present anymore.
 
@@ -39,15 +39,15 @@ Display Grob Anchors
 :   In LilyPond, all graphical objects have an anchor (a reference point).
     What is a reference point?  It's a special point that defines the object's
     position.
-    
+
     Think about geometry: if you have to define where a figure is placed on a
     plane, you'll usually say something like
     "the lower left corner of this square has coordinates (0, 2)" or
     "the center of this circle is at (-1, 3)".
-    
+
     "Lower left corner" and "center" would be the reference points for square
     and circle.
-    
+
     This Mode displays a red dot for each grob's anchor point.
 
 Display Grob Names
@@ -56,10 +56,10 @@ Display Grob Names
     The main purpose of this layout control option is to retrieve information
     about Grob names, which may come in handy if you don't know where to look
     up available properties.
-    
+
     Please note that displaying grob anchors and displaying grob names is
     mutually exclusive because both functions override the grob's stencil.
-    
+
     When both modes are active, only the grob anchors are displayed.
     Please also note that this mode is quite intrusive and may affect the
     layout. It is mainly useful for learning about grob names and will
@@ -84,7 +84,7 @@ Include Custom File
     a custom file. This file will be included at program startup and may contain
     any LilyPond code you would like to have executed whenever you are engraving
     in Layout Control mode.
-    
+
     This file will be parsed before any of the other Layout Control Modes so you
     may use it to configure them.
 

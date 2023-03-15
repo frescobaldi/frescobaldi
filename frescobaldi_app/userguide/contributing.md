@@ -14,7 +14,7 @@ If you want to add functionality you can find information about the source code
 structure in the file `README-development`.
 
 #VARS
-url URL http://github.com/wbsoft/frescobaldi
+url URL http://github.com/frescobaldi/frescobaldi
 
 #SEEALSO
 experimental_features

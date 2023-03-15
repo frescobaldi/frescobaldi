@@ -181,7 +181,7 @@ class Dialog(QDialog):
         if text:
             from_filename = "current"   # TODO: maybe use real filename here
             to_filename = "converted"   # but difflib can choke on non-ascii characters,
-                                        # see https://github.com/wbsoft/frescobaldi/issues/674
+                                        # see https://github.com/frescobaldi/frescobaldi/issues/674
             difflist = list(difflib.unified_diff(
                     self._text.split('\n'), text.split('\n'),
                     from_filename, to_filename))

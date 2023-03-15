@@ -358,14 +358,17 @@ class Widget(QWidget):
             except ValueError:
                 fvar = text[1:].strip()
                 fhide = lambda v: not v.get(fvar)
+        self.treeView.selectionModel().clear()
+        index = None
         for row in range(self.treeView.model().rowCount()):
             name = self.treeView.model().names()[row]
             nameid = snippets.get(name).variables.get('name', '')
             if filterVars:
                 hide = fhide(snippets.get(name).variables)
-            elif nameid == text:
-                i = self.treeView.model().createIndex(row, 0)
-                self.treeView.selectionModel().setCurrentIndex(i, QItemSelectionModel.SelectCurrent | QItemSelectionModel.Rows)
+            elif text and nameid == text:
+                index = self.treeView.model().createIndex(row, 0)
+                self.treeView.selectionModel().setCurrentIndex(
+                    index, QItemSelectionModel.SelectCurrent | QItemSelectionModel.Rows)
                 hide = False
             elif nameid.lower().startswith(ltext):
                 hide = False
@@ -375,6 +378,7 @@ class Widget(QWidget):
                 hide = True
             self.treeView.setRowHidden(row, QModelIndex(), hide)
         self.updateText()
+        self.treeView.scrollTo(index if index else self.treeView.model().createIndex(0,0))
 
     def updateText(self):
         """Called when the current snippet changes."""

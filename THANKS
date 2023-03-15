@@ -2,11 +2,11 @@ Without the help of other people, Frescobaldi would not have been possible.
 
 Thanks go to all the users, contributors and bug reporters of Frescobaldi!
 
-Thanks go to the Python and Qt4 developers for providing excellent tools to
+Thanks go to the Python and Qt developers for providing excellent tools to
 develop Frescobaldi with.
 
 And thanks to the LilyPond developers for creating an amazing music engraver!
 
 See frescobaldi_app/userguide/credits.md for the full list of contributors.
 
-See also https://github.com/wbsoft/frescobaldi/graphs/contributors
+See also https://github.com/frescobaldi/frescobaldi/graphs/contributors

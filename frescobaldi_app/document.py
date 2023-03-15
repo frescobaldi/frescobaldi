@@ -276,3 +276,36 @@ class EditorDocument(AbstractDocument):
         if url != old:
             self.urlChanged(url, old)
             app.documentUrlChanged(self, url, old)
+
+    def cursorAtPosition(self, line, column=None):
+        """Return a new QTextCursor set to the line and column given (each starting at 1).
+
+        This method avoids common pitfalls associated with arbitrarily setting the cursor
+        position via setCursorPosition.
+        - The cursor will be set at a vaid position in a valid block.
+        - Reasonable defaults are used for under/over-limit input.
+        - Character counting based on UTF-8 matches LilyPond and Python conventions.
+        - The cursor will not be set in the middle of a surrogate pair or composed glyph.
+
+        """
+        if line < 1:
+            line = column = 1
+        elif not column or column < 1:
+            column = 1
+        cursor = QTextCursor(self)
+        block = self.findBlockByNumber(line - 1)
+        if block.isValid():
+            line_text = block.text()
+            if len(line_text) >= column:
+                qchar_offset = len(line_text[:column - 1].encode('utf_16_le')) // 2
+                cursor.setPosition(block.position() + qchar_offset)
+                # Escape to in front of what might be the middle of a composed glyph.
+                cursor.movePosition(QTextCursor.NextCharacter)
+                cursor.movePosition(QTextCursor.PreviousCharacter)
+            else:
+                cursor.setPosition(block.position())
+                cursor.movePosition(QTextCursor.EndOfBlock)
+        else:
+            cursor.movePosition(QTextCursor.End)
+        return cursor
+

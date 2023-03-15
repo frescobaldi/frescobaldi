@@ -38,7 +38,7 @@ import util
 
 
 # finds file references (filename:line:col:) in messages
-message_re = re.compile(br"^((.*?):(\d+)(?::(\d+))?)(?=:)", re.M)
+message_re = re.compile(br"^((.*?):([1-9]\d*)(?::([1-9]\d*))?)(?=:)", re.M)
 
 
 def errors(document):
@@ -95,7 +95,7 @@ class Errors(plugin.DocumentPlugin):
                 url = m.group(1).decode(enc)
                 filename = m.group(2).decode(enc)
                 filename = util.normpath(filename)
-                line, column = int(m.group(3)), int(m.group(4) or 1) - 1
+                line, column = int(m.group(3)), int(m.group(4) or 1)
                 self._refs[url] = Reference(filename, line, column)
 
     def cursor(self, url, load=False):
@@ -114,7 +114,7 @@ class Reference(object):
     def __init__(self, filename, line, column):
         """Creates the reference to filename, line and column.
 
-        lines start numbering with 1, columns with 0 (LilyPond convention).
+        By LilyPond convention, lines and columns are numbered starting with 1.
 
         If a document with the given filename is already loaded (or the filename
         refers to the scratchdir for a document) a QTextCursor is created immediately.
@@ -140,15 +140,12 @@ class Reference(object):
         changes.
 
         """
-        b = document.findBlockByNumber(max(0, self._line - 1))
-        if b.isValid():
-            self._cursor = c = QTextCursor(document)
-            c.setPosition(b.position() + self._column)
-            document.closed.connect(self.unbind)
-            if self._line > 0:
-                bookmarks.bookmarks(document).setMark(self._line - 1, "error")
-        else:
-            self._cursor = None
+        # message_re and Errors.slotJobOutput ensure that _line and _column are >= 1.
+        # _line or _column overrun defaults to end of document or line respectively.
+        self._cursor = document.cursorAtPosition(self._line, self._column)
+        document.closed.connect(self.unbind)
+        # Set highlighting by new cursor, not "_line - 1", which may be invalid.
+        bookmarks.bookmarks(document).setMark(self._cursor.blockNumber(), "error")
 
     def unbind(self):
         """Called when previously "bound" document is closed."""

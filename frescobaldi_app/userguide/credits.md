@@ -16,7 +16,7 @@ The following people contributed to {appname}:
 
 !Peter Bjuhr:
 : !_(Quick Insert buttons for grace notes)_,
-   _(MusicXML, Midi and Abc im- and export)_,
+   _(MusicXML, MIDI and ABC im- and export)_,
    _(Manuscript Viewer)_
 
 !Richard Cognot:

@@ -49,19 +49,19 @@ class PanelManager(plugin.MainWindowPlugin):
         self._panels = []
         self._submenus = collections.OrderedDict([
             ('viewers', {
-                'menu': QMenu(_('&Viewers')),
+                'menu': _('&Viewers'),
                 'panels': []
             }),
             ('coding', {
-                'menu': QMenu(_('&Coding')),
+                'menu': _('&Coding'),
                 'panels': []
             }),
             ('structure', {
-                'menu': QMenu(_('&Structure')),
+                'menu': _('&Structure'),
                 'panels': []
             }),
             ('midi', {
-                'menu': QMenu(_('&MIDI')),
+                'menu': _('&MIDI'),
                 'panels': []
             }),
             ])
@@ -124,10 +124,12 @@ class PanelManager(plugin.MainWindowPlugin):
 
         for submenu in self._submenus:
             sm = self._submenus[submenu]
+            submenu_text = sm['menu']
+            submenu = QMenu(submenu_text, menu)
             for panel in sm['panels']:
-                sm['menu'].addAction(panel.toggleViewAction())
+                submenu.addAction(panel.toggleViewAction())
                 added_panels.append(panel)
-            menu.addMenu(sm['menu'])
+            menu.addMenu(submenu)
 
         for name, panel in self._panels:
             if not panel in added_panels:

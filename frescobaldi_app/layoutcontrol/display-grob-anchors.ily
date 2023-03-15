@@ -43,18 +43,14 @@
 
 
 % Define appearance
-#(cond ((not (defined? 'debug-grob-anchors-dotcolor))
-        (define debug-grob-anchors-dotcolor red)))
+#(define-default debug-grob-anchors-dotcolor red)
+
 % Which grobs to print the dot to?
 % Possible values:
 % - 'all-grobs
 % - Name of a grob (as symbol)
 % - List of grob names
-#(cond ((not (defined? 'debug-grob-anchors-grob-list))
-        ;(define debug-grob-anchors-grob-list '(NoteHead Stem))))
-        ;(define debug-grob-anchors-grob-list 'NoteHead )))
-        (define debug-grob-anchors-grob-list 
-          (map car all-grob-descriptions))))
+#(define-default debug-grob-anchors-grob-list (map car all-grob-descriptions))
 
 #(define (add-dot)
    (lambda (grob)
@@ -98,12 +94,6 @@
              (ly:stencil-add
               stencil
               dot-stil))))))
-
-% needs to be here for 2.16.2
-#(define-public (symbol-list-or-symbol? x)
-   (if (list? x)
-       (every symbol? x)
-       (symbol? x)))
 
 #(define (add-dot-to-grobs l)
    ;; possible values for l:

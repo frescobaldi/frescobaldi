@@ -25,7 +25,7 @@ A dialog where the user can edit a short fragment of a larger document.
 """
 
 
-from PyQt5.QtCore import QSettings, QSize
+from PyQt5.QtCore import QEvent, QSettings, QSize
 from PyQt5.QtGui import (QKeySequence, QTextCharFormat, QTextCursor,
                          QTextDocument)
 from PyQt5.QtWidgets import QAction, QPlainTextDocumentLayout, QPlainTextEdit
@@ -188,7 +188,7 @@ class View(QPlainTextEdit):
 
     def event(self, ev):
         """Reimplemented to avoid typing the line separator."""
-        if ev == QKeySequence.InsertLineSeparator:
+        if ev.type() == QEvent.KeyPress and ev.matches(QKeySequence.InsertLineSeparator):
             return False
         return super(View, self).event(ev)
 
@@ -250,6 +250,3 @@ class Analyzer(autocomplete.analyzer.Analyzer):
     def document_cursor(self):
         """Reimplemented to return the cursor of the real document."""
         return self._document_cursor
-
-
-
