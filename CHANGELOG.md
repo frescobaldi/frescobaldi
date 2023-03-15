@@ -26,6 +26,7 @@ All notable changes to the Frescobaldi project are documented in this file.
 - Fix error when changing the application language in the preferences (#1540)
 - Linux: fix menus sometimes detached from its parent on Wayland (#1541)
 - Ignore never-saved files when reloading (#1542)
+- Fix extraneous document when opening new file from the command line (#1556)
 
 ### Changed
 
@@ -1593,4 +1594,3 @@ README-translations.
 [3.1.1]: https://github.com/frescobaldi/frescobaldi/compare/v3.1...v3.1.1
 [3.1]: https://github.com/frescobaldi/frescobaldi/compare/v3.0.0...v3.1
 [3.0.0]: https://github.com/frescobaldi/frescobaldi/compare/v2.20.0...v3.0.0
-
