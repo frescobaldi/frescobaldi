@@ -6,10 +6,16 @@ The Music View is powered by the {poppler} library by {authors} and others.
 
 Most of the bundled icons are created by {tango}.
 
-The following people contributed to {appname}:
+The following people contributed to {appname} (in alphabetical order):
+
+!Jean Abou Samra
+: Bug and compatibility fixes, miscellaneous
 
 !Wilbert Berendsen:
 : Main author and core developer
+
+!@mr-bronson
+: Encoding-related fixes and other improvements
 
 !Christopher Bryan:
 : !_(Modal Transpose)_
@@ -21,6 +27,13 @@ The following people contributed to {appname}:
 
 !Richard Cognot:
 : Kinetic Scrolling for the Music View
+
+!Benjamin Johnson:
+: !_(Score Wizard improvements)_,
+  _(Score Wizard From Current Document)_
+
+!Jörg Hoffmann
+: Windows installers
 
 !Marnen Laibow-Koser:
 : Homebrew formula for Mac OS X
@@ -50,10 +63,6 @@ The following people contributed to {appname}:
 !Alex Schreiber:
 : Relative mode for MIDI capturing
 
-!Benjamin Johnson:
-: !_(Score Wizard improvements)_,
-  _(Score Wizard From Current Document)_
-
 
 {appname} is translated into the following languages:
 
@@ -61,14 +70,20 @@ The following people contributed to {appname}:
 : !Wilbert Berendsen
 
 {lang_fr}:
-:  !Raphaël Doursenaud,
+:  !Rémy Claverie,
     Denis Bitouzé,
-    Philippe Massart,
-    Valentin Villenave,
-    Yann Collette,
     David Bouriaud,
+    Richard Cognot,
+    Yann Collette,
+    Raphaël Doursenaud,
+    Emmanuel Franquemagne,
+    Raphaël Hardy,
     Ryan Kavanagh,
-    Richard Cognot
+    Nicolas Lehembre,
+    Philippe Massart,
+    Olivier Miakinen,
+    Martial Rameaux,
+    Valentin Villenave
 
 {lang_tr}:
 :  !Server ACİM
