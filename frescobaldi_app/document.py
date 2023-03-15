@@ -84,9 +84,13 @@ class AbstractDocument(QTextDocument):
         if loading the contents fails.
 
         """
+        # Do this first, raises IOError if not found, without creating the document.
+        if not url.isEmpty():
+            data = cls.load_data(url, encoding)
+        # If this did not raise, proceed to create a new document.
         d = cls(url, encoding)
         if not url.isEmpty():
-            d.setPlainText(cls.load_data(url, encoding))
+            d.setPlainText(data)
             d.setModified(False)
         return d
 
