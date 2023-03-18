@@ -77,7 +77,7 @@ class ExceptionDialog(QDialog):
             title = _("Internal Error")
         self.setWindowTitle(app.caption(title))
         self.errorLabel.setText(text)
-        self.buttons.button(QDialogButtonBox.Ok).setText(_("Email Bug Report..."))
+        self.buttons.button(QDialogButtonBox.Ok).setText(_("Send Bug Report..."))
 
     def done(self, result):
         if result:
@@ -86,17 +86,20 @@ class ExceptionDialog(QDialog):
 
     def reportBug(self):
         if self._ext_maintainer:
+            # For now extensions don't have a way to use a custom bug reporting
+            # method, we use email.
             extension = self._ext_maintainer[0]
             rcpt = self._ext_maintainer[1]
             ext_intro = '\n{}\n\n'.format(
                 _("An error occurred in extension '{name}'").format(name=extension))
             ext_header = ' [{}]'.format(self._ext_maintainer[0])
+            bugreport.email(
+                self._tbshort + ext_header,
+                ext_intro + self._tbfull + '\n'
+                + _("Optionally describe below what you were doing:"),
+                recipient=rcpt)
         else:
-            rcpt = ""
-            ext_intro = ""
-            ext_header = ""
-        bugreport.email(
-            self._tbshort + ext_header,
-            ext_intro + self._tbfull + '\n'
-            + _("Optionally describe below what you were doing:"),
-            recipient=rcpt)
+            bugreport.new_github_issue(
+                title=self._tbshort,
+                body=(self._tbfull + '\n'
+                      + _("Optionally describe below what you were doing:")))

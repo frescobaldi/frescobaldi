@@ -18,9 +18,8 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Functions to compose a bugreport via e-mail and to get version information.
+Function for helping the user to report bugs.
 """
-
 
 from PyQt5.QtCore import QUrl, QUrlQuery
 
@@ -28,6 +27,20 @@ import helpers
 import appinfo
 import debuginfo
 
+def new_github_issue(title, body):
+    """
+    Open a web brower on a page to create a new issue on GitHub.
+
+    Information about the versions of Frescobaldi and its dependencies will
+    be appended to the body.
+    """
+    body += "\n\n" + debuginfo.version_info_string()
+    url = QUrl(appinfo.issues_url)
+    query = QUrlQuery()
+    query.addQueryItem("title", title)
+    query.addQueryItem("body", body)
+    url.setQuery(query)
+    helpers.openUrl(url)
 
 def email(subject, body, recipient=None):
     """Opens the e-mail composer with the given subject and body, with version information added to it."""

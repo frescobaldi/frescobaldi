@@ -35,6 +35,7 @@ maintainer = "Wilbert Berendsen"
 maintainer_email = "info@frescobaldi.org"
 domain = "frescobaldi.org"
 url = "http://www.{0}/".format(domain)
+issues_url = "https://github.com/frescobaldi/frescobaldi/issues/new"
 license = "GPL"
 
 # this one is used everywhere in the application

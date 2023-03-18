@@ -134,5 +134,3 @@ def terminalCommands():
                     if os.access(prog, os.X_OK):
                         yield cmd
         yield ['xterm']
-
-
