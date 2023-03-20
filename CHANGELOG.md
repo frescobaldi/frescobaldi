@@ -31,6 +31,7 @@ All notable changes to the Frescobaldi project are documented in this file.
 ### Changed
 
 - Require Python 3.8 (#1519)
+- Make bug reports sent via GitHub instead of by email (#1559)
 
 ### Removed
 
