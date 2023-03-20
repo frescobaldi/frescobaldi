@@ -25,6 +25,7 @@ Exception dialog for unhandled Python exceptions
 
 import traceback
 
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import (
     QDialog, QDialogButtonBox, QLabel, QTextBrowser, QVBoxLayout)
@@ -67,6 +68,7 @@ class ExceptionDialog(QDialog):
 
         self.infoLabel = QLabel()
         self.infoLabel.setWordWrap(True)
+        self.infoLabel.setOpenExternalLinks(True)
         layout.addWidget(self.infoLabel)
 
         b = self.buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
@@ -92,7 +94,9 @@ class ExceptionDialog(QDialog):
             info = _("We would highly appreciate if you used the button below "
                      "to open a new issue on GitHub, the development platform "
                      "used by the Frescobaldi project, to let developers "
-                     "know about this problem.")
+                     "know about this problem. If you have general questions, "
+                     "you can also send them to the <a href=\"https://groups.google.com/g/frescobaldi\">"
+                     "Frescobaldi user group</a>.")
         self.setWindowTitle(app.caption(title))
         self.errorLabel.setText(text)
         self.infoLabel.setText(info)
