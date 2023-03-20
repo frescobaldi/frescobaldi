@@ -33,6 +33,10 @@ def new_github_issue(title, body):
 
     Information about the versions of Frescobaldi and its dependencies will
     be appended to the body.
+
+    The body will be sent in the query part of a URL. It is therefore advisable
+    not to make it too long. As of this writing, GitHub imposes a limit around
+    6000 characters.
     """
     body += "\n\n" + debuginfo.version_info_string()
     url = QUrl(appinfo.issues_url)
