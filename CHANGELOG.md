@@ -8,6 +8,10 @@ All notable changes to the Frescobaldi project are documented in this file.
 
 ## [Unreleased]
 
+
+
+## [3.3.0] - 2023-03-26
+
 ### Added
 
 - Add option to format on save (#1473)
@@ -1587,7 +1591,8 @@ README-translations.
 
 * Initial release.
 
-[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v3.2...master
+[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v3.3.0...master
+[3.3.0]: https://github.com/frescobaldi/frescobaldi/compare/v3.2...v3.3.0
 [3.2]: https://github.com/frescobaldi/frescobaldi/compare/v3.1.3...v3.2
 [3.1.3]: https://github.com/frescobaldi/frescobaldi/compare/v3.1.2...v3.1.3
 [3.1.2]: https://github.com/frescobaldi/frescobaldi/compare/v3.1.1...v3.1.2
