@@ -67,6 +67,7 @@
   <translation type="gettext">frescobaldi</translation>
 
   <releases>
+    <release version="3.3.0" date="2023-03-26" />
     <release version="3.2"   date="2022-05-05" />
     <release version="3.1.3" date="2020-12-26" />
     <release version="3.1.2" date="2020-04-13" />

@@ -256,8 +256,9 @@ of testing and development, you don't even need to install Python at all.
 New release checklist
 =====================
 
-Checklist before uploading a new release:
+Checklist before making a new release:
 
-- Update CHANGELOG.md.
-- Add the new release tag in linux/org.frescobaldi.Frescobaldi.metainfo.xml.in.
+- Bump the version in `frescobaldi_app/appinfo.py`.
+- Add the release date in `CHANGELOG.md` and `linux/org.frescobaldi.Frescobaldi.metainfo.xml.in`.
+- Update the list of contributors in `frescobaldi_app/userguide/credits.md`.
 
