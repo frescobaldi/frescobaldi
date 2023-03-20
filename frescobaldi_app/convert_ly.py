@@ -25,6 +25,7 @@ Updates a document using convert-ly.
 import difflib
 import textwrap
 import os
+import sys
 
 from PyQt5.QtCore import QSettings, QSize
 from PyQt5.QtGui import QFont
@@ -222,6 +223,11 @@ class Dialog(QDialog):
             j.environment['LC_MESSAGES'] = 'C'
         else:
             j.environment.pop('LC_MESSAGES', None)
+        if sys.platform.startswith('darwin'):
+            import macosx
+            if macosx.inside_app_bundle():
+                j.environment['PYTHONPATH'] = None
+                j.environment['PYTHONHOME'] = None
 
         j.done.connect(self.slotJobDone)
         app.job_queue().add_job(j, 'generic')
