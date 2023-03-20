@@ -40,9 +40,17 @@ class ExceptionDialog(QDialog):
     def __init__(self, exctype, excvalue, exctb):
         super(ExceptionDialog, self).__init__()
 
+        # _tbshort is the exception line only (last line of the traceback)
         self._tbshort = ''.join(traceback.format_exception_only(exctype, excvalue))
+        # _tbfull is the full traceback
         tbfull = traceback.format_exception(exctype, excvalue, exctb)
         self._tbfull = ''.join(tbfull)
+        # _tbshorter is the traceback, but truncated to 5 frames max.
+        # We do this because of size limits on what you can pass to GitHub
+        # in a URL.
+        tbshorter = traceback.format_exception(exctype, excvalue, exctb, limit=5)
+        self._tbshorter = ''.join(tbshorter)
+
         self._ext_maintainer = app.extensions().is_extension_exception(tbfull)
 
         layout = QVBoxLayout()
@@ -56,6 +64,10 @@ class ExceptionDialog(QDialog):
         textview.moveCursor(QTextCursor.End)
 
         layout.addWidget(widgets.Separator())
+
+        self.infoLabel = QLabel()
+        self.infoLabel.setWordWrap(True)
+        layout.addWidget(self.infoLabel)
 
         b = self.buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         b.button(QDialogButtonBox.Ok).setIcon(icons.get("tools-report-bug"))
@@ -72,11 +84,18 @@ class ExceptionDialog(QDialog):
             extension = self._ext_maintainer[0]
             text = _("An internal error has occurred in extension '{name}':").format(name=extension)
             title = _("Extension Error")
+            info = _("Please use the button below to send a bug report to the "
+                     "maintainer of this extension by email.")
         else:
             text = _("An internal error has occurred:")
             title = _("Internal Error")
+            info = _("We would highly appreciate if you used the button below "
+                     "to open a new issue on GitHub, the development platform "
+                     "used by the Frescobaldi project, to let developers "
+                     "know about this problem.")
         self.setWindowTitle(app.caption(title))
         self.errorLabel.setText(text)
+        self.infoLabel.setText(info)
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Send Bug Report..."))
 
     def done(self, result):
@@ -99,7 +118,6 @@ class ExceptionDialog(QDialog):
                 + _("Optionally describe below what you were doing:"),
                 recipient=rcpt)
         else:
-            bugreport.new_github_issue(
-                title=self._tbshort,
-                body=(self._tbfull + '\n'
-                      + _("Optionally describe below what you were doing:")))
+            body = (self._tbshorter + '\n'
+                    + _("Optionally describe below what you were doing:"))
+            bugreport.new_github_issue(title=self._tbshort, body=body)
