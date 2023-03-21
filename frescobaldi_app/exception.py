@@ -46,11 +46,11 @@ class ExceptionDialog(QDialog):
         # _tbfull is the full traceback
         tbfull = traceback.format_exception(exctype, excvalue, exctb)
         self._tbfull = ''.join(tbfull)
-        # _tbshorter is the traceback, but truncated to 5 frames max.
+        # _tblimited is the traceback, truncated to 5 frames max.
         # We do this because of size limits on what you can pass to GitHub
         # in a URL.
-        tbshorter = traceback.format_exception(exctype, excvalue, exctb, limit=5)
-        self._tbshorter = ''.join(tbshorter)
+        tblimited = traceback.format_exception(exctype, excvalue, exctb, limit=5)
+        self._tblimited = ''.join(tblimited)
 
         self._ext_maintainer = app.extensions().is_extension_exception(tbfull)
 
@@ -122,6 +122,6 @@ class ExceptionDialog(QDialog):
                 + _("Optionally describe below what you were doing:"),
                 recipient=rcpt)
         else:
-            body = (self._tbshorter + '\n'
+            body = (self._tblimited + '\n'
                     + _("Optionally describe below what you were doing:"))
             bugreport.new_github_issue(title=self._tbshort, body=body)
