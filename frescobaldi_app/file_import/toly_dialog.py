@@ -23,6 +23,7 @@ Generic import dialog. Presuppose a child instance for the specific import.
 
 
 import os
+import sys
 
 from PyQt5.QtCore import Qt
 
@@ -153,6 +154,11 @@ class ToLyDialog(QDialog):
             directory=os.path.dirname(self._input),
             encoding='utf-8')
         j._output_file = output
+        if sys.platform.startswith('darwin'):
+            import macosx
+            if macosx.inside_app_bundle():
+                j.environment['PYTHONPATH'] = None
+                j.environment['PYTHONHOME'] = None
 
     def get_post_settings(self):
         """Returns settings in the post import tab."""

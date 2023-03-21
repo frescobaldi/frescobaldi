@@ -3,4 +3,4 @@
 CFBundleName = \"Frescobaldi\";
 CFBundleDisplayName = \"Frescobaldi\";
 
-NSHumanReadableCopyright = \"Copyright © 2008-2014 Wilbert Berendsen.\";
+NSHumanReadableCopyright = \"Copyright © 2008-2023 Wilbert Berendsen.\";
