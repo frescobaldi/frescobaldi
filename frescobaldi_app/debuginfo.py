@@ -47,14 +47,6 @@ def app_version():
     return appinfo.version
 
 @_catch_unknown
-def sip_version():
-    try:
-        import sip
-    except ImportError:
-        import PyQt5.sip as sip
-    return sip.SIP_VERSION_STR
-
-@_catch_unknown
 def pyqt_version():
     import PyQt5.QtCore
     return PyQt5.QtCore.PYQT_VERSION_STR
@@ -122,7 +114,6 @@ def version_info_named():
     yield "python-ly", ly_version()
     yield "Qt", qt_version()
     yield "PyQt", pyqt_version()
-    yield "sip", sip_version()
     yield "qpageview", qpageview_version()
     yield "poppler", poppler_version()
     yield "python-poppler-qt", python_poppler_version()
