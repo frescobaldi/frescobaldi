@@ -47,4 +47,3 @@ def update_settings():
 
 # connect with highest priority, so this runs first
 app.appInstantiated.connect(update_settings, -1000)
-
