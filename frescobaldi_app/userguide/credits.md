@@ -36,10 +36,10 @@ The following people contributed to {appname} (in alphabetical order):
 : Windows installers
 
 !Marnen Laibow-Koser:
-: Homebrew formula for Mac OS X
+: Homebrew formula for macOS
 
 !Davide Liessi:
-: !_(Mac OS X packaging)_,
+: !macOS packaging,
    _(various other improvements)_
 
 !Urs Liska:
@@ -52,6 +52,9 @@ The following people contributed to {appname} (in alphabetical order):
 
 !Manuel Mchalwat:
 : MIDI capturing
+
+!Jacques Menu:
+: macOS installers (arm64)
 
 !Mario Moles:
 : Finding lots of bugs
