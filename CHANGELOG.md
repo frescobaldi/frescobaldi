@@ -36,6 +36,8 @@ All notable changes to the Frescobaldi project are documented in this file.
 
 - Require Python 3.8 (#1519)
 - Make bug reports sent via GitHub instead of by email (#1559)
+- Always respect the shebangs of LilyPond's Python scripts on macOS
+  and remove the corresponding configuration option (#1565)
 
 ### Removed
 
