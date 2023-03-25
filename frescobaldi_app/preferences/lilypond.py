@@ -337,8 +337,7 @@ class Running(preferences.Group):
         self.embedSourceCode.setText(_("Embed Source Code files in publish mode"))
         self.embedSourceCode.setToolTip(_(
             "If checked, the LilyPond source files will be embedded in the PDF\n"
-            "when LilyPond is started in publish mode.\n"
-            "This feature is available since LilyPond 2.19.39."))
+            "when LilyPond is started in publish mode."))
         self.noTranslation.setText(_("Run LilyPond with English messages"))
         self.noTranslation.setToolTip(_(
             "If checked, LilyPond's output messages will be in English.\n"
@@ -411,5 +410,3 @@ class Target(preferences.Group):
             target = "pdf"
         s.setValue("default_output_target", target)
         s.setValue("open_default_view", self.openDefaultView.isChecked())
-
-
