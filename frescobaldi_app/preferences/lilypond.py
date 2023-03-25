@@ -237,10 +237,6 @@ class InfoDialog(QDialog):
             row += 1
             self.ly_tool_widgets[name] = (l, w)
 
-        if sys.platform.startswith('darwin'):
-            self.useshebang = QCheckBox()
-            grid.addWidget(self.useshebang, row, 0, 1, 2)
-
         layout.addWidget(self.tab)
         layout.addWidget(widgets.Separator())
         b = self.buttons = QDialogButtonBox(self)
@@ -272,8 +268,6 @@ class InfoDialog(QDialog):
         self.tab.setTabText(1, _("Tool Commands"))
         for name, gui in self.toolnames():
             self.ly_tool_widgets[name][0].setText(gui)
-        if sys.platform.startswith('darwin'):
-            self.useshebang.setText(_("Force use of the tools' #! lines"))
 
     def loadInfo(self, info):
         """Takes over settings for the dialog from the LilyPondInfo object."""
@@ -282,8 +276,6 @@ class InfoDialog(QDialog):
         self.auto.setChecked(info.auto)
         for name, gui in self.toolnames():
             self.ly_tool_widgets[name][1].setText(info.ly_tool(name))
-        if sys.platform.startswith('darwin'):
-            self.useshebang.setChecked(info.useshebang)
 
     def newInfo(self):
         """Returns a new LilyPondInfo instance for our settings."""
@@ -297,8 +289,6 @@ class InfoDialog(QDialog):
         info.auto = self.auto.isChecked()
         for name, gui in self.toolnames():
             info.set_ly_tool(name, self.ly_tool_widgets[name][1].text())
-        if sys.platform.startswith('darwin'):
-            info.useshebang = self.useshebang.isChecked()
         return info
 
 

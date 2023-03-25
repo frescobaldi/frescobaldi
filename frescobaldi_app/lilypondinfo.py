@@ -161,8 +161,6 @@ class LilyPondInfo(object):
         self.auto = True
         self.name = "LilyPond"
         self._lytools = {}
-        if sys.platform.startswith('darwin'):
-            self.useshebang = False
 
     @property
     def command(self):
@@ -314,32 +312,10 @@ class LilyPondInfo(object):
             self.datadir = False
         app.job_queue().add_job(j, 'generic')
 
-    @CachedProperty.cachedproperty(depends=(abscommand, bindir))
-    def frommacports(self):
-        """Return True if this LilyPond is provided by MacPorts."""
-        bindir = self.bindir()
-        if sys.platform.startswith('darwin') and bindir:
-            import subprocess
-            portbin = os.path.abspath(self.bindir() + '/port')
-            if os.path.isfile(portbin) and os.access(portbin, os.X_OK):
-                s = subprocess.run([portbin, 'provides', self.abscommand()], capture_output = True)
-                if b'is provided by: lilypond' in s.stdout:
-                    return True
-        return False
-
     def toolcommand(self, original_command, use_ly_tool=True):
         """Return a list containing the commandline to run a tool, e.g. convert-ly.
 
-        On Unix, the list has one element: the full path to the tool.
-
-        On macOS, the list may have up to four elements: the system-provided
-        Python 2 interpreter called in 32 or 64 bit mode (if needed; up to
-        three elements) and the tool path.
-        The 32 bit mode is required for midi2ly in the distributed app
-        bundle of LilyPond <= 2.19.54 and might be in other cases as well.
-        On macOS >= 10.15 Catalina, the system Python cannot be run in 32
-        bit mode, so None is returned.
-        See macosx.best_python and macosx.system_python for more details.
+        On Unix (including macOS), the list has one element: the full path to the tool.
 
         On Windows, the list has two elements: the LilyPond-provided Python
         interpreter and the tool path.
@@ -366,12 +342,6 @@ class LilyPondInfo(object):
             if not os.access(toolpath, os.R_OK) and not toolpath.endswith('.py'):
                 toolpath += '.py'
             command = [self.python(), toolpath]
-        elif sys.platform.startswith('darwin'):
-            command = macosx.best_python(self, original_command)
-            if command is None:
-                return None
-            else:
-                command.append(toolpath)
         else:
             command = [toolpath]
         return command
@@ -422,8 +392,6 @@ class LilyPondInfo(object):
                     datadir = settings.value("datadir", "", str)
                     if datadir and os.path.isdir(datadir):
                         info.datadir = datadir
-                if sys.platform.startswith('darwin'):
-                    info.useshebang = settings.value("useshebang", False, bool)
                 return info
 
     def write(self, settings):
@@ -441,8 +409,6 @@ class LilyPondInfo(object):
                 settings.remove(name)
             else:
                 settings.setValue(name, value)
-        if sys.platform.startswith('darwin'):
-            settings.setValue("useshebang", self.useshebang)
 
     def python(self):
         """Returns the path to the LilyPond-provided Python interpreter.

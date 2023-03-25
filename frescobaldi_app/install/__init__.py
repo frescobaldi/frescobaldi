@@ -28,7 +28,7 @@ import app
 
 # increase this number by one whenever something needs to be done, installed
 # or updated concerning the application settings.
-SETTINGS_VERSION = 3
+SETTINGS_VERSION = 4
 
 
 def update_settings():
@@ -47,4 +47,3 @@ def update_settings():
 
 # connect with highest priority, so this runs first
 app.appInstantiated.connect(update_settings, -1000)
-
