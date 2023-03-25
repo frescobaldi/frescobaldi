@@ -31,6 +31,8 @@ All notable changes to the Frescobaldi project are documented in this file.
 - Linux: fix menus sometimes detached from its parent on Wayland (#1541)
 - Ignore never-saved files when reloading (#1542)
 - Fix extraneous document when opening new file from the command line (#1556)
+- Fix internal error when trying to compile a file without having
+  LilyPond installed (#1567)
 
 ### Changed
 
