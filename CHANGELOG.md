@@ -8,6 +8,10 @@ All notable changes to the Frescobaldi project are documented in this file.
 
 ## [Unreleased]
 
+
+
+## [3.3.0] - 2023-03-26
+
 ### Added
 
 - Add option to format on save (#1473)
@@ -27,10 +31,15 @@ All notable changes to the Frescobaldi project are documented in this file.
 - Linux: fix menus sometimes detached from its parent on Wayland (#1541)
 - Ignore never-saved files when reloading (#1542)
 - Fix extraneous document when opening new file from the command line (#1556)
+- Fix internal error when trying to compile a file without having
+  LilyPond installed (#1567)
 
 ### Changed
 
 - Require Python 3.8 (#1519)
+- Make bug reports sent via GitHub instead of by email (#1559)
+- Always respect the shebangs of LilyPond's Python scripts on macOS
+  and remove the corresponding configuration option (#1565)
 
 ### Removed
 
@@ -1587,7 +1596,8 @@ README-translations.
 
 * Initial release.
 
-[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v3.2...master
+[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v3.3.0...master
+[3.3.0]: https://github.com/frescobaldi/frescobaldi/compare/v3.2...v3.3.0
 [3.2]: https://github.com/frescobaldi/frescobaldi/compare/v3.1.3...v3.2
 [3.1.3]: https://github.com/frescobaldi/frescobaldi/compare/v3.1.2...v3.1.3
 [3.1.2]: https://github.com/frescobaldi/frescobaldi/compare/v3.1.1...v3.1.2

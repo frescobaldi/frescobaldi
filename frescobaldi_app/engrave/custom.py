@@ -135,7 +135,7 @@ class Dialog(QDialog):
         self.modeCombo.setItemText(2, _("First System Only"))
         self.modeCombo.setItemText(3, _("Layout Control"))
         self.deleteCheck.setText(_("Delete intermediate output files"))
-        self.embedSourceCodeCheck.setText(_("Embed Source Code (LilyPond >= 2.19.39)"))
+        self.embedSourceCodeCheck.setText(_("Embed Source Code"))
         self.englishCheck.setText(_("Run LilyPond with English messages"))
         self.commandLineLabel.setText(_("Additional Command Line Options:"))
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Run LilyPond"))

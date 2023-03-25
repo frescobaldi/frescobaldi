@@ -102,9 +102,10 @@ class LilyPondJob(Job):
                 input=input,
                 decode_errors='replace',
                 directory=directory,
-                environment={
-                    'LD_LIBRARY_PATH': self.lilypond_info.libdir()
-                },
+                environment=(
+                    {'LD_LIBRARY_PATH': libdir}
+                    if (libdir := self.lilypond_info.libdir())
+                    else {}),
                 title=title,
                 priority=2)
 

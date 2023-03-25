@@ -43,6 +43,9 @@ def update(version):
     if version < 3:
         renameUseshebang()
 
+    if version < 4:
+        removeUseshebang()
+
     # ... add other setting updates here...
 
 
@@ -87,4 +90,14 @@ def renameUseshebang():
         if old[i] is not None:
             s.setValue("useshebang", old[i])
             s.remove("always_use_shebang")
+    s.endArray()
+
+def removeUseshebang():
+    s = QSettings()
+    l = s.beginReadArray("lilypondinfo")
+    s.endArray()
+    s.beginWriteArray("lilypondinfo")
+    for i in range(l):
+        s.setArrayIndex(i)
+        s.remove("useshebang")
     s.endArray()

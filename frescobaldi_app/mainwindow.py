@@ -1039,11 +1039,12 @@ class MainWindow(QMainWindow):
         about.AboutDialog(self).exec_()
 
     def reportBug(self):
-        """Opens e-mail composer to send a bug or feature report."""
+        """Opens browser composer to report a bug or request a feature via a GitHub issue."""
         import bugreport
-        bugreport.email('', _(
-            "Please describe the issue or feature request.\n"
-            "Provide as much information as possible.\n\n\n"))
+        title = _('<Please summarize your bug or feature request>')
+        body = _("<Please describe the issue or feature request.\n"
+                 "Provide as much information as possible.>")
+        bugreport.new_github_issue(title, body)
 
     def createActions(self):
         self.actionCollection = ac = ActionCollection()

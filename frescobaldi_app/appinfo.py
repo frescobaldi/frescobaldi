@@ -25,16 +25,17 @@ Information about the Frescobaldi application.
 
 # these variables are also used by the distutils setup
 name = "frescobaldi"
-version = "3.2"
+version = "3.3.0"
 extension_api = "0.9.0"
 description = "LilyPond Music Editor"
 long_description = \
     "Frescobaldi is an advanced text editor to edit LilyPond sheet music files. " \
     "Features include an integrated PDF preview and a powerful Score Wizard."
 maintainer = "Wilbert Berendsen"
-maintainer_email = "info@frescobaldi.org"
+maintainer_email = "frescobaldi@googlegroups.com"
 domain = "frescobaldi.org"
 url = "http://www.{0}/".format(domain)
+issues_url = "https://github.com/frescobaldi/frescobaldi/issues/new"
 license = "GPL"
 
 # this one is used everywhere in the application
