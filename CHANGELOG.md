@@ -14,6 +14,10 @@ All notable changes to the Frescobaldi project are documented in this file.
 
 ### Added
 
+- Score Wizard improvements: the MIDI instrument is now user-selectable
+  for several keyboard and guitar part types; new part types for steelpan and
+  dulcimer; new special "Structure" type for laying out breaks, bar lines,
+  etc. separately from musical content. (#1375)
 - Add option to format on save (#1473)
 - Make all layout control options compatible with LilyPond 2.24 (#1489)
 - Default URLs to browse the documentation of LilyPond stable and unstable (#1538)
