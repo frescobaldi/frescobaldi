@@ -96,7 +96,7 @@ print(appinfo.version)')
 
 if git rev-parse --git-dir > /dev/null 2>&1
 then
-  if [[ v${VERSION} != $(git describe) ]]
+  if [[ v${VERSION} != $(git describe --tags) ]]
   then
     VERSION=${VERSION}-$(git log -1 --format=%ci | sed -E 's/^(....)-(..)-(..).*$/\1\2\3/')
   fi
