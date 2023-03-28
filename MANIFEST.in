@@ -1,4 +1,4 @@
-include README* COPYING THANKS INSTALL TODO
+include README* COPYING THANKS INSTALL TODO CHANGELOG.md
 include frescobaldi.1
 include frescobaldi.png
 include *.py
