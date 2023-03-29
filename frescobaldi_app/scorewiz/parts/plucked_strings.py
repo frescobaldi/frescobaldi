@@ -43,6 +43,7 @@ class TablaturePart(_base.Part):
     transposition = None
     tunings = ()    # may contain a list of tunings.
     tabFormat = ''  # can contain a tablatureFormat value.
+    midiInstruments = ()  # may contain a list of MIDI instruments.
 
     def createWidgets(self, layout):
         self.staffTypeLabel = QLabel()
@@ -58,6 +59,8 @@ class TablaturePart(_base.Part):
             self.createTuningWidgets(layout)
             self.staffType.activated.connect(self.slotTabEnable)
             self.slotTabEnable(0)
+        if self.midiInstruments:
+            self.createMidiInstrumentWidgets(layout)
 
     def createTuningWidgets(self, layout):
         self.tuningLabel = QLabel()
@@ -79,11 +82,24 @@ class TablaturePart(_base.Part):
         box.addWidget(self.tuning)
         layout.addWidget(self.customTuning)
 
+    def createMidiInstrumentWidgets(self, layout):
+        self.midiInstrumentLabel = QLabel()
+        self.midiInstrumentSelection = QComboBox()
+        self.midiInstrumentSelection.addItems(self.midiInstruments)
+        self.midiInstrumentSelection.setCurrentIndex(
+            self.midiInstruments.index(self.midiInstrument))
+        box = QHBoxLayout()
+        layout.addLayout(box)
+        box.addWidget(self.midiInstrumentLabel)
+        box.addWidget(self.midiInstrumentSelection)
+
     def translateWidgets(self):
         self.staffTypeLabel.setText(_("Staff type:"))
         self.staffType.model().update()
         if self.tunings:
             self.translateTuningWidgets()
+        if self.midiInstruments:
+            self.translateMidiInstrumentWidgets()
 
     def translateTuningWidgets(self):
         self.tuningLabel.setText(_("Tuning:"))
@@ -97,6 +113,9 @@ class TablaturePart(_base.Part):
         except AttributeError:
             pass # only in Qt 4.7+
         self.tuning.model().update()
+
+    def translateMidiInstrumentWidgets(self):
+        self.midiInstrumentLabel.setText(_("MIDI instrument:"))
 
     def slotTabEnable(self, enable):
         """Called when the user changes the staff type.
@@ -151,7 +170,11 @@ class TablaturePart(_base.Part):
                 ly.dom.Identifier(a.name, mus)
                 ly.dom.VoiceSeparator(mus)
             ly.dom.Identifier(assignments[-1].name, mus)
-            builder.setMidiInstrument(staff, self.midiInstrument)
+            if self.midiInstruments:
+                builder.setMidiInstrument(staff,
+                    self.midiInstrumentSelection.currentText())
+            else:
+                builder.setMidiInstrument(staff, self.midiInstrument)
 
         if staffType in (1, 2):
             # create a tab staff
@@ -230,7 +253,7 @@ class Ukulele(TablaturePart):
     def short(_=_base.translate):
         return _("abbreviation for Ukulele", "Uk.")
 
-    midiInstrument = 'acoustic guitar (steel)'
+    midiInstrument = 'acoustic guitar (nylon)'
     tunings = (
         ('ukulele-tuning', lambda: _("Ukulele tuning")),
         ('ukulele-d-tuning', lambda: _("Ukulele D-tuning")),
@@ -330,6 +353,10 @@ class AcousticGuitar(ClassicalGuitar):
         return _("abbreviation for Acoustic guitar", "A.Gt.")
 
     midiInstrument = 'acoustic guitar (steel)'
+    midiInstruments = (
+        'acoustic guitar (nylon)',
+        'acoustic guitar (steel)',
+    )
 
 
 class ElectricGuitar(ClassicalGuitar):
@@ -342,9 +369,16 @@ class ElectricGuitar(ClassicalGuitar):
         return _("abbreviation for Electric guitar", "E.Gt.")
 
     midiInstrument = 'electric guitar (clean)'
+    midiInstruments = (
+        'electric guitar (jazz)',
+        'electric guitar (clean)',
+        'electric guitar (muted)',
+        'overdriven guitar',
+        'distorted guitar',
+    )
 
 
-class JazzGuitar(ClassicalGuitar):
+class JazzGuitar(ElectricGuitar):
     @staticmethod
     def title(_=_base.translate):
         return _("Jazz guitar")
@@ -387,6 +421,13 @@ class ElectricBass(AcousticBass):
         return _("abbreviation for Electric bass", "E.Bs.")
 
     midiInstrument = 'electric bass (finger)'
+    midiInstruments = (
+        'electric bass (finger)',
+        'electric bass (pick)',
+        'fretless bass',
+        'slap bass 1',
+        'slap bass 2',
+    )
 
 
 class Harp(_base.PianoStaffPart):

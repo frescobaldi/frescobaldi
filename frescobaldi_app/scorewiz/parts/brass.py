@@ -67,7 +67,7 @@ class TrumpetBb(TrumpetC):
     transposition = (-1, 6, -1)
 
 
-class CornetBb(BrassPart):
+class CornetBb(TrumpetBb):
     @staticmethod
     def title(_=_base.translate):
         return _("Cornet in Bb")
@@ -75,8 +75,6 @@ class CornetBb(BrassPart):
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Cornet in Bb", "Crt.Bb.")
-
-    transposition = (-1, 6, -1)
 
 
 class Flugelhorn(BrassPart):
