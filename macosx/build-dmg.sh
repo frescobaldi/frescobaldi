@@ -236,6 +236,14 @@ then
 fi
 echo
 
+if [[ "${APPARCH}" == arm64 || "${APPARCH}" == universal2 ]]
+then
+  echo Signing the .app bundle with an ad hoc signature.
+  echo
+  codesign --force --deep -s - ${APPBUNDLE}
+  echo
+fi
+
 echo Building the DMG disk image with appdmg.
 echo
 DMGNAME=Frescobaldi-${VERSION}-${APPARCH}.dmg
