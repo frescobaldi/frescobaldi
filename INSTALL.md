@@ -1,5 +1,5 @@
-INSTALL for Frescobaldi
-=======================
+Installation instructions for Frescobaldi
+=========================================
 
 You can run Frescobaldi without installing. Just unpack and then run:
 

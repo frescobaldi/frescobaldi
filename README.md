@@ -1,12 +1,12 @@
 README for Frescobaldi
 ======================
 
-Homepage: http://www.frescobaldi.org/  
+Homepage: http://www.frescobaldi.org/
 Main author: Wilbert Berendsen
 
 Frescobaldi is a LilyPond sheet music text editor. It aims to be powerful, yet
 lightweight and easy to use. Frescobaldi is Free Software, freely available
-under the General Public License. 
+under the General Public License.
 
 Features:
 
@@ -24,7 +24,7 @@ Features:
 - Experimental export to MusicXML
 - Modern user interface with configurable colors, fonts and keyboard shortcuts
 - Translated into: Dutch, English, French, German, Italian, Swedish, Czech,
-  Russian, Spanish, Galician, Turkish, Polish, Brazilian, Ukrainian, 
+  Russian, Spanish, Galician, Turkish, Polish, Brazilian, Ukrainian,
   Traditional Chinese, Simplified Chinese and Japanese.
 
 Music functions:
@@ -60,4 +60,4 @@ Frescobaldi is written in Python and uses PyQt for its user interface.
 Installation instructions for the program and MIDI support as well as other
 information can be found in the [Wiki](https://github.com/frescobaldi/frescobaldi/wiki).
 Other requirements and installation instructions may also be found in the
-[INSTALL](INSTALL) file.
+[INSTALL.md](INSTALL.md) file.

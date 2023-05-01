@@ -239,7 +239,7 @@ echo
 echo Building the DMG disk image with appdmg.
 echo
 DMGNAME=Frescobaldi-${VERSION}-${APPARCH}.dmg
-sed -e '/INSTALL/d' ../README.md > README.txt
+sed -e '/INSTALL[.]md/d' ../README.md > README.txt
 cp ../CHANGELOG.md CHANGELOG.txt
 cp ../COPYING COPYING.txt
 appdmg --quiet appdmg/appdmg.json dist/${DMGNAME}
