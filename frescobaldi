@@ -26,25 +26,5 @@ This script should be placed anywhere in the path, and the Python module
 frescobaldi_app contains the rest of the application.
 """
 
-import sys
-
-# Enable all Python warnings, unless overridden (with
-# "python -W<something> frescobaldi").
-if not sys.warnoptions:
-    import warnings
-    warnings.simplefilter("default")
-
-from frescobaldi_app import toplevel
-toplevel.install()              # Add the path to frescobaldi_app to sys.path
-
-import checks                   # check whether Frescobaldi really can run
-
-import main
-import app
-
-app.instantiate()               # Construct QApplication object
-main.main()                     # Parse command line, create windows etc
-
-sys.excepthook = app.excepthook # Show Python errors in a bugreport window
-
-sys.exit(app.run())
+from frescobaldi_app.__main__ import main
+main()
