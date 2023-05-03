@@ -41,7 +41,7 @@ except ImportError:
 
 
 # Main application script and Python executable:
-script = os.path.join(sys.prefix, 'Scripts', 'frescobaldi')
+script = os.path.join(sys.prefix, 'Scripts', 'frescobaldi', '__main__.py')
 python = os.path.join(sys.exec_prefix, 'pythonw.exe') # because sys.executable points to installer
 
 
@@ -121,4 +121,3 @@ if sys.argv[1] == '-install':
     welcome()
 elif sys.argv[1] == '-remove':
     remove_association()
-

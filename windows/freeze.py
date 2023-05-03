@@ -84,7 +84,7 @@ excludes = [
 shutil.rmtree(target_dir, ignore_errors = True)
 
 frescobaldi = Executable(
-    '../frescobaldi',
+    '../frescobaldi/__main__.py',
     icon = '../frescobaldi_app/icons/frescobaldi.ico',
     appendScriptToExe = True,
     base = 'Win32GUI', # no console

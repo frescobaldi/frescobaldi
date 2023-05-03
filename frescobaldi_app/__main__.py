@@ -162,6 +162,7 @@ def check_ly():
 
 
 def main():
+    """Main function."""
     app.instantiate()               # Construct QApplication object
     args = parse_commandline()
 
