@@ -1,119 +1,184 @@
-Installation instructions for Frescobaldi
-=========================================
-
-You can run Frescobaldi without installing. Just unpack and then run:
-
-    python3 frescobaldi
-
-See below for the required dependencies.
-
-The Frescobaldi package is based on distutils. No build process is needed as
-Frescobaldi is fully written in the interpreted Python language. To install in
-the default locations:
-
-    sudo python3 setup.py install    # install to /usr/local
-    python3 setup.py install --user  # install to ~/.local
-
-To run Frescobaldi, then simply type
-
-    frescobaldi
-
-If you want to install into /usr instead of /usr/local:
-
-    sudo python3 setup.py install --prefix=/usr
-
-If you have a Debian-based system such as Ubuntu, and you get the error
-message "ImportError: No module named frescobaldi_app.main", try:
-
-    python3 setup.py install --install-layout=deb
-
-If you checked out Frescobaldi from Git, generate the message object files in
-frescobaldi_app/i18n using:
-
-    make -C i18n
-
-Those message object (*.mo) files contain the translated texts in Frescobaldi's
-GUI and built-in user guide.
-
-You should also generate the desktop and AppStream metainfo files, as the
-repository contains only the template without translations:
-
-    make -C linux
-
-The setup.cfg file contains a few default install options.
-It ensures that some important files (icon, desktop, appstream, man page)
-are installed in the install prefix. It also generates a file listing all
-the installed files, which is useful to uninstall:
-
-    cat installed.txt | xargs rm
-
-See the distutils documentation for more install options.
-
-NOTE: Since 2.18, Frescobaldi depends on the python-ly module, which needs to
-      be installed separately (see below). Previously, this Python module
-      (named 'ly') was part of Frescobaldi. When installing Frescobaldi, be
-      sure that old remnants of previous Frescobaldi installations are removed,
-      otherwise Frescobaldi will use the old 'ly' module instead, resulting in
-      various error messages.
+# Installation instructions for Frescobaldi
 
 
-Dependencies
-============
+## Using a pre-built package
 
-Frescobaldi is written in Python and depends on Qt >= 5.4 and PyQt >= 5.4, and
-uses the python-poppler-qt5 binding to Poppler for the built-in PDF preview.
+Each release comes with installers for Windows and macOS.  These are available
+from
 
-For MIDI the PortMidi library is used, either via importing 'pypm',
-'pyportmidi._pyportmidi', or, if that is not available, loading the pygame.pypm
-module from pygame; or, as a last resort, embedding the PortMidi C-library via
-ctypes. MIDI is optional.
+https://github.com/frescobaldi/frescobaldi/releases/
 
-Required:
-    Python (>= 3.8):
-        http://www.python.org/
-    Qt5 (>= 5.9):
-        http://qt.io/
-        Qt modules used by Frescobaldi:
-            QtCore, QtGui, QtNetwork, QtPrintSupport, QtSvg, QtWebChannel,
-            QtWebEngineWidgets, QtWidgets
-    PyQt5 (>= 5.9):
-        http://www.riverbankcomputing.co.uk/software/pyqt/
-    python-ly (>= 0.9.5):
-        https://pypi.python.org/pypi/python-ly
-    Poppler (>= 0.82.0):
-        http://poppler.freedesktop.org/
-    python-poppler-qt5:
-        https://github.com/frescobaldi/python-poppler-qt5
-    qpageview:
-        https://github.com/frescobaldi/qpageview
+This is the simplest way of installing Frescobaldi under Windows or macOS.
 
-Optional but recommended:
-    PortMidi: (for MIDI input and playback)
-        http://portmedia.sourceforge.net/portmidi/
-    pycups: (on UNIX, for printing to a local CUPS server)
-        https://pypi.org/project/pycups/
+Under Linux, your distribution probably provides a `frescobaldi` package.  If
+so, installing it is the easiest route, even though it might be out of date.
+Run `sudo apt install frescobaldi` on Debian/Ubuntu or `sudo dnf install
+frescobaldi` on Fedora.
 
-Suggested:
-    LilyPond:
-        http://www.lilypond.org/
+You can also install Frescobaldi from Flathub using Flatpak to get a more
+up-to-date application.
 
-Of course, PyQt5, python-poppler-qt5, python-ly, and pypm or pyportmidi need
-to be installed for the same Python version as Frescobaldi itself.
+https://flathub.org/apps/org.frescobaldi.Frescobaldi
 
-LilyPond is not a dependency of Frescobaldi, but of course you'll need to
-install one or more versions of LilyPond to make sensible use of Frescobaldi!
+**In this case, be sure to grant the Frescobaldi application access on your home
+directory in the Flatseal application, or you will not be able to use LilyPond
+files other than in specific directories (like `~/Documents`) due to the
+sandboxing that Flatpak imposes.**
+
+Also, if you previously installed Frescobaldi via your distribution, remember to
+remove it before installing it through Flatpak. Otherwise, they will coexist on
+your computer; while this is not a problem per se, you could get the old
+Frescobaldi version when you launch Frescobaldi graphically.
 
 
-"Freeze" installer
-==================
+
+## Developing Frescobaldi
+
+If you would like to help with the development of Frescobaldi, a Linux platform
+is recommended. You will need install it from source in editable
+mode. Frescobaldi is closely tied to two companion modules, python-ly and
+qpageview; you might want to modify these too, so it is recommended to install
+them from source as well.
+
+### Uninstalling other versions
+
+While not required, it is a good idea to save yourself confusion in the future
+by uninstalling other versions of Frescobaldi. For example, `sudo apt remove
+frescobaldi` if you installed via the system package on Debian/Ubuntu, `sudo dnf
+remove frescobaldi` on Fedora, or `flatpak remove org.frescobaldi.Frescobaldi`
+if you installed it via Flatpak, or `pip uninstall frescobaldi python-ly
+qpageview` if you used pip, or `pipx uninstall frescobaldi` if you used pipx.
+
+### Getting basic requirements
+
+Frescobaldi is written in Python 3, so you will need a Python interpreter.  Most
+Linux distributions come with Python 3 preinstalled.  Make sure that `python
+--version` works.
+
+You will also need a few packages from your operating system:
+
+* [pipx](https://pypa.github.io/pipx), for the installation process,
+* Git, the version control software used for Frescobaldi's source code,
+* PyQt5, the library Frescobaldi uses for its graphical interface,
+* python-poppler-qt5, a module used for displaying PDF files.
+
+On Debian/Ubuntu, these packages can be installed using:
+
+```
+sudo apt install pipx git python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebengine python3-poppler-qt5
+```
+
+On Fedora:
+
+```
+sudo dnf install pipx git python3-qt5-base python3-qt5-devel python3-qt5-webengine python3-poppler-qt5
+```
+
+### Getting the source code
+
+Create a directory where you will store the Frescobaldi sources and
+`cd` into it.  For example:
+
+```
+mkdir frescobaldi-repositories
+cd frescobaldi-repositories
+```
+
+Next, clone the repository:
+
+```
+git clone https://github.com/frescobaldi/frescobaldi.git
+```
+
+### Creating autogenerated files
+
+The following commands generate `.mo` files for translations, and a desktop
+file.
+
+```
+cd frescobaldi
+make -C i18n
+make -C linux
+cd ..
+```
+
+### Installing Frescobaldi
+
+Install from source with `pipx`:
+
+```
+pipx install --system-site-packages --editable ./frescobaldi
+```
+
+The `--system-site-packages` option is required. It ensures that Frescobaldi can
+use PyQt5 and python-poppler-qt5 from the system.
+
+The `--editable` option makes sure that your changes to the source code will be
+reflected.
+
+After this command, you should be able to run Frescobaldi from source by running
+`frescobaldi`.
+
+### Installing the desktop file
+
+The desktop file is what enabled you to run Frescobaldi as a normal application,
+by clicking on an icon, instead of running Frescobaldi in a terminal. Install it
+using
+
+```
+cd frescobaldi
+desktop-file-install --dir ~/.local/share/applications/ --set-icon $PWD/frescobaldi_app/icons/org.frescobaldi.Frescobaldi.svg  linux/org.frescobaldi.Frescobaldi.desktop
+update-desktop-database ~/.local/share/
+cd ..
+```
+
+After waiting a few seconds, you should find a Frescobaldi application on your
+system.
+
+### Optional: installing python-ly and qpageview as editable
+
+You now have a copy of Frescobaldi's source code that you can edit and launch
+easily. However, Frescobaldi relies on two companion modules, python-ly and
+qpageview, which you may want to develop as well. If you want to be able to
+develop them, clone their sources:
+
+```
+git clone https://github.com/frescobaldi/python-ly.git
+git clone https://github.com/frescobaldi/qpageview.git
+```
+
+then "inject" them into the already installed application so that they replace
+the automatically downloaded copies of python-ly and qpageview:
+
+```
+pipx inject --editable frescobaldi ./python-ly ./qpageview
+```
+
+### Optional: additional features
+
+Finally, you may want to install some optional modules that are needed
+for certain features.
+
+* For MIDI the PortMidi library is used, either via importing 'pypm',
+  'pyportmidi._pyportmidi', or, if that is not available, loading the
+  pygame.pypm module from pygame; or, as a last resort, embedding the PortMidi
+  C-library via ctypes. For example, under Debian/Ubuntu, `sudo apt install
+  python3-pygame`, and on Fedora, `sudo dnf install python3-pygame`.
+
+* If you want to print PDFs to a local CUPS server, also install `pycups` using
+  `pipx inject frescobaldi pycups`.
+
+
+
+## "Freeze" installer
+
 
 The freeze.py script can create a self-contained Windows-installer, bundling all
 of Python, PyQt5, popplerqt5 and pypm (from pygame) when used on MS Windows.
 To use the script you need cx_Freeze and Inno Setup.
 
 
-Mac OS X application bundle
-===========================
+## Mac OS X application bundle
 
 The macosx/mac-app.py script can build an application bundle on Mac OS X.
 To see the usage notes, run:
@@ -135,12 +200,9 @@ The script assumes a specific system configuration (for details run the script
 with the '-h' option), but can be easily adapted to other configurations.
 
 
-For Linux distribution packagers
-================================
+## For Linux distribution packagers
 
-See the section Dependencies for the dependencies that need to be installed.
-Be sure that all python packages belong to the same Python version Frescobaldi
-uses.
+See above for the dependencies that need to be installed.
 
 Frescobaldi contains some files by default which are also available in other
 packages often used in Linux distributions. It is possible to remove those

@@ -4,18 +4,10 @@ README for developers
 The Frescobaldi LilyPond sheet music editor is written in Python and uses
 Qt for its user interface, via the PyQt bindings (Python3 and Qt5).
 
-All code and application data is in the frescobaldi_app/ directory. The
-frescobaldi script just imports frescobaldi_app.main.  You can simply run
-./frescobaldi from the command line after unpacking Frescobaldi.
-
-You can also install the 'frescobaldi_app' package in the system- or user-wide
-python directories and the frescobaldi script in your PATH.  The distutils-based
-installation procedure can do this.
-
 'frescobaldi_app' is not a real package: on startup, the absolute
-'frescobaldi_app' directory is added to sys.path and its own __path__ is cleared
-so all modules and packages inside frescobaldi_app are available as toplevel
-modules and packages.
+'frescobaldi_app' directory is added to sys.path and its own __path__ is
+cleared so all modules and packages inside frescobaldi_app are
+available as toplevel modules and packages.
 
 
 Running Frescobaldi in an interactive shell
