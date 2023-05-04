@@ -49,7 +49,7 @@ parser.add_argument('-v', '--version', \
 parser.add_argument('-s', '--script', \
   help = 'path of {0}\'s main script; you should use an absolute path, \
   so that the application bundle can be moved to another \
-  directory'.format(appinfo.appname), default = '{0}/{1}/__main__.py'.format(root, appinfo.name))
+  directory'.format(appinfo.appname), default = '{0}/{1}_app/__main__.py'.format(root, appinfo.name))
 parser.add_argument('-a', '--standalone', action = 'store_true', \
   help = 'build a standalone application bundle \
   (WARNING: some manual steps are required after the execution of this script)')

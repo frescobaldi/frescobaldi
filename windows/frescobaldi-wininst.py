@@ -41,7 +41,7 @@ except ImportError:
 
 
 # Main application script and Python executable:
-script = os.path.join(sys.prefix, 'Scripts', 'frescobaldi', '__main__.py')
+script = os.path.join(sys.prefix, 'Scripts', 'frescobaldi_app', '__main__.py')
 python = os.path.join(sys.exec_prefix, 'pythonw.exe') # because sys.executable points to installer
 
 
