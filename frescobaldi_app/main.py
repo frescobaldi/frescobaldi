@@ -27,7 +27,7 @@ import re
 import sys
 
 from PyQt5.QtCore import QSettings, QTimer, QUrl
-from PyQt5.QtGui import QTextCursor
+from PyQt5.QtGui import QTextCursor, QIcon
 from PyQt5.QtWidgets import QApplication
 
 import appinfo          # Information about our application
@@ -190,7 +190,14 @@ def main():
 
     # application icon
     import icons
-    QApplication.setWindowIcon(icons.get("frescobaldi"))
+
+    if sys.platform.startswith('win'):
+        import pathlib
+        current_directory = str(pathlib.Path(__file__).parent.absolute())
+        icon_path = current_directory + '//icons//frescobaldi.ico'
+        QApplication.setWindowIcon(QIcon(icon_path))
+    else:
+        QApplication.setWindowIcon(icons.get("frescobaldi"))
 
     QTimer.singleShot(0, remote.setup)  # Start listening for IPC
 
