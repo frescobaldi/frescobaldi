@@ -96,7 +96,7 @@ print(appinfo.version)')
 
 if git rev-parse --git-dir > /dev/null 2>&1
 then
-  if [[ v${VERSION} != $(git describe) ]]
+  if [[ v${VERSION} != $(git describe --tags) ]]
   then
     VERSION=${VERSION}-$(git log -1 --format=%ci | sed -E 's/^(....)-(..)-(..).*$/\1\2\3/')
   fi
@@ -236,10 +236,18 @@ then
 fi
 echo
 
+if [[ "${APPARCH}" == arm64 || "${APPARCH}" == universal2 ]]
+then
+  echo Signing the .app bundle with an ad hoc signature.
+  echo
+  codesign --force --deep -s - ${APPBUNDLE}
+  echo
+fi
+
 echo Building the DMG disk image with appdmg.
 echo
 DMGNAME=Frescobaldi-${VERSION}-${APPARCH}.dmg
-sed -e '/INSTALL/d' ../README.md > README.txt
+sed -e '/INSTALL[.]md/d' ../README.md > README.txt
 cp ../CHANGELOG.md CHANGELOG.txt
 cp ../COPYING COPYING.txt
 appdmg --quiet appdmg/appdmg.json dist/${DMGNAME}
