@@ -202,7 +202,7 @@ def main():
 
     # application icon
     import icons
-    QApplication.setWindowIcon(icons.get("frescobaldi"))
+    QApplication.setWindowIcon(icons.get("org.frescobaldi.Frescobaldi"))
 
     QTimer.singleShot(0, remote.setup)  # Start listening for IPC
 
