@@ -161,7 +161,7 @@ def check_ly():
     sys.exit(1)
 
 
-def main():
+def main(debug=False):
     """Main function."""
     app.instantiate()               # Construct QApplication object
     args = parse_commandline()
@@ -266,7 +266,11 @@ def main():
         view.centerCursor()
 
     sys.excepthook = app.excepthook # Show Python errors in a bugreport window
-    sys.exit(app.run())             # Go!
+
+    app.appStarted() # Emit the appStarted signal
+
+    if not debug:
+        sys.exit(app.run())
 
 if __name__ == "__main__":
     main()

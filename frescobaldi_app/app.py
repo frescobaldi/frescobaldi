@@ -159,8 +159,7 @@ def oninit(func):
     return func
 
 def run():
-    """Emit the appStarted signal and enter the Qt event loop."""
-    appStarted()
+    """Enter the Qt event loop."""
     result = qApp.exec_()
     aboutToQuit()
     return result

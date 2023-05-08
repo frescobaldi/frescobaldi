@@ -10,10 +10,11 @@
 
 import sys
 
+from frescobaldi_app.__main__ import main
+
 from . import toplevel
 toplevel.install()
 
-import main
 import app
 import document
 
@@ -61,12 +62,8 @@ def modules():
 sys.displayhook = app.displayhook
 
 # instantiate app and create a mainwindow, etc
-app.instantiate()
-main.main()
-app.appStarted()
+main(debug=True)
 
 # be friendly and import Qt stuff
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-
-
