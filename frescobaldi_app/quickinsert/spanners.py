@@ -21,7 +21,6 @@
 The Quick Insert panel spanners Tool.
 """
 
-
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QHBoxLayout, QToolButton
 
@@ -41,12 +40,13 @@ from . import buttongroup
 
 class Spanners(tool.Tool):
     """Dynamics tool in the quick insert panel toolbox."""
+
     def __init__(self, panel):
         super(Spanners, self).__init__(panel)
         self.removemenu = QToolButton(self,
-            autoRaise=True,
-            popupMode=QToolButton.InstantPopup,
-            icon=icons.get('edit-clear'))
+                                      autoRaise=True,
+                                      popupMode=QToolButton.InstantPopup,
+                                      icon=icons.get('edit-clear'))
 
         mainwindow = panel.parent().mainwindow()
         mainwindow.selectionStateChanged.connect(self.removemenu.setEnabled)
@@ -122,7 +122,7 @@ class ArpeggioGroup(buttongroup.ButtonGroup):
                 c.insertText('\\arpeggio')
                 if name != lastused:
                     cursortools.strip_indent(c)
-                    indent = c.block().text()[:c.position()-c.block().position()]
+                    indent = c.block().text()[:c.position() - c.block().position()]
                     c.insertText(name + '\n' + indent)
                 # just pick the first place
                 return
@@ -177,7 +177,7 @@ class SpannerGroup(buttongroup.ButtonGroup):
         yield 'spanner_melisma', _("Melisma")
 
     def actionTriggered(self, name):
-        d = ['_', '', '^'][self.direction()+1]
+        d = ['_', '', '^'][self.direction() + 1]
         if name == "spanner_slur":
             spanner = d + '(', ')'
         elif name == "spanner_phrasingslur":
@@ -190,6 +190,7 @@ class SpannerGroup(buttongroup.ButtonGroup):
             spanner = '\\melisma', '\\melismaEnd'
 
         cursor = self.mainwindow().textCursor()
+
         with cursortools.compress_undo(cursor):
             for s, c in zip(spanner, spanner_positions(cursor)):
                 c.insertText(s)
@@ -212,7 +213,7 @@ class GraceGroup(buttongroup.ButtonGroup):
         yield 'grace_after', _("After grace")
 
     def actionTriggered(self, name):
-        d = ['_', '', '^'][self.direction()+1]
+        d = ['_', '', '^'][self.direction() + 1]
         single = ''
         if name == "grace_grace":
             inner = ''
@@ -267,6 +268,93 @@ class GraceGroup(buttongroup.ButtonGroup):
                     cursor.insertText(outer[0])
 
 
+def isSpannerStart(i, text: str):
+    if text[i] == '[':
+        return ']'
+    elif text[i] == '(':
+        return ')'
+    else:
+        return None
+
+
+def isCompoundSpannerStart(i, text: str):
+    if i == len(text) - 1:
+        return None
+    elif text[i:i + 1] == '\\(':
+        return '\\)'
+
+
+def isCompoundSpannerEnd(i, text: str):
+    if i == len(text) - 1:
+        return None
+    else:
+        return text[i:i + 1] == '\\)'
+
+
+def checkSpannerStart(i, text):
+    spanner = isSpannerStart(i, text)
+
+    if spanner:
+        return spanner, 1
+    else:
+        return isCompoundSpannerStart(i, text), 2
+
+
+def tweakMelismaSpannerEndPosition(cursor, music_items):
+    if len(music_items) == 0:
+        return []
+
+    text = cursor.block().text()
+    block_offset = cursor.block().position()
+    search_end = music_items[1][0] - block_offset
+    spanners = set()  # spanners already attached to the starting item
+
+    i = music_items[0][1] - block_offset  # search starting position
+    last_spanner_index = i
+
+    while i < search_end:
+        span, increment = checkSpannerStart(i, text)
+
+        if span:
+            spanners.add(span)
+            i += increment
+            last_spanner_index = i
+        else:
+            i += 1
+
+    # no spanner attached to the first item
+    if len(spanners) == 0:
+        return
+
+    music_items[0][1] = last_spanner_index + block_offset
+
+    if cursor.hasSelection():
+        search_end = cursor.block().length()
+    else:
+        if len(music_items) > 2:
+            search_end = music_items[2][0] - block_offset
+        else:
+            search_end = cursor.block().length()
+
+    i = music_items[1][1] - block_offset
+    last_spanner_index = i
+
+    while i < search_end:
+        if text[i] in [')', ']']:
+            spanners.remove(text[i])
+            last_spanner_index = i
+        elif isCompoundSpannerEnd(i, text):
+            spanners.remove('\\)')
+            i += 1
+            last_spanner_index = i
+
+        if len(spanners) == 0:
+            break
+
+        i += 1
+
+    music_items[-1 if cursor.hasSelection() else 1][1] = last_spanner_index + block_offset + 1
+
 def spanner_positions(cursor):
     """Return a list with 0 to 2 QTextCursor instances.
 
@@ -295,7 +383,41 @@ def spanner_positions(cursor):
         positions.append(c)
     return positions
 
-
+# def spanner_positions(cursor: QTextCursor, spanner_name: str):
+#     """Return a list with 0 to 2 QTextCursor instances.
+#
+#     At the first cursor a starting spanner item can be inserted, at the
+#     second an ending item.
+#
+#     """
+#     c = lydocument.cursor(cursor)
+#
+#     if cursor.hasSelection():
+#         partial = ly.document.INSIDE
+#     else:
+#         # just select until the end of the current line
+#         c.select_end_of_block()
+#         partial = ly.document.OUTSIDE
+#
+#     # take care only of the start and end position of each musical item
+#     item_positions = list(map(lambda item: [item.pos, item.end], ly.rhythm.music_items(c, partial=partial)))
+#
+#     # if spanner_name.endswith('melisma'):
+#     #     tweakMelismaSpannerEndPosition(cursor, item_positions)
+#
+#     if cursor.hasSelection():
+#         del item_positions[1:-1]
+#     else:
+#         del item_positions[2:]
+#
+#     positions = []
+#
+#     for item in item_positions:
+#         c = QTextCursor(cursor.document())
+#         c.setPosition(item[1])
+#         positions.append(c)
+#
+#     return positions
 
 
 _arpeggioTypes = {
@@ -311,6 +433,5 @@ _glissandoStyles = {
     'glissando_dashed': 'dashed-line',
     'glissando_dotted': 'dotted-line',
     'glissando_zigzag': 'zigzag',
-    'glissando_trill':  'trill',
+    'glissando_trill': 'trill',
 }
-
