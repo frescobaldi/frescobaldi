@@ -20,6 +20,7 @@
 """
 The Quick Insert panel spanners Tool.
 """
+import re
 
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QHBoxLayout, QToolButton
@@ -192,7 +193,7 @@ class SpannerGroup(buttongroup.ButtonGroup):
         cursor = self.mainwindow().textCursor()
 
         with cursortools.compress_undo(cursor):
-            for s, c in zip(spanner, spanner_positions(cursor)):
+            for s, c in zip(spanner, spanner_positions(cursor, name)):
                 c.insertText(s)
 
 
@@ -268,36 +269,33 @@ class GraceGroup(buttongroup.ButtonGroup):
                     cursor.insertText(outer[0])
 
 
-def isSpannerStart(i, text: str):
-    if text[i] == '[':
-        return ']'
-    elif text[i] == '(':
-        return ')'
+def check_spanner(i, text):
+    if text[i] in ['(', ')', '[', ']']:
+        return 1
     else:
-        return None
+        if i == len(text) - 1:
+            return 0
+        elif escaped_spanner_rx.match(text[i:i + 1]):
+            return 2
+        else:
+            return 0
 
 
-def isCompoundSpannerStart(i, text: str):
-    if i == len(text) - 1:
-        return None
-    elif text[i:i + 1] == '\\(':
-        return '\\)'
+def search_spanner_symbols(text, index, end):
+    last_spanner_index = index
+    delta = 0
 
+    while index < end:
+        spanner_length = check_spanner(index, text)
 
-def isCompoundSpannerEnd(i, text: str):
-    if i == len(text) - 1:
-        return None
-    else:
-        return text[i:i + 1] == '\\)'
+        if spanner_length > 0:
+            index += spanner_length
+            last_spanner_index = index - 1
+            delta = 1
+        else:
+            index += 1
 
-
-def checkSpannerStart(i, text):
-    spanner = isSpannerStart(i, text)
-
-    if spanner:
-        return spanner, 1
-    else:
-        return isCompoundSpannerStart(i, text), 2
+    return last_spanner_index, delta
 
 
 def tweakMelismaSpannerEndPosition(cursor, music_items):
@@ -307,55 +305,27 @@ def tweakMelismaSpannerEndPosition(cursor, music_items):
     text = cursor.block().text()
     block_offset = cursor.block().position()
     search_end = music_items[1][0] - block_offset
-    spanners = set()  # spanners already attached to the starting item
 
-    i = music_items[0][1] - block_offset  # search starting position
-    last_spanner_index = i
+    last_spanner_index, delta = search_spanner_symbols(text, music_items[0][1] - block_offset, search_end)
 
-    while i < search_end:
-        span, increment = checkSpannerStart(i, text)
-
-        if span:
-            spanners.add(span)
-            i += increment
-            last_spanner_index = i
-        else:
-            i += 1
-
-    # no spanner attached to the first item
-    if len(spanners) == 0:
-        return
-
-    music_items[0][1] = last_spanner_index + block_offset
+    music_items[0][1] = last_spanner_index + block_offset + delta
+    last_item_index = 1
 
     if cursor.hasSelection():
-        search_end = cursor.block().length()
+        search_end = len(text)
+        last_item_index = -1
     else:
         if len(music_items) > 2:
             search_end = music_items[2][0] - block_offset
         else:
-            search_end = cursor.block().length()
+            search_end = len(text)
 
-    i = music_items[1][1] - block_offset
-    last_spanner_index = i
+    last_spanner_index, delta = search_spanner_symbols(text, music_items[last_item_index][1] - block_offset, search_end)
 
-    while i < search_end:
-        if text[i] in [')', ']']:
-            spanners.remove(text[i])
-            last_spanner_index = i
-        elif isCompoundSpannerEnd(i, text):
-            spanners.remove('\\)')
-            i += 1
-            last_spanner_index = i
+    music_items[-1 if cursor.hasSelection() else 1][1] = last_spanner_index + block_offset + delta
 
-        if len(spanners) == 0:
-            break
 
-        i += 1
-
-    music_items[-1 if cursor.hasSelection() else 1][1] = last_spanner_index + block_offset + 1
-
-def spanner_positions(cursor):
+def spanner_positions(cursor: QTextCursor, spanner_name: str):
     """Return a list with 0 to 2 QTextCursor instances.
 
     At the first cursor a starting spanner item can be inserted, at the
@@ -363,6 +333,7 @@ def spanner_positions(cursor):
 
     """
     c = lydocument.cursor(cursor)
+
     if cursor.hasSelection():
         partial = ly.document.INSIDE
     else:
@@ -370,55 +341,28 @@ def spanner_positions(cursor):
         c.select_end_of_block()
         partial = ly.document.OUTSIDE
 
-    items = list(ly.rhythm.music_items(c, partial=partial))
+    # take care only of the start and end position of each musical item, because item.end cannot be overwritten
+    item_positions = list(map(lambda it: [it.pos, it.end], ly.rhythm.music_items(c, partial=partial)))
+
+    if spanner_name.endswith('melisma'):
+        tweakMelismaSpannerEndPosition(cursor, item_positions)
+
     if cursor.hasSelection():
-        del items[1:-1]
+        del item_positions[1:-1]
     else:
-        del items[2:]
+        del item_positions[2:]
 
     positions = []
-    for i in items:
+
+    for item in item_positions:
         c = QTextCursor(cursor.document())
-        c.setPosition(i.end)
+        c.setPosition(item[1])
         positions.append(c)
+
     return positions
 
-# def spanner_positions(cursor: QTextCursor, spanner_name: str):
-#     """Return a list with 0 to 2 QTextCursor instances.
-#
-#     At the first cursor a starting spanner item can be inserted, at the
-#     second an ending item.
-#
-#     """
-#     c = lydocument.cursor(cursor)
-#
-#     if cursor.hasSelection():
-#         partial = ly.document.INSIDE
-#     else:
-#         # just select until the end of the current line
-#         c.select_end_of_block()
-#         partial = ly.document.OUTSIDE
-#
-#     # take care only of the start and end position of each musical item
-#     item_positions = list(map(lambda item: [item.pos, item.end], ly.rhythm.music_items(c, partial=partial)))
-#
-#     # if spanner_name.endswith('melisma'):
-#     #     tweakMelismaSpannerEndPosition(cursor, item_positions)
-#
-#     if cursor.hasSelection():
-#         del item_positions[1:-1]
-#     else:
-#         del item_positions[2:]
-#
-#     positions = []
-#
-#     for item in item_positions:
-#         c = QTextCursor(cursor.document())
-#         c.setPosition(item[1])
-#         positions.append(c)
-#
-#     return positions
 
+escaped_spanner_rx = re.compile(r"\\[()\[\]]")
 
 _arpeggioTypes = {
     'arpeggio_normal': '\\arpeggioNormal',
