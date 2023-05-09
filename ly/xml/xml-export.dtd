@@ -1,0 +1,71 @@
+<!ELEMENT articulations ( music+ ) >
+
+<!ELEMENT book ( header, score ) >
+
+<!ELEMENT boolean EMPTY >
+<!ATTLIST boolean value NMTOKEN #FIXED "true" >
+
+<!ELEMENT document ( book ) >
+
+<!ELEMENT duration EMPTY >
+<!ATTLIST duration denom NMTOKEN #FIXED "1" >
+<!ATTLIST duration dots ( 0 | 1 ) #REQUIRED >
+<!ATTLIST duration log ( 0 | 1 | 2 | 3 | 4 ) #REQUIRED >
+<!ATTLIST duration numer ( 1 | 2 | 20 | 3 | 4 | 7 | 8 ) #REQUIRED >
+
+<!ELEMENT element ( music ) >
+
+<!ELEMENT elements ( music+ ) >
+
+<!ELEMENT header ( variable+ ) >
+
+<!ELEMENT list ( boolean | list | number | pair | symbol )* >
+
+<!ELEMENT m ( m | number | pair | string )* >
+<!ATTLIST m name ( bold | center-column | column | combine | concat | dynamic | general-align | italic | line | lookup | musicglyph | override | simple | tiny | translate | upright | with-dimensions | with-url ) #REQUIRED >
+
+<!ELEMENT markup ( m ) >
+
+<!ELEMENT moment EMPTY >
+<!ATTLIST moment grace-denum NMTOKEN #FIXED "1" >
+<!ATTLIST moment grace-numer NMTOKEN #FIXED "0" >
+<!ATTLIST moment main-denum ( 1 | 16 | 2 | 4 | 8 ) #REQUIRED >
+<!ATTLIST moment main-numer ( 0 | 1 | 10 | 12 | 14 | 141 | 16 | 2 | 20 | 22 | 24 | 27 | 3 | 4 | 5 | 6 | 7 | 8 | 9 ) #REQUIRED >
+
+<!ELEMENT music ( articulations | duration | element | elements | origin | pitch | property )* >
+<!ATTLIST music name NMTOKEN #REQUIRED >
+
+<!ELEMENT null EMPTY >
+
+<!ELEMENT number EMPTY >
+<!ATTLIST number value NMTOKEN #REQUIRED >
+
+<!ELEMENT origin EMPTY >
+<!ATTLIST origin char NMTOKEN #REQUIRED >
+<!ATTLIST origin filename CDATA #REQUIRED >
+<!ATTLIST origin line NMTOKEN #REQUIRED >
+
+<!ELEMENT pair ( number | symbol )* >
+
+<!ELEMENT pitch EMPTY >
+<!ATTLIST pitch alteration CDATA #REQUIRED >
+<!ATTLIST pitch notename ( 0 | 1 | 2 | 3 | 4 | 5 | 6 ) #REQUIRED >
+<!ATTLIST pitch octave ( -1 | -2 | 0 | 1 | 2 ) #REQUIRED >
+
+<!ELEMENT procedure EMPTY >
+<!ATTLIST procedure name CDATA #FIXED "ly:set-middle-C!" >
+
+<!ELEMENT property ( boolean | duration | list | markup | moment | null | number | pair | pitch | procedure | string | symbol )* >
+<!ATTLIST property name NMTOKEN #REQUIRED >
+
+<!ELEMENT score ( music ) >
+
+<!ELEMENT string EMPTY >
+<!ATTLIST string value CDATA #REQUIRED >
+
+<!ELEMENT symbol EMPTY >
+<!ATTLIST symbol value NMTOKEN #REQUIRED >
+
+<!ELEMENT variable ( markup | string )* >
+<!ATTLIST variable name NMTOKEN #REQUIRED >
+
