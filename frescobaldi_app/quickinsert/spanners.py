@@ -34,6 +34,7 @@ import documentactions
 import symbols
 import ly.document
 import ly.rhythm
+from ly.lex.lilypond import Note, ChordStart, Rest, Skip
 
 from . import tool
 from . import buttongroup
@@ -269,60 +270,39 @@ class GraceGroup(buttongroup.ButtonGroup):
                     cursor.insertText(outer[0])
 
 
-def check_spanner(i, text):
-    if text[i] in ['(', ')', '[', ']']:
-        return 1
-    else:
-        if i == len(text) - 1:
-            return 0
-        elif escaped_spanner_rx.match(text[i:i + 1]):
-            return 2
-        else:
-            return 0
+def next_music_token(doc, pos):
+    """
+    Return a tuple with the positions of the music item in the document next to the position. It identifies only the
+    start of a music item (Note, Rest, Skip, Chord), without collect all subsequent tokens (durations,
+    closing chords...)
+    :param doc: a ly document
+    :param pos: int indicating a position in the document
+    :return:
+    """
+    cursor = ly.document.Cursor(doc, pos)
+    source = ly.document.Source(cursor, True, ly.document.INSIDE, True)
+
+    for token in source:
+        if token.pos >= pos:
+            if isinstance(token, Note) or isinstance(token, Rest) \
+                    or isinstance(token, Skip) or isinstance(token, ChordStart):
+                return token.pos, token.end
 
 
-def search_spanner_symbols(text, index, end):
-    last_spanner_index = index
-    delta = 0
+def get_spanners_positions(doc, pos, max_offset=1e5):
+    from ly.lex.lilypond import BeamStart, BeamEnd, SlurStart, SlurEnd, PhrasingSlurStart, PhrasingSlurEnd
+    cursor = ly.document.Cursor(doc, pos)
+    source = ly.document.Source(cursor, True, ly.document.INSIDE, True)
 
-    while index < end:
-        spanner_length = check_spanner(index, text)
-
-        if spanner_length > 0:
-            index += spanner_length
-            last_spanner_index = index - 1
-            delta = 1
-        else:
-            index += 1
-
-    return last_spanner_index, delta
-
-
-def tweakMelismaSpannerEndPosition(cursor, music_items):
-    if len(music_items) == 0:
-        return []
-
-    text = cursor.block().text()
-    block_offset = cursor.block().position()
-    search_end = music_items[1][0] - block_offset
-
-    last_spanner_index, delta = search_spanner_symbols(text, music_items[0][1] - block_offset, search_end)
-
-    music_items[0][1] = last_spanner_index + block_offset + delta
-    last_item_index = 1
-
-    if cursor.hasSelection():
-        search_end = len(text)
-        last_item_index = -1
-    else:
-        if len(music_items) > 2:
-            search_end = music_items[2][0] - block_offset
-        else:
-            search_end = len(text)
-
-    last_spanner_index, delta = search_spanner_symbols(text, music_items[last_item_index][1] - block_offset, search_end)
-
-    music_items[-1 if cursor.hasSelection() else 1][1] = last_spanner_index + block_offset + delta
+    positions = []
+    for token in source:
+        if token.pos >= max_offset:
+            break
+        if isinstance(token, BeamStart) or isinstance(token, BeamEnd) \
+                or isinstance(token, SlurStart) or isinstance(token, SlurEnd) \
+                or isinstance(token, PhrasingSlurStart) or isinstance(token, PhrasingSlurEnd):
+            positions.append((token.pos, token.end))
+    return positions
 
 
 def spanner_positions(cursor: QTextCursor, spanner_name: str):
@@ -332,37 +312,69 @@ def spanner_positions(cursor: QTextCursor, spanner_name: str):
     second an ending item.
 
     """
-    c = lydocument.cursor(cursor)
+
+    def search_spanners(item1, item2, spanners):
+        """
+        Search for spanner symbols between two musical items.
+        :param item1: First item
+        :param item2: Second item
+        :param spanners: A list of spanners to be examined
+        :return: The position in the document of the last spanner attached to the first item, or None if nothing is found
+        """
+
+        last = None
+        for span in spanners:
+            if span[1] < item2[0] and span[0] >= item1[1]:
+                last = span[1]
+
+        return last
+
+    crs = lydocument.cursor(cursor)
 
     if cursor.hasSelection():
         partial = ly.document.INSIDE
     else:
         # just select until the end of the current line
-        c.select_end_of_block()
+        crs.select_end_of_block()
         partial = ly.document.OUTSIDE
 
-    # take care only of the start and end position of each musical item, because item.end cannot be overwritten
-    item_positions = list(map(lambda it: [it.pos, it.end], ly.rhythm.music_items(c, partial=partial)))
+    # get a list of tuples with starting and ending positions of the items
+    items = list(map(lambda it: (it.pos, it.end), ly.rhythm.music_items(crs, partial=partial)))
 
-    if spanner_name.endswith('melisma'):
-        tweakMelismaSpannerEndPosition(cursor, item_positions)
+    if len(items) == 1:
+        return []
 
     if cursor.hasSelection():
-        del item_positions[1:-1]
+        # get the music item next to the selection end (used to search for spanners after the selection)
+        tk = next_music_token(crs.document, items[-1][1])
+        items.append(tk if tk else (crs.end, crs.end))
+        crs.select_end_of_block()  # need for search all spanners outside the selection
     else:
-        del item_positions[2:]
+        del items[3:]  # leave at most 3 items
+        if len(items) < 3:
+            items.append((crs.end, crs.end))
+
+    # get all spanners from start up to last item
+    positions = get_spanners_positions(crs.document, items[0][1], items[-1][0])
+
+    a = search_spanners(items[0], items[1], positions)  # spanners between item0 and item1
+    b = search_spanners(items[-2], items[-1], positions)  # spanners between the last two items
+
+    if not a:
+        a = items[0][1]
+
+    if not b:
+        b = items[-2][1]
 
     positions = []
 
-    for item in item_positions:
+    for pos in [a, b]:
         c = QTextCursor(cursor.document())
-        c.setPosition(item[1])
+        c.setPosition(pos)
         positions.append(c)
 
     return positions
 
-
-escaped_spanner_rx = re.compile(r"\\[()\[\]]")
 
 _arpeggioTypes = {
     'arpeggio_normal': '\\arpeggioNormal',
