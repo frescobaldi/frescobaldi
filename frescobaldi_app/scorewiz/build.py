@@ -436,6 +436,9 @@ class Builder(object):
             ly.dom.BlankLine(doc)
 
         layout = ly.dom.Layout()
+        if self.scoreProperties.blankStaff.value() == 1:
+            # Ensure that the line is at full width also when exactly one system
+            layout['ragged-right'] = ly.dom.Scheme('#f')
 
         # remove bar numbers
         if self.removeBarNumbers:
