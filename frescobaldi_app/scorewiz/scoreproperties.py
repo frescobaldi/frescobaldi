@@ -67,7 +67,7 @@ class ScoreProperties(object):
         self.translateKeySignatureWidget()
         self.translateTimeSignatureWidget()
         self.translatePickupWidget()
-        self.tranlateMetronomeWidget()
+        self.translateMetronomeWidget()
         self.translateTempoWidget()
         self.translateBlankStaffWidget()
 
@@ -227,7 +227,7 @@ class ScoreProperties(object):
         grid.addWidget(self.metronomeRound, 1, 1)
         layout.addLayout(grid)
 
-    def tranlateMetronomeWidget(self):
+    def translateMetronomeWidget(self):
         self.metronomeLabel.setText(_("Metronome mark:"))
         self.metronomeRound.setText(_("Round tap tempo value"))
         self.metronomeRound.setToolTip(_(
