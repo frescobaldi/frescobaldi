@@ -132,6 +132,10 @@ class PartData(object):
             ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), ly.dom.Transposition(s))
         ly.dom.LineComment(_("Music follows here."), s)
         ly.dom.BlankLine(s)
+        num = self.scoreProperties.blankStaff.value()
+        if num:
+            ly.dom.Text(r"\repeat unfold {num} {{ s1 \break }}".format(num=num), s)
+            ly.dom.BlankLine(s)
         return a
 
 

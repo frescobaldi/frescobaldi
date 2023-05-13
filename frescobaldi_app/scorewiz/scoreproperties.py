@@ -33,7 +33,7 @@ import re
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import (
-    QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel, QLineEdit)
+    QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel, QLineEdit, QSpinBox)
 
 import ly.dom
 import completionmodel
@@ -52,6 +52,7 @@ class ScoreProperties(object):
         self.createPickupWidget()
         self.createMetronomeWidget()
         self.createTempoWidget()
+        self.createBlankStaffWidget()
 
     def layoutWidgets(self, layout):
         """Adds all widgets to a vertical layout."""
@@ -60,6 +61,7 @@ class ScoreProperties(object):
         self.layoutPickupWidget(layout)
         self.layoutMetronomeWidget(layout)
         self.layoutTempoWidget(layout)
+        self.layoutBlankStaffWidget(layout)
 
     def translateWidgets(self):
         self.translateKeySignatureWidget()
@@ -67,6 +69,7 @@ class ScoreProperties(object):
         self.translatePickupWidget()
         self.tranlateMetronomeWidget()
         self.translateTempoWidget()
+        self.translateBlankStaffWidget()
 
     def ly(self, node, builder):
         """Adds appropriate LilyPond command nodes to the parent node.
@@ -289,6 +292,26 @@ class ScoreProperties(object):
         dur = durations[self.metronomeNote.currentIndex()]
         val = self.metronomeValue.currentText() or '60'
         return ly.dom.Tempo(dur, val, node)
+
+    # Blank staff
+    def createBlankStaffWidget(self):
+        self.blankStaffLabel = QLabel()
+        self.blankStaff = QSpinBox()
+        self.blankStaff.setRange(0, 10000)
+        self.blankStaffLabel.setBuddy(self.blankStaff)
+
+    def layoutBlankStaffWidget(self, layout):
+        box = QHBoxLayout()
+        box.addWidget(self.blankStaffLabel)
+        box.addWidget(self.blankStaff)
+        layout.addLayout(box)
+
+    def translateBlankStaffWidget(self):
+        self.blankStaffLabel.setText(_("Blank staff lines:"))
+        self.blankStaff.setSpecialValueText(_("no blank staff lines", "Disabled"))
+        self.blankStaff.setToolTip(_(
+            "Add blank staff lines along with the current configuration."
+            ))
 
 
 def metronomeValues():

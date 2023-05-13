@@ -56,6 +56,7 @@ class SettingsWidget(QWidget):
         self.scoreProperties.keyNote.setCurrentIndex(0)
         self.scoreProperties.keyMode.setCurrentIndex(0)
         self.scoreProperties.pickup.setCurrentIndex(0)
+        self.scoreProperties.blankStaff.setValue(0)
 
 
 class ScoreProperties(QGroupBox, scoreproperties.ScoreProperties):
