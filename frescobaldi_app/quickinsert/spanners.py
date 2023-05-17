@@ -20,12 +20,10 @@
 """
 The Quick Insert panel spanners Tool.
 """
-import re
 
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QHBoxLayout, QToolButton
 
-import app
 import icons
 import cursortools
 import tokeniter
@@ -93,7 +91,7 @@ class ArpeggioGroup(buttongroup.ButtonGroup):
             yield name, symbols.icon(name), None
 
     def actionTexts(self):
-        """Should yield name, text for very action."""
+        """Should yield name, text for every action."""
         yield 'arpeggio_normal', _("Arpeggio")
         yield 'arpeggio_arrow_up', _("Arpeggio with Up Arrow")
         yield 'arpeggio_arrow_down', _("Arpeggio with Down Arrow")
@@ -242,7 +240,7 @@ class GraceGroup(buttongroup.ButtonGroup):
         cursor = self.mainwindow().textCursor()
         with cursortools.compress_undo(cursor):
             if inner:
-                for i, ci in zip(inner, spanner_positions(cursor)):
+                for i, ci in zip(inner, spanner_positions(cursor, name)):
                     ci.insertText(i)
             if cursor.hasSelection():
                 ins = self.mainwindow().textCursor()
@@ -270,14 +268,41 @@ class GraceGroup(buttongroup.ButtonGroup):
                     cursor.insertText(outer[0])
 
 
-def next_music_token(doc, pos):
+def spanner_positions(cursor, command):
+    c = lydocument.cursor(cursor)
+    if cursor.hasSelection():
+        partial = ly.document.INSIDE
+    else:
+        # just select until the end of the current line
+        c.select_end_of_block()
+        partial = ly.document.OUTSIDE
+
+    items = list(ly.rhythm.music_items(c, partial=partial))
+
+    if command.endswith('melisma'):
+        items = melisma_items(cursor, c, items)
+    else:
+        if cursor.hasSelection():
+            del items[1:-1]
+        else:
+            del items[2:]
+
+    positions = []
+    for i in items:
+        c = QTextCursor(cursor.document())
+        c.setPosition(i.end)
+        positions.append(c)
+    return positions
+
+
+def next_music_token(doc, pos) -> tuple:
     """
     Return a tuple with the positions of the music item in the document next to the position. It identifies only the
     start of a music item (Note, Rest, Skip, Chord), without collect all subsequent tokens (durations,
     closing chords...)
-    :param doc: a ly document
+    :param doc: a lilypond document
     :param pos: int indicating a position in the document
-    :return:
+    :return: (token.pos, token.end)
     """
     cursor = ly.document.Cursor(doc, pos)
     source = ly.document.Source(cursor, True, ly.document.INSIDE, True)
@@ -289,7 +314,8 @@ def next_music_token(doc, pos):
                 return token.pos, token.end
 
 
-def get_spanners_positions(doc, pos, max_offset=1e5):
+def get_spanners_in_range(doc, pos, max_offset=1e5) -> list:
+    """ Find all spanner symbols from pos to max_offset (or the end of the document) """
     from ly.lex.lilypond import BeamStart, BeamEnd, SlurStart, SlurEnd, PhrasingSlurStart, PhrasingSlurEnd
     cursor = ly.document.Cursor(doc, pos)
     source = ly.document.Source(cursor, True, ly.document.INSIDE, True)
@@ -298,22 +324,22 @@ def get_spanners_positions(doc, pos, max_offset=1e5):
     for token in source:
         if token.pos >= max_offset:
             break
-        if isinstance(token, BeamStart) or isinstance(token, BeamEnd) \
-                or isinstance(token, SlurStart) or isinstance(token, SlurEnd) \
-                or isinstance(token, PhrasingSlurStart) or isinstance(token, PhrasingSlurEnd):
+        if isinstance(token, BeamStart) \
+                or isinstance(token, BeamEnd) \
+                or isinstance(token, SlurStart) \
+                or isinstance(token, SlurEnd) \
+                or isinstance(token, PhrasingSlurStart) \
+                or isinstance(token, PhrasingSlurEnd):
             positions.append((token.pos, token.end))
     return positions
 
 
-def spanner_positions(cursor: QTextCursor, spanner_name: str):
-    """Return a list with 0 to 2 QTextCursor instances.
-
-    At the first cursor a starting spanner item can be inserted, at the
-    second an ending item.
-
+def melisma_items(cursor: QTextCursor, crs, items) -> list:
+    """Return the correct positions of the melisma commands, after all spanners already inserted after the note
     """
+    from ly.rhythm import music_item
 
-    def search_spanners(item1, item2, spanners):
+    def search_spanners_symbols(item1, item2, spanners) -> int:
         """
         Search for spanner symbols between two musical items.
         :param item1: First item
@@ -324,56 +350,40 @@ def spanner_positions(cursor: QTextCursor, spanner_name: str):
 
         last = None
         for span in spanners:
-            if span[1] < item2[0] and span[0] >= item1[1]:
+            if span[1] < item2.pos and span[0] >= item1.end:
                 last = span[1]
 
         return last
 
-    crs = lydocument.cursor(cursor)
+    def _item(pos: int):
+        return music_item(None, None, None, None, pos, pos)
 
-    if cursor.hasSelection():
-        partial = ly.document.INSIDE
-    else:
-        # just select until the end of the current line
-        crs.select_end_of_block()
-        partial = ly.document.OUTSIDE
-
-    # get a list of tuples with starting and ending positions of the items
-    items = list(map(lambda it: (it.pos, it.end), ly.rhythm.music_items(crs, partial=partial)))
-
+    # only one item at the end of a block
     if len(items) == 1:
         return []
 
     if cursor.hasSelection():
-        # get the music item next to the selection end (used to search for spanners after the selection)
-        tk = next_music_token(crs.document, items[-1][1])
-        items.append(tk if tk else (crs.end, crs.end))
+        # get the music item next to the selection end (used to search for spanner symbols after the selection)
+        tk = next_music_token(crs.document, items[-1].end)
+        items.append(tk if tk else _item(crs.end))
         crs.select_end_of_block()  # need for search all spanners outside the selection
     else:
         del items[3:]  # leave at most 3 items
         if len(items) < 3:
-            items.append((crs.end, crs.end))
+            items.append(_item(crs.end))
 
     # get all spanners from start up to last item
-    positions = get_spanners_positions(crs.document, items[0][1], items[-1][0])
+    positions = get_spanners_in_range(crs.document, items[0].end, items[-1].pos)
 
-    a = search_spanners(items[0], items[1], positions)  # spanners between item0 and item1
-    b = search_spanners(items[-2], items[-1], positions)  # spanners between the last two items
+    a = search_spanners_symbols(items[0], items[1], positions)  # spanners between item0 and item1
+    b = search_spanners_symbols(items[-2], items[-1], positions)  # spanners between the last two items
 
     if not a:
-        a = items[0][1]
-
+        a = items[0].end
     if not b:
-        b = items[-2][1]
+        b = items[-2].end
 
-    positions = []
-
-    for pos in [a, b]:
-        c = QTextCursor(cursor.document())
-        c.setPosition(pos)
-        positions.append(c)
-
-    return positions
+    return [_item(pos) for pos in [a, b]]
 
 
 _arpeggioTypes = {
