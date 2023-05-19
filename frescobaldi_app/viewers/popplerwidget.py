@@ -26,7 +26,7 @@ import collections
 import os
 import weakref
 
-from PyQt5.QtCore import pyqtSignal, QPoint, QRect, Qt, QTimer, QUrl
+from PyQt5.QtCore import pyqtSignal, QMargins, QPoint, QRect, Qt, QTimer, QUrl
 from PyQt5.QtGui import QCursor, QTextCharFormat
 from PyQt5.QtWidgets import (
     QToolTip, QVBoxLayout, QHBoxLayout, QWidget, QToolBar)
@@ -366,7 +366,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             if s is False:
                 self.view.clearHighlight(self._highlightMusicFormat)
             return
-        
+
         if not scroll and self._highlightRange == s and self.view.isHighlighting(self._highlightMusicFormat):
             return # don't redraw if same
         self._highlightRange = s
@@ -412,5 +412,3 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
     def toolbar(self):
         """Returns the viewer's toolbar widget."""
         return self._toolbar
-
-
