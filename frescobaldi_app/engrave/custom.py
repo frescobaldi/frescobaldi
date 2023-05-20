@@ -174,7 +174,7 @@ class Dialog(QDialog):
         elif self.modeCombo.currentIndex() == 2: # incipit mode
             job_class = job.lilypond.LilyPondJob
             d_options['preview'] = True
-            d_options['print_pages'] = False
+            d_options['print-pages'] = False
         else:                                    # debug mode
             job_class = job.lilypond.LayoutControlJob
             args = panelmanager.manager(
