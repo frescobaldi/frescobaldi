@@ -32,7 +32,7 @@ import documentactions
 import symbols
 import ly.document
 import ly.rhythm
-from ly.lex.lilypond import Note, ChordStart, Rest, Skip
+from ly.lex.lilypond import Note, ChordStart, Rest, Skip, Duration
 
 from . import tool
 from . import buttongroup
@@ -280,8 +280,10 @@ def spanner_positions(cursor, command):
     items = list(ly.rhythm.music_items(c, partial=partial))
 
     if command.endswith('melisma'):
+        # position the melisma commands after all the already inserted spanners
         items = melisma_items(cursor, c, items)
     else:
+        # places all others spanners right after the note
         if cursor.hasSelection():
             del items[1:-1]
         else:
@@ -310,13 +312,14 @@ def next_music_token(doc, pos) -> tuple:
     for token in source:
         if token.pos >= pos:
             if isinstance(token, Note) or isinstance(token, Rest) \
-                    or isinstance(token, Skip) or isinstance(token, ChordStart):
+                    or isinstance(token, Skip) or isinstance(token, ChordStart) \
+                    or isinstance(token, Duration):  # isolated durations with implied pitch
                 return token.pos, token.end
 
 
 def get_spanners_in_range(doc, pos, max_offset=1e5) -> list:
     """ Find all spanner symbols from pos to max_offset (or the end of the document) """
-    from ly.lex.lilypond import BeamStart, BeamEnd, SlurStart, SlurEnd, PhrasingSlurStart, PhrasingSlurEnd
+    from ly.lex.lilypond import BeamStart, BeamEnd, SlurStart, SlurEnd, PhrasingSlurStart, PhrasingSlurEnd, Command
     cursor = ly.document.Cursor(doc, pos)
     source = ly.document.Source(cursor, True, ly.document.INSIDE, True)
 
@@ -324,7 +327,10 @@ def get_spanners_in_range(doc, pos, max_offset=1e5) -> list:
     for token in source:
         if token.pos >= max_offset:
             break
-        if isinstance(token, BeamStart) \
+        if isinstance(token, Command):
+            if token.startswith('\\startTrillSpan') or token.startswith('\\stopTrillSpan'):
+                positions.append((token.pos, token.end))
+        elif isinstance(token, BeamStart) \
                 or isinstance(token, BeamEnd) \
                 or isinstance(token, SlurStart) \
                 or isinstance(token, SlurEnd) \
@@ -335,13 +341,11 @@ def get_spanners_in_range(doc, pos, max_offset=1e5) -> list:
 
 
 def melisma_items(cursor: QTextCursor, crs, items) -> list:
-    """Return the correct positions of the melisma commands, after all spanners already inserted after the note
-    """
+    """ Return the correct positions of the melisma commands, after all spanners already inserted after the note """
     from ly.rhythm import music_item
 
     def search_spanners_symbols(item1, item2, spanners) -> int:
-        """
-        Search for spanner symbols between two musical items.
+        """Find the spanners in the list lying between two music items.
         :param item1: First item
         :param item2: Second item
         :param spanners: A list of spanners to be examined
@@ -352,10 +356,10 @@ def melisma_items(cursor: QTextCursor, crs, items) -> list:
         for span in spanners:
             if span[1] < item2.pos and span[0] >= item1.end:
                 last = span[1]
-
         return last
 
     def _item(pos: int):
+        """Shorthand to get an empty music-item carrying positional information"""
         return music_item(None, None, None, None, pos, pos)
 
     # only one item at the end of a block
@@ -365,7 +369,7 @@ def melisma_items(cursor: QTextCursor, crs, items) -> list:
     if cursor.hasSelection():
         # get the music item next to the selection end (used to search for spanner symbols after the selection)
         tk = next_music_token(crs.document, items[-1].end)
-        items.append(tk if tk else _item(crs.end))
+        items.append(tk or _item(crs.end))
         crs.select_end_of_block()  # need for search all spanners outside the selection
     else:
         del items[3:]  # leave at most 3 items
