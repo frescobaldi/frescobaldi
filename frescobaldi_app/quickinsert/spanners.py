@@ -177,6 +177,9 @@ class SpannerGroup(buttongroup.ButtonGroup):
         yield 'spanner_melisma', _("Melisma")
 
     def actionTriggered(self, name):
+        cursor = self.mainwindow().textCursor()
+        positions = None
+
         d = ['_', '', '^'][self.direction() + 1]
         if name == "spanner_slur":
             spanner = d + '(', ')'
@@ -188,11 +191,12 @@ class SpannerGroup(buttongroup.ButtonGroup):
             spanner = '\\startTrillSpan', '\\stopTrillSpan'
         elif name == "spanner_melisma":
             spanner = '\\melisma', '\\melismaEnd'
+            positions = melisma_positions(cursor)
 
-        cursor = self.mainwindow().textCursor()
+        positions = positions or spanner_positions(cursor)
 
         with cursortools.compress_undo(cursor):
-            for s, c in zip(spanner, spanner_positions(cursor, name)):
+            for s, c in zip(spanner, positions):
                 c.insertText(s)
 
 
@@ -268,7 +272,12 @@ class GraceGroup(buttongroup.ButtonGroup):
                     cursor.insertText(outer[0])
 
 
-def spanner_positions(cursor, command):
+def spanner_positions(cursor):
+    """Return a list with 0 to 2 QTextCursor instances.
+
+    At the first cursor a starting spanner item can be inserted, at the
+    second an ending item.
+    """
     c = lydocument.cursor(cursor)
     if cursor.hasSelection():
         partial = ly.document.INSIDE
@@ -279,15 +288,10 @@ def spanner_positions(cursor, command):
 
     items = list(ly.rhythm.music_items(c, partial=partial))
 
-    if command.endswith('melisma'):
-        # position the melisma commands after all the already inserted spanners
-        items = melisma_items(cursor, c, items)
+    if cursor.hasSelection():
+        del items[1:-1]
     else:
-        # places all others spanners right after the note
-        if cursor.hasSelection():
-            del items[1:-1]
-        else:
-            del items[2:]
+        del items[2:]
 
     positions = []
     for i in items:
@@ -297,9 +301,69 @@ def spanner_positions(cursor, command):
     return positions
 
 
-def next_music_token(doc, pos) -> tuple:
+def melisma_positions(cursor: QTextCursor) -> list:
+    """ Return the correct positions of the melisma commands, after all spanners already inserted after the note """
+
+    def search_spanners_symbols(item1, item2, spanners) -> int:
+        """Find the spanners in the list lying between two music items.
+        :param item1: First item
+        :param item2: Second item
+        :param spanners: A list of spanners to be examined
+        :return: The position in the document of the last spanner attached to the first item, or None if nothing is found
+        """
+
+        last = None
+        for span in spanners:
+            if span[1] < item2.pos and span[0] >= item1.end:
+                last = span[1]
+        return last
+
+    crs = lydocument.cursor(cursor)
+    if cursor.hasSelection():
+        partial = ly.document.INSIDE
+    else:
+        # just select until the end of the current line
+        crs.select_end_of_block()
+        partial = ly.document.OUTSIDE
+
+    items = list(ly.rhythm.music_items(crs, partial=partial))
+
+    # only one item at the end of a block
+    if len(items) == 1:
+        return []
+
+    if cursor.hasSelection():
+        # get the music item next to the selection end (used to search for spanner symbols after the selection)
+        tk = next_music_token(crs.document, items[-1].end)
+        items.append(tk or _item(crs.end))
+        crs.select_end_of_block()  # need for search all spanners outside the selection
+    else:
+        del items[3:]  # leave at most 3 items
+        if len(items) < 3:
+            items.append(_item(crs.end))
+
+    # get all spanners from start up to last item
+    positions = get_spanners_in_range(crs.document, items[0].end, items[-1].pos)
+
+    a = search_spanners_symbols(items[0], items[1], positions) or items[0].end  # spanners between item0 and item1
+    b = search_spanners_symbols(items[-2], items[-1], positions) or items[-2].end  # spanners between the last two items
+
+    positions = []
+    for i in [a, b]:
+        c = QTextCursor(cursor.document())
+        c.setPosition(i)
+        positions.append(c)
+    return positions
+
+
+def _item(pos: int, end=None):
+    """Shorthand to get an empty music-item carrying positional information"""
+    return ly.rhythm.music_item(None, None, None, None, pos, end or pos)
+
+
+def next_music_token(doc, pos):
     """
-    Return a tuple with the positions of the music item in the document next to the position. It identifies only the
+    Return a music_item with its positions in the document next to the index. It identifies only the
     start of a music item (Note, Rest, Skip, Chord), without collect all subsequent tokens (durations,
     closing chords...)
     :param doc: a lilypond document
@@ -314,7 +378,7 @@ def next_music_token(doc, pos) -> tuple:
             if isinstance(token, Note) or isinstance(token, Rest) \
                     or isinstance(token, Skip) or isinstance(token, ChordStart) \
                     or isinstance(token, Duration):  # isolated durations with implied pitch
-                return token.pos, token.end
+                return _item(token.pos, token.end)
 
 
 def get_spanners_in_range(doc, pos, max_offset=1e5) -> list:
@@ -338,56 +402,6 @@ def get_spanners_in_range(doc, pos, max_offset=1e5) -> list:
                 or isinstance(token, PhrasingSlurEnd):
             positions.append((token.pos, token.end))
     return positions
-
-
-def melisma_items(cursor: QTextCursor, crs, items) -> list:
-    """ Return the correct positions of the melisma commands, after all spanners already inserted after the note """
-    from ly.rhythm import music_item
-
-    def search_spanners_symbols(item1, item2, spanners) -> int:
-        """Find the spanners in the list lying between two music items.
-        :param item1: First item
-        :param item2: Second item
-        :param spanners: A list of spanners to be examined
-        :return: The position in the document of the last spanner attached to the first item, or None if nothing is found
-        """
-
-        last = None
-        for span in spanners:
-            if span[1] < item2.pos and span[0] >= item1.end:
-                last = span[1]
-        return last
-
-    def _item(pos: int):
-        """Shorthand to get an empty music-item carrying positional information"""
-        return music_item(None, None, None, None, pos, pos)
-
-    # only one item at the end of a block
-    if len(items) == 1:
-        return []
-
-    if cursor.hasSelection():
-        # get the music item next to the selection end (used to search for spanner symbols after the selection)
-        tk = next_music_token(crs.document, items[-1].end)
-        items.append(tk or _item(crs.end))
-        crs.select_end_of_block()  # need for search all spanners outside the selection
-    else:
-        del items[3:]  # leave at most 3 items
-        if len(items) < 3:
-            items.append(_item(crs.end))
-
-    # get all spanners from start up to last item
-    positions = get_spanners_in_range(crs.document, items[0].end, items[-1].pos)
-
-    a = search_spanners_symbols(items[0], items[1], positions)  # spanners between item0 and item1
-    b = search_spanners_symbols(items[-2], items[-1], positions)  # spanners between the last two items
-
-    if not a:
-        a = items[0].end
-    if not b:
-        b = items[-2].end
-
-    return [_item(pos) for pos in [a, b]]
 
 
 _arpeggioTypes = {
