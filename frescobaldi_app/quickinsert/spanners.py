@@ -177,8 +177,7 @@ class SpannerGroup(buttongroup.ButtonGroup):
         yield 'spanner_melisma', _("Melisma")
 
     def actionTriggered(self, name):
-        cursor = self.mainwindow().textCursor()
-        positions = None
+        position_finder = spanner_positions
 
         d = ['_', '', '^'][self.direction() + 1]
         if name == "spanner_slur":
@@ -191,12 +190,12 @@ class SpannerGroup(buttongroup.ButtonGroup):
             spanner = '\\startTrillSpan', '\\stopTrillSpan'
         elif name == "spanner_melisma":
             spanner = '\\melisma', '\\melismaEnd'
-            positions = melisma_positions(cursor)
+            position_finder = melisma_positions
 
-        positions = positions or spanner_positions(cursor)
+        cursor = self.mainwindow().textCursor()
 
         with cursortools.compress_undo(cursor):
-            for s, c in zip(spanner, positions):
+            for s, c in zip(spanner, position_finder(cursor)):
                 c.insertText(s)
 
 
@@ -302,7 +301,7 @@ def spanner_positions(cursor):
 
 
 def melisma_positions(cursor: QTextCursor) -> list:
-    """ Return the correct positions of the melisma commands, after all spanners already inserted after the note """
+    """ Return the correct positions of the melisma commands, after all spanners already attached to the note """
 
     def search_spanners_symbols(item1, item2, spanners) -> int:
         """Find the spanners in the list lying between two music items.
