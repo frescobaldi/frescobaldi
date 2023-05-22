@@ -363,6 +363,7 @@ class Config(preferences.Group):
             # skip non-loaded extensions
             if ext:
                 widget = ext.config_widget(self)
-                widget.load_settings()
+                if widget:
+                    widget.load_settings()
             self._widgets[extension] = widget or None
         return widget
