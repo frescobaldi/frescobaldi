@@ -243,7 +243,7 @@ class GraceGroup(buttongroup.ButtonGroup):
         cursor = self.mainwindow().textCursor()
         with cursortools.compress_undo(cursor):
             if inner:
-                for i, ci in zip(inner, spanner_positions(cursor, name)):
+                for i, ci in zip(inner, spanner_positions(cursor)):
                     ci.insertText(i)
             if cursor.hasSelection():
                 ins = self.mainwindow().textCursor()
