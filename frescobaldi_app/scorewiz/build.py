@@ -24,13 +24,15 @@ Builds the LilyPond score from the settings in the Score Wizard.
 
 import collections
 import fractions
+import math
 import re
 
 import ly.dom
+import ly.duration
 import i18n.mofile
 import lasptyqu
 
-from . import parts
+from . import parts, scoreproperties
 
 
 class PartNode(object):
@@ -132,12 +134,47 @@ class PartData(object):
             ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), ly.dom.Transposition(s))
         ly.dom.LineComment(_("Music follows here."), s)
         ly.dom.BlankLine(s)
-        num = self.scoreProperties.blankStaff.value()
-        if num:
-            ly.dom.Text(r"\repeat unfold {num} {{ s1 \break }}".format(num=num), s)
-            ly.dom.BlankLine(s)
+        self.addBlankStaff(s)
         return a
 
+    def addBlankStaff(self, s):
+        """Add blank Staff if configured"""
+        num_blank = self.scoreProperties.blankStaff.value()
+        if not num_blank:
+            return
+        
+        # Partial makes its own line
+        if self.scoreProperties.pickup.currentIndex() > 0:
+            partial_dur, partial_dots = scoreproperties.partialDurations[self.scoreProperties.pickup.currentIndex() - 1]
+            num_blank -= 1
+            duration_ly = ly.duration.tostring(partial_dur, partial_dots)
+            ly.dom.Text("s{duration}".format(duration=duration_ly), s)
+            ly.dom.Identifier("break", s)
+            ly.dom.Newline(s)
+                
+        if num_blank:
+            # Compute duration for whole measure
+            sig = self.scoreProperties.timeSignature.currentText().strip()
+            if '+' in sig:
+                return # TODO: implement support for \compoundMeter
+            match = re.search(r'\(?(\d+).*?(\d+)\)?', sig)
+            num, beat = map(int, match.group(1, 2))
+            duration_frac = fractions.Fraction(num, beat)
+            if duration_frac.numerator == 3 and duration_frac.denominator > 1:
+                duration = duration_frac.denominator // 2
+                dots = 1
+                factor = 1
+            else:
+                duration = duration_frac.denominator
+                dots = 0
+                factor = duration_frac.numerator
+            duration_ly = ly.duration.tostring(int(math.log2(duration)), dots, factor)
+
+            ly.dom.Text(r"\repeat unfold {num} {{ s{duration} \break }}".format(
+                num=num_blank,
+                duration=duration_ly), s)
+
+        ly.dom.BlankLine(s)
 
 class BlockData(object):
     """Represents the building blocks of a global section of a ly.dom.Document."""
