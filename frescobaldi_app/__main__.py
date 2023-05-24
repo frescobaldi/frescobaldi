@@ -21,10 +21,21 @@
 Entry point of Frescobaldi.
 """
 
+# Enable all Python warnings, unless overridden (with "python
+# -W<something> -m frescobaldi").  Do this before any internal
+# imports.
+import sys
+if not sys.warnoptions:
+    import warnings
+    warnings.simplefilter("default")
+
+from frescobaldi_app import toplevel
+toplevel.install()              # Add the path to frescobaldi_app to sys.path
+
+import checks                   # check whether Frescobaldi really can run
 
 import os
 import re
-import sys
 
 from PyQt5.QtCore import QSettings, QTimer, QUrl
 from PyQt5.QtGui import QTextCursor
@@ -150,8 +161,9 @@ def check_ly():
     sys.exit(1)
 
 
-def main():
+def main(debug=False):
     """Main function."""
+    app.instantiate()               # Construct QApplication object
     args = parse_commandline()
 
     if args.version_debug:
@@ -252,3 +264,13 @@ def main():
         view = win.currentView()
         view.setTextCursor(cursor)
         view.centerCursor()
+
+    sys.excepthook = app.excepthook # Show Python errors in a bugreport window
+
+    app.appStarted() # Emit the appStarted signal
+
+    if not debug:
+        sys.exit(app.run())
+
+if __name__ == "__main__":
+    main()
