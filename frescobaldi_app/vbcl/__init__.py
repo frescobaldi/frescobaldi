@@ -41,8 +41,9 @@ def check_mandatory_keys(d, mandatory_keys):
                 missing.append(key)
         if missing:
             raise ValueError(
-            _("VBCL Error: Missing mandatory key(s) '{keys}'").format(
-                keys=', '.join(missing)))
+                _("VBCL Error: Missing mandatory key(s) '{keys}'").format(
+                    keys=', '.join(missing)))
+
 
 def set_defaults(d, defaults):
     """Ensure optional properties are set to default/'empty' values."""
@@ -103,6 +104,6 @@ def parse_file(filename, mandatory_keys=None, defaults=None):
     """Returns a dictionary corresponding to a parsed VBCL config file.
     Raises an exception if the given file doesn't exist or isn't readable"""
 
-    with open(filename) as f:
+    with open(filename, encoding='utf-8') as f:
         cfg_dict = parse(f.read().split('\n'), mandatory_keys, defaults)
         return cfg_dict
