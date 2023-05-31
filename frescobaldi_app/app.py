@@ -30,7 +30,7 @@ import importlib.util
 import weakref
 
 from PyQt5.QtCore import QObject, QSettings, Qt, QThread
-from PyQt5.QtWidgets import QApplication, QMenuBar, QPlainTextEdit, QTextEdit
+from PyQt5.QtWidgets import QApplication, QMenuBar
 
 ### needed for QWebEngine
 ### it wants those two things be done before constructing QApplication()
@@ -117,13 +117,6 @@ def findDocument(url):
             if url == d.url():
                 return d
 
-def clear_selection(old, new):
-    """When a widget is unfocused, clear its text selection."""
-    if isinstance(old, (QPlainTextEdit, QTextEdit)):
-        cursor = old.textCursor()
-        cursor.clearSelection()
-        old.setTextCursor(cursor)
-
 def instantiate():
     """Instantiate the global QApplication object."""
     global qApp
@@ -137,7 +130,6 @@ def instantiate():
     QApplication.setDesktopFileName(appinfo.desktop_file_name)
     QApplication.setOrganizationName(appinfo.name)
     QApplication.setOrganizationDomain(appinfo.domain)
-    qApp.focusChanged.connect(clear_selection)
     if sys.platform.startswith('darwin'):
         qApp._menubar = QMenuBar()
     appInstantiated()
