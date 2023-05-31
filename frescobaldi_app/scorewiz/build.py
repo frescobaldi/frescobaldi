@@ -27,7 +27,7 @@ import fractions
 import re
 
 import ly.dom
-import i18n.mofile
+import i18n
 import lasptyqu
 
 from . import parts
@@ -186,9 +186,7 @@ class Builder(object):
             if lang == 'C':
                 self._ = i18n.translator(None)
             elif lang:
-                mofile = i18n.find(lang)
-                if mofile:
-                    self._ = i18n.translator(i18n.mofile.MoFile(mofile))
+                self._ = i18n.translator(lang)
 
         # global score preferences
         self.scoreProperties = scoreProperties
@@ -587,4 +585,3 @@ def allparts(parts):
         yield group
         for group in allparts(group.parts):
             yield group
-
