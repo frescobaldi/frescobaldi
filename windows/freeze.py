@@ -20,9 +20,9 @@ iscc = 'c:\\Program Files\\Inno Setup 5\\ISCC'
 target_dir = 'frozen'
 
 # import standard modules and cx_Freeze
+import compileall
 import importlib.util
 import os
-import py_compile
 import shutil
 import subprocess
 import sys
@@ -117,11 +117,10 @@ copy_plugins('imageformats')
 # copy Qt4 iconengine plugins
 copy_plugins('iconengines')
 
-# copy the frescobaldi_app directory
-subprocess.call(
-    [sys.executable, 'setup.py', 'build_py',
-     '--build-lib', os.path.join('windows', target_dir), '--compile'],
-    cwd="..")
+# copy the frescobaldi directory
+out = os.path.join(target_dir, "frescobaldi_app")
+shutil.copytree("../frescobaldi_app", out)
+compileall.compile_dir(out)
 
 # make an Inno Setup installer
 inno_script = b'''

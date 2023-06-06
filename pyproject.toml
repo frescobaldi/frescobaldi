@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools >= 67"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "frescobaldi"
+description = "LilyPond Music Editor"
+authors = [{name = "Wilbert Berendsen", email = "info@frescobaldi.org"}]
+maintainers = [{name = "Wilbert Berendsen", email = "info@frescobaldi.org"}]
+license = {text = "GPL"}
+requires-python = ">=3.8"
+dependencies = [
+    "pyqt5 >= 5.9",
+    "python-ly >= 0.9.5",
+    # TODO: minimum version for these two?
+    "python-poppler-qt5",
+    "qpageview",
+]
+dynamic = ["version"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: MacOS X",
+    "Environment :: Win32 (MS Windows)",
+    "Environment :: X11 Applications :: Qt",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: GNU General Public License (GPL)",
+    # Natural Language :: Chinese (Hong Kong) is not yet accepted by pypi
+    #"Natural Language :: Chinese (Hong Kong)",
+    "Natural Language :: Chinese (Simplified)",
+    "Natural Language :: Chinese (Traditional)",
+    "Natural Language :: Czech",
+    "Natural Language :: Dutch",
+    "Natural Language :: English",
+    "Natural Language :: French",
+    "Natural Language :: Galician",
+    "Natural Language :: German",
+    "Natural Language :: Italian",
+    "Natural Language :: Polish",
+    "Natural Language :: Portuguese (Brazilian)",
+    "Natural Language :: Russian",
+    "Natural Language :: Spanish",
+    "Natural Language :: Turkish",
+    "Natural Language :: Ukrainian",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Text Editors",
+]
+
+[project.readme]
+# Shorter version of the main README.md, for PyPI (also in appinfo.py).
+text = """Frescobaldi is an advanced text editor to edit LilyPond sheet
+music files. Features include an integrated PDF preview and a powerful Score Wizard."""
+content-type = "text/plain"
+
+[project.urls]
+Homepage = "https://frescobaldi.org"
+Repository = "https://github.com/frescobaldi/frescobaldi"
+
+[project.scripts]
+frescobaldi = "frescobaldi_app.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["frescobaldi_app*"]
+
+[tool.setuptools.dynamic.version]
+attr = "frescobaldi_app.appinfo.version"
