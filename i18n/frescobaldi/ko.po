@@ -4226,9 +4226,6 @@ msgstr "시작 시 시작 화면 표시하기"
 msgid "Show Close Button on Document tabs"
 msgstr "문서 탭에 닫기 버튼 표시하기"
 
-#: ../frescobaldi_app/preferences/general.py:158
-msgid "Open Files in 이선스가 부여됩니다."
-
 #: ../frescobaldi_app/app.py:195
 msgid "LilyPond Files"
 msgstr "LilyPond 파일"
@@ -6339,9 +6336,6 @@ msgid ""
 msgstr ""
 "현재 문서의 LilyPond 버전에서 사용 가능한 텍스트 및 악보 글꼴을 표시하고 선택"
 "합니다"
-
-#: ../frescobaldi_app/fonts/dialog.Running Instance"
-msgstr "실행 중인 인스턴스에서 파일 열기"
 
 #: ../frescobaldi_app/preferences/general.py:160
 msgid ""
@@ -10403,8 +10397,6 @@ msgctxt "abbreviation for Clavichord"
 msgid "Clv."
 msgstr "Clv."
 
-#: ../frescobaldi_app/scorewiz/parts/keyboard.py:89
-msgaldi_app/scorewiz/parts/keyboard.py:173
 msgid "Synth lead"
 msgstr "신스 리드"
 
@@ -13657,7 +13649,7 @@ msgstr "스니펫 관리자 및 편집기"
 #: ../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:58
 msgid "Score Wizard to quickly setup a music score"
 msgstr "악보를 빠르게 설정하는 모음보표 마법사"
-ldi_app/job/queue.py:482
+
 msgid "Can't (re)start a finished/aborted Job Queue."
 msgstr "완료/중단된 작업 대기열을 (다시) 시작할 수 없습니다."
 
@@ -15131,4 +15123,3 @@ msgstr "속성"
 #: ../frescobaldi_app/preferences/fontscolors.py:557
 msgid "Entity Reference"
 msgstr "엔티티 참조"
-
