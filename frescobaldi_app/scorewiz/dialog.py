@@ -137,7 +137,9 @@ class ScoreWizardDialog(QDialog):
         from . import preview, build
         builder = build.Builder(self)
         doc = builder.document()
-        preview.examplify(doc)
+        if not builder.scoreProperties.blankStaff.value():
+            # Add some music when blank staff are not configured
+            preview.examplify(doc)
         # preview it
         import musicpreview
         dlg = musicpreview.MusicPreviewDialog(self)
