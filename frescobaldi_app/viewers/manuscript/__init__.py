@@ -26,6 +26,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QKeySequence
 
 import app
+import pagedview
 import viewers
 from viewers import documents
 
@@ -56,9 +57,9 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
     def reloadView(self):
         active_manuscript = self.widget().currentViewdoc()
         if active_manuscript:
-            reread = documents.Document(active_manuscript.filename())
             mds = self.actionCollection.viewer_document_select
-            mds.replaceViewdoc(active_manuscript, reread)
+            new = pagedview.loadPdf(active_manuscript.filename())
+            mds.replaceViewdoc(active_manuscript, new)
 
 
 class ManuscriptViewerActions(viewers.ViewerActions):
