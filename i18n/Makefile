@@ -28,7 +28,7 @@ userguide_languages = $(shell cat userguide/LINGUAS)
 pofiles = $(patsubst %,frescobaldi/%.po,$(languages))
 userguidepofiles = $(patsubst %,userguide/%.po,$(userguide_languages))
 
-mofiles = $(patsubst %,$(modir)/%.mo,$(languages))
+mofiles = $(patsubst %,$(modir)/%/LC_MESSAGES/frescobaldi.mo,$(languages))
 
 all: mo
 
@@ -48,7 +48,7 @@ $(userguidepofiles): $(userguidepotfile)
 	sed -i '/^#: /{ s, ../, ../../,g; s, messages, ../messages,g;}' $@
 
 # one MO file is created from both the frescobaldi/LL.po and userguide/LL.po
-$(mofiles): $(modir)/%.mo: frescobaldi/%.po userguide/%.po
+$(mofiles): $(modir)/%/LC_MESSAGES/frescobaldi.mo: frescobaldi/%.po userguide/%.po
+	mkdir -p `dirname $@`
 	msgcat -o - $^ | msgfmt -o $@ -
 	$(PYTHON) molint.py $@
-

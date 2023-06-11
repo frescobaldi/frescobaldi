@@ -31,7 +31,7 @@ from PyQt5.QtCore import QLocale, QSettings, QTimer
 
 import app
 
-from . import find, install, available
+from . import install, available
 
 __all__ = ['preferred', 'current', 'default']
 
@@ -90,11 +90,9 @@ def _setup():
         QTimer.singleShot(0, app.languageChanged)
     _currentlanguage = language
     if language != "C":
-        mo = find(language)
-        if mo:
-            install(mo)
-            return
-    install(None)
+        install(language)
+    else:
+        install(None)
 
 @app.oninit
 def _start_up():
@@ -105,4 +103,3 @@ def _start_up():
 
 
 app.settingsChanged.connect(_setup)
-

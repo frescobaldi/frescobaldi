@@ -123,7 +123,7 @@ Finally you may want to see how your changes look in the application.
 You should generate a MO (Message Object) file that Frescobaldi can read.
 Simply run:
 
-$ make ../frescobaldi_app/i18n/xx_CC.mo
+$ make ../frescobaldi_app/i18n/xx_CC/LC_MESSAGES/frescobaldi.mo
 
 The generated MO file contains the translations from both the application
 and the userguide. It will be checked for wrong variable names in translated
@@ -131,4 +131,3 @@ messages.
 
 MO files are placed in the 'frescobaldi_app/i18n/' directory, so they
 are packaged and installed along with Frescobaldi.
-

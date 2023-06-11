@@ -22,30 +22,20 @@ Internationalization of Frescobaldi.
 """
 
 import builtins
-import os
+import gettext
+from pathlib import Path
 
-from . import mofile
-
-podir = __path__[0]
+modir = __path__[0]
 
 def available():
     """Returns a list of language shortnames for which a MO file is available."""
-    return [name[:-3] for name in os.listdir(podir) if name.endswith(".mo")]
+    return [str(path.parent.stem) for path in Path(modir).rglob("LC_MESSAGES")]
 
-def find(language):
-    """Returns a .mo file for the given language.
+def translator(language):
+    """Returns a function that can translate messages using the specified language.
 
-    Returns None if no suitable MO file can be found.
-
-    """
-    filename = os.path.join(podir, language + ".mo")
-    if os.path.exists(filename):
-        return filename
-    elif '_' in language:
-        return find(language.split('_')[0])
-
-def translator(mo):
-    """Returns a function that can translate messages using the specified MoFile object.
+    The language must have a translation, meaning that either `language` or
+    `language.split('_')[0]` is in the list returned by `available()`.
 
     The returned function can be called with one to four arguments:
 
@@ -56,19 +46,23 @@ def translator(mo):
 
     In all cases a single string (the translation) is returned.
 
-    If mo is None, returns a dummy translator that returns strings untranslated.
+    If language is None, returns a dummy translator that returns strings untranslated.
 
     """
-    if not mo:
-        mo = mofile.NullMoFile()
-    funcs = (None, mo.gettext, mo.pgettext, mo.ngettext, mo.npgettext)
+    if language is None:
+        catalog = gettext.NullTranslations()
+    else:
+        assert language in available() or language.split('_')[0] in available()
+        catalog = gettext.translation("frescobaldi", localedir=modir,
+                                      languages=[language])
+    funcs = (None, catalog.gettext, catalog.pgettext, catalog.ngettext, catalog.npgettext)
     return lambda *args: funcs[len(args)](*args)
 
-def install(filename):
-    """Installs the translations from the given .mo file.
+def install(language):
+    """Installs the translations for the given language.
 
-    If filename is None, installs a dummy translator.
+    If language is None, installs a dummy translator.
 
+    Otherwise, the prerequisite on `language` is the same as for `translator()`.
     """
-    builtins._ = translator(mofile.MoFile(filename) if filename else None)
-
+    builtins._ = translator(language or None)

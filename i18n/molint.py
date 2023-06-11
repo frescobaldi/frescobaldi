@@ -12,7 +12,6 @@ string.
 import string
 import sys
 
-sys.path.insert(0, "../frescobaldi_app/i18n")
 import mofile
 
 
