@@ -49,6 +49,9 @@ class FileExport(plugin.MainWindowPlugin):
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.export_musicxml.triggered.connect(self.exportMusicXML)
         ac.export_audio.triggered.connect(self.exportAudio)
+        app.jobFinished.connect(self.set_export_audio)
+        app.documentCreated.connect(self.set_export_audio)
+        mainwindow.currentDocumentChanged.connect(self.set_export_audio)
 
     def exportMusicXML(self):
         """ Convert the current document to MusicXML """
@@ -78,23 +81,64 @@ class FileExport(plugin.MainWindowPlugin):
         """ Convert the current document to Audio """
         mainwin = self.mainwindow()
         doc = mainwin.currentDocument()
-        midfiles = resultfiles.results(doc).files('.mid*')
-        if not midfiles:
-            QMessageBox.critical(None, _("Error"),
-                    _("The audio file couldn't be created. Please create midi file first"))
-            return False
         orgname = doc.url().toLocalFile()
-        midifile = midfiles[0]
-        wavfile = os.path.splitext(orgname)[0] + '.wav'
+        midifile = resultfiles.results(doc).files('.mid*')[0]
+        outfile = os.path.splitext(orgname)[0]
         caption = app.caption(_("dialog title", "Export Audio File"))
-        filetypes = '{0} (*.wav);;{1} (*)'.format(_("WAV Files"), _("All Files"))
-        wavfile = QFileDialog.getSaveFileName(mainwin, caption, wavfile, filetypes)[0]
-        if not wavfile:
+        filetypes = []
+        seen_exts = []
+        for tool in audio_available():
+            for fmt in _supported_tools[tool]['formats']:
+                if fmt not in seen_exts:
+                    f_fmt = _file_formats[fmt]
+                    filetypes.append(
+                        '{} (*.{})'.format(f_fmt[0], f_fmt[1])
+                    )
+                    seen_exts.append(fmt)
+        filetypes.append(_("All Files (*.*)"))
+        filetypes = ';;'.join(filetypes)
+        outfile = QFileDialog.getSaveFileName(mainwin, caption, outfile, filetypes)[0]
+        if not outfile:
             return False # cancelled
         dlg = AudioExportDialog(mainwin, caption)
         dlg.setAttribute(Qt.WA_DeleteOnClose) # we use it only once
-        dlg.midi2wav(midifile, wavfile)
+        dlg.midi2wav(midifile, outfile)
         dlg.show()
+
+    def set_export_audio(self, doc):
+        """Enable/Disable the export_audio action.
+
+        The action will be enabled if
+        - at least one tool is avaibable AND
+        - the current document has existing MIDI file(s)
+        """
+        midfiles = resultfiles.results(doc).files('.mid*')
+        action = self.actionCollection.export_audio
+        enabled = True if midfiles and audio_available(True) else False
+        action.setEnabled(enabled)
+        action.setToolTip(self.set_audio_tooltip(action, midfiles))
+
+    def set_audio_tooltip(self, action, midfiles):
+        """Generate the tooltip for the export_audio action.
+
+        This has to be done "live" to reflect the availability
+        of converters and the state of the current document.
+        """
+        result = []
+        result.append(_("Export to different audio formats if a"))
+        result.append(_("supported converter is available and the"))
+        result.append(_("current document has produced MIDI file(s)."))
+        result.append(_("Available exporters:"))
+        available = audio_available()
+        for supported in _supported_tools:
+            result.append("- {tool}: {available}".format(
+                tool=supported,
+                available=_("Yes") if supported in available else _("No")
+            ))
+        result.append(_("Document has MIDI file(s): {midi}").format(
+            midi=_("Yes") if midfiles else _("No")
+        ))
+        return '\n'.join(result)
 
 
 class AudioExportDialog(externalcommand.ExternalCommandDialog):
@@ -107,18 +151,18 @@ class AudioExportDialog(externalcommand.ExternalCommandDialog):
         self.setWindowTitle(caption)
         qutil.saveDialogSize(self, "audio_export/dialog/size", QSize(640, 400))
 
-    def midi2wav(self, midfile, wavfile):
+    def midi2wav(self, midfile, outfile):
         """Run timidity to convert the MIDI to WAV."""
-        self.wavfile = wavfile # we could need to clean it up...
+        self.outfile = outfile # we could need to clean it up...
         j = job.Job()
         j.decoder_stdout = j.decoder_stderr = codecs.getdecoder('utf-8')
-        j.command = ["timidity", midfile, "-Ow", "-o", wavfile]
+        j.command = ["timidity", midfile, "-Ow", "-o", outfile]
         self.run_job(j)
 
     def cleanup(self, state):
         if state == "aborted":
             try:
-                os.remove(self.wavfile)
+                os.remove(self.outfile)
             except OSError:
                 pass
 
@@ -137,4 +181,43 @@ class Actions(actioncollection.ActionCollection):
         self.export_musicxml.setToolTip(_("Export current document as MusicXML."))
 
         self.export_audio.setText(_("Export Audio..."))
-        self.export_audio.setToolTip(_("Export to different audio formats."))
+
+
+# Names and extensions of all supported audio export formats
+_file_formats = {
+    'flac': (_("Flac Files"), "flac"),
+    'mp3': (_("MP3 Files"), "mp3"),
+    'ogg': (_("OGG Vorbis Files"), "ogg"),
+    'wav': (_("WAV Files"), "wav"),
+}
+
+_supported_tools = {
+    'timidity': {
+        'formats': ['wav', 'flac', 'ogg']
+    },
+    'fluidsynth': {
+        'formats': ['wav', 'flac']
+    },
+    'vlc': {
+        'formats': ['wav', 'flac', 'ogg', 'mp3']
+    }
+}
+
+_available_tools = None
+
+def audio_available(force=False):
+    """Return a list of supported audio export tools.
+
+    This is cached by default but rechecking can be forced.
+    For example when populating the export menu it is always reloaded
+    because typically a user will install a tool if it missing and
+    does *not* want to restart Frescobaldi afterwards.."""
+
+    global _available_tools
+    if force or _available_tools is None:
+        from shutil import which
+        _audio_available = []
+        for tool in _supported_tools.keys():
+            if which(tool) is not None:
+                _audio_available.append(tool)
+    return _audio_available
