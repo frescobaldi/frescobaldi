@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.18.1\n"
-"Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2023-02-07 14:05+0100\n"
+"Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
+"POT-Creation-Date: 2023-06-17 20:04+0200\n"
 "PO-Revision-Date: 2017-05-30 23:15+0800\n"
 "Last-Translator: Yuning Zhang <codeworm96@outlook.com>\n"
 "Language-Team: Chinese <codeworm96@outlook.com>\n"
@@ -362,88 +362,100 @@ msgid "Most of the bundled icons are created by {tango}."
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:9
-msgid "The following people contributed to {appname}:"
+msgid "The following people contributed to {appname} (in alphabetical order):"
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:12
+msgid "Bug and compatibility fixes, miscellaneous"
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/credits.md:15
 msgid "Main author and core developer"
 msgstr "主作者及核心开发者"
 
-#: ../../frescobaldi_app/userguide/credits.md:15
+#: ../../frescobaldi_app/userguide/credits.md:18
+msgid "Encoding-related fixes and other improvements"
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/credits.md:21
 msgid "Modal Transpose"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:18
+#: ../../frescobaldi_app/userguide/credits.md:24
 msgid "Quick Insert buttons for grace notes"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:18
+#: ../../frescobaldi_app/userguide/credits.md:24
 msgid "MusicXML, MIDI and ABC im- and export"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:23
+#: ../../frescobaldi_app/userguide/credits.md:29
 msgid "Kinetic Scrolling for the Music View"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:26
-msgid "Homebrew formula for Mac OS X"
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/credits.md:29
-msgid "Mac OS X packaging"
-msgstr "Mac OS X 包"
-
-#: ../../frescobaldi_app/userguide/credits.md:29
-msgid "various other improvements"
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/credits.md:33
-msgid "Layout control modes"
-msgstr "布局控制模式"
-
-#: ../../frescobaldi_app/userguide/credits.md:33
-msgid "various other contributions"
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/credits.md:38
-msgid "Improved highlighting and auto-completion of Scheme code"
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/credits.md:41
-msgid "MIDI capturing"
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/credits.md:44
-msgid "Finding lots of bugs"
-msgstr "发现很多缺陷"
-
-#: ../../frescobaldi_app/userguide/credits.md:47
-msgid "Many code and feature improvements"
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/credits.md:47
-msgid "work on proper Python 3 support"
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/credits.md:51
-msgid "Relative mode for MIDI capturing"
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/credits.md:54
+#: ../../frescobaldi_app/userguide/credits.md:32
 msgid "Score Wizard improvements"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:54
+#: ../../frescobaldi_app/userguide/credits.md:32
 #, fuzzy
 msgid "Score Wizard From Current Document"
 msgstr "当前文档"
 
-#: ../../frescobaldi_app/userguide/credits.md:58
+#: ../../frescobaldi_app/userguide/credits.md:36
+msgid "Windows installers"
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/credits.md:39
+msgid "Homebrew formula for macOS"
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/credits.md:42
+msgid "various other improvements"
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/credits.md:46
+msgid "Layout control modes"
+msgstr "布局控制模式"
+
+#: ../../frescobaldi_app/userguide/credits.md:46
+msgid "various other contributions"
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/credits.md:51
+msgid "Improved highlighting and auto-completion of Scheme code"
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/credits.md:54
+msgid "MIDI capturing"
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/credits.md:57
+msgid "macOS installers (arm64)"
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/credits.md:60
+msgid "Finding lots of bugs"
+msgstr "发现很多缺陷"
+
+#: ../../frescobaldi_app/userguide/credits.md:63
+msgid "Many code and feature improvements"
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/credits.md:63
+msgid "work on proper Python 3 support"
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/credits.md:67
+msgid "Relative mode for MIDI capturing"
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/credits.md:70
 msgid "{appname} is translated into the following languages:"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/credits.md:123
+#: ../../frescobaldi_app/userguide/credits.md:141
 msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"
@@ -2808,21 +2820,28 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:3
 msgid ""
-"Here you can add local paths or URLs pointing to LilyPond documentation."
+"Here you can add local paths or remote URLs pointing to LilyPond "
+"documentation."
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:5
+msgid ""
+"The URLs to the latest stable and development LilyPond manuals are already "
+"set by default for user convenience."
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:8
 msgid "Local path"
 msgstr "本地路径"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:7
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:10
 msgid ""
 "A local path should point to the directory where either the `Documentation` "
 "directory lives, or the whole `share/doc/lilypond/html/offline-root` path."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:10
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:13
 msgid ""
 "If those can't be found, documentation is looked for in all subdirectories "
 "of the given path, one level deep. This makes it possible to put multiple "
@@ -2830,29 +2849,29 @@ msgid ""
 "Frescobaldi automatically find them."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:15
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:18
 msgid "Remote URL"
 msgstr "远程 URL"
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:17
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:20
 msgid ""
 "If you don't want to manage the LilyPond documentation locally on your "
 "computer, you can add an URL to the LilyPond website.  The URL should have "
 "the following format:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:21
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:24
 msgid "http://www.lilypond.org/doc/VERSION/"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:23
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:26
 msgid ""
 "where *VERSION* can be either a specific release number or the latest stable "
 "or development release, as in the following examples:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:26
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:29
 msgid ""
 "http://www.lilypond.org/doc/v2.18/ http://www.lilypond.org/doc/v2.19/ http://"
 "www.lilypond.org/doc/stable/ http://www.lilypond.org/doc/development/"
@@ -3648,6 +3667,9 @@ msgid ""
 "output name, such as `\\bookOutputName`, etc); or when the automatic output "
 "file name determination does not work due to complicated LilyPond code."
 msgstr ""
+
+#~ msgid "Mac OS X packaging"
+#~ msgstr "Mac OS X 包"
 
 #~ msgid "About {appname}"
 #~ msgstr "关于 {appname}"

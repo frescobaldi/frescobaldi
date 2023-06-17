@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
-"Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2023-02-07 14:05+0100\n"
+"Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
+"POT-Creation-Date: 2023-06-17 20:04+0200\n"
 "PO-Revision-Date: 2017-05-11 13:13+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -427,89 +427,105 @@ msgid "Most of the bundled icons are created by {tango}."
 msgstr "Většina ikon v balíku je vytvořena {tango}."
 
 #: ../../frescobaldi_app/userguide/credits.md:9
-msgid "The following people contributed to {appname}:"
+#, fuzzy
+msgid "The following people contributed to {appname} (in alphabetical order):"
 msgstr "Tito lidé přispěli do {appname}:"
 
 #: ../../frescobaldi_app/userguide/credits.md:12
+msgid "Bug and compatibility fixes, miscellaneous"
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/credits.md:15
 msgid "Main author and core developer"
 msgstr "Hlavní autor a vývojář"
 
-#: ../../frescobaldi_app/userguide/credits.md:15
+#: ../../frescobaldi_app/userguide/credits.md:18
+#, fuzzy
+msgid "Encoding-related fixes and other improvements"
+msgstr "Mnohá vylepšení kódu a funkčnosti"
+
+#: ../../frescobaldi_app/userguide/credits.md:21
 msgid "Modal Transpose"
 msgstr "Modální převedení..."
 
-#: ../../frescobaldi_app/userguide/credits.md:18
+#: ../../frescobaldi_app/userguide/credits.md:24
 msgid "Quick Insert buttons for grace notes"
 msgstr "Tlačítka pro rychlé vložení pro ozdoby"
 
-#: ../../frescobaldi_app/userguide/credits.md:18
+#: ../../frescobaldi_app/userguide/credits.md:24
 msgid "MusicXML, MIDI and ABC im- and export"
 msgstr "Zavedení a vyvedení MusicXML, MIDI a ABC"
 
-#: ../../frescobaldi_app/userguide/credits.md:23
+#: ../../frescobaldi_app/userguide/credits.md:29
 msgid "Kinetic Scrolling for the Music View"
 msgstr "Pohybové projíždění pro Pohled na noty"
 
-#: ../../frescobaldi_app/userguide/credits.md:26
-msgid "Homebrew formula for Mac OS X"
-msgstr "Vzorec na domácí pivo pro Mac OS X"
-
-#: ../../frescobaldi_app/userguide/credits.md:29
-msgid "Mac OS X packaging"
-msgstr "Balení pro Mac OS X"
-
-#: ../../frescobaldi_app/userguide/credits.md:29
-msgid "various other improvements"
-msgstr "různá jiná vylepšení"
-
-#: ../../frescobaldi_app/userguide/credits.md:33
-msgid "Layout control modes"
-msgstr "Režimy ovládání rozvržení"
-
-#: ../../frescobaldi_app/userguide/credits.md:33
-msgid "various other contributions"
-msgstr "různé jiné příspěvky"
-
-#: ../../frescobaldi_app/userguide/credits.md:38
-msgid "Improved highlighting and auto-completion of Scheme code"
-msgstr "vylepšené zvýrazňování a automatické doplňování kódu Scheme"
-
-#: ../../frescobaldi_app/userguide/credits.md:41
-msgid "MIDI capturing"
-msgstr "Zachytávání MIDI"
-
-#: ../../frescobaldi_app/userguide/credits.md:44
-msgid "Finding lots of bugs"
-msgstr "Nalezení spousty chyb"
-
-#: ../../frescobaldi_app/userguide/credits.md:47
-msgid "Many code and feature improvements"
-msgstr "Mnohá vylepšení kódu a funkčnosti"
-
-#: ../../frescobaldi_app/userguide/credits.md:47
-msgid "work on proper Python 3 support"
-msgstr "práce na řádné podpoře pro Python"
-
-#: ../../frescobaldi_app/userguide/credits.md:51
-msgid "Relative mode for MIDI capturing"
-msgstr "Poměrný režim pro zachytávání MIDI"
-
-#: ../../frescobaldi_app/userguide/credits.md:54
+#: ../../frescobaldi_app/userguide/credits.md:32
 #, fuzzy
 msgid "Score Wizard improvements"
 msgstr "Mnohá vylepšení kódu a funkčnosti"
 
-#: ../../frescobaldi_app/userguide/credits.md:54
+#: ../../frescobaldi_app/userguide/credits.md:32
 #, fuzzy
 msgid "Score Wizard From Current Document"
 msgstr "Nynější dokument"
 
-#: ../../frescobaldi_app/userguide/credits.md:58
+#: ../../frescobaldi_app/userguide/credits.md:36
+#, fuzzy
+msgid "Windows installers"
+msgstr "Nainstalovat"
+
+#: ../../frescobaldi_app/userguide/credits.md:39
+#, fuzzy
+msgid "Homebrew formula for macOS"
+msgstr "Vzorec na domácí pivo pro Mac OS X"
+
+#: ../../frescobaldi_app/userguide/credits.md:42
+msgid "various other improvements"
+msgstr "různá jiná vylepšení"
+
+#: ../../frescobaldi_app/userguide/credits.md:46
+msgid "Layout control modes"
+msgstr "Režimy ovládání rozvržení"
+
+#: ../../frescobaldi_app/userguide/credits.md:46
+msgid "various other contributions"
+msgstr "různé jiné příspěvky"
+
+#: ../../frescobaldi_app/userguide/credits.md:51
+msgid "Improved highlighting and auto-completion of Scheme code"
+msgstr "vylepšené zvýrazňování a automatické doplňování kódu Scheme"
+
+#: ../../frescobaldi_app/userguide/credits.md:54
+msgid "MIDI capturing"
+msgstr "Zachytávání MIDI"
+
+#: ../../frescobaldi_app/userguide/credits.md:57
+msgid "macOS installers (arm64)"
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/credits.md:60
+msgid "Finding lots of bugs"
+msgstr "Nalezení spousty chyb"
+
+#: ../../frescobaldi_app/userguide/credits.md:63
+msgid "Many code and feature improvements"
+msgstr "Mnohá vylepšení kódu a funkčnosti"
+
+#: ../../frescobaldi_app/userguide/credits.md:63
+msgid "work on proper Python 3 support"
+msgstr "práce na řádné podpoře pro Python"
+
+#: ../../frescobaldi_app/userguide/credits.md:67
+msgid "Relative mode for MIDI capturing"
+msgstr "Poměrný režim pro zachytávání MIDI"
+
+#: ../../frescobaldi_app/userguide/credits.md:70
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} je přeložen do následujících jazyků:"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/credits.md:123
+#: ../../frescobaldi_app/userguide/credits.md:141
 msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"
@@ -3382,18 +3398,26 @@ msgstr ""
 "zadat počet teček na palec."
 
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:3
+#, fuzzy
 msgid ""
-"Here you can add local paths or URLs pointing to LilyPond documentation."
+"Here you can add local paths or remote URLs pointing to LilyPond "
+"documentation."
 msgstr ""
 "Zde můžete přidat místní cesty nebo adresy (URL) odkazující k dokumentaci "
 "programu LilyPond."
 
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:5
+msgid ""
+"The URLs to the latest stable and development LilyPond manuals are already "
+"set by default for user convenience."
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:8
 msgid "Local path"
 msgstr "Místní cesta"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:7
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:10
 msgid ""
 "A local path should point to the directory where either the `Documentation` "
 "directory lives, or the whole `share/doc/lilypond/html/offline-root` path."
@@ -3401,7 +3425,7 @@ msgstr ""
 "Místní cesta by měla ukazovat na adresář, kde je buď adresář "
 "`Documentation`, nebo celou cestu \"share/doc/lilypond/html/offline-root."
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:10
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:13
 msgid ""
 "If those can't be found, documentation is looked for in all subdirectories "
 "of the given path, one level deep. This makes it possible to put multiple "
@@ -3413,11 +3437,11 @@ msgstr ""
 "LilyPondu do různých podadresářů a nechat Frescobaldi, aby je automaticky "
 "našel."
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:15
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:18
 msgid "Remote URL"
 msgstr "Vzdálená adresa (URL)"
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:17
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:20
 msgid ""
 "If you don't want to manage the LilyPond documentation locally on your "
 "computer, you can add an URL to the LilyPond website.  The URL should have "
@@ -3427,12 +3451,12 @@ msgstr ""
 "přidat adresu (URL) internetové stránky LilyPondu.  Adresa (URL) má mít "
 "následující formát:"
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:21
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:24
 msgid "http://www.lilypond.org/doc/VERSION/"
 msgstr "http://www.lilypond.org/doc/VERSION/"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:23
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:26
 msgid ""
 "where *VERSION* can be either a specific release number or the latest stable "
 "or development release, as in the following examples:"
@@ -3440,7 +3464,7 @@ msgstr ""
 "kde *VERZE* může být buď číslo určitého vydání nebo poslední stálé nebo "
 "vývojové vydání, jak je to v následujících příkladech:"
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:26
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:29
 msgid ""
 "http://www.lilypond.org/doc/v2.18/ http://www.lilypond.org/doc/v2.19/ http://"
 "www.lilypond.org/doc/stable/ http://www.lilypond.org/doc/development/"
@@ -4459,6 +4483,9 @@ msgstr ""
 "dokumenty, jež zahrnuje, hledá příkazy LilyPond, které určují název výstupu, "
 "např. `\\bookOutputName`, atd.); nebo když automatické stanovení názvu "
 "výstupního souboru nepracuje kvůli složitému kódu LilyPond."
+
+#~ msgid "Mac OS X packaging"
+#~ msgstr "Balení pro Mac OS X"
 
 #~ msgid ""
 #~ "Slurs, Ties and other similar objects are drawn in LilyPond as third-"
@@ -8352,10 +8379,6 @@ msgstr ""
 
 #~ msgid "Folders containing hyphenation dictionaries"
 #~ msgstr "Složky obsahující slovníky s dělením slov"
-
-#, fuzzy
-#~ msgid "Auto install"
-#~ msgstr "Nainstalovat"
 
 #, fuzzy
 #~ msgid "Music Font Preview Cache:"
