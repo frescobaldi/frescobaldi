@@ -92,10 +92,7 @@ def _setup():
     if _currentlanguage is not None and language != _currentlanguage:
         QTimer.singleShot(0, app.languageChanged)
     _currentlanguage = language
-    if language != "C":
-        install(language)
-    else:
-        install(None)
+    install(language)
 
 @app.oninit
 def _start_up():

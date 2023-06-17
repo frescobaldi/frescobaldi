@@ -183,9 +183,7 @@ class Builder(object):
         self._ = _
         if instrumentNames.isChecked():
             lang = instrumentNames.getLanguage()
-            if lang == 'C':
-                self._ = i18n.translator(None)
-            elif lang:
+            if lang:
                 self._ = i18n.translator(lang)
 
         # global score preferences
