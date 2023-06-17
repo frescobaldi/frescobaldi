@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 3.2\n"
-"Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2023-02-16 22:54+0100\n"
+"Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
+"POT-Creation-Date: 2023-06-17 20:04+0200\n"
 "PO-Revision-Date: 2023-06-02 17:07+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: Korean (https://app.transifex.com/marong/teams/140059/ko/)\n"
@@ -19,6 +19,97 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.3.1\n"
+
+#: ../../frescobaldi_app/__main__.py:62 ../../frescobaldi_app/about.py:110
+msgid "A LilyPond Music Editor"
+msgstr "LilyPond 악보 편집기"
+
+#: ../../frescobaldi_app/__main__.py:65
+msgid "show program's version number and exit"
+msgstr "프로그램의 버전 번호를 표시하고 종료"
+
+#: ../../frescobaldi_app/__main__.py:67
+#, python-brace-format
+msgid "show version numbers of {appname} and its supporting modules and exit"
+msgstr "{appname} 및 해당 지원 모듈의 버전 번호를 표시하고 종료합니다"
+
+#: ../../frescobaldi_app/__main__.py:69
+msgid "ENC"
+msgstr "ENC"
+
+#: ../../frescobaldi_app/__main__.py:70
+msgid "Encoding to use"
+msgstr "사용할 인코딩"
+
+#: ../../frescobaldi_app/__main__.py:71 ../../frescobaldi_app/__main__.py:73
+msgid "NUM"
+msgstr "NUM"
+
+#: ../../frescobaldi_app/__main__.py:72
+msgid "Line number to go to, starting at 1"
+msgstr "1부터 시작하여, 이동할 오선 번호"
+
+#: ../../frescobaldi_app/__main__.py:74
+msgid "Column to go to, starting at 1"
+msgstr "1부터 시작하여, 이동할 열"
+
+#: ../../frescobaldi_app/__main__.py:75
+msgid "NAME"
+msgstr "이름"
+
+#: ../../frescobaldi_app/__main__.py:76
+#, python-brace-format
+msgid "Session to start ('{none}' for empty session)"
+msgstr "시작할 세션 (빈 세션의 경우 '{none}')"
+
+#: ../../frescobaldi_app/__main__.py:79
+msgid "List the session names and exit"
+msgstr "세션 이름 열거하고 종료"
+
+#: ../../frescobaldi_app/__main__.py:81
+msgid "Always start a new instance"
+msgstr "항상 새 인스턴스 시작하기"
+
+#: ../../frescobaldi_app/__main__.py:82
+msgid "STR"
+msgstr "STR"
+
+#: ../../frescobaldi_app/__main__.py:83
+msgid "Path to python-ly"
+msgstr "Python-ly으로 가는 경로"
+
+#: ../../frescobaldi_app/__main__.py:84
+msgid "file"
+msgstr "파일"
+
+#: ../../frescobaldi_app/__main__.py:85
+msgid "File to be opened"
+msgstr "열려는 파일"
+
+#: ../../frescobaldi_app/__main__.py:153
+msgid "Can't run Frescobaldi"
+msgstr "Frescobaldi를 실행할 수 없습니다"
+
+#: ../../frescobaldi_app/__main__.py:154
+#, python-brace-format
+msgid ""
+"We are sorry, but Frescobaldi can't run properly.\n"
+"\n"
+"The python-ly package is not available or too old.\n"
+"At least version {version} is required to run Frescobaldi.\n"
+"\n"
+"If you did install python-ly correctly, please remove the old\n"
+"ly package from the frescobaldi_app directory, or completely\n"
+"remove and then reinstall Frescobaldi."
+msgstr ""
+"죄송합니다. Frescobaldi가 제대로 실행되지 않습니다.\n"
+"\n"
+"python-ly 패키지를 사용할 수 없거나 너무 오래되었습니다.\n"
+"Frescobaldi를 실행하려면 {version} 버전 이상이 필요합니다.\n"
+"\n"
+"python-ly를 올바르게 설치했다면 frescobaldi_app 디렉터리에서\n"
+"구형 ly 패키지를 제거하거나, Frescobaldi를 완전히 제거한 다음\n"
+"다시 설치하세요."
 
 #: ../../frescobaldi_app/about.py:49
 #, python-brace-format
@@ -43,10 +134,6 @@ msgstr "버전"
 msgid "Version {version}"
 msgstr "버전 {version}"
 
-#: ../../frescobaldi_app/about.py:110 ../../frescobaldi_app/main.py:51
-msgid "A LilyPond Music Editor"
-msgstr "LilyPond 악보 편집기"
-
 #: ../../frescobaldi_app/about.py:111
 #, python-brace-format
 msgid "Copyright (c) {year} by {author}"
@@ -66,31 +153,31 @@ msgstr "한국어 번역: 이정희 <daemul72@gmail.com>"
 msgid "Licensed under the {gpl}."
 msgstr "{gpl}에 따라 라이선스가 부여됩니다."
 
-#: ../../frescobaldi_app/app.py:195
+#: ../../frescobaldi_app/app.py:220
 msgid "LilyPond Files"
 msgstr "LilyPond 파일"
 
-#: ../../frescobaldi_app/app.py:196
+#: ../../frescobaldi_app/app.py:221
 msgid "LaTeX Files"
 msgstr "LaTeX 파일"
 
-#: ../../frescobaldi_app/app.py:197
+#: ../../frescobaldi_app/app.py:222
 msgid "DocBook Files"
 msgstr "DocBook 파일"
 
-#: ../../frescobaldi_app/app.py:198 ../../frescobaldi_app/convert_ly.py:254
+#: ../../frescobaldi_app/app.py:223 ../../frescobaldi_app/convert_ly.py:260
 msgid "HTML Files"
 msgstr "HTML 파일"
 
-#: ../../frescobaldi_app/app.py:199
+#: ../../frescobaldi_app/app.py:224
 msgid "Texinfo Files"
 msgstr "Texinfo 파일"
 
-#: ../../frescobaldi_app/app.py:200
+#: ../../frescobaldi_app/app.py:225
 msgid "Scheme Files"
 msgstr "Scheme 파일"
 
-#: ../../frescobaldi_app/app.py:201 ../../frescobaldi_app/convert_ly.py:254
+#: ../../frescobaldi_app/app.py:226 ../../frescobaldi_app/convert_ly.py:260
 #: ../../frescobaldi_app/file_export/__init__.py:59
 #: ../../frescobaldi_app/file_export/__init__.py:90
 #: ../../frescobaldi_app/file_import/__init__.py:124
@@ -165,75 +252,75 @@ msgstr "정의로 점프 ({filename} 안에)(&J)"
 msgid "&Jump to definition (unknown)"
 msgstr "정의로 점프 (알수없음)(&J)"
 
-#: ../../frescobaldi_app/convert_ly.py:128
+#: ../../frescobaldi_app/convert_ly.py:129
 msgid "From version:"
 msgstr "이 버전에서:"
 
-#: ../../frescobaldi_app/convert_ly.py:129
+#: ../../frescobaldi_app/convert_ly.py:130
 msgid "To version:"
 msgstr "이 버전으로:"
 
-#: ../../frescobaldi_app/convert_ly.py:130
+#: ../../frescobaldi_app/convert_ly.py:131
 msgid "Save convert-ly messages in document"
 msgstr "Convert-ly 메시지를 문서에 저장하기"
 
-#: ../../frescobaldi_app/convert_ly.py:132
+#: ../../frescobaldi_app/convert_ly.py:133
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
 msgstr ""
 "이 옵션이 선택된 경우, Convert-ly 메시지가 문서 끝에 주석으로 추가됩니다."
 
-#: ../../frescobaldi_app/convert_ly.py:134
+#: ../../frescobaldi_app/convert_ly.py:135
 msgid "&Messages"
 msgstr "메시지(&M)"
 
-#: ../../frescobaldi_app/convert_ly.py:135
+#: ../../frescobaldi_app/convert_ly.py:136
 msgid "&Changes"
 msgstr "변경사항(&C)"
 
-#: ../../frescobaldi_app/convert_ly.py:136
+#: ../../frescobaldi_app/convert_ly.py:137
 msgid "&Diff"
 msgstr "차이점(&D)"
 
-#: ../../frescobaldi_app/convert_ly.py:137
+#: ../../frescobaldi_app/convert_ly.py:138
 msgid "Run Again"
 msgstr "다시 실행하기"
 
-#: ../../frescobaldi_app/convert_ly.py:138
+#: ../../frescobaldi_app/convert_ly.py:139
 msgid "Save as file"
 msgstr "파일로 저장하기"
 
-#: ../../frescobaldi_app/convert_ly.py:155 ../../frescobaldi_app/copy2image.py:230
+#: ../../frescobaldi_app/convert_ly.py:156 ../../frescobaldi_app/copy2image.py:230
 #: ../../frescobaldi_app/editinplace.py:160
 #: ../../frescobaldi_app/docbrowser/browser.py:160
 msgid "<unknown>"
 msgstr "<unknown>"
 
-#: ../../frescobaldi_app/convert_ly.py:156
+#: ../../frescobaldi_app/convert_ly.py:157
 #, python-brace-format
 msgid "Convert-ly from LilyPond {version}"
 msgstr "LilyPond {version}의 Convert-ly"
 
-#: ../../frescobaldi_app/convert_ly.py:175
+#: ../../frescobaldi_app/convert_ly.py:176
 #: ../../frescobaldi_app/externalchanges/widget.py:286
 #: ../../frescobaldi_app/fonts/preview.py:97
 msgid "Current Document"
 msgstr "현재 문서"
 
-#: ../../frescobaldi_app/convert_ly.py:175
+#: ../../frescobaldi_app/convert_ly.py:176
 msgid "Converted Document"
 msgstr "변환된 문서"
 
-#: ../../frescobaldi_app/convert_ly.py:200
+#: ../../frescobaldi_app/convert_ly.py:201
 msgid "(set in document)"
 msgstr "(문서에서 지정하기)"
 
-#: ../../frescobaldi_app/convert_ly.py:214
+#: ../../frescobaldi_app/convert_ly.py:215
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "'from' 및 'to' 버전을 모두 지정해야 합니다."
 
-#: ../../frescobaldi_app/convert_ly.py:235
+#: ../../frescobaldi_app/convert_ly.py:241
 #, python-brace-format
 msgid ""
 "Could not start {convert_ly}:\n"
@@ -244,16 +331,16 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../../frescobaldi_app/convert_ly.py:245
+#: ../../frescobaldi_app/convert_ly.py:251
 msgid "The document has not been changed."
 msgstr "문서가 변경되지 않았습니다."
 
-#: ../../frescobaldi_app/convert_ly.py:253 ../../frescobaldi_app/mainwindow.py:591
+#: ../../frescobaldi_app/convert_ly.py:259 ../../frescobaldi_app/mainwindow.py:597
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "파일 저장하기"
 
-#: ../../frescobaldi_app/convert_ly.py:254
+#: ../../frescobaldi_app/convert_ly.py:260
 msgid "Text Files"
 msgstr "텍스트 파일"
 
@@ -310,7 +397,7 @@ msgstr "드래그"
 msgid "Drag File"
 msgstr "파일 드래그"
 
-#: ../../frescobaldi_app/copy2image.py:159 ../../frescobaldi_app/mainwindow.py:1374
+#: ../../frescobaldi_app/copy2image.py:159 ../../frescobaldi_app/mainwindow.py:1385
 #: ../../frescobaldi_app/docbrowser/browser.py:262
 #: ../../frescobaldi_app/fonts/dialog.py:177
 msgid "&Copy"
@@ -370,13 +457,13 @@ msgstr "{png} 파일을 클립보드에 복사합니다."
 #: ../../frescobaldi_app/copy2image.py:219
 #: ../../frescobaldi_app/engrave/custom.py:258
 #: ../../frescobaldi_app/fonts/musicfonts.py:617
-#: ../../frescobaldi_app/preferences/lilypond.py:387
+#: ../../frescobaldi_app/preferences/lilypond.py:376
 msgid "SVG"
 msgstr "SVG"
 
 #: ../../frescobaldi_app/copy2image.py:220
 #: ../../frescobaldi_app/engrave/custom.py:236
-#: ../../frescobaldi_app/preferences/lilypond.py:384
+#: ../../frescobaldi_app/preferences/lilypond.py:373
 msgid "PDF"
 msgstr "PDF"
 
@@ -404,11 +491,11 @@ msgstr "다른 이름으로 이미지 저장"
 
 #. L10N: a basic type of input in the editor
 #: ../../frescobaldi_app/copy2image.py:322 ../../frescobaldi_app/cut_assign.py:139
-#: ../../frescobaldi_app/helpers.py:107 ../../frescobaldi_app/mainwindow.py:471
-#: ../../frescobaldi_app/mainwindow.py:559 ../../frescobaldi_app/mainwindow.py:615
-#: ../../frescobaldi_app/mainwindow.py:681 ../../frescobaldi_app/mainwindow.py:701
-#: ../../frescobaldi_app/mainwindow.py:717 ../../frescobaldi_app/mainwindow.py:805
-#: ../../frescobaldi_app/mainwindow.py:874
+#: ../../frescobaldi_app/helpers.py:107 ../../frescobaldi_app/mainwindow.py:477
+#: ../../frescobaldi_app/mainwindow.py:565 ../../frescobaldi_app/mainwindow.py:621
+#: ../../frescobaldi_app/mainwindow.py:687 ../../frescobaldi_app/mainwindow.py:708
+#: ../../frescobaldi_app/mainwindow.py:727 ../../frescobaldi_app/mainwindow.py:815
+#: ../../frescobaldi_app/mainwindow.py:884
 #: ../../frescobaldi_app/externalchanges/widget.py:245
 #: ../../frescobaldi_app/externalchanges/widget.py:264
 #: ../../frescobaldi_app/file_export/__init__.py:73
@@ -444,10 +531,10 @@ msgctxt "dialog title"
 msgid "Move to include file"
 msgstr "include 파일로 이동하기"
 
-#: ../../frescobaldi_app/cut_assign.py:135 ../../frescobaldi_app/mainwindow.py:461
-#: ../../frescobaldi_app/mainwindow.py:555 ../../frescobaldi_app/mainwindow.py:611
-#: ../../frescobaldi_app/mainwindow.py:677 ../../frescobaldi_app/mainwindow.py:697
-#: ../../frescobaldi_app/mainwindow.py:801 ../../frescobaldi_app/mainwindow.py:870
+#: ../../frescobaldi_app/cut_assign.py:135 ../../frescobaldi_app/mainwindow.py:467
+#: ../../frescobaldi_app/mainwindow.py:561 ../../frescobaldi_app/mainwindow.py:617
+#: ../../frescobaldi_app/mainwindow.py:683 ../../frescobaldi_app/mainwindow.py:704
+#: ../../frescobaldi_app/mainwindow.py:811 ../../frescobaldi_app/mainwindow.py:880
 #: ../../frescobaldi_app/sessions/dialog.py:104
 #: ../../frescobaldi_app/sessions/dialog.py:125
 #, python-brace-format
@@ -460,19 +547,19 @@ msgstr ""
 "\n"
 "{strerror} ({errno})"
 
-#: ../../frescobaldi_app/cut_assign.py:136 ../../frescobaldi_app/mainwindow.py:612
-#: ../../frescobaldi_app/mainwindow.py:678 ../../frescobaldi_app/mainwindow.py:871
+#: ../../frescobaldi_app/cut_assign.py:136 ../../frescobaldi_app/mainwindow.py:618
+#: ../../frescobaldi_app/mainwindow.py:684 ../../frescobaldi_app/mainwindow.py:881
 #: ../../frescobaldi_app/sessions/dialog.py:126
 #, python-brace-format
 msgid "Could not write to: {url}"
 msgstr "다음에 쓸 수 없음: {url}"
 
-#: ../../frescobaldi_app/document.py:214 ../../frescobaldi_app/doclist/widget.py:114
+#: ../../frescobaldi_app/document.py:218 ../../frescobaldi_app/doclist/widget.py:114
 #: ../../frescobaldi_app/snippet/edit.py:174
 msgid "Untitled"
 msgstr "제목없음"
 
-#: ../../frescobaldi_app/document.py:216
+#: ../../frescobaldi_app/document.py:220
 #, python-brace-format
 msgid "Untitled ({num})"
 msgstr "제목없음 ({num})"
@@ -571,7 +658,7 @@ msgid "&Save"
 msgstr "저장하기(&S)"
 
 #: ../../frescobaldi_app/documentcontextmenu.py:72
-#: ../../frescobaldi_app/mainwindow.py:1342
+#: ../../frescobaldi_app/mainwindow.py:1353
 msgid "Save &As..."
 msgstr "다른 이름으로 저장(&A)..."
 
@@ -580,7 +667,7 @@ msgid "&Close"
 msgstr "닫기(&C)"
 
 #: ../../frescobaldi_app/documentcontextmenu.py:74
-#: ../../frescobaldi_app/mainwindow.py:1355
+#: ../../frescobaldi_app/mainwindow.py:1366
 msgid "Close Other Documents"
 msgstr "다른 문서 닫기"
 
@@ -614,33 +701,49 @@ msgstr "제자리에서 편집하기"
 msgid "Editing line {linenum} of \"{document}\" ({variable})"
 msgstr "\"{document}\"({variable})의 {linenum}번째 줄 편집하는 중"
 
-#: ../../frescobaldi_app/exception.py:73
+#: ../../frescobaldi_app/exception.py:87
 #, python-brace-format
 msgid "An internal error has occurred in extension '{name}':"
 msgstr "'{name}' 확장 기능에서 내부 오류 발생함:"
 
-#: ../../frescobaldi_app/exception.py:74
+#: ../../frescobaldi_app/exception.py:88
 msgid "Extension Error"
 msgstr "확장 기능 오류"
 
-#: ../../frescobaldi_app/exception.py:76
+#: ../../frescobaldi_app/exception.py:89
+msgid ""
+"Please use the button below to send a bug report to the maintainer of this "
+"extension by email."
+msgstr ""
+
+#: ../../frescobaldi_app/exception.py:92
 msgid "An internal error has occurred:"
 msgstr "내부 오류 발생함:"
 
-#: ../../frescobaldi_app/exception.py:77
+#: ../../frescobaldi_app/exception.py:93
 msgid "Internal Error"
 msgstr "내부 오류"
 
-#: ../../frescobaldi_app/exception.py:80
-msgid "Email Bug Report..."
+#: ../../frescobaldi_app/exception.py:94
+msgid ""
+"We would highly appreciate if you used the button below to open a new issue "
+"on GitHub, the development platform used by the Frescobaldi project, to let "
+"developers know about this problem. If you have general questions, you can "
+"also send them to the <a href=\"https://groups.google.com/g/"
+"frescobaldi\">Frescobaldi user group</a>."
+msgstr ""
+
+#: ../../frescobaldi_app/exception.py:103
+#, fuzzy
+msgid "Send Bug Report..."
 msgstr "이메일 버그 신고..."
 
-#: ../../frescobaldi_app/exception.py:92
+#: ../../frescobaldi_app/exception.py:117
 #, python-brace-format
 msgid "An error occurred in extension '{name}'"
 msgstr "'{name}' 확장 기능에서 내부 오류가 발생했습니다"
 
-#: ../../frescobaldi_app/exception.py:101
+#: ../../frescobaldi_app/exception.py:122 ../../frescobaldi_app/exception.py:126
 msgid "Optionally describe below what you were doing:"
 msgstr "선택적으로 아래에 수행 중인 작업을 설명합니다:"
 
@@ -725,105 +828,18 @@ msgstr "하이픈 연결 제거하기(&R)"
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "하이픈 연결을 제거한 상태에서 가사 복사하기(&C)"
 
-#: ../../frescobaldi_app/main.py:54
-msgid "show program's version number and exit"
-msgstr "프로그램의 버전 번호를 표시하고 종료"
-
-#: ../../frescobaldi_app/main.py:56
-#, python-brace-format
-msgid "show version numbers of {appname} and its supporting modules and exit"
-msgstr "{appname} 및 해당 지원 모듈의 버전 번호를 표시하고 종료합니다"
-
-#: ../../frescobaldi_app/main.py:58
-msgid "ENC"
-msgstr "ENC"
-
-#: ../../frescobaldi_app/main.py:59
-msgid "Encoding to use"
-msgstr "사용할 인코딩"
-
-#: ../../frescobaldi_app/main.py:60 ../../frescobaldi_app/main.py:62
-msgid "NUM"
-msgstr "NUM"
-
-#: ../../frescobaldi_app/main.py:61
-msgid "Line number to go to, starting at 1"
-msgstr "1부터 시작하여, 이동할 오선 번호"
-
-#: ../../frescobaldi_app/main.py:63
-msgid "Column to go to, starting at 1"
-msgstr "1부터 시작하여, 이동할 열"
-
-#: ../../frescobaldi_app/main.py:64
-msgid "NAME"
-msgstr "이름"
-
-#: ../../frescobaldi_app/main.py:65
-#, python-brace-format
-msgid "Session to start ('{none}' for empty session)"
-msgstr "시작할 세션 (빈 세션의 경우 '{none}')"
-
-#: ../../frescobaldi_app/main.py:68
-msgid "List the session names and exit"
-msgstr "세션 이름 열거하고 종료"
-
-#: ../../frescobaldi_app/main.py:70
-msgid "Always start a new instance"
-msgstr "항상 새 인스턴스 시작하기"
-
-#: ../../frescobaldi_app/main.py:71
-msgid "STR"
-msgstr "STR"
-
-#: ../../frescobaldi_app/main.py:72
-msgid "Path to python-ly"
-msgstr "Python-ly으로 가는 경로"
-
-#: ../../frescobaldi_app/main.py:73
-msgid "file"
-msgstr "파일"
-
-#: ../../frescobaldi_app/main.py:74
-msgid "File to be opened"
-msgstr "열려는 파일"
-
-#: ../../frescobaldi_app/main.py:142
-msgid "Can't run Frescobaldi"
-msgstr "Frescobaldi를 실행할 수 없습니다"
-
-#: ../../frescobaldi_app/main.py:143
-#, python-brace-format
-msgid ""
-"We are sorry, but Frescobaldi can't run properly.\n"
-"\n"
-"The python-ly package is not available or too old.\n"
-"At least version {version} is required to run Frescobaldi.\n"
-"\n"
-"If you did install python-ly correctly, please remove the old\n"
-"ly package from the frescobaldi_app directory, or completely\n"
-"remove and then reinstall Frescobaldi."
-msgstr ""
-"죄송합니다. Frescobaldi가 제대로 실행되지 않습니다.\n"
-"\n"
-"python-ly 패키지를 사용할 수 없거나 너무 오래되었습니다.\n"
-"Frescobaldi를 실행하려면 {version} 버전 이상이 필요합니다.\n"
-"\n"
-"python-ly를 올바르게 설치했다면 frescobaldi_app 디렉터리에서\n"
-"구형 ly 패키지를 제거하거나, Frescobaldi를 완전히 제거한 다음\n"
-"다시 설치하세요."
-
 #. L10N: state of document in window titlebar
-#: ../../frescobaldi_app/mainwindow.py:295
+#: ../../frescobaldi_app/mainwindow.py:301
 #: ../../frescobaldi_app/externalchanges/widget.py:159
 msgid "[modified]"
 msgstr "[수정됨]"
 
-#: ../../frescobaldi_app/mainwindow.py:359
+#: ../../frescobaldi_app/mainwindow.py:365
 msgctxt "dialog title"
 msgid "Close Document"
 msgstr "문서 닫기"
 
-#: ../../frescobaldi_app/mainwindow.py:360
+#: ../../frescobaldi_app/mainwindow.py:366
 #, python-brace-format
 msgid ""
 "The document \"{name}\" has been modified.\n"
@@ -832,163 +848,166 @@ msgstr ""
 "\"{name}\" 문서가 수정되었습니다.\n"
 "변경사항을 저장하시겠습니까, 아니면 폐기하시겠습니까?"
 
-#: ../../frescobaldi_app/mainwindow.py:373
+#: ../../frescobaldi_app/mainwindow.py:379
 msgid "Tab Bar"
 msgstr "탭 바"
 
-#: ../../frescobaldi_app/mainwindow.py:462 ../../frescobaldi_app/mainwindow.py:698
-#: ../../frescobaldi_app/mainwindow.py:802
+#: ../../frescobaldi_app/mainwindow.py:468 ../../frescobaldi_app/mainwindow.py:705
+#: ../../frescobaldi_app/mainwindow.py:812
 #: ../../frescobaldi_app/sessions/dialog.py:105
 #, python-brace-format
 msgid "Could not read from: {url}"
 msgstr "다음에서 읽을 수 없음: {url}"
 
-#: ../../frescobaldi_app/mainwindow.py:466
+#: ../../frescobaldi_app/mainwindow.py:472
 msgid "Could not read:"
 msgstr "읽을 수 없음:"
 
-#: ../../frescobaldi_app/mainwindow.py:534
+#: ../../frescobaldi_app/mainwindow.py:540
 #: ../../frescobaldi_app/macosx/globalmenu.py:169
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "파일 열기"
 
-#: ../../frescobaldi_app/mainwindow.py:545
+#: ../../frescobaldi_app/mainwindow.py:551
 msgctxt "dialog title"
 msgid "Rename/Move File"
 msgstr "파일 이름변경/이동하기"
 
-#: ../../frescobaldi_app/mainwindow.py:556
+#: ../../frescobaldi_app/mainwindow.py:562
 #, python-brace-format
 msgid "Could not delete: {url}"
 msgstr "삭제할 수 없음: {url}"
 
-#: ../../frescobaldi_app/mainwindow.py:661
+#: ../../frescobaldi_app/mainwindow.py:667
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "복사본 저장하기"
 
-#: ../../frescobaldi_app/mainwindow.py:667
+#: ../../frescobaldi_app/mainwindow.py:673
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "선택항목 저장하기"
 
-#: ../../frescobaldi_app/mainwindow.py:712
+#: ../../frescobaldi_app/mainwindow.py:722
 #: ../../frescobaldi_app/externalchanges/widget.py:240
 msgid "Could not reload:"
 msgstr "다시 불러올 수 없음:"
 
-#: ../../frescobaldi_app/mainwindow.py:793
+#: ../../frescobaldi_app/mainwindow.py:803
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "파일에서 삽입하기"
 
-#: ../../frescobaldi_app/mainwindow.py:825
+#: ../../frescobaldi_app/mainwindow.py:835
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "원본 인쇄하기"
 
-#: ../../frescobaldi_app/mainwindow.py:851
+#: ../../frescobaldi_app/mainwindow.py:861
 msgid "Export as HTML"
 msgstr "HTML로 내보내기"
 
-#: ../../frescobaldi_app/mainwindow.py:987
+#: ../../frescobaldi_app/mainwindow.py:997
 #, python-brace-format
 msgid "Goto Line Number (1-{num}):"
 msgstr "오선 번호로 가기 (1-{num}):"
 
-#: ../../frescobaldi_app/mainwindow.py:1035
+#: ../../frescobaldi_app/mainwindow.py:1044
+msgid "<Please summarize your bug or feature request>"
+msgstr ""
+
+#: ../../frescobaldi_app/mainwindow.py:1045
+#, fuzzy
 msgid ""
-"Please describe the issue or feature request.\n"
-"Provide as much information as possible.\n"
-"\n"
-"\n"
+"<Please describe the issue or feature request.\n"
+"Provide as much information as possible.>"
 msgstr ""
 "문제 또는 기능 요청을 설명해 주세요.\n"
 "가능한 한 많은 정보를 제공하세요.\n"
 "\n"
 "\n"
 
-#: ../../frescobaldi_app/mainwindow.py:1175
+#: ../../frescobaldi_app/mainwindow.py:1186
 msgid "Main Toolbar"
 msgstr "기본 도구모음"
 
-#: ../../frescobaldi_app/mainwindow.py:1176
+#: ../../frescobaldi_app/mainwindow.py:1187
 msgid "Music View Toolbar"
 msgstr "악보 보기 도구모음"
 
-#: ../../frescobaldi_app/mainwindow.py:1331
+#: ../../frescobaldi_app/mainwindow.py:1342
 msgctxt "action: new document"
 msgid "&New Document"
 msgstr "새 문서(&N)"
 
-#: ../../frescobaldi_app/mainwindow.py:1332
+#: ../../frescobaldi_app/mainwindow.py:1343
 msgctxt "action: new document"
 msgid "New"
 msgstr "새로 만들기"
 
-#: ../../frescobaldi_app/mainwindow.py:1333
+#: ../../frescobaldi_app/mainwindow.py:1344
 #: ../../frescobaldi_app/macosx/globalmenu.py:71
 msgid "&Open..."
 msgstr "열기(&O)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1334
+#: ../../frescobaldi_app/mainwindow.py:1345
 #: ../../frescobaldi_app/macosx/globalmenu.py:102
 msgid "Open &Recent"
 msgstr "최근 파일 열기(&R)"
 
-#: ../../frescobaldi_app/mainwindow.py:1335
+#: ../../frescobaldi_app/mainwindow.py:1346
 msgid "Insert from &File..."
 msgstr "파일에서 삽입하기(&F)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1337
+#: ../../frescobaldi_app/mainwindow.py:1348
 msgid "Insert the contents of a file at the current cursor position."
 msgstr "현재 커서 위치에 파일 내용을 삽입합니다."
 
-#: ../../frescobaldi_app/mainwindow.py:1338
+#: ../../frescobaldi_app/mainwindow.py:1349
 msgid "Open Current Directory"
 msgstr "현재 디렉터리 열기"
 
-#: ../../frescobaldi_app/mainwindow.py:1339
+#: ../../frescobaldi_app/mainwindow.py:1350
 msgid "Open Command Prompt"
 msgstr "명령 프롬프트 열기"
 
-#: ../../frescobaldi_app/mainwindow.py:1340
+#: ../../frescobaldi_app/mainwindow.py:1351
 msgid "&Save Document"
 msgstr "문서 저장하기(&S)"
 
-#: ../../frescobaldi_app/mainwindow.py:1341
+#: ../../frescobaldi_app/mainwindow.py:1352
 #: ../../frescobaldi_app/externalchanges/widget.py:113
 msgid "Save"
 msgstr "저장하기"
 
-#: ../../frescobaldi_app/mainwindow.py:1343
+#: ../../frescobaldi_app/mainwindow.py:1354
 msgid "Save Copy or Selection As..."
 msgstr "복사본 또는 선택항목을 다른 이름으로 저장..."
 
-#: ../../frescobaldi_app/mainwindow.py:1344
+#: ../../frescobaldi_app/mainwindow.py:1355
 msgid "&Rename/Move File..."
 msgstr "파일 이름변경/이동하기(&R)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1345
+#: ../../frescobaldi_app/mainwindow.py:1356
 #: ../../frescobaldi_app/externalchanges/widget.py:117
 msgid "Save All"
 msgstr "모두 저장하기"
 
-#: ../../frescobaldi_app/mainwindow.py:1346
+#: ../../frescobaldi_app/mainwindow.py:1357
 msgid "Re&load"
 msgstr "새로고침(&L)"
 
-#: ../../frescobaldi_app/mainwindow.py:1347
+#: ../../frescobaldi_app/mainwindow.py:1358
 #: ../../frescobaldi_app/externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "모두 다시 불러오기"
 
-#: ../../frescobaldi_app/mainwindow.py:1348
+#: ../../frescobaldi_app/mainwindow.py:1359
 msgid "Check for External Changes..."
 msgstr "외부 변경사항 확인하기..."
 
-#: ../../frescobaldi_app/mainwindow.py:1350
+#: ../../frescobaldi_app/mainwindow.py:1361
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -996,158 +1015,158 @@ msgstr ""
 "열려 있는 문서가 다른 프로그램에 의해 변경 또는 삭제되었는지 확인하는 창을 엽"
 "니다."
 
-#: ../../frescobaldi_app/mainwindow.py:1352
+#: ../../frescobaldi_app/mainwindow.py:1363
 msgid "Print Source..."
 msgstr "원본 인쇄하기..."
 
-#: ../../frescobaldi_app/mainwindow.py:1353
+#: ../../frescobaldi_app/mainwindow.py:1364
 msgid "&Close Document"
 msgstr "문서 닫기(&C)"
 
-#: ../../frescobaldi_app/mainwindow.py:1354 ../../frescobaldi_app/panel.py:108
+#: ../../frescobaldi_app/mainwindow.py:1365 ../../frescobaldi_app/panel.py:108
 #: ../../frescobaldi_app/search/__init__.py:120
 #: ../../frescobaldi_app/viewers/__init__.py:351
 #: ../../frescobaldi_app/viewers/manuscript/__init__.py:77
 msgid "Close"
 msgstr "닫기"
 
-#: ../../frescobaldi_app/mainwindow.py:1356
+#: ../../frescobaldi_app/mainwindow.py:1367
 msgid "Close All Documents"
 msgstr "모든 문서 닫기"
 
-#: ../../frescobaldi_app/mainwindow.py:1358
+#: ../../frescobaldi_app/mainwindow.py:1369
 msgid "Closes all documents but preserves the current session."
 msgstr "모든 문서를 닫지만 현재 세션은 유지합니다."
 
-#: ../../frescobaldi_app/mainwindow.py:1361
+#: ../../frescobaldi_app/mainwindow.py:1372
 msgid "Close All Documents and Session"
 msgstr "모든 문서 및 세션 닫기"
 
-#: ../../frescobaldi_app/mainwindow.py:1364
+#: ../../frescobaldi_app/mainwindow.py:1375
 msgid "Closes all documents and leaves the current session."
 msgstr "모든 문서를 닫고 현재 세션을 종료합니다."
 
-#: ../../frescobaldi_app/mainwindow.py:1366
+#: ../../frescobaldi_app/mainwindow.py:1377
 #: ../../frescobaldi_app/macosx/globalmenu.py:77
 msgid "&Quit"
 msgstr "종료(&Q)"
 
-#: ../../frescobaldi_app/mainwindow.py:1367
+#: ../../frescobaldi_app/mainwindow.py:1378
 #, python-brace-format
 msgid "Restart {appname}"
 msgstr "{appname} 재시작"
 
-#: ../../frescobaldi_app/mainwindow.py:1369
+#: ../../frescobaldi_app/mainwindow.py:1380
 msgid "Export Source as Colored &HTML..."
 msgstr "색상이 지정된 HTML로 소스 내보내기(&H)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1371
+#: ../../frescobaldi_app/mainwindow.py:1382
 msgid "&Undo"
 msgstr "실행 취소(&U)"
 
-#: ../../frescobaldi_app/mainwindow.py:1372
+#: ../../frescobaldi_app/mainwindow.py:1383
 msgid "Re&do"
 msgstr "다시 실행(&D)"
 
-#: ../../frescobaldi_app/mainwindow.py:1373
+#: ../../frescobaldi_app/mainwindow.py:1384
 msgid "Cu&t"
 msgstr "잘라내기(&T)"
 
-#: ../../frescobaldi_app/mainwindow.py:1375
+#: ../../frescobaldi_app/mainwindow.py:1386
 msgid "Copy as Colored &HTML"
 msgstr "색상이 지정된 HTML로 복사하기(&H)"
 
-#: ../../frescobaldi_app/mainwindow.py:1376
+#: ../../frescobaldi_app/mainwindow.py:1387
 msgid "&Paste"
 msgstr "붙여넣기(&P)"
 
-#: ../../frescobaldi_app/mainwindow.py:1377
+#: ../../frescobaldi_app/mainwindow.py:1388
 msgid "Select &All"
 msgstr "모두 선택하기(&A)"
 
-#: ../../frescobaldi_app/mainwindow.py:1378
+#: ../../frescobaldi_app/mainwindow.py:1389
 msgid "Select &Block"
 msgstr "블록 선택하기(&B)"
 
-#: ../../frescobaldi_app/mainwindow.py:1379
+#: ../../frescobaldi_app/mainwindow.py:1390
 msgid "Select &None"
 msgstr "없음 선택하기(&N)"
 
-#: ../../frescobaldi_app/mainwindow.py:1380
+#: ../../frescobaldi_app/mainwindow.py:1391
 msgid "Select Whole Lines Up"
 msgstr "전체 오선 위로 선택하기"
 
-#: ../../frescobaldi_app/mainwindow.py:1381
+#: ../../frescobaldi_app/mainwindow.py:1392
 msgid "Select Whole Lines Down"
 msgstr "전체 오선 아래로 선택하기"
 
-#: ../../frescobaldi_app/mainwindow.py:1382
+#: ../../frescobaldi_app/mainwindow.py:1393
 msgid "&Find..."
 msgstr "찾기(&F)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1383
+#: ../../frescobaldi_app/mainwindow.py:1394
 msgid "Find Ne&xt"
 msgstr "다음 찾기(&X)"
 
-#: ../../frescobaldi_app/mainwindow.py:1384
+#: ../../frescobaldi_app/mainwindow.py:1395
 msgid "Find Pre&vious"
 msgstr "이전 찾기(&V)"
 
-#: ../../frescobaldi_app/mainwindow.py:1385
+#: ../../frescobaldi_app/mainwindow.py:1396
 msgid "&Replace..."
 msgstr "바꾸기(&R)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1386
+#: ../../frescobaldi_app/mainwindow.py:1397
 #: ../../frescobaldi_app/macosx/globalmenu.py:123
 msgid "Pr&eferences..."
 msgstr "환경설정(&E)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1388
+#: ../../frescobaldi_app/mainwindow.py:1399
 msgid "&Next Document"
 msgstr "다음 문서(&N)"
 
-#: ../../frescobaldi_app/mainwindow.py:1389
+#: ../../frescobaldi_app/mainwindow.py:1400
 msgid "&Previous Document"
 msgstr "이전 문서(&P)"
 
-#: ../../frescobaldi_app/mainwindow.py:1390
+#: ../../frescobaldi_app/mainwindow.py:1401
 msgid "Wrap &Lines"
 msgstr "오선 줄바꿈(&L)"
 
-#: ../../frescobaldi_app/mainwindow.py:1391
+#: ../../frescobaldi_app/mainwindow.py:1402
 msgid "Scroll Up"
 msgstr "위로 스크롤"
 
-#: ../../frescobaldi_app/mainwindow.py:1392
+#: ../../frescobaldi_app/mainwindow.py:1403
 msgid "Scroll Down"
 msgstr "아래로 스크롤"
 
-#: ../../frescobaldi_app/mainwindow.py:1393
+#: ../../frescobaldi_app/mainwindow.py:1404
 msgid "&Goto Line..."
 msgstr "오선으로 가기(&G)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1395
+#: ../../frescobaldi_app/mainwindow.py:1406
 #: ../../frescobaldi_app/macosx/globalmenu.py:129
 msgid "New &Window"
 msgstr "새 창(&W)"
 
-#: ../../frescobaldi_app/mainwindow.py:1396
+#: ../../frescobaldi_app/mainwindow.py:1407
 msgid "&Fullscreen"
 msgstr "전체화면(&F)"
 
-#: ../../frescobaldi_app/mainwindow.py:1398
+#: ../../frescobaldi_app/mainwindow.py:1409
 msgid "&User Guide"
 msgstr "사용자 가이드(&U)"
 
-#: ../../frescobaldi_app/mainwindow.py:1399
+#: ../../frescobaldi_app/mainwindow.py:1410
 msgid "&What's This?"
 msgstr "이것은 무엇인가요?(&W)"
 
-#: ../../frescobaldi_app/mainwindow.py:1400
+#: ../../frescobaldi_app/mainwindow.py:1411
 msgid "Report a &Bug..."
 msgstr "버그 보고하기(&B)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1401
+#: ../../frescobaldi_app/mainwindow.py:1412
 #: ../../frescobaldi_app/macosx/globalmenu.py:147
 #, python-brace-format
 msgid "&About {appname}..."
@@ -1655,16 +1674,17 @@ msgid "Layout Control"
 msgstr "레이아웃 제어"
 
 #: ../../frescobaldi_app/engrave/custom.py:137
-#: ../../frescobaldi_app/preferences/lilypond.py:334
+#: ../../frescobaldi_app/preferences/lilypond.py:324
 msgid "Delete intermediate output files"
 msgstr "중간 출력 파일 삭제하기"
 
 #: ../../frescobaldi_app/engrave/custom.py:138
-msgid "Embed Source Code (LilyPond >= 2.19.39)"
+#, fuzzy
+msgid "Embed Source Code"
 msgstr "소스 코드 포함 (LilyPond > = 2.19.39)"
 
 #: ../../frescobaldi_app/engrave/custom.py:139
-#: ../../frescobaldi_app/preferences/lilypond.py:342
+#: ../../frescobaldi_app/preferences/lilypond.py:331
 msgid "Run LilyPond with English messages"
 msgstr "영어 메시지와 함께 LilyPond 실행하기"
 
@@ -2131,8 +2151,8 @@ msgstr "음 높이 이름에 사용되는 언어"
 #: ../../frescobaldi_app/scorewiz/settings.py:166
 #: ../../frescobaldi_app/scorewiz/settings.py:245
 #: ../../frescobaldi_app/scorewiz/settings.py:339
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:217
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:66
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:246
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:69
 #: ../../frescobaldi_app/widgets/schemeselector.py:195
 msgid "Default"
 msgstr "기본값"
@@ -2141,27 +2161,27 @@ msgstr "기본값"
 msgid "Run musicxml2ly"
 msgstr "Musicxml2ly 실행하기"
 
-#: ../../frescobaldi_app/file_import/toly_dialog.py:78
+#: ../../frescobaldi_app/file_import/toly_dialog.py:79
 msgid "After Import"
 msgstr "가져오기 이후"
 
-#: ../../frescobaldi_app/file_import/toly_dialog.py:132
+#: ../../frescobaldi_app/file_import/toly_dialog.py:133
 msgid "LilyPond version:"
 msgstr "LilyPond 버전:"
 
-#: ../../frescobaldi_app/file_import/toly_dialog.py:133
+#: ../../frescobaldi_app/file_import/toly_dialog.py:134
 msgid "Reformat source"
 msgstr "소스 서식 다시 지정"
 
-#: ../../frescobaldi_app/file_import/toly_dialog.py:134
+#: ../../frescobaldi_app/file_import/toly_dialog.py:135
 msgid "Trim durations (Make implicit per line)"
 msgstr "음의 길이 짧게 (줄마다 즉흥적으로)"
 
-#: ../../frescobaldi_app/file_import/toly_dialog.py:135
+#: ../../frescobaldi_app/file_import/toly_dialog.py:136
 msgid "Remove fraction duration scaling"
 msgstr "분수 음의 길이 음길이 조정 제거하기"
 
-#: ../../frescobaldi_app/file_import/toly_dialog.py:136
+#: ../../frescobaldi_app/file_import/toly_dialog.py:137
 msgid "Engrave directly"
 msgstr "바로 제판하기"
 
@@ -4004,7 +4024,7 @@ msgid "Comment"
 msgstr "주석"
 
 #: ../../frescobaldi_app/preferences/fontscolors.py:514
-#: ../../frescobaldi_app/preferences/lilypond.py:265
+#: ../../frescobaldi_app/preferences/lilypond.py:261
 #: ../../frescobaldi_app/scorewiz/settings.py:335
 msgid "LilyPond"
 msgstr "LilyPond"
@@ -4101,7 +4121,7 @@ msgid "Delimiter"
 msgstr "구분자"
 
 #: ../../frescobaldi_app/preferences/fontscolors.py:538
-#: ../../frescobaldi_app/scorewiz/parts/special.py:42
+#: ../../frescobaldi_app/scorewiz/parts/special.py:65
 msgid "Figured Bass"
 msgstr "피겨드 베이스"
 
@@ -4202,7 +4222,7 @@ msgid "System Default Language (if available)"
 msgstr "시스템 기본 언어 (사용 가능한 경우)"
 
 #: ../../frescobaldi_app/preferences/general.py:150
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:185
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:211
 msgid "Style:"
 msgstr "스타일:"
 
@@ -4479,67 +4499,63 @@ msgstr "기본값으로 지정(&D)"
 msgid "default"
 msgstr "기본값"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:258
+#: ../../frescobaldi_app/preferences/lilypond.py:254
 msgid "Convert-ly:"
 msgstr "Convert-ly:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:259
+#: ../../frescobaldi_app/preferences/lilypond.py:255
 msgid "LilyPond-book:"
 msgstr "LilyPond-book:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:260
+#: ../../frescobaldi_app/preferences/lilypond.py:256
 msgid "Midi2ly:"
 msgstr "Midi2ly:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:261
+#: ../../frescobaldi_app/preferences/lilypond.py:257
 msgid "MusicXML2ly:"
 msgstr "MusicXML2ly:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:262
+#: ../../frescobaldi_app/preferences/lilypond.py:258
 msgid "ABC2ly:"
 msgstr "ABC2ly:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:266
+#: ../../frescobaldi_app/preferences/lilypond.py:262
 msgid "Label:"
 msgstr "레이블:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:267
+#: ../../frescobaldi_app/preferences/lilypond.py:263
 msgid "How this version of LilyPond will be displayed."
 msgstr "이 버전의 LilyPond가 화면표시되는 방식입니다."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:268
+#: ../../frescobaldi_app/preferences/lilypond.py:264
 msgid "LilyPond Command:"
 msgstr "LilyPond 명령:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:269
+#: ../../frescobaldi_app/preferences/lilypond.py:265
 msgid "Name or full path of the LilyPond program."
 msgstr "LilyPond 프로그램의 이름 또는 전체 경로입니다."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:270
+#: ../../frescobaldi_app/preferences/lilypond.py:266
 msgid "Include in automatic version selection"
 msgstr "자동 버전 선택에 포함하기"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:271
+#: ../../frescobaldi_app/preferences/lilypond.py:267
 msgid "General"
 msgstr "일반"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:272
+#: ../../frescobaldi_app/preferences/lilypond.py:268
 msgid "Tool Commands"
 msgstr "도구 명령"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:276
-msgid "Force use of the tools' #! lines"
-msgstr "도구의 #! 줄 강제 사용하기"
-
-#: ../../frescobaldi_app/preferences/lilypond.py:329
+#: ../../frescobaldi_app/preferences/lilypond.py:319
 msgid "Running LilyPond"
 msgstr "LilyPond 실행"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:330
+#: ../../frescobaldi_app/preferences/lilypond.py:320
 msgid "Save document if possible"
 msgstr "가능한 경우 문서 저장하기"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:332
+#: ../../frescobaldi_app/preferences/lilypond.py:322
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
@@ -4547,25 +4563,25 @@ msgstr ""
 "이 옵션이 선택된 경우, 문서가 로컬에 있을 때 저장되고 수정됩니다.\n"
 "그렇지 않으면 임시 파일을 사용하여 LilyPond를 실행합니다."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:336
+#: ../../frescobaldi_app/preferences/lilypond.py:326
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr "이 옵션이 선택된 경우, LilyPond가 중간 PostScript 파일을 삭제합니다."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:337
+#: ../../frescobaldi_app/preferences/lilypond.py:327
 msgid "Embed Source Code files in publish mode"
 msgstr "출판하기 모드에서 소스 코드 파일 포함"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:339
+#: ../../frescobaldi_app/preferences/lilypond.py:329
+#, fuzzy
 msgid ""
 "If checked, the LilyPond source files will be embedded in the PDF\n"
-"when LilyPond is started in publish mode.\n"
-"This feature is available since LilyPond 2.19.39."
+"when LilyPond is started in publish mode."
 msgstr ""
 "이 옵션이 선택된 경우, LilyPond가 출판하기 모드에서 시작될 때,\n"
 "LilyPond 소스 파일이 PDF에 포함됩니다.\n"
 "이 기능은 LilyPond 2.19.39부터 사용할 수 있습니다."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:344
+#: ../../frescobaldi_app/preferences/lilypond.py:333
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
@@ -4573,27 +4589,27 @@ msgstr ""
 "이 옵션이 선택된 경우, LilyPond의 출력 메시지가 영어로 표시됩니다.\n"
 "이는 버그 보고서에 유용할 수 있습니다."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:346
+#: ../../frescobaldi_app/preferences/lilypond.py:335
 msgid "LilyPond include path:"
 msgstr "LilyPond include 경로:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:383
+#: ../../frescobaldi_app/preferences/lilypond.py:372
 msgid "Default output format"
 msgstr "기본 출력 형식"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:386
+#: ../../frescobaldi_app/preferences/lilypond.py:375
 msgid "Create PDF (Portable Document Format) documents by default."
 msgstr "기본적으로 PDF(포터블 문서 형식) 문서를 만듭니다."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:389
+#: ../../frescobaldi_app/preferences/lilypond.py:378
 msgid "Create SVG (Scalable Vector Graphics) documents by default."
 msgstr "기본적으로 SVG(확장 가능한 벡터 그래픽) 문서를 만듭니다."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:390
+#: ../../frescobaldi_app/preferences/lilypond.py:379
 msgid "Open default viewer after successful compile"
 msgstr "성공적인 컴파일 후 기본 뷰어 열기"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:392
+#: ../../frescobaldi_app/preferences/lilypond.py:381
 msgid ""
 "Shows the PDF or SVG music view when a compile job finishes successfully."
 msgstr "컴파일 작업이 성공적으로 완료되면 PDF 또는 SVG 악보 보기를 표시합니다."
@@ -5636,7 +5652,7 @@ msgstr "현재 문서에서(&U)..."
 msgid "Music follows here."
 msgstr "악보는 여기를 참조하세요."
 
-#: ../../frescobaldi_app/scorewiz/build.py:417
+#: ../../frescobaldi_app/scorewiz/build.py:415
 msgid "Remove default LilyPond tagline"
 msgstr "기본 LilyPond 태그라인 제거하기"
 
@@ -5984,31 +6000,37 @@ msgstr "사용 가능한 설정이 없습니다."
 msgid "Part {0}"
 msgstr "{0} 파트"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:136
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:152
 msgid "Adjust how many separate voices you want on each staff."
 msgstr "각 보표에 원하는 개별 보이스 수를 조정합니다."
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:137
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:153
 msgid "This is primarily useful when you write polyphonic music like a fugue."
 msgstr "푸가와 같은 다성 음악을 작곡할 때 주로 유용합니다."
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:139
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:155
 msgid "Right hand:"
 msgstr "오른손:"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:140
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:156
 msgid "Left hand:"
 msgstr "왼손:"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:189
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:161
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:118
+#, fuzzy
+msgid "MIDI instrument:"
+msgstr "악기"
+
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:218
 msgid "Chord style:"
 msgstr "코드 스타일:"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:190
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:219
 msgid "Guitar fret diagrams"
 msgstr "기타 프렛 다이어그램"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:192
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:221
 msgid ""
 "Show predefined guitar fret diagrams below the chord names (LilyPond 2.12 "
 "and above)."
@@ -6016,23 +6038,23 @@ msgstr ""
 "코드(화음) 이름 아래에 미리 정의된 기타 프렛 다이어그램을 표시합니다"
 "(LilyPond 2.12 이상)."
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:206
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:235
 msgid "Chords follow here."
 msgstr "화음은 여기를 참조하세요."
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:218
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:247
 msgid "German"
 msgstr "게르만"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:219
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:248
 msgid "Semi-German"
 msgstr "세미-게르만"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:220
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:249
 msgid "Italian"
 msgstr "이탤리언"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:221
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:250
 msgid "French"
 msgstr "프렌치"
 
@@ -6072,70 +6094,70 @@ msgctxt "abbreviation for Cornet in Bb"
 msgid "Crt.Bb."
 msgstr "Crt.Bb."
 
-#: ../../frescobaldi_app/scorewiz/parts/brass.py:85
+#: ../../frescobaldi_app/scorewiz/parts/brass.py:83
 msgid "Flugelhorn"
 msgstr "플뤼겔호른"
 
-#: ../../frescobaldi_app/scorewiz/parts/brass.py:89
+#: ../../frescobaldi_app/scorewiz/parts/brass.py:87
 msgctxt "abbreviation for Flugelhorn"
 msgid "Fgh."
 msgstr "Fgh."
 
-#: ../../frescobaldi_app/scorewiz/parts/brass.py:97
+#: ../../frescobaldi_app/scorewiz/parts/brass.py:95
 msgid "Mellophone"
 msgstr "멜로폰"
 
-#: ../../frescobaldi_app/scorewiz/parts/brass.py:101
+#: ../../frescobaldi_app/scorewiz/parts/brass.py:99
 msgctxt "abbreviation for Mellophone"
 msgid "Mph."
 msgstr "Mph."
 
-#: ../../frescobaldi_app/scorewiz/parts/brass.py:110
+#: ../../frescobaldi_app/scorewiz/parts/brass.py:108
 msgid "Trombone"
 msgstr "트롬본"
 
-#: ../../frescobaldi_app/scorewiz/parts/brass.py:114
+#: ../../frescobaldi_app/scorewiz/parts/brass.py:112
 msgctxt "abbreviation for Trombone"
 msgid "Trb."
 msgstr "Trb."
 
-#: ../../frescobaldi_app/scorewiz/parts/brass.py:124
+#: ../../frescobaldi_app/scorewiz/parts/brass.py:122
 msgid "Baritone"
 msgstr "바리톤"
 
-#: ../../frescobaldi_app/scorewiz/parts/brass.py:128
+#: ../../frescobaldi_app/scorewiz/parts/brass.py:126
 msgctxt "abbreviation for Baritone"
 msgid "Bar."
 msgstr "Bar."
 
-#: ../../frescobaldi_app/scorewiz/parts/brass.py:138
+#: ../../frescobaldi_app/scorewiz/parts/brass.py:136
 msgid "Euphonium"
 msgstr "유포니움"
 
-#: ../../frescobaldi_app/scorewiz/parts/brass.py:142
+#: ../../frescobaldi_app/scorewiz/parts/brass.py:140
 msgctxt "abbreviation for Euphonium"
 msgid "Euph."
 msgstr "Euph."
 
-#: ../../frescobaldi_app/scorewiz/parts/brass.py:152
+#: ../../frescobaldi_app/scorewiz/parts/brass.py:150
 msgid "Tuba"
 msgstr "튜바"
 
-#: ../../frescobaldi_app/scorewiz/parts/brass.py:156
+#: ../../frescobaldi_app/scorewiz/parts/brass.py:154
 msgctxt "abbreviation for Tuba"
 msgid "Tb."
 msgstr "Tb."
 
-#: ../../frescobaldi_app/scorewiz/parts/brass.py:165
+#: ../../frescobaldi_app/scorewiz/parts/brass.py:163
 msgid "Bass Tuba"
 msgstr "베이스 튜바"
 
-#: ../../frescobaldi_app/scorewiz/parts/brass.py:169
+#: ../../frescobaldi_app/scorewiz/parts/brass.py:167
 msgctxt "abbreviation for Bass Tuba"
 msgid "B.Tb."
 msgstr "B.Tb."
 
-#: ../../frescobaldi_app/scorewiz/parts/brass.py:178
+#: ../../frescobaldi_app/scorewiz/parts/brass.py:176
 msgid "Brass"
 msgstr "금관악기"
 
@@ -6228,113 +6250,124 @@ msgctxt "abbreviation for Piano"
 msgid "Pno."
 msgstr "Pno."
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:53
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:59
 msgid "Electric piano"
 msgstr "일렉트릭 피아노"
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:57
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:63
 msgctxt "abbreviation for Electric piano"
 msgid "E.Pno."
 msgstr "E.Pno."
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:65
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:75
 msgid "Harpsichord"
 msgstr "하프시코드"
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:69
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:79
 msgctxt "abbreviation for Harpsichord"
 msgid "Hs."
 msgstr "Hs."
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:77
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:87
 msgid "Clavichord"
 msgstr "클라비코드"
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:81
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:91
 msgctxt "abbreviation for Clavichord"
 msgid "Clv."
 msgstr "Clv."
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:89
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:99
 msgid "Organ"
 msgstr "오르간"
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:93
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:103
 msgctxt "abbreviation for Organ"
 msgid "Org."
 msgstr "Org."
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:108
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:125
 msgid "Pedal:"
 msgstr "페달:"
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:110
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:127
 msgid "Set to 0 to disable the pedal altogether."
 msgstr "페달을 완전히 비활성화하려면 0으로 지정합니다."
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:123
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:140
 msgid "Celesta"
 msgstr "첼레스타"
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:127
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:144
 msgctxt "abbreviation for Celesta"
 msgid "Cel."
 msgstr "Cel."
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:148
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:202
 msgid "Set to 0 to disable the right-hand part altogether."
 msgstr "오른손 부분을 모두 비활성화하려면 0으로 지정합니다."
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:150
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:204
 msgid "Set to 0 to disable the left-hand part altogether."
 msgstr "왼손 부분을 완전히 비활성화하려면 0으로 지정합니다."
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:173
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:227
 msgid "Synth lead"
 msgstr "신스 리드"
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:177
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:231
 msgctxt "abbreviation for Synth lead"
 msgid "Syn.Ld."
 msgstr "Syn.Ld."
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:192
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:256
 msgid "Synth pad"
 msgstr "신스 패드"
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:196
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:260
 msgctxt "abbreviation for Synth pad"
 msgid "Syn.Pad"
 msgstr "Syn.Pad"
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:204
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:278
 msgid "Synth bass"
 msgstr "신스 베이스"
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:208
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:282
 msgctxt "abbreviation for Synth bass"
 msgid "Syn.Bass"
 msgstr "Syn.Bass"
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:223
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:301
 msgid "Synth strings"
 msgstr "신스 스트링"
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:227
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:305
 msgctxt "abbreviation for Synth strings"
 msgid "Syn.Str."
 msgstr "Syn.Str."
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:235
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:317
 msgid "Synth brass"
 msgstr "신스 브라스"
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:239
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:321
 msgctxt "abbreviation for Synth brass"
 msgid "Syn.Br."
 msgstr "Syn.Br."
 
-#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:245
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:332
+#, fuzzy
+msgid "Synth effects"
+msgstr "신스 스트링"
+
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:336
+#, fuzzy
+msgctxt "abbreviation for Synth effects"
+msgid "Syn.Fx."
+msgstr "Syn.Ld."
+
+#: ../../frescobaldi_app/scorewiz/parts/keyboard.py:352
 msgid "Keyboard instruments"
 msgstr "건반 악기"
 
@@ -6366,12 +6399,12 @@ msgid "Mar."
 msgstr "Mar."
 
 #: ../../frescobaldi_app/scorewiz/parts/percussion.py:82
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:405
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:446
 msgid "Upper staff:"
 msgstr "위쪽의 보표:"
 
 #: ../../frescobaldi_app/scorewiz/parts/percussion.py:83
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:406
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:447
 msgid "Lower staff:"
 msgstr "아래쪽의 보표:"
 
@@ -6398,98 +6431,117 @@ msgid "Tub."
 msgstr "Tub."
 
 #: ../../frescobaldi_app/scorewiz/parts/percussion.py:121
+msgid "Steelpan"
+msgstr ""
+
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:125
+#, fuzzy
+msgctxt "abbreviation for Steelpan"
+msgid "Pan"
+msgstr "피아노"
+
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:135
+msgid "Dulcimer"
+msgstr ""
+
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:139
+msgctxt "abbreviation for Dulcimer"
+msgid "Dul."
+msgstr ""
+
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:147
 msgid "Glockenspiel"
 msgstr "글로켄슈필"
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:125
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:151
 msgctxt "abbreviation for Glockenspiel"
 msgid "Gls."
 msgstr "Gls."
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:133
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:159
 msgid "Carillon"
 msgstr "카리용"
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:137
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:163
 msgctxt "abbreviation for Carillon"
 msgid "Car."
 msgstr "Car."
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:143
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:169
 msgid "Manual staff:"
 msgstr "건반 보표:"
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:144
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:170
 msgid "Pedal staff:"
 msgstr "페달 보표:"
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:159
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:185
 msgid "Drums"
 msgstr "드럼"
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:163
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:189
 msgctxt "abbreviation for Drums"
 msgid "Dr."
 msgstr "Dr."
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:184
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:317
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:210
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:340
 msgid "Voices:"
 msgstr "보이스:"
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:186
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:212
 msgid "Remove stems"
 msgstr "음표 기둥 제거하기"
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:187
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:213
 msgid "Remove the stems from the drum notes."
 msgstr "드럼 음표에서 음표 기둥을 제거합니다."
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:199
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:225
 msgid "Drums follow here."
 msgstr "드럼은 여기를 참조하세요."
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:224
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:250
 msgid "keep some distance."
 msgstr "약간의 거리를 유지하세요."
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:230
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:256
 msgid "Drums (5 lines, default)"
 msgstr "드럼 (5줄, 기본값)"
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:231
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:257
 msgid "Timbales-style (2 lines)"
 msgstr "팀바레스 스타일 (2줄)"
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:232
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:258
 msgid "Congas-style (2 lines)"
 msgstr "콩가 스타일 (2줄)"
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:233
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:259
 msgid "Bongos-style (2 lines)"
 msgstr "봉고 스타일 (2줄)"
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:234
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:260
 msgid "Percussion-style (1 line)"
 msgstr "타악기 스타일 (1 줄)"
 
-#: ../../frescobaldi_app/scorewiz/parts/percussion.py:240
+#: ../../frescobaldi_app/scorewiz/parts/percussion.py:266
 msgid "Percussion"
 msgstr "타악기"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:68
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:71
 msgid "Custom tuning"
 msgstr "사용자 지정 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:83
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:97
 msgid "Staff type:"
 msgstr "보표 유형:"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:89
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:105
 msgid "Tuning:"
 msgstr "튜닝:"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:91
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:107
 msgid ""
 "Select custom tuning in the combobox and enter a custom tuning here, e.g. "
 "<code>e, a d g b e'</code>. Use absolute note names in the same language as "
@@ -6499,236 +6551,246 @@ msgstr ""
 "다(예: e, a d g b e'). 문서에서 사용하려는 언어와 동일한 언어의 절대 음표 이"
 "름을 사용합니다(기본값: \"nederlands\")."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:96
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:112
 msgid "Custom tuning..."
 msgstr "사용자 지정 튜닝..."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:202
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:225
 msgid "Normal staff"
 msgstr "보통 보표"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:203
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:226
 msgid "Tablature"
 msgstr "태블러처(표보)"
 
 #. L10N: Both a Normal and a Tablature staff
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:205
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:228
 msgid "Both"
 msgstr ""
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:212
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:235
 msgid "Mandolin"
 msgstr "만돌린"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:216
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:239
 msgctxt "abbreviation for Mandolin"
 msgid "Mdl."
 msgstr "Mdl."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:220
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:243
 msgid "Mandolin tuning"
 msgstr "만돌린 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:227
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:250
 msgid "Ukulele"
 msgstr "우쿨렐레"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:231
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:254
 msgctxt "abbreviation for Ukulele"
 msgid "Uk."
 msgstr "Uk."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:235
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:258
 msgid "Ukulele tuning"
 msgstr "우쿨렐레 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:236
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:259
 msgid "Ukulele D-tuning"
 msgstr "우쿨렐레 D-튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:237
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:260
 msgid "Tenor Ukulele tuning"
 msgstr "테너 우쿨렐레 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:238
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:261
 msgid "Baritone Ukulele tuning"
 msgstr "바리톤 우쿨렐레 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:245
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:268
 msgid "Banjo"
 msgstr "밴조"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:249
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:272
 msgctxt "abbreviation for Banjo"
 msgid "Bj."
 msgstr "Bj."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:254
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:277
 msgid "Open G-tuning (aDGBD)"
 msgstr "오픈 G-튜닝 (aDGBD)"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:255
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:278
 msgid "C-tuning (gCGBD)"
 msgstr "C-튜닝 (gCGBD)"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:256
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:279
 msgid "Modal tuning (gDGCD)"
 msgstr "모달 튜닝 (gDGCD)"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:257
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:280
 msgid "Open D-tuning (aDF#AD)"
 msgstr "오픈 D-튜닝 (aDF#AD)"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:258
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:281
 msgid "Open Dm-tuning (aDFAD)"
 msgstr "오픈 Dm-튜닝 (aDFAD)"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:268
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:291
 msgid "Four strings (instead of five)"
 msgstr "4현 (5현 대신)"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:287
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:310
 msgid "Classical guitar"
 msgstr "클래식 기타"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:291
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:314
 msgctxt "abbreviation for Classical guitar"
 msgid "Gt."
 msgstr "Gt."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:296
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:319
 msgid "Guitar tuning"
 msgstr "기타 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:297
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:320
 msgid "Guitar seven-string tuning"
 msgstr "7현 기타 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:298
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:321
 msgid "Guitar drop-D tuning"
 msgstr "기타 드롭-D 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:299
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:322
 msgid "Guitar drop-C tuning"
 msgstr "기타 드롭-C 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:300
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:323
 msgid "Open G-tuning"
 msgstr "오픈 G-튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:301
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:324
 msgid "Guitar open D tuning"
 msgstr "기타 오픈 D 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:302
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:325
 msgid "Guitar d-a-d-g-a-d tuning"
 msgstr "기타 d-a-d-g-a-d 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:303
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:326
 msgid "Lute tuning"
 msgstr "류트 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:304
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:327
 msgid "Guitar A-sus4 tuning"
 msgstr "기타 A-sus4 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:326
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:349
 msgid "Acoustic guitar"
 msgstr "어쿠스틱 기타"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:330
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:353
 msgctxt "abbreviation for Acoustic guitar"
 msgid "A.Gt."
 msgstr "A.Gt."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:338
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:365
 msgid "Electric guitar"
 msgstr "일렉트릭 기타"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:342
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:369
 msgctxt "abbreviation for Electric guitar"
 msgid "E.Gt."
 msgstr "E.Gt."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:350
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:384
 msgid "Jazz guitar"
 msgstr "재즈 기타"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:354
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:388
 msgctxt "abbreviation for Jazz guitar"
 msgid "J.Gt."
 msgstr "J.Gt."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:362
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:396
 msgid "Acoustic bass"
 msgstr "어쿠스틱 베이스"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:366
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:400
 msgctxt "abbreviation for Acoustic bass"
 msgid "A.Bs."
 msgstr "A.Bs."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:372
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:406
 msgid "Bass tuning"
 msgstr "베이스 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:373
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:407
 msgid "Four-string bass tuning"
 msgstr "4현 베이스 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:374
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:408
 msgid "Bass drop-D tuning"
 msgstr "베이스 드롭-D 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:375
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:409
 msgid "Five-string bass tuning"
 msgstr "5현 베이스 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:376
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:410
 msgid "Six-string bass tuning"
 msgstr "6현 베이스 튜닝"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:383
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:417
 msgid "Electric bass"
 msgstr "일렉트릭 베이스"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:387
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:421
 msgctxt "abbreviation for Electric bass"
 msgid "E.Bs."
 msgstr "E.Bs."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:395
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:436
 msgid "Harp"
 msgstr "하프"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:399
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:440
 msgctxt "abbreviation for Harp"
 msgid "Hp."
 msgstr "Hp."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:422
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:463
 msgid "Plucked strings"
 msgstr "퉁기는 현악기"
 
-#: ../../frescobaldi_app/scorewiz/parts/special.py:36
+#: ../../frescobaldi_app/scorewiz/parts/special.py:43
+#, fuzzy
+msgid "Structure"
+msgstr "구조(&S)"
+
+#: ../../frescobaldi_app/scorewiz/parts/special.py:51
+#, fuzzy
+msgid "Structure follows here."
+msgstr "악보는 여기를 참조하세요."
+
+#: ../../frescobaldi_app/scorewiz/parts/special.py:59
 #: ../../frescobaldi_app/scorewiz/parts/vocal.py:202
 msgid "Chord names"
 msgstr "화음 이름"
 
-#: ../../frescobaldi_app/scorewiz/parts/special.py:49
+#: ../../frescobaldi_app/scorewiz/parts/special.py:72
 msgid "Use extender lines"
 msgstr "연장선 사용하기"
 
-#: ../../frescobaldi_app/scorewiz/parts/special.py:57
+#: ../../frescobaldi_app/scorewiz/parts/special.py:80
 #: ../../frescobaldi_app/scorewiz/parts/strings.py:106
 msgid "Figures follow here."
 msgstr "수치는 여기에 따릅니다."
 
-#: ../../frescobaldi_app/scorewiz/parts/special.py:67
+#: ../../frescobaldi_app/scorewiz/parts/special.py:90
 msgid "Staff"
 msgstr "보표"
 
-#: ../../frescobaldi_app/scorewiz/parts/special.py:73
+#: ../../frescobaldi_app/scorewiz/parts/special.py:96
 msgid "Special"
 msgstr "특수"
 
@@ -9542,3 +9604,6 @@ msgstr "스니펫 관리자 및 편집기"
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:58
 msgid "Score Wizard to quickly setup a music score"
 msgstr "악보를 빠르게 설정하는 모음보표 마법사"
+
+#~ msgid "Force use of the tools' #! lines"
+#~ msgstr "도구의 #! 줄 강제 사용하기"
