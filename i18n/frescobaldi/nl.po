@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-06-17 20:04+0200\n"
+"POT-Creation-Date: 2023-06-17 20:09+0200\n"
 "PO-Revision-Date: 2020-04-23 12:30+0200\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
@@ -141,7 +141,8 @@ msgid "Send an e-mail message to the maintainers."
 msgstr "Een e-mailbericht sturen naar de auteurs."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../../frescobaldi_app/about.py:118 ../../frescobaldi_app/userguide/resolve.py:44
+#: ../../frescobaldi_app/about.py:118
+#: ../../frescobaldi_app/userguide/resolve.py:44
 msgid "Translated by Your Name."
 msgstr "Vertaald door Wilbert Berendsen."
 
@@ -289,7 +290,8 @@ msgstr "Opnieuw uitvoeren"
 msgid "Save as file"
 msgstr "Opslaan als bestand"
 
-#: ../../frescobaldi_app/convert_ly.py:156 ../../frescobaldi_app/copy2image.py:230
+#: ../../frescobaldi_app/convert_ly.py:156
+#: ../../frescobaldi_app/copy2image.py:230
 #: ../../frescobaldi_app/editinplace.py:160
 #: ../../frescobaldi_app/docbrowser/browser.py:160
 msgid "<unknown>"
@@ -333,7 +335,8 @@ msgstr ""
 msgid "The document has not been changed."
 msgstr "Het document is niet gewijzigd."
 
-#: ../../frescobaldi_app/convert_ly.py:259 ../../frescobaldi_app/mainwindow.py:597
+#: ../../frescobaldi_app/convert_ly.py:259
+#: ../../frescobaldi_app/mainwindow.py:597
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Bestand opslaan"
@@ -395,7 +398,8 @@ msgstr "Slepen"
 msgid "Drag File"
 msgstr "Bestand slepen"
 
-#: ../../frescobaldi_app/copy2image.py:159 ../../frescobaldi_app/mainwindow.py:1385
+#: ../../frescobaldi_app/copy2image.py:159
+#: ../../frescobaldi_app/mainwindow.py:1385
 #: ../../frescobaldi_app/docbrowser/browser.py:262
 #: ../../frescobaldi_app/fonts/dialog.py:177
 msgid "&Copy"
@@ -488,11 +492,15 @@ msgid "Save Image As"
 msgstr "Afbeelding opslaan als"
 
 #. L10N: a basic type of input in the editor
-#: ../../frescobaldi_app/copy2image.py:322 ../../frescobaldi_app/cut_assign.py:139
-#: ../../frescobaldi_app/helpers.py:107 ../../frescobaldi_app/mainwindow.py:477
-#: ../../frescobaldi_app/mainwindow.py:565 ../../frescobaldi_app/mainwindow.py:621
-#: ../../frescobaldi_app/mainwindow.py:687 ../../frescobaldi_app/mainwindow.py:708
-#: ../../frescobaldi_app/mainwindow.py:727 ../../frescobaldi_app/mainwindow.py:815
+#: ../../frescobaldi_app/copy2image.py:322
+#: ../../frescobaldi_app/cut_assign.py:139 ../../frescobaldi_app/helpers.py:107
+#: ../../frescobaldi_app/mainwindow.py:477
+#: ../../frescobaldi_app/mainwindow.py:565
+#: ../../frescobaldi_app/mainwindow.py:621
+#: ../../frescobaldi_app/mainwindow.py:687
+#: ../../frescobaldi_app/mainwindow.py:708
+#: ../../frescobaldi_app/mainwindow.py:727
+#: ../../frescobaldi_app/mainwindow.py:815
 #: ../../frescobaldi_app/mainwindow.py:884
 #: ../../frescobaldi_app/externalchanges/widget.py:245
 #: ../../frescobaldi_app/externalchanges/widget.py:264
@@ -530,10 +538,14 @@ msgctxt "dialog title"
 msgid "Move to include file"
 msgstr "Naar include-bestand verplaatsen"
 
-#: ../../frescobaldi_app/cut_assign.py:135 ../../frescobaldi_app/mainwindow.py:467
-#: ../../frescobaldi_app/mainwindow.py:561 ../../frescobaldi_app/mainwindow.py:617
-#: ../../frescobaldi_app/mainwindow.py:683 ../../frescobaldi_app/mainwindow.py:704
-#: ../../frescobaldi_app/mainwindow.py:811 ../../frescobaldi_app/mainwindow.py:880
+#: ../../frescobaldi_app/cut_assign.py:135
+#: ../../frescobaldi_app/mainwindow.py:467
+#: ../../frescobaldi_app/mainwindow.py:561
+#: ../../frescobaldi_app/mainwindow.py:617
+#: ../../frescobaldi_app/mainwindow.py:683
+#: ../../frescobaldi_app/mainwindow.py:704
+#: ../../frescobaldi_app/mainwindow.py:811
+#: ../../frescobaldi_app/mainwindow.py:880
 #: ../../frescobaldi_app/sessions/dialog.py:104
 #: ../../frescobaldi_app/sessions/dialog.py:125
 #, python-brace-format
@@ -546,14 +558,17 @@ msgstr ""
 "\n"
 "{strerror} ({errno})"
 
-#: ../../frescobaldi_app/cut_assign.py:136 ../../frescobaldi_app/mainwindow.py:618
-#: ../../frescobaldi_app/mainwindow.py:684 ../../frescobaldi_app/mainwindow.py:881
+#: ../../frescobaldi_app/cut_assign.py:136
+#: ../../frescobaldi_app/mainwindow.py:618
+#: ../../frescobaldi_app/mainwindow.py:684
+#: ../../frescobaldi_app/mainwindow.py:881
 #: ../../frescobaldi_app/sessions/dialog.py:126
 #, python-brace-format
 msgid "Could not write to: {url}"
 msgstr "Kan niet schrijven naar: {url}"
 
-#: ../../frescobaldi_app/document.py:218 ../../frescobaldi_app/doclist/widget.py:114
+#: ../../frescobaldi_app/document.py:218
+#: ../../frescobaldi_app/doclist/widget.py:114
 #: ../../frescobaldi_app/snippet/edit.py:174
 msgid "Untitled"
 msgstr "Naamloos"
@@ -742,7 +757,8 @@ msgstr "Bugrapport emailen..."
 msgid "An error occurred in extension '{name}'"
 msgstr "Er is een fout opgetreden in extensie '{name}'"
 
-#: ../../frescobaldi_app/exception.py:122 ../../frescobaldi_app/exception.py:126
+#: ../../frescobaldi_app/exception.py:122
+#: ../../frescobaldi_app/exception.py:126
 msgid "Optionally describe below what you were doing:"
 msgstr "Geef hier eventueel aan wat u aan het doen was:"
 
@@ -754,7 +770,8 @@ msgstr "Wacht tot het commando is beëindigd"
 msgid "Command completed"
 msgstr "Commando voltooid"
 
-#: ../../frescobaldi_app/helpers.py:108 ../../frescobaldi_app/job/__init__.py:389
+#: ../../frescobaldi_app/helpers.py:108
+#: ../../frescobaldi_app/job/__init__.py:389
 #, python-brace-format
 msgid ""
 "Could not start {program}.\n"
@@ -851,7 +868,8 @@ msgstr ""
 msgid "Tab Bar"
 msgstr "Tabbalk"
 
-#: ../../frescobaldi_app/mainwindow.py:468 ../../frescobaldi_app/mainwindow.py:705
+#: ../../frescobaldi_app/mainwindow.py:468
+#: ../../frescobaldi_app/mainwindow.py:705
 #: ../../frescobaldi_app/mainwindow.py:812
 #: ../../frescobaldi_app/sessions/dialog.py:105
 #, python-brace-format
@@ -1179,7 +1197,8 @@ msgstr "&Bijbehorend item"
 msgid "&Select Matching Pair"
 msgstr "Bijbehorende &items selecteren"
 
-#: ../../frescobaldi_app/menu.py:91 ../../frescobaldi_app/macosx/globalmenu.py:66
+#: ../../frescobaldi_app/menu.py:91
+#: ../../frescobaldi_app/macosx/globalmenu.py:66
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Bestand"
@@ -1204,7 +1223,8 @@ msgctxt "submenu title"
 msgid "&Print"
 msgstr "&Afdrukken"
 
-#: ../../frescobaldi_app/menu.py:165 ../../frescobaldi_app/macosx/globalmenu.py:121
+#: ../../frescobaldi_app/menu.py:165
+#: ../../frescobaldi_app/macosx/globalmenu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Be&werken"
@@ -1284,12 +1304,14 @@ msgctxt "submenu title"
 msgid "&Directories"
 msgstr "&Mappen"
 
-#: ../../frescobaldi_app/menu.py:472 ../../frescobaldi_app/macosx/globalmenu.py:128
+#: ../../frescobaldi_app/menu.py:472
+#: ../../frescobaldi_app/macosx/globalmenu.py:128
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Venster"
 
-#: ../../frescobaldi_app/menu.py:492 ../../frescobaldi_app/macosx/globalmenu.py:145
+#: ../../frescobaldi_app/menu.py:492
+#: ../../frescobaldi_app/macosx/globalmenu.py:145
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Help"
@@ -1328,7 +1350,8 @@ msgstr "{filename} afdrukken"
 msgid "Print"
 msgstr "Afdrukken"
 
-#: ../../frescobaldi_app/pagedview.py:210 ../../frescobaldi_app/pagedview.py:232
+#: ../../frescobaldi_app/pagedview.py:210
+#: ../../frescobaldi_app/pagedview.py:232
 msgid "Printing Error"
 msgstr "Printfout"
 
@@ -1375,11 +1398,13 @@ msgstr "&Structuur"
 msgid "&MIDI"
 msgstr "&MIDI"
 
-#: ../../frescobaldi_app/viewmanager.py:77 ../../frescobaldi_app/viewmanager.py:437
+#: ../../frescobaldi_app/viewmanager.py:77
+#: ../../frescobaldi_app/viewmanager.py:437
 msgid "Split &Horizontally"
 msgstr "&Horizontaal splitsen"
 
-#: ../../frescobaldi_app/viewmanager.py:80 ../../frescobaldi_app/viewmanager.py:438
+#: ../../frescobaldi_app/viewmanager.py:80
+#: ../../frescobaldi_app/viewmanager.py:438
 msgid "Split &Vertically"
 msgstr "&Verticaal splitsen"
 
@@ -3401,7 +3426,8 @@ msgstr "Toonsoort:"
 msgid "shift pitches"
 msgstr "toonhoogte verschuiven"
 
-#: ../../frescobaldi_app/pitch/pitch.py:53 ../../frescobaldi_app/pitch/pitch.py:68
+#: ../../frescobaldi_app/pitch/pitch.py:53
+#: ../../frescobaldi_app/pitch/pitch.py:68
 msgid "Pitch Name Language"
 msgstr "Taal voor nootnamen"
 
@@ -3434,7 +3460,8 @@ msgstr "(voor LilyPond lager dan 2.14), of"
 msgid "(for LilyPond 2.14 and higher.)"
 msgstr "(voor LilyPond 2.14 en hoger.)"
 
-#: ../../frescobaldi_app/pitch/pitch.py:115 ../../frescobaldi_app/pitch/pitch.py:154
+#: ../../frescobaldi_app/pitch/pitch.py:115
+#: ../../frescobaldi_app/pitch/pitch.py:154
 #: ../../frescobaldi_app/pitch/pitch.py:204
 msgid "Transpose"
 msgstr "Transponeren"
@@ -7895,7 +7922,8 @@ msgstr ""
 "\n"
 "Wilt u deze overschrijven?"
 
-#: ../../frescobaldi_app/snippet/tool.py:57 ../../frescobaldi_app/snippet/tool.py:152
+#: ../../frescobaldi_app/snippet/tool.py:57
+#: ../../frescobaldi_app/snippet/tool.py:152
 msgid "Snippets"
 msgstr "Knipsels"
 
@@ -8044,15 +8072,15 @@ msgstr "SVG-weergave"
 msgid "SV&G View"
 msgstr "SV&G-weergave"
 
-#: ../../frescobaldi_app/svgview/__init__.py:91 ../messages.py:33
+#: ../../frescobaldi_app/svgview/__init__.py:91 ../../i18n/messages.py:33
 msgid "Zoom &In"
 msgstr "&Inzoomen"
 
-#: ../../frescobaldi_app/svgview/__init__.py:92 ../messages.py:34
+#: ../../frescobaldi_app/svgview/__init__.py:92 ../../i18n/messages.py:34
 msgid "Zoom &Out"
 msgstr "&Uitzoomen"
 
-#: ../../frescobaldi_app/svgview/__init__.py:93 ../messages.py:32
+#: ../../frescobaldi_app/svgview/__init__.py:93 ../../i18n/messages.py:32
 msgid "Original &Size"
 msgstr "&Werkelijke grootte"
 
@@ -8414,1154 +8442,1154 @@ msgstr "Selecteer een map"
 msgid "Select a file"
 msgstr "Selecteer een bestand"
 
-#: ../messages.py:27
+#: ../../i18n/messages.py:27
 msgid "&Print..."
 msgstr "&Afdrukken..."
 
-#: ../messages.py:28
+#: ../../i18n/messages.py:28
 msgid "Fit &Width"
 msgstr "Passend in &breedte"
 
-#: ../messages.py:29
+#: ../../i18n/messages.py:29
 msgid "Fit &Height"
 msgstr "Passend in &hoogte"
 
-#: ../messages.py:30
+#: ../../i18n/messages.py:30
 msgid "Fit &Page"
 msgstr "Hele &pagina"
 
-#: ../messages.py:31
+#: ../../i18n/messages.py:31
 msgid "&Natural Size"
 msgstr "Origi&nele grootte"
 
 #. L10N: "Width" as in "Fit Width" (display in zoom menu)
-#: ../messages.py:37
+#: ../../i18n/messages.py:37
 msgid "Width"
 msgstr "Breedte"
 
 #. L10N: "Height" as in "Fit Height" (display in zoom menu)
-#: ../messages.py:39
+#: ../../i18n/messages.py:39
 msgid "Height"
 msgstr "Hoogte"
 
 #. L10N: "Page" as in "Fit Page" (display in zoom menu)
-#: ../messages.py:41
+#: ../../i18n/messages.py:41
 msgid "Page"
 msgstr "Pagina"
 
-#: ../messages.py:43
+#: ../../i18n/messages.py:43
 msgid "Rotate &Left"
 msgstr "&Linksom draaien"
 
-#: ../messages.py:44
+#: ../../i18n/messages.py:44
 msgid "Rotate &Right"
 msgstr "&Rechtsom draaien"
 
-#: ../messages.py:45
+#: ../../i18n/messages.py:45
 msgid "Single Pages"
 msgstr "Enkele pagina's"
 
-#: ../messages.py:46
+#: ../../i18n/messages.py:46
 msgid "Two Pages (first page right)"
 msgstr "Twee pagina's (eerste rechts)"
 
-#: ../messages.py:47
+#: ../../i18n/messages.py:47
 msgid "Two Pages (first page left)"
 msgstr "Twee pagina's (eerste links)"
 
 #. L10N: "Raster", a layout type (like grid)
-#: ../messages.py:49
+#: ../../i18n/messages.py:49
 msgid "Raster"
 msgstr "Raster"
 
-#: ../messages.py:50
+#: ../../i18n/messages.py:50
 msgid "Vertical"
 msgstr "Verticaal"
 
-#: ../messages.py:51
+#: ../../i18n/messages.py:51
 msgid "Horizontal"
 msgstr "Horizontaal"
 
-#: ../messages.py:52
+#: ../../i18n/messages.py:52
 msgid "&Continuous"
 msgstr "D&oorlopend"
 
-#: ../messages.py:53
+#: ../../i18n/messages.py:53
 msgid "Re&load View"
 msgstr "Weergave her&laden"
 
-#: ../messages.py:54
+#: ../../i18n/messages.py:54
 msgid "Previous Page"
 msgstr "Vorige pagina"
 
-#: ../messages.py:55
+#: ../../i18n/messages.py:55
 msgid "Previous"
 msgstr "Vorige"
 
-#: ../messages.py:56
+#: ../../i18n/messages.py:56
 msgid "Next Page"
 msgstr "Volgende pagina"
 
-#: ../messages.py:57
+#: ../../i18n/messages.py:57
 msgid "Next"
 msgstr "Volgende"
 
-#: ../messages.py:58
+#: ../../i18n/messages.py:58
 msgid "Magnifier"
 msgstr "Vergrootglas"
 
-#: ../messages.py:62
+#: ../../i18n/messages.py:62
 msgid "usage: "
 msgstr "gebruik: "
 
-#: ../messages.py:63
+#: ../../i18n/messages.py:63
 msgid "positional arguments"
 msgstr "positionele argumenten"
 
-#: ../messages.py:64
+#: ../../i18n/messages.py:64
 msgid "optional arguments"
 msgstr "optionele argumenten"
 
-#: ../messages.py:65
+#: ../../i18n/messages.py:65
 msgid "show this help message and exit"
 msgstr "toon deze hulp-informatie en sluit af"
 
-#: ../messages.py:69
+#: ../../i18n/messages.py:69
 msgctxt "CloseButton"
 msgid "Close Tab"
 msgstr "Tab sluiten"
 
-#: ../messages.py:71
+#: ../../i18n/messages.py:71
 msgctxt "QDialogButtonBox"
 msgid "Apply"
 msgstr "Toepassen"
 
-#: ../messages.py:72
+#: ../../i18n/messages.py:72
 msgctxt "QDialogButtonBox"
 msgid "&Cancel"
 msgstr "&Annuleren"
 
-#: ../messages.py:73
+#: ../../i18n/messages.py:73
 msgctxt "QDialogButtonBox"
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: ../messages.py:74
+#: ../../i18n/messages.py:74
 msgctxt "QDialogButtonBox"
 msgid "Close"
 msgstr "Sluiten"
 
-#: ../messages.py:75
+#: ../../i18n/messages.py:75
 msgctxt "QDialogButtonBox"
 msgid "Close without Saving"
 msgstr "Sluiten zonder opslaan"
 
-#: ../messages.py:76
+#: ../../i18n/messages.py:76
 msgctxt "QDialogButtonBox"
 msgid "Discard"
 msgstr "Weggooien"
 
-#: ../messages.py:77
+#: ../../i18n/messages.py:77
 msgctxt "QDialogButtonBox"
 msgid "Help"
 msgstr "Help"
 
-#: ../messages.py:78
+#: ../../i18n/messages.py:78
 msgctxt "QDialogButtonBox"
 msgid "&OK"
 msgstr "&OK"
 
-#: ../messages.py:79
+#: ../../i18n/messages.py:79
 msgctxt "QDialogButtonBox"
 msgid "OK"
 msgstr "OK"
 
-#: ../messages.py:80
+#: ../../i18n/messages.py:80
 msgctxt "QDialogButtonBox"
 msgid "Open"
 msgstr "Openen"
 
-#: ../messages.py:81
+#: ../../i18n/messages.py:81
 msgctxt "QDialogButtonBox"
 msgid "Reset"
 msgstr "Terugzetten"
 
-#: ../messages.py:82
+#: ../../i18n/messages.py:82
 msgctxt "QDialogButtonBox"
 msgid "&Save"
 msgstr "Op&slaan"
 
-#: ../messages.py:83
+#: ../../i18n/messages.py:83
 msgctxt "QDialogButtonBox"
 msgid "Save"
 msgstr "Opslaan"
 
-#: ../messages.py:85
+#: ../../i18n/messages.py:85
 msgctxt "QDialog"
 msgid "What's This?"
 msgstr "Wat is dit?"
 
-#: ../messages.py:87
+#: ../../i18n/messages.py:87
 msgctxt "QDockWidget"
 msgid "Float"
 msgstr "Losmaken"
 
-#: ../messages.py:88
+#: ../../i18n/messages.py:88
 msgctxt "QDockWidget"
 msgid "Undocks and re-attaches the dock widget"
 msgstr "Gereedschap losmaken en weer aankoppelen"
 
-#: ../messages.py:89
+#: ../../i18n/messages.py:89
 msgctxt "QDockWidget"
 msgid "Close"
 msgstr "Sluiten"
 
-#: ../messages.py:90
+#: ../../i18n/messages.py:90
 msgctxt "QDockWidget"
 msgid "Closes the dock widget"
 msgstr "Het gereedschap sluiten"
 
-#: ../messages.py:92
+#: ../../i18n/messages.py:92
 msgctxt "QFileDialog"
 msgid "All Files (*)"
 msgstr "Alle bestanden (*)"
 
-#: ../messages.py:93
+#: ../../i18n/messages.py:93
 msgctxt "QFileDialog"
 msgid "Back"
 msgstr "Terug"
 
-#: ../messages.py:94
+#: ../../i18n/messages.py:94
 msgctxt "QFileDialog"
 msgid "Change to detail view mode"
 msgstr "Omschakelen naar detail weergavemodus"
 
-#: ../messages.py:95
+#: ../../i18n/messages.py:95
 msgctxt "QFileDialog"
 msgid "Change to list view mode"
 msgstr "Omschakelen naar lijstweergavemodus"
 
-#: ../messages.py:96
+#: ../../i18n/messages.py:96
 msgctxt "QFileDialog"
 msgid "Create a New Folder"
 msgstr "Een nieuwe map aanmaken"
 
-#: ../messages.py:97
+#: ../../i18n/messages.py:97
 msgctxt "QFileDialog"
 msgid "Create New Folder"
 msgstr "Nieuwe map aanmaken"
 
-#: ../messages.py:98
+#: ../../i18n/messages.py:98
 msgctxt "QFileDialog"
 msgid "&Delete"
 msgstr "Ver&wijderen"
 
-#: ../messages.py:99
+#: ../../i18n/messages.py:99
 msgctxt "QFileDialog"
 msgid "Detail View"
 msgstr "Detailweergave"
 
-#: ../messages.py:100
+#: ../../i18n/messages.py:100
 msgctxt "QFileDialog"
 msgid "Drive"
 msgstr "Drive"
 
-#: ../messages.py:101
+#: ../../i18n/messages.py:101
 msgctxt "QFileDialog"
 msgid "File"
 msgstr "Bestand"
 
-#: ../messages.py:102
+#: ../../i18n/messages.py:102
 msgctxt "QFileDialog"
 msgid "File &name:"
 msgstr "Bestands&naam:"
 
-#: ../messages.py:103
+#: ../../i18n/messages.py:103
 msgctxt "QFileDialog"
 msgid "Files of type:"
 msgstr "Bestanden van type:"
 
-#: ../messages.py:104
+#: ../../i18n/messages.py:104
 msgctxt "QFileDialog"
 msgid "Find Directory"
 msgstr "Map zoeken"
 
-#: ../messages.py:105
+#: ../../i18n/messages.py:105
 msgctxt "QFileDialog"
 msgid "Folder"
 msgstr "Map"
 
-#: ../messages.py:106
+#: ../../i18n/messages.py:106
 msgctxt "QFileDialog"
 msgid "Forward"
 msgstr "Verder"
 
-#: ../messages.py:107
+#: ../../i18n/messages.py:107
 msgctxt "QFileDialog"
 msgid "Go back"
 msgstr "Teruggaan"
 
-#: ../messages.py:108
+#: ../../i18n/messages.py:108
 msgctxt "QFileDialog"
 msgid "Go forward"
 msgstr "Verder gaan"
 
-#: ../messages.py:109
+#: ../../i18n/messages.py:109
 msgctxt "QFileDialog"
 msgid "Go to the parent directory"
 msgstr "Naar bovenliggende map"
 
-#: ../messages.py:110
+#: ../../i18n/messages.py:110
 msgctxt "QFileDialog"
 msgid "List View"
 msgstr "Lijstweergave"
 
-#: ../messages.py:111
+#: ../../i18n/messages.py:111
 msgctxt "QFileDialog"
 msgid "Look in:"
 msgstr "Kijken in:"
 
-#: ../messages.py:112
+#: ../../i18n/messages.py:112
 msgctxt "QFileDialog"
 msgid "&New Folder"
 msgstr "&Nieuwe map"
 
-#: ../messages.py:113
+#: ../../i18n/messages.py:113
 msgctxt "QFileDialog"
 msgid "&Open"
 msgstr "&Openen"
 
-#: ../messages.py:114
+#: ../../i18n/messages.py:114
 msgctxt "QFileDialog"
 msgid "Parent Directory"
 msgstr "Bovenliggende map"
 
-#: ../messages.py:115
+#: ../../i18n/messages.py:115
 msgctxt "QFileDialog"
 msgid "Remove"
 msgstr "Verwijderen"
 
-#: ../messages.py:116
+#: ../../i18n/messages.py:116
 msgctxt "QFileDialog"
 msgid "&Rename"
 msgstr "He&rnoemen"
 
-#: ../messages.py:117
+#: ../../i18n/messages.py:117
 msgctxt "QFileDialog"
 msgid "Show "
 msgstr "Weergeven "
 
-#: ../messages.py:118
+#: ../../i18n/messages.py:118
 msgctxt "QFileDialog"
 msgid "Show &hidden files"
 msgstr "&Verborgen bestanden tonen"
 
-#: ../messages.py:120
+#: ../../i18n/messages.py:120
 msgctxt "QFileSystemModel"
 msgid "%1 bytes"
 msgstr "%1 bytes"
 
-#: ../messages.py:121
+#: ../../i18n/messages.py:121
 msgctxt "QFileSystemModel"
 msgid "%1 KB"
 msgstr "%1 KB"
 
-#: ../messages.py:122
+#: ../../i18n/messages.py:122
 msgctxt "QFileSystemModel"
 msgid "Computer"
 msgstr "Computer"
 
-#: ../messages.py:123
+#: ../../i18n/messages.py:123
 msgctxt "QFileSystemModel"
 msgid "Date Modified"
 msgstr "Datum gewijzigd"
 
-#: ../messages.py:124
+#: ../../i18n/messages.py:124
 msgctxt "QFileSystemModel"
 msgid "Name"
 msgstr "Naam"
 
-#: ../messages.py:125
+#: ../../i18n/messages.py:125
 msgctxt "QFileSystemModel"
 msgid "Size"
 msgstr "Grootte"
 
-#: ../messages.py:126
+#: ../../i18n/messages.py:126
 msgctxt "QFileSystemModel"
 msgid "Type"
 msgstr "Type"
 
-#: ../messages.py:128
+#: ../../i18n/messages.py:128
 msgctxt "QFontDatabase"
 msgid "Black"
 msgstr "Zwart"
 
-#: ../messages.py:129
+#: ../../i18n/messages.py:129
 msgctxt "QFontDatabase"
 msgid "Bold"
 msgstr "Vet"
 
-#: ../messages.py:130
+#: ../../i18n/messages.py:130
 msgctxt "QFontDatabase"
 msgid "Demi Bold"
 msgstr "Halfvet"
 
-#: ../messages.py:131
+#: ../../i18n/messages.py:131
 msgctxt "QFontDatabase"
 msgid "Light"
 msgstr "Licht"
 
-#: ../messages.py:132
+#: ../../i18n/messages.py:132
 msgctxt "QFontDatabase"
 msgid "Oblique"
 msgstr "Oblique"
 
-#: ../messages.py:133
+#: ../../i18n/messages.py:133
 msgctxt "QFontDatabase"
 msgid "Normal"
 msgstr "Normaal"
 
-#: ../messages.py:135
+#: ../../i18n/messages.py:135
 msgctxt "QGnomeTheme"
 msgid "&OK"
 msgstr "&OK"
 
-#: ../messages.py:136
+#: ../../i18n/messages.py:136
 msgctxt "QGnomeTheme"
 msgid "&Cancel"
 msgstr "&Annuleren"
 
-#: ../messages.py:137
+#: ../../i18n/messages.py:137
 msgctxt "QGnomeTheme"
 msgid "&Save"
 msgstr "Op&slaan"
 
-#: ../messages.py:138
+#: ../../i18n/messages.py:138
 msgctxt "QGnomeTheme"
 msgid "&Close"
 msgstr "&Sluiten"
 
-#: ../messages.py:140
+#: ../../i18n/messages.py:140
 msgctxt "QInputContext"
 msgid "XIM"
 msgstr "XIM"
 
-#: ../messages.py:142
+#: ../../i18n/messages.py:142
 msgctxt "QLocalSocket"
 msgid "%1: Invalid name"
 msgstr "%1: Ongeldige naam"
 
-#: ../messages.py:144
+#: ../../i18n/messages.py:144
 msgctxt "QMultiInputContext"
 msgid "Select IM"
 msgstr "IM selecteren"
 
-#: ../messages.py:146
+#: ../../i18n/messages.py:146
 msgctxt "QPlatformTheme"
 msgid "OK"
 msgstr "OK"
 
-#: ../messages.py:147
+#: ../../i18n/messages.py:147
 msgctxt "QPlatformTheme"
 msgid "Help"
 msgstr "Help"
 
-#: ../messages.py:148
+#: ../../i18n/messages.py:148
 msgctxt "QPlatformTheme"
 msgid "Apply"
 msgstr "Toepassen"
 
-#: ../messages.py:149
+#: ../../i18n/messages.py:149
 msgctxt "QPlatformTheme"
 msgid "Reset"
 msgstr "Terugzetten"
 
-#: ../messages.py:150
+#: ../../i18n/messages.py:150
 msgctxt "QPlatformTheme"
 msgid "Open"
 msgstr "Openen"
 
-#: ../messages.py:151
+#: ../../i18n/messages.py:151
 msgctxt "QPlatformTheme"
 msgid "Save"
 msgstr "Opslaan"
 
-#: ../messages.py:152
+#: ../../i18n/messages.py:152
 msgctxt "QPlatformTheme"
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: ../messages.py:153
+#: ../../i18n/messages.py:153
 msgctxt "QPlatformTheme"
 msgid "Discard"
 msgstr "Weggooien"
 
-#: ../messages.py:154
+#: ../../i18n/messages.py:154
 msgctxt "QPlatformTheme"
 msgid "Restore Defaults"
 msgstr "Standaardwaarden terugzetten"
 
-#: ../messages.py:156
+#: ../../i18n/messages.py:156
 msgctxt "QScrollBar"
 msgid "Bottom"
 msgstr "Onder"
 
-#: ../messages.py:157
+#: ../../i18n/messages.py:157
 msgctxt "QScrollBar"
 msgid "Left edge"
 msgstr "Linkerkant"
 
-#: ../messages.py:158
+#: ../../i18n/messages.py:158
 msgctxt "QScrollBar"
 msgid "Page down"
 msgstr "Pagina omlaag"
 
-#: ../messages.py:159
+#: ../../i18n/messages.py:159
 msgctxt "QScrollBar"
 msgid "Page left"
 msgstr "Pagina naar links"
 
-#: ../messages.py:160
+#: ../../i18n/messages.py:160
 msgctxt "QScrollBar"
 msgid "Page right"
 msgstr "Pagina naar rechts"
 
-#: ../messages.py:161
+#: ../../i18n/messages.py:161
 msgctxt "QScrollBar"
 msgid "Page up"
 msgstr "Pagina omhoog"
 
-#: ../messages.py:162
+#: ../../i18n/messages.py:162
 msgctxt "QScrollBar"
 msgid "Right edge"
 msgstr "Rechterkant"
 
-#: ../messages.py:163
+#: ../../i18n/messages.py:163
 msgctxt "QScrollBar"
 msgid "Scroll down"
 msgstr "Omlaag schuiven"
 
-#: ../messages.py:164
+#: ../../i18n/messages.py:164
 msgctxt "QScrollBar"
 msgid "Scroll here"
 msgstr "Hierheen schuiven"
 
-#: ../messages.py:165
+#: ../../i18n/messages.py:165
 msgctxt "QScrollBar"
 msgid "Scroll left"
 msgstr "Naar links schuiven"
 
-#: ../messages.py:166
+#: ../../i18n/messages.py:166
 msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Naar rechts schuiven"
 
-#: ../messages.py:167
+#: ../../i18n/messages.py:167
 msgctxt "QScrollBar"
 msgid "Scroll up"
 msgstr "Omhoog schuiven"
 
-#: ../messages.py:168
+#: ../../i18n/messages.py:168
 msgctxt "QScrollBar"
 msgid "Top"
 msgstr "Top"
 
-#: ../messages.py:170
+#: ../../i18n/messages.py:170
 msgctxt "QShortcut"
 msgid "+"
 msgstr "+"
 
-#: ../messages.py:171
+#: ../../i18n/messages.py:171
 msgctxt "QShortcut"
 msgid "Add Favorite"
 msgstr "Favoriet toevoegen"
 
-#: ../messages.py:172
+#: ../../i18n/messages.py:172
 msgctxt "QShortcut"
 msgid "Adjust Brightness"
 msgstr "Helderheid aanpassen"
 
-#: ../messages.py:173
+#: ../../i18n/messages.py:173
 msgctxt "QShortcut"
 msgid "Alt"
 msgstr "Alt"
 
-#: ../messages.py:174
+#: ../../i18n/messages.py:174
 msgctxt "QShortcut"
 msgid "Application Left"
 msgstr "Toepassing links"
 
-#: ../messages.py:175
+#: ../../i18n/messages.py:175
 msgctxt "QShortcut"
 msgid "Application Right"
 msgstr "Toepassing rechts"
 
-#: ../messages.py:176
+#: ../../i18n/messages.py:176
 msgctxt "QShortcut"
 msgid "Audio Cycle Track"
 msgstr "Audiotrack herhalen"
 
-#: ../messages.py:177
+#: ../../i18n/messages.py:177
 msgctxt "QShortcut"
 msgid "Audio Forward"
 msgstr "Audio verder"
 
-#: ../messages.py:178
+#: ../../i18n/messages.py:178
 msgctxt "QShortcut"
 msgid "Audio Random Play"
 msgstr "Audio willekeurig afspelen"
 
-#: ../messages.py:179
+#: ../../i18n/messages.py:179
 msgctxt "QShortcut"
 msgid "Audio Repeat"
 msgstr "Audio herhalen"
 
-#: ../messages.py:180
+#: ../../i18n/messages.py:180
 msgctxt "QShortcut"
 msgid "Audio Rewind"
 msgstr "Audio terugspoelen"
 
-#: ../messages.py:181
+#: ../../i18n/messages.py:181
 msgctxt "QShortcut"
 msgid "Away"
 msgstr "Afwezig"
 
-#: ../messages.py:182
+#: ../../i18n/messages.py:182
 msgctxt "QShortcut"
 msgid "Back"
 msgstr "Terug"
 
-#: ../messages.py:183
+#: ../../i18n/messages.py:183
 msgctxt "QShortcut"
 msgid "Back Forward"
 msgstr "Terug Verder"
 
-#: ../messages.py:184
+#: ../../i18n/messages.py:184
 msgctxt "QShortcut"
 msgid "Backspace"
 msgstr "Backspace"
 
-#: ../messages.py:185
+#: ../../i18n/messages.py:185
 msgctxt "QShortcut"
 msgid "Backtab"
 msgstr "Backtab"
 
-#: ../messages.py:186
+#: ../../i18n/messages.py:186
 msgctxt "QShortcut"
 msgid "Bass Boost"
 msgstr "Bas boost"
 
-#: ../messages.py:187
+#: ../../i18n/messages.py:187
 msgctxt "QShortcut"
 msgid "Bass Down"
 msgstr "Bas zachter"
 
-#: ../messages.py:188
+#: ../../i18n/messages.py:188
 msgctxt "QShortcut"
 msgid "Bass Up"
 msgstr "Bas sterker"
 
-#: ../messages.py:189
+#: ../../i18n/messages.py:189
 msgctxt "QShortcut"
 msgid "Battery"
 msgstr "Batterij"
 
-#: ../messages.py:190
+#: ../../i18n/messages.py:190
 msgctxt "QShortcut"
 msgid "Browser"
 msgstr "Browser"
 
-#: ../messages.py:191
+#: ../../i18n/messages.py:191
 msgctxt "QShortcut"
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: ../messages.py:192
+#: ../../i18n/messages.py:192
 msgctxt "QShortcut"
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
-#: ../messages.py:193
+#: ../../i18n/messages.py:193
 msgctxt "QShortcut"
 msgid "CapsLock"
 msgstr "CapsLock"
 
-#: ../messages.py:194
+#: ../../i18n/messages.py:194
 msgctxt "QShortcut"
 msgid "Clear"
 msgstr "Leegmaken"
 
-#: ../messages.py:195
+#: ../../i18n/messages.py:195
 msgctxt "QShortcut"
 msgid "Clear Grab"
 msgstr "Grab verwijderen"
 
-#: ../messages.py:196
+#: ../../i18n/messages.py:196
 msgctxt "QShortcut"
 msgid "Close"
 msgstr "Sluiten"
 
-#: ../messages.py:197
+#: ../../i18n/messages.py:197
 msgctxt "QShortcut"
 msgid "Copy"
 msgstr "Kopiëren"
 
-#: ../messages.py:198
+#: ../../i18n/messages.py:198
 msgctxt "QShortcut"
 msgid "Ctrl"
 msgstr "Ctrl"
 
-#: ../messages.py:199
+#: ../../i18n/messages.py:199
 msgctxt "QShortcut"
 msgid "Cut"
 msgstr "Knippen"
 
-#: ../messages.py:200
+#: ../../i18n/messages.py:200
 msgctxt "QShortcut"
 msgid "Del"
 msgstr "Del"
 
-#: ../messages.py:201
+#: ../../i18n/messages.py:201
 msgctxt "QShortcut"
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: ../messages.py:202
+#: ../../i18n/messages.py:202
 msgctxt "QShortcut"
 msgid "Display"
 msgstr "Weergeven"
 
-#: ../messages.py:203
+#: ../../i18n/messages.py:203
 msgctxt "QShortcut"
 msgid "Documents"
 msgstr "Documenten"
 
-#: ../messages.py:204
+#: ../../i18n/messages.py:204
 msgctxt "QShortcut"
 msgid "Down"
 msgstr "Omlaag"
 
-#: ../messages.py:205
+#: ../../i18n/messages.py:205
 msgctxt "QShortcut"
 msgid "Eject"
 msgstr "Uitwerpen"
 
-#: ../messages.py:206
+#: ../../i18n/messages.py:206
 msgctxt "QShortcut"
 msgid "End"
 msgstr "End"
 
-#: ../messages.py:207
+#: ../../i18n/messages.py:207
 msgctxt "QShortcut"
 msgid "Enter"
 msgstr "Enter"
 
-#: ../messages.py:208
+#: ../../i18n/messages.py:208
 msgctxt "QShortcut"
 msgid "Esc"
 msgstr "Esc"
 
-#: ../messages.py:209
+#: ../../i18n/messages.py:209
 msgctxt "QShortcut"
 msgid "Exit"
 msgstr "Afsluiten"
 
-#: ../messages.py:210
+#: ../../i18n/messages.py:210
 msgctxt "QShortcut"
 msgid "F%1"
 msgstr "F%1"
 
-#: ../messages.py:211
+#: ../../i18n/messages.py:211
 msgctxt "QShortcut"
 msgid "Forward"
 msgstr "Verder"
 
-#: ../messages.py:212
+#: ../../i18n/messages.py:212
 msgctxt "QShortcut"
 msgid "Go"
 msgstr "Gaan"
 
-#: ../messages.py:213
+#: ../../i18n/messages.py:213
 msgctxt "QShortcut"
 msgid "Help"
 msgstr "Help"
 
-#: ../messages.py:214
+#: ../../i18n/messages.py:214
 msgctxt "QShortcut"
 msgid "History"
 msgstr "Geschiedenis"
 
-#: ../messages.py:215
+#: ../../i18n/messages.py:215
 msgctxt "QShortcut"
 msgid "Home Page"
 msgstr "Startpagina"
 
-#: ../messages.py:216
+#: ../../i18n/messages.py:216
 msgctxt "QShortcut"
 msgid "Ins"
 msgstr "Ins"
 
-#: ../messages.py:217
+#: ../../i18n/messages.py:217
 msgctxt "QShortcut"
 msgid "Insert"
 msgstr "Invoegen"
 
-#: ../messages.py:218
+#: ../../i18n/messages.py:218
 msgctxt "QShortcut"
 msgid "Left"
 msgstr "Links"
 
-#: ../messages.py:219
+#: ../../i18n/messages.py:219
 msgctxt "QShortcut"
 msgid "Media Next"
 msgstr "Media volgende"
 
-#: ../messages.py:220
+#: ../../i18n/messages.py:220
 msgctxt "QShortcut"
 msgid "Media Pause"
 msgstr "Media Pauze"
 
-#: ../messages.py:221
+#: ../../i18n/messages.py:221
 msgctxt "QShortcut"
 msgid "Media Play"
 msgstr "Media Afspelen"
 
-#: ../messages.py:222
+#: ../../i18n/messages.py:222
 msgctxt "QShortcut"
 msgid "Media Previous"
 msgstr "Media Vorige"
 
-#: ../messages.py:223
+#: ../../i18n/messages.py:223
 msgctxt "QShortcut"
 msgid "Media Record"
 msgstr "Media Opnemen"
 
-#: ../messages.py:224
+#: ../../i18n/messages.py:224
 msgctxt "QShortcut"
 msgid "Media Stop"
 msgstr "Media Stoppen"
 
-#: ../messages.py:225
+#: ../../i18n/messages.py:225
 msgctxt "QShortcut"
 msgid "Menu"
 msgstr "Menu"
 
-#: ../messages.py:226
+#: ../../i18n/messages.py:226
 msgctxt "QShortcut"
 msgid "Meta"
 msgstr "Meta"
 
-#: ../messages.py:227
+#: ../../i18n/messages.py:227
 msgctxt "QShortcut"
 msgid "Music"
 msgstr "Muziek"
 
-#: ../messages.py:228
+#: ../../i18n/messages.py:228
 msgctxt "QShortcut"
 msgid "News"
 msgstr "Nieuws"
 
-#: ../messages.py:229
+#: ../../i18n/messages.py:229
 msgctxt "QShortcut"
 msgid "Number Lock"
 msgstr "Number Lock"
 
-#: ../messages.py:230
+#: ../../i18n/messages.py:230
 msgctxt "QShortcut"
 msgid "Num Lock"
 msgstr "Num Lock"
 
-#: ../messages.py:231
+#: ../../i18n/messages.py:231
 msgctxt "QShortcut"
 msgid "NumLock"
 msgstr "NumLock"
 
-#: ../messages.py:232
+#: ../../i18n/messages.py:232
 msgctxt "QShortcut"
 msgid "Open URL"
 msgstr "URL openen"
 
-#: ../messages.py:233
+#: ../../i18n/messages.py:233
 msgctxt "QShortcut"
 msgid "Option"
 msgstr "Opties"
 
-#: ../messages.py:234
+#: ../../i18n/messages.py:234
 msgctxt "QShortcut"
 msgid "Page Down"
 msgstr "Pagina omlaag"
 
-#: ../messages.py:235
+#: ../../i18n/messages.py:235
 msgctxt "QShortcut"
 msgid "Page Up"
 msgstr "Pagina omhoog"
 
-#: ../messages.py:236
+#: ../../i18n/messages.py:236
 msgctxt "QShortcut"
 msgid "Paste"
 msgstr "Plakken"
 
-#: ../messages.py:237
+#: ../../i18n/messages.py:237
 msgctxt "QShortcut"
 msgid "Pause"
 msgstr "Pauze"
 
-#: ../messages.py:238
+#: ../../i18n/messages.py:238
 msgctxt "QShortcut"
 msgid "PgDown"
 msgstr "Pag omlaag"
 
-#: ../messages.py:239
+#: ../../i18n/messages.py:239
 msgctxt "QShortcut"
 msgid "PgUp"
 msgstr "Pag omhoog"
 
-#: ../messages.py:240
+#: ../../i18n/messages.py:240
 msgctxt "QShortcut"
 msgid "Play"
 msgstr "Afspelen"
 
-#: ../messages.py:241
+#: ../../i18n/messages.py:241
 msgctxt "QShortcut"
 msgid "Refresh"
 msgstr "Verversen"
 
-#: ../messages.py:242
+#: ../../i18n/messages.py:242
 msgctxt "QShortcut"
 msgid "Reload"
 msgstr "Herladen"
 
-#: ../messages.py:243
+#: ../../i18n/messages.py:243
 msgctxt "QShortcut"
 msgid "Return"
 msgstr "Return"
 
-#: ../messages.py:244
+#: ../../i18n/messages.py:244
 msgctxt "QShortcut"
 msgid "Right"
 msgstr "Rechts"
 
-#: ../messages.py:245
+#: ../../i18n/messages.py:245
 msgctxt "QShortcut"
 msgid "Save"
 msgstr "Opslaan"
 
-#: ../messages.py:246
+#: ../../i18n/messages.py:246
 msgctxt "QShortcut"
 msgid "Scroll Lock"
 msgstr "Scroll Lock"
 
-#: ../messages.py:247
+#: ../../i18n/messages.py:247
 msgctxt "QShortcut"
 msgid "ScrollLock"
 msgstr "ScrollLock"
 
-#: ../messages.py:248
+#: ../../i18n/messages.py:248
 msgctxt "QShortcut"
 msgid "Search"
 msgstr "Zoeken"
 
-#: ../messages.py:249
+#: ../../i18n/messages.py:249
 msgctxt "QShortcut"
 msgid "Select"
 msgstr "Selecteren"
 
-#: ../messages.py:250
+#: ../../i18n/messages.py:250
 msgctxt "QShortcut"
 msgid "Send"
 msgstr "Verzenden"
 
-#: ../messages.py:251
+#: ../../i18n/messages.py:251
 msgctxt "QShortcut"
 msgid "Shift"
 msgstr "Shift"
 
-#: ../messages.py:252
+#: ../../i18n/messages.py:252
 msgctxt "QShortcut"
 msgid "Space"
 msgstr "Spatie"
 
-#: ../messages.py:253
+#: ../../i18n/messages.py:253
 msgctxt "QShortcut"
 msgid "Spellchecker"
 msgstr "Spellingcontrole"
 
-#: ../messages.py:254
+#: ../../i18n/messages.py:254
 msgctxt "QShortcut"
 msgid "Split Screen"
 msgstr "Scherm splitsen"
 
-#: ../messages.py:255
+#: ../../i18n/messages.py:255
 msgctxt "QShortcut"
 msgid "Spreadsheet"
 msgstr "Spreadsheet"
 
-#: ../messages.py:256
+#: ../../i18n/messages.py:256
 msgctxt "QShortcut"
 msgid "Standby"
 msgstr "Standby"
 
-#: ../messages.py:257
+#: ../../i18n/messages.py:257
 msgctxt "QShortcut"
 msgid "Stop"
 msgstr "Stop"
 
-#: ../messages.py:258
+#: ../../i18n/messages.py:258
 msgctxt "QShortcut"
 msgid "Subtitle"
 msgstr "Subtitel"
 
-#: ../messages.py:259
+#: ../../i18n/messages.py:259
 msgctxt "QShortcut"
 msgid "Support"
 msgstr "Ondersteuning"
 
-#: ../messages.py:260
+#: ../../i18n/messages.py:260
 msgctxt "QShortcut"
 msgid "Suspend"
 msgstr "Suspend"
 
-#: ../messages.py:261
+#: ../../i18n/messages.py:261
 msgctxt "QShortcut"
 msgid "SysReq"
 msgstr "SysReq"
 
-#: ../messages.py:262
+#: ../../i18n/messages.py:262
 msgctxt "QShortcut"
 msgid "Tab"
 msgstr "Tab"
 
-#: ../messages.py:263
+#: ../../i18n/messages.py:263
 msgctxt "QShortcut"
 msgid "Task Panel"
 msgstr "Taakbalk"
 
-#: ../messages.py:264
+#: ../../i18n/messages.py:264
 msgctxt "QShortcut"
 msgid "Terminal"
 msgstr "Terminal"
 
-#: ../messages.py:265
+#: ../../i18n/messages.py:265
 msgctxt "QShortcut"
 msgid "Time"
 msgstr "Tijd"
 
-#: ../messages.py:266
+#: ../../i18n/messages.py:266
 msgctxt "QShortcut"
 msgid "Toggle Media Play/Pause"
 msgstr "Media afspelen/pauzeren omschakelen"
 
-#: ../messages.py:267
+#: ../../i18n/messages.py:267
 msgctxt "QShortcut"
 msgid "Tools"
 msgstr "Gereedschap"
 
-#: ../messages.py:268
+#: ../../i18n/messages.py:268
 msgctxt "QShortcut"
 msgid "Top Menu"
 msgstr "Bovenste menu"
 
-#: ../messages.py:269
+#: ../../i18n/messages.py:269
 msgctxt "QShortcut"
 msgid "Treble Down"
 msgstr "Hoog zachter"
 
-#: ../messages.py:270
+#: ../../i18n/messages.py:270
 msgctxt "QShortcut"
 msgid "Treble Up"
 msgstr "Hoog sterker"
 
-#: ../messages.py:271
+#: ../../i18n/messages.py:271
 msgctxt "QShortcut"
 msgid "Up"
 msgstr "Omhoog"
 
-#: ../messages.py:272
+#: ../../i18n/messages.py:272
 msgctxt "QShortcut"
 msgid "Video"
 msgstr "Video"
 
-#: ../messages.py:273
+#: ../../i18n/messages.py:273
 msgctxt "QShortcut"
 msgid "View"
 msgstr "Beeld"
 
-#: ../messages.py:274
+#: ../../i18n/messages.py:274
 msgctxt "QShortcut"
 msgid "Volume Down"
 msgstr "Volume zachter"
 
-#: ../messages.py:275
+#: ../../i18n/messages.py:275
 msgctxt "QShortcut"
 msgid "Volume Mute"
 msgstr "Volume dempen"
 
-#: ../messages.py:276
+#: ../../i18n/messages.py:276
 msgctxt "QShortcut"
 msgid "Volume Up"
 msgstr "Volume sterker"
 
-#: ../messages.py:277
+#: ../../i18n/messages.py:277
 msgctxt "QShortcut"
 msgid "Zoom"
 msgstr "Zoomen"
 
-#: ../messages.py:278
+#: ../../i18n/messages.py:278
 msgctxt "QShortcut"
 msgid "Zoom In"
 msgstr "Inzoomen"
 
-#: ../messages.py:279
+#: ../../i18n/messages.py:279
 msgctxt "QShortcut"
 msgid "Zoom Out"
 msgstr "Uitzoomen"
 
-#: ../messages.py:281
+#: ../../i18n/messages.py:281
 msgctxt "QTabBar"
 msgid "Scroll Left"
 msgstr "Naar links schuiven"
 
-#: ../messages.py:282
+#: ../../i18n/messages.py:282
 msgctxt "QTabBar"
 msgid "Scroll Right"
 msgstr "Naar rechts schuiven"
 
-#: ../messages.py:284
+#: ../../i18n/messages.py:284
 msgctxt "QTextControl"
 msgid "&Undo"
 msgstr "&Ongedaan maken"
 
-#: ../messages.py:285
+#: ../../i18n/messages.py:285
 msgctxt "QTextControl"
 msgid "&Redo"
 msgstr "Opnie&uw"
 
-#: ../messages.py:286
+#: ../../i18n/messages.py:286
 msgctxt "QTextControl"
 msgid "Cu&t"
 msgstr "&Knippen"
 
-#: ../messages.py:287
+#: ../../i18n/messages.py:287
 msgctxt "QTextControl"
 msgid "&Copy"
 msgstr "&Kopiëren"
 
-#: ../messages.py:288
+#: ../../i18n/messages.py:288
 msgctxt "QTextControl"
 msgid "&Paste"
 msgstr "&Plakken"
 
-#: ../messages.py:289
+#: ../../i18n/messages.py:289
 msgctxt "QTextControl"
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: ../messages.py:290
+#: ../../i18n/messages.py:290
 msgctxt "QTextControl"
 msgid "Select All"
 msgstr "Alles selecteren"
 
-#: ../messages.py:292
+#: ../../i18n/messages.py:292
 msgctxt "QWhatsThisAction"
 msgid "What's This?"
 msgstr "Wat is dit?"
