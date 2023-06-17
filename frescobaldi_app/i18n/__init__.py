@@ -59,10 +59,5 @@ def translator(language):
     return lambda *args: funcs[len(args)](*args)
 
 def install(language):
-    """Installs the translations for the given language.
-
-    If language is None, installs a dummy translator.
-
-    Otherwise, the prerequisite on `language` is the same as for `translator()`.
-    """
-    builtins._ = translator(language or None)
+    """Installs the translations for the given language."""
+    builtins._ = translator(language)
