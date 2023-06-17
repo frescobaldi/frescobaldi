@@ -1,11 +1,9 @@
-#!/usr/bin/env python
-
 """
 
-This small script creates a POT file ('frescobaldi.pot') for the translations 
+This small script creates a POT file ('frescobaldi.pot') for the translations
 by extracting all messages from Python source files.
 
-It also creates a POT file ('userguide.pot') for the translation of all 
+It also creates a POT file ('userguide.pot') for the translation of all
 paragraphs of the user guide.
 
 The userguide.pot does not contain translatable strings that also appear in
@@ -13,17 +11,18 @@ frescobaldi.pot.
 
 """
 
-# Usage:
-# python update-pot.py
-
-
+import argparse
 import glob
 import os
 import subprocess
 import sys
 
-frescobaldi_app = "../frescobaldi_app"
-sys.path[0:0] = [frescobaldi_app, '.']
+parser = argparse.ArgumentParser()
+parser.add_argument("language", help="language to update")
+language = parser.parse_args().language
+
+frescobaldi_app = "frescobaldi_app/"
+sys.path[0:0] = [frescobaldi_app, "i18n/"]
 
 import appinfo
 import md2pot
@@ -31,7 +30,8 @@ import md2pot
 # 1. create a POT file for the messages, harvested from the source code
 command = [
     'xgettext',
-    '--output=frescobaldi.pot',
+    '-D', 'i18n/frescobaldi',
+    '-o', 'frescobaldi.pot',
     '--package-name={0}'.format(appinfo.name),
     '--package-version={0}'.format(appinfo.version),
     '--msgid-bugs-address={0}'.format(appinfo.maintainer_email),
@@ -51,12 +51,12 @@ command = [
     '--keyword=Keywords',
 ]
 
-for root, dirs, files in sorted(os.walk(frescobaldi_app)):
+for root, dirs, files in sorted(os.walk("frescobaldi_app")):
     for f in sorted(files):
         if f.endswith('.py') and f[0] != '.':
-            command.append(os.path.join(root, f))
-command.append('messages.py')   # dummy messages file with some Qt i18n strings
-command.extend(['../linux/org.frescobaldi.Frescobaldi.desktop.in', '../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in'])
+            command.append(os.path.join("../../", root, f))
+command.append('../../i18n/messages.py')   # dummy messages file with some Qt i18n strings
+command.extend(['../../linux/org.frescobaldi.Frescobaldi.desktop.in', '../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in'])
 result = subprocess.call(command)
 
 # 2. create a POT file for the user guide
@@ -75,3 +75,11 @@ os.remove('temp2.pot')
 
 # now we have frescobaldi.pot, and userguide.pot which does not
 # contain double messages from frescobaldi.pot
+
+frescobaldi_po = f"i18n/frescobaldi/{language}.po"
+userguide_po = f"i18n/userguide/{language}.po"
+subprocess.run(["msgmerge", "-U", frescobaldi_po, "frescobaldi.pot"])
+subprocess.run(["msgmerge", "-U", userguide_po, "userguide.pot"])
+
+os.remove("frescobaldi.pot")
+os.remove("userguide.pot")

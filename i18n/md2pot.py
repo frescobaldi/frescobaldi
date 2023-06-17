@@ -51,7 +51,7 @@ class Parser(userguide.read.Parser):
         self.f.write(string.encode('utf8'))
 
     def translate(self, s):
-        self.write('#: {0}:{1}\n'.format(self._curfilename, self.lineno))
+        self.write('#: ../../{0}:{1}\n'.format(self._curfilename, self.lineno))
         # is there markdown formatting in the string?
         formatting = False
         for c in '[]', '**', '``':
@@ -89,4 +89,3 @@ msgstr ""
 
 if __name__ == '__main__':
     md2pot('/dev/stdout', sys.argv[1:])
-
