@@ -63,8 +63,10 @@ def preferred():
 def default():
     """Return the first preferred system default UI language that is available in Frescobaldi.
 
-    May return None, if none of the system preferred languages is available
-    in Frescobaldi.
+    May return "C", if none of the system preferred languages is available
+    in Frescobaldi. Note that this is effectively equivalent to a return of "en",
+    though the latter means that English is actually requested by the user,
+    not a fallback.
 
     """
     av_langs = available()
@@ -72,15 +74,16 @@ def default():
     for lang in preferred():
         if lang in av_langs or lang.split('_')[0] in av_langs:
             return lang
+    return "C"
 
 def current():
     """Returns the currently active UI language code.
 
-    A name is always returned, which can be "C", meaning no translation
-    is desired.
+    A name is always returned, which can be "C" or "en", meaning no
+    translation is desired.
 
     """
-    return QSettings().value("language", "", str) or default() or "C"
+    return QSettings().value("language", "", str) or default()
 
 def _setup():
     """Set application language according to settings."""
