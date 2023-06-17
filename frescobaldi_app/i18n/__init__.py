@@ -34,9 +34,10 @@ def available():
 def translator(language):
     """Returns a function that can translate messages using the specified language.
 
-    The value "C" causes a dummy translator that returns English strings untranslated to be
-    returned. Otherwise, the language must have a translation, meaning that either `language`
-    or `language.split('_')[0]` is in the list returned by `available()`.
+    The value "C" or "en" or "en_XXX" causes a dummy translator that returns English
+    strings untranslated to be returned. Otherwise, the language must have a translation,
+    meaning that either `language` or `language.split('_')[0]` is in the list
+    returned by `available()`.
 
     The returned function can be called with one to four arguments:
 
@@ -47,7 +48,7 @@ def translator(language):
 
     In all cases a single string (the translation) is returned.
     """
-    if language == "C":
+    if language == "C" or language == "en" or language.split('_')[0] == "en":
         catalog = gettext.NullTranslations()
     else:
         assert language in available() or language.split('_')[0] in available()
