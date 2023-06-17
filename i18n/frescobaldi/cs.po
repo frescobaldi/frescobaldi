@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-06-17 20:04+0200\n"
+"POT-Creation-Date: 2023-06-17 20:09+0200\n"
 "PO-Revision-Date: 2020-11-29 20:51+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -144,7 +144,8 @@ msgid "Send an e-mail message to the maintainers."
 msgstr "Poslat zprávu jako dopis elektronické pošty údržbářům."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../../frescobaldi_app/about.py:118 ../../frescobaldi_app/userguide/resolve.py:44
+#: ../../frescobaldi_app/about.py:118
+#: ../../frescobaldi_app/userguide/resolve.py:44
 msgid "Translated by Your Name."
 msgstr "Přeloženo: Pavel Fric."
 
@@ -292,7 +293,8 @@ msgstr "Spustit znovu"
 msgid "Save as file"
 msgstr "Uložit jako soubor"
 
-#: ../../frescobaldi_app/convert_ly.py:156 ../../frescobaldi_app/copy2image.py:230
+#: ../../frescobaldi_app/convert_ly.py:156
+#: ../../frescobaldi_app/copy2image.py:230
 #: ../../frescobaldi_app/editinplace.py:160
 #: ../../frescobaldi_app/docbrowser/browser.py:160
 msgid "<unknown>"
@@ -336,7 +338,8 @@ msgstr ""
 msgid "The document has not been changed."
 msgstr "Dokument byl změněn."
 
-#: ../../frescobaldi_app/convert_ly.py:259 ../../frescobaldi_app/mainwindow.py:597
+#: ../../frescobaldi_app/convert_ly.py:259
+#: ../../frescobaldi_app/mainwindow.py:597
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Uložit soubor"
@@ -398,7 +401,8 @@ msgstr "Táhnout"
 msgid "Drag File"
 msgstr "Přetáhnout soubor"
 
-#: ../../frescobaldi_app/copy2image.py:159 ../../frescobaldi_app/mainwindow.py:1385
+#: ../../frescobaldi_app/copy2image.py:159
+#: ../../frescobaldi_app/mainwindow.py:1385
 #: ../../frescobaldi_app/docbrowser/browser.py:262
 #: ../../frescobaldi_app/fonts/dialog.py:177
 msgid "&Copy"
@@ -491,11 +495,15 @@ msgid "Save Image As"
 msgstr "Uložit obrázek jako"
 
 #. L10N: a basic type of input in the editor
-#: ../../frescobaldi_app/copy2image.py:322 ../../frescobaldi_app/cut_assign.py:139
-#: ../../frescobaldi_app/helpers.py:107 ../../frescobaldi_app/mainwindow.py:477
-#: ../../frescobaldi_app/mainwindow.py:565 ../../frescobaldi_app/mainwindow.py:621
-#: ../../frescobaldi_app/mainwindow.py:687 ../../frescobaldi_app/mainwindow.py:708
-#: ../../frescobaldi_app/mainwindow.py:727 ../../frescobaldi_app/mainwindow.py:815
+#: ../../frescobaldi_app/copy2image.py:322
+#: ../../frescobaldi_app/cut_assign.py:139 ../../frescobaldi_app/helpers.py:107
+#: ../../frescobaldi_app/mainwindow.py:477
+#: ../../frescobaldi_app/mainwindow.py:565
+#: ../../frescobaldi_app/mainwindow.py:621
+#: ../../frescobaldi_app/mainwindow.py:687
+#: ../../frescobaldi_app/mainwindow.py:708
+#: ../../frescobaldi_app/mainwindow.py:727
+#: ../../frescobaldi_app/mainwindow.py:815
 #: ../../frescobaldi_app/mainwindow.py:884
 #: ../../frescobaldi_app/externalchanges/widget.py:245
 #: ../../frescobaldi_app/externalchanges/widget.py:264
@@ -532,10 +540,14 @@ msgctxt "dialog title"
 msgid "Move to include file"
 msgstr "Přejít na obsahující soubor"
 
-#: ../../frescobaldi_app/cut_assign.py:135 ../../frescobaldi_app/mainwindow.py:467
-#: ../../frescobaldi_app/mainwindow.py:561 ../../frescobaldi_app/mainwindow.py:617
-#: ../../frescobaldi_app/mainwindow.py:683 ../../frescobaldi_app/mainwindow.py:704
-#: ../../frescobaldi_app/mainwindow.py:811 ../../frescobaldi_app/mainwindow.py:880
+#: ../../frescobaldi_app/cut_assign.py:135
+#: ../../frescobaldi_app/mainwindow.py:467
+#: ../../frescobaldi_app/mainwindow.py:561
+#: ../../frescobaldi_app/mainwindow.py:617
+#: ../../frescobaldi_app/mainwindow.py:683
+#: ../../frescobaldi_app/mainwindow.py:704
+#: ../../frescobaldi_app/mainwindow.py:811
+#: ../../frescobaldi_app/mainwindow.py:880
 #: ../../frescobaldi_app/sessions/dialog.py:104
 #: ../../frescobaldi_app/sessions/dialog.py:125
 #, python-brace-format
@@ -548,14 +560,17 @@ msgstr ""
 "\n"
 "{strerror} ({errno})"
 
-#: ../../frescobaldi_app/cut_assign.py:136 ../../frescobaldi_app/mainwindow.py:618
-#: ../../frescobaldi_app/mainwindow.py:684 ../../frescobaldi_app/mainwindow.py:881
+#: ../../frescobaldi_app/cut_assign.py:136
+#: ../../frescobaldi_app/mainwindow.py:618
+#: ../../frescobaldi_app/mainwindow.py:684
+#: ../../frescobaldi_app/mainwindow.py:881
 #: ../../frescobaldi_app/sessions/dialog.py:126
 #, python-brace-format
 msgid "Could not write to: {url}"
 msgstr "Nepodařilo se zapisovat do: {url}"
 
-#: ../../frescobaldi_app/document.py:218 ../../frescobaldi_app/doclist/widget.py:114
+#: ../../frescobaldi_app/document.py:218
+#: ../../frescobaldi_app/doclist/widget.py:114
 #: ../../frescobaldi_app/snippet/edit.py:174
 msgid "Untitled"
 msgstr "Bez názvu"
@@ -744,7 +759,8 @@ msgstr "Hlášení chyb elektronickou poštou..."
 msgid "An error occurred in extension '{name}'"
 msgstr "Vyskytla se vnitřní chyba v rozšíření '{name}'"
 
-#: ../../frescobaldi_app/exception.py:122 ../../frescobaldi_app/exception.py:126
+#: ../../frescobaldi_app/exception.py:122
+#: ../../frescobaldi_app/exception.py:126
 msgid "Optionally describe below what you were doing:"
 msgstr "Dole volitelně popište, co jste dělal:"
 
@@ -756,7 +772,8 @@ msgstr "Počkejte, prosím, dokud příkaz neskončí"
 msgid "Command completed"
 msgstr "Příkaz dokončen"
 
-#: ../../frescobaldi_app/helpers.py:108 ../../frescobaldi_app/job/__init__.py:389
+#: ../../frescobaldi_app/helpers.py:108
+#: ../../frescobaldi_app/job/__init__.py:389
 #, python-brace-format
 msgid ""
 "Could not start {program}.\n"
@@ -853,7 +870,8 @@ msgstr ""
 msgid "Tab Bar"
 msgstr "Pruh s kartami"
 
-#: ../../frescobaldi_app/mainwindow.py:468 ../../frescobaldi_app/mainwindow.py:705
+#: ../../frescobaldi_app/mainwindow.py:468
+#: ../../frescobaldi_app/mainwindow.py:705
 #: ../../frescobaldi_app/mainwindow.py:812
 #: ../../frescobaldi_app/sessions/dialog.py:105
 #, python-brace-format
@@ -1181,7 +1199,8 @@ msgstr "Odpovídající &dvojice"
 msgid "&Select Matching Pair"
 msgstr "&Vybrat odpovídající dvojici"
 
-#: ../../frescobaldi_app/menu.py:91 ../../frescobaldi_app/macosx/globalmenu.py:66
+#: ../../frescobaldi_app/menu.py:91
+#: ../../frescobaldi_app/macosx/globalmenu.py:66
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Soubor"
@@ -1206,7 +1225,8 @@ msgctxt "submenu title"
 msgid "&Print"
 msgstr "&Tisk"
 
-#: ../../frescobaldi_app/menu.py:165 ../../frescobaldi_app/macosx/globalmenu.py:121
+#: ../../frescobaldi_app/menu.py:165
+#: ../../frescobaldi_app/macosx/globalmenu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Úp&ravy"
@@ -1286,12 +1306,14 @@ msgctxt "submenu title"
 msgid "&Directories"
 msgstr "&Adresáře"
 
-#: ../../frescobaldi_app/menu.py:472 ../../frescobaldi_app/macosx/globalmenu.py:128
+#: ../../frescobaldi_app/menu.py:472
+#: ../../frescobaldi_app/macosx/globalmenu.py:128
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Okno"
 
-#: ../../frescobaldi_app/menu.py:492 ../../frescobaldi_app/macosx/globalmenu.py:145
+#: ../../frescobaldi_app/menu.py:492
+#: ../../frescobaldi_app/macosx/globalmenu.py:145
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Nápověd&a"
@@ -1330,7 +1352,8 @@ msgstr "Tisk {filename}"
 msgid "Print"
 msgstr "Tisk"
 
-#: ../../frescobaldi_app/pagedview.py:210 ../../frescobaldi_app/pagedview.py:232
+#: ../../frescobaldi_app/pagedview.py:210
+#: ../../frescobaldi_app/pagedview.py:232
 msgid "Printing Error"
 msgstr "Chyba tisku"
 
@@ -1377,11 +1400,13 @@ msgstr "&Stavba"
 msgid "&MIDI"
 msgstr "&MIDI"
 
-#: ../../frescobaldi_app/viewmanager.py:77 ../../frescobaldi_app/viewmanager.py:437
+#: ../../frescobaldi_app/viewmanager.py:77
+#: ../../frescobaldi_app/viewmanager.py:437
 msgid "Split &Horizontally"
 msgstr "Rozdělit &vodorovně"
 
-#: ../../frescobaldi_app/viewmanager.py:80 ../../frescobaldi_app/viewmanager.py:438
+#: ../../frescobaldi_app/viewmanager.py:80
+#: ../../frescobaldi_app/viewmanager.py:438
 msgid "Split &Vertically"
 msgstr "Rozdělit &svisle"
 
@@ -3406,7 +3431,8 @@ msgstr "Režim:"
 msgid "shift pitches"
 msgstr "Posun výšek tónů"
 
-#: ../../frescobaldi_app/pitch/pitch.py:53 ../../frescobaldi_app/pitch/pitch.py:68
+#: ../../frescobaldi_app/pitch/pitch.py:53
+#: ../../frescobaldi_app/pitch/pitch.py:68
 msgid "Pitch Name Language"
 msgstr "Jazyk názvu polohy tónu"
 
@@ -3439,7 +3465,8 @@ msgstr "(pro LilyPond s menším číslem verze než 2.14), nebo"
 msgid "(for LilyPond 2.14 and higher.)"
 msgstr "(pro LilyPond ve verzi 2.14 a vyšší.)"
 
-#: ../../frescobaldi_app/pitch/pitch.py:115 ../../frescobaldi_app/pitch/pitch.py:154
+#: ../../frescobaldi_app/pitch/pitch.py:115
+#: ../../frescobaldi_app/pitch/pitch.py:154
 #: ../../frescobaldi_app/pitch/pitch.py:204
 msgid "Transpose"
 msgstr "Převést"
@@ -7884,7 +7911,8 @@ msgstr ""
 "\n"
 "Chcete ji přepsat?"
 
-#: ../../frescobaldi_app/snippet/tool.py:57 ../../frescobaldi_app/snippet/tool.py:152
+#: ../../frescobaldi_app/snippet/tool.py:57
+#: ../../frescobaldi_app/snippet/tool.py:152
 msgid "Snippets"
 msgstr "Úryvky"
 
@@ -8034,15 +8062,15 @@ msgstr "Pohled na SVG"
 msgid "SV&G View"
 msgstr "Pohled na SV&G"
 
-#: ../../frescobaldi_app/svgview/__init__.py:91 ../messages.py:33
+#: ../../frescobaldi_app/svgview/__init__.py:91 ../../i18n/messages.py:33
 msgid "Zoom &In"
 msgstr "&Přiblížit"
 
-#: ../../frescobaldi_app/svgview/__init__.py:92 ../messages.py:34
+#: ../../frescobaldi_app/svgview/__init__.py:92 ../../i18n/messages.py:34
 msgid "Zoom &Out"
 msgstr "&Oddálit"
 
-#: ../../frescobaldi_app/svgview/__init__.py:93 ../messages.py:32
+#: ../../frescobaldi_app/svgview/__init__.py:93 ../../i18n/messages.py:32
 msgid "Original &Size"
 msgstr "Původní &velikost"
 
@@ -8403,1155 +8431,1155 @@ msgstr "Vybrat adresář"
 msgid "Select a file"
 msgstr "Vybrat soubor"
 
-#: ../messages.py:27
+#: ../../i18n/messages.py:27
 msgid "&Print..."
 msgstr "&Tisk..."
 
-#: ../messages.py:28
+#: ../../i18n/messages.py:28
 msgid "Fit &Width"
 msgstr "Přizpůsobit šíř&ce"
 
-#: ../messages.py:29
+#: ../../i18n/messages.py:29
 msgid "Fit &Height"
 msgstr "Přizpůsobit &výšce"
 
-#: ../messages.py:30
+#: ../../i18n/messages.py:30
 msgid "Fit &Page"
 msgstr "Přizpůsobit &straně"
 
-#: ../messages.py:31
+#: ../../i18n/messages.py:31
 msgid "&Natural Size"
 msgstr "&Přirozená velikost"
 
 #. L10N: "Width" as in "Fit Width" (display in zoom menu)
-#: ../messages.py:37
+#: ../../i18n/messages.py:37
 msgid "Width"
 msgstr "Šířka"
 
 #. L10N: "Height" as in "Fit Height" (display in zoom menu)
-#: ../messages.py:39
+#: ../../i18n/messages.py:39
 msgid "Height"
 msgstr "Výška"
 
 #. L10N: "Page" as in "Fit Page" (display in zoom menu)
-#: ../messages.py:41
+#: ../../i18n/messages.py:41
 msgid "Page"
 msgstr "Strana"
 
-#: ../messages.py:43
+#: ../../i18n/messages.py:43
 msgid "Rotate &Left"
 msgstr "Otočit &vlevo"
 
-#: ../messages.py:44
+#: ../../i18n/messages.py:44
 msgid "Rotate &Right"
 msgstr "Strana v&pravo"
 
-#: ../messages.py:45
+#: ../../i18n/messages.py:45
 msgid "Single Pages"
 msgstr "Jednoduché strany"
 
-#: ../messages.py:46
+#: ../../i18n/messages.py:46
 msgid "Two Pages (first page right)"
 msgstr "Dvě strany (první strana vpravo)"
 
-#: ../messages.py:47
+#: ../../i18n/messages.py:47
 msgid "Two Pages (first page left)"
 msgstr "Dvě strany (první strana vlevo)"
 
 #. L10N: "Raster", a layout type (like grid)
-#: ../messages.py:49
+#: ../../i18n/messages.py:49
 msgid "Raster"
 msgstr "Rastr"
 
-#: ../messages.py:50
+#: ../../i18n/messages.py:50
 msgid "Vertical"
 msgstr "Svisle"
 
-#: ../messages.py:51
+#: ../../i18n/messages.py:51
 msgid "Horizontal"
 msgstr "Vodorovně"
 
-#: ../messages.py:52
+#: ../../i18n/messages.py:52
 #, fuzzy
 msgid "&Continuous"
 msgstr "&Nepřetržité"
 
-#: ../messages.py:53
+#: ../../i18n/messages.py:53
 msgid "Re&load View"
 msgstr "Nahrát pohled &znovu"
 
-#: ../messages.py:54
+#: ../../i18n/messages.py:54
 msgid "Previous Page"
 msgstr "Předchozí strana"
 
-#: ../messages.py:55
+#: ../../i18n/messages.py:55
 msgid "Previous"
 msgstr "Předchozí"
 
-#: ../messages.py:56
+#: ../../i18n/messages.py:56
 msgid "Next Page"
 msgstr "Další strana"
 
-#: ../messages.py:57
+#: ../../i18n/messages.py:57
 msgid "Next"
 msgstr "Další"
 
-#: ../messages.py:58
+#: ../../i18n/messages.py:58
 msgid "Magnifier"
 msgstr "Lupa"
 
-#: ../messages.py:62
+#: ../../i18n/messages.py:62
 msgid "usage: "
 msgstr "Použití: "
 
-#: ../messages.py:63
+#: ../../i18n/messages.py:63
 msgid "positional arguments"
 msgstr "Polohové argumenty"
 
-#: ../messages.py:64
+#: ../../i18n/messages.py:64
 msgid "optional arguments"
 msgstr "Volitelné argumenty"
 
-#: ../messages.py:65
+#: ../../i18n/messages.py:65
 msgid "show this help message and exit"
 msgstr "Ukázat tuto zprávu s nápovědou a ukončit"
 
-#: ../messages.py:69
+#: ../../i18n/messages.py:69
 msgctxt "CloseButton"
 msgid "Close Tab"
 msgstr "Zavřít kartu"
 
-#: ../messages.py:71
+#: ../../i18n/messages.py:71
 msgctxt "QDialogButtonBox"
 msgid "Apply"
 msgstr "Použít"
 
-#: ../messages.py:72
+#: ../../i18n/messages.py:72
 msgctxt "QDialogButtonBox"
 msgid "&Cancel"
 msgstr "&Zrušit"
 
-#: ../messages.py:73
+#: ../../i18n/messages.py:73
 msgctxt "QDialogButtonBox"
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: ../messages.py:74
+#: ../../i18n/messages.py:74
 msgctxt "QDialogButtonBox"
 msgid "Close"
 msgstr "Zavřít"
 
-#: ../messages.py:75
+#: ../../i18n/messages.py:75
 msgctxt "QDialogButtonBox"
 msgid "Close without Saving"
 msgstr "Zavřít bez uložení"
 
-#: ../messages.py:76
+#: ../../i18n/messages.py:76
 msgctxt "QDialogButtonBox"
 msgid "Discard"
 msgstr "Zahodit"
 
-#: ../messages.py:77
+#: ../../i18n/messages.py:77
 msgctxt "QDialogButtonBox"
 msgid "Help"
 msgstr "Nápověda"
 
-#: ../messages.py:78
+#: ../../i18n/messages.py:78
 msgctxt "QDialogButtonBox"
 msgid "&OK"
 msgstr "&OK"
 
-#: ../messages.py:79
+#: ../../i18n/messages.py:79
 msgctxt "QDialogButtonBox"
 msgid "OK"
 msgstr "OK"
 
-#: ../messages.py:80
+#: ../../i18n/messages.py:80
 msgctxt "QDialogButtonBox"
 msgid "Open"
 msgstr "Otevřít"
 
-#: ../messages.py:81
+#: ../../i18n/messages.py:81
 msgctxt "QDialogButtonBox"
 msgid "Reset"
 msgstr "Nastavit znovu"
 
-#: ../messages.py:82
+#: ../../i18n/messages.py:82
 msgctxt "QDialogButtonBox"
 msgid "&Save"
 msgstr "&Uložit"
 
-#: ../messages.py:83
+#: ../../i18n/messages.py:83
 msgctxt "QDialogButtonBox"
 msgid "Save"
 msgstr "Uložit"
 
-#: ../messages.py:85
+#: ../../i18n/messages.py:85
 msgctxt "QDialog"
 msgid "What's This?"
 msgstr "Co je toto?"
 
-#: ../messages.py:87
+#: ../../i18n/messages.py:87
 msgctxt "QDockWidget"
 msgid "Float"
 msgstr "Pohyblivá řádová čárka"
 
-#: ../messages.py:88
+#: ../../i18n/messages.py:88
 msgctxt "QDockWidget"
 msgid "Undocks and re-attaches the dock widget"
 msgstr "Zruší ukotvení a znovu připojí panel"
 
-#: ../messages.py:89
+#: ../../i18n/messages.py:89
 msgctxt "QDockWidget"
 msgid "Close"
 msgstr "Zavřít"
 
-#: ../messages.py:90
+#: ../../i18n/messages.py:90
 msgctxt "QDockWidget"
 msgid "Closes the dock widget"
 msgstr "Zavře panel"
 
-#: ../messages.py:92
+#: ../../i18n/messages.py:92
 msgctxt "QFileDialog"
 msgid "All Files (*)"
 msgstr "Všechny soubory (*)"
 
-#: ../messages.py:93
+#: ../../i18n/messages.py:93
 msgctxt "QFileDialog"
 msgid "Back"
 msgstr "Zpět"
 
-#: ../messages.py:94
+#: ../../i18n/messages.py:94
 msgctxt "QFileDialog"
 msgid "Change to detail view mode"
 msgstr "Změnit na režim podrobného zobrazení"
 
-#: ../messages.py:95
+#: ../../i18n/messages.py:95
 msgctxt "QFileDialog"
 msgid "Change to list view mode"
 msgstr "Změnit na režim seznamového zobrazení"
 
-#: ../messages.py:96
+#: ../../i18n/messages.py:96
 msgctxt "QFileDialog"
 msgid "Create a New Folder"
 msgstr "Vytvořit novou složku"
 
-#: ../messages.py:97
+#: ../../i18n/messages.py:97
 msgctxt "QFileDialog"
 msgid "Create New Folder"
 msgstr "Vytvořit novou složku"
 
-#: ../messages.py:98
+#: ../../i18n/messages.py:98
 msgctxt "QFileDialog"
 msgid "&Delete"
 msgstr "&Smazat"
 
-#: ../messages.py:99
+#: ../../i18n/messages.py:99
 msgctxt "QFileDialog"
 msgid "Detail View"
 msgstr "Podrobnosti"
 
-#: ../messages.py:100
+#: ../../i18n/messages.py:100
 msgctxt "QFileDialog"
 msgid "Drive"
 msgstr "Disk"
 
-#: ../messages.py:101
+#: ../../i18n/messages.py:101
 msgctxt "QFileDialog"
 msgid "File"
 msgstr "Soubor"
 
-#: ../messages.py:102
+#: ../../i18n/messages.py:102
 msgctxt "QFileDialog"
 msgid "File &name:"
 msgstr "&Název souboru:"
 
-#: ../messages.py:103
+#: ../../i18n/messages.py:103
 msgctxt "QFileDialog"
 msgid "Files of type:"
 msgstr "Typ souborů:"
 
-#: ../messages.py:104
+#: ../../i18n/messages.py:104
 msgctxt "QFileDialog"
 msgid "Find Directory"
 msgstr "Adresář hledání"
 
-#: ../messages.py:105
+#: ../../i18n/messages.py:105
 msgctxt "QFileDialog"
 msgid "Folder"
 msgstr "Složka"
 
-#: ../messages.py:106
+#: ../../i18n/messages.py:106
 msgctxt "QFileDialog"
 msgid "Forward"
 msgstr "Vpřed"
 
-#: ../messages.py:107
+#: ../../i18n/messages.py:107
 msgctxt "QFileDialog"
 msgid "Go back"
 msgstr "Jít zpět"
 
-#: ../messages.py:108
+#: ../../i18n/messages.py:108
 msgctxt "QFileDialog"
 msgid "Go forward"
 msgstr "Jít vpřed"
 
-#: ../messages.py:109
+#: ../../i18n/messages.py:109
 msgctxt "QFileDialog"
 msgid "Go to the parent directory"
 msgstr "Jít do nadřazeného adresáře"
 
-#: ../messages.py:110
+#: ../../i18n/messages.py:110
 msgctxt "QFileDialog"
 msgid "List View"
 msgstr "Seznam"
 
-#: ../messages.py:111
+#: ../../i18n/messages.py:111
 msgctxt "QFileDialog"
 msgid "Look in:"
 msgstr "Vyhledat:"
 
-#: ../messages.py:112
+#: ../../i18n/messages.py:112
 msgctxt "QFileDialog"
 msgid "&New Folder"
 msgstr "&Nová složka"
 
-#: ../messages.py:113
+#: ../../i18n/messages.py:113
 msgctxt "QFileDialog"
 msgid "&Open"
 msgstr "&Otevřít"
 
-#: ../messages.py:114
+#: ../../i18n/messages.py:114
 msgctxt "QFileDialog"
 msgid "Parent Directory"
 msgstr "Nadřazený adresář"
 
-#: ../messages.py:115
+#: ../../i18n/messages.py:115
 msgctxt "QFileDialog"
 msgid "Remove"
 msgstr "Odstranit"
 
-#: ../messages.py:116
+#: ../../i18n/messages.py:116
 msgctxt "QFileDialog"
 msgid "&Rename"
 msgstr "&Přejmenovat"
 
-#: ../messages.py:117
+#: ../../i18n/messages.py:117
 msgctxt "QFileDialog"
 msgid "Show "
 msgstr "Ukázat "
 
-#: ../messages.py:118
+#: ../../i18n/messages.py:118
 msgctxt "QFileDialog"
 msgid "Show &hidden files"
 msgstr "Ukázat &skryté soubory"
 
-#: ../messages.py:120
+#: ../../i18n/messages.py:120
 msgctxt "QFileSystemModel"
 msgid "%1 bytes"
 msgstr "%1 bajtů"
 
-#: ../messages.py:121
+#: ../../i18n/messages.py:121
 msgctxt "QFileSystemModel"
 msgid "%1 KB"
 msgstr "%1 KB"
 
-#: ../messages.py:122
+#: ../../i18n/messages.py:122
 msgctxt "QFileSystemModel"
 msgid "Computer"
 msgstr "Počítač"
 
-#: ../messages.py:123
+#: ../../i18n/messages.py:123
 msgctxt "QFileSystemModel"
 msgid "Date Modified"
 msgstr "[datum změny]"
 
-#: ../messages.py:124
+#: ../../i18n/messages.py:124
 msgctxt "QFileSystemModel"
 msgid "Name"
 msgstr "Název"
 
-#: ../messages.py:125
+#: ../../i18n/messages.py:125
 msgctxt "QFileSystemModel"
 msgid "Size"
 msgstr "Velikost"
 
-#: ../messages.py:126
+#: ../../i18n/messages.py:126
 msgctxt "QFileSystemModel"
 msgid "Type"
 msgstr "Typ"
 
-#: ../messages.py:128
+#: ../../i18n/messages.py:128
 msgctxt "QFontDatabase"
 msgid "Black"
 msgstr "Černé"
 
-#: ../messages.py:129
+#: ../../i18n/messages.py:129
 msgctxt "QFontDatabase"
 msgid "Bold"
 msgstr "Tučné"
 
-#: ../messages.py:130
+#: ../../i18n/messages.py:130
 msgctxt "QFontDatabase"
 msgid "Demi Bold"
 msgstr "Polotučné"
 
-#: ../messages.py:131
+#: ../../i18n/messages.py:131
 msgctxt "QFontDatabase"
 msgid "Light"
 msgstr "Lehké"
 
-#: ../messages.py:132
+#: ../../i18n/messages.py:132
 msgctxt "QFontDatabase"
 msgid "Oblique"
 msgstr "Nesouměrné"
 
-#: ../messages.py:133
+#: ../../i18n/messages.py:133
 msgctxt "QFontDatabase"
 msgid "Normal"
 msgstr "Normální"
 
-#: ../messages.py:135
+#: ../../i18n/messages.py:135
 msgctxt "QGnomeTheme"
 msgid "&OK"
 msgstr "&OK"
 
-#: ../messages.py:136
+#: ../../i18n/messages.py:136
 msgctxt "QGnomeTheme"
 msgid "&Cancel"
 msgstr "&Zrušit"
 
-#: ../messages.py:137
+#: ../../i18n/messages.py:137
 msgctxt "QGnomeTheme"
 msgid "&Save"
 msgstr "&Uložit"
 
-#: ../messages.py:138
+#: ../../i18n/messages.py:138
 msgctxt "QGnomeTheme"
 msgid "&Close"
 msgstr "&Zavřít"
 
-#: ../messages.py:140
+#: ../../i18n/messages.py:140
 msgctxt "QInputContext"
 msgid "XIM"
 msgstr "XIM"
 
-#: ../messages.py:142
+#: ../../i18n/messages.py:142
 msgctxt "QLocalSocket"
 msgid "%1: Invalid name"
 msgstr "%1: Neplatný název"
 
-#: ../messages.py:144
+#: ../../i18n/messages.py:144
 msgctxt "QMultiInputContext"
 msgid "Select IM"
 msgstr "Vybrat IM"
 
-#: ../messages.py:146
+#: ../../i18n/messages.py:146
 msgctxt "QPlatformTheme"
 msgid "OK"
 msgstr "OK"
 
-#: ../messages.py:147
+#: ../../i18n/messages.py:147
 msgctxt "QPlatformTheme"
 msgid "Help"
 msgstr "Nápověda"
 
-#: ../messages.py:148
+#: ../../i18n/messages.py:148
 msgctxt "QPlatformTheme"
 msgid "Apply"
 msgstr "Použít"
 
-#: ../messages.py:149
+#: ../../i18n/messages.py:149
 msgctxt "QPlatformTheme"
 msgid "Reset"
 msgstr "Obnovit výchozí"
 
-#: ../messages.py:150
+#: ../../i18n/messages.py:150
 msgctxt "QPlatformTheme"
 msgid "Open"
 msgstr "Otevřít"
 
-#: ../messages.py:151
+#: ../../i18n/messages.py:151
 msgctxt "QPlatformTheme"
 msgid "Save"
 msgstr "Uložit"
 
-#: ../messages.py:152
+#: ../../i18n/messages.py:152
 msgctxt "QPlatformTheme"
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: ../messages.py:153
+#: ../../i18n/messages.py:153
 msgctxt "QPlatformTheme"
 msgid "Discard"
 msgstr "Zahodit"
 
-#: ../messages.py:154
+#: ../../i18n/messages.py:154
 msgctxt "QPlatformTheme"
 msgid "Restore Defaults"
 msgstr "Obnovit výchozí hodnoty"
 
-#: ../messages.py:156
+#: ../../i18n/messages.py:156
 msgctxt "QScrollBar"
 msgid "Bottom"
 msgstr "Dole"
 
-#: ../messages.py:157
+#: ../../i18n/messages.py:157
 msgctxt "QScrollBar"
 msgid "Left edge"
 msgstr "Levý okraj"
 
-#: ../messages.py:158
+#: ../../i18n/messages.py:158
 msgctxt "QScrollBar"
 msgid "Page down"
 msgstr "Strana dolů"
 
-#: ../messages.py:159
+#: ../../i18n/messages.py:159
 msgctxt "QScrollBar"
 msgid "Page left"
 msgstr "Strana vlevo"
 
-#: ../messages.py:160
+#: ../../i18n/messages.py:160
 msgctxt "QScrollBar"
 msgid "Page right"
 msgstr "Strana vpravo"
 
-#: ../messages.py:161
+#: ../../i18n/messages.py:161
 msgctxt "QScrollBar"
 msgid "Page up"
 msgstr "Strana nahoru"
 
-#: ../messages.py:162
+#: ../../i18n/messages.py:162
 msgctxt "QScrollBar"
 msgid "Right edge"
 msgstr "Pravý okraj"
 
-#: ../messages.py:163
+#: ../../i18n/messages.py:163
 msgctxt "QScrollBar"
 msgid "Scroll down"
 msgstr "Projíždět dolů"
 
-#: ../messages.py:164
+#: ../../i18n/messages.py:164
 msgctxt "QScrollBar"
 msgid "Scroll here"
 msgstr "Projíždět zde"
 
-#: ../messages.py:165
+#: ../../i18n/messages.py:165
 msgctxt "QScrollBar"
 msgid "Scroll left"
 msgstr "Projíždět vlevo"
 
-#: ../messages.py:166
+#: ../../i18n/messages.py:166
 msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Projíždět vpravo"
 
-#: ../messages.py:167
+#: ../../i18n/messages.py:167
 msgctxt "QScrollBar"
 msgid "Scroll up"
 msgstr "Projíždět nahoru"
 
-#: ../messages.py:168
+#: ../../i18n/messages.py:168
 msgctxt "QScrollBar"
 msgid "Top"
 msgstr "Nahoře"
 
-#: ../messages.py:170
+#: ../../i18n/messages.py:170
 msgctxt "QShortcut"
 msgid "+"
 msgstr "+"
 
-#: ../messages.py:171
+#: ../../i18n/messages.py:171
 msgctxt "QShortcut"
 msgid "Add Favorite"
 msgstr "Přidat oblíbené"
 
-#: ../messages.py:172
+#: ../../i18n/messages.py:172
 msgctxt "QShortcut"
 msgid "Adjust Brightness"
 msgstr "Upravit jas"
 
-#: ../messages.py:173
+#: ../../i18n/messages.py:173
 msgctxt "QShortcut"
 msgid "Alt"
 msgstr "Alt"
 
-#: ../messages.py:174
+#: ../../i18n/messages.py:174
 msgctxt "QShortcut"
 msgid "Application Left"
 msgstr "Program vlevo"
 
-#: ../messages.py:175
+#: ../../i18n/messages.py:175
 msgctxt "QShortcut"
 msgid "Application Right"
 msgstr "Program vpravo"
 
-#: ../messages.py:176
+#: ../../i18n/messages.py:176
 msgctxt "QShortcut"
 msgid "Audio Cycle Track"
 msgstr "Kroužit skladbu"
 
-#: ../messages.py:177
+#: ../../i18n/messages.py:177
 msgctxt "QShortcut"
 msgid "Audio Forward"
 msgstr "Vpřed"
 
-#: ../messages.py:178
+#: ../../i18n/messages.py:178
 msgctxt "QShortcut"
 msgid "Audio Random Play"
 msgstr "Náhodné přehrávání"
 
-#: ../messages.py:179
+#: ../../i18n/messages.py:179
 msgctxt "QShortcut"
 msgid "Audio Repeat"
 msgstr "Opakování"
 
-#: ../messages.py:180
+#: ../../i18n/messages.py:180
 msgctxt "QShortcut"
 msgid "Audio Rewind"
 msgstr "Přetočit zpět"
 
-#: ../messages.py:181
+#: ../../i18n/messages.py:181
 msgctxt "QShortcut"
 msgid "Away"
 msgstr "Pryč"
 
-#: ../messages.py:182
+#: ../../i18n/messages.py:182
 msgctxt "QShortcut"
 msgid "Back"
 msgstr "Zpět"
 
-#: ../messages.py:183
+#: ../../i18n/messages.py:183
 msgctxt "QShortcut"
 msgid "Back Forward"
 msgstr "Zpět Vpřed"
 
-#: ../messages.py:184
+#: ../../i18n/messages.py:184
 msgctxt "QShortcut"
 msgid "Backspace"
 msgstr "Backspace"
 
-#: ../messages.py:185
+#: ../../i18n/messages.py:185
 msgctxt "QShortcut"
 msgid "Backtab"
 msgstr "Zpětný tabulátor"
 
-#: ../messages.py:186
+#: ../../i18n/messages.py:186
 msgctxt "QShortcut"
 msgid "Bass Boost"
 msgstr "Zesílení hloubek"
 
-#: ../messages.py:187
+#: ../../i18n/messages.py:187
 msgctxt "QShortcut"
 msgid "Bass Down"
 msgstr "Hloubky dolů"
 
-#: ../messages.py:188
+#: ../../i18n/messages.py:188
 msgctxt "QShortcut"
 msgid "Bass Up"
 msgstr "Hloubky nahoru"
 
-#: ../messages.py:189
+#: ../../i18n/messages.py:189
 msgctxt "QShortcut"
 msgid "Battery"
 msgstr "Baterie"
 
-#: ../messages.py:190
+#: ../../i18n/messages.py:190
 msgctxt "QShortcut"
 msgid "Browser"
 msgstr "Prohlížeč"
 
-#: ../messages.py:191
+#: ../../i18n/messages.py:191
 msgctxt "QShortcut"
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: ../messages.py:192
+#: ../../i18n/messages.py:192
 msgctxt "QShortcut"
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
-#: ../messages.py:193
+#: ../../i18n/messages.py:193
 msgctxt "QShortcut"
 msgid "CapsLock"
 msgstr "Velká písmena"
 
-#: ../messages.py:194
+#: ../../i18n/messages.py:194
 msgctxt "QShortcut"
 msgid "Clear"
 msgstr "Vyprázdnit"
 
-#: ../messages.py:195
+#: ../../i18n/messages.py:195
 msgctxt "QShortcut"
 msgid "Clear Grab"
 msgstr "Smazat"
 
-#: ../messages.py:196
+#: ../../i18n/messages.py:196
 msgctxt "QShortcut"
 msgid "Close"
 msgstr "Zavřít"
 
-#: ../messages.py:197
+#: ../../i18n/messages.py:197
 msgctxt "QShortcut"
 msgid "Copy"
 msgstr "Kopírovat"
 
-#: ../messages.py:198
+#: ../../i18n/messages.py:198
 msgctxt "QShortcut"
 msgid "Ctrl"
 msgstr "Ctrl"
 
-#: ../messages.py:199
+#: ../../i18n/messages.py:199
 msgctxt "QShortcut"
 msgid "Cut"
 msgstr "Vyjmout"
 
-#: ../messages.py:200
+#: ../../i18n/messages.py:200
 msgctxt "QShortcut"
 msgid "Del"
 msgstr "Delete"
 
-#: ../messages.py:201
+#: ../../i18n/messages.py:201
 msgctxt "QShortcut"
 msgid "Delete"
 msgstr "Smazat"
 
-#: ../messages.py:202
+#: ../../i18n/messages.py:202
 msgctxt "QShortcut"
 msgid "Display"
 msgstr "Zobrazit"
 
-#: ../messages.py:203
+#: ../../i18n/messages.py:203
 msgctxt "QShortcut"
 msgid "Documents"
 msgstr "Dokumenty"
 
-#: ../messages.py:204
+#: ../../i18n/messages.py:204
 msgctxt "QShortcut"
 msgid "Down"
 msgstr "Dolů"
 
-#: ../messages.py:205
+#: ../../i18n/messages.py:205
 msgctxt "QShortcut"
 msgid "Eject"
 msgstr "Vysunout"
 
-#: ../messages.py:206
+#: ../../i18n/messages.py:206
 msgctxt "QShortcut"
 msgid "End"
 msgstr "End"
 
-#: ../messages.py:207
+#: ../../i18n/messages.py:207
 msgctxt "QShortcut"
 msgid "Enter"
 msgstr "Enter"
 
-#: ../messages.py:208
+#: ../../i18n/messages.py:208
 msgctxt "QShortcut"
 msgid "Esc"
 msgstr "Esc"
 
-#: ../messages.py:209
+#: ../../i18n/messages.py:209
 msgctxt "QShortcut"
 msgid "Exit"
 msgstr "Ukončit"
 
-#: ../messages.py:210
+#: ../../i18n/messages.py:210
 msgctxt "QShortcut"
 msgid "F%1"
 msgstr "F%1"
 
-#: ../messages.py:211
+#: ../../i18n/messages.py:211
 msgctxt "QShortcut"
 msgid "Forward"
 msgstr "Vpřed"
 
-#: ../messages.py:212
+#: ../../i18n/messages.py:212
 msgctxt "QShortcut"
 msgid "Go"
 msgstr "Pohyb"
 
-#: ../messages.py:213
+#: ../../i18n/messages.py:213
 msgctxt "QShortcut"
 msgid "Help"
 msgstr "Nápověda"
 
-#: ../messages.py:214
+#: ../../i18n/messages.py:214
 msgctxt "QShortcut"
 msgid "History"
 msgstr "Historie"
 
-#: ../messages.py:215
+#: ../../i18n/messages.py:215
 msgctxt "QShortcut"
 msgid "Home Page"
 msgstr "Domovská stránka"
 
-#: ../messages.py:216
+#: ../../i18n/messages.py:216
 msgctxt "QShortcut"
 msgid "Ins"
 msgstr "Insert"
 
-#: ../messages.py:217
+#: ../../i18n/messages.py:217
 msgctxt "QShortcut"
 msgid "Insert"
 msgstr "Vložení"
 
-#: ../messages.py:218
+#: ../../i18n/messages.py:218
 msgctxt "QShortcut"
 msgid "Left"
 msgstr "Vlevo"
 
-#: ../messages.py:219
+#: ../../i18n/messages.py:219
 msgctxt "QShortcut"
 msgid "Media Next"
 msgstr "Další"
 
-#: ../messages.py:220
+#: ../../i18n/messages.py:220
 msgctxt "QShortcut"
 msgid "Media Pause"
 msgstr "Pozastavit"
 
-#: ../messages.py:221
+#: ../../i18n/messages.py:221
 msgctxt "QShortcut"
 msgid "Media Play"
 msgstr "Přehrát"
 
-#: ../messages.py:222
+#: ../../i18n/messages.py:222
 msgctxt "QShortcut"
 msgid "Media Previous"
 msgstr "Předchozí"
 
-#: ../messages.py:223
+#: ../../i18n/messages.py:223
 msgctxt "QShortcut"
 msgid "Media Record"
 msgstr "Nahrávat"
 
-#: ../messages.py:224
+#: ../../i18n/messages.py:224
 msgctxt "QShortcut"
 msgid "Media Stop"
 msgstr "Zastavit"
 
-#: ../messages.py:225
+#: ../../i18n/messages.py:225
 msgctxt "QShortcut"
 msgid "Menu"
 msgstr "Nabídka"
 
-#: ../messages.py:226
+#: ../../i18n/messages.py:226
 msgctxt "QShortcut"
 msgid "Meta"
 msgstr "Meta"
 
-#: ../messages.py:227
+#: ../../i18n/messages.py:227
 msgctxt "QShortcut"
 msgid "Music"
 msgstr "Hudba"
 
-#: ../messages.py:228
+#: ../../i18n/messages.py:228
 msgctxt "QShortcut"
 msgid "News"
 msgstr "Novinky"
 
-#: ../messages.py:229
+#: ../../i18n/messages.py:229
 msgctxt "QShortcut"
 msgid "Number Lock"
 msgstr "Zámek čísel"
 
-#: ../messages.py:230
+#: ../../i18n/messages.py:230
 msgctxt "QShortcut"
 msgid "Num Lock"
 msgstr "Num Lock"
 
-#: ../messages.py:231
+#: ../../i18n/messages.py:231
 msgctxt "QShortcut"
 msgid "NumLock"
 msgstr "Číslice"
 
-#: ../messages.py:232
+#: ../../i18n/messages.py:232
 msgctxt "QShortcut"
 msgid "Open URL"
 msgstr "Otevřít adresu"
 
-#: ../messages.py:233
+#: ../../i18n/messages.py:233
 msgctxt "QShortcut"
 msgid "Option"
 msgstr "Volba"
 
-#: ../messages.py:234
+#: ../../i18n/messages.py:234
 msgctxt "QShortcut"
 msgid "Page Down"
 msgstr "Strana dolů"
 
-#: ../messages.py:235
+#: ../../i18n/messages.py:235
 msgctxt "QShortcut"
 msgid "Page Up"
 msgstr "Strana nahoru"
 
-#: ../messages.py:236
+#: ../../i18n/messages.py:236
 msgctxt "QShortcut"
 msgid "Paste"
 msgstr "Vložit"
 
-#: ../messages.py:237
+#: ../../i18n/messages.py:237
 msgctxt "QShortcut"
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: ../messages.py:238
+#: ../../i18n/messages.py:238
 msgctxt "QShortcut"
 msgid "PgDown"
 msgstr "PgDown"
 
-#: ../messages.py:239
+#: ../../i18n/messages.py:239
 msgctxt "QShortcut"
 msgid "PgUp"
 msgstr "PgUp"
 
-#: ../messages.py:240
+#: ../../i18n/messages.py:240
 msgctxt "QShortcut"
 msgid "Play"
 msgstr "Přehrát"
 
-#: ../messages.py:241
+#: ../../i18n/messages.py:241
 msgctxt "QShortcut"
 msgid "Refresh"
 msgstr "Obnovit"
 
-#: ../messages.py:242
+#: ../../i18n/messages.py:242
 msgctxt "QShortcut"
 msgid "Reload"
 msgstr "Nahrát znovu"
 
-#: ../messages.py:243
+#: ../../i18n/messages.py:243
 msgctxt "QShortcut"
 msgid "Return"
 msgstr "Enter"
 
-#: ../messages.py:244
+#: ../../i18n/messages.py:244
 msgctxt "QShortcut"
 msgid "Right"
 msgstr "Vpravo"
 
-#: ../messages.py:245
+#: ../../i18n/messages.py:245
 msgctxt "QShortcut"
 msgid "Save"
 msgstr "Uložit"
 
-#: ../messages.py:246
+#: ../../i18n/messages.py:246
 msgctxt "QShortcut"
 msgid "Scroll Lock"
 msgstr "Zámek na posun"
 
-#: ../messages.py:247
+#: ../../i18n/messages.py:247
 msgctxt "QShortcut"
 msgid "ScrollLock"
 msgstr "ScrollLock"
 
-#: ../messages.py:248
+#: ../../i18n/messages.py:248
 msgctxt "QShortcut"
 msgid "Search"
 msgstr "Hledat"
 
-#: ../messages.py:249
+#: ../../i18n/messages.py:249
 msgctxt "QShortcut"
 msgid "Select"
 msgstr "Vybrat"
 
-#: ../messages.py:250
+#: ../../i18n/messages.py:250
 msgctxt "QShortcut"
 msgid "Send"
 msgstr "Poslat"
 
-#: ../messages.py:251
+#: ../../i18n/messages.py:251
 msgctxt "QShortcut"
 msgid "Shift"
 msgstr "Shift"
 
-#: ../messages.py:252
+#: ../../i18n/messages.py:252
 msgctxt "QShortcut"
 msgid "Space"
 msgstr "Mezerník"
 
-#: ../messages.py:253
+#: ../../i18n/messages.py:253
 msgctxt "QShortcut"
 msgid "Spellchecker"
 msgstr "Ověření pravopisu"
 
-#: ../messages.py:254
+#: ../../i18n/messages.py:254
 msgctxt "QShortcut"
 msgid "Split Screen"
 msgstr "Rozdělit obrazovku"
 
-#: ../messages.py:255
+#: ../../i18n/messages.py:255
 msgctxt "QShortcut"
 msgid "Spreadsheet"
 msgstr "Tabulkový kalkulátor"
 
-#: ../messages.py:256
+#: ../../i18n/messages.py:256
 msgctxt "QShortcut"
 msgid "Standby"
 msgstr "Pohotovost"
 
-#: ../messages.py:257
+#: ../../i18n/messages.py:257
 msgctxt "QShortcut"
 msgid "Stop"
 msgstr "Zastavit"
 
-#: ../messages.py:258
+#: ../../i18n/messages.py:258
 msgctxt "QShortcut"
 msgid "Subtitle"
 msgstr "Titulky"
 
-#: ../messages.py:259
+#: ../../i18n/messages.py:259
 msgctxt "QShortcut"
 msgid "Support"
 msgstr "Podpora"
 
-#: ../messages.py:260
+#: ../../i18n/messages.py:260
 msgctxt "QShortcut"
 msgid "Suspend"
 msgstr "Uspat"
 
-#: ../messages.py:261
+#: ../../i18n/messages.py:261
 msgctxt "QShortcut"
 msgid "SysReq"
 msgstr "SysReq"
 
-#: ../messages.py:262
+#: ../../i18n/messages.py:262
 msgctxt "QShortcut"
 msgid "Tab"
 msgstr "Tab"
 
-#: ../messages.py:263
+#: ../../i18n/messages.py:263
 msgctxt "QShortcut"
 msgid "Task Panel"
 msgstr "Panel úkolů"
 
-#: ../messages.py:264
+#: ../../i18n/messages.py:264
 msgctxt "QShortcut"
 msgid "Terminal"
 msgstr "Terminál"
 
-#: ../messages.py:265
+#: ../../i18n/messages.py:265
 msgctxt "QShortcut"
 msgid "Time"
 msgstr "Čas"
 
-#: ../messages.py:266
+#: ../../i18n/messages.py:266
 msgctxt "QShortcut"
 msgid "Toggle Media Play/Pause"
 msgstr "Přepnout přehrát/pozastavit"
 
-#: ../messages.py:267
+#: ../../i18n/messages.py:267
 msgctxt "QShortcut"
 msgid "Tools"
 msgstr "Nástroje"
 
-#: ../messages.py:268
+#: ../../i18n/messages.py:268
 msgctxt "QShortcut"
 msgid "Top Menu"
 msgstr "Nabídka"
 
-#: ../messages.py:269
+#: ../../i18n/messages.py:269
 msgctxt "QShortcut"
 msgid "Treble Down"
 msgstr "Výšky dolů"
 
-#: ../messages.py:270
+#: ../../i18n/messages.py:270
 msgctxt "QShortcut"
 msgid "Treble Up"
 msgstr "Výšky nahoru"
 
-#: ../messages.py:271
+#: ../../i18n/messages.py:271
 msgctxt "QShortcut"
 msgid "Up"
 msgstr "Nahoru"
 
-#: ../messages.py:272
+#: ../../i18n/messages.py:272
 msgctxt "QShortcut"
 msgid "Video"
 msgstr "Obraz"
 
-#: ../messages.py:273
+#: ../../i18n/messages.py:273
 msgctxt "QShortcut"
 msgid "View"
 msgstr "Pohled"
 
-#: ../messages.py:274
+#: ../../i18n/messages.py:274
 msgctxt "QShortcut"
 msgid "Volume Down"
 msgstr "Snížit hlasitost"
 
-#: ../messages.py:275
+#: ../../i18n/messages.py:275
 msgctxt "QShortcut"
 msgid "Volume Mute"
 msgstr "Ztlumit"
 
-#: ../messages.py:276
+#: ../../i18n/messages.py:276
 msgctxt "QShortcut"
 msgid "Volume Up"
 msgstr "Zvýšit hlasitost"
 
-#: ../messages.py:277
+#: ../../i18n/messages.py:277
 msgctxt "QShortcut"
 msgid "Zoom"
 msgstr "Zvětšení"
 
-#: ../messages.py:278
+#: ../../i18n/messages.py:278
 msgctxt "QShortcut"
 msgid "Zoom In"
 msgstr "Přiblížit"
 
-#: ../messages.py:279
+#: ../../i18n/messages.py:279
 msgctxt "QShortcut"
 msgid "Zoom Out"
 msgstr "Oddálit"
 
-#: ../messages.py:281
+#: ../../i18n/messages.py:281
 msgctxt "QTabBar"
 msgid "Scroll Left"
 msgstr "Projíždět vlevo"
 
-#: ../messages.py:282
+#: ../../i18n/messages.py:282
 msgctxt "QTabBar"
 msgid "Scroll Right"
 msgstr "Projíždět vpravo"
 
-#: ../messages.py:284
+#: ../../i18n/messages.py:284
 msgctxt "QTextControl"
 msgid "&Undo"
 msgstr "&Zpět"
 
-#: ../messages.py:285
+#: ../../i18n/messages.py:285
 msgctxt "QTextControl"
 msgid "&Redo"
 msgstr "&Znovu"
 
-#: ../messages.py:286
+#: ../../i18n/messages.py:286
 msgctxt "QTextControl"
 msgid "Cu&t"
 msgstr "Vyjmou&t"
 
-#: ../messages.py:287
+#: ../../i18n/messages.py:287
 msgctxt "QTextControl"
 msgid "&Copy"
 msgstr "&Kopírovat"
 
-#: ../messages.py:288
+#: ../../i18n/messages.py:288
 msgctxt "QTextControl"
 msgid "&Paste"
 msgstr "&Vložit"
 
-#: ../messages.py:289
+#: ../../i18n/messages.py:289
 msgctxt "QTextControl"
 msgid "Delete"
 msgstr "Smazat"
 
-#: ../messages.py:290
+#: ../../i18n/messages.py:290
 msgctxt "QTextControl"
 msgid "Select All"
 msgstr "Vybrat vše"
 
-#: ../messages.py:292
+#: ../../i18n/messages.py:292
 msgctxt "QWhatsThisAction"
 msgid "What's This?"
 msgstr "Co je toto?"
