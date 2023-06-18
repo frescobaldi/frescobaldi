@@ -60,18 +60,20 @@ You will also need a few packages from your operating system:
 * [pipx](https://pypa.github.io/pipx), for the installation process,
 * Git, the version control software used for Frescobaldi's source code,
 * PyQt5, the library Frescobaldi uses for its graphical interface,
-* python-poppler-qt5, a module used for displaying PDF files.
+* python-poppler-qt5, a module used for displaying PDF files,
+* GNU Gettext, a suite of tools for working with translations, for generating
+  compiled MO catalogs.
 
 On Debian/Ubuntu, these packages can be installed using:
 
 ```
-sudo apt install pipx git python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebengine python3-poppler-qt5
+sudo apt install pipx git python3-pyqt5 python3-pyqt5.qtsvg python3-pyqt5.qtwebengine python3-poppler-qt5 gettext
 ```
 
 On Fedora:
 
 ```
-sudo dnf install pipx git python3-qt5-base python3-qt5-devel python3-qt5-webengine python3-poppler-qt5
+sudo dnf install pipx git python3-qt5-base python3-qt5-devel python3-qt5-webengine python3-poppler-qt5 gettext
 ```
 
 ### Getting the source code
