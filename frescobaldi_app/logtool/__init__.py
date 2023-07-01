@@ -35,7 +35,7 @@ import panel
 class LogTool(panel.Panel):
     """A dockwidget showing the log of running Jobs."""
     def __init__(self, mainwindow):
-        super(LogTool, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+L"))
         ac = self.actionCollection = Actions()

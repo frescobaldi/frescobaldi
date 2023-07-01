@@ -49,7 +49,7 @@ class Panel(QDockWidget):
         First call this super method as it calls the Qt constructor.
 
         """
-        super(Panel, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.setObjectName(self.__class__.__name__.lower())
         app.translateUI(self)
         app.languageChanged.connect(self._setToolTips)
@@ -62,11 +62,11 @@ class Panel(QDockWidget):
     def sizeHint(self):
         """Re-implemented to force creation of our widget."""
         self.widget()
-        return super(Panel, self).sizeHint()
+        return super().sizeHint()
 
     def widget(self):
         """Ensures that our widget() is created and returns it."""
-        w = super(Panel, self).widget()
+        w = super().widget()
         if not w:
             w = self.createWidget()
             self.setWidget(w)
@@ -74,7 +74,7 @@ class Panel(QDockWidget):
 
     def instantiated(self):
         """Return True if the tool already has been loaded."""
-        return bool(super(Panel, self).widget())
+        return bool(super().widget())
 
     def showEvent(self, ev):
         """Re-implemented to force creation of widget."""

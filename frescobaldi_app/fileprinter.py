@@ -79,7 +79,7 @@ def printCommand(cmd, printer, filename):
         command.append('-n')
         command.append(format(numCopies))
     else:
-        command.append('-#{0}'.format(numCopies))
+        command.append(f'-#{numCopies}')
 
     # job name
     if cmd == "lp":
@@ -90,14 +90,14 @@ def printCommand(cmd, printer, filename):
 
     # page range
     if printer.printRange() == QPrinter.PageRange:
-        pageRange = "{0}-{1}".format(printer.fromPage(), printer.toPage())
+        pageRange = f"{printer.fromPage()}-{printer.toPage()}"
         if cmd == "lp":
             command.append('-P')
             command.append(pageRange)
 
     for option, value in cups_options(printer).items():
         command.append('-o')
-        command.append("{0}={1}".format(option, value))
+        command.append(f"{option}={value}")
 
     command.append(filename)
     return command
@@ -122,7 +122,7 @@ def cups_options(p):
 
     # page ranges
     if p.printRange() == QPrinter.PageRange:
-        o['page-ranges'] = "{0}-{1}".format(p.fromPage(), p.toPage())
+        o['page-ranges'] = f"{p.fromPage()}-{p.toPage()}"
 
     # duplex mode
     if p.duplex() == QPrinter.DuplexLongSide:

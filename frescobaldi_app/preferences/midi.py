@@ -38,7 +38,7 @@ import listmodel
 
 class MidiPrefs(preferences.GroupsPage):
     def __init__(self, dialog):
-        super(MidiPrefs, self).__init__(dialog)
+        super().__init__(dialog)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -48,13 +48,13 @@ class MidiPrefs(preferences.GroupsPage):
         layout.addStretch(0)
 
     def saveSettings(self):
-        super(MidiPrefs, self).saveSettings()
+        super().saveSettings()
         midihub.settingsChanged()
 
 
 class MidiPorts(preferences.Group):
     def __init__(self, page):
-        super(MidiPorts, self).__init__(page)
+        super().__init__(page)
 
         self._portsMessage = QLabel(wordWrap=True)
         self._playerLabel = QLabel()
@@ -145,7 +145,7 @@ class MidiPorts(preferences.Group):
 
 class Prefs(preferences.Group):
     def __init__(self, page):
-        super(Prefs, self).__init__(page)
+        super().__init__(page)
 
         self._closeOutputs = QCheckBox(clicked=self.changed)
         self._pollingLabel = QLabel()

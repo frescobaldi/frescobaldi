@@ -214,7 +214,7 @@ class TablaturePart(_base.Part):
             if i == 0:
                 return
             elif i > len(self.tunings):
-                value = ly.dom.Text("\\stringTuning <{0}>".format(self.customTuning.text()))
+                value = ly.dom.Text(f"\\stringTuning <{self.customTuning.text()}>")
             else:
                 tuning = self.tunings[self.tuning.currentIndex() - 1][0]
                 value = ly.dom.Scheme(tuning)
@@ -282,25 +282,25 @@ class Banjo(TablaturePart):
     )
 
     def createTuningWidgets(self, layout):
-        super(Banjo, self).createTuningWidgets(layout)
+        super().createTuningWidgets(layout)
         self.fourStrings = QCheckBox()
         layout.addWidget(self.fourStrings)
 
     def translateTuningWidgets(self):
-        super(Banjo, self).translateTuningWidgets()
+        super().translateTuningWidgets()
         self.fourStrings.setText(_("Four strings (instead of five)"))
 
     def setTunings(self, tab):
         i = self.tuning.currentIndex()
         if i > len(self.tunings) or not self.fourStrings.isChecked():
-            super(Banjo, self).setTunings(tab)
+            super().setTunings(tab)
         else:
             tab.getWith()['stringTunings'] = ly.dom.Scheme(
-                '(four-string-banjo {0})'.format(
+                '(four-string-banjo {})'.format(
                     self.tunings[i][0]))
 
     def slotCustomTuningEnable(self, index):
-        super(Banjo, self).slotCustomTuningEnable(index)
+        super().slotCustomTuningEnable(index)
         self.fourStrings.setEnabled(index <= len(self.tunings))
 
 
@@ -327,7 +327,7 @@ class ClassicalGuitar(TablaturePart):
         ('guitar-asus4-tuning', lambda: _("Guitar A-sus4 tuning")),
     )
     def createWidgets(self, layout):
-        super(ClassicalGuitar, self).createWidgets(layout)
+        super().createWidgets(layout)
         self.voicesLabel = QLabel()
         self.voices = QSpinBox(minimum=1, maximum=4, value=1)
         box = QHBoxLayout()
@@ -336,7 +336,7 @@ class ClassicalGuitar(TablaturePart):
         layout.addLayout(box)
 
     def translateWidgets(self):
-        super(ClassicalGuitar, self).translateWidgets()
+        super().translateWidgets()
         self.voicesLabel.setText(_("Voices:"))
 
     def voiceCount(self):
@@ -442,7 +442,7 @@ class Harp(_base.PianoStaffPart):
     midiInstrument = 'orchestral harp'
 
     def translateWidgets(self):
-        super(Harp, self).translateWidgets()
+        super().translateWidgets()
         self.upperVoicesLabel.setText(_("Upper staff:"))
         self.lowerVoicesLabel.setText(_("Lower staff:"))
 

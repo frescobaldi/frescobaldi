@@ -155,7 +155,7 @@ class CachedProperty(cachedproperty.CachedProperty):
     __call__ = wait
 
 
-class LilyPondInfo(object):
+class LilyPondInfo:
     ly_tool_names = (
         'lilypond-book',
         'convert-ly',

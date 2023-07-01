@@ -50,7 +50,7 @@ from . import __path__
 def getJsScript(filename):
     """fetch the js file"""
     directory = __path__[0]
-    with open(os.path.join(directory, filename), 'r') as fileObject:
+    with open(os.path.join(directory, filename)) as fileObject:
         jsValue = fileObject.read()
     return jsValue
 
@@ -68,7 +68,7 @@ class View(QWebEngineView):
     defaulturl = QUrl.fromLocalFile(os.path.join(__path__[0], 'background.html'))
 
     def __init__(self, parent):
-        super(View, self).__init__(parent)
+        super().__init__(parent)
         self._highlightFormat = QTextCharFormat()
         self.jslink = JSLink(self)
         channel = QWebChannel(self)
@@ -229,7 +229,7 @@ class View(QWebEngineView):
 
     def setZoomFactor(self, value):
         changed = self.zoomFactor() != value
-        super(View, self).setZoomFactor(value)
+        super().setZoomFactor(value)
         if changed:
             self.zoomFactorChanged.emit(self.zoomFactor())
 
@@ -241,7 +241,7 @@ class JSLink(QObject):
 
     """
     def __init__(self, view):
-        super(JSLink, self).__init__()
+        super().__init__()
         self.view = view
 
     @pyqtSlot(str)

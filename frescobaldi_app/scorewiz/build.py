@@ -33,7 +33,7 @@ import lasptyqu
 from . import parts
 
 
-class PartNode(object):
+class PartNode:
     """Represents an item with sub-items in the parts tree.
 
     Sub-items of this items are are split out in two lists: the 'parts' and
@@ -59,7 +59,7 @@ class PartNode(object):
                 self.parts.append(node)
 
 
-class PartData(object):
+class PartData:
     r"""Represents what a Part wants to add to the LilyPond score.
 
     A Part may append to the following instance attributes (which are lists):
@@ -135,7 +135,7 @@ class PartData(object):
         return a
 
 
-class BlockData(object):
+class BlockData:
     """Represents the building blocks of a global section of a ly.dom.Document."""
     def __init__(self):
         self.assignments = ly.dom.Block()
@@ -143,7 +143,7 @@ class BlockData(object):
         self.backmatter = ly.dom.Block()
 
 
-class Builder(object):
+class Builder:
     """Builds the LilyPond score from all user input in the score wizard.
 
     Reads settings and other input from the dialog on construction.
@@ -394,9 +394,9 @@ class Builder(object):
         # language
         if self.pitchLanguage:
             if self.lyVersion >= (2, 13, 38):
-                ly.dom.Line('\\language "{0}"'.format(self.pitchLanguage), doc)
+                ly.dom.Line(f'\\language "{self.pitchLanguage}"', doc)
             else:
-                ly.dom.Include("{0}.ly".format(self.pitchLanguage), doc)
+                ly.dom.Include(f"{self.pitchLanguage}.ly", doc)
         ly.dom.BlankLine(doc)
 
         # other include files
@@ -419,7 +419,7 @@ class Builder(object):
         # paper size
         if self.paperSize:
             ly.dom.Scheme(
-                '(set-paper-size "{0}{1}"{2})'.format(
+                '(set-paper-size "{}{}"{})'.format(
                     self.paperSize,
                     "landscape" if self.paperLandscape else "",
                 " 'landscape" if self.paperRotated else ""),
@@ -539,8 +539,7 @@ def itergroups(group):
     """
     yield group
     for g in group.groups:
-        for i in itergroups(g):
-            yield i
+        yield from itergroups(g)
     yield None # end a group
 
 
@@ -559,8 +558,7 @@ def descendants(group):
                 new.extend(g.groups)
             children = new
     yield group
-    for g in _descendants(group):
-        yield g
+    yield from _descendants(group)
 
 
 def needsPrefix(globalGroup):

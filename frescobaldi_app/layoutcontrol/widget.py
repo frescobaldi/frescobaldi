@@ -40,7 +40,7 @@ class Widget(QWidget):
     optionsChanged = pyqtSignal()
 
     def __init__(self, tool):
-        super(Widget, self).__init__(tool)
+        super().__init__(tool)
 
         layout = QVBoxLayout(spacing=1)
         self.setLayout(layout)

@@ -39,7 +39,7 @@ from . import svgfiles
 
 class SvgView(QWidget):
     def __init__(self, dockwidget):
-        super(SvgView, self).__init__(dockwidget)
+        super().__init__(dockwidget)
 
         self._document = None
         self._setting_zoom = False

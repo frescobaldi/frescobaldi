@@ -40,7 +40,7 @@ import qsettings
 
 class Documentation(preferences.GroupsPage):
     def __init__(self, dialog):
-        super(Documentation, self).__init__(dialog)
+        super().__init__(dialog)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -52,7 +52,7 @@ class Documentation(preferences.GroupsPage):
 
 class Paths(preferences.Group):
     def __init__(self, page):
-        super(Paths, self).__init__(page)
+        super().__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -85,7 +85,7 @@ class Paths(preferences.Group):
 
 class Browser(preferences.Group):
     def __init__(self, page):
-        super(Browser, self).__init__(page)
+        super().__init__(page)
 
         layout = QGridLayout()
         self.setLayout(layout)

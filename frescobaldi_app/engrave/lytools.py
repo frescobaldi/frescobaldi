@@ -34,7 +34,7 @@ import widgets.dialog
 class Dialog(widgets.dialog.Dialog):
     """Dialog to run a certain LilyPond command and simply show the log."""
     def __init__(self, parent):
-        super(Dialog, self).__init__(
+        super().__init__(
             parent,
             buttons=('close',),
         )

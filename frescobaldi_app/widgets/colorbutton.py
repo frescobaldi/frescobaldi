@@ -38,7 +38,7 @@ class ColorButton(QPushButton):
     colorChanged = pyqtSignal(QColor)
 
     def __init__(self, parent=None):
-        super(ColorButton, self).__init__(parent)
+        super().__init__(parent)
 
         self.setFixedSize(self.sizeHint())
         self._color = QColor()

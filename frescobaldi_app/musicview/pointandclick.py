@@ -77,7 +77,7 @@ class Links(pointandclick.Links):
         t = textedit.link(link.url)
         if t:
             filename = util.normpath(t.filename)
-            return super(Links, self).cursor(filename, t.line, t.column, load)
+            return super().cursor(filename, t.line, t.column, load)
 
 
 positions = pointandclick.positions

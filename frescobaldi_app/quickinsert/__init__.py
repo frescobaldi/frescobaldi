@@ -34,7 +34,7 @@ import panel
 
 class QuickInsertPanel(panel.Panel):
     def __init__(self, mainwindow):
-        super(QuickInsertPanel, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+I"))
@@ -55,7 +55,7 @@ class QuickInsertActions(actioncollection.ShortcutCollection):
     """Manages keyboard shortcuts for the QuickInsert module."""
     name = "quickinsert"
     def __init__(self, panel):
-        super(QuickInsertActions, self).__init__(panel.mainwindow())
+        super().__init__(panel.mainwindow())
         self.panel = weakref.ref(panel)
 
     def createDefaultShortcuts(self):

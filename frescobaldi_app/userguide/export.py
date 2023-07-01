@@ -30,7 +30,7 @@ from . import page
 from . import util
 
 
-class Exporter(object):
+class Exporter:
     """Export userguide pages to other formats or destinations."""
     def __init__(self):
         self._pages = []
@@ -62,8 +62,8 @@ class Exporter(object):
         if '/' in url:
             return match.group()
         if url in self._pages:
-            return '<a href="#{0}">'.format(match.group(1))
-        return '<a href="{0}.html">'.format(match.group(1))
+            return f'<a href="#{match.group(1)}">'
+        return f'<a href="{match.group(1)}.html">'
 
 
 

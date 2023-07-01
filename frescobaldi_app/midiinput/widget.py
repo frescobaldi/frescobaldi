@@ -17,7 +17,7 @@ import midiinput
 
 class Widget(QWidget):
     def __init__(self, dockwidget):
-        super(Widget, self).__init__(dockwidget)
+        super().__init__(dockwidget)
         self._document = None
         self._midiin = midiinput.MidiIn(self)
         self._dockwidget = weakref.ref(dockwidget)

@@ -196,7 +196,7 @@ class Book(_base.Group):
         name = self.bookOutput.text().strip()
         if name:
             cmd = 'bookOutputName' if self.bookOutputFileName.isChecked() else 'bookOutputSuffix'
-            ly.dom.Line(r'\{0} "{1}"'.format(cmd, name.replace('"', r'\"')), book)
+            ly.dom.Line(r'\{} "{}"'.format(cmd, name.replace('"', r'\"')), book)
         return book
 
 

@@ -42,7 +42,7 @@ from . import spanners
 
 class QuickInsert(QWidget):
     def __init__(self, dockwidget):
-        super(QuickInsert, self).__init__(dockwidget)
+        super().__init__(dockwidget)
         self._dockwidget = weakref.ref(dockwidget)
         # filled in by ButtonGroup subclasses
         self.actionDict = {}

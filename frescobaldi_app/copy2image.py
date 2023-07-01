@@ -56,7 +56,7 @@ def copy_image(parent_widget, page, rect=None, filename=None):
 
 class Dialog(QDialog):
     def __init__(self, parent=None):
-        super(Dialog, self).__init__(parent)
+        super().__init__(parent)
         self._filename = None
         self._page = None
         self._rect = None

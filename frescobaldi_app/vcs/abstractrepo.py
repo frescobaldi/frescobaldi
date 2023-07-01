@@ -25,7 +25,7 @@ import sys
 import os
 from abc import ABCMeta, abstractmethod
 
-class AbstractVCSRepo(object):
+class AbstractVCSRepo:
     """
     Interface for classes managing VCS repositories.
     Currently we only support Git, but this level of

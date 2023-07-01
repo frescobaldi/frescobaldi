@@ -38,7 +38,7 @@ def backup(filename):
         try:
             shutil.copy(filename, backupName(filename))
             return True
-        except (IOError, OSError):
+        except OSError:
             pass
     return False
 
@@ -48,7 +48,7 @@ def removeBackup(filename):
     if filename and not QSettings().value("backup_keep", False, bool):
         try:
             os.remove(backupName(filename))
-        except (IOError, OSError):
+        except OSError:
             pass
 
 

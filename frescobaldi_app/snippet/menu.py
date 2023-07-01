@@ -45,7 +45,7 @@ import panelmanager
 
 class SnippetMenuBase(QMenu):
     def __init__(self, parent=None):
-        super(SnippetMenuBase, self).__init__(parent)
+        super().__init__(parent)
         self.aboutToShow.connect(self.repopulate)
         self.triggered.connect(self.slotTriggered)
         app.translateUI(self)
@@ -112,7 +112,7 @@ class SnippetMenuBase(QMenu):
 
 class SnippetMenu(SnippetMenuBase):
     def __init__(self, parent=None):
-        super(SnippetMenu, self).__init__(parent)
+        super().__init__(parent)
         self.addAction(self.tool().actionCollection.snippettool_activate)
 
     def translateUI(self):
@@ -137,7 +137,7 @@ class SnippetMenu(SnippetMenuBase):
 
 class TemplateMenu(SnippetMenuBase):
     def __init__(self, parent=None):
-        super(TemplateMenu, self).__init__(parent)
+        super().__init__(parent)
         import scorewiz
         sac = scorewiz.ScoreWizard.instance(
             app.activeWindow()
@@ -160,7 +160,7 @@ class TemplateMenu(SnippetMenuBase):
     def applySnippet(self, name):
         d = app.openUrl(QUrl())
         self.mainwindow().setCurrentDocument(d)
-        super(TemplateMenu, self).applySnippet(name)
+        super().applySnippet(name)
         d.setUndoRedoEnabled(False)
         d.setUndoRedoEnabled(True) # d.clearUndoRedoStacks() only in Qt >= 4.7
         d.setModified(False)
@@ -180,7 +180,7 @@ class TemplateMenu(SnippetMenuBase):
 
     def repopulate(self):
         """Inserts the score wizard action before the templates."""
-        super(TemplateMenu, self).repopulate()
+        super().repopulate()
         start = self.actions()[0]
         self.insertAction(start, self._scorewizAction)
         self.insertAction(start, self._scorewizFromCurrentAction)

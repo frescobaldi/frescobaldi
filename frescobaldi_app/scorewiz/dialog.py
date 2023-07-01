@@ -41,7 +41,7 @@ class ScoreWizardDialog(QDialog):
     pitchLanguageChanged = pyqtSignal(str)
 
     def __init__(self, mainwindow):
-        super(ScoreWizardDialog, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.addAction(mainwindow.actionCollection.help_whatsthis)
         self._pitchLanguage = None
         self.mainwindow = mainwindow
@@ -171,7 +171,7 @@ class Page(QWidget):
 
     """
     def __init__(self, dialog):
-        super(Page, self).__init__(dialog)
+        super().__init__(dialog)
         self._widget = None
 
     def title(self):
@@ -210,7 +210,7 @@ class Header(Page):
 
 class Parts(Page):
     def __init__(self, dialog):
-        super(Parts, self).__init__(dialog)
+        super().__init__(dialog)
         # Directory mapping assignment identifiers to the corresponding
         # Part class. For example: self._partTypes['jazzGuitar'] == JazzGuitar
         self._partTypes = {}
@@ -296,7 +296,7 @@ class Settings(Page):
                     sp.tempo.setText(item.text().plaintext())
             elif isinstance(item, ly.music.items.TimeSignature):
                 # Note item.fraction().numerator is always 1
-                fraction = "{0}/{1}".format(item.numerator(),
+                fraction = "{}/{}".format(item.numerator(),
                                             item.fraction().denominator)
                 sp.timeSignature.setCurrentText(fraction)
 

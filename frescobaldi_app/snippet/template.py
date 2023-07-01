@@ -37,7 +37,7 @@ from . import snippets
 class TemplateDialog(widgets.dialog.TextDialog):
     def __init__(self, parent):
         self._lineEdit = None
-        super(TemplateDialog, self).__init__(parent)
+        super().__init__(parent)
         self.setWindowTitle(app.caption(_("Save as Template")))
         self.setMessage(_("Please enter a template name:"))
         self.setMinimumWidth(320)
@@ -64,9 +64,9 @@ class TemplateDialog(widgets.dialog.TextDialog):
 
 def save(mainwindow):
 
-    titles = dict((snippets.title(name), name)
+    titles = {snippets.title(name): name
                   for name in model.model().names()
-                  if 'template' in snippets.get(name).variables)
+                  if 'template' in snippets.get(name).variables}
 
     # would it make sense to run LilyPond after creating a document from this
     # template?

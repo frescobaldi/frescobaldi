@@ -39,7 +39,7 @@ from . import widget
 
 class RestoreDialog(widgets.dialog.Dialog):
     def __init__(self, parent=None):
-        super(RestoreDialog, self).__init__(parent)
+        super().__init__(parent)
         self.messageLabel().setWordWrap(True)
         userguide.addButton(self.buttonBox(), "snippets")
         self.tree = QTreeWidget(headerHidden=True, rootIsDecorated=False)

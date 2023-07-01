@@ -35,7 +35,7 @@ import ly.document
 import lydocument
 
 
-class Links(object):
+class Links:
     """Stores point and click links grouped by filename."""
     def __init__(self):
         self._links = collections.defaultdict(lambda: collections.defaultdict(list))
@@ -124,7 +124,7 @@ class Links(object):
                 return b
 
 
-class BoundLinks(object):
+class BoundLinks:
     """Stores links as QTextCursors for a document."""
     def __init__(self, doc, links):
         """Creates QTextCursor instances for every link, keeps a reference to the document."""

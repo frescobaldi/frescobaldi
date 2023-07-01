@@ -81,7 +81,7 @@ class VocalPart(_base.Part):
         l = ly.dom.LyricMode()
         if verse:
             name = name + ly.util.int2text(verse)
-            ly.dom.Line('\\set stanza = "{0}."'.format(verse), l)
+            ly.dom.Line(f'\\set stanza = "{verse}."', l)
         a = data.assign(name)
         a.append(l)
         ly.dom.LineComment(_("Lyrics follow here."), l)
@@ -108,7 +108,7 @@ class VocalSoloPart(VocalPart, _base.SingleVoicePart):
     clef = None
 
     def build(self, data, builder):
-        super(VocalSoloPart, self).build(data, builder)
+        super().build(data, builder)
         stub = data.assignments[-1][0][-1]
         stub.insert(1, ly.dom.Line('\\dynamicUp')) # just after the \global
         staff = data.nodes[-1]
@@ -196,7 +196,7 @@ class LeadSheet(VocalPart, _base.ChordNames):
     def translateWidgets(self):
         VocalPart.translateWidgets(self)
         _base.ChordNames.translateWidgets(self)
-        self.label.setText('<i>{0}</i>'.format(_(
+        self.label.setText('<i>{}</i>'.format(_(
             "The Lead Sheet provides a staff with chord names above "
             "and lyrics below it. A second staff is optional.")))
         self.chords.setTitle(_("Chord names"))
@@ -313,7 +313,7 @@ class Choir(VocalPart):
         self.translateStanzaWidget()
         self.translateAmbitusWidget()
         self.lyrics.model().update()
-        self.label.setText('<p>{0} <i>({1})</i></p>'.format(
+        self.label.setText('<p>{} <i>({})</i></p>'.format(
             _("Please select the voices for the choir. "
               "Use the letters S, A, T, or B. A hyphen denotes a new staff."),
             _("Hint: For a double choir you can use two choir parts.")))
@@ -517,7 +517,7 @@ class Choir(VocalPart):
                     ambitusContext = (s if numVoices == 1 else v).getWith()
                     ly.dom.Line('\\consists "Ambitus_engraver"', ambitusContext)
                     if voiceNum > 1:
-                        ly.dom.Line("\\override Ambitus #'X-offset = #{0}".format(
+                        ly.dom.Line("\\override Ambitus #'X-offset = #{}".format(
                                  (voiceNum - 1) * 2.0), ambitusContext)
 
                 pianoReduction[voice].append(a.name)
@@ -620,12 +620,12 @@ class Choir(VocalPart):
                 book = ly.dom.Book()
 
                 # Append score to the aftermath (stuff put below the main score)
-                suffix = "choir{0}-{1}".format(data.num, name) if data.num else name
+                suffix = f"choir{data.num}-{name}" if data.num else name
                 if builder.lyVersion < (2, 12, 0):
                     data.afterblocks.append(
-                        ly.dom.Line('#(define output-suffix "{0}")'.format(suffix)))
+                        ly.dom.Line(f'#(define output-suffix "{suffix}")'))
                 else:
-                    ly.dom.Line('\\bookOutputSuffix "{0}"'.format(suffix), book)
+                    ly.dom.Line(f'\\bookOutputSuffix "{suffix}"', book)
                 data.afterblocks.append(book)
                 data.afterblocks.append(ly.dom.BlankLine())
                 score = ly.dom.Score(book)

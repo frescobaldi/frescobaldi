@@ -37,7 +37,7 @@ from . import snippets
 class Highlighter(QSyntaxHighlighter):
 
     def __init__(self, document):
-        super(Highlighter, self).__init__(document)
+        super().__init__(document)
         self.python = None
         self._fridge = slexer.Fridge()
         self.readSettings()
@@ -129,10 +129,10 @@ class Expansion(Escape):
 # Python types:
 
 class PyKeyword(Keyword):
-    rx = r"\b({0})\b".format('|'.join(keyword.kwlist))
+    rx = r"\b({})\b".format('|'.join(keyword.kwlist))
 
 class PyBuiltin(Function):
-    rx = r"\b({0})\b".format('|'.join(builtins.__dict__))
+    rx = r"\b({})\b".format('|'.join(builtins.__dict__))
 
 class PyStringStartDQ1(String):
     rx = '[uUbB]?"'

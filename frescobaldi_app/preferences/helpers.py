@@ -37,7 +37,7 @@ import widgets.urlrequester
 
 class Helpers(preferences.ScrolledGroupsPage):
     def __init__(self, dialog):
-        super(Helpers, self).__init__(dialog)
+        super().__init__(dialog)
 
         layout = QVBoxLayout()
         self.scrolledWidget.setLayout(layout)
@@ -47,7 +47,7 @@ class Helpers(preferences.ScrolledGroupsPage):
 
 class Apps(preferences.Group):
     def __init__(self, page):
-        super(Apps, self).__init__(page)
+        super().__init__(page)
 
         layout = QGridLayout(spacing=1)
         self.setLayout(layout)

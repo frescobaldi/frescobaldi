@@ -34,7 +34,7 @@ commands = []
 
 class NormalMode(handlerbase.Handler):
     def __init__(self, vimode):
-        super(NormalMode, self).__init__(vimode)
+        super().__init__(vimode)
         self._command = []
         self._count = 0
 

@@ -25,7 +25,7 @@ Base class for mode handlers.
 from . import NORMAL, VISUAL, INSERT, REPLACE
 
 
-class Handler(object):
+class Handler:
     def __init__(self, vimode):
         self.vimode = vimode
 

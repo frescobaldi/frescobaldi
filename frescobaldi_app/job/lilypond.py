@@ -96,7 +96,7 @@ class LilyPondJob(Job):
         input, self.includepath = docinfo.jobinfo(True)
         directory = os.path.dirname(input)
 
-        super(LilyPondJob, self).__init__(
+        super().__init__(
                 encoding='utf-8',
                 args=args,
                 input=input,
@@ -119,7 +119,7 @@ class LilyPondJob(Job):
         self.embed_source_code = s.value("embed_source_code", False, bool)
         if s.value("no_translation", False, bool):
             self.environment['LC_MESSAGES'] = 'C'
-        self.set_title("{0} {1} [{2}]".format(
+        self.set_title("{} {} [{}]".format(
             os.path.basename(self.lilypond_info.command),
             self.lilypond_info.versionString(), doc.documentName()))
 
@@ -188,7 +188,7 @@ class PreviewJob(LilyPondJob):
     """Represents a LilyPond Job in Preview mode."""
 
     def __init__(self, document, args=None, title=""):
-        super(PreviewJob, self).__init__(document, args, title)
+        super().__init__(document, args, title)
         self.set_d_option('point-and-click', True)
 
 
@@ -196,7 +196,7 @@ class PublishJob(LilyPondJob):
     """Represents a LilyPond Job in Publish mode."""
 
     def __init__(self, document, args=None, title=""):
-        super(PublishJob, self).__init__(document, args, title)
+        super().__init__(document, args, title)
         self.set_d_option('point-and-click', False)
 
 
@@ -204,7 +204,7 @@ class LayoutControlJob(LilyPondJob):
     """Represents a LilyPond Job in Layout Control mode."""
 
     def __init__(self, document, args=None, title=""):
-        super(LayoutControlJob, self).__init__(document, args, title)
+        super().__init__(document, args, title)
         # So far no further code is necessary
 
 
@@ -235,7 +235,7 @@ class VolatileTextJob(PublishJob):
             f.write(text.encode('utf-8'))
         url = QUrl(filename)
         url.setScheme('file')
-        super(VolatileTextJob, self).__init__(url, title=title)
+        super().__init__(url, title=title)
 
         if title:
             self.set_title(title)
@@ -288,7 +288,7 @@ class CachedPreviewJob(PublishJob):
             self._needs_compilation = True
         url = QUrl(filename)
         url.setScheme('file')
-        super(CachedPreviewJob, self).__init__(url, title=title)
+        super().__init__(url, title=title)
         self.done.connect(self.remove_intermediate)
 
         if title:
@@ -331,6 +331,6 @@ class CachedPreviewJob(PublishJob):
     def start(self):
         """Override the Job start, using cached PDF if possible."""
         if self.needs_compilation():
-            super(CachedPreviewJob, self).start()
+            super().start()
         else:
             self.done("cached")

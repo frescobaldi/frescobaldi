@@ -112,7 +112,7 @@ class Organ(KeyboardPart):
     )
 
     def createWidgets(self, layout):
-        super(Organ, self).createWidgets(layout)
+        super().createWidgets(layout)
         grid = layout.itemAt(layout.count() - 2).layout()
         self.pedalVoices = QSpinBox(minimum=0, maximum=4, value=1)
         self.pedalVoicesLabel = QLabel()
@@ -121,13 +121,13 @@ class Organ(KeyboardPart):
         grid.addWidget(self.pedalVoices)
 
     def translateWidgets(self):
-        super(Organ, self).translateWidgets()
+        super().translateWidgets()
         self.pedalVoicesLabel.setText(_("Pedal:"))
         self.pedalVoices.setToolTip(_(
             "Set to 0 to disable the pedal altogether."))
 
     def build(self, data, builder):
-        super(Organ, self).build(data, builder)
+        super().build(data, builder)
         if self.pedalVoices.value():
             data.nodes.append(self.buildStaff(data, builder,
                 'pedal', -1, self.pedalVoices.value(), clef="bass"))
@@ -191,13 +191,13 @@ class SynthPart(KeyboardPart):
     )
 
     def createWidgets(self, layout):
-        super(SynthPart, self).createWidgets(layout)
+        super().createWidgets(layout)
 
         self.upperVoices.setMinimum(0)
         self.lowerVoices.setMinimum(0)
 
     def translateWidgets(self):
-        super(SynthPart, self).translateWidgets()
+        super().translateWidgets()
         self.upperVoices.setToolTip(_(
             "Set to 0 to disable the right-hand part altogether."))
         self.lowerVoices.setToolTip(_(
@@ -231,7 +231,7 @@ class SynthLead(SynthPart):
         return _("abbreviation for Synth lead", "Syn.Ld.")
 
     def createWidgets(self, layout):
-        super(SynthLead, self).createWidgets(layout)
+        super().createWidgets(layout)
 
         # This is intended primarily for monophonic parts in treble clef,
         # so omit lower voices by default
@@ -282,7 +282,7 @@ class SynthBass(SynthPart):
         return _("abbreviation for Synth bass", "Syn.Bass")
 
     def createWidgets(self, layout):
-        super(SynthBass, self).createWidgets(layout)
+        super().createWidgets(layout)
 
         # This is intended primarily for monophonic parts in bass clef,
         # so omit upper voices by default

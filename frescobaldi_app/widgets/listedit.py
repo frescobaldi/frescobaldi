@@ -177,7 +177,7 @@ class FilePathEdit(ListEdit):
     A widget to edit a list of directories (e.g. a file path).
     """
     def __init__(self, *args, **kwargs):
-        super(FilePathEdit, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def fileDialog(self):
         """The QFileDialog this widget is using."""

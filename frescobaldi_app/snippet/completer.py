@@ -36,7 +36,7 @@ from . import snippets
 
 class Completer(widgets.completer.Completer):
     def __init__(self, textedit):
-        super(Completer, self).__init__()
+        super().__init__()
         self.setWidget(textedit)
         self.setParent(textedit) # otherwise PyQt5 loses us
         app.settingsChanged.connect(self.readSettings)
@@ -77,8 +77,8 @@ class Completer(widgets.completer.Completer):
         else:
             pattern = r'\\?[\w-]+'
         rx = re.compile(pattern)
-        words = set(m.group() for m in rx.finditer(text, start)
-                    if len(m.group()) > 4 and m.end() != pos)
+        words = {m.group() for m in rx.finditer(text, start)
+                    if len(m.group()) > 4 and m.end() != pos}
         if python:
             words.update(keyword.kwlist)
             words.update(('cursor', 'state', 'text'))

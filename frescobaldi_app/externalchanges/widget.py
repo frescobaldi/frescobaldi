@@ -52,7 +52,7 @@ def window():
 
 class ChangedDocumentsListDialog(widgets.dialog.Dialog):
     def __init__(self):
-        super(ChangedDocumentsListDialog, self).__init__(buttons=('close',))
+        super().__init__(buttons=('close',))
         self.setWindowModality(Qt.NonModal)
         self.setAttribute(Qt.WA_QuitOnClose, False)
 
@@ -234,7 +234,7 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         for d in documents:
             try:
                 d.load(keepUndo=True)
-            except IOError as e:
+            except OSError as e:
                 failures.append((d, e))
         if failures:
             msg = _("Could not reload:") + "\n\n" + "\n".join(
@@ -250,7 +250,7 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         for d in documents:
             try:
                 d.save()
-            except IOError as e:
+            except OSError as e:
                 failures.append((d, e))
         if failures:
             msg = _("Could not save:") + "\n\n" + "\n".join(
@@ -276,7 +276,7 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         try:
             with open(filename, 'rb') as f:
                 disktext = util.decode(f.read())
-        except (IOError, OSError):
+        except OSError:
             return
 
         currenttext = d.toPlainText()

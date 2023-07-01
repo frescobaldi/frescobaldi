@@ -60,7 +60,7 @@ class TextFontsWidget(QWidget):
     filter_re = ''
 
     def __init__(self, dialog):
-        super(TextFontsWidget, self).__init__(dialog)
+        super().__init__(dialog)
         available_fonts = dialog.available_fonts
         self.lilypond_info = available_fonts.lilypond_info
         self.fonts = available_fonts.text_fonts()
@@ -184,7 +184,7 @@ class TextFontsWidget(QWidget):
 class MiscFontsInfoWidget(QWidget):
     """Display miscellaneous info about Fontconfig context."""
     def __init__(self, available_fonts, parent=None):
-        super(MiscFontsInfoWidget, self).__init__(parent)
+        super().__init__(parent)
         self.tree_view = tv = QTreeView(self)
         tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
         tv.setHeaderHidden(True)
@@ -217,9 +217,7 @@ class FontFilterProxyModel(QSortFilterProxyModel):
             if index.data().lower() in _installed_notation_fonts:
                 return False
             else:
-                return super(
-                    FontFilterProxyModel, self
-                ).filterAcceptsRow(row, parent)
+                return super().filterAcceptsRow(row, parent)
 
 
 class FontTreeModel(QStandardItemModel):
@@ -228,7 +226,7 @@ class FontTreeModel(QStandardItemModel):
     until invalidated.
     Uses a custom filter mechanism to never filter child elements."""
     def __init__(self, parent=None):
-        super(FontTreeModel, self).__init__(parent)
+        super().__init__(parent)
         self._proxy = FontFilterProxyModel(self)
         self._proxy.setSourceModel(self)
 
@@ -303,7 +301,7 @@ class MiscTreeModel(QStandardItemModel):
     and only then appends them to the root. So they are optionally
     available independently."""
     def __init__(self, parent=None):
-        super(MiscTreeModel, self).__init__(parent)
+        super().__init__(parent)
         self.reset()
 
     def populate(self, config_files, config_dirs, font_dirs):
@@ -347,7 +345,7 @@ class TextFonts(QObject):
     loaded = signals.Signal()
 
     def __init__(self, lilypond_info):
-        super(TextFonts, self).__init__()
+        super().__init__()
         self.lilypond_info = lilypond_info
         self._tree_model = FontTreeModel(self)
         self._misc_model = MiscTreeModel(self)

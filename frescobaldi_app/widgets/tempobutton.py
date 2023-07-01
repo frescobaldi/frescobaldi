@@ -40,7 +40,7 @@ class TempoButton(QToolButton):
     tempo = pyqtSignal(int)
 
     def __init__(self, icon=None, parent=None):
-        super(TempoButton, self).__init__(parent)
+        super().__init__(parent)
         self.setIcon(icon or icons.get("media-record"))
         self.tapStart = 0.0
         self.tapTime = 0.0

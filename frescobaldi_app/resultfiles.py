@@ -110,7 +110,7 @@ class Results(plugin.DocumentPlugin):
             if newer:
                 try:
                     return util.newer_files(files, os.path.getmtime(jobfile))
-                except (OSError, IOError):
+                except OSError:
                     pass
             return list(files)
         return []
@@ -126,7 +126,7 @@ class Results(plugin.DocumentPlugin):
             files = util.files(self.basenames(), extension)
             try:
                 files = util.newer_files(files, self._start_time)
-            except (OSError, IOError):
+            except OSError:
                 pass
             return files
         else:
@@ -142,7 +142,7 @@ class Results(plugin.DocumentPlugin):
         if jobfile:
             try:
                 return os.path.getmtime(filename) > os.path.getmtime(jobfile)
-            except (OSError, IOError):
+            except OSError:
                 pass
         return True
 

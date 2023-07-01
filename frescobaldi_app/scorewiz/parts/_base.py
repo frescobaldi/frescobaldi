@@ -39,7 +39,7 @@ def translate(*args):
     return _(*args)
 
 
-class Base(object):
+class Base:
     """Base class for both Part and Container."""
     @staticmethod
     def title(_=translate):
@@ -64,7 +64,7 @@ class Base(object):
 
     def translateWidgets(self):
         """Should set the text in the widgets when the language changes."""
-        self.noSettingsLabel.setText('({0})'.format(_("No settings available.")))
+        self.noSettingsLabel.setText('({})'.format(_("No settings available.")))
 
     def accepts(self):
         """Should return a tuple of classes this part item accepts as child items."""
@@ -72,7 +72,7 @@ class Base(object):
 
     def build(self, data, builder):
         """Should populate the PartData (see build.py)."""
-        data.nodes.append(ly.dom.Comment("Part {0}".format(self.__class__.__name__)))
+        data.nodes.append(ly.dom.Comment(f"Part {self.__class__.__name__}"))
 
 
 class Part(Base):
@@ -148,7 +148,7 @@ class PianoStaffPart(Part):
         box.addWidget(self.midiInstrumentSelection)
 
     def translateWidgets(self):
-        self.label.setText('{0} <i>({1})</i>'.format(
+        self.label.setText('{} <i>({})</i>'.format(
             _("Adjust how many separate voices you want on each staff."),
             _("This is primarily useful when you write polyphonic music "
               "like a fugue.")))
@@ -199,7 +199,7 @@ class PianoStaffPart(Part):
         data.nodes.append(p)
 
 
-class ChordNames(object):
+class ChordNames:
     def createWidgets(self, layout):
         self.chordStyleLabel = QLabel()
         self.chordStyle = QComboBox()
@@ -230,7 +230,7 @@ class ChordNames(object):
         ly.dom.Identifier(data.globalName, s).after = 1
         i = self.chordStyle.currentIndex()
         if i > 0:
-            ly.dom.Line('\\{0}Chords'.format(
+            ly.dom.Line('\\{}Chords'.format(
                 ('german', 'semiGerman', 'italian', 'french')[i-1]), s)
         ly.dom.LineComment(_("Chords follow here."), s)
         ly.dom.BlankLine(s)

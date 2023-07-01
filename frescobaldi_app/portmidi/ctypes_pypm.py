@@ -66,7 +66,7 @@ GetErrorText = libpm.Pm_GetErrorText
 Time = libpt.Pt_Time
 
 
-class Output(object):
+class Output:
     buffer_size = 1024
     def __init__(self, device_id, latency=0):
         self.device_id = device_id
@@ -130,7 +130,7 @@ class Output(object):
             pass
 
 
-class Input(object):
+class Input:
     def __init__(self, device_id, bufsize=1024):
         self.device_id = device_id
         self.buffer_size = bufsize
@@ -184,7 +184,7 @@ def _check_error(err_no):
         else:
             err_msg = libpm.Pm_GetErrorText(err_no)
         raise MidiException(
-            "PortMIDI-ctypes error [{0}]: {1}".format(err_no,
+            "PortMIDI-ctypes error [{}]: {}".format(err_no,
                                                       err_msg.decode('utf-8')))
 
 

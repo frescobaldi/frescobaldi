@@ -34,7 +34,7 @@ from .gitrepo import GitError
 
 class GitMenu(QMenu):
     def __init__(self, mainwindow):
-        super(GitMenu, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         # dummy action to work around a Qt bug on macOS
         # https://stackoverflow.com/questions/26004830/qt-change-application-qmenubar-contents-on-mac-os-x
         self.addAction(QAction(mainwindow))
@@ -110,7 +110,7 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
                 break
         else:
             self._accels[branch] = ''
-        name = name + " ({0})".format(vcs.app_repo.tracked_remote_label(branch))
+        name = name + f" ({vcs.app_repo.tracked_remote_label(branch)})"
         self._acts[branch].setText(name)
 
     def slotTriggered(self, action):
@@ -126,7 +126,7 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
             vcs.app_repo.checkout(new_branch)
             from widgets.restartmessage import suggest_restart
             suggest_restart(
-                _("Successful checkout of branch:") + "\n{}".format(new_branch))
+                _("Successful checkout of branch:") + f"\n{new_branch}")
         except GitError as giterror:
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Critical)

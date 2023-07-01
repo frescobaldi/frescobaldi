@@ -37,7 +37,7 @@ class Document(ly.music.items.Document):
             if resolved:
                 try:
                     d = fileinfo.music(resolved)
-                except IOError:
+                except OSError:
                     pass
                 else:
                     d.include_node = node

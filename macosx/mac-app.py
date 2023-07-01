@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# coding=utf-8
 
 """
 A setup file to build Frescobaldi.app with py2app.
@@ -37,8 +36,8 @@ try:
 except ImportError:
     dylib_name = None
 
-icon = '{0}/icons/{1}.icns'.format(macosx, appinfo.name)
-ipstrings = '{0}/app_resources/InfoPlist.strings'.format(macosx)
+icon = f'{macosx}/icons/{appinfo.name}.icns'
+ipstrings = f'{macosx}/app_resources/InfoPlist.strings'
 
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('-f', '--force', action = 'store_true', \
@@ -47,9 +46,9 @@ parser.add_argument('-v', '--version', \
   help = 'version string for the application bundle, \
   visible e.g. in \'Get Info\' and in \'Open with...\'', default = appinfo.version)
 parser.add_argument('-s', '--script', \
-  help = 'path of {0}\'s main script; you should use an absolute path, \
+  help = 'path of {}\'s main script; you should use an absolute path, \
   so that the application bundle can be moved to another \
-  directory'.format(appinfo.appname), default = '{0}/{1}_app/__main__.py'.format(root, appinfo.name))
+  directory'.format(appinfo.appname), default = f'{root}/{appinfo.name}_app/__main__.py')
 parser.add_argument('-a', '--standalone', action = 'store_true', \
   help = 'build a standalone application bundle \
   (WARNING: some manual steps are required after the execution of this script)')
@@ -68,7 +67,7 @@ If you really want to point the application bundle to \'{0}\',\n\
 use the \'-f\' or \'--force\' flag.'.format(args.script))
 
 if args.standalone and not (isinstance(args.portmidi, string_types) and os.path.isfile(args.portmidi)):
-    sys.exit('Error: \'{0}\' does not exist or is not a file.'.format(args.portmidi))
+    sys.exit(f'Error: \'{args.portmidi}\' does not exist or is not a file.')
 
 plist = dict(
     CFBundleName                  = appinfo.appname,
@@ -77,8 +76,8 @@ plist = dict(
     CFBundleVersion               = args.version,
     CFBundleExecutable            = appinfo.appname,
     CFBundleIdentifier            = 'org.{0}.{0}'.format(appinfo.name),
-    CFBundleIconFile              = '{0}.icns'.format(appinfo.name),
-    NSHumanReadableCopyright      = u'Copyright © 2008-2023 Wilbert Berendsen.',
+    CFBundleIconFile              = f'{appinfo.name}.icns',
+    NSHumanReadableCopyright      = 'Copyright © 2008-2023 Wilbert Berendsen.',
     CFBundleDocumentTypes         = [
         {
             'CFBundleTypeExtensions': ['ly', 'lyi', 'ily'],
@@ -145,7 +144,7 @@ if args.standalone:
     except OSError:
         patchlist = []
     for patchfile in patchlist:
-        with open('patch/{0}'.format(patchfile), 'r') as input:
+        with open(f'patch/{patchfile}') as input:
             Popen(["patch", "-d..", "-p0"], stdin=input)
 else:
     options.update({
@@ -161,17 +160,17 @@ setup(
     script_args = ['py2app']
 )
 
-app_resources = 'dist/{0}.app/Contents/Resources'.format(appinfo.appname)
-icon_dest = '{0}/{1}.icns'.format(app_resources, appinfo.name)
-print('copying file {0} -> {1}'.format(icon, icon_dest))
+app_resources = f'dist/{appinfo.appname}.app/Contents/Resources'
+icon_dest = f'{app_resources}/{appinfo.name}.icns'
+print(f'copying file {icon} -> {icon_dest}')
 shutil.copyfile(icon, icon_dest)
 os.chmod(icon_dest, 0o0644)
 locales = ['cs', 'de', 'en', 'es', 'fr', 'gl', 'it', 'nl', 'pl', 'pt', 'ru', 'tr', 'uk', 'zh_CN', 'zh_HK', 'zh_TW']
 for l in locales:
-    app_lproj = '{0}/{1}.lproj'.format(app_resources, l)
+    app_lproj = f'{app_resources}/{l}.lproj'
     os.mkdir(app_lproj, 0o0755)
-    ipstrings_dest = '{0}/InfoPlist.strings'.format(app_lproj)
-    print('copying file {0} -> {1}'.format(ipstrings, ipstrings_dest))
+    ipstrings_dest = f'{app_lproj}/InfoPlist.strings'
+    print(f'copying file {ipstrings} -> {ipstrings_dest}')
     shutil.copyfile(ipstrings, ipstrings_dest)
     os.chmod(ipstrings_dest, 0o0644)
 
@@ -179,5 +178,5 @@ if args.standalone:
     if patchlist:
         print('reversing patches:')
     for patchfile in patchlist:
-        with open('patch/{0}'.format(patchfile), 'r') as input:
+        with open(f'patch/{patchfile}') as input:
             Popen(["patch", "-R", "-d..", "-p0"], stdin=input)

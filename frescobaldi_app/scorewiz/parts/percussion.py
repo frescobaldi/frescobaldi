@@ -75,7 +75,7 @@ class Marimba(_base.PianoStaffPart):
     midiInstrument = 'marimba'
 
     def createWidgets(self, layout):
-        super(Marimba, self).createWidgets(layout)
+        super().createWidgets(layout)
         self.lowerVoices.setMinimum(0)
 
     def translateWidgets(self):
@@ -86,7 +86,7 @@ class Marimba(_base.PianoStaffPart):
 
     def build(self, data, builder):
         if self.lowerVoices.value():
-            super(Marimba, self).build(data, builder)
+            super().build(data, builder)
         else:
             data.nodes.append(self.buildStaff(data, builder, None, 1))
 
@@ -165,7 +165,7 @@ class Carillon(_base.PianoStaffPart):
     midiInstrument = 'tubular bells' # anyone knows better?
 
     def translateWidgets(self):
-        super(Carillon, self).translateWidgets()
+        super().translateWidgets()
         self.upperVoicesLabel.setText(_("Manual staff:"))
         self.lowerVoicesLabel.setText(_("Pedal staff:"))
 
@@ -244,7 +244,7 @@ class Drums(_base.Part):
             v = ('drums', 'timbales', 'congas', 'bongos', 'percussion')[i]
             p.getWith()['drumStyleTable'] = ly.dom.Scheme(v + '-style')
             v = (5, 2, 2, 2, 1)[i]
-            ly.dom.Line("\\override StaffSymbol #'line-count = #{0}".format(v), p.getWith())
+            ly.dom.Line(f"\\override StaffSymbol #'line-count = #{v}", p.getWith())
         if self.drumStems.isChecked():
             ly.dom.Line("\\override Stem #'stencil = ##f", p.getWith())
             ly.dom.Line("\\override Stem #'length = #3  % " + _("keep some distance."),

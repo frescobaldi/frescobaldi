@@ -82,7 +82,7 @@ def activate(func):
 class AbstractViewPanel(panel.Panel):
     """Abstract base class for several viewer panels"""
     def __init__(self, mainwindow):
-        super(AbstractViewPanel, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.hide()
         ac = self.actionCollection = self._createConcreteActions(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
@@ -219,14 +219,14 @@ class AbstractViewPanel(panel.Panel):
 
     def toggleSyncCursor(self):
         checked = self.actionCollection.viewer_sync_cursor.isChecked()
-        QSettings().setValue("{}/sync-cursor".format(self.viewerName()), checked)
+        QSettings().setValue(f"{self.viewerName()}/sync-cursor", checked)
 
     def slotShowToolbar(self):
         """Sets the visibility of the viewer's toolbar and saves it to
         the application settings."""
         checked = self.actionCollection.viewer_show_toolbar.isChecked()
         self.widget().toolbar().setVisible(checked)
-        QSettings().setValue("{}/show-toolbar".format(self.viewerName()), checked)
+        QSettings().setValue(f"{self.viewerName()}/show-toolbar", checked)
 
     def slotShowHelp(self):
         import userguide
@@ -247,7 +247,7 @@ class AbstractViewPanel(panel.Panel):
 
     def _openViewdocsCaption(self):
         """Returns the caption for the file open dialog."""
-        raise NotImplementedError('Method _openViewdocsCaption has to be implemented in {}'.format(self.viewerName()))
+        raise NotImplementedError(f'Method _openViewdocsCaption has to be implemented in {self.viewerName()}')
 
     def openViewdocs(self):
         """ Displays an open dialog to open music document(s). """
@@ -361,7 +361,7 @@ class ViewerActions(actioncollection.ActionCollection):
 class ComboBoxAction(QWidgetAction):
     """A widget action that opens a combobox widget popup when triggered."""
     def __init__(self, panel):
-        super(ComboBoxAction, self).__init__(panel)
+        super().__init__(panel)
         self.triggered.connect(self.showPopup)
 
     def _createWidget(self, parent):
@@ -412,7 +412,7 @@ class ViewdocChooserAction(ComboBoxAction):
     viewdocsMissing = pyqtSignal(list)
 
     def __init__(self, panel):
-        super(ViewdocChooserAction, self).__init__(panel)
+        super().__init__(panel)
         self._model = None
         self._viewdoc = None
         self._viewdocs = []
@@ -603,7 +603,7 @@ class ViewdocChooserAction(ComboBoxAction):
 
 class ViewdocChooser(QComboBox):
     def __init__(self, parent):
-        super(ViewdocChooser, self).__init__(parent)
+        super().__init__(parent)
         self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
         self.setEditable(False)
         self.setFocusPolicy(Qt.NoFocus)

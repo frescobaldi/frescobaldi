@@ -61,7 +61,7 @@ class Indenter(QObject):
         The textedit also becomes our parent.
 
         """
-        super(Indenter, self).__init__(textedit)
+        super().__init__(textedit)
         textedit.installEventFilter(self)
 
     def eventFilter(self, edit, ev):

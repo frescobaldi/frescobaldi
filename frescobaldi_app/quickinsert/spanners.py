@@ -42,7 +42,7 @@ from . import buttongroup
 class Spanners(tool.Tool):
     """Dynamics tool in the quick insert panel toolbox."""
     def __init__(self, panel):
-        super(Spanners, self).__init__(panel)
+        super().__init__(panel)
         self.removemenu = QToolButton(self,
             autoRaise=True,
             popupMode=QToolButton.InstantPopup,
@@ -154,7 +154,7 @@ class GlissandoGroup(buttongroup.ButtonGroup):
             c = QTextCursor(cursor.document())
             c.setPosition(item.end)
             if style:
-                text = "-\\tweak #'style #'{0} \\glissando".format(style)
+                text = f"-\\tweak #'style #'{style} \\glissando"
             else:
                 text = '\\glissando'
             c.insertText(text)

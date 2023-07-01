@@ -37,7 +37,7 @@ from . import scoreproperties
 
 class SettingsWidget(QWidget):
     def __init__(self, parent):
-        super(SettingsWidget, self).__init__(parent)
+        super().__init__(parent)
         grid = QGridLayout()
         self.setLayout(grid)
 
@@ -60,7 +60,7 @@ class SettingsWidget(QWidget):
 
 class ScoreProperties(QGroupBox, scoreproperties.ScoreProperties):
     def __init__(self, parent):
-        super(ScoreProperties, self).__init__(parent)
+        super().__init__(parent)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -94,7 +94,7 @@ class ScoreProperties(QGroupBox, scoreproperties.ScoreProperties):
 
 class GeneralPreferences(QGroupBox):
     def __init__(self, parent):
-        super(GeneralPreferences, self).__init__(parent)
+        super().__init__(parent)
 
         layout = QGridLayout()
         self.setLayout(layout)
@@ -214,7 +214,7 @@ class GeneralPreferences(QGroupBox):
 
 class InstrumentNames(QGroupBox):
     def __init__(self, parent):
-        super(InstrumentNames, self).__init__(parent, checkable=True, checked=True)
+        super().__init__(parent, checkable=True, checked=True)
 
         grid = QGridLayout()
         self.setLayout(grid)
@@ -304,7 +304,7 @@ class InstrumentNames(QGroupBox):
 
 class LilyPondPreferences(QGroupBox):
     def __init__(self, parent):
-        super(LilyPondPreferences, self).__init__(parent)
+        super().__init__(parent)
 
         grid = QGridLayout()
         self.setLayout(grid)

@@ -121,7 +121,7 @@ class Extension(QObject):
         The parent argument points to the global Extensions object."""
         assert issubclass(
             self._action_collection_class, actions.ExtensionActionCollection)
-        super(Extension, self).__init__(parent)
+        super().__init__(parent)
         self._name = name
         self._root_directory = os.path.join(
             parent.root_directory(), self._name)
@@ -363,7 +363,7 @@ class FailedModel(QStandardItemModel):
     """
 
     def __init__(self, extensions, data):
-        super(FailedModel, self).__init__()
+        super().__init__()
         self.setColumnCount(2)
         self.extensions = extensions
         # Store reference to parent item of failed extensions
@@ -434,7 +434,7 @@ class FailedModel(QStandardItemModel):
                 exc_info = exceptions[ext]
                 # store exception information in the first item
                 name_item.exception_info = exc_info
-                message = '{}: {}'.format(exc_info[0].__name__, exc_info[1])
+                message = f'{exc_info[0].__name__}: {exc_info[1]}'
                 details_item = QStandardItem(message)
                 details_item.setToolTip(extensions_tooltip)
                 exceptions_item.appendRow([name_item, details_item])
@@ -493,7 +493,7 @@ class FailedTree(QTreeView):
     _model = None
 
     def __init__(self, parent=None):
-        super(FailedTree, self).__init__(parent)
+        super().__init__(parent)
         #TODO: Set the height of the QTreeView to 4-6 rows
         #https://stackoverflow.com/questions/53591159/set-the-height-of-a-qtreeview-to-height-of-n-rows
         self.setSelectionBehavior(QAbstractItemView.SelectRows)
@@ -538,7 +538,7 @@ class Extensions(QObject):
     Accessed with app.extensions()"""
 
     def __init__(self, mainwindow):
-        super(Extensions, self).__init__()
+        super().__init__()
         self._mainwindow = mainwindow.objectName()
         # Resources are handled on the global Extensions level because
         # in a number of cases they are independent from an actually
@@ -661,14 +661,14 @@ class Extensions(QObject):
                     ext = dep[0]
                     if ext in result:
                         result.remove(ext)
-                    missing.append("{} => {}".format(ext, dep[1]))
+                    missing.append(f"{ext} => {dep[1]}")
             if inactive_dependencies:
                 inactive = self._failed_dependencies['inactive'] = []
                 for dep in inactive_dependencies:
                     ext = dep[0]
                     if ext in result:
                         result.remove(ext)
-                    inactive.append("{} => {}".format(ext, dep[1]))
+                    inactive.append(f"{ext} => {dep[1]}")
             if incoming:
                 # If there remain incoming edges we have a
                 # circular dependency (according to Kahn's algorithm)
@@ -704,7 +704,7 @@ class Extensions(QObject):
                 extension = module.Extension(self, ext)
                 end = perf_counter()
                 extension.set_load_time(
-                    "{:.2f} ms".format((end - start) * 1000))
+                    f"{(end - start) * 1000:.2f} ms")
                 self._extensions[ext] = extension
             except Exception as e:
                 self._failed_extensions[ext] = sys.exc_info()

@@ -111,11 +111,10 @@ def events_iter(d):
 def iter_events_dict(evs):
     """Iter over the (per-track) dictionary's events."""
     for k in sorted(evs):
-        for e in evs[k]:
-            yield e
+        yield from evs[k]
 
 
-class TempoMap(object):
+class TempoMap:
     """Converts midi time to real time in microseconds."""
     def __init__(self, d, division):
         """Initialize our tempo map based on events d and division."""
@@ -190,7 +189,7 @@ def beats(d, division):
         beat = beat % num + 1
 
 
-class Song(object):
+class Song:
     """A loaded MIDI file.
 
     The following instance attributes are set on init:

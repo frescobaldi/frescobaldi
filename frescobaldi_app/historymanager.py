@@ -35,7 +35,7 @@ import signals
 _setCurrentDocument = signals.Signal()  # Document
 
 
-class HistoryManager(object):
+class HistoryManager:
     """Keeps the history of document switches by the user.
 
     If a document is closed, the previously active document is set active.

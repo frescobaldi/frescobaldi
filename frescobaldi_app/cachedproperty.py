@@ -99,7 +99,7 @@ import weakref
 import signals
 
 
-class CachedProperty(object):
+class CachedProperty:
     """An advanced property that can compute and cache expensive operations.
 
     This can be used to e.g. run an external command and read its output.
@@ -151,7 +151,7 @@ class CachedProperty(object):
         return prop
 
     # instance part
-    class State(object):
+    class State:
         signal = signals.Signal()
         def __init__(self):
             self.value = None

@@ -33,7 +33,7 @@ import panel
 
 class ObjectEditor(panel.Panel):
     def __init__(self, mainwindow):
-        super(ObjectEditor, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+E"))
         mainwindow.addDockWidget(Qt.LeftDockWidgetArea, self)

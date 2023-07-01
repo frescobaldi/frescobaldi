@@ -47,7 +47,7 @@ class Extensions(preferences.ScrolledGroupsPage):
     """Extensions page for Preferences"""
 
     def __init__(self, dialog):
-        super(Extensions, self).__init__(dialog)
+        super().__init__(dialog)
 
         self._active = QSettings().value(
             'extension-settingss/active', True, bool)
@@ -70,7 +70,7 @@ class General(preferences.Group):
     """Application-wide settings for extensions."""
 
     def __init__(self, page):
-        super(General, self).__init__(page)
+        super().__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -127,7 +127,7 @@ class Installed(preferences.Group):
     """
 
     def __init__(self, page):
-        super(Installed, self).__init__(page)
+        super().__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -198,7 +198,7 @@ class Installed(preferences.Group):
             display_name = ext_infos.get(ext, ext) if ext_infos else ext.name()
             loaded_extension = extensions.get(ext)
             if loaded_extension:
-                display_name += ' ({})'.format(loaded_extension.load_time())
+                display_name += f' ({loaded_extension.load_time()})'
 
             name_item = QStandardItem(display_name)
             name_item.extension_name = ext
@@ -280,7 +280,7 @@ class Failed(preferences.Group):
     This is only instantiated if there *are* failed extensions."""
 
     def __init__(self, page):
-        super(Failed, self).__init__(page)
+        super().__init__(page)
         import extensions
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -298,7 +298,7 @@ class Config(preferences.Group):
     config widget this will show a dummy widget instead."""
 
     def __init__(self, page):
-        super(Config, self).__init__(page)
+        super().__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)

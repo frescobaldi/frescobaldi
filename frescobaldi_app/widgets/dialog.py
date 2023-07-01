@@ -104,7 +104,7 @@ class Dialog(QDialog):
         Other keyword arguments are passed to QDialog.
 
         """
-        super(Dialog, self).__init__(parent, **kwargs)
+        super().__init__(parent, **kwargs)
         self._icon = QIcon()
         self._separatorWidget = Separator()
         self._mainWidget = QWidget()
@@ -296,7 +296,7 @@ class Dialog(QDialog):
 class TextDialog(Dialog):
     """A dialog with text string input and validation."""
     def __init__(self, parent, *args, **kwargs):
-        super(TextDialog, self).__init__(parent, *args, **kwargs)
+        super().__init__(parent, *args, **kwargs)
         self._validateFunction = None
         self.setMainWidget(QLineEdit())
         self.lineEdit().setFocus()

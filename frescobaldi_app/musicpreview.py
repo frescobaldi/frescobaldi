@@ -51,7 +51,7 @@ class MusicPreviewWidget(QWidget):
         progressShowFinished=3000,
         showLog=True
     ):
-        super(MusicPreviewWidget, self).__init__(parent)
+        super().__init__(parent)
         self._lastbuildtime = 10.0
         self._running = None
         self._current = None
@@ -207,7 +207,7 @@ class MusicPreviewWidget(QWidget):
 
 class MusicPreviewDialog(QDialog):
     def __init__(self, parent=None):
-        super(MusicPreviewDialog, self).__init__(parent)
+        super().__init__(parent)
         layout = QVBoxLayout()
         self.setLayout(layout)
         self._widget = MusicPreviewWidget()

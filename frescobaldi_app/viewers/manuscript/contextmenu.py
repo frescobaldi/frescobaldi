@@ -29,7 +29,7 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
     name = 'manuscriptview'
 
     def __init__(self, panel):
-        super(ManuscriptViewerContextMenu, self).__init__(panel)
+        super().__init__(panel)
 
     # It turned out that our base class's context menu will form the
     # base for all future viewers' menus. So we actually do not need

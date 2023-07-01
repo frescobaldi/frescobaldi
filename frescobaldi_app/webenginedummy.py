@@ -32,7 +32,7 @@ import app
 
 class WebEngineDummy(QWidget):
     def __init__(self, dockwidget):
-        super(WebEngineDummy, self).__init__(dockwidget)
+        super().__init__(dockwidget)
         self._msg = QLabel(openExternalLinks = True)
         self._msg.setTextFormat(Qt.RichText)
         self._msg.setWordWrap(True)

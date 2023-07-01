@@ -35,7 +35,7 @@ import documentstructure
 
 class Widget(QTreeWidget):
     def __init__(self, tool):
-        super(Widget, self).__init__(tool,
+        super().__init__(tool,
             headerHidden=True)
         self._timer = QTimer(singleShot=True, timeout=self.updateView)
         tool.mainwindow().currentDocumentChanged.connect(self.slotCurrentDocumentChanged)
@@ -186,7 +186,7 @@ class Widget(QTreeWidget):
             if item:
                 self.showToolTip(item)
                 return True
-        return super(Widget, self).event(ev)
+        return super().event(ev)
 
     def showToolTip(self, item):
         """Called when a tool tip for the specified item needs to be shown."""

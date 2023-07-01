@@ -35,7 +35,7 @@ class BarLines(tool.Tool):
 
     """
     def __init__(self, panel):
-        super(BarLines, self).__init__(panel)
+        super().__init__(panel)
         self.layout().addWidget(BarlinesGroup(self))
         self.layout().addWidget(BreatheGroup(self))
         self.layout().addStretch(1)
@@ -98,7 +98,7 @@ class BarlinesGroup(buttongroup.ButtonGroup):
             glyph = glyphs[0] or glyphs[1]
         else:
             glyph = glyphs[1]
-        text = '\\bar "{0}"'.format(glyph)
+        text = f'\\bar "{glyph}"'
         self.insertText(text)
 
 
@@ -122,7 +122,7 @@ class BreatheGroup(buttongroup.ButtonGroup):
         else:
             glyph = name[8:].replace('_', '.')
             text = ("\\once \\override BreathingSign #'text = "
-                    '#(make-musicglyph-markup "scripts.{0}")\n'
+                    '#(make-musicglyph-markup "scripts.{}")\n'
                     "\\breathe").format(glyph)
             self.insertText(text, blankline=True)
 

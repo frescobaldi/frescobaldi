@@ -70,7 +70,7 @@ class AbstractDocument(QTextDocument):
 
         # currently, we do not support non-local files
         if not filename:
-            raise IOError("not a local file")
+            raise OSError("not a local file")
         with open(filename, 'rb') as f:
             data = f.read()
         text = util.decode(data, encoding)
@@ -104,7 +104,7 @@ class AbstractDocument(QTextDocument):
         """
         if url is None:
             url = QUrl()
-        super(AbstractDocument, self).__init__()
+        super().__init__()
         self.setDocumentLayout(QPlainTextDocumentLayout(self))
         self._encoding = encoding
         self._url = url # avoid urlChanged on init
@@ -164,7 +164,7 @@ class AbstractDocument(QTextDocument):
         filename = u.toLocalFile()
         # currently, we do not support non-local files
         if not filename:
-            raise IOError("not a local file")
+            raise OSError("not a local file")
         # keep the url if specified when we didn't have one, even if saving
         # would fail
         if self.url().isEmpty() and not url.isEmpty():
@@ -243,14 +243,14 @@ class EditorDocument(AbstractDocument):
 
     @classmethod
     def new_from_url(cls, url, encoding=None):
-        d = super(EditorDocument, cls).new_from_url(url, encoding)
+        d = super().new_from_url(url, encoding)
         if not url.isEmpty():
             d.loaded()
             app.documentLoaded(d)
         return d
 
     def __init__(self, url=None, encoding=None):
-        super(EditorDocument, self).__init__(url, encoding)
+        super().__init__(url, encoding)
         self.modificationChanged.connect(self.slotModificationChanged)
         app.documents.append(self)
         app.documentCreated(self)
@@ -264,7 +264,7 @@ class EditorDocument(AbstractDocument):
         app.documents.remove(self)
 
     def load(self, url=None, encoding=None, keepUndo=False):
-        super(EditorDocument, self).load(url, encoding, keepUndo)
+        super().load(url, encoding, keepUndo)
         self.loaded()
         app.documentLoaded(self)
 
@@ -276,7 +276,7 @@ class EditorDocument(AbstractDocument):
         app.documentSaved(self)
 
     def setUrl(self, url):
-        old = super(EditorDocument, self).setUrl(url)
+        old = super().setUrl(url)
         if url != old:
             self.urlChanged(url, old)
             app.documentUrlChanged(self, url, old)

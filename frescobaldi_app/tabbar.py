@@ -42,7 +42,7 @@ class TabBar(QTabBar):
     currentDocumentChanged = pyqtSignal(document.Document)
 
     def __init__(self, parent=None):
-        super(TabBar, self).__init__(parent)
+        super().__init__(parent)
 
         self.setFocusPolicy(Qt.NoFocus)
         self.setMovable(True)      # TODO: make configurable

@@ -44,7 +44,7 @@ from . import errors
 class LogWidget(log.Log):
     """A Log widget that tracks document changes in the MainWindow."""
     def __init__(self, logtool):
-        super(LogWidget, self).__init__(logtool)
+        super().__init__(logtool)
         self._rawView = True
         self._document = lambda: None
         self._errors = []
@@ -88,7 +88,7 @@ class LogWidget(log.Log):
         self._errors = []
         self._currentErrorIndex = -1
         self.setExtraSelections([])
-        super(LogWidget, self).clear()
+        super().clear()
 
     def writeMessage(self, message, type):
         """This writes both status and output messages to the log.
@@ -127,7 +127,7 @@ class LogWidget(log.Log):
                 self.cursor.insertText(msg, self.textFormat(type))
                 self._errors.append((pos, self.cursor.position(), url))
         else:
-            super(LogWidget, self).writeMessage(message, type)
+            super().writeMessage(message, type)
 
     def slotAnchorClicked(self, url):
         """Called when the user clicks a filename in the log."""

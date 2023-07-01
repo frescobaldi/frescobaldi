@@ -46,7 +46,7 @@ import sys
 __all__ = ["Signal", "SignalContext"]
 
 
-class Signal(object):
+class Signal:
     """A Signal can be emitted and receivers (slots) can be connected to it.
 
     An example:
@@ -252,7 +252,7 @@ class SignalContext(Signal):
                 raise # exc[0], exc[1], exc[2]
 
 
-class ListenerBase(object):
+class ListenerBase:
 
     removeargs = 0
 
@@ -297,7 +297,7 @@ class MethodListener(ListenerBase):
         except AttributeError:
             # c++ methods from PyQt5 object sometimes do not have the __func__ attribute
             func = getattr(meth.__self__.__class__, meth.__name__)
-        super(MethodListener, self).__init__(func, obj)
+        super().__init__(func, obj)
 
     def __eq__(self, other):
         return self.__class__ is other.__class__ and self.objid == other.objid and self.func is other.func

@@ -45,7 +45,7 @@ def model():
 class SnippetModel(QAbstractItemModel):
     """Presents the snippets as a Qt Model."""
     def __init__(self, parent = None):
-        super(SnippetModel, self).__init__(parent)
+        super().__init__(parent)
         self._names = []
         self.load()
         app.settingsChanged.connect(self.slotSettingsChanged)

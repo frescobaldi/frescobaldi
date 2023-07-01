@@ -78,7 +78,7 @@ class Menu(QMenu):
     """A QMenu that auto-translates its title by calling a lambda function."""
     def __init__(self, title_func, parent=None):
         """title_func should return the title for the menu when called."""
-        super(Menu, self).__init__(parent)
+        super().__init__(parent)
         self.setToolTipsVisible(True)
         self.title_func = title_func
         app.translateUI(self)

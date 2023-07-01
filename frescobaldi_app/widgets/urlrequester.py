@@ -52,7 +52,7 @@ class UrlRequester(QWidget):
         fileMode=QFileDialog.Directory,
         mustExist=False
     ):
-        super(UrlRequester, self).__init__(parent)
+        super().__init__(parent)
 
         self._fileDialog = None
         self._dialogTitle = None

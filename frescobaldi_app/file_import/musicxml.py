@@ -82,7 +82,7 @@ class Dialog(toly_dialog.ToLyDialog):
 
         self.impExtra = [self.langLabel, self.langCombo]
 
-        super(Dialog, self).__init__(
+        super().__init__(
             parent,
             imp_prgm="musicxml2ly",
             userg="musicxml_import")
@@ -106,10 +106,10 @@ class Dialog(toly_dialog.ToLyDialog):
 
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Run musicxml2ly"))
 
-        super(Dialog, self).translateUI()
+        super().translateUI()
 
     def configure_job(self):
-        super(Dialog, self).configure_job()
+        super().configure_job()
         j = self._job
         if self.useAbsCheck.isChecked():
             j.add_argument('-a')
@@ -132,7 +132,7 @@ class Dialog(toly_dialog.ToLyDialog):
         self.imp_default = [False, False, False, False, False, False]
         self.settings = QSettings()
         self.settings.beginGroup('musicxml_import')
-        super(Dialog, self).loadSettings()
+        super().loadSettings()
         lang = self.settings.value("language", "default", str)
         try:
             index = _langlist.index(lang)
@@ -144,6 +144,6 @@ class Dialog(toly_dialog.ToLyDialog):
         """Save users last settings."""
         self.settings = QSettings()
         self.settings.beginGroup('musicxml_import')
-        super(Dialog, self).saveSettings()
+        super().saveSettings()
         index = self.langCombo.currentIndex()
         self.settings.setValue('language', 'default' if index == 0 else _langlist[index-1])

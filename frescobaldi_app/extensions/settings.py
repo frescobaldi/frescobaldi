@@ -46,7 +46,7 @@ class ExtensionSettings(QObject):
     Settings are managed in a 'settings.conf' file in the extension directory.
     """
     def __init__(self, extension):
-        super(ExtensionSettings, self).__init__(extension)
+        super().__init__(extension)
         self._extension = extension
         self._defaults = extension._settings_config
         self._data = dict(self._defaults)

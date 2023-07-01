@@ -90,12 +90,12 @@ def findDicts():
     dicfiles = (f for p in directories()
                   for f in glob.glob(os.path.join(p, 'hyph_*.dic')) if os.access(f, os.R_OK))
 
-    return dict((os.path.basename(dic)[5:-4], dic) for dic in dicfiles)
+    return {os.path.basename(dic)[5:-4]: dic for dic in dicfiles}
 
 
 class HyphenDialog(QDialog):
     def __init__(self, mainwindow):
-        super(HyphenDialog, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.setWindowModality(Qt.WindowModal)
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -127,7 +127,7 @@ class HyphenDialog(QDialog):
                        for lang, dic in findDicts().items()]
         self._langs.sort()
         for name, lang, dic in self._langs:
-            self.listWidget.addItem("{0}  ({1})".format(name, lang))
+            self.listWidget.addItem(f"{name}  ({lang})")
 
         def select():
             lastused = settings().value("lastused", "", str)

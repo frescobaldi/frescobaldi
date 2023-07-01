@@ -30,7 +30,7 @@ import userguide.util
 class ManuscriptViewWidget(popplerwidget.AbstractPopplerWidget):
     def __init__(self, panel):
         """Widget holding a manuscript view."""
-        super(ManuscriptViewWidget, self).__init__(panel)
+        super().__init__(panel)
 
     def translateUI(self):
         self.setWhatsThis(_(

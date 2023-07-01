@@ -40,7 +40,7 @@ import icons
 
 class SvgViewPanel(panel.Panel):
     def __init__(self, mainwindow):
-        super(SvgViewPanel, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+G"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)

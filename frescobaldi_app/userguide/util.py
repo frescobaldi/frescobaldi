@@ -30,7 +30,7 @@ import simplemarkdown
 from .page import Page
 
 
-class Formatter(object):
+class Formatter:
     """Format a full userguide page HTML."""
     def html(self, name):
         """Return a full userguide page HTML."""
@@ -50,15 +50,15 @@ class Formatter(object):
                 p = pp[0]
                 links.append(p)
                 pp = cache.parents(p)
-            nav_up = '<p>{0} {1}</p>'.format(
+            nav_up = '<p>{} {}</p>'.format(
                 _("Up:"),
                 ' &#8594; '.join(map(self.format_link, reversed(links))))
         body = self.markexternal(page.body())
         nav_children, nav_next, nav_seealso = '', '', ''
         if children:
-            nav_children = '<p>{0}</p>\n<ul>{1}</ul>'.format(
+            nav_children = '<p>{}</p>\n<ul>{}</ul>'.format(
                 _("In this chapter:"),
-                '\n'.join('<li>{0}</li>'.format(self.format_link(c))
+                '\n'.join(f'<li>{self.format_link(c)}</li>'
                 for c in children))
         else:
             # add navigation to next page, or if last page, to next page in
@@ -73,7 +73,7 @@ class Formatter(object):
             for p in parents:
                 next_page = sibling(p, name)
                 if next_page:
-                    html.append('<div>{0} {1}</div>'.format(
+                    html.append('<div>{} {}</div>'.format(
                         _("Next:"), self.format_link(next_page)))
                 else:
                     pp = [(parent, p) for parent in cache.parents(p)]
@@ -81,13 +81,13 @@ class Formatter(object):
                         p1, p = pp.pop(0)
                         next_chapter = sibling(p1, p)
                         if next_chapter:
-                            html.append('<div>{0} {1}</div>'.format(
+                            html.append('<div>{} {}</div>'.format(
                                 _("Next Chapter:"), self.format_link(next_chapter)))
                         else:
                             pp.extend((parent, p1) for parent in cache.parents(p1))
             nav_next = '\n'.join(html)
         if page.seealso():
-            nav_seealso = "<p>{0} {1}</p>".format(
+            nav_seealso = "<p>{} {}</p>".format(
                 _("See also:"),
                 ', '.join(map(self.format_link, page.seealso())))
         return self._html_template().format(**locals())
@@ -112,7 +112,7 @@ class Formatter(object):
 def format_link(name):
     """Make a clickable link to the page."""
     title = simplemarkdown.html_escape(cache.title(name))
-    return '<a href="{0}">{1}</a>'.format(name, title)
+    return f'<a href="{name}">{title}</a>'
 
 def markexternal(text):
     """Marks http(s)/ftp(s) links as external with an arrow."""
@@ -143,7 +143,7 @@ body {{
 '''
 
 
-class Cache(object):
+class Cache:
     """Cache certain information about pages.
 
     Just one instance of this is created and put in the cache global.

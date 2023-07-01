@@ -29,7 +29,7 @@ import panel
 
 class DocumentList(panel.Panel):
     def __init__(self, mainwindow):
-        super(DocumentList, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+F"))
         mainwindow.addDockWidget(Qt.LeftDockWidgetArea, self)

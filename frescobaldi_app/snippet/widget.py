@@ -45,7 +45,7 @@ from . import highlight
 
 class Widget(QWidget):
     def __init__(self, panel):
-        super(Widget, self).__init__(panel)
+        super().__init__(panel)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -205,7 +205,7 @@ class Widget(QWidget):
         self.searchEntry.setToolTip(_(
             "Enter text to search in the snippets list.\n"
             "See \"What's This\" for more information."))
-        self.searchEntry.setWhatsThis(''.join(map("<p>{0}</p>\n".format, (
+        self.searchEntry.setWhatsThis(''.join(map("<p>{}</p>\n".format, (
             _("Enter text to search in the snippets list, and "
               "press Enter to apply the currently selected snippet."),
             _("If the search text fully matches the value of the '{name}' variable "
@@ -279,7 +279,7 @@ class Widget(QWidget):
 
     def slotDelete(self):
         """Called when the user wants to delete the selected rows."""
-        rows = sorted(set(i.row() for i in self.treeView.selectedIndexes()), reverse=True)
+        rows = sorted({i.row() for i in self.treeView.selectedIndexes()}, reverse=True)
         if rows:
             for row in rows:
                 name = self.treeView.model().names()[row]
@@ -296,7 +296,7 @@ class Widget(QWidget):
 
     def slotImport(self):
         """Called when the user activates the import action."""
-        filetypes = "{0} (*.xml);;{1} (*)".format(_("XML Files"), _("All Files"))
+        filetypes = "{} (*.xml);;{} (*)".format(_("XML Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import Snippets"))
         filename = None
         filename = QFileDialog.getOpenFileName(self, caption, filename, filetypes)[0]
@@ -313,7 +313,7 @@ class Widget(QWidget):
         names = self.treeView.model().names()
         names = [names[row] for row in selectedrows or allrows]
 
-        filetypes = "{0} (*.xml);;{1} (*)".format(_("XML Files"), _("All Files"))
+        filetypes = "{} (*.xml);;{} (*)".format(_("XML Files"), _("All Files"))
         n = len(names)
         caption = app.caption(_("dialog title",
             "Export {num} Snippet", "Export {num} Snippets", n).format(num=n))
@@ -322,7 +322,7 @@ class Widget(QWidget):
             from . import import_export
             try:
                 import_export.save(names, filename)
-            except (IOError, OSError) as e:
+            except OSError as e:
                 QMessageBox.critical(self, _("Error"), _(
                     "Can't write to destination:\n\n{url}\n\n{error}").format(
                     url=filename, error=e.strerror))
@@ -396,7 +396,7 @@ class Widget(QWidget):
 
 class SearchLineEdit(QLineEdit):
     def __init__(self, *args):
-        super(SearchLineEdit, self).__init__(*args, clearButtonEnabled=True)
+        super().__init__(*args, clearButtonEnabled=True)
 
     def event(self, ev):
         if ev.type() == QEvent.KeyPress and any(ev.matches(key) for key in (
@@ -406,6 +406,6 @@ class SearchLineEdit(QLineEdit):
             QKeySequence.MoveToPreviousPage, QKeySequence.SelectPreviousPage)):
             QApplication.sendEvent(self.parent().treeView, ev)
             return True
-        return super(SearchLineEdit, self).event(ev)
+        return super().event(ev)
 
 

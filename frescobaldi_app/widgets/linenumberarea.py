@@ -28,7 +28,7 @@ from PyQt5.QtWidgets import QApplication, QWidget
 
 class LineNumberArea(QWidget):
     def __init__(self, textedit=None):
-        super(LineNumberArea, self).__init__(textedit)
+        super().__init__(textedit)
         self._textedit = None
         self.setAutoFillBackground(True)
         self.setTextEdit(textedit)
@@ -95,7 +95,7 @@ class LineNumberArea(QWidget):
                 return QApplication.sendEvent(self._textedit.viewport(), new)
             elif ev.type() == QEvent.Wheel:
                 return QApplication.sendEvent(self._textedit.viewport(), ev)
-        return super(LineNumberArea, self).event(ev)
+        return super().event(ev)
 
 
 

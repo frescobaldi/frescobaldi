@@ -40,7 +40,7 @@ class ImageViewer(QScrollArea):
     actualSizeChanged = pyqtSignal(bool)
 
     def __init__(self, parent=None):
-        super(ImageViewer, self).__init__(parent, alignment=Qt.AlignCenter)
+        super().__init__(parent, alignment=Qt.AlignCenter)
         self._actualsize = True
         self._image = QImage()
         self.setBackgroundRole(QPalette.Dark)
@@ -99,7 +99,7 @@ class ImageViewer(QScrollArea):
 
 class ImageWidget(QWidget):
     def __init__(self, viewer):
-        super(ImageWidget, self).__init__()
+        super().__init__()
         self.viewer = viewer
         self.setBackgroundRole(QPalette.Dark)
         self.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)

@@ -29,7 +29,7 @@ import documentinfo
 from . import elements
 
 
-class MidiIn(object):
+class MidiIn:
     def __init__(self, widget):
         self._widget = weakref.ref(widget)
         self._portmidiinput = None

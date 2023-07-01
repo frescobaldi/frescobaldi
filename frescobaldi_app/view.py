@@ -57,9 +57,9 @@ class View(QPlainTextEdit):
     """
     def __init__(self, document):
         """Create the View for the given document."""
-        super(View, self).__init__()
+        super().__init__()
         # to enable mouseMoveEvent to display tooltip
-        super(View, self).setMouseTracking(True)
+        super().setMouseTracking(True)
         self.setDocument(document)
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setCursorWidth(2)
@@ -136,7 +136,7 @@ class View(QPlainTextEdit):
                     cursortools.strip_indent(cursor)
                     self.setTextCursor(cursor)
                 return True
-        return super(View, self).event(ev)
+        return super().event(ev)
 
     def keyPressEvent(self, ev):
         """Reimplemented to perform actions after a key has been pressed.
@@ -148,7 +148,7 @@ class View(QPlainTextEdit):
         - update the tooltip info when Ctrl is pressed
 
         """
-        super(View, self).keyPressEvent(ev)
+        super().keyPressEvent(ev)
         if ev.key() == Qt.Key_Control and self.include_target:
             self.viewport().setCursor(Qt.PointingHandCursor)
         if metainfo.info(self.document()).auto_indent:
@@ -163,7 +163,7 @@ class View(QPlainTextEdit):
 
     def focusOutEvent(self, ev):
         """Reimplemented to store the cursor position on focus out."""
-        super(View, self).focusOutEvent(ev)
+        super().focusOutEvent(ev)
         self.storeCursor()
 
     def dragEnterEvent(self, ev):
@@ -171,14 +171,14 @@ class View(QPlainTextEdit):
         if ev.mimeData().hasUrls():
             ev.accept()
         else:
-            super(View, self).dragEnterEvent(ev)
+            super().dragEnterEvent(ev)
 
     def dragMoveEvent(self, ev):
         """Reimplemented to avoid showing the cursor when dropping URLs."""
         if ev.mimeData().hasUrls():
             ev.accept()
         else:
-            super(View, self).dragMoveEvent(ev)
+            super().dragMoveEvent(ev)
 
     def dropEvent(self, ev):
         """Called when something is dropped.
@@ -189,11 +189,11 @@ class View(QPlainTextEdit):
         if ev.mimeData().hasUrls():
             self.window().dropEvent(ev)
         else:
-            super(View, self).dropEvent(ev)
+            super().dropEvent(ev)
 
     def paintEvent(self, ev):
         """Reimplemented to paint a cursor if we have no focus."""
-        super(View, self).paintEvent(ev)
+        super().paintEvent(ev)
         if not self.hasFocus():
             rect = self.cursorRect()
             if rect.intersects(ev.rect()):
@@ -291,7 +291,7 @@ class View(QPlainTextEdit):
             import definition
             if definition.goto_definition(self.window(), clicked):
                 return
-        super(View, self).mousePressEvent(ev)
+        super().mousePressEvent(ev)
 
     def invalidateCurrentBlock(self):
         """Make sure that tooltip info is recalculated after document changes"""
@@ -299,7 +299,7 @@ class View(QPlainTextEdit):
 
     def mouseMoveEvent(self, ev):
         """Track the mouse move to show the tooltip"""
-        super(View, self).mouseMoveEvent(ev)
+        super().mouseMoveEvent(ev)
         cursor_at_mouse = self.cursorForPosition(ev.pos())
         cur_block = cursor_at_mouse.block()
         # Only check tooltip when changing line/block or after invalidating

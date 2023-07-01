@@ -44,7 +44,7 @@ _lastaction = '' # last selected action name (saved during running but not on ex
 
 class Shortcuts(preferences.Page):
     def __init__(self, dialog):
-        super(Shortcuts, self).__init__(dialog)
+        super().__init__(dialog)
 
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
@@ -122,7 +122,7 @@ class Shortcuts(preferences.Page):
                 titlegroups.setdefault(collection.title(), []).append(a)
                 left.remove(a)
         for title in sorted(titlegroups):
-            item = QTreeWidgetItem(["{0}:".format(title)])
+            item = QTreeWidgetItem([f"{title}:"])
             for a in titlegroups[title]:
                 item.addChild(ShortcutItem(a, *allactions[a]))
             self.tree.addTopLevelItem(item)
@@ -155,12 +155,10 @@ class Shortcuts(preferences.Page):
             for i in range(item.childCount()):
                 c = item.child(i)
                 if c.childCount():
-                    for c1 in children(c):
-                        yield c1
+                    yield from children(c)
                 else:
                     yield c
-        for c in children(self.tree.invisibleRootItem()):
-            yield c
+        yield from children(self.tree.invisibleRootItem())
 
     def item(self, collection, name):
         for item in self.items():
@@ -206,7 +204,7 @@ class Shortcuts(preferences.Page):
         from . import import_export
         try:
             import_export.exportShortcut(self, self.scheme.currentScheme(), name, filename)
-        except (IOError, OSError) as e:
+        except OSError as e:
             QMessageBox.critical(self, _("Error"), _(
                 "Can't write to destination:\n\n{url}\n\n{error}").format(
                 url=filename, error=e.strerror))
@@ -329,7 +327,7 @@ class ShortcutItem(QTreeWidgetItem):
     def switchScheme(self, scheme):
         if scheme not in self._shortcuts:
             s = QSettings()
-            key = "shortcuts/{0}/{1}/{2}".format(scheme, self.collection.name, self.name)
+            key = f"shortcuts/{scheme}/{self.collection.name}/{self.name}"
             if s.contains(key):
                 try:
                     shortcuts = s.value(key, [], QKeySequence)
@@ -348,7 +346,7 @@ class ShortcutItem(QTreeWidgetItem):
         except KeyError:
             return
         s =QSettings()
-        key = "shortcuts/{0}/{1}/{2}".format(scheme, self.collection.name, self.name)
+        key = f"shortcuts/{scheme}/{self.collection.name}/{self.name}"
         if default:
             s.remove(key)
         else:

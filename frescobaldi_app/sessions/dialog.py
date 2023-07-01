@@ -41,7 +41,7 @@ import userguide
 
 class SessionManagerDialog(QDialog):
     def __init__(self, mainwindow):
-        super(SessionManagerDialog, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.setWindowModality(Qt.WindowModal)
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -90,7 +90,7 @@ class SessionManagerDialog(QDialog):
 
     def importSession(self):
         """Called when the user clicks Import."""
-        filetypes = '{0} (*.json);;{1} (*)'.format(_("JSON Files"), _("All Files"))
+        filetypes = '{} (*.json);;{} (*)'.format(_("JSON Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import session"))
         mainwindow = self.parent()
         directory = os.path.dirname(mainwindow.currentDocument().url().toLocalFile()) or app.basedir()
@@ -98,9 +98,9 @@ class SessionManagerDialog(QDialog):
         if not importfile:
             return # cancelled by user
         try:
-            with open(importfile, 'r') as f:
+            with open(importfile) as f:
                 self.sessions.importItem(json.load(f))
-        except IOError as e:
+        except OSError as e:
             msg = _("{message}\n\n{strerror} ({errno})").format(
                 message = _("Could not read from: {url}").format(url=importfile),
                 strerror = e.strerror,
@@ -111,7 +111,7 @@ class SessionManagerDialog(QDialog):
         """Called when the user clicks Export."""
         itemname, jsondict = self.sessions.exportItem()
         caption = app.caption(_("dialog title", "Export session"))
-        filetypes = '{0} (*.json);;{1} (*)'.format(_("JSON Files"), _("All Files"))
+        filetypes = '{} (*.json);;{} (*)'.format(_("JSON Files"), _("All Files"))
         mainwindow = self.parent()
         directory = os.path.dirname(mainwindow.currentDocument().url().toLocalFile()) or app.basedir()
         filename = os.path.join(directory, itemname + ".json")
@@ -121,7 +121,7 @@ class SessionManagerDialog(QDialog):
         try:
             with open(filename, 'w') as f:
                 json.dump(jsondict, f, indent=4)
-        except IOError as e:
+        except OSError as e:
             msg = _("{message}\n\n{strerror} ({errno})").format(
                 message = _("Could not write to: {url}").format(url=filename),
                 strerror = e.strerror,
@@ -153,7 +153,7 @@ class SessionList(widgets.listedit.ListEdit):
     def removeItem(self, item):
         """Reimplemented to delete the specified session."""
         sessions.deleteSession(item.text())
-        super(SessionList, self).removeItem(item)
+        super().removeItem(item)
 
     def openEditor(self, item):
         """Reimplemented to allow editing the specified session."""
@@ -201,7 +201,7 @@ class SessionList(widgets.listedit.ListEdit):
 
 class SessionEditor(QDialog):
     def __init__(self, parent=None):
-        super(SessionEditor, self).__init__(parent)
+        super().__init__(parent)
         self.setWindowModality(Qt.WindowModal)
 
         layout = QVBoxLayout()
@@ -358,7 +358,7 @@ class SessionEditor(QDialog):
 
     def done(self, result):
         if not result or self.validate():
-            super(SessionEditor, self).done(result)
+            super().done(result)
 
     def validate(self):
         """Checks if the input is acceptable.

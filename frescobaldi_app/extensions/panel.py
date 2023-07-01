@@ -41,7 +41,7 @@ class ExtensionPanel(panel.Panel):
                 "or add extensions.ExtensionMixin as a second base class."
             ).format(classname=widget_class.__name__))
         self._widget_class = widget_class
-        super(ExtensionPanel, self).__init__(extension.mainwindow())
+        super().__init__(extension.mainwindow())
         self.hide()
         self.mainwindow().addDockWidget(dock_area, self)
 
@@ -78,7 +78,7 @@ class ExtensionPanel(panel.Panel):
             ).format(name=extension.display_name() or extension.name())
             maintainers = info.get('maintainers', [])
             for m in maintainers:
-                info_text += "\n  - {}".format(m)
+                info_text += f"\n  - {m}"
             msg_box.setInformativeText(info_text)
             exc_info = sys.exc_info()
             msg_box.setDetailedText(

@@ -97,7 +97,7 @@ def ids(count=3):
     i = generate_id()
     yield i
     for c in range(1, count):
-        yield '{0}#{1}'.format(i, c)
+        yield f'{i}#{c}'
 
 
 def generate_id():

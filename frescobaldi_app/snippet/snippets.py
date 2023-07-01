@@ -205,7 +205,7 @@ def name(names):
 
     """
     while True:
-        u = "n{0:06.0f}".format(random.random()*1000000)
+        u = f"n{random.random()*1000000:06.0f}"
         if u not in names:
             break
     return u

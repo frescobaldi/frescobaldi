@@ -39,7 +39,7 @@ import widgets.urlrequester
 
 class Paths(preferences.GroupsPage):
     def __init__(self, dialog):
-        super(Paths, self).__init__(dialog)
+        super().__init__(dialog)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -51,7 +51,7 @@ class Paths(preferences.GroupsPage):
 
 class HyphenPaths(preferences.Group):
     def __init__(self, page):
-        super(HyphenPaths, self).__init__(page)
+        super().__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -85,7 +85,7 @@ class MusicFonts(preferences.Group):
     """Preferences regarding the handling of music/notation fonts."""
 
     def __init__(self, page):
-        super(MusicFonts, self).__init__(page)
+        super().__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)

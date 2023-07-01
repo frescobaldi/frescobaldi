@@ -120,7 +120,7 @@ def move_to_include_file(cursor, parent_widget=None):
         ext = ".ily"
         version = documentinfo.docinfo(doc).version_string()
         if version:
-            text = '\\version "{0}"\n\n{1}'.format(version, text)
+            text = f'\\version "{version}"\n\n{text}'
     docname = name + "-include" + ext
     dirname = os.path.dirname(doc.url().toLocalFile()) or app.basedir()
     filename = os.path.join(dirname, docname)
@@ -131,7 +131,7 @@ def move_to_include_file(cursor, parent_widget=None):
     try:
         with open(filename, "wb") as f:
             f.write(data)
-    except IOError as e:
+    except OSError as e:
         msg = _("{message}\n\n{strerror} ({errno})").format(
             message = _("Could not write to: {url}").format(url=filename),
             strerror = e.strerror,
@@ -139,7 +139,7 @@ def move_to_include_file(cursor, parent_widget=None):
         QMessageBox.critical(parent_widget, app.caption(_("Error")), msg)
         return
     filename = os.path.relpath(filename, dirname)
-    command = '\\include "{0}"\n'.format(filename)
+    command = f'\\include "{filename}"\n'
     cursor.insertText(command)
 
 

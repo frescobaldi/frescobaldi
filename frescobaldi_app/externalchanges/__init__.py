@@ -72,7 +72,7 @@ def changedDocuments():
                     with open(filename, 'rb') as diskfile:
                         if diskfile.read() == d.encodedText():
                             w.changed = False
-                except (OSError, IOError):
+                except OSError:
                     pass
     return [w.document() for w in documentwatcher.DocumentWatcher.instances()
               if w.changed]

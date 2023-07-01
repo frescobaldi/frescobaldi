@@ -28,7 +28,7 @@ import threading
 from . import song
 
 
-class Player(object):
+class Player:
     """The base class for a MIDI player.
 
     Use set_output() to set a MIDI output instance (see output.py).
@@ -355,7 +355,7 @@ class Player(object):
         self.stop_event()
 
 
-class Event(object):
+class Event:
     """Any event (MIDI, Time and/or Beat).
 
     Has three attributes that determine what the Player does:
@@ -378,7 +378,7 @@ class Event(object):
         if self.time:
             l.append('time')
         if self.beat:
-            l.append('beat({0}:{1})'.format(self.beat[0], self.beat[1]))
+            l.append(f'beat({self.beat[0]}:{self.beat[1]})')
         if self.midi:
             l.append('midi')
         if self.user:

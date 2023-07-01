@@ -58,7 +58,7 @@ LE_MAGIC = 0x950412de
 BE_MAGIC = 0xde120495
 
 
-class NullMoFile(object):
+class NullMoFile:
     """Empty "mo file", returning messages untranslated."""
     def gettext(self, message):
         return message
@@ -118,7 +118,7 @@ class MoFile(NullMoFile):
                     if f:
                         self._plural = f
                 # store as well
-                self._info = dict((k, v.decode(charset)) for k, v in info.items())
+                self._info = {k: v.decode(charset) for k, v in info.items()}
             else:
                 # decode
                 d = context_catalog.setdefault(context.decode(charset), {}) if context else catalog
@@ -206,7 +206,7 @@ def parse_mo(buf):
         version, msgcount, masteridx, transidx = unpack('>4I', buf[4:20])
         ii = '>II'
     else:
-        raise IOError(0, 'Invalid MO data')
+        raise OSError(0, 'Invalid MO data')
 
     buflen = len(buf)
 
@@ -220,7 +220,7 @@ def parse_mo(buf):
             msg = buf[moff:mend]
             tmsg = buf[toff:tend]
         else:
-            raise IOError(0, 'Corrupt MO data')
+            raise OSError(0, 'Corrupt MO data')
 
         yield msg, tmsg
 
@@ -321,7 +321,7 @@ def parse_plural_expr(text):
 
     py_expression = ' '.join(_expr())
     if py_expression:
-        code = "lambda n: int({0})".format(py_expression)
+        code = f"lambda n: int({py_expression})"
         compiled_code = compile(code, '<plural_expression>', 'eval')
         return eval(compiled_code, {}, {})
 

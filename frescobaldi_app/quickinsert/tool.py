@@ -32,7 +32,7 @@ class Tool(QWidget):
 
     """
     def __init__(self, panel):
-        super(Tool, self).__init__(panel)
+        super().__init__(panel)
         self._panel = weakref.ref(panel)
         layout = QVBoxLayout()
         self.setLayout(layout)

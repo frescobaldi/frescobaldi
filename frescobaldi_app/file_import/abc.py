@@ -48,7 +48,7 @@ class Dialog(toly_dialog.ToLyDialog):
 
         self.impExtra = []
 
-        super(Dialog, self).__init__(
+        super().__init__(
             parent,
             imp_prgm='abc2ly',
             userg='abc_import')
@@ -63,10 +63,10 @@ class Dialog(toly_dialog.ToLyDialog):
 
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Run abc2ly"))
 
-        super(Dialog, self).translateUI()
+        super().translateUI()
 
     def configure_job(self):
-        super(Dialog, self).configure_job()
+        super().configure_job()
         if self.nobeamCheck.isChecked():
             self._job.add_argument('-b')
 
@@ -75,10 +75,10 @@ class Dialog(toly_dialog.ToLyDialog):
         self.imp_default = [True]
         self.settings = QSettings()
         self.settings.beginGroup('abc_import')
-        super(Dialog, self).loadSettings()
+        super().loadSettings()
 
     def saveSettings(self):
         """Save users last settings."""
         self.settings = QSettings()
         self.settings.beginGroup('abc_import')
-        super(Dialog, self).saveSettings()
+        super().saveSettings()

@@ -50,7 +50,7 @@ class ButtonGroup(QGroupBox):
     """
 
     def __init__(self, tool):
-        super(ButtonGroup, self).__init__(tool)
+        super().__init__(tool)
         self._tool = weakref.ref(tool)
         grid = QGridLayout()
         grid.setSpacing(0)
@@ -126,7 +126,7 @@ class ButtonGroup(QGroupBox):
 
     def actionTriggered(self, name):
         """Called by default when a button is activated."""
-        print (("Action triggered: {0}").format(name)) # DEBUG
+        print (("Action triggered: {}").format(name)) # DEBUG
 
     def insertText(self, text, indent=True, blankline=False):
         """Insert text in the current document and focuses the document again.
@@ -153,7 +153,7 @@ class ButtonGroup(QGroupBox):
 
 class Button(QToolButton):
     def __init__(self, group, name, action):
-        super(Button, self).__init__(group)
+        super().__init__(group)
         self.setObjectName(name)
         self.setDefaultAction(action)
         self.setAutoRaise(True)
@@ -179,7 +179,7 @@ class Button(QToolButton):
                 text = _("{name} ({key})").format(name=text, key=key)
             QToolTip.showText(ev.globalPos(), text)
             return True
-        return super(Button, self).event(ev)
+        return super().event(ev)
 
     def contextMenuEvent(self, ev):
         m = QMenu(self)

@@ -26,7 +26,7 @@ import contextlib
 from . import event
 
 
-class Output(object):
+class Output:
     """Abstract base class for a MIDI output.
 
     Inherit to implement the actual writing to MIDI ports.

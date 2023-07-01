@@ -68,7 +68,7 @@ def convert(mainwindow):
 
 class Dialog(QDialog):
     def __init__(self, parent=None):
-        super(Dialog, self).__init__(parent)
+        super().__init__(parent)
 
         self._info = None
         self._text = ''
@@ -258,7 +258,7 @@ class Dialog(QDialog):
         orgname = doc.url().toLocalFile()
         filename = os.path.splitext(orgname)[0] + '['+tabdata.filename+']'+'.'+tabdata.ext
         caption = app.caption(_("dialog title", "Save File"))
-        filetypes = '{0} (*.txt);;{1} (*.htm);;{2} (*)'.format(_("Text Files"), _("HTML Files"), _("All Files"))
+        filetypes = '{} (*.txt);;{} (*.htm);;{} (*)'.format(_("Text Files"), _("HTML Files"), _("All Files"))
         filename = QFileDialog.getSaveFileName(self.mainwindow, caption, filename, filetypes)[0]
         if not filename:
             return False # cancelled

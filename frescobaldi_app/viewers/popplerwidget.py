@@ -65,7 +65,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
     def __init__(self, panel):
         """Creates the Poppler View for the panel."""
-        super(AbstractPopplerWidget, self).__init__(panel)
+        super().__init__(panel)
         self.actionCollection = panel.actionCollection
         self.createProtectedFields()
         self.createLayout()
@@ -264,7 +264,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             else:
                 l = textedit.link(link.url)
                 if l:
-                    text = "{0} ({1}:{2})".format(os.path.basename(l.filename), l.line, l.column)
+                    text = f"{os.path.basename(l.filename)} ({l.line}:{l.column})"
                 else:
                     text = link.url
         elif hasattr(link, "linkobj") and isinstance(link.linkobj, popplerqt5.Poppler.LinkGoto):
@@ -289,7 +289,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
                 ds.removeAllViewdocs(update = False)
                 self.clear()
                 viewdocs = []
-                files_key = "{}-documents".format(self.viewerName())
+                files_key = f"{self.viewerName()}-documents"
                 active_file = ""
                 for i in range(g.beginReadArray(files_key)):
                     g.setArrayIndex(i)
@@ -315,7 +315,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         g = sessions.currentSessionGroup()
         if g:
             # TODO: cleanup for multi-file documents later
-            files_key = "{}-documents".format(self.viewerName())
+            files_key = f"{self.viewerName()}-documents"
             docs = self.actionCollection.viewer_document_select.viewdocs()
             if docs:
                 current = self.currentViewdoc()

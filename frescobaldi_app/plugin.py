@@ -51,7 +51,7 @@ import weakref
 _instances = weakref.WeakKeyDictionary()
 
 
-class Plugin(object):
+class Plugin:
     """Base class for plugins.
 
     A Plugin is coupled to another object and is automatically garbage collected
@@ -93,7 +93,7 @@ class Plugin(object):
             return ()
 
 
-class Attributes(object):
+class Attributes:
     """Manages attributes.
 
     The attributes can be set simply as instance attributes.

@@ -35,7 +35,7 @@ class TimedProgressBar(QProgressBar):
         hidden=False,
         showFinished=3000
     ):
-        super(TimedProgressBar, self).__init__(parent, minimum=0, maximum=100)
+        super().__init__(parent, minimum=0, maximum=100)
         self._hideWhileIdle = hideWhileIdle
         self._hidden = hidden
         self._showFinished = showFinished

@@ -34,7 +34,7 @@ import documentmenu
 
 class DocumentContextMenu(QMenu):
     def __init__(self, mainwindow):
-        super(DocumentContextMenu, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self._doc = lambda: None
 
         self.createActions()
@@ -79,7 +79,7 @@ class DocumentContextMenu(QMenu):
 
     def exec_(self, document, pos):
         self._doc = weakref.ref(document)
-        super(DocumentContextMenu, self).exec_(pos)
+        super().exec_(pos)
 
     def menu_document(self):
         return documentmenu.DocumentMenu(self.mainwindow())

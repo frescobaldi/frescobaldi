@@ -38,7 +38,7 @@ class SchemeSelector(QWidget):
     changed = pyqtSignal()
 
     def __init__(self, parent=None):
-        super(SchemeSelector, self).__init__(parent)
+        super().__init__(parent)
         layout = QHBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
@@ -126,7 +126,7 @@ class SchemeSelector(QWidget):
         num, key = 1, 'user1'
         while key in self.schemes() or key in self._schemesToRemove:
             num += 1
-            key = 'user{0}'.format(num)
+            key = f'user{num}'
         self.insertSchemeItem(name, key)
         self.scheme.setCurrentIndex(self.scheme.findData(key))
         return key
@@ -162,7 +162,7 @@ class SchemeSelector(QWidget):
             self.changed.emit()
 
     def slotImport(self):
-        filetypes = "{0} (*.xml);;{1} (*)".format(_("XML Files"), _("All Files"))
+        filetypes = "{} (*.xml);;{} (*)".format(_("XML Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import color theme"))
         filename = QFileDialog.getOpenFileName(self, caption, QDir.homePath(), filetypes)[0]
         if filename:
@@ -170,7 +170,7 @@ class SchemeSelector(QWidget):
 
     def slotExport(self):
         name = self.scheme.currentText()
-        filetypes = "{0} (*.xml);;{1} (*)".format(_("XML Files"), _("All Files"))
+        filetypes = "{} (*.xml);;{} (*)".format(_("XML Files"), _("All Files"))
         caption = app.caption(_("dialog title",
             "Export {name}").format(name=name))
         path = os.path.join(QDir.homePath(), name+'.xml')
@@ -217,7 +217,7 @@ class SchemeSelector(QWidget):
         s.endGroup()
         if removePrefix:
             for scheme in self._schemesToRemove:
-                s.remove("{0}/{1}".format(removePrefix, scheme))
+                s.remove(f"{removePrefix}/{scheme}")
         # then save current
         scheme = self.currentScheme()
         s.setValue(currentKey, scheme)

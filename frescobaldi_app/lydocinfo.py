@@ -40,13 +40,13 @@ class DocInfo(ly.docinfo.DocInfo):
 
     def __init__(self, doc, variables):
         """Initialize with ly.document instance and variables dictionary."""
-        super(DocInfo, self).__init__(doc)
+        super().__init__(doc)
         self.variables = variables
 
     @ly.docinfo._cache
     def version_string(self):
         """Return the version, but also looks in the variables and comments."""
-        version = super(DocInfo, self).version_string()
+        version = super().version_string()
         if version:
             return version
         version = self.variables.get("version")

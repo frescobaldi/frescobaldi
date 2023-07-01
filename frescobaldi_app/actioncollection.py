@@ -52,7 +52,7 @@ from PyQt5.QtWidgets import QAction
 import app
 
 
-class ActionCollectionBase(object):
+class ActionCollectionBase:
     """Abstract base class. Can load and keep a list of QActions.
 
     You must subclass this class and provide a name for the actioncollection
@@ -104,7 +104,7 @@ class ActionCollectionBase(object):
         """Returns settings group to load/save shortcuts from or to."""
         s = QSettings()
         scheme = s.value("shortcut_scheme", "default", str)
-        s.beginGroup("shortcuts/{0}/{1}".format(scheme, self.name))
+        s.beginGroup(f"shortcuts/{scheme}/{self.name}")
         return s
 
     def load(self):
@@ -135,7 +135,7 @@ class ActionCollection(ActionCollectionBase):
         parent is an optional widget that is also the parent for the created actions.
 
         """
-        super(ActionCollection, self).__init__(parent)
+        super().__init__(parent)
         self.createActions(parent)
         self._actions = dict(i for i in self.__dict__.items() if not i[0].startswith('_'))
         self.storeDefaults()
@@ -241,7 +241,7 @@ class ShortcutCollection(ActionCollectionBase):
         shortcuts get triggered.
 
         """
-        super(ShortcutCollection, self).__init__(widget)
+        super().__init__(widget)
         self.createDefaultShortcuts()
         self.load()
         self.others.setdefault(self.name, []).append(weakref.ref(self))

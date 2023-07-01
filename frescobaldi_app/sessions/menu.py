@@ -33,7 +33,7 @@ from . import manager
 
 class SessionMenu(QMenu):
     def __init__(self, mainwindow):
-        super(SessionMenu, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         app.translateUI(self)
         mgr = manager.get(mainwindow)
         ac = mgr.actionCollection

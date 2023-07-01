@@ -63,7 +63,7 @@ def _network_manager():
 
 class LilyPondPrefs(preferences.ScrolledGroupsPage):
     def __init__(self, dialog):
-        super(LilyPondPrefs, self).__init__(dialog)
+        super().__init__(dialog)
 
         layout = QVBoxLayout()
         self.scrolledWidget.setLayout(layout)
@@ -75,7 +75,7 @@ class LilyPondPrefs(preferences.ScrolledGroupsPage):
 
 class Versions(preferences.Group):
     def __init__(self, page):
-        super(Versions, self).__init__(page)
+        super().__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -169,7 +169,7 @@ class InfoList(widgets.listedit.ListEdit):
         # it calls updateSelection().
         self.defaultButton = QPushButton()
 
-        super(InfoList, self).__init__(group)
+        super().__init__(group)
 
         # The "Add" button is transformed into a menu.
         self.addMenu = AddMenu(self)
@@ -179,7 +179,7 @@ class InfoList(widgets.listedit.ListEdit):
         self.layout().addWidget(self.listBox, 0, 0, 5, 1)
 
     def translateUI(self):
-        super(InfoList, self).translateUI()
+        super().translateUI()
         self.defaultButton.setText(_("Set as &Default"))
 
     def updateSelection(self):
@@ -279,7 +279,7 @@ class InfoItem(QListWidgetItem):
     # overlaid behind the item.
 
     def __init__(self, state):
-        super(InfoItem, self).__init__()
+        super().__init__()
         self.state = state
 
     @classmethod
@@ -373,7 +373,7 @@ class InfoItem(QListWidgetItem):
             text = self.state.info.prettyName()
             default = self.listWidget().parentWidget().parentWidget()._defaultCommand
             if self.state.info.command == default:
-                text += " [{0}]".format(_("default"))
+                text += " [{}]".format(_("default"))
 
         self.setIcon(icons.get(icon))
         self.setText(text)
@@ -463,7 +463,7 @@ class AddMenu(QMenu):
         self.otherMenu = self.addMenu(other_text)
         for version in versions:
             major, minor, micro = version
-            text = "{major}.{minor}.{micro}".format(major=major, minor=minor, micro=micro)
+            text = f"{major}.{minor}.{micro}"
             self.makeVersionAction(version, text, self.otherMenu)
 
         # Add the "Custom" action that we already had.
@@ -521,7 +521,7 @@ class AddMenu(QMenu):
 
 class InfoDialog(QDialog):
     def __init__(self, parent, info):
-        super(InfoDialog, self).__init__(parent)
+        super().__init__(parent)
         self.setWindowModality(Qt.WindowModal)
 
         layout = QVBoxLayout()
@@ -637,7 +637,7 @@ class InfoDialog(QDialog):
 
 class Running(preferences.Group):
     def __init__(self, page):
-        super(Running, self).__init__(page)
+        super().__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -697,7 +697,7 @@ class Running(preferences.Group):
 
 class Target(preferences.Group):
     def __init__(self, page):
-        super(Target, self).__init__(page)
+        super().__init__(page)
 
         layout = QGridLayout()
         self.setLayout(layout)

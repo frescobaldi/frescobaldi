@@ -47,7 +47,7 @@ class ExternalCommandDialog(widgets.dialog.Dialog):
 
     """
     def __init__(self, parent=None):
-        super(ExternalCommandDialog, self).__init__(parent)
+        super().__init__(parent)
         self.log = log.Log(self)
         self.setMainWidget(self.log)
         self.finished.connect(self._closed)

@@ -36,7 +36,7 @@ from . import parts
 
 class ScorePartsWidget(QSplitter):
     def __init__(self, parent):
-        super(ScorePartsWidget, self).__init__(parent)
+        super().__init__(parent)
 
         self.typesLabel = QLabel()
         self.typesView = QTreeView(
@@ -95,7 +95,7 @@ class ScorePartsWidget(QSplitter):
         self.downButton.clicked.connect(self.scoreView.moveSelectedChildrenDown)
 
     def translateUI(self):
-        bold = "<b>{0}</b>".format
+        bold = "<b>{}</b>".format
         self.typesLabel.setText(bold(_("Available parts:")))
         self.scoreLabel.setText(bold(_("Score:")))
         self.addButton.setText(_("&Add"))
@@ -153,7 +153,7 @@ class PartItem(widgets.treewidget.TreeWidgetItem):
         box: the QGroupBox that is created for this item in the stacked widget.
 
         """
-        super(PartItem, self).__init__(tree)
+        super().__init__(tree)
         self.part = part()
         self.box = box
         layout = QVBoxLayout()
