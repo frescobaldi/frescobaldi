@@ -28,10 +28,11 @@ system.
 import locale
 
 from PyQt5.QtCore import QLocale, QSettings, QTimer
+from PyQt5.QtWidgets import QMessageBox
 
 import app
 
-from . import install, available
+from . import install, available, UnknownLanguageError
 
 __all__ = ['preferred', 'current', 'default']
 
@@ -88,11 +89,25 @@ def current():
 def _setup():
     """Set application language according to settings."""
     global _currentlanguage
-    language = current()
-    if _currentlanguage is not None and language != _currentlanguage:
-        QTimer.singleShot(0, app.languageChanged)
-    _currentlanguage = language
-    install(language)
+    new_language = current()
+    try:
+        install(new_language)
+    except UnknownLanguageError:
+        import language_names
+        lang_name = language_names.languageName(new_language, "en")
+        msg = """\
+Frescobaldi was configured to display its interface in {language}, but the \
+translation is not available. Frescobaldi will continue in English. This probably \
+means you installed Frescobaldi from source and are missing the MO catalogs; \
+please generate them using: \
+<code>tox -e mo-generate</code>""".format(language=lang_name)
+        QMessageBox.critical(None, app.caption("Error"), msg)
+        new_language = "C"
+        install(new_language)
+    if _currentlanguage is not None and new_language != _currentlanguage:
+            QTimer.singleShot(0, app.languageChanged)
+    _currentlanguage = new_language
+
 
 @app.oninit
 def _start_up():

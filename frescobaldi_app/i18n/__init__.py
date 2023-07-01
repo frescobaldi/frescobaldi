@@ -27,8 +27,16 @@ from pathlib import Path
 
 modir = __path__[0]
 
+class UnknownLanguageError(Exception):
+    """Raised when calling translator() on an unknown language."""
+    pass
+
 def available():
-    """Returns a list of language shortnames for which a MO file is available."""
+    """Returns a list of language shortnames for which a MO file is available.
+
+    Note that this is not the full list of available languages; there
+    are also English ("en") and the special language "C".
+    """
     return [str(path.parent.stem) for path in Path(modir).rglob("LC_MESSAGES")]
 
 def translator(language):
@@ -50,10 +58,11 @@ def translator(language):
     """
     if language == "C" or language == "en" or language.split('_')[0] == "en":
         catalog = gettext.NullTranslations()
-    else:
-        assert language in available() or language.split('_')[0] in available()
+    elif language in available() or language.split('_')[0] in available():
         catalog = gettext.translation("frescobaldi", localedir=modir,
                                       languages=[language])
+    else:
+        raise UnknownLanguageError
     funcs = (None, catalog.gettext, catalog.pgettext, catalog.ngettext, catalog.npgettext)
     return lambda *args: funcs[len(args)](*args)
 
