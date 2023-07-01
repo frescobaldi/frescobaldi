@@ -48,6 +48,7 @@ import file_import
 import file_export
 import browseriface
 import fonts
+import lilypondversions
 
 
 # postpone translation
@@ -303,6 +304,10 @@ def menu_lilypond(mainwindow):
     m.addAction(ac.engrave_abort)
     m.addSeparator()
     m.addMenu(menu_lilypond_generated_files(mainwindow))
+    m.addSeparator()
+
+    ac = lilypondversions.LilyPondVersionManager.instance(mainwindow).actionCollection
+    m.addAction(ac.manage_lilypond_versions)
     return m
 
 
