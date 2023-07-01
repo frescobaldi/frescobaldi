@@ -256,7 +256,8 @@ class AbstractViewPanel(panel.Panel):
         current_filename = current_viewer_doc.filename() if current_viewer_doc else None
         current_editor_document = self.mainwindow().currentDocument().url().toLocalFile()
         directory = os.path.dirname(current_filename or current_editor_document or app.basedir())
-        filenames = QFileDialog().getOpenFileNames(self, caption, directory, '*.pdf',)[0]
+        filetype = "{} (*.pdf)".format(_("PDF Files"))
+        filenames = QFileDialog().getOpenFileNames(self, caption, directory, filetype)[0]
         if filenames:
             # TODO: This has to be generalized too
             self.actionCollection.viewer_document_select.loadFiles(filenames)
@@ -614,5 +615,3 @@ class ViewdocChooser(QComboBox):
         self.setWhatsThis(_(
             "Choose the PDF document to display or drag the file "
             "to another application or location."))
-
-
