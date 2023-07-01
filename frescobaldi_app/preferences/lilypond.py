@@ -71,10 +71,7 @@ class Versions(preferences.Group):
         self.instances.changed.connect(self.changed)
         self.instances.defaultButton.clicked.connect(self.defaultButtonClicked)
         layout.addWidget(self.instances)
-        self.auto = QCheckBox(clicked=self.changed)
-        layout.addWidget(self.auto)
         app.translateUI(self)
-        userguide.openWhatsThis(self)
 
     def defaultButtonClicked(self):
         self._defaultCommand = self.instances.listBox.currentItem()._info.command
@@ -84,18 +81,11 @@ class Versions(preferences.Group):
 
     def translateUI(self):
         self.setTitle(_("LilyPond versions to use"))
-        self.auto.setText(_("Automatically choose LilyPond version from document"))
-        self.auto.setToolTip(_(
-            "If checked, the document's version determines the LilyPond version to use.\n"
-            "See \"What's This\" for more information."))
-        self.auto.setWhatsThis(userguide.html("prefs_lilypond_autoversion") +
-            _("See also {link}.").format(link=userguide.link("prefs_lilypond")))
 
     def loadSettings(self):
         s = settings()
         default = lilypondinfo.default()
         self._defaultCommand = s.value("default", default.command, str)
-        self.auto.setChecked(s.value("autoversion", False, bool))
         infos = sorted(lilypondinfo.infos(), key=lambda i: i.version())
         if not infos:
             infos = [default]
@@ -119,7 +109,6 @@ class Versions(preferences.Group):
             self._defaultCommand = infos[0].command
         s = settings()
         s.setValue("default", self._defaultCommand)
-        s.setValue("autoversion", self.auto.isChecked())
         lilypondinfo.setinfos(infos)
         lilypondinfo.saveinfos()
 
@@ -299,6 +288,7 @@ class Running(preferences.Group):
         layout = QVBoxLayout()
         self.setLayout(layout)
 
+        self.autoVersion = QCheckBox(clicked=self.changed)
         self.saveDocument = QCheckBox(clicked=self.changed)
         self.deleteFiles = QCheckBox(clicked=self.changed)
         self.embedSourceCode = QCheckBox(clicked=self.changed)
@@ -307,6 +297,7 @@ class Running(preferences.Group):
         self.include = widgets.listedit.FilePathEdit()
         self.include.listBox.setDragDropMode(QAbstractItemView.InternalMove)
         self.include.changed.connect(self.changed)
+        layout.addWidget(self.autoVersion)
         layout.addWidget(self.saveDocument)
         layout.addWidget(self.deleteFiles)
         layout.addWidget(self.embedSourceCode)
@@ -314,9 +305,16 @@ class Running(preferences.Group):
         layout.addWidget(self.includeLabel)
         layout.addWidget(self.include)
         app.translateUI(self)
+        userguide.openWhatsThis(self)
 
     def translateUI(self):
         self.setTitle(_("Running LilyPond"))
+        self.autoVersion.setText(_("Automatically choose LilyPond version from document"))
+        self.autoVersion.setToolTip(_(
+            "If checked, the document's version determines the LilyPond version to use.\n"
+            "See \"What's This\" for more information."))
+        self.autoVersion.setWhatsThis(userguide.html("prefs_lilypond_autoversion") +
+            _("See also {link}.").format(link=userguide.link("prefs_lilypond")))
         self.saveDocument.setText(_("Save document if possible"))
         self.saveDocument.setToolTip(_(
             "If checked, the document is saved when it is local and modified.\n"
@@ -336,6 +334,7 @@ class Running(preferences.Group):
 
     def loadSettings(self):
         s = settings()
+        self.autoVersion.setChecked(s.value("autoversion", False, bool))
         self.saveDocument.setChecked(s.value("save_on_run", False, bool))
         self.deleteFiles.setChecked(s.value("delete_intermediate_files", True, bool))
         self.embedSourceCode.setChecked(s.value("embed_source_code", False, bool))
@@ -345,6 +344,7 @@ class Running(preferences.Group):
 
     def saveSettings(self):
         s = settings()
+        s.setValue("autoversion", self.autoVersion.isChecked())
         s.setValue("save_on_run", self.saveDocument.isChecked())
         s.setValue("delete_intermediate_files", self.deleteFiles.isChecked())
         s.setValue("embed_source_code", self.embedSourceCode.isChecked())
