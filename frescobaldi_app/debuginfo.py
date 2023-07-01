@@ -64,7 +64,16 @@ def python_version():
 @_catch_unknown
 def operating_system():
     import platform
-    return platform.platform()
+    plat = platform.platform()
+    if platform.system() == "Linux":
+        try:
+            distro = platform.freedesktop_os_release()["PRETTY_NAME"]
+        except OSError:
+            # play it safe
+            distro = "unknown distribution"
+        return f"{plat} ({distro})"
+    else:
+        return plat
 
 @_catch_unknown
 def ly_version():
