@@ -40,7 +40,7 @@ from . import player
 
 class Widget(QWidget):
     def __init__(self, dockwidget):
-        super(Widget, self).__init__(dockwidget)
+        super().__init__(dockwidget)
         self._document = None
         self._fileSelector = QComboBox(editable=True, insertPolicy=QComboBox.NoInsert)
         gadgets.drag.ComboDrag(self._fileSelector).role = Qt.UserRole
@@ -183,7 +183,7 @@ class Widget(QWidget):
         # convert -50 to 50 to 0.5 to 2.0
         factor = 2 ** (value / 50.0)
         self._player.set_tempo_factor(factor)
-        self._display.setTempo("{0}%".format(int(factor * 100)))
+        self._display.setTempo(f"{int(factor * 100)}%")
 
     def slotTimeSliderChanged(self, value):
         self._player.seek(value)
@@ -251,7 +251,7 @@ class Widget(QWidget):
         self._display.reset()
         self._display.statusMessage(
             _("midi lcd screen", "LOADED"), name,
-            _("midi lcd screen", "TOTAL"), "{0}:{1:02}".format(m, s))
+            _("midi lcd screen", "TOTAL"), f"{m}:{s:02}")
 
     def slotFileSelected(self, index):
         if self._document:
@@ -319,7 +319,7 @@ class Display(QLabel):
     def updateDisplay(self):
         minutes, seconds = divmod(self._time // 1000, 60)
 
-        time_spec = "{0}:{1:02}".format(minutes, seconds)
+        time_spec = f"{minutes}:{seconds:02}"
         if self._status:
             items = self._status
             if len(items) == 1:
@@ -340,8 +340,8 @@ class Display(QLabel):
             ))
         else:
             measnum, beat, num, den = self._beat
-            beat_spec = "{0}.{1:2}".format(measnum, beat)
-            time_sig = "&nbsp;{0}/{1}".format(num, 2 ** den) if num else ""
+            beat_spec = f"{measnum}.{beat:2}"
+            time_sig = f"&nbsp;{num}/{2 ** den}" if num else ""
             self.setText(_lcd_text.format(
                 _("midi lcd screen", "TIME"),
                 _("midi lcd screen", "BEAT") + time_sig,

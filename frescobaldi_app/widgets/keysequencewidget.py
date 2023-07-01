@@ -41,7 +41,7 @@ class KeySequenceWidget(QWidget):
     keySequenceChanged = pyqtSignal(int)
 
     def __init__(self, parent=None, num=0):
-        super(KeySequenceWidget, self).__init__(parent)
+        super().__init__(parent)
         self._num = num
         layout = QHBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
@@ -89,7 +89,7 @@ class KeySequenceWidget(QWidget):
 class KeySequenceButton(QPushButton):
 
     def __init__(self, parent=None):
-        super(KeySequenceButton, self).__init__(parent)
+        super().__init__(parent)
         self.setIcon(icons.get("configure"))
         self._modifierlessAllowed = False
         self._seq = QKeySequence()
@@ -130,11 +130,11 @@ class KeySequenceButton(QPushButton):
             if ev.type() == QEvent.KeyPress:
                 self.keyPressEvent(ev)
                 return True
-        return super(KeySequenceButton, self).event(ev)
+        return super().event(ev)
 
     def keyPressEvent(self, ev):
         if not self._isrecording:
-            return super(KeySequenceButton, self).keyPressEvent(ev)
+            return super().keyPressEvent(ev)
         if ev.isAutoRepeat():
             return
         modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
@@ -176,7 +176,7 @@ class KeySequenceButton(QPushButton):
 
     def keyReleaseEvent(self, ev):
         if not self._isrecording:
-            return super(KeySequenceButton, self).keyReleaseEvent(ev)
+            return super().keyReleaseEvent(ev)
         modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
         ev.accept()
 
@@ -187,7 +187,7 @@ class KeySequenceButton(QPushButton):
     def hideEvent(self, ev):
         if self._isrecording:
             self.cancelRecording()
-        super(KeySequenceButton, self).hideEvent(ev)
+        super().hideEvent(ev)
 
     def controlTimer(self):
         if self._modifiers or self._recseq.isEmpty():

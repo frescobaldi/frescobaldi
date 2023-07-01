@@ -31,7 +31,7 @@ import icons
 
 class LilyChooser(QComboBox):
     def __init__(self, parent=None, toolcommand=None):
-        super(LilyChooser, self).__init__(parent)
+        super().__init__(parent)
         self._infos = []
         self._toolcommand = toolcommand
         app.translateUI(self)

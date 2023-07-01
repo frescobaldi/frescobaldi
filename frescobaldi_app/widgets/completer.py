@@ -42,13 +42,13 @@ class Completer(QCompleter):
     autoCompleteLength = 2
 
     def __init__(self, *args, **kwargs):
-        super(Completer, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.setCaseSensitivity(Qt.CaseInsensitive)
         self.activated[QModelIndex].connect(self.insertCompletion)
 
     def eventFilter(self, obj, ev):
         if ev.type() != QEvent.KeyPress:
-            return super(Completer, self).eventFilter(obj, ev)
+            return super().eventFilter(obj, ev)
         # we can't test for self.popup() as that will recursively call
         # eventFilter during instantiation.
         popupVisible = obj != self.widget()
@@ -123,7 +123,7 @@ class Completer(QCompleter):
                 Qt.Key_Shift, Qt.Key_Control, Qt.Key_Alt, Qt.Key_Meta):
                 # hide on anything except navigation keys
                 self.popup().hide()
-            return super(Completer, self).eventFilter(obj, ev)
+            return super().eventFilter(obj, ev)
         # a key was pressed while the popup is not visible
         if self.autoComplete and self.isTextEvent(ev, False):
             self.widget().event(ev)

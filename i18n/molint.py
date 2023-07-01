@@ -23,7 +23,7 @@ def fields(text):
     If the text contains erroneous formatting delimiters, ValueError is raised.
 
     """
-    return set(i[1] for i in _parse(text) if i[1] and i[1][0].isalpha())
+    return {i[1] for i in _parse(text) if i[1] and i[1][0].isalpha()}
 
 
 def molint(filename):
@@ -58,23 +58,23 @@ def molint(filename):
                 errors.append((t, "Erroneous format string"))
             else:
                 if superfluous:
-                    errors.append((t, "Field{0} {1} not in message".format(
+                    errors.append((t, "Field{} {} not in message".format(
                         's' if len(superfluous) > 1 else '',
-                        ', '.join('{{{0}}}'.format(name) for name in superfluous))))
+                        ', '.join(f'{{{name}}}' for name in superfluous))))
 
         # write out errors if any
         if errors:
             correct = False
             sys.stderr.write(
-                "\n{0}: Translation contains errors!\n"
-                "  Message{1}:\n".format(filename, '' if len(messages) == 1 else "s"))
+                "\n{}: Translation contains errors!\n"
+                "  Message{}:\n".format(filename, '' if len(messages) == 1 else "s"))
             for m in messages:
-                sys.stderr.write("    {0}\n".format(m))
+                sys.stderr.write(f"    {m}\n")
 
-            sys.stderr.write("  Offending translation{0}:\n".format('' if len(errors) == 1 else "s"))
+            sys.stderr.write("  Offending translation{}:\n".format('' if len(errors) == 1 else "s"))
 
             for t, errmsg in errors:
-                sys.stderr.write("    {0}:\n      {1}\n".format(errmsg, t))
+                sys.stderr.write(f"    {errmsg}:\n      {t}\n")
 
     return correct
 
@@ -96,6 +96,6 @@ if __name__ == '__main__':
             errorfiles.append(filename)
 
     if errorfiles:
-        sys.stderr.write("\nFiles containing errors: {0}\n".format(", ".join(errorfiles)))
+        sys.stderr.write("\nFiles containing errors: {}\n".format(", ".join(errorfiles)))
 
     sys.exit(1 if errorfiles else 0)

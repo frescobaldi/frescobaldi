@@ -43,7 +43,7 @@ def get(name):
     except KeyError:
         icon = _cache[name] = QIcon()
         # first try SVG
-        fname = 'icons:{0}.svg'.format(name)
+        fname = f'icons:{name}.svg'
         if QFile(fname).exists():
             icon.addFile(fname)
         else:

@@ -36,7 +36,7 @@ import panel
 
 class HelpBrowser(panel.Panel):
     def __init__(self, mainwindow):
-        super(HelpBrowser, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+D"))
         self.hide()
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
@@ -56,7 +56,7 @@ class HelpBrowser(panel.Panel):
         return browser.Browser(self)
 
     def activate(self):
-        super(HelpBrowser, self).activate()
+        super().activate()
         self.widget().webview.setFocus()
 
 

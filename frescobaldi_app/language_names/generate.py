@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 
 import codecs
@@ -93,9 +92,9 @@ def write_dict(langs):
 
         output.write("language_names = {\n")
         for key in keys:
-            output.write('{0}: {{\n'.format(makestring(key)))
+            output.write(f'{makestring(key)}: {{\n')
             for lang in sorted(langs[key]):
-                output.write(' {0}:{1},\n'.format(makestring(lang), makestring(langs[key][lang])))
+                output.write(f' {makestring(lang)}:{makestring(langs[key][lang])},\n')
             output.write('},\n')
         output.write("}\n\n# End of data.py\n")
 

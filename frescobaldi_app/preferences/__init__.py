@@ -60,7 +60,7 @@ class CancelClosingPreferences(Exception):
 class PreferencesDialog(QDialog):
 
     def __init__(self, mainwindow):
-        super(PreferencesDialog, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.setWindowModality(Qt.WindowModal)
         if mainwindow:
             self.addAction(mainwindow.actionCollection.help_whatsthis)
@@ -131,7 +131,7 @@ class PreferencesDialog(QDialog):
         # save our size and selected page
         global _prefsindex
         _prefsindex = self.pagelist.currentRow()
-        super(PreferencesDialog, self).done(result)
+        super().done(result)
 
     def pages(self):
         """Yields the settings pages that are already instantiated."""
@@ -170,7 +170,7 @@ class PreferencesDialog(QDialog):
 class PrefsItemBase(QListWidgetItem):
     help = "preferences"
     def __init__(self):
-        super(PrefsItemBase, self).__init__()
+        super().__init__()
         self._widget = None
         self.setIcon(icons.get(self.iconName))
         app.translateUI(self)
@@ -342,7 +342,7 @@ class ScrolledPage(Page):
 
     """
     def __init__(self, dialog):
-        super(ScrolledPage, self).__init__(dialog)
+        super().__init__(dialog)
         layout = QVBoxLayout(margin=0, spacing=0)
         self.setLayout(layout)
         scrollarea = QScrollArea(frameWidth=0, frameShape=QScrollArea.NoFrame)
@@ -359,7 +359,7 @@ class GroupsPage(Page):
 
     """
     def __init__(self, dialog):
-        super(GroupsPage, self).__init__(dialog)
+        super().__init__(dialog)
         self.groups = []
 
     def loadSettings(self):
@@ -390,7 +390,7 @@ class Group(QGroupBox):
     changed = pyqtSignal()
 
     def __init__(self, page):
-        super(Group, self).__init__()
+        super().__init__()
         self._page = page
         page.groups.append(self)
         self.changed.connect(page.changed)

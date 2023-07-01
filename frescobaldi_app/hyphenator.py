@@ -48,7 +48,7 @@ def replace_hex(text):
     return _hex_re.sub(_hex_repl, text)
 
 
-class ParsedAlternative(object):
+class ParsedAlternative:
     """Parse nonstandard hyphen pattern alternative.
 
     when called with an odd value, the instance returns an integer with data
@@ -92,7 +92,7 @@ class DataInt(int):
         return obj
 
 
-class HyphenationDictionary(object):
+class HyphenationDictionary:
     """Reads a hyph_*.dic file and stores the hyphenation patterns.
 
     Parameters:
@@ -178,7 +178,7 @@ class HyphenationDictionary(object):
         return positions
 
 
-class Hyphenator(object):
+class Hyphenator:
     """Reads a hyph_*.dic file and stores the hyphenation patterns.
 
     Provides methods to hyphenate strings in various ways.

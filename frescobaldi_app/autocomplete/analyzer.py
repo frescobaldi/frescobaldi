@@ -35,7 +35,7 @@ from . import completiondata
 from . import documentdata
 
 
-class Analyzer(object):
+class Analyzer:
     """Analyzes text at some cursor position and gives suitable completions."""
     def analyze(self, cursor):
         """Do the analyzing work; set the attributes column and model."""

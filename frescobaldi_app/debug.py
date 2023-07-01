@@ -21,7 +21,7 @@ import document
 
 def doc_repr(self):
     index = app.documents.index(self)
-    return '<Document #{0} "{1}">'.format(index, self.url().toString())
+    return f'<Document #{index} "{self.url().toString()}">'
 document.Document.__repr__ = doc_repr
 
 @app.documentCreated.connect

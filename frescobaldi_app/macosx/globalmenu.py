@@ -105,7 +105,7 @@ def menu_file_open_recent(parent):
     for url in recentfiles.urls():
         f = url.toLocalFile()
         dirname, basename = os.path.split(f)
-        text = "{0}  ({1})".format(basename, util.homify(dirname))
+        text = f"{basename}  ({util.homify(dirname)})"
         m.addAction(text).url = url
     qutil.addAccelerators(m.actions())
     return m

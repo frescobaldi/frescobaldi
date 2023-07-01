@@ -63,7 +63,7 @@ def documentation(cls):
 
 ANCHOR, CURSOR, SELECTION = constants = 1, 2, 3 # just some constants
 
-class Expander(object):
+class Expander:
     """Expands variables.
 
     The methods return text or other events (currently simply integer constants).

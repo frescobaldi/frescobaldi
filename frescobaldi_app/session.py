@@ -60,13 +60,13 @@ def saveSession(key):
     ## save the list of open documents
     settings.setValue('numdocuments', len(app.documents))
     for index, d in enumerate(app.documents):
-        settings.beginGroup("document{0}".format(index))
+        settings.beginGroup(f"document{index}")
         settings.setValue("url", d.url())
         settings.endGroup()
     ## save windows
     settings.setValue('numwindows', len(app.windows))
     for index, win in enumerate(app.windows):
-        settings.beginGroup("mainwindow{0}".format(index))
+        settings.beginGroup(f"mainwindow{index}")
         win.writeSessionSettings(settings)
         settings.setValue("active_document", win.currentDocument().url())
         settings.endGroup()
@@ -85,7 +85,7 @@ def restoreSession(key):
     numdocuments = settings.value('numdocuments', 0, int)
     doc = None
     for index in range(numdocuments):
-        settings.beginGroup("document{0}".format(index))
+        settings.beginGroup(f"document{index}")
         url = settings.value("url", QUrl(), QUrl)
         if url.isEmpty():
             import document
@@ -93,7 +93,7 @@ def restoreSession(key):
         else:
             try:
                 doc = app.openUrl(url)
-            except IOError:
+            except OSError:
                 pass
         settings.endGroup()
     # open at least one
@@ -103,7 +103,7 @@ def restoreSession(key):
     numwindows = settings.value('numwindows', 0, int)
     if numwindows > 0:
         for index in range(numwindows):
-            settings.beginGroup("mainwindow{0}".format(index))
+            settings.beginGroup(f"mainwindow{index}")
             win = mainwindow.MainWindow()
             win.readSessionSettings(settings)
             win.show()

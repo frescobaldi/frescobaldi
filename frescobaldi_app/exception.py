@@ -39,7 +39,7 @@ import bugreport
 class ExceptionDialog(QDialog):
     """Single-use dialog displaying a Python exception."""
     def __init__(self, exctype, excvalue, exctb):
-        super(ExceptionDialog, self).__init__()
+        super().__init__()
 
         # _tbshort is the exception line only (last line of the traceback)
         self._tbshort = ''.join(traceback.format_exception_only(exctype, excvalue))
@@ -105,7 +105,7 @@ class ExceptionDialog(QDialog):
     def done(self, result):
         if result:
             self.reportBug()
-        super(ExceptionDialog, self).done(result)
+        super().done(result)
 
     def reportBug(self):
         if self._ext_maintainer:
@@ -115,7 +115,7 @@ class ExceptionDialog(QDialog):
             rcpt = self._ext_maintainer[1]
             ext_intro = '\n{}\n\n'.format(
                 _("An error occurred in extension '{name}'").format(name=extension))
-            ext_header = ' [{}]'.format(self._ext_maintainer[0])
+            ext_header = f' [{self._ext_maintainer[0]}]'
             bugreport.email(
                 self._tbshort + ext_header,
                 ext_intro + self._tbfull + '\n'

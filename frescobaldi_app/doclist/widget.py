@@ -37,7 +37,7 @@ import engrave
 
 class Widget(QTreeWidget):
     def __init__(self, tool):
-        super(Widget, self).__init__(tool, headerHidden=True)
+        super().__init__(tool, headerHidden=True)
         self.setRootIsDecorated(False)
         self.setSelectionMode(QTreeWidget.ExtendedSelection)
         app.documentCreated.connect(self.addDocument)

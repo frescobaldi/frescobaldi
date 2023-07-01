@@ -103,7 +103,7 @@ class Model(QStringListModel):
 
     """
     def __init__(self, key):
-        super(Model, self).__init__()
+        super().__init__()
         self.key = key
         self._changed = False
         self.load()

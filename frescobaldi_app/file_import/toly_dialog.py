@@ -53,7 +53,7 @@ class ToLyDialog(QDialog):
                  imp_prgm='',
                  input=None,
                  userg=''):
-        super(ToLyDialog, self).__init__(parent)
+        super().__init__(parent)
         self._info = None
         self._imp_prgm = imp_prgm
         self._userg = userg
@@ -150,7 +150,7 @@ class ToLyDialog(QDialog):
         self._job = j = self._job_class(
             command=self._info.toolcommand(self._imp_prgm),
             input=self._input,
-            output='--output={}'.format(output),
+            output=f'--output={output}',
             directory=os.path.dirname(self._input),
             encoding='utf-8')
         j._output_file = output

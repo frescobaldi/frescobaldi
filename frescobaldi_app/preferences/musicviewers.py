@@ -41,7 +41,7 @@ import qpageview.cupsprinter
 
 class MusicViewers(preferences.ScrolledGroupsPage):
     def __init__(self, dialog):
-        super(MusicViewers, self).__init__(dialog)
+        super().__init__(dialog)
 
         layout = QVBoxLayout()
         self.scrolledWidget.setLayout(layout)
@@ -53,7 +53,7 @@ class MusicViewers(preferences.ScrolledGroupsPage):
 
 class MusicView(preferences.Group):
     def __init__(self, page):
-        super(MusicView, self).__init__(page)
+        super().__init__(page)
 
         layout = QGridLayout()
         self.setLayout(layout)
@@ -152,7 +152,7 @@ class MusicView(preferences.Group):
 
 class Printing(preferences.Group):
     def __init__(self, page):
-        super(Printing, self).__init__(page)
+        super().__init__(page)
 
         layout = QGridLayout()
         self.setLayout(layout)

@@ -143,7 +143,7 @@ def time():
     return pypm.Time()
 
 
-class Input(object):
+class Input:
     """Reads MIDI input from a device."""
     def __init__(self, device_id, buffer_size=4096):
         self._input = None
@@ -176,7 +176,7 @@ class Input(object):
             raise MidiException(pypm.GetErrorText(r).decode('utf-8'))
 
 
-class Output(object):
+class Output:
     """Writes MIDI output to a device."""
     def __init__(self, device_id, latency = 0, buffer_size = 4096):
         self._output = None

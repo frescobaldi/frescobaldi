@@ -82,7 +82,7 @@ def langs():
 class NetworkAccessManager(networkaccessmanager.NetworkAccessManager):
     """A NetworkAccessManager that maintains some settings from the preferences."""
     def __init__(self, parent=None):
-        super(NetworkAccessManager, self).__init__(parent)
+        super().__init__(parent)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
 

@@ -106,7 +106,7 @@ def addAccelerators(actions, used=[]):
             shortcut = action.shortcut()[action.shortcut().count()-1]
             key = shortcut & ~Qt.ALT & ~Qt.SHIFT & ~Qt.CTRL & ~Qt.META
             if 48 < key < 58 or 64 < key < 91 or 96 < key < 123:
-                yield 0, re.finditer(r'\b{0:c}'.format(key), text, re.I)
+                yield 0, re.finditer(fr'\b{key:c}', text, re.I)
         yield 1, re.finditer(r'\b\w', text)
         yield 2, re.finditer(r'\B\w', text)
 

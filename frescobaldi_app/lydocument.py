@@ -110,7 +110,7 @@ class Document(ly.document.DocumentBase):
 
     def __init__(self, document):
         self._d = document
-        super(Document, self).__init__()
+        super().__init__()
         self.combine_undo = None
 
     def __len__(self):

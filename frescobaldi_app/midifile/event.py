@@ -33,7 +33,7 @@ ChannelAfterTouchEvent = collections.namedtuple('ChannelAfterTouchEvent', 'chann
 PitchBendEvent = collections.namedtuple('PitchBendEvent', 'channel value')
 
 
-class EventFactory(object):
+class EventFactory:
     """Factory for parsed MIDI events.
 
     The default 'methods' create namedtuple objects.

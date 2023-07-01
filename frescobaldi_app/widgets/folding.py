@@ -472,7 +472,7 @@ class FoldingArea(QWidget):
 
     Folder = Folder
 
-    class Painter(object):
+    class Painter:
         """Used for one paint event, draws the folding area per-block."""
         def __init__(self, widget):
             self.w = widget
@@ -498,7 +498,7 @@ class FoldingArea(QWidget):
                     p.drawLine(QPoint(x, y-2), QPoint(x, y+2))
 
     def __init__(self, textedit=None):
-        super(FoldingArea, self).__init__(textedit)
+        super().__init__(textedit)
         self._textedit = None
         self.setAutoFillBackground(True)
         self.setTextEdit(textedit)

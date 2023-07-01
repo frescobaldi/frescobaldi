@@ -49,7 +49,7 @@ class Matcher(QObject):
 
     def __init__(self, edit):
         """Initialize the Matcher; edit is a Q(Plain)TextEdit instance."""
-        super(Matcher, self).__init__(edit)
+        super().__init__(edit)
         self._timer = QTimer(singleShot=True, timeout=self.clear)
         edit.cursorPositionChanged.connect(self.slotCursorPositionChanged)
 

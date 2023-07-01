@@ -134,7 +134,7 @@ def input_by_name(name):
 
 def _decode_name(s):
     """Helper to decode a device name or interf if it is a bytes type."""
-    return s.decode('latin1') if isinstance(s, type(b'')) else s
+    return s.decode('latin1') if isinstance(s, bytes) else s
 
 
 # allow the MIDI player to run on python time if portmidi is not available:

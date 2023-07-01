@@ -66,7 +66,7 @@ def parse(lines, mandatory_keys, defaults):
                 # long text
                 m = long_text_start.search(line)
                 if m:
-                    text = str()
+                    text = ''
                     while True:
                         line = next(it)
                         if long_text_end.search(line):

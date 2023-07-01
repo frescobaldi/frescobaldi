@@ -152,7 +152,7 @@ def tree(text):
     return t
 
 
-class Parser(object):
+class Parser:
     """A basic Markdown-like parser.
 
     Usage:
@@ -458,7 +458,7 @@ class Parser(object):
         self.output.append('inline_text', text)
 
 
-class Output(object):
+class Output:
     """Base class for output handler objects.
 
     You should inherit from this class and implement the push() and pop() methods.
@@ -504,10 +504,10 @@ class Tree(Output):
             return True
 
         def __repr__(self):
-            return '<Node "{0}" {1} [{2}]>'.format(self.name, self.args, len(self))
+            return f'<Node "{self.name}" {self.args} [{len(self)}]>'
 
         def __str__(self):
-            return "{0} {1}".format(self.name, self.args)
+            return f"{self.name} {self.args}"
 
 
     def __init__(self):
@@ -534,10 +534,9 @@ class Tree(Output):
     def dump(self, node=None, indent_start=0, indent_string='  '):
         """Show the node or the entire tree in a pretty-printed string."""
         def dump(n, indent):
-            yield '{0}{1}'.format(indent_string * indent, n)
+            yield f'{indent_string * indent}{n}'
             for n1 in n:
-                for s in dump(n1, indent + 1):
-                    yield s
+                yield from dump(n1, indent + 1)
         nodes = [node] if node is not None else self._root
         return '\n'.join(s for n in nodes for s in dump(n, indent_start))
 
@@ -568,8 +567,7 @@ class Tree(Output):
         for n in node:
             if n.name == path:
                 yield n
-            for n1 in self.find(path, n):
-                yield n1
+            yield from self.find(path, n)
 
     def iter_tree(self, node=None):
         """Iter over all elements of the tree.
@@ -661,12 +659,12 @@ class HtmlOutput(Output):
 
         """
         if attrs:
-            a = ''.join(' {0}="{1}"'.format(
+            a = ''.join(' {}="{}"'.format(
                 name, self.html_escape(value).replace('"', '&quot;'))
                 for name, value in attrs.items())
         else:
             a = ''
-        self._html.append('<{0}{1}>'.format(name, a))
+        self._html.append(f'<{name}{a}>')
 
     def nl(self):
         """Add a newline."""
@@ -691,11 +689,11 @@ class HtmlOutput(Output):
 
     def heading_start(self, heading_type):
         h = min(self.heading_offset + heading_type, 6)
-        self.tag('h{0}'.format(h))
+        self.tag(f'h{h}')
 
     def heading_end(self, heading_type):
         h = min(self.heading_offset + heading_type, 6)
-        self.tag('/h{0}'.format(h))
+        self.tag(f'/h{h}')
         self.nl()
 
     def paragraph_start(self):

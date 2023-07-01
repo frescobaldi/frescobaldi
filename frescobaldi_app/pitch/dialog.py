@@ -69,7 +69,7 @@ modes = {
 class ModeShiftDialog(QDialog):
 
     def __init__(self, parent=None):
-        super(ModeShiftDialog, self).__init__(parent)
+        super().__init__(parent)
 
         mainLayout = QGridLayout()
         self.setLayout(mainLayout)
@@ -153,7 +153,7 @@ class ModeShiftDialog(QDialog):
 class KeyValidator(QValidator):
 
     def __init__(self, parent=None):
-        super(KeyValidator, self).__init__(parent)
+        super().__init__(parent)
 
     def setValidateFunc(self, func):
         self._func = func

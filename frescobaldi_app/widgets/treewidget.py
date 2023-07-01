@@ -39,7 +39,7 @@ class TreeWidget(QTreeWidget):
 
     """
     def __init__(self, parent=None, **kws):
-        super(TreeWidget, self).__init__(parent, **kws)
+        super().__init__(parent, **kws)
 
     def items(self, parent=None):
         """Yields all items from parent or the invisibleRootItem."""
@@ -55,7 +55,7 @@ class TreeWidget(QTreeWidget):
         """Removes all items, calling their cleanup() method (if available) first."""
         for item in self.items():
             self._cleanup(item)
-        super(TreeWidget, self).clear()
+        super().clear()
 
     def removeSelectedItems(self, item=None):
         """Removes all selected items from the specified item or the root item."""

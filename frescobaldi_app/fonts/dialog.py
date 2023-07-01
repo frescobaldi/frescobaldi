@@ -77,7 +77,7 @@ class FontsDialog(QDialog):
         show_music=True
     ):
         QApplication.setOverrideCursor(Qt.WaitCursor)
-        super(FontsDialog, self).__init__(
+        super().__init__(
             parent,
         )
         self.info = lilypond_info

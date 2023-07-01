@@ -66,7 +66,7 @@ def edit(parent, cursor, position=None):
 class Dialog(widgets.dialog.Dialog):
     """Dialog containing a short text edit field to edit one line."""
     def __init__(self, parent=None):
-        super(Dialog, self).__init__(parent)
+        super().__init__(parent)
         self._document = None
         self.messageLabel().setWordWrap(True)
         self.document = d = QTextDocument()
@@ -169,7 +169,7 @@ class Dialog(widgets.dialog.Dialog):
 class View(QPlainTextEdit):
     """The text edit in the "Edit in Place" dialog."""
     def __init__(self, document):
-        super(View, self).__init__()
+        super().__init__()
         self.setDocument(document)
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setCursorWidth(2)
@@ -190,13 +190,13 @@ class View(QPlainTextEdit):
         """Reimplemented to avoid typing the line separator."""
         if ev.type() == QEvent.KeyPress and ev.matches(QKeySequence.InsertLineSeparator):
             return False
-        return super(View, self).event(ev)
+        return super().event(ev)
 
 
 class Matcher(matcher.AbstractMatcher):
     """Looks for matches if the cursor moves."""
     def __init__(self, view):
-        super(Matcher, self).__init__(view)
+        super().__init__(view)
         self._highlighter = MatchHighlighter(view)
 
     def highlighter(self):
@@ -206,7 +206,7 @@ class Matcher(matcher.AbstractMatcher):
 class MatchHighlighter(gadgets.arbitraryhighlighter.ArbitraryHighlighter):
     """Highlights the matches like { } or << >>."""
     def __init__(self, edit):
-        super(MatchHighlighter, self).__init__(edit)
+        super().__init__(edit)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
 
@@ -229,7 +229,7 @@ class Completer(autocomplete.completer.Completer):
     """
     document_cursor = None
     def __init__(self, view):
-        super(Completer, self).__init__()
+        super().__init__()
         self.setWidget(view)
 
     def analyzer(self):

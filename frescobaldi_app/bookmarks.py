@@ -178,7 +178,7 @@ class Bookmarks(plugin.DocumentPlugin):
 
     def load(self):
         """Loads the marks from the metainfo."""
-        self._marks = dict((type, []) for type in types)
+        self._marks = {type: [] for type in types}
         marks = metainfo.info(self.document()).bookmarks
         try:
             d = json.loads(marks) or {}

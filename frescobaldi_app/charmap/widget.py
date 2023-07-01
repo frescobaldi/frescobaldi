@@ -43,7 +43,7 @@ _blocks = tuple(itertools.takewhile(
 
 class Widget(QWidget):
     def __init__(self, tool):
-        super(Widget, self).__init__(tool)
+        super().__init__(tool)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -107,7 +107,7 @@ class Widget(QWidget):
 
 class CharMapWidget(QScrollArea):
     def __init__(self, parent=None):
-        super(CharMapWidget, self).__init__(parent)
+        super().__init__(parent)
         self.charmap = widgets.charmap.CharMap()
         self.setWidget(self.charmap)
         # TEMP

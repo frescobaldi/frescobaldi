@@ -58,7 +58,7 @@ class MusicView(QWidget):
     """Widget containing the qpopplerview.View."""
     def __init__(self, dockwidget):
         """Creates the Music View for the dockwidget."""
-        super(MusicView, self).__init__(dockwidget)
+        super().__init__(dockwidget)
 
         self._links = None
         self._clicking_link = False
@@ -190,7 +190,7 @@ class MusicView(QWidget):
             else:
                 l = textedit.link(link.url)
                 if l:
-                    text = "{0} ({1}:{2})".format(os.path.basename(l.filename), l.line, l.column)
+                    text = f"{os.path.basename(l.filename)} ({l.line}:{l.column})"
                 else:
                     text = link.url
         elif hasattr(link, "linkobj") and isinstance(link.linkobj, popplerqt5.Poppler.LinkGoto):

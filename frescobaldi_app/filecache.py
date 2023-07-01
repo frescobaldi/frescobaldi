@@ -26,7 +26,7 @@ import os
 import weakref
 
 
-class FileCache(object):
+class FileCache:
     """Caches information about files, and checks the mtime upon request.
 
     Has __setitem__, __getitem__, __delitem__, clear etc. methods like a dict.
@@ -40,7 +40,7 @@ class FileCache(object):
         try:
             if mtime == os.path.getmtime(filename):
                 return value
-        except (IOError, OSError):
+        except OSError:
             pass
         del self._cache[filename]
         raise KeyError
@@ -48,7 +48,7 @@ class FileCache(object):
     def __setitem__(self, filename, value):
         try:
             self._cache[filename] = (os.path.getmtime(filename), value)
-        except (IOError, OSError):
+        except OSError:
             pass
 
     def __delitem__(self, filename):
@@ -95,7 +95,7 @@ class WeakFileCache(FileCache):
             try:
                 if mtime == os.path.getmtime(filename):
                     return value
-            except (IOError, OSError):
+            except OSError:
                 pass
         del self._cache[filename]
         raise KeyError
@@ -104,7 +104,7 @@ class WeakFileCache(FileCache):
         valueref = weakref.ref(value)
         try:
             self._cache[filename] = (os.path.getmtime(filename), valueref)
-        except (IOError, OSError):
+        except OSError:
             pass
 
 

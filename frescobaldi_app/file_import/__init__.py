@@ -117,32 +117,32 @@ class FileImport(plugin.MainWindowPlugin):
     def import_any(self):
         """Reads the file type and determines which import to use."""
         filetypes = ';;'.join((
-            '{0} (*.xml *.musicxml *.mxl *.midi *.mid *.abc)'.format(_("All importable formats")),
-            '{0} (*.xml *.musicxml *.mxl)'.format(_("MusicXML Files")),
-            '{0} (*.midi *.mid)'.format(_("Midi Files")),
-            '{0} (*.abc)'.format(_("ABC Files")),
-            '{0} (*)'.format(_("All Files")),
+            '{} (*.xml *.musicxml *.mxl *.midi *.mid *.abc)'.format(_("All importable formats")),
+            '{} (*.xml *.musicxml *.mxl)'.format(_("MusicXML Files")),
+            '{} (*.midi *.mid)'.format(_("Midi Files")),
+            '{} (*.abc)'.format(_("ABC Files")),
+            '{} (*)'.format(_("All Files")),
         ))
         caption = app.caption(_("dialog title", "Import"))
         self.do_import(filetypes, caption, multiple=True)
 
     def import_musicxml(self):
         """Opens a MusicXML file. Converts it to ly by using musicxml2ly."""
-        filetypes = '{0} (*.xml *.musicxml *.mxl);;{1} (*)'.format(
+        filetypes = '{} (*.xml *.musicxml *.mxl);;{} (*)'.format(
             _("MusicXML Files"), _("All Files"))
         caption = _("dialog title", "Import a MusicXML file")
         self.do_import(filetypes, caption)
 
     def import_midi(self):
         """Opens an midi file. Converts it to ly by using midi2ly."""
-        filetypes = '{0} (*.midi *.mid);;{1} (*)'.format(
+        filetypes = '{} (*.midi *.mid);;{} (*)'.format(
             _("Midi Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import a midi file"))
         self.do_import(filetypes, caption)
 
     def import_abc(self):
         """Opens an abc file. Converts it to ly by using abc2ly."""
-        filetypes = '{0} (*.abc);;{1} (*)'.format(
+        filetypes = '{} (*.abc);;{} (*)'.format(
             _("ABC Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import an abc file"))
         self.do_import(filetypes, caption)

@@ -96,7 +96,7 @@ class BassoContinuo(Cello):
         return _("abbreviation for Basso Continuo", "B.c.")
 
     def build(self, data, builder):
-        super(BassoContinuo, self).build(data, builder)
+        super().build(data, builder)
         data.assignments[0].name.name = 'bcMusic'
         a = data.assign('bcFigures')
         b = ly.dom.FigureMode(a)

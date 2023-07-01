@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
 # Copyright (c) 2008 - 2014 by Wilbert Berendsen
@@ -44,7 +43,7 @@ class AboutDialog(QDialog):
     """
     def __init__(self, mainwindow):
         """Creates the about dialog. You can simply exec_() it."""
-        super(AboutDialog, self).__init__(mainwindow)
+        super().__init__(mainwindow)
 
         self.setWindowTitle(_("About {appname}").format(appname = appinfo.appname))
         layout = QVBoxLayout()
@@ -67,7 +66,7 @@ class AboutDialog(QDialog):
 class About(QWidget):
     """About widget."""
     def __init__(self, parent=None):
-        super(About, self).__init__(parent)
+        super().__init__(parent)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -90,7 +89,7 @@ class About(QWidget):
 class Credits(QTextBrowser):
     """Credits widget."""
     def __init__(self, parent=None):
-        super(Credits, self).__init__(parent)
+        super().__init__(parent)
         self.setOpenLinks(False)
         self.anchorClicked.connect(helpers.openUrl)
         self.setHtml(userguide.page.Page('credits').body())
@@ -99,7 +98,7 @@ class Credits(QTextBrowser):
 class Version(QTextBrowser):
     """Version information."""
     def __init__(self, parent=None):
-        super(Version, self).__init__(parent)
+        super().__init__(parent)
         self.setPlainText(debuginfo.version_info_string())
 
 
@@ -110,7 +109,7 @@ def html():
     description = _("A LilyPond Music Editor")
     copyright = _("Copyright (c) {year} by {author}").format(
         year = "2008-2022",
-        author = """<a href="mailto:{0}" title="{1}">{2}</a>""".format(
+        author = """<a href="mailto:{}" title="{}">{}</a>""".format(
             appinfo.maintainer_email,
             _("Send an e-mail message to the maintainers."),
             appinfo.maintainer))
@@ -119,7 +118,7 @@ def html():
     if translator == "Translated by Your Name.":
         translator = ""
     else:
-        translator = "<p>{0}</p>".format(translator)
+        translator = f"<p>{translator}</p>"
     license = _("Licensed under the {gpl}.").format(
         gpl = """<a href="http://www.gnu.org/licenses/gpl.html">GNU GPL</a>""")
     homepage = appinfo.url

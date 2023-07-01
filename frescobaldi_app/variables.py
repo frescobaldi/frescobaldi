@@ -145,7 +145,7 @@ def positions(lines):
         start = 0
         if interesting:
             # already parsing? then skip comment start tokens
-            m = re.match(r'\s*{0}'.format(re.escape(commentstart)), text)
+            m = re.match(fr'\s*{re.escape(commentstart)}', text)
             if m:
                 start = m.end()
         else:

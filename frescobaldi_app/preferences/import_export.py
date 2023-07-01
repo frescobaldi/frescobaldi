@@ -23,7 +23,7 @@ A widget that provides a scheme selector, with New and Remove buttons.
 
 
 try:
-    import xml.etree.cElementTree as ET
+    import xml.etree.ElementTree as ET
 except ImportError:
     import xml.etree.ElementTree as ET
 

@@ -87,7 +87,7 @@ class Engraver(plugin.MainWindowPlugin):
                     url = doc.url().resolved(QUrl(master))
                     try:
                         doc = app.openUrl(url)
-                    except IOError:
+                    except OSError:
                         pass
         return doc
 
@@ -123,8 +123,8 @@ class Engraver(plugin.MainWindowPlugin):
 
             # which files were created by this job?
             import resultfiles
-            extensions = set(os.path.splitext(filename)[1].lower()
-                for filename in resultfiles.results(document).files_lastjob())
+            extensions = {os.path.splitext(filename)[1].lower()
+                for filename in resultfiles.results(document).files_lastjob()}
 
             mgr = panelmanager.manager(self.mainwindow())
             if '.svg' in extensions or '.svgz' in extensions:
@@ -221,7 +221,7 @@ class Engraver(plugin.MainWindowPlugin):
                     if s.value("format", False, bool):
                         reformat.reformat(QTextCursor(doc))
                     doc.save()
-                except IOError:
+                except OSError:
                     pass ## saving was not possible (e.g. happens when read only)
 
     def queryCloseDocument(self, doc):

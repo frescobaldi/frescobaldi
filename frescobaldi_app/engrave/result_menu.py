@@ -35,7 +35,7 @@ import qutil
 
 class Menu(QMenu):
     def __init__(self, mainwindow):
-        super(Menu, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.aboutToShow.connect(self.populate)
         app.jobFinished.connect(self.slotJobFinished)
         self.triggered.connect(self.actionTriggered)

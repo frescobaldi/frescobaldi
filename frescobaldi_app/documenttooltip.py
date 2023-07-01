@@ -99,7 +99,7 @@ def text(cursor):
     filename = cursor.document().documentName()
     line = cursor.blockNumber() + 1
     column = cursor.position() - cursor.block().position()
-    text = "{0} ({1}:{2})".format(filename, line, column)
+    text = f"{filename} ({line}:{column})"
     definition = get_definition(cursor)
     if definition:
         text += '\n' + definition

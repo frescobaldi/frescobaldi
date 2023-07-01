@@ -78,7 +78,7 @@ def pixmap(name, size, mode, state):
 class Engine(QIconEngine):
     """Engine to provide renderings of SVG icons in the default text color."""
     def __init__(self, name):
-        super(Engine, self).__init__()
+        super().__init__()
         self._name = name
 
     def pixmap(self, size, mode, state):

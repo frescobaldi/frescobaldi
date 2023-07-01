@@ -127,8 +127,8 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
 
 
         # set certain preferences to the existing renderers
-        renderers = set(page.renderer for page in self.pageLayout() if page.renderer)
-        pages = set(page for page in self.pageLayout() if not page.renderer)
+        renderers = {page.renderer for page in self.pageLayout() if page.renderer}
+        pages = {page for page in self.pageLayout() if not page.renderer}
         changed = False
 
         # paper color; change the existing renderer
@@ -208,7 +208,7 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
                 if not h.printFile(self.document().filename()):
                     QMessageBox.warning(self,
                         _("Printing Error"),
-                        "{0}\n{1}".format(
+                        "{}\n{}".format(
                             _("An error occurred (code: {num}):").format(num=h.status),
                             h.error))
                 return

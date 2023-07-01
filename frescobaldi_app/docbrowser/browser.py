@@ -42,7 +42,7 @@ import textformats
 class Browser(QWidget):
     """LilyPond documentation browser widget."""
     def __init__(self, dockwidget):
-        super(Browser, self).__init__(dockwidget)
+        super().__init__(dockwidget)
 
         layout = QVBoxLayout(spacing=0)
         layout.setContentsMargins(0, 0, 0, 0)
@@ -110,7 +110,7 @@ class Browser(QWidget):
         if ev.text() == "/":
             self.search.setFocus()
         else:
-            super(Browser, self).keyPressEvent(ev)
+            super().keyPressEvent(ev)
 
     def translateUI(self):
         try:
@@ -157,7 +157,7 @@ class Browser(QWidget):
                 t = _("(local)")
             else:
                 t = _("({hostname})").format(hostname=doc.url().host())
-            self.chooser.addItem("{0} {1}".format(v or _("<unknown>"), t))
+            self.chooser.addItem("{} {}".format(v or _("<unknown>"), t))
         self.chooser.setCurrentIndex(i)
         if not lilydoc.manager.loaded():
             lilydoc.manager.allLoaded.connect(self.loadDocumentation, -1)
@@ -288,7 +288,7 @@ class SearchEntry(QLineEdit):
             webview = self.parentWidget().parentWidget().webview
             webview.keyPressEvent(ev)
         else:
-            super(SearchEntry, self).keyPressEvent(ev)
+            super().keyPressEvent(ev)
 
 
 class WebEnginePage(QWebEnginePage):

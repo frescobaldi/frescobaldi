@@ -33,7 +33,7 @@ from viewers import documents
 class ManuscriptViewPanel(viewers.AbstractViewPanel):
     """Manuscript Viewer Tool."""
     def __init__(self, mainwindow):
-        super(ManuscriptViewPanel, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+A"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
 
@@ -70,7 +70,7 @@ class ManuscriptViewerActions(viewers.ViewerActions):
         return ManuscriptViewdocChooserAction(panel)
 
     def translateUI(self):
-        super(ManuscriptViewerActions, self).translateUI()
+        super().translateUI()
         self.viewer_document_select.setText(_("Select Manuscript Document"))
         self.viewer_open.setText(_("Open manuscript(s)"))
         self.viewer_open.setIconText(_("Open"))

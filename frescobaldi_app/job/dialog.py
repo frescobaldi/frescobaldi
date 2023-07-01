@@ -34,7 +34,7 @@ class Dialog(widgets.dialog.Dialog):
     job_done = signals.Signal()
 
     def __init__(self, parent, auto_accept=False):
-        super(Dialog, self).__init__(
+        super().__init__(
             parent,
             buttons=('cancel', 'ok',)
         )

@@ -37,7 +37,7 @@ import plugin
 import icons
 
 
-class Position(object):
+class Position:
     cursor = None
     find_open_view = None
 

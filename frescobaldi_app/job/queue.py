@@ -50,7 +50,7 @@ class Runner(QObject):
     """
 
     def __init__(self, queue, index):
-        super(Runner, self).__init__()
+        super().__init__()
         self._queue = queue
         self._index = index
         self._job = None
@@ -105,7 +105,7 @@ class AbstractQueue(QObject):
     provide a transparent interface for used in JobQueue."""
 
     def __init__(self):
-        super(AbstractQueue, self).__init__()
+        super().__init__()
 
     def clear(self):
         """Remove all entries from the queue."""
@@ -133,7 +133,7 @@ class AbstractStackQueue(AbstractQueue):
     """Common ancestor for LIFO and FIFO queues"""
 
     def __init__(self):
-        super(AbstractStackQueue, self).__init__()
+        super().__init__()
         self._queue = collections.deque()
 
     def clear(self):
@@ -166,7 +166,7 @@ class PriorityQueue(AbstractQueue):
     priority they will be served first-in-first-out."""
 
     def __init__(self):
-        super(PriorityQueue, self).__init__()
+        super().__init__()
         self._queue = []
         self._insert_count = 0
 
@@ -279,7 +279,7 @@ class JobQueue(QObject):
                  num_runners=1,
                  tick_interval=1000,
                  capacity=None):
-        super(JobQueue, self).__init__()
+        super().__init__()
         self._state = QueueStatus.INACTIVE
         self._queue_mode = queue_mode
         self._starttime = None

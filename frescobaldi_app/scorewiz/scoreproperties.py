@@ -42,7 +42,7 @@ import symbols
 import widgets.tempobutton
 
 
-class ScoreProperties(object):
+class ScoreProperties:
     """This is only the base class, it should be mixed in with a widget or a different way."""
 
     def createWidgets(self):
@@ -169,7 +169,7 @@ class ScoreProperties(object):
         pickups.extend(durations)
         self.pickup.setModel(listmodel.ListModel(pickups, self.pickup,
             display = lambda item: item or _("None"),
-            icon = lambda item: symbols.icon('note_{0}'.format(item.replace('.', 'd'))) if item else None))
+            icon = lambda item: symbols.icon('note_{}'.format(item.replace('.', 'd'))) if item else None))
         self.pickup.view().setIconSize(QSize(22, 22))
         self.pickupLabel.setBuddy(self.pickup)
 
@@ -193,7 +193,7 @@ class ScoreProperties(object):
         self.metronomeLabel = QLabel()
         self.metronomeNote = QComboBox()
         self.metronomeNote.setModel(listmodel.ListModel(durations, display=None,
-            icon = lambda item: symbols.icon('note_{0}'.format(item.replace('.', 'd')))))
+            icon = lambda item: symbols.icon('note_{}'.format(item.replace('.', 'd')))))
         self.metronomeNote.setCurrentIndex(durations.index('4'))
         self.metronomeNote.view().setIconSize(QSize(22, 22))
         self.metronomeEqualSign = QLabel('=')
@@ -282,7 +282,7 @@ class ScoreProperties(object):
         """Returns a string with the tempo like '(ly:make-moment 100 4)' from the settings."""
         base, mul = midiDurations[self.metronomeNote.currentIndex()]
         val = int(self.metronomeValue.currentText() or '60') * mul
-        return "(ly:make-moment {0} {1})".format(val, base)
+        return f"(ly:make-moment {val} {base})"
 
     def lySimpleMidiTempo(self, node):
         r"""Return a simple \tempo x=y node for the currently set tempo."""

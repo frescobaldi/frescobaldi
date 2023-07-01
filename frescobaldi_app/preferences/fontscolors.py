@@ -44,7 +44,7 @@ from widgets.colorbutton import ColorButton
 
 class FontsColors(preferences.Page):
     def __init__(self, dialog):
-        super(FontsColors, self).__init__(dialog)
+        super().__init__(dialog)
 
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
@@ -165,7 +165,7 @@ class FontsColors(preferences.Page):
             else:
                 # specific style of specific group
                 group, name = item.parent().group, item.name
-                w.setTitle("{0}: {1}".format(item.parent().text(0), item.text(0)))
+                w.setTitle(f"{item.parent().text(0)}: {item.text(0)}")
                 inherit = item.base
                 if inherit:
                     toptext = _("(Inherits: {name})").format(name=self.defaultStyleNames[inherit])
@@ -280,7 +280,7 @@ class FontsColors(preferences.Page):
         from . import import_export
         try:
             import_export.exportTheme(self, name, filename)
-        except (IOError, OSError) as e:
+        except OSError as e:
             QMessageBox.critical(self, _("Error"), _(
                 "Can't write to destination:\n\n{url}\n\n{error}").format(
                 url=filename, error=e.strerror))
@@ -306,7 +306,7 @@ class BaseColors(QGroupBox):
     changed = pyqtSignal(str)
 
     def __init__(self, parent=None):
-        super(BaseColors, self).__init__(parent)
+        super().__init__(parent)
 
         grid = QGridLayout()
         grid.setSpacing(1)
@@ -338,7 +338,7 @@ class CustomAttributes(QGroupBox):
     changed = pyqtSignal()
 
     def __init__(self, parent=None):
-        super(CustomAttributes, self).__init__(parent)
+        super().__init__(parent)
         grid = QGridLayout()
         self.setLayout(grid)
 

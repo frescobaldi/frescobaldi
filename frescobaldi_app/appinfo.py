@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
 # Copyright (c) 2008 - 2014 by Wilbert Berendsen
@@ -34,7 +33,7 @@ long_description = \
 maintainer = "Wilbert Berendsen"
 maintainer_email = "frescobaldi@googlegroups.com"
 domain = "frescobaldi.org"
-url = "http://www.{0}/".format(domain)
+url = f"http://www.{domain}/"
 issues_url = "https://github.com/frescobaldi/frescobaldi/issues/new"
 license = "GPL"
 

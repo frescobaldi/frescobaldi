@@ -25,7 +25,7 @@ Import and export of snippets.
 import os
 
 try:
-    import xml.etree.cElementTree as ET
+    import xml.etree.ElementTree as ET
 except ImportError:
     import xml.etree.ElementTree as ET
 
@@ -117,7 +117,7 @@ def load(filename, widget):
 
     allnames = frozenset(snippets.names())
     builtins = frozenset(builtin.builtin_snippets)
-    titles = dict((snippets.title(n), n) for n in allnames if n not in builtins)
+    titles = {snippets.title(n): n for n in allnames if n not in builtins}
 
     new = QTreeWidgetItem(tree, [_("New Snippets")])
     updated = QTreeWidgetItem(tree, [_("Updated Snippets")])
@@ -169,7 +169,7 @@ def load(filename, widget):
                 item.setFlags(Qt.ItemIsEnabled)
     # count:
     for i in new, updated, unchanged:
-        i.setText(0, i.text(0) + " ({0})".format(i.childCount()))
+        i.setText(0, i.text(0) + f" ({i.childCount()})")
     for i in new, updated:
         if i.childCount():
             i.setFlags(Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)

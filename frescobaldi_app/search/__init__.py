@@ -373,7 +373,7 @@ class Search(plugin.MainWindowPlugin, QWidget):
                 self.window().focusPreviousChild()
                 ev.accept()
                 return True
-        return super(Search, self).event(ev)
+        return super().event(ev)
 
     def keyPressEvent(self, ev):
         """Catches Up and Down to jump between search results."""
@@ -389,7 +389,7 @@ class Search(plugin.MainWindowPlugin, QWidget):
         if ev.key() in (Qt.Key_Enter, Qt.Key_Return):
             self.findNext()
             return
-        super(Search, self).keyPressEvent(ev)
+        super().keyPressEvent(ev)
 
     def doReplace(self, cursor):
         """Perform one replace action."""

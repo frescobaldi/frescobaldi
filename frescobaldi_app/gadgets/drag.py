@@ -41,7 +41,7 @@ class ComboDrag(QObject):
     role = Qt.EditRole
 
     def __init__(self, combobox):
-        super(ComboDrag, self).__init__(combobox)
+        super().__init__(combobox)
         self._dragpos = None
         combobox.installEventFilter(self)
 
@@ -78,7 +78,7 @@ class Dragger(QObject):
 
     """
     def __init__(self, parent=None):
-        super(Dragger, self).__init__(parent)
+        super().__init__(parent)
         self._dragpos = None
         if parent:
             parent.installEventFilter(self)

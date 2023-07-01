@@ -35,7 +35,7 @@ import util
 
 class DocumentMenu(QMenu):
     def __init__(self, mainwindow):
-        super(DocumentMenu, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.aboutToShow.connect(self.populate)
         app.translateUI(self)
         self.setToolTipsVisible(True)

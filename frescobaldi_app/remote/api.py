@@ -35,7 +35,7 @@ import app
 _incoming_handlers = []
 
 
-class Remote(object):
+class Remote:
     """Speak to the remote Frescobaldi."""
     def __init__(self, socket):
         self.socket = socket
@@ -58,16 +58,16 @@ class Remote(object):
         """Let remote Frescobaldi handle a command line."""
         if urls:
             if args.encoding:
-                self.write('encoding {0}\n'.format(args.encoding).encode('utf-8'))
+                self.write(f'encoding {args.encoding}\n'.encode('utf-8'))
             for u in urls:
                 self.write(b'open ' + u.toEncoded() + b'\n')
             self.write(b'set_current ' + u.toEncoded() + b'\n')
             if args.line is not None:
-                self.write('set_cursor {0} {1}\n'.format(args.line, args.column or 1).encode('utf-8'))
+                self.write(f'set_cursor {args.line} {args.column or 1}\n'.encode('utf-8'))
         self.write(b'activate_window\n')
 
 
-class Incoming(object):
+class Incoming:
     """Handle an incoming connection."""
     def __init__(self, socket):
         """Start reading from the socket and perform the commands."""
@@ -120,7 +120,7 @@ class Incoming(object):
             url = QUrl.fromEncoded(args[0])
             try:
                 win.setCurrentDocument(app.openUrl(url)) # already loaded
-            except IOError:
+            except OSError:
                 pass
         elif cmd == b'set_cursor':
             line, column = map(int, args)

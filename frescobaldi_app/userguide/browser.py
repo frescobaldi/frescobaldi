@@ -42,7 +42,7 @@ from . import util
 class Window(QMainWindow):
     """The help browser window."""
     def __init__(self):
-        super(Window, self).__init__()
+        super().__init__()
         self.setAttribute(Qt.WA_QuitOnClose, False)
 
         self.browser = Browser(self)
@@ -67,7 +67,7 @@ class Window(QMainWindow):
 
     def closeEvent(self, ev):
         self.saveSettings()
-        super(Window, self).closeEvent(ev)
+        super().closeEvent(ev)
 
     def loadSettings(self):
         self.resize(QSettings().value("helpbrowser/size", QSize(400, 300), QSize))
@@ -125,7 +125,7 @@ class Window(QMainWindow):
 
 class Browser(QTextBrowser):
     def __init__(self, parent):
-        super(Browser, self).__init__(parent)
+        super().__init__(parent)
         app.settingsChanged.connect(self.reload, 1)
         self.anchorClicked.connect(self.slotAnchorClicked)
         self.setOpenLinks(False)
@@ -142,11 +142,11 @@ class Browser(QTextBrowser):
             return util.Formatter().html(url.path())
         elif type == QTextDocument.ImageResource:
             url = QUrl.fromLocalFile(os.path.join(__path__[0], url.path()))
-        return super(Browser, self).loadResource(type, url)
+        return super().loadResource(type, url)
 
     def keyPressEvent(self, ev):
         if ev.key() == Qt.Key_Escape and int(ev.modifiers()) == 0:
             self.window().close()
-        super(Browser, self).keyPressEvent(ev)
+        super().keyPressEvent(ev)
 
 

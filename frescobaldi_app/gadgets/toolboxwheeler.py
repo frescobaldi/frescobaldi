@@ -29,7 +29,7 @@ class ToolBoxWheeler(QObject):
     """Pages through a QToolBox using the mouse wheel."""
     def __init__(self, toolbox):
         """Initializes us as eventfilter with the toolbox as parent."""
-        super(ToolBoxWheeler, self).__init__(toolbox)
+        super().__init__(toolbox)
         self._wheeldelta = 0
         toolbox.installEventFilter(self)
 

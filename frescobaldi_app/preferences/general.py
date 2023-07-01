@@ -53,7 +53,7 @@ from widgets.urlrequester import UrlRequester
 
 class GeneralPrefs(preferences.ScrolledGroupsPage):
     def __init__(self, dialog):
-        super(GeneralPrefs, self).__init__(dialog)
+        super().__init__(dialog)
 
         layout = QVBoxLayout()
         self.scrolledWidget.setLayout(layout)
@@ -65,7 +65,7 @@ class GeneralPrefs(preferences.ScrolledGroupsPage):
 
 class General(preferences.Group):
     def __init__(self, page):
-        super(General, self).__init__(page)
+        super().__init__(page)
 
         grid = QGridLayout()
         self.setLayout(grid)
@@ -163,7 +163,7 @@ class General(preferences.Group):
 
 class SessionsAndFiles(preferences.Group):
     def __init__(self, page):
-        super(SessionsAndFiles, self).__init__(page)
+        super().__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -403,7 +403,7 @@ class SessionsAndFiles(preferences.Group):
 
 class ExperimentalFeatures(preferences.Group):
     def __init__(self, page):
-        super(ExperimentalFeatures, self).__init__(page)
+        super().__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)

@@ -45,7 +45,7 @@ class AbstractViewerToolbar(QWidget):
     """
 
     def __init__(self, parent, methods = None):
-        super(AbstractViewerToolbar, self).__init__(parent)
+        super().__init__(parent)
         self.actionCollection = ac = parent.actionCollection
         self.createComponents()
         self.createLayout()

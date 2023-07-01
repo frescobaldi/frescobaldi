@@ -112,9 +112,9 @@ class MainWindow(QMainWindow):
         self._selectedState = None
 
         # find an unused objectName
-        names = set(win.objectName() for win in app.windows)
+        names = {win.objectName() for win in app.windows}
         for num in itertools.count(1):
-            name = "MainWindow{0}".format(num)
+            name = f"MainWindow{num}"
             if name not in names:
                 self.setObjectName(name)
                 break
@@ -456,7 +456,7 @@ class MainWindow(QMainWindow):
         for url in urls:
             try:
                 doc = app.openUrl(url, encoding)
-            except IOError as e:
+            except OSError as e:
                 failures.append((url, e))
             else:
                 docs.append(doc)
@@ -525,7 +525,7 @@ class MainWindow(QMainWindow):
                 d.setModified(False)
         elif ndoc == "version":
             import lilypondinfo
-            d.setPlainText('\\version "{0}"\n\n'.format(lilypondinfo.preferred().versionString()))
+            d.setPlainText(f'\\version "{lilypondinfo.preferred().versionString()}"\n\n')
             d.setModified(False)
 
     def openDocument(self):
@@ -558,7 +558,7 @@ class MainWindow(QMainWindow):
         if self.saveDocument(doc):
             try:
                 os.remove(filename)
-            except IOError as e:
+            except OSError as e:
                 msg = _("{message}\n\n{strerror} ({errno})").format(
                     message = _("Could not delete: {url}").format(url=filename),
                     strerror = e.strerror,
@@ -614,7 +614,7 @@ class MainWindow(QMainWindow):
         b = backup.backup(filename)
         try:
             doc.save(url)
-        except IOError as e:
+        except OSError as e:
             msg = _("{message}\n\n{strerror} ({errno})").format(
                 message = _("Could not write to: {url}").format(url=filename),
                 strerror = e.strerror,
@@ -680,7 +680,7 @@ class MainWindow(QMainWindow):
         try:
             with open(filename, "wb") as f:
                 f.write(data)
-        except IOError as e:
+        except OSError as e:
             msg = _("{message}\n\n{strerror} ({errno})").format(
                 message = _("Could not write to: {url}").format(url=filename),
                 strerror = e.strerror,
@@ -700,7 +700,7 @@ class MainWindow(QMainWindow):
         assert not d.url().isEmpty() # otherwise the button should have been disabled
         try:
             d.load(keepUndo=True)
-        except IOError as e:
+        except OSError as e:
             filename = d.url().toLocalFile()
             msg = _("{message}\n\n{strerror} ({errno})").format(
                 message = _("Could not read from: {url}").format(url=filename),
@@ -717,7 +717,7 @@ class MainWindow(QMainWindow):
                 continue
             try:
                 d.load(keepUndo=True)
-            except IOError as e:
+            except OSError as e:
                 failures.append((d, e))
         if failures:
             msg = _("Could not reload:") + "\n\n" + "\n".join(
@@ -808,7 +808,7 @@ class MainWindow(QMainWindow):
             try:
                 with open(filename, 'rb') as f:
                     data = f.read()
-            except IOError as e:
+            except OSError as e:
                 msg = _("{message}\n\n{strerror} ({errno})").format(
                     message = _("Could not read from: {url}").format(url=filename),
                     strerror = e.strerror,
@@ -860,7 +860,7 @@ class MainWindow(QMainWindow):
         if dir:
             name = os.path.join(dir, name)
         filename = QFileDialog.getSaveFileName(self, app.caption(_("Export as HTML")),
-            name, "{0} (*.html)".format("HTML Files"))[0]
+            name, "{} (*.html)".format("HTML Files"))[0]
         if not filename:
             return #cancelled
 
@@ -877,7 +877,7 @@ class MainWindow(QMainWindow):
         try:
             with open(filename, "wb") as f:
                 f.write(html.encode('utf-8'))
-        except IOError as e:
+        except OSError as e:
             msg = _("{message}\n\n{strerror} ({errno})").format(
                 message = _("Could not write to: {url}").format(url=filename),
                 strerror = e.strerror,
@@ -1111,7 +1111,7 @@ class MainWindow(QMainWindow):
         for url in recentfiles.urls():
             f = url.toLocalFile()
             dirname, basename = os.path.split(f)
-            text = "{0}  ({1})".format(basename, util.homify(dirname))
+            text = f"{basename}  ({util.homify(dirname)})"
             self.menu_recent_files.addAction(text).url = url
         qutil.addAccelerators(self.menu_recent_files.actions())
 

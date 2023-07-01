@@ -80,7 +80,7 @@ def sessionGroup(name):
             break
     else:
         for count in itertools.count(1):
-            group = "session{0}".format(count)
+            group = f"session{count}"
             if group not in childGroups:
                 session.setValue(group +  "/name", name)
                 break
@@ -108,7 +108,7 @@ def loadSession(name):
     for url in urls:
         try:
             doc = app.openUrl(url)
-        except IOError:
+        except OSError:
             pass
         else:
             docs.append(doc)

@@ -43,7 +43,7 @@ class ShortcutEditDialog(QDialog):
         cbArgs is optional arguments of the conflictCallback method.
         it should return the name of the potential conflict or a null value """
 
-        super(ShortcutEditDialog, self).__init__(parent)
+        super().__init__(parent)
         self.conflictCallback = conflictCallback
         self.cbArgs = cbArgs
         self.setMinimumWidth(400)
@@ -130,7 +130,7 @@ class ShortcutEditDialog(QDialog):
                             conflictList.append(conflictName)
                     if conflictList:
                         text = _("Conflict with: {name}").format(
-                            name="<b>{0}</b>".format(', '.join(conflictList)))
+                            name="<b>{}</b>".format(', '.join(conflictList)))
                         self.lconflictDefault.setText(text)
                         self.lconflictDefault.setVisible(True)
             QTimer.singleShot(0, self.adjustSize)
@@ -140,7 +140,7 @@ class ShortcutEditDialog(QDialog):
             conflictName = self.conflictCallback(self.keybuttons[num].shortcut(), *self.cbArgs)
             if conflictName:
                 text = _("Conflict with: {name}").format(
-                    name="<b>{0}</b>".format(conflictName))
+                    name=f"<b>{conflictName}</b>")
                 self.conflictlabels[num].setText(text)
                 self.conflictlabels[num].setVisible(True)
             else:
@@ -151,9 +151,9 @@ class ShortcutEditDialog(QDialog):
         # load the action
         self._action = action
         self._default = default
-        self.toplabel.setText('<p>{0}</p>'.format(
+        self.toplabel.setText('<p>{}</p>'.format(
             _("Here you can edit the shortcuts for {name}").format(
-                name='<br/><b>{0}</b>:'.format(action.text()))))
+                name=f'<br/><b>{action.text()}</b>:')))
         self.toppixmap.setPixmap(action.icon().pixmap(32))
         shortcuts = action.shortcuts()
         self.buttonDefault.setVisible(bool(default))
@@ -186,5 +186,5 @@ class ShortcutEditDialog(QDialog):
                     if not seq.isEmpty():
                         shortcuts.append(seq)
             self._action.setShortcuts(shortcuts)
-        super(ShortcutEditDialog, self).done(result)
+        super().done(result)
 

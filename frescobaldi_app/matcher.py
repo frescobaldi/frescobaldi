@@ -35,7 +35,7 @@ import actioncollection
 import actioncollectionmanager
 
 
-class AbstractMatcher(object):
+class AbstractMatcher:
     def __init__(self, view=None):
         """Initialize with an optional View. (Does not keep a reference.)"""
         self._view = lambda: None
@@ -81,7 +81,7 @@ class AbstractMatcher(object):
 class Matcher(AbstractMatcher, plugin.MainWindowPlugin):
     """One Matcher automatically handling the current View."""
     def __init__(self, mainwindow):
-        super(Matcher, self).__init__()
+        super().__init__()
         ac = self.actionCollection = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.view_matching_pair.triggered.connect(self.moveto_match)
@@ -164,8 +164,7 @@ def matches(cursor, view=None):
                 match, other = ly.lex.MatchStart, ly.lex.MatchEnd
                 def source_gen():
                     while pred_forward():
-                        for t in tokens.forward_line():
-                            yield t
+                        yield from tokens.forward_line()
                         if not tokens.next_block():
                             break
                 source = source_gen()
@@ -174,8 +173,7 @@ def matches(cursor, view=None):
                 match, other = ly.lex.MatchEnd, ly.lex.MatchStart
                 def source_gen():
                     while pred_backward():
-                        for t in tokens.backward_line():
-                            yield t
+                        yield from tokens.backward_line()
                         if not tokens.previous_block():
                             break
                 source = source_gen()

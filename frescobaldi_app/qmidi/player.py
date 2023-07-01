@@ -82,7 +82,7 @@ class Player(QThread, midifile.player.Player):
         playing = self.isRunning()
         if playing:
             self.stop()
-        super(Player, self).set_position(position, offset)
+        super().set_position(position, offset)
         if playing:
             self.start()
 

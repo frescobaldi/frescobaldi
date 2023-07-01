@@ -100,7 +100,7 @@ def create_outline_re(comments):
                 if name in groups:
                     groups[name] += 1
                     new_name = name + format(groups[name])
-                    e = e.replace("(?P<{0}>".format(name), "(?P<{0}>".format(new_name))
+                    e = e.replace(f"(?P<{name}>", f"(?P<{new_name}>")
                 else:
                     groups[name] = 0
         new_rx.append(e)

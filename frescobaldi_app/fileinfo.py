@@ -45,7 +45,7 @@ _suffix_chars_re = re.compile(r'[^-\w]', re.UNICODE)
 atexit.register(_document_cache.clear)
 
 
-class _CachedDocument(object):
+class _CachedDocument:
     """Contains a document and related items."""
     filename = None
     document = None

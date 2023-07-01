@@ -75,8 +75,8 @@ v = sys.version_info
 r = appinfo.required_python_version
 if v < r:
     error("Python version too old",
-        "Frescobaldi is started with Python {0}.{1} "
-        "but requires at least version {2}.{3}.".format(
+        "Frescobaldi is started with Python {}.{} "
+        "but requires at least version {}.{}.".format(
           v[0], v[1], r[0], r[1]))
 
 

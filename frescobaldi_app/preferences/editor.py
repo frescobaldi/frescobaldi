@@ -40,7 +40,7 @@ import widgets.urlrequester
 
 class Editor(preferences.ScrolledGroupsPage):
     def __init__(self, dialog):
-        super(Editor, self).__init__(dialog)
+        super().__init__(dialog)
 
         layout = QVBoxLayout()
         self.scrolledWidget.setLayout(layout)
@@ -56,7 +56,7 @@ class Editor(preferences.ScrolledGroupsPage):
 
 class ViewSettings(preferences.Group):
     def __init__(self, page):
-        super(ViewSettings, self).__init__(page)
+        super().__init__(page)
 
         layout = QGridLayout(spacing=1)
         self.setLayout(layout)
@@ -102,7 +102,7 @@ class ViewSettings(preferences.Group):
 
 class Highlighting(preferences.Group):
     def __init__(self, page):
-        super(Highlighting, self).__init__(page)
+        super().__init__(page)
 
         layout = QGridLayout(spacing=1)
         self.setLayout(layout)
@@ -157,7 +157,7 @@ class Highlighting(preferences.Group):
 
 class Indenting(preferences.Group):
     def __init__(self, page):
-        super(Indenting, self).__init__(page)
+        super().__init__(page)
 
         layout = QGridLayout(spacing=1)
         self.setLayout(layout)
@@ -227,7 +227,7 @@ class Indenting(preferences.Group):
 
 class KeyBoard(preferences.Group):
     def __init__(self, page):
-        super(KeyBoard, self).__init__(page)
+        super().__init__(page)
 
         layout = QGridLayout(spacing=1)
         self.setLayout(layout)
@@ -277,7 +277,7 @@ class KeyBoard(preferences.Group):
 
 class SourceExport(preferences.Group):
     def __init__(self, page):
-        super(SourceExport, self).__init__(page)
+        super().__init__(page)
 
         layout = QGridLayout(spacing=1)
         self.setLayout(layout)
@@ -391,7 +391,7 @@ class SourceExport(preferences.Group):
 
 class TypographicalQuotes(preferences.Group):
     def __init__(self, page):
-        super(TypographicalQuotes, self).__init__(page)
+        super().__init__(page)
 
         layout = QGridLayout(spacing=1)
         self.setLayout(layout)

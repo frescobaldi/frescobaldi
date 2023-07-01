@@ -43,7 +43,7 @@ from . import buttongroup
 class Dynamics(tool.Tool):
     """Dynamics tool in the quick insert panel toolbox."""
     def __init__(self, panel):
-        super(Dynamics, self).__init__(panel)
+        super().__init__(panel)
         self.removemenu = QToolButton(self,
             autoRaise=True,
             popupMode=QToolButton.InstantPopup,
@@ -151,7 +151,7 @@ class DynamicGroup(Group):
         """Should yield name, text for very action."""
         for m in dynamic_marks:
             name = 'dynamic_' + m
-            bold = "<b><i>{0}</i></b>".format
+            bold = "<b><i>{}</i></b>".format
             yield name, _("Dynamic sign {name}").format(name=bold(m))
 
 

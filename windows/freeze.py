@@ -153,7 +153,7 @@ Type: filesandordirs; Name: "{{app}}\\frescobaldi_app"
 Source: "*.*"; DestDir: "{{app}}"; Flags: recursesubdirs;
 
 [Icons]
-Name: "{{group}}\Frescobaldi"; Filename: "{{app}}\\frescobaldi.exe";
+Name: "{{group}}\\Frescobaldi"; Filename: "{{app}}\\frescobaldi.exe";
 
 [Tasks]
 Name: assocly; Description: "{{cm:AssocFileExtension,Frescobaldi,.ly}}";

@@ -45,7 +45,7 @@ import util
 
 class Dialog(QDialog):
     def __init__(self, mainwindow):
-        super(Dialog, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self._document = None
 
         layout = QGridLayout()
@@ -216,7 +216,7 @@ class Dialog(QDialog):
             j.environment['LC_MESSAGES'] = 'C'
         else:
             j.environment.pop('LC_MESSAGES', None)
-        j.set_title("{0} {1} [{2}]".format(
+        j.set_title("{} {} [{}]".format(
             os.path.basename(j.lilypond_info.command),
                 j.lilypond_info.versionString(), document.documentName()))
         return j
@@ -225,7 +225,7 @@ class Dialog(QDialog):
         if ev.key() == Qt.Key_Return and ev.modifiers() == Qt.ControlModifier:
             self.accept()
         else:
-            super(Dialog, self).keyPressEvent(ev)
+            super().keyPressEvent(ev)
 
 
 Format = collections.namedtuple("Format", "type title options widgets")

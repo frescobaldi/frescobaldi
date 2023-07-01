@@ -59,7 +59,7 @@ class Articulations(tool.Tool):
 
     """
     def __init__(self, panel):
-        super(Articulations, self).__init__(panel)
+        super().__init__(panel)
         self.shorthands = QCheckBox(self)
         self.shorthands.setChecked(True)
         self.removemenu = QToolButton(self,

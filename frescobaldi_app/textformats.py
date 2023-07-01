@@ -40,7 +40,7 @@ import ly.colorize
 def formatData(format_type):
     """Return a TextFormatData instance of type 'editor' or 'printer'."""
     if _currentData[format_type] is None:
-        _currentData[format_type] = TextFormatData(QSettings().value('{0}_scheme'.format(format_type), 'default', str))
+        _currentData[format_type] = TextFormatData(QSettings().value(f'{format_type}_scheme', 'default', str))
     return _currentData[format_type]
 
 def _resetFormatData():
@@ -54,7 +54,7 @@ app.settingsChanged.connect(_resetFormatData, -100) # before all others
 _resetFormatData()
 
 
-class TextFormatData(object):
+class TextFormatData:
     """Encapsulates all settings in the Fonts & Colors page for a scheme."""
     def __init__(self, scheme):
         """Loads the data from scheme."""

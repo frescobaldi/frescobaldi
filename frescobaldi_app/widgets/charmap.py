@@ -38,7 +38,7 @@ class CharMap(QWidget):
     characterClicked = pyqtSignal(str)
 
     def __init__(self, parent=None):
-        super(CharMap, self).__init__(parent)
+        super().__init__(parent)
         self._showToolTips = True
         self._showWhatsThis = True
         self._selected = -1
@@ -218,7 +218,7 @@ class CharMap(QWidget):
                 else:
                     QWhatsThis.leaveWhatsThisMode()
             return True
-        return super(CharMap, self).event(ev)
+        return super().event(ev)
 
     def getToolTipText(self, charcode):
         try:

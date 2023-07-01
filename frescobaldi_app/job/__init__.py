@@ -50,7 +50,7 @@ STATUS = NEUTRAL | SUCCESS | FAILURE
 ALL = OUTPUT | STATUS
 
 
-class Job(object):
+class Job:
     """Manages a process.
 
     Set the command attribute to a list of strings describing the program and
@@ -413,5 +413,5 @@ class Job(object):
         """Return a short display for the given time period (in seconds)."""
         minutes, seconds = divmod(seconds, 60)
         if minutes:
-            return "{0:.0f}'{1:.0f}\"".format(minutes, seconds)
-        return '{0:.1f}"'.format(seconds)
+            return f"{minutes:.0f}'{seconds:.0f}\""
+        return f'{seconds:.1f}"'

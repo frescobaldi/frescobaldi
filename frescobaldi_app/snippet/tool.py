@@ -37,7 +37,7 @@ import panel
 class SnippetTool(panel.Panel):
     """A dockwidget for selecting, applying and editing the list of snippets."""
     def __init__(self, mainwindow):
-        super(SnippetTool, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.hide()
         self.snippetActions = SnippetActions(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(self.snippetActions)
@@ -62,7 +62,7 @@ class SnippetTool(panel.Panel):
         return widget.Widget(self)
 
     def activate(self):
-        super(SnippetTool, self).activate()
+        super().activate()
         if self.isFloating():
             self.activateWindow()
         self.mainwindow().currentView().ensureCursorVisible()
@@ -83,7 +83,7 @@ class SnippetTool(panel.Panel):
         edit.Edit(self.widget(), None, text)
 
     def manageTemplates(self):
-        super(SnippetTool, self).activate()
+        super().activate()
         if self.isFloating():
             self.activateWindow()
         self.widget().searchEntry.setText(":template")
@@ -109,7 +109,7 @@ class SnippetActions(actioncollection.ShortcutCollection):
     """Manages keyboard shortcuts for the snippets."""
     name = "snippets"
     def __init__(self, tool):
-        super(SnippetActions, self).__init__(tool.mainwindow().centralWidget())
+        super().__init__(tool.mainwindow().centralWidget())
         self.tool = weakref.ref(tool)
 
     def createDefaultShortcuts(self):

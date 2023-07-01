@@ -47,7 +47,7 @@ class Widget(QWidget):
 # i.e. independently of graphical SVG editing.)
 
     def __init__(self, tool):
-        super(Widget, self).__init__(tool)
+        super().__init__(tool)
         self.mainwindow = tool.mainwindow()
         self.define = None
 

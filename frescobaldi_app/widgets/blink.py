@@ -65,7 +65,7 @@ class Blinker(QWidget):
 
     def __init__(self, widget):
         """Initializes ourselves to draw on the widget."""
-        super(Blinker, self).__init__(widget)
+        super().__init__(widget)
         self._color = None
         self._animation = ()
         self._timer = QTimer(singleShot=True, timeout=self._updateAnimation)

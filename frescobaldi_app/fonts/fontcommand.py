@@ -61,7 +61,7 @@ class FontCommandWidget(QScrollArea):
 } """
 
     def __init__(self, parent):
-        super(FontCommandWidget, self).__init__(parent)
+        super().__init__(parent)
 
         self._cmd = {
             'lily': '',
@@ -346,7 +346,7 @@ class FontCommandWidget(QScrollArea):
             """
             Add a font entry to the commands when applicable.
             """
-            font_entry = '     #:{} "{}"'.format(k, name)
+            font_entry = f'     #:{k} "{name}"'
             if checked:
                 fontdefs.append(font_entry)
                 full_fontdefs.append(font_entry)
@@ -406,7 +406,7 @@ class FontCommandWidget(QScrollArea):
             Add a property entry to the full command
             and conditionally to the regular command.
             """
-            property = '  {} = {}'.format(k, v)
+            property = f'  {k} = {v}'
             if checked:
                 properties.append(property)
             if checked or force:
@@ -463,7 +463,7 @@ class FontCommandWidget(QScrollArea):
             # Use custom stylesheet (must be findable of course)
             add_property(
                 'style',
-                '"{}"'.format(self.le_stylesheet.text()),
+                f'"{self.le_stylesheet.text()}"',
                 True
             )
 

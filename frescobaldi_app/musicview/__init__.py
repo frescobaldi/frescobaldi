@@ -85,7 +85,7 @@ def activate(func):
 
 class MusicViewPanel(panel.Panel):
     def __init__(self, mainwindow):
-        super(MusicViewPanel, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+M"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
 
@@ -278,7 +278,7 @@ class Actions(actioncollection.ActionCollection):
 class ComboBoxAction(QWidgetAction):
     """A widget action that opens a combobox widget popup when triggered."""
     def __init__(self, panel):
-        super(ComboBoxAction, self).__init__(panel)
+        super().__init__(panel)
         self.triggered.connect(self.showPopup)
 
     def showPopup(self):
@@ -312,7 +312,7 @@ class DocumentChooserAction(ComboBoxAction):
     currentDocumentChanged = pyqtSignal(qpageview.document.Document)
 
     def __init__(self, panel):
-        super(DocumentChooserAction, self).__init__(panel)
+        super().__init__(panel)
         self._model = None
         self._document = None
         self._documents = []
@@ -414,7 +414,7 @@ class DocumentChooserAction(ComboBoxAction):
 
 class DocumentChooser(QComboBox):
     def __init__(self, parent):
-        super(DocumentChooser, self).__init__(parent)
+        super().__init__(parent)
         self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
         self.setEditable(True)
         self.lineEdit().setReadOnly(True)

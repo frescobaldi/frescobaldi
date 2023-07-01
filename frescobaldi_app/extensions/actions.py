@@ -37,7 +37,7 @@ class ExtensionActionCollection(actioncollection.ActionCollection):
 
     def __init__(self, extension):
         self._extension = extension
-        super(ExtensionActionCollection, self).__init__(extension.mainwindow())
+        super().__init__(extension.mainwindow())
         # Initialize menu actions.
         # By default the Tools menu entry is set to None
         # (causing all actions to be used) while those for

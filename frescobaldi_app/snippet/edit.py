@@ -59,7 +59,7 @@ class Edit(QDialog):
 
     """
     def __init__(self, widget, name, text=""):
-        super(Edit, self).__init__(widget)
+        super().__init__(widget)
 
         self._name = name
 
@@ -147,7 +147,7 @@ class Edit(QDialog):
                 return
             elif res != QMessageBox.Discard:
                 self.saveSnippet()
-        super(Edit, self).done(result)
+        super().done(result)
 
     def readSettings(self):
         data = textformats.formatData('editor')
@@ -208,7 +208,7 @@ class Edit(QDialog):
 
 class ShortcutButton(QPushButton):
     def __init__(self, **args):
-        super(ShortcutButton, self).__init__(**args)
+        super().__init__(**args)
         self.setIcon(icons.get("preferences-desktop-keyboard-shortcuts"))
         self._shortcuts = []
 
@@ -232,7 +232,7 @@ class ShortcutButton(QPushButton):
 
 class Matcher(gadgets.matcher.Matcher):
     def __init__(self, edit):
-        super(Matcher, self).__init__(edit)
+        super().__init__(edit)
         self.readSettings()
         app.settingsChanged.connect(self.readSettings)
 

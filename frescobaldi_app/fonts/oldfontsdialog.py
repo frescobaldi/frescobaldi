@@ -35,7 +35,7 @@ import widgets.dialog
 
 class DocumentFontsDialog(widgets.dialog.Dialog):
     def __init__(self, parent=None):
-        super(DocumentFontsDialog, self).__init__(parent)
+        super().__init__(parent)
         self._messageLabel.setWordWrap(True)
 
         layout = QGridLayout()

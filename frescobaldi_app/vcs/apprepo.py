@@ -33,8 +33,8 @@ class Repo(gitrepo.Repo):
     Offers methods exclusively useful for this specific repo.
     """
     def __init__(self):
-        super(Repo, self).__init__((os.path.normpath(
-                                        os.path.join(sys.path[0], '..'))))
+        super().__init__(os.path.normpath(
+                                        os.path.join(sys.path[0], '..')))
         self._activeBranch = self.current_branch()
 
     def active_branch(self):

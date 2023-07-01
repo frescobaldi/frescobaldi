@@ -48,8 +48,8 @@ def new_github_issue(title, body):
 
 def email(subject, body, recipient=None):
     """Opens the e-mail composer with the given subject and body, with version information added to it."""
-    subject = "[{0} {1}] {2}".format(appinfo.appname, appinfo.version, subject)
-    body = "{0}\n\n{1}\n\n".format(debuginfo.version_info_string('\n'), body)
+    subject = f"[{appinfo.appname} {appinfo.version}] {subject}"
+    body = "{}\n\n{}\n\n".format(debuginfo.version_info_string('\n'), body)
     address = recipient or appinfo.maintainer_email
     url = QUrl("mailto:" + address)
     query = QUrlQuery()

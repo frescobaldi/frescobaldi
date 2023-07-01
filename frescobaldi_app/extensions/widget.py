@@ -33,7 +33,7 @@ class FailedExtensionWidget(QWidget):
     Tool Panel fails to instantiate."""
 
     def __init__(self, parent):
-        super(FailedExtensionWidget, self).__init__(parent)
+        super().__init__(parent)
         self.label = QLabel()
         self.label.setAlignment(Qt.AlignHCenter)
         layout = QVBoxLayout()

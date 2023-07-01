@@ -42,7 +42,7 @@ def split_document(s):
     """
     l = _document_split_re.split(s)
     i = iter(l[1:])
-    return l[0], dict((name, split_lines(value)) for name, value in zip(i, i))
+    return l[0], {name: split_lines(value) for name, value in zip(i, i)}
 
 def split_lines(s):
     """Split s in lines and strip() all lines. Returns a list."""
@@ -64,7 +64,7 @@ class Parser(simplemarkdown.Parser):
         if not text.startswith('!'):
             result = self.probably_translate(text)
             if result:
-                super(Parser, self).parse_inline_text(result)
+                super().parse_inline_text(result)
         else:
             result = []
             for t, tx in simplemarkdown.iter_split2(text[1:], '_(', ')_'):
@@ -73,7 +73,7 @@ class Parser(simplemarkdown.Parser):
                 if tx:
                     result.append(self.probably_translate(tx))
             if None not in result:
-                super(Parser, self).parse_inline_text(''.join(result))
+                super().parse_inline_text(''.join(result))
 
     def probably_translate(self, s):
         """Translates the string if it is a sensible translatable message.

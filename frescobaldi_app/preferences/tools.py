@@ -41,7 +41,7 @@ import documentstructure
 
 class Tools(preferences.ScrolledGroupsPage):
     def __init__(self, dialog):
-        super(Tools, self).__init__(dialog)
+        super().__init__(dialog)
 
         layout = QVBoxLayout()
         self.scrolledWidget.setLayout(layout)
@@ -56,7 +56,7 @@ class Tools(preferences.ScrolledGroupsPage):
 
 class LogTool(preferences.Group):
     def __init__(self, page):
-        super(LogTool, self).__init__(page)
+        super().__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -121,7 +121,7 @@ class LogTool(preferences.Group):
 
 class MusicView(preferences.Group):
     def __init__(self, page):
-        super(MusicView, self).__init__(page)
+        super().__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -160,7 +160,7 @@ class MusicView(preferences.Group):
 
 class CharMap(preferences.Group):
     def __init__(self, page):
-        super(CharMap, self).__init__(page)
+        super().__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -204,7 +204,7 @@ class CharMap(preferences.Group):
 
 class DocumentList(preferences.Group):
     def __init__(self, page):
-        super(DocumentList, self).__init__(page)
+        super().__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -229,7 +229,7 @@ class DocumentList(preferences.Group):
 
 class Outline(preferences.Group):
     def __init__(self, page):
-        super(Outline, self).__init__(page)
+        super().__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)

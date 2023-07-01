@@ -93,7 +93,7 @@ class Fonts(plugin.MainWindowPlugin):
                 cmd = dlg.document_font_code()
                 # NOTE: How to translate this to the dialog context?
                 # if state[-1] != "paper":
-                cmd = "\\paper {{\n{0}}}\n".format(cmd)
+                cmd = f"\\paper {{\n{cmd}}}\n"
                 view.textCursor().insertText(cmd)
 
 
@@ -123,7 +123,7 @@ class AvailableFonts(QObject):
     asynchronous invocation of LilyPond)."""
 
     def __init__(self, lilypond_info):
-        super(AvailableFonts, self).__init__()
+        super().__init__()
         self.lilypond_info = lilypond_info
         self._music_fonts = musicfonts.InstalledMusicFonts(
             lilypond_info)

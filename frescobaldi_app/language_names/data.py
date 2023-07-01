@@ -1,5 +1,3 @@
-# -*- coding: utf-8;
-
 # Do not edit, this file is generated. See generate.py.
 
 

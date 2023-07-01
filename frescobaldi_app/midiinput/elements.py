@@ -34,7 +34,7 @@ class Note:
         return self._midinote
 
 
-class Chord(object):
+class Chord:
     def __init__(self):
         self._notes = list()
 

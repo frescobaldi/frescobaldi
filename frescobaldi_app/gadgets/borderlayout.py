@@ -33,7 +33,7 @@ class BorderLayout(QObject):
     order = TOP, BOTTOM, LEFT, RIGHT
 
     def __init__(self, scrollarea):
-        super(BorderLayout, self).__init__(scrollarea)
+        super().__init__(scrollarea)
         self._resizing = False
         self._margins = 0, 0, 0, 0
         self._widgets = ([], [], [], [])

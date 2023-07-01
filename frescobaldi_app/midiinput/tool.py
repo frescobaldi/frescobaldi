@@ -16,7 +16,7 @@ import panel
 class MidiInputTool(panel.Panel):
     """Midi Tool."""
     def __init__(self, mainwindow):
-        super(MidiInputTool, self).__init__(mainwindow)
+        super().__init__(mainwindow)
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+R"))
         ac = self.actionCollection = Actions()

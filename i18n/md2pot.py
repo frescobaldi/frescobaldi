@@ -34,7 +34,7 @@ import userguide.read
 
 class Parser(userguide.read.Parser):
     def __init__(self, output_file=None):
-        super(Parser, self).__init__()
+        super().__init__()
         w = self.wrapper = textwrap.TextWrapper()
         w.break_long_words = False
         w.break_on_hyphens = False
@@ -51,7 +51,7 @@ class Parser(userguide.read.Parser):
         self.f.write(string.encode('utf8'))
 
     def translate(self, s):
-        self.write('#: ../../{0}:{1}\n'.format(self._curfilename, self.lineno))
+        self.write(f'#: ../../{self._curfilename}:{self.lineno}\n')
         # is there markdown formatting in the string?
         formatting = False
         for c in '[]', '**', '``':
@@ -66,23 +66,23 @@ class Parser(userguide.read.Parser):
         if len(lines) > 1:
             self.write('msgid ""\n')
             for l in lines[:-1]:
-                self.write(('"' + l + ' "\n'))
-            self.write(('"' + lines[-1] + '"\n'))
+                self.write('"' + l + ' "\n')
+            self.write('"' + lines[-1] + '"\n')
         else:
-            self.write(('msgid "' + lines[0] + '"\n'))
+            self.write('msgid "' + lines[0] + '"\n')
         self.write('msgstr ""\n\n')
 
 
 def md2pot(filename, md_files):
     with open(filename, 'wb') as f:
         f.write(
-r"""msgid ""
+br"""msgid ""
 msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-""".encode('utf8'))
+""")
         p = Parser(f)
         for name in md_files:
             p.make_translation_strings(name)

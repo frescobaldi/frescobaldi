@@ -39,7 +39,7 @@ class Player(qmidi.player.Player):
 
     def position_event(self, old, new):
         """Called when seeking. Performs program changes."""
-        super(Player, self).position_event(old, new)
+        super().position_event(old, new)
         output = self.output()
         if not output:
             return

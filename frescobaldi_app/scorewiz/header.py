@@ -38,7 +38,7 @@ from . import __path__
 
 class HeaderWidget(QWidget):
     def __init__(self, parent):
-        super(HeaderWidget, self).__init__(parent)
+        super().__init__(parent)
 
         layout = QHBoxLayout()
         self.setLayout(layout)
@@ -116,7 +116,7 @@ class HeaderWidget(QWidget):
             copyrightmsg = _("bottom of first page"),
             taglinemsg = _("bottom of last page"),
             imgurl = QUrl.fromLocalFile(__path__[0]).toString(),
-            **{name: '<a style="color: {0};" title="{1}" href="{2}">{3}</a>'.format(
+            **{name: '<a style="color: {};" title="{}" href="{}">{}</a>'.format(
                         color, msg, name, text)
                     for color, name, text in my_headers()}))
 

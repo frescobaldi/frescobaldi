@@ -56,7 +56,7 @@ class FileExport(plugin.MainWindowPlugin):
         orgname = doc.url().toLocalFile()
         filename = os.path.splitext(orgname)[0] + '.xml'
         caption = app.caption(_("dialog title", "Export MusicXML File"))
-        filetypes = '{0} (*.xml);;{1} (*)'.format(_("XML Files"), _("All Files"))
+        filetypes = '{} (*.xml);;{} (*)'.format(_("XML Files"), _("All Files"))
         filename = QFileDialog.getSaveFileName(self.mainwindow(), caption, filename, filetypes)[0]
         if not filename:
             return False # cancelled
@@ -66,10 +66,10 @@ class FileExport(plugin.MainWindowPlugin):
         xml = writer.musicxml()
         # put the Frescobaldi version in the xml file
         software = xml.root.find('.//encoding/software')
-        software.text = "{0} {1}".format(appinfo.appname, appinfo.version)
+        software.text = f"{appinfo.appname} {appinfo.version}"
         try:
             xml.write(filename)
-        except (IOError, OSError) as err:
+        except OSError as err:
             QMessageBox.warning(self.mainwindow(), app.caption(_("Error")),
                 _("Can't write to destination:\n\n{url}\n\n{error}").format(
                     url=filename, error=err.strerror))
@@ -87,7 +87,7 @@ class FileExport(plugin.MainWindowPlugin):
         midifile = midfiles[0]
         wavfile = os.path.splitext(orgname)[0] + '.wav'
         caption = app.caption(_("dialog title", "Export Audio File"))
-        filetypes = '{0} (*.wav);;{1} (*)'.format(_("WAV Files"), _("All Files"))
+        filetypes = '{} (*.wav);;{} (*)'.format(_("WAV Files"), _("All Files"))
         wavfile = QFileDialog.getSaveFileName(mainwin, caption, wavfile, filetypes)[0]
         if not wavfile:
             return False # cancelled
@@ -102,7 +102,7 @@ class AudioExportDialog(externalcommand.ExternalCommandDialog):
     """Dialog to show timidity output."""
 
     def __init__(self, parent, caption):
-        super(AudioExportDialog, self).__init__(parent)
+        super().__init__(parent)
         self.setWindowModality(Qt.NonModal)
         self.setWindowTitle(caption)
         qutil.saveDialogSize(self, "audio_export/dialog/size", QSize(640, 400))

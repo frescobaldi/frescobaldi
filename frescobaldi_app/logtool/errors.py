@@ -109,7 +109,7 @@ class Errors(plugin.DocumentPlugin):
         return self._refs[url].cursor(load)
 
 
-class Reference(object):
+class Reference:
     """Represents a reference to a line/column pair (a cursor position) in a Document."""
     def __init__(self, filename, line, column):
         """Creates the reference to filename, line and column.
@@ -170,7 +170,7 @@ class Reference(object):
             if win:
                 try:
                     win.openUrl(QUrl.fromLocalFile(self._filename)) # also calls bind
-                except IOError:
+                except OSError:
                     pass
                 if self._cursor:
                     return self._cursor

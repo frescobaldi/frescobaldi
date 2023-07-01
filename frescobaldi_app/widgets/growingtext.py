@@ -36,10 +36,10 @@ from PyQt5.QtWidgets import QPlainTextEdit, QStyle, QTextEdit
 __all__ = ["GrowingPlainTextEdit", "GrowingTextEdit"]
 
 
-class _GrowingTextEditBase(object):
+class _GrowingTextEditBase:
     """Base class."""
     def __init__(self, parent=None):
-        super(_GrowingTextEditBase, self).__init__(parent)
+        super().__init__(parent)
         self.setLineWrapMode(self.NoWrap)
         self.document().documentLayout().documentSizeChanged.connect(self.updateVerticalSize)
         self.updateVerticalSize()
@@ -86,7 +86,7 @@ class _GrowingTextEditBase(object):
         if mode == self.WidgetWidth:
             raise ValueError("cannot use WidgetWidth wrap mode")
         else:
-            super(_GrowingTextEditBase, self).setLineWrapMode(mode)
+            super().setLineWrapMode(mode)
 
 
 class GrowingTextEdit(_GrowingTextEditBase, QTextEdit):

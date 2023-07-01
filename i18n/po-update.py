@@ -32,9 +32,9 @@ command = [
     'xgettext',
     '-D', 'i18n/frescobaldi',
     '-o', 'frescobaldi.pot',
-    '--package-name={0}'.format(appinfo.name),
-    '--package-version={0}'.format(appinfo.version),
-    '--msgid-bugs-address={0}'.format(appinfo.maintainer_email),
+    f'--package-name={appinfo.name}',
+    f'--package-version={appinfo.version}',
+    f'--msgid-bugs-address={appinfo.maintainer_email}',
     '--add-comments=L10N',
     # Empty the default keyword list
     '--keyword',

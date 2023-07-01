@@ -56,7 +56,7 @@ class ListModel(QAbstractListModel):
         The original data can be found in the _data attribute.
 
         """
-        super(ListModel, self).__init__(parent)
+        super().__init__(parent)
         self._data = data
         self._roles = {}
         if edit is None:

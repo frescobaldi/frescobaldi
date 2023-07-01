@@ -43,7 +43,7 @@ import qutil
 
 class ViewStatusBar(QWidget):
     def __init__(self, parent=None):
-        super(ViewStatusBar, self).__init__(parent)
+        super().__init__(parent)
 
         layout = QHBoxLayout()
         layout.setContentsMargins(2, 1, 0, 1)
@@ -66,7 +66,7 @@ class ViewStatusBar(QWidget):
             else:
                 self.parent().activeView().setFocus()
             return True
-        return super(ViewStatusBar, self).event(ev)
+        return super().event(ev)
 
     def showContextMenu(self, pos):
         menu = QMenu(self)
@@ -105,7 +105,7 @@ class ViewSpace(QWidget):
     viewChanged = pyqtSignal(view_.View)
 
     def __init__(self, manager, parent=None):
-        super(ViewSpace, self).__init__(parent)
+        super().__init__(parent)
         self.manager = weakref.ref(manager)
         self.views = []
 
@@ -226,7 +226,7 @@ class ViewManager(QSplitter):
     activeViewSpaceChanged = pyqtSignal(ViewSpace, ViewSpace)
 
     def __init__(self, parent=None):
-        super(ViewManager, self).__init__(parent)
+        super().__init__(parent)
         self._viewSpaces = []
 
         viewspace = ViewSpace(self)

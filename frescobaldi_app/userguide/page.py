@@ -33,7 +33,7 @@ from . import read
 from . import resolve
 
 
-class Page(object):
+class Page:
     def __init__(self, name=None):
         self._attrs = {}
         self._title = None
@@ -47,9 +47,9 @@ class Page(object):
         self._name = name
         try:
             doc, attrs = read.document(name)
-        except (OSError, IOError):
+        except OSError:
             doc, attrs = read.document('404')
-        attrs.setdefault('VARS', []).append('userguide_page md `{0}`'.format(name))
+        attrs.setdefault('VARS', []).append(f'userguide_page md `{name}`')
         self.parse_text(doc, attrs)
 
     def parse_text(self, text, attrs=None):
@@ -125,7 +125,7 @@ class HtmlOutput(simplemarkdown.HtmlOutput):
         self._html.append(text)
 
 
-class Resolver(object):
+class Resolver:
     """Resolves variables in help documents."""
     def __init__(self, variables=None):
         """Initialize with a list of variables from the #VARS section.
@@ -200,13 +200,13 @@ class Resolver(object):
             text = text[:-1]
         url = simplemarkdown.html_escape(url).replace('"', '&quot;')
         text = simplemarkdown.html_escape(text)
-        return '<a href="{0}">{1}</a>'.format(url, text)
+        return f'<a href="{url}">{text}</a>'
 
     def handle_help(self, text):
         """Return a link to the specified help page, with the title."""
         title = Page(text).title()
         url = text
-        return '<a href="{0}">{1}</a>'.format(url, title)
+        return f'<a href="{url}">{title}</a>'
 
     def handle_shortcut(self, text):
         """Return the keystroke currently defined for the action."""
@@ -215,7 +215,7 @@ class Resolver(object):
         action = actioncollectionmanager.action(collection_name, action_name)
         seq = action.shortcut()
         key = seq.toString(QKeySequence.NativeText) or _("(no key defined)")
-        return '<span class="shortcut">{0}</span>'.format(simplemarkdown.html_escape(key))
+        return f'<span class="shortcut">{simplemarkdown.html_escape(key)}</span>'
 
     def handle_menu(self, text):
         """Split the text on '->' in menu or action titles and translate them.
@@ -263,7 +263,7 @@ class Resolver(object):
             return translation
 
         translated = [title(name) for name in pieces]
-        return '<em>{0}</em>'.format(' &#8594; '.join(translated))
+        return '<em>{}</em>'.format(' &#8594; '.join(translated))
 
     def handle_image(self, filename):
         url = simplemarkdown.html_escape(filename).replace('"', '&quot;')

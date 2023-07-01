@@ -33,7 +33,7 @@ import widgets.completer
 
 class Completer(widgets.completer.Completer):
     def __init__(self):
-        super(Completer, self).__init__()
+        super().__init__()
         self.setMaxVisibleItems(16)
         self.popup().setMinimumWidth(100)
         app.settingsChanged.connect(self.readSettings)

@@ -69,7 +69,7 @@ class FontsPreviewWidget(QWidget):
     temp_dir = util.tempdir()
 
     def __init__(self, parent):
-        super(FontsPreviewWidget, self).__init__(parent)
+        super().__init__(parent)
 
         # Create the cache directory for default samples
         os.makedirs(self.persistent_cache_dir, 0o700, exist_ok=True)
@@ -275,7 +275,7 @@ class FontsPreviewWidget(QWidget):
                     )
                     print("Default:", sample_file)
                 base_dir = os.path.dirname(sample_file)
-                with open(sample_file, 'r') as f:
+                with open(sample_file) as f:
                     sample_content = f.read()
 
         def sample_document():
@@ -289,7 +289,7 @@ class FontsPreviewWidget(QWidget):
                     self.window().available_fonts.music_fonts(
                     ).lilypond_info.versionString()
                 ),
-                '{}\n'.format(global_size) if global_size else '',
+                f'{global_size}\n' if global_size else '',
                 # TODO: "Protect" this regarding openLilyLib.
                 # It would be easy to simply pass 'lily' as an argument
                 # to always use the generic approach. However, that would
