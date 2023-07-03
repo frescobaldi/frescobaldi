@@ -49,7 +49,7 @@ class ExceptionDialog(QDialog):
         # _tblimited is the traceback, truncated to 5 frames max.
         # We do this because of size limits on what you can pass to GitHub
         # in a URL.
-        tblimited = traceback.format_exception(exctype, excvalue, exctb, limit=5)
+        tblimited = traceback.format_exception(exctype, excvalue, exctb, limit=-5)
         self._tblimited = ''.join(tblimited)
 
         self._ext_maintainer = app.extensions().is_extension_exception(tbfull)
