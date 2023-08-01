@@ -1,6 +1,9 @@
 from pathlib import Path
 import subprocess
 
+from molint import molint
+
+
 for po in Path("i18n/frescobaldi").glob("*.po"):
     lang = po.stem
     combined = subprocess.run([
@@ -10,3 +13,4 @@ for po in Path("i18n/frescobaldi").glob("*.po"):
     lang_dir.mkdir(parents=True, exist_ok=True)
     subprocess.run(["msgfmt", "-o", lang_dir / "frescobaldi.mo", "-"],
                    input=combined, encoding="utf-8")
+    molint(lang_dir / "frescobaldi.mo")
