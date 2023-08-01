@@ -39,7 +39,7 @@ def available():
     """
     return [str(path.parent.stem) for path in Path(modir).rglob("LC_MESSAGES")]
 
-def translator(language):
+def translator(language, domain="frescobaldi"):
     """Returns a function that can translate messages using the specified language.
 
     The value "C" or "en" or "en_XXX" causes a dummy translator that returns English
@@ -59,7 +59,7 @@ def translator(language):
     if language == "C" or language == "en" or language.split('_')[0] == "en":
         catalog = gettext.NullTranslations()
     elif language in available() or language.split('_')[0] in available():
-        catalog = gettext.translation("frescobaldi", localedir=modir,
+        catalog = gettext.translation(domain, localedir=modir,
                                       languages=[language])
     else:
         raise UnknownLanguageError

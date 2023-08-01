@@ -75,6 +75,11 @@ msgstr "De abc2ly-tab"
 msgid "In this tab you have the following options:"
 msgstr "In deze tab heeft u de volgende opties:"
 
+#: ../../frescobaldi_app/userguide/abc_import.md:20
+#: ../../frescobaldi_app/userguide/musicxml_import.md:19
+msgid "Import beaming"
+msgstr "Waardestrepen importeren"
+
 #: ../../frescobaldi_app/userguide/abc_import.md:22
 msgid "This option can be used to retain the beaming from the ABC notation."
 msgstr ""
@@ -409,6 +414,10 @@ msgstr ""
 "Een derde mogelijkheid om een nieuw document te maken is de [scorewiz Score "
 "Wizard] te gebruiken."
 
+#: ../../frescobaldi_app/userguide/credits.md:1
+msgid "Credits"
+msgstr "Dank aan"
+
 #: ../../frescobaldi_app/userguide/credits.md:3
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
 msgstr "{appname} is geschreven in {python} en gebruikt de {qt} toolkit."
@@ -453,6 +462,12 @@ msgstr "Quick Insert knoppen voor voorslagen"
 #: ../../frescobaldi_app/userguide/credits.md:24
 msgid "MusicXML, MIDI and ABC im- and export"
 msgstr "MusicXML, MIDI en ABC im- en export"
+
+#: ../../frescobaldi_app/userguide/credits.md:24
+#: ../../frescobaldi_app/userguide/credits.md:46
+#: ../../frescobaldi_app/userguide/manuscriptview.md:1
+msgid "Manuscript Viewer"
+msgstr "Manuscript-weergave"
 
 #: ../../frescobaldi_app/userguide/credits.md:29
 msgid "Kinetic Scrolling for the Music View"
@@ -531,6 +546,10 @@ msgstr ""
 "En grote dank gaat uiteraard naar de LilyPond ontwikkelaars die zo'n "
 "excellent muziekgravure-programma bouwen!"
 
+#: ../../frescobaldi_app/userguide/documentfonts.md:1
+msgid "Document Fonts"
+msgstr "Document-lettertypen"
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts.md:3
 msgid ""
@@ -569,12 +588,22 @@ msgid ""
 "can be reset to LilyPond's default text and music fonts."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/documentfonts.md:25
+#: ../../frescobaldi_app/userguide/documentfonts_text.md:1
+msgid "Text Fonts"
+msgstr "Tekstlettertypen"
+
 #: ../../frescobaldi_app/userguide/documentfonts.md:27
 msgid ""
 "The tab {page_textfonts} provides a searchable tree view of all text fonts "
 "available to the current LilyPond installation. It also allows to select "
 "text fonts for use in the score document."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/documentfonts.md:31
+#: ../../frescobaldi_app/userguide/documentfonts_music.md:1
+msgid "Music Fonts"
+msgstr "Muziek-lettertypen"
 
 #: ../../frescobaldi_app/userguide/documentfonts.md:33
 msgid ""
@@ -583,11 +612,19 @@ msgid ""
 "installation."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/documentfonts.md:36
+msgid "Font Command"
+msgstr "Font-commando"
+
 #: ../../frescobaldi_app/userguide/documentfonts.md:38
 msgid ""
 "The tab {page_fontcommand} provides controls to configure the way how the "
 "font-setting command is generated."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/documentfonts.md:41
+msgid "Preview"
+msgstr "Vooruitblik"
 
 #: ../../frescobaldi_app/userguide/documentfonts.md:43
 msgid ""
@@ -901,6 +938,10 @@ msgid ""
 "This may be especially confusing if the document itself specifies "
 "alternative fonts which will then be used."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/documentfonts_preview.md:41
+msgid "Current Document"
+msgstr "Huidig document"
 
 #: ../../frescobaldi_app/userguide/documentfonts_preview.md:43
 msgid ""
@@ -1254,6 +1295,10 @@ msgstr ""
 "Voegt de `--verbose` optie aan de LilyPond-commandoregel toe, zodat LilyPond "
 "uitgebreide informatie in het logvenster schrijft."
 
+#: ../../frescobaldi_app/userguide/engrave_layout.md:15
+msgid "Point-and-Click"
+msgstr "Point-en-Click"
+
 #: ../../frescobaldi_app/userguide/engrave_layout.md:16
 msgid ""
 "Enables the point and click navigation links in the Music View. Enabled by "
@@ -1276,6 +1321,11 @@ msgstr ""
 "Deze modus kleurt de noten die speciaal met een van de `\\voiceXXX` "
 "commando's gemarkeerd zijn. Dit is handig bij het oplossen van problemen met "
 "polyfonie."
+
+#: ../../frescobaldi_app/userguide/engrave_layout.md:23
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:27
+msgid "Color explicit directions"
+msgstr "Expliciete richting kleuren"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/engrave_layout.md:24
@@ -1312,6 +1362,11 @@ msgstr ""
 "Als de partituur is gegraveerd met LilyPond versie 2.17.6 of later is de "
 "situatie verbeterd."
 
+#: ../../frescobaldi_app/userguide/engrave_layout.md:38
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:44
+msgid "Display Grob Anchors"
+msgstr "Grob-ankerpunten weergeven"
+
 #: ../../frescobaldi_app/userguide/engrave_layout.md:39
 msgid ""
 "In LilyPond, all graphical objects have an anchor (a reference point). What "
@@ -1344,6 +1399,11 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/engrave_layout.md:51
 msgid "This Mode displays a red dot for each grob's anchor point."
 msgstr "Deze modus toont een rode stip op het ankerpunt van elke grob."
+
+#: ../../frescobaldi_app/userguide/engrave_layout.md:53
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:59
+msgid "Display Grob Names"
+msgstr "Grob-namen weergeven"
 
 #: ../../frescobaldi_app/userguide/engrave_layout.md:54
 msgid "This mode prints a grob's name next to it."
@@ -1379,6 +1439,10 @@ msgstr ""
 "leren en wordt bruikbaarder als het voor individuele grobs zou kunnen worden "
 "geactiveerd."
 
+#: ../../frescobaldi_app/userguide/engrave_layout.md:68
+msgid "Display Skylines"
+msgstr "Skylines weergeven"
+
 #: ../../frescobaldi_app/userguide/engrave_layout.md:69
 msgid ""
 "LilyPond uses \"Skylines\" to calculate the vertical dimensions of its "
@@ -1402,6 +1466,10 @@ msgstr ""
 "Horizontale spatiëring wordt door LilyPond geregeld met behulp van paper-"
 "columns. Deze modus toont een grote hoeveelheid informatie over deze "
 "entiteiten."
+
+#: ../../frescobaldi_app/userguide/engrave_layout.md:78
+msgid "Annotate Spacing"
+msgstr "Spatiëring annoteren"
 
 #: ../../frescobaldi_app/userguide/engrave_layout.md:79
 msgid ""
@@ -1480,6 +1548,10 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/engrave_layout_configure.md:15
 msgid "The modes use the following configuration variables:"
 msgstr "De modes gebruiken de volgende configuratie-variabelen:"
+
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:18
+msgid "Color \\voiceXXX"
+msgstr "\\voiceXXX kleuren"
 
 #: ../../frescobaldi_app/userguide/engrave_layout_configure.md:19
 msgid "These variables currently can't be redefined in input files."
@@ -1665,6 +1737,10 @@ msgstr ""
 "LilyPond automatisch starten (in vooruitblik-modus) telkens als het document "
 "wordt gewijzigd."
 
+#: ../../frescobaldi_app/userguide/experimental_features.md:1
+msgid "Experimental Features"
+msgstr "Experimentele functionaliteit"
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/experimental_features.md:3
 msgid ""
@@ -1727,6 +1803,10 @@ msgid ""
 "require a restart of Frescobaldi to take effect."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/ext_configuration.md:7
+msgid "General Settings"
+msgstr "Algemene instellingen"
+
 #: ../../frescobaldi_app/userguide/ext_configuration.md:9
 msgid ""
 "The use of extensions can be deactivated globally. Without this checkbox "
@@ -1741,6 +1821,10 @@ msgid ""
 "directory should do no harm as only valid and functional extensions are "
 "loaded."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/ext_configuration.md:16
+msgid "Installed Extensions"
+msgstr "Geïnstalleerde extensies"
 
 #: ../../frescobaldi_app/userguide/ext_configuration.md:18
 msgid ""
@@ -1775,6 +1859,10 @@ msgid ""
 "problem."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/ext_configuration.md:36
+msgid "Failed Extensions"
+msgstr "Gefaalde extensies"
+
 #: ../../frescobaldi_app/userguide/ext_configuration.md:38
 msgid ""
 "Extensions can be faulty so that either the meta information can not be "
@@ -1798,6 +1886,10 @@ msgid ""
 "about the issue, including the full stacktrace that can (and should) be sent "
 "to the extension maintainer(s) to investigate the issue."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/ext_configuration.md:52
+msgid "Extension Configuration"
+msgstr "Configuratie van extensie"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/ext_configuration.md:54
@@ -2499,6 +2591,11 @@ msgstr ""
 msgid "The midi2ly tab"
 msgstr "De midi2ly-tab"
 
+#: ../../frescobaldi_app/userguide/midi_import.md:16
+#: ../../frescobaldi_app/userguide/musicxml_import.md:20
+msgid "Pitches in absolute mode"
+msgstr "Toonhoogtes in absolute modus"
+
 #: ../../frescobaldi_app/userguide/midi_import.md:18
 msgid ""
 "This option can be used if you prefer to have the source code in absolute "
@@ -2727,6 +2824,10 @@ msgstr ""
 "{menu_music_copy_image} om de geselecteerde muziek naar het klembord, een "
 "bestand of een andere applicatie te slepen."
 
+#: ../../frescobaldi_app/userguide/musicview_editinplace.md:1
+msgid "Edit in Place"
+msgstr "Op de plaats bewerken"
+
 #: ../../frescobaldi_app/userguide/musicview_editinplace.md:3
 msgid "In this dialog you can edit one line of the text document."
 msgstr "In deze dialoog kunt u een regel uit het tekstdocument bewerken."
@@ -2769,6 +2870,10 @@ msgstr ""
 msgid "This feature is currently experimental, see {experimental}."
 msgstr "Dit is momenteel een experimentele functie, zie {experimental}."
 
+#: ../../frescobaldi_app/userguide/musicxml_import.md:1
+msgid "Import Music XML"
+msgstr "MusicXML importeren"
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/musicxml_import.md:3
 msgid ""
@@ -2791,6 +2896,22 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/musicxml_import.md:12
 msgid "The musicxml2ly tab"
 msgstr "De musicxml2ly-tab"
+
+#: ../../frescobaldi_app/userguide/musicxml_import.md:16
+msgid "Import articulation directions"
+msgstr "Richting voor articulaties importeren"
+
+#: ../../frescobaldi_app/userguide/musicxml_import.md:17
+msgid "Import rest positions"
+msgstr "Positie voor rusten importeren"
+
+#: ../../frescobaldi_app/userguide/musicxml_import.md:18
+msgid "Import page layout"
+msgstr "Pagina-layout importeren"
+
+#: ../../frescobaldi_app/userguide/musicxml_import.md:21
+msgid "Language for pitch names"
+msgstr "Taal voor nootnamen"
 
 #: ../../frescobaldi_app/userguide/musicxml_import.md:23
 msgid ""
@@ -3009,6 +3130,10 @@ msgstr ""
 "nodig zijn om muziek te selecteren vanaf de eerste sub-expressie zodat "
 "bovenliggende accollades-openen niet worden gezien."
 
+#: ../../frescobaldi_app/userguide/preferences.md:1
+msgid "Preferences"
+msgstr "Voorkeuren"
+
 #: ../../frescobaldi_app/userguide/preferences.md:3
 msgid ""
 "In the Preferences Dialog (under {menu_edit_preferences}) you can configure "
@@ -3016,6 +3141,14 @@ msgid ""
 msgstr ""
 "In de dialoog Voorkeuren (onder {menu_edit_preferences}) kunt u veel "
 "aspecten van Frescobaldi en LilyPond instellen."
+
+#: ../../frescobaldi_app/userguide/prefs_editor.md:1
+msgid "Editor Preferences"
+msgstr "Editor-voorkeuren"
+
+#: ../../frescobaldi_app/userguide/prefs_editor.md:3
+msgid "Highlighting Options"
+msgstr "Accentuerings-opties"
 
 #: ../../frescobaldi_app/userguide/prefs_editor.md:5
 msgid ""
@@ -3028,6 +3161,10 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/prefs_editor.md:8
 msgid "Use the value 0 for infinite."
 msgstr "Gebruik de waarde 0 voor oneindig."
+
+#: ../../frescobaldi_app/userguide/prefs_editor.md:11
+msgid "Indenting Preferences"
+msgstr "Inspring-voorkeuren"
 
 #: ../../frescobaldi_app/userguide/prefs_editor.md:13
 msgid "Here you can specify how you want to handle Tabs and indenting."
@@ -3081,6 +3218,10 @@ msgid ""
 msgstr ""
 "U kunt het inspringgedrag ook per-document instellen, zie "
 "{document_variables}."
+
+#: ../../frescobaldi_app/userguide/prefs_editor.md:33
+msgid "Source Export Preferences"
+msgstr "Bron-export voorkeuren"
 
 #: ../../frescobaldi_app/userguide/prefs_editor.md:35
 msgid ""
@@ -3159,11 +3300,19 @@ msgstr ""
 "`<div class=\"lilypond\">` element als dat handiger is voor eventueel "
 "bestaande CSS."
 
+#: ../../frescobaldi_app/userguide/prefs_extensions.md:1
+msgid "Extensions"
+msgstr "Extensies"
+
 #: ../../frescobaldi_app/userguide/prefs_extensions.md:3
 msgid ""
 "List and (partially) configure installed extensions. See {extending} and "
 "especially {configure}."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/prefs_fontscolors.md:1
+msgid "Fonts & Colors"
+msgstr "Tekst & kleur"
 
 #: ../../frescobaldi_app/userguide/prefs_fontscolors.md:3
 msgid ""
@@ -3209,6 +3358,10 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/prefs_shortcuts.md:12
 msgid "You can define a new scheme by using the New button."
 msgstr "U kunt een nieuw schema definiëren door op de knop Nieuw te klikken."
+
+#: ../../frescobaldi_app/userguide/prefs_general.md:1
+msgid "General Preferences"
+msgstr "Algemene voorkeuren"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_general.md:3
@@ -3289,6 +3442,10 @@ msgstr ""
 "gebruiken die nog in ontwikkeling zijn en nog niet voltooid. Zie "
 "{experimental}."
 
+#: ../../frescobaldi_app/userguide/prefs_helpers.md:1
+msgid "Helper Applications"
+msgstr "Hulpprogramma's"
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_helpers.md:3
 msgid ""
@@ -3364,6 +3521,10 @@ msgstr ""
 "Als Frescobaldi moet terugvallen op rasterafbeeldingen bij het afdrukken, "
 "kunt u hier de resolutie (het aantal dots per inch) aangeven."
 
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:1
+msgid "LilyPond Documentation"
+msgstr "LilyPond-documentatie"
+
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:3
 #, fuzzy
 msgid ""
@@ -3437,6 +3598,10 @@ msgstr ""
 "http://www.lilypond.org/doc/v2.18/ http://www.lilypond.org/doc/v2.19/ http://"
 "www.lilypond.org/doc/stable/ http://www.lilypond.org/doc/development/"
 
+#: ../../frescobaldi_app/userguide/prefs_lilypond.md:1
+msgid "LilyPond Preferences"
+msgstr "LilyPond-voorkeuren"
+
 #: ../../frescobaldi_app/userguide/prefs_lilypond.md:3
 msgid ""
 "Here you can configure how LilyPond is run when you engrave your document."
@@ -3498,6 +3663,10 @@ msgstr ""
 "mappen in de lijst te verslepen. Dit beïnvloedt de volgorde waarin LilyPond "
 "de directories doorzoekt."
 
+#: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:1
+msgid "Automatically choose LilyPond version from document"
+msgstr "Kies LilyPond-versie op basis van document"
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:3
 msgid ""
@@ -3532,6 +3701,10 @@ msgid ""
 msgstr ""
 "Als het document een versie aangeeft, wordt de oudst passende versie van "
 "LilyPond gekozen. Anders wordt de als standaard aangegeven versie gekozen."
+
+#: ../../frescobaldi_app/userguide/prefs_midi.md:1
+msgid "MIDI Settings"
+msgstr "MIDI-instellingen"
 
 #: ../../frescobaldi_app/userguide/prefs_midi.md:3
 msgid "Here you can configure Frescobaldi's MIDI settings."
@@ -3588,6 +3761,10 @@ msgstr ""
 "naar de standaard piano (instrument 0). In dat geval kunt u het bestand "
 "vanaf het begin afspelen om de instrumenten weer correct te horen."
 
+#: ../../frescobaldi_app/userguide/prefs_musicviewers.md:1
+msgid "Music Preferences"
+msgstr "Muziek-voorkeuren"
+
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:3
 #, fuzzy
 msgid "Here you can configure how music is displayed and printed."
@@ -3614,6 +3791,10 @@ msgid ""
 "The print resolution is only used when raster-based printing can't be "
 "avoided."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/prefs_paths.md:1
+msgid "Paths"
+msgstr "Paden"
 
 #: ../../frescobaldi_app/userguide/prefs_paths.md:3
 #, fuzzy
@@ -3680,6 +3861,10 @@ msgid ""
 "by Frescobaldi are cached persistently."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/prefs_shortcuts.md:1
+msgid "Keyboard Shortcuts"
+msgstr "Sneltoetsen"
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_shortcuts.md:3
 msgid ""
@@ -3702,6 +3887,10 @@ msgstr ""
 "knop Bewerken, of dubbelklik de actie. In de dialoog die verschijnt kunt u "
 "maximaal vier verschillende sneltoetsen voor de actie instellen, door de "
 "knop in te drukken en de gewenste sneltoetscombinatie aan te slaan."
+
+#: ../../frescobaldi_app/userguide/prefs_tools.md:1
+msgid "Tools"
+msgstr "Gereedschap"
 
 #: ../../frescobaldi_app/userguide/prefs_tools.md:3
 msgid "Here you can change the settings for various tools."
@@ -3743,6 +3932,10 @@ msgstr ""
 "Insert-paneel hebben instelbare sneltoetsen; u kunt deze aanpassen door "
 "rechts te klikken op een knop."
 
+#: ../../frescobaldi_app/userguide/quickinsert.md:16
+msgid "Articulations"
+msgstr "Articulaties"
+
 #: ../../frescobaldi_app/userguide/quickinsert.md:18
 msgid ""
 "These musical symbols can be added to a note or rest or a selected range of "
@@ -3764,6 +3957,10 @@ msgstr ""
 "Als *Korte notatie* is ingeschakeld zal Frescobaldi korte tekens gebruiken "
 "indien beschikbaar (bijvoorbeeld `-.` in plaats van `-\\staccato`)."
 
+#: ../../frescobaldi_app/userguide/quickinsert.md:29
+msgid "Dynamics"
+msgstr "Dynamiek"
+
 #: ../../frescobaldi_app/userguide/quickinsert.md:31
 msgid ""
 "Dynamics can also be added to a note or rest. If you select a range of "
@@ -3775,6 +3972,10 @@ msgstr ""
 "een muziekbereik selecteert kunt in spanners toevoegen die automatisch "
 "afsluiten op de laatste noot, rust of het laatste akkoord. Als u daarna een "
 "teken aanklikt, vervangt dat de afsluiter."
+
+#: ../../frescobaldi_app/userguide/quickinsert.md:37
+msgid "Spanners"
+msgstr "Spanners"
 
 #: ../../frescobaldi_app/userguide/quickinsert.md:39
 msgid ""
@@ -3795,6 +3996,10 @@ msgstr ""
 "muziek te zijn geselecteerd. De bogen, waardestreep of de triller gelden "
 "voor de huidige noot en de volgende als er geen muziek geselecteerd is, of "
 "voor de eerste en de laatste noot of akkoord in de selectie."
+
+#: ../../frescobaldi_app/userguide/quickinsert.md:49
+msgid "Bar Lines"
+msgstr "Maatstrepen"
 
 #: ../../frescobaldi_app/userguide/quickinsert.md:51
 msgid "Here you can insert bar lines or various breathing signs."
@@ -4024,6 +4229,10 @@ msgstr ""
 "Een uitvoerige behandeling van reguliere uitdrukkingen kan worden gevonden "
 "in de [http://docs.python.org/library/re.html#regular-expression-syntax "
 "Python-documentatie]."
+
+#: ../../frescobaldi_app/userguide/sessions.md:1
+msgid "Sessions"
+msgstr "Sessies"
 
 #: ../../frescobaldi_app/userguide/sessions.md:3
 msgid ""
@@ -4318,6 +4527,10 @@ msgstr ""
 "aangeroepen, in plaats van het invoegen van de tekst in de `text` variabele. "
 "In dit geval kunt u het document aanpassen via de `cursor`."
 
+#: ../../frescobaldi_app/userguide/snippets.md:1
+msgid "Snippets"
+msgstr "Knipsels"
+
 #: ../../frescobaldi_app/userguide/snippets.md:3
 msgid ""
 "With the snippets manager you can store often used pieces of text called "
@@ -4372,6 +4585,10 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/toc.md:1
 msgid "Table of Contents"
 msgstr "Inhoudsopgave"
+
+#: ../../frescobaldi_app/userguide/transpose.md:1
+msgid "Transpose"
+msgstr "Transponeren"
 
 #: ../../frescobaldi_app/userguide/transpose.md:3
 msgid ""
@@ -4516,9 +4733,6 @@ msgstr ""
 #~ msgid "About"
 #~ msgstr "Over"
 
-#~ msgid "Credits"
-#~ msgstr "Dank aan"
-
 #~ msgid "Version"
 #~ msgstr "Versie"
 
@@ -4636,9 +4850,6 @@ msgstr ""
 
 #~ msgid "Convert-ly from LilyPond {version}"
 #~ msgstr "Convert-ly van LilyPond {version}"
-
-#~ msgid "Current Document"
-#~ msgstr "Huidig document"
 
 #~ msgid "Converted Document"
 #~ msgstr "Bijgewerkt document"
@@ -4862,9 +5073,6 @@ msgstr ""
 
 #~ msgid "Position: {pos}"
 #~ msgstr "Positie: {pos}"
-
-#~ msgid "Edit in Place"
-#~ msgstr "Op de plaats bewerken"
 
 #~ msgid "Editing line {linenum} of \"{document}\" ({variable})"
 #~ msgstr "Bewerken regel {linenum} van \"{document}\" ({variable})"
@@ -5589,9 +5797,6 @@ msgstr ""
 #~ msgid "Engraving mode:"
 #~ msgstr "Graveermodus:"
 
-#~ msgid "Preview"
-#~ msgstr "Vooruitblik"
-
 #~ msgid "Publish"
 #~ msgstr "Publiceren"
 
@@ -5890,35 +6095,14 @@ msgstr ""
 #~ msgid "Import an abc file using abc2ly."
 #~ msgstr "Een ABC-bestand importeren met behulp van abc2ly."
 
-#~ msgid "Import beaming"
-#~ msgstr "Waardestrepen importeren"
-
 #~ msgid "Run abc2ly"
 #~ msgstr "ABC2ly starten"
-
-#~ msgid "Pitches in absolute mode"
-#~ msgstr "Toonhoogtes in absolute modus"
 
 #~ msgid "Run midi2ly"
 #~ msgstr "Midi2ly starten"
 
-#~ msgid "Import Music XML"
-#~ msgstr "MusicXML importeren"
-
-#~ msgid "Import articulation directions"
-#~ msgstr "Richting voor articulaties importeren"
-
-#~ msgid "Import rest positions"
-#~ msgstr "Positie voor rusten importeren"
-
-#~ msgid "Import page layout"
-#~ msgstr "Pagina-layout importeren"
-
 #~ msgid "Comment out midi block"
 #~ msgstr "MIDI-blok uitcommentariëren"
-
-#~ msgid "Language for pitch names"
-#~ msgstr "Taal voor nootnamen"
 
 #~ msgid "Default"
 #~ msgstr "Standaard"
@@ -5948,24 +6132,8 @@ msgstr ""
 #~ msgstr "Document-&lettertypen..."
 
 #, fuzzy
-#~ msgid "Document Fonts"
-#~ msgstr "Document-lettertypen..."
-
-#, fuzzy
 #~ msgid "Copy font command to clipboard"
 #~ msgstr "Naar klembord &kopiëren"
-
-#, fuzzy
-#~ msgid "Text Fonts"
-#~ msgstr "Tekstbestanden"
-
-#, fuzzy
-#~ msgid "Music Fonts"
-#~ msgstr "MusicXML-bestanden"
-
-#, fuzzy
-#~ msgid "Font Command"
-#~ msgstr "Commando"
 
 #, fuzzy
 #~ msgid "Roman"
@@ -6106,9 +6274,6 @@ msgstr ""
 #~ msgid "Run external command"
 #~ msgstr "Andere commando's:"
 
-#~ msgid "Annotate Spacing"
-#~ msgstr "Spatiëring annoteren"
-
 #~ msgid ""
 #~ "Use LilyPond's \"annotate spacing\" option to\n"
 #~ "display measurement information"
@@ -6121,21 +6286,12 @@ msgstr ""
 #~ msgid "Display the control points that determine curve shapes"
 #~ msgstr "De controlepunten tonen die de vorm van curven bepalen"
 
-#~ msgid "Color explicit directions"
-#~ msgstr "Expliciete richting kleuren"
-
 #~ msgid "Highlight elements that are explicitly switched up- or downwards"
 #~ msgstr ""
 #~ "Elementen accentueren die expliciet naar boven of beneden zijn gericht"
 
-#~ msgid "Display Grob Anchors"
-#~ msgstr "Grob-ankerpunten weergeven"
-
 #~ msgid "Display a dot at the anchor point of each grob"
 #~ msgstr "Een stip weergeven op het ankerpunt van elke grob"
-
-#~ msgid "Display Grob Names"
-#~ msgstr "Grob-namen weergeven"
 
 #~ msgid "Display the name of each grob"
 #~ msgstr "De naam van elke grob tonen"
@@ -6146,14 +6302,8 @@ msgstr ""
 #~ msgid "Display info on the paper columns"
 #~ msgstr "Informatie over de paper columns"
 
-#~ msgid "Display Skylines"
-#~ msgstr "Skylines weergeven"
-
 #~ msgid "Display the skylines that LilyPond uses to detect collisions."
 #~ msgstr "De skylines tonen die LilyPond gebruikt om botsingen te detecteren."
-
-#~ msgid "Color \\voiceXXX"
-#~ msgstr "\\voiceXXX kleuren"
 
 #~ msgid "Highlight notes that are explicitly set to \\voiceXXX"
 #~ msgstr "Noten accentueren die expliciet op \\voiceXXX zijn ingesteld"
@@ -6172,9 +6322,6 @@ msgstr ""
 
 #~ msgid "Run LilyPond with verbose output"
 #~ msgstr "LilyPond starten met uitgebreide uitvoerberichten"
-
-#~ msgid "Point-and-Click"
-#~ msgstr "Point-en-Click"
 
 #~ msgid "Run LilyPond in preview mode (with Point and Click)"
 #~ msgstr "LilyPond starten met Point and Click (vooruitblik)"
@@ -6641,9 +6788,6 @@ msgstr ""
 
 #~ msgid "(for LilyPond 2.14 and higher.)"
 #~ msgstr "(voor LilyPond 2.14 en hoger.)"
-
-#~ msgid "Transpose"
-#~ msgstr "Transponeren"
 
 #~ msgid ""
 #~ "Please enter two absolute pitches, separated by a space, using the pitch "
@@ -7454,45 +7598,6 @@ msgstr ""
 #~ msgid "What's This?"
 #~ msgstr "Wat is dit?"
 
-#~ msgid "Preferences"
-#~ msgstr "Voorkeuren"
-
-#~ msgid "General Preferences"
-#~ msgstr "Algemene voorkeuren"
-
-#~ msgid "Music Preferences"
-#~ msgstr "Muziek-voorkeuren"
-
-#~ msgid "LilyPond Preferences"
-#~ msgstr "LilyPond-voorkeuren"
-
-#~ msgid "MIDI Settings"
-#~ msgstr "MIDI-instellingen"
-
-#~ msgid "Helper Applications"
-#~ msgstr "Hulpprogramma's"
-
-#~ msgid "Paths"
-#~ msgstr "Paden"
-
-#~ msgid "LilyPond Documentation"
-#~ msgstr "LilyPond-documentatie"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Sneltoetsen"
-
-#~ msgid "Editor Preferences"
-#~ msgstr "Editor-voorkeuren"
-
-#~ msgid "Fonts & Colors"
-#~ msgstr "Tekst & kleur"
-
-#~ msgid "Tools"
-#~ msgstr "Gereedschap"
-
-#~ msgid "Extensions"
-#~ msgstr "Extensies"
-
 #~ msgid "Paths to LilyPond Documentation"
 #~ msgstr "Paden naar LilyPond-documentatie"
 
@@ -7542,9 +7647,6 @@ msgstr ""
 #~ msgid "Matching Item:"
 #~ msgstr "Overeenkomend item:"
 
-#~ msgid "Highlighting Options"
-#~ msgstr "Accentuerings-opties"
-
 #~ msgid ""
 #~ "Below you can define how long \"matching\" items like matching brackets "
 #~ "or the items linked through Point-and-Click are highlighted."
@@ -7557,9 +7659,6 @@ msgstr ""
 
 #~ msgid "Infinite"
 #~ msgstr "Altijd"
-
-#~ msgid "Indenting Preferences"
-#~ msgstr "Inspring-voorkeuren"
 
 #~ msgid "Visible Tab Width:"
 #~ msgstr "Zichtbare tabbreedte:"
@@ -7634,9 +7733,6 @@ msgstr ""
 #~ "Indien ingeschakeld, zal de cursor altijd in de huidige regel blijven als "
 #~ "de horizontale pijltoetsen worden gebruikt, en niet verder lopen in de "
 #~ "volgende of vorige regel."
-
-#~ msgid "Source Export Preferences"
-#~ msgstr "Bron-export voorkeuren"
 
 #~ msgid "Show line numbers"
 #~ msgstr "Regelnummers weergeven"
@@ -7736,9 +7832,6 @@ msgstr ""
 #~ msgid "Custom quotes (enter below)"
 #~ msgstr "Aangepaste aanhalingstekens (hieronder invoeren)"
 
-#~ msgid "General Settings"
-#~ msgstr "Algemene instellingen"
-
 #, fuzzy
 #~ msgid "Use Extensions"
 #~ msgstr "Extender-lijnen gebruiken"
@@ -7746,10 +7839,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Extension API: {apiversion}"
 #~ msgstr "Versie {version}"
-
-#, fuzzy
-#~ msgid "Installed Extensions"
-#~ msgstr "Installeren in:"
 
 #~ msgid "Name"
 #~ msgstr "Naam"
@@ -7768,10 +7857,6 @@ msgstr ""
 
 #~ msgid "Description"
 #~ msgstr "Omschrijving"
-
-#, fuzzy
-#~ msgid "Extension Configuration"
-#~ msgstr "Vooruitblik-modus configuratie"
 
 #~ msgid "Use this scheme for printing"
 #~ msgstr "Dit schema gebruiken voor afdrukken"
@@ -8069,9 +8154,6 @@ msgstr ""
 #~ msgid "Use custom default file name:"
 #~ msgstr "Aangepast versienummer gebruiken:"
 
-#~ msgid "Sessions"
-#~ msgstr "Sessies"
-
 #~ msgid "Session to load if Frescobaldi is started without arguments"
 #~ msgstr "Als Frescobaldi zonder argumenten wordt gestart,"
 
@@ -8083,9 +8165,6 @@ msgstr ""
 
 #~ msgid "Start with session:"
 #~ msgstr "Met deze sessie starten:"
-
-#~ msgid "Experimental Features"
-#~ msgstr "Experimentele functionaliteit"
 
 #~ msgid "Enable Experimental Features"
 #~ msgstr "Experimentele functies inschakelen"
@@ -8165,9 +8244,6 @@ msgstr ""
 
 #~ msgid "LilyPond versions to use"
 #~ msgstr "De te gebruiken LilyPond-versies"
-
-#~ msgid "Automatically choose LilyPond version from document"
-#~ msgstr "Kies LilyPond-versie op basis van document"
 
 #~ msgid ""
 #~ "If checked, the document's version determines the LilyPond version to "
@@ -8612,9 +8688,6 @@ msgstr ""
 #~ msgid "Remove articulations etc."
 #~ msgstr "Articulaties etc. verwijderen"
 
-#~ msgid "Articulations"
-#~ msgstr "Articulaties"
-
 #~ msgid "Different kinds of articulations and other signs."
 #~ msgstr "Verschillende soorten articulatie en andere tekens."
 
@@ -8750,9 +8823,6 @@ msgstr ""
 #~ msgid "Half open (e.g. hi-hat)"
 #~ msgstr "Halfopen (bijv. hi-hat)"
 
-#~ msgid "Bar Lines"
-#~ msgstr "Maatstrepen"
-
 #~ msgid "Bar lines, breathing signs, etcetera."
 #~ msgstr "Maatstrepen, ademhalingstekens, etc."
 
@@ -8843,17 +8913,11 @@ msgstr ""
 #~ msgid "None"
 #~ msgstr "Geen"
 
-#~ msgid "Dynamics"
-#~ msgstr "Dynamiek"
-
 #~ msgid "Dynamic symbols."
 #~ msgstr "Dynamische tekens."
 
 #~ msgid "Dynamic sign {name}"
 #~ msgstr "Dynamisch teken {name}"
-
-#~ msgid "Spanners"
-#~ msgstr "Spanners"
 
 #~ msgid "Hairpin crescendo"
 #~ msgstr "Crescendo (lijnen)"
@@ -10630,9 +10694,6 @@ msgstr ""
 #~ "\n"
 #~ "Wilt u deze overschrijven?"
 
-#~ msgid "Snippets"
-#~ msgstr "Knipsels"
-
 #~ msgid "&Snippets"
 #~ msgstr "&Knipsels"
 
@@ -10886,9 +10947,6 @@ msgstr ""
 
 #~ msgid "Manuscript"
 #~ msgstr "Manuscript"
-
-#~ msgid "Manuscript Viewer"
-#~ msgstr "Manuscript-weergave"
 
 #~ msgctxt "dialog title"
 #~ msgid "Open Manuscript(s)"

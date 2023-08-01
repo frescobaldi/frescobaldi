@@ -92,8 +92,14 @@ class Parser(simplemarkdown.Parser):
             return self.translate(s)
         return s
 
-    def translate(self, text):
-        """Translates the text."""
-        return _(text)
+    def translate(self, text): # overridden in md2pot.py
+        # Kept here because md2pot must be importable without PyQt5
+        import i18n
+        import i18n.setup
 
-
+        if not hasattr(self, "translator"):
+            try:
+                self.translator = i18n.translator(i18n.setup.current(), "userguide")
+            except i18n.UnknownLanguageError:
+                self.translator = lambda msg: msg
+        return self.translator(text)
