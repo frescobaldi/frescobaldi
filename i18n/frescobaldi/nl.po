@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-06-17 20:09+0200\n"
+"POT-Creation-Date: 2023-08-01 18:10+0200\n"
 "PO-Revision-Date: 2020-04-23 12:30+0200\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
@@ -1042,8 +1042,8 @@ msgstr "Do&cument sluiten"
 
 #: ../../frescobaldi_app/mainwindow.py:1365 ../../frescobaldi_app/panel.py:108
 #: ../../frescobaldi_app/search/__init__.py:120
-#: ../../frescobaldi_app/viewers/__init__.py:351
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:77
+#: ../../frescobaldi_app/viewers/__init__.py:352
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:78
 msgid "Close"
 msgstr "Sluiten"
 
@@ -3198,17 +3198,17 @@ msgstr ""
 "(Indien onzeker, kies Nee.)"
 
 #: ../../frescobaldi_app/musicview/__init__.py:264
-#: ../../frescobaldi_app/viewers/__init__.py:339
+#: ../../frescobaldi_app/viewers/__init__.py:340
 msgid "Select Music View Document"
 msgstr "Weer te geven document selecteren"
 
 #: ../../frescobaldi_app/musicview/__init__.py:265
-#: ../../frescobaldi_app/viewers/__init__.py:340
+#: ../../frescobaldi_app/viewers/__init__.py:341
 msgid "&Print Music..."
 msgstr "&Muziek afdrukken..."
 
 #: ../../frescobaldi_app/musicview/__init__.py:266
-#: ../../frescobaldi_app/viewers/__init__.py:341
+#: ../../frescobaldi_app/viewers/__init__.py:342
 msgid "Zoom Music"
 msgstr "Muziek zoomen"
 
@@ -3217,22 +3217,22 @@ msgid "Save current View settings as default"
 msgstr "Huidige weergave-instellingen als standaard opslaan"
 
 #: ../../frescobaldi_app/musicview/__init__.py:268
-#: ../../frescobaldi_app/viewers/__init__.py:342
+#: ../../frescobaldi_app/viewers/__init__.py:343
 msgid "&Maximize"
 msgstr "&Maximaliseren"
 
 #: ../../frescobaldi_app/musicview/__init__.py:269
-#: ../../frescobaldi_app/viewers/__init__.py:343
+#: ../../frescobaldi_app/viewers/__init__.py:344
 msgid "&Jump to Cursor Position"
 msgstr "Naar cursor &springen"
 
 #: ../../frescobaldi_app/musicview/__init__.py:270
-#: ../../frescobaldi_app/viewers/__init__.py:344
+#: ../../frescobaldi_app/viewers/__init__.py:345
 msgid "S&ynchronize with Cursor Position"
 msgstr "Met cursor s&ynchroniseren"
 
 #: ../../frescobaldi_app/musicview/__init__.py:271
-#: ../../frescobaldi_app/viewers/__init__.py:345
+#: ../../frescobaldi_app/viewers/__init__.py:346
 msgid "Copy to &Image..."
 msgstr "Naar afbeeld&ing kopiëren..."
 
@@ -3241,7 +3241,7 @@ msgid "Copy Selected &Text"
 msgstr "Geselecteerde &tekst kopiëren"
 
 #: ../../frescobaldi_app/musicview/__init__.py:273
-#: ../../frescobaldi_app/viewers/__init__.py:346
+#: ../../frescobaldi_app/viewers/__init__.py:347
 msgid "&Reload"
 msgstr "He&rladen"
 
@@ -3252,12 +3252,12 @@ msgid "Clear"
 msgstr "Leegmaken"
 
 #: ../../frescobaldi_app/musicview/__init__.py:425
-#: ../../frescobaldi_app/viewers/__init__.py:613
+#: ../../frescobaldi_app/viewers/__init__.py:614
 msgid "Choose the PDF document to display."
 msgstr "Kies het weer te geven PDF-document."
 
 #: ../../frescobaldi_app/musicview/__init__.py:427
-#: ../../frescobaldi_app/viewers/__init__.py:615
+#: ../../frescobaldi_app/viewers/__init__.py:616
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -5726,7 +5726,7 @@ msgstr "Huidig document"
 msgid "Music follows here."
 msgstr "Muziek volgt hier."
 
-#: ../../frescobaldi_app/scorewiz/build.py:415
+#: ../../frescobaldi_app/scorewiz/build.py:413
 msgid "Remove default LilyPond tagline"
 msgstr "Standaard LilyPond-tagline verwijderen"
 
@@ -8161,7 +8161,12 @@ msgstr "Succesvolle checkout van branch:"
 msgid "Git Checkout Error"
 msgstr "Fout tijdens Git checkout"
 
-#: ../../frescobaldi_app/viewers/__init__.py:285
+#: ../../frescobaldi_app/viewers/__init__.py:259
+#, fuzzy
+msgid "PDF Files"
+msgstr "Alle bestanden"
+
+#: ../../frescobaldi_app/viewers/__init__.py:286
 msgid ""
 "The following file is missing and could not be loaded when restoring a "
 "session:"
@@ -8175,41 +8180,41 @@ msgstr[1] ""
 "De volgende bestanden ontbreken en konden niet worden geladen bij het "
 "herstellen van een sessie:"
 
-#: ../../frescobaldi_app/viewers/__init__.py:290
+#: ../../frescobaldi_app/viewers/__init__.py:291
 #, python-brace-format
 msgid "Missing files in {name}"
 msgstr "Ontbrekende bestanden in {name}"
 
-#: ../../frescobaldi_app/viewers/__init__.py:338
+#: ../../frescobaldi_app/viewers/__init__.py:339
 msgid "Show Help"
 msgstr "Hulp weergeven"
 
-#: ../../frescobaldi_app/viewers/__init__.py:347
+#: ../../frescobaldi_app/viewers/__init__.py:348
 msgid "Show toolbar"
 msgstr "Schuifbalk weergeven"
 
-#: ../../frescobaldi_app/viewers/__init__.py:348
+#: ../../frescobaldi_app/viewers/__init__.py:349
 msgid "Open music document(s)"
 msgstr "Muziekdocument(en) openen"
 
-#: ../../frescobaldi_app/viewers/__init__.py:349
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:75
+#: ../../frescobaldi_app/viewers/__init__.py:350
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:76
 msgid "Open"
 msgstr "Openen"
 
-#: ../../frescobaldi_app/viewers/__init__.py:350
+#: ../../frescobaldi_app/viewers/__init__.py:351
 msgid "Close document"
 msgstr "Document sluiten"
 
-#: ../../frescobaldi_app/viewers/__init__.py:352
+#: ../../frescobaldi_app/viewers/__init__.py:353
 msgid "Close other documents"
 msgstr "Andere documenten sluiten"
 
-#: ../../frescobaldi_app/viewers/__init__.py:353
+#: ../../frescobaldi_app/viewers/__init__.py:354
 msgid "Close all documents"
 msgstr "Alle documenten sluiten"
 
-#: ../../frescobaldi_app/viewers/__init__.py:493
+#: ../../frescobaldi_app/viewers/__init__.py:494
 msgid ""
 "File not found:\n"
 "{}\n"
@@ -8250,37 +8255,37 @@ msgstr ""
 "Kies 'Nee' om het bestand terug te plaatsen en het niet opnieuw te hoeven "
 "toevoegen."
 
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:40
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:82
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:41
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:83
 msgid "Manuscript"
 msgstr "Manuscript"
 
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:41
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:42
 msgid "Manuscript Viewer"
 msgstr "Manuscript-weergave"
 
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:53
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:54
 msgctxt "dialog title"
 msgid "Open Manuscript(s)"
 msgstr "Manuscript(en) openen"
 
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:73
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:74
 msgid "Select Manuscript Document"
 msgstr "Manuscript-document selecteren"
 
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:74
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:75
 msgid "Open manuscript(s)"
 msgstr "Manuscript(en) openen"
 
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:76
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:77
 msgid "Close manuscript"
 msgstr "Manuscript sluiten"
 
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:78
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:79
 msgid "Close other manuscripts"
 msgstr "Andere manuscripten sluiten"
 
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:79
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:80
 msgid "Close all manuscripts"
 msgstr "Alle manuscripten sluiten"
 
