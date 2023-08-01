@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-06-17 20:09+0200\n"
+"POT-Creation-Date: 2023-08-01 18:10+0200\n"
 "PO-Revision-Date: 2020-11-29 20:51+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -1044,8 +1044,8 @@ msgstr "&Zavřít dokument"
 
 #: ../../frescobaldi_app/mainwindow.py:1365 ../../frescobaldi_app/panel.py:108
 #: ../../frescobaldi_app/search/__init__.py:120
-#: ../../frescobaldi_app/viewers/__init__.py:351
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:77
+#: ../../frescobaldi_app/viewers/__init__.py:352
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:78
 msgid "Close"
 msgstr "Zavřít"
 
@@ -3205,17 +3205,17 @@ msgstr ""
 "(Pokud si nejste jisti, odpověď je pravděpodobně ne.)"
 
 #: ../../frescobaldi_app/musicview/__init__.py:264
-#: ../../frescobaldi_app/viewers/__init__.py:339
+#: ../../frescobaldi_app/viewers/__init__.py:340
 msgid "Select Music View Document"
 msgstr "Vybrat dokument s pohledem na noty"
 
 #: ../../frescobaldi_app/musicview/__init__.py:265
-#: ../../frescobaldi_app/viewers/__init__.py:340
+#: ../../frescobaldi_app/viewers/__init__.py:341
 msgid "&Print Music..."
 msgstr "Vy&tisknout noty..."
 
 #: ../../frescobaldi_app/musicview/__init__.py:266
-#: ../../frescobaldi_app/viewers/__init__.py:341
+#: ../../frescobaldi_app/viewers/__init__.py:342
 msgid "Zoom Music"
 msgstr "Zvětšení hudby"
 
@@ -3224,22 +3224,22 @@ msgid "Save current View settings as default"
 msgstr "Nastavit nynější nastavení zobrazení jako výchozí."
 
 #: ../../frescobaldi_app/musicview/__init__.py:268
-#: ../../frescobaldi_app/viewers/__init__.py:342
+#: ../../frescobaldi_app/viewers/__init__.py:343
 msgid "&Maximize"
 msgstr "&Zvětšit"
 
 #: ../../frescobaldi_app/musicview/__init__.py:269
-#: ../../frescobaldi_app/viewers/__init__.py:343
+#: ../../frescobaldi_app/viewers/__init__.py:344
 msgid "&Jump to Cursor Position"
 msgstr "&Skočit na polohu ukazatele"
 
 #: ../../frescobaldi_app/musicview/__init__.py:270
-#: ../../frescobaldi_app/viewers/__init__.py:344
+#: ../../frescobaldi_app/viewers/__init__.py:345
 msgid "S&ynchronize with Cursor Position"
 msgstr "S&eřídit s polohou ukazatele"
 
 #: ../../frescobaldi_app/musicview/__init__.py:271
-#: ../../frescobaldi_app/viewers/__init__.py:345
+#: ../../frescobaldi_app/viewers/__init__.py:346
 msgid "Copy to &Image..."
 msgstr "Kopírovat do &obrázku..."
 
@@ -3248,7 +3248,7 @@ msgid "Copy Selected &Text"
 msgstr "Kopírovat vybraný &text"
 
 #: ../../frescobaldi_app/musicview/__init__.py:273
-#: ../../frescobaldi_app/viewers/__init__.py:346
+#: ../../frescobaldi_app/viewers/__init__.py:347
 msgid "&Reload"
 msgstr "&Nahrát znovu"
 
@@ -3259,12 +3259,12 @@ msgid "Clear"
 msgstr "Smazat"
 
 #: ../../frescobaldi_app/musicview/__init__.py:425
-#: ../../frescobaldi_app/viewers/__init__.py:613
+#: ../../frescobaldi_app/viewers/__init__.py:614
 msgid "Choose the PDF document to display."
 msgstr "Vybrat dokument PDF k zobrazení."
 
 #: ../../frescobaldi_app/musicview/__init__.py:427
-#: ../../frescobaldi_app/viewers/__init__.py:615
+#: ../../frescobaldi_app/viewers/__init__.py:616
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -5722,7 +5722,7 @@ msgstr "Nynější dokument"
 msgid "Music follows here."
 msgstr "Hudba následuje zde."
 
-#: ../../frescobaldi_app/scorewiz/build.py:415
+#: ../../frescobaldi_app/scorewiz/build.py:413
 msgid "Remove default LilyPond tagline"
 msgstr "Odstranit výchozí heslo programu LilyPond"
 
@@ -8151,7 +8151,12 @@ msgstr "Úspěšné stažení větve:"
 msgid "Git Checkout Error"
 msgstr "Chyba při stahování z Gitu"
 
-#: ../../frescobaldi_app/viewers/__init__.py:285
+#: ../../frescobaldi_app/viewers/__init__.py:259
+#, fuzzy
+msgid "PDF Files"
+msgstr "Všechny soubory"
+
+#: ../../frescobaldi_app/viewers/__init__.py:286
 msgid ""
 "The following file is missing and could not be loaded when restoring a "
 "session:"
@@ -8165,41 +8170,41 @@ msgstr[1] ""
 msgstr[2] ""
 "Chybí následující soubory a nepodařilo se je při obnovení sezení nahrát:"
 
-#: ../../frescobaldi_app/viewers/__init__.py:290
+#: ../../frescobaldi_app/viewers/__init__.py:291
 #, python-brace-format
 msgid "Missing files in {name}"
 msgstr "Chybí soubory v {name}"
 
-#: ../../frescobaldi_app/viewers/__init__.py:338
+#: ../../frescobaldi_app/viewers/__init__.py:339
 msgid "Show Help"
 msgstr "Ukázat nápovědu"
 
-#: ../../frescobaldi_app/viewers/__init__.py:347
+#: ../../frescobaldi_app/viewers/__init__.py:348
 msgid "Show toolbar"
 msgstr "Ukázat pruh s nástroji"
 
-#: ../../frescobaldi_app/viewers/__init__.py:348
+#: ../../frescobaldi_app/viewers/__init__.py:349
 msgid "Open music document(s)"
 msgstr "Otevřít dokument(y) s notami"
 
-#: ../../frescobaldi_app/viewers/__init__.py:349
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:75
+#: ../../frescobaldi_app/viewers/__init__.py:350
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:76
 msgid "Open"
 msgstr "Otevřít"
 
-#: ../../frescobaldi_app/viewers/__init__.py:350
+#: ../../frescobaldi_app/viewers/__init__.py:351
 msgid "Close document"
 msgstr "Zavřít dokument"
 
-#: ../../frescobaldi_app/viewers/__init__.py:352
+#: ../../frescobaldi_app/viewers/__init__.py:353
 msgid "Close other documents"
 msgstr "Zavřít jiné dokumenty"
 
-#: ../../frescobaldi_app/viewers/__init__.py:353
+#: ../../frescobaldi_app/viewers/__init__.py:354
 msgid "Close all documents"
 msgstr "Zavřít všechny dokumenty"
 
-#: ../../frescobaldi_app/viewers/__init__.py:493
+#: ../../frescobaldi_app/viewers/__init__.py:494
 msgid ""
 "File not found:\n"
 "{}\n"
@@ -8240,37 +8245,37 @@ msgstr ""
 "Když odpovíte Ne, dá vám to možnost soubor obnovit, aniž byste jej museli "
 "znovu přidat."
 
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:40
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:82
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:41
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:83
 msgid "Manuscript"
 msgstr "Rukopis"
 
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:41
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:42
 msgid "Manuscript Viewer"
 msgstr "Prohlížeč rukopisů"
 
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:53
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:54
 msgctxt "dialog title"
 msgid "Open Manuscript(s)"
 msgstr "Otevřít rukopis(y)"
 
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:73
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:74
 msgid "Select Manuscript Document"
 msgstr "Vybrat dokument s rukopisem"
 
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:74
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:75
 msgid "Open manuscript(s)"
 msgstr "Otevřít rukopisy"
 
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:76
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:77
 msgid "Close manuscript"
 msgstr "Zavřít rukopis"
 
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:78
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:79
 msgid "Close other manuscripts"
 msgstr "Zavřít jiné rukopisy"
 
-#: ../../frescobaldi_app/viewers/manuscript/__init__.py:79
+#: ../../frescobaldi_app/viewers/manuscript/__init__.py:80
 msgid "Close all manuscripts"
 msgstr "Zavřít všechny rukopisy"
 
