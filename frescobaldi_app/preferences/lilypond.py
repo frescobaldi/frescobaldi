@@ -72,8 +72,8 @@ class Versions(preferences.Group):
         self.instances.changed.connect(self.changed)
         self.instances.defaultButton.clicked.connect(self.defaultButtonClicked)
         layout.addWidget(self.instances)
-        self.auto = QCheckBox(clicked=self.changed)
-        layout.addWidget(self.auto)
+        self.autoVersion = QCheckBox(clicked=self.changed)
+        layout.addWidget(self.autoVersion)
         app.translateUI(self)
         userguide.openWhatsThis(self)
 
@@ -85,18 +85,18 @@ class Versions(preferences.Group):
 
     def translateUI(self):
         self.setTitle(_("LilyPond versions to use"))
-        self.auto.setText(_("Automatically choose LilyPond version from document"))
-        self.auto.setToolTip(_(
+        self.autoVersion.setText(_("Automatically choose LilyPond version from document"))
+        self.autoVersion.setToolTip(_(
             "If checked, the document's version determines the LilyPond version to use.\n"
             "See \"What's This\" for more information."))
-        self.auto.setWhatsThis(userguide.html("prefs_lilypond_autoversion") +
+        self.autoVersion.setWhatsThis(userguide.html("prefs_lilypond_autoversion") +
             _("See also {link}.").format(link=userguide.link("prefs_lilypond")))
 
     def loadSettings(self):
         s = settings()
         default = lilypondinfo.default()
         self._defaultCommand = s.value("default", default.command, str)
-        self.auto.setChecked(s.value("autoversion", False, bool))
+        self.autoVersion.setChecked(s.value("autoversion", False, bool))
         infos = sorted(lilypondinfo.infos(), key=lambda i: i.version())
         if not infos:
             infos = [default]
@@ -120,7 +120,7 @@ class Versions(preferences.Group):
             self._defaultCommand = infos[0].command
         s = settings()
         s.setValue("default", self._defaultCommand)
-        s.setValue("autoversion", self.auto.isChecked())
+        s.setValue("autoversion", self.autoVersion.isChecked())
         lilypondinfo.setinfos(infos)
         lilypondinfo.saveinfos()
 
@@ -218,8 +218,8 @@ class InfoDialog(QDialog):
         vbox.addWidget(l)
         vbox.addWidget(self.lilypond)
 
-        self.auto = QCheckBox()
-        vbox.addWidget(self.auto)
+        self.autoVersionIncluded = QCheckBox()
+        vbox.addWidget(self.autoVersionIncluded)
         vbox.addStretch(1)
 
         # toolcommands tab
@@ -264,7 +264,7 @@ class InfoDialog(QDialog):
         self.lilynameLabel.setToolTip(_("How this version of LilyPond will be displayed."))
         self.lilypondLabel.setText(_("LilyPond Command:"))
         self.lilypond.lineEdit.setToolTip(_("Name or full path of the LilyPond program."))
-        self.auto.setText(_("Include in automatic version selection"))
+        self.autoVersionIncluded.setText(_("Include in automatic version selection"))
         self.tab.setTabText(0, _("General"))
         self.tab.setTabText(1, _("Tool Commands"))
         for name, gui in self.toolnames():
@@ -274,7 +274,7 @@ class InfoDialog(QDialog):
         """Takes over settings for the dialog from the LilyPondInfo object."""
         self.lilyname.setText(info.name)
         self.lilypond.setPath(info.command)
-        self.auto.setChecked(info.auto)
+        self.autoVersionIncluded.setChecked(info.autoVersionIncluded)
         for name, gui in self.toolnames():
             self.ly_tool_widgets[name][1].setText(info.ly_tool(name))
 
@@ -287,7 +287,7 @@ class InfoDialog(QDialog):
             info = lilypondinfo.LilyPondInfo(self.lilypond.path())
         if self.lilyname.text() and not self.lilyname.text().isspace():
             info.name = self.lilyname.text()
-        info.auto = self.auto.isChecked()
+        info.autoVersionIncluded = self.autoVersionIncluded.isChecked()
         for name, gui in self.toolnames():
             info.set_ly_tool(name, self.ly_tool_widgets[name][1].text())
         return info
