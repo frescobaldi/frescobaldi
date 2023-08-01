@@ -72,6 +72,11 @@ msgstr ""
 msgid "In this tab you have the following options:"
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/abc_import.md:20
+#: ../../frescobaldi_app/userguide/musicxml_import.md:19
+msgid "Import beaming"
+msgstr "Importera bindningar"
+
 #: ../../frescobaldi_app/userguide/abc_import.md:22
 msgid "This option can be used to retain the beaming from the ABC notation."
 msgstr ""
@@ -350,6 +355,10 @@ msgid ""
 "A third way to create a new document is to use the [scorewiz Score Wizard]."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/credits.md:1
+msgid "Credits"
+msgstr "Tack till"
+
 #: ../../frescobaldi_app/userguide/credits.md:3
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
 msgstr ""
@@ -389,6 +398,12 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:24
 msgid "MusicXML, MIDI and ABC im- and export"
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/credits.md:24
+#: ../../frescobaldi_app/userguide/credits.md:46
+#: ../../frescobaldi_app/userguide/manuscriptview.md:1
+msgid "Manuscript Viewer"
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:29
@@ -463,6 +478,11 @@ msgid ""
 "such an excellent music engraver!"
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/documentfonts.md:1
+#, fuzzy
+msgid "Document Fonts"
+msgstr "Dokument-typsnitt..."
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts.md:3
 msgid ""
@@ -501,12 +521,24 @@ msgid ""
 "can be reset to LilyPond's default text and music fonts."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/documentfonts.md:25
+#: ../../frescobaldi_app/userguide/documentfonts_text.md:1
+#, fuzzy
+msgid "Text Fonts"
+msgstr "Textfiler"
+
 #: ../../frescobaldi_app/userguide/documentfonts.md:27
 msgid ""
 "The tab {page_textfonts} provides a searchable tree view of all text fonts "
 "available to the current LilyPond installation. It also allows to select "
 "text fonts for use in the score document."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/documentfonts.md:31
+#: ../../frescobaldi_app/userguide/documentfonts_music.md:1
+#, fuzzy
+msgid "Music Fonts"
+msgstr "MusicXML-filer"
 
 #: ../../frescobaldi_app/userguide/documentfonts.md:33
 msgid ""
@@ -515,11 +547,20 @@ msgid ""
 "installation."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/documentfonts.md:36
+#, fuzzy
+msgid "Font Command"
+msgstr "Kommando"
+
 #: ../../frescobaldi_app/userguide/documentfonts.md:38
 msgid ""
 "The tab {page_fontcommand} provides controls to configure the way how the "
 "font-setting command is generated."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/documentfonts.md:41
+msgid "Preview"
+msgstr "Förhandsgranskning"
 
 #: ../../frescobaldi_app/userguide/documentfonts.md:43
 msgid ""
@@ -832,6 +873,10 @@ msgid ""
 "This may be especially confusing if the document itself specifies "
 "alternative fonts which will then be used."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/documentfonts_preview.md:41
+msgid "Current Document"
+msgstr "Aktuellt dokument"
 
 #: ../../frescobaldi_app/userguide/documentfonts_preview.md:43
 msgid ""
@@ -1149,6 +1194,10 @@ msgid ""
 "print lots of information in the log window."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/engrave_layout.md:15
+msgid "Point-and-Click"
+msgstr "Peka-och-klicka"
+
 #: ../../frescobaldi_app/userguide/engrave_layout.md:16
 msgid ""
 "Enables the point and click navigation links in the Music View. Enabled by "
@@ -1166,6 +1215,11 @@ msgid ""
 "This mode highlights voices that have been explicitly set with one of the "
 "`\\voiceXXX` commands. This is useful when dealing with polyphony issues."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/engrave_layout.md:23
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:27
+msgid "Color explicit directions"
+msgstr "Färga uttryckliga riktningar"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/engrave_layout.md:24
@@ -1194,6 +1248,11 @@ msgid ""
 "isn't present anymore."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/engrave_layout.md:38
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:44
+msgid "Display Grob Anchors"
+msgstr "Visa grob-ankare"
+
 #: ../../frescobaldi_app/userguide/engrave_layout.md:39
 msgid ""
 "In LilyPond, all graphical objects have an anchor (a reference point). What "
@@ -1218,6 +1277,11 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/engrave_layout.md:51
 msgid "This Mode displays a red dot for each grob's anchor point."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/engrave_layout.md:53
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:59
+msgid "Display Grob Names"
+msgstr "Visa grob-namn"
 
 #: ../../frescobaldi_app/userguide/engrave_layout.md:54
 msgid "This mode prints a grob's name next to it."
@@ -1244,6 +1308,10 @@ msgid ""
 "usable once it can be activated for single grobs."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/engrave_layout.md:68
+msgid "Display Skylines"
+msgstr "Visa horisonter"
+
 #: ../../frescobaldi_app/userguide/engrave_layout.md:69
 msgid ""
 "LilyPond uses \"Skylines\" to calculate the vertical dimensions of its "
@@ -1261,6 +1329,10 @@ msgid ""
 "LilyPond organises the horizontal spacing in \"paper columns\". This mode "
 "prints a lot of spacing information about these entities."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/engrave_layout.md:78
+msgid "Annotate Spacing"
+msgstr "Annotera avstånd"
 
 #: ../../frescobaldi_app/userguide/engrave_layout.md:79
 msgid ""
@@ -1321,6 +1393,10 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/engrave_layout_configure.md:15
 msgid "The modes use the following configuration variables:"
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:18
+msgid "Color \\voiceXXX"
+msgstr "Färga \\voiceXXX"
 
 #: ../../frescobaldi_app/userguide/engrave_layout_configure.md:19
 msgid "These variables currently can't be redefined in input files."
@@ -1456,6 +1532,10 @@ msgid ""
 "is modified (in preview mode)."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/experimental_features.md:1
+msgid "Experimental Features"
+msgstr "Experimentella funktioner"
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/experimental_features.md:3
 msgid ""
@@ -1508,6 +1588,12 @@ msgid ""
 "require a restart of Frescobaldi to take effect."
 msgstr ""
 
+# I opted to skip 'Preferences' in this one and others below because I felt it redundant in the Preferences dialog and it gets unwieldy in Swedish where it becomes a single word, for example "redigerarinställningar" is quite a mouthful for "editor preferences".
+#: ../../frescobaldi_app/userguide/ext_configuration.md:7
+#, fuzzy
+msgid "General Settings"
+msgstr "Allmänt"
+
 #: ../../frescobaldi_app/userguide/ext_configuration.md:9
 msgid ""
 "The use of extensions can be deactivated globally. Without this checkbox "
@@ -1521,6 +1607,10 @@ msgid ""
 "step to get extensions running. However, selecting an arbitrary existing "
 "directory should do no harm as only valid and functional extensions are "
 "loaded."
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/ext_configuration.md:16
+msgid "Installed Extensions"
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/ext_configuration.md:18
@@ -1556,6 +1646,10 @@ msgid ""
 "problem."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/ext_configuration.md:36
+msgid "Failed Extensions"
+msgstr ""
+
 #: ../../frescobaldi_app/userguide/ext_configuration.md:38
 msgid ""
 "Extensions can be faulty so that either the meta information can not be "
@@ -1578,6 +1672,10 @@ msgid ""
 "Double clicking on the details row opens a message box with more details "
 "about the issue, including the full stacktrace that can (and should) be sent "
 "to the extension maintainer(s) to investigate the issue."
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/ext_configuration.md:52
+msgid "Extension Configuration"
 msgstr ""
 
 #. NOTE: markdown formatting
@@ -2162,6 +2260,11 @@ msgstr ""
 msgid "The midi2ly tab"
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/midi_import.md:16
+#: ../../frescobaldi_app/userguide/musicxml_import.md:20
+msgid "Pitches in absolute mode"
+msgstr "Tonhöjder i absolut läge"
+
 #: ../../frescobaldi_app/userguide/midi_import.md:18
 msgid ""
 "This option can be used if you prefer to have the source code in absolute "
@@ -2336,6 +2439,10 @@ msgid ""
 "application."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/musicview_editinplace.md:1
+msgid "Edit in Place"
+msgstr "Redigera på plats"
+
 #: ../../frescobaldi_app/userguide/musicview_editinplace.md:3
 msgid "In this dialog you can edit one line of the text document."
 msgstr ""
@@ -2370,6 +2477,11 @@ msgstr ""
 msgid "This feature is currently experimental, see {experimental}."
 msgstr ""
 
+# Arguably wrong space in source. Should 'Music' be translated here?
+#: ../../frescobaldi_app/userguide/musicxml_import.md:1
+msgid "Import Music XML"
+msgstr "Importera MusicXML"
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/musicxml_import.md:3
 msgid ""
@@ -2387,6 +2499,22 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/musicxml_import.md:12
 msgid "The musicxml2ly tab"
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/musicxml_import.md:16
+msgid "Import articulation directions"
+msgstr "Importera riktning för artikulationsbeteckningar"
+
+#: ../../frescobaldi_app/userguide/musicxml_import.md:17
+msgid "Import rest positions"
+msgstr "Importera position för pauser"
+
+#: ../../frescobaldi_app/userguide/musicxml_import.md:18
+msgid "Import page layout"
+msgstr "Importera sidlayout"
+
+#: ../../frescobaldi_app/userguide/musicxml_import.md:21
+msgid "Language for pitch names"
+msgstr "Språk för namn på tonhöjder"
 
 #: ../../frescobaldi_app/userguide/musicxml_import.md:23
 msgid ""
@@ -2559,11 +2687,23 @@ msgid ""
 "expression, leaving out higher-level opening braces."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/preferences.md:1
+msgid "Preferences"
+msgstr "Inställningar"
+
 #: ../../frescobaldi_app/userguide/preferences.md:3
 msgid ""
 "In the Preferences Dialog (under {menu_edit_preferences}) you can configure "
 "many aspects of Frescobaldi and LilyPond."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/prefs_editor.md:1
+msgid "Editor Preferences"
+msgstr "Redigerare"
+
+#: ../../frescobaldi_app/userguide/prefs_editor.md:3
+msgid "Highlighting Options"
+msgstr "Syntaxmarkering"
 
 #: ../../frescobaldi_app/userguide/prefs_editor.md:5
 msgid ""
@@ -2574,6 +2714,10 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/prefs_editor.md:8
 msgid "Use the value 0 for infinite."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/prefs_editor.md:11
+msgid "Indenting Preferences"
+msgstr "Indrag"
 
 #: ../../frescobaldi_app/userguide/prefs_editor.md:13
 msgid "Here you can specify how you want to handle Tabs and indenting."
@@ -2613,6 +2757,10 @@ msgstr ""
 msgid ""
 "You can also set indentation preferences per-document, see "
 "{document_variables}."
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/prefs_editor.md:33
+msgid "Source Export Preferences"
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_editor.md:35
@@ -2670,11 +2818,20 @@ msgid ""
 "the existing CSS."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/prefs_extensions.md:1
+#, fuzzy
+msgid "Extensions"
+msgstr "Sessioner"
+
 #: ../../frescobaldi_app/userguide/prefs_extensions.md:3
 msgid ""
 "List and (partially) configure installed extensions. See {extending} and "
 "especially {configure}."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/prefs_fontscolors.md:1
+msgid "Fonts & Colors"
+msgstr "Typsnitt och färger"
 
 #: ../../frescobaldi_app/userguide/prefs_fontscolors.md:3
 msgid ""
@@ -2707,6 +2864,11 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/prefs_shortcuts.md:12
 msgid "You can define a new scheme by using the New button."
 msgstr ""
+
+# I opted to skip 'Preferences' in this one and others below because I felt it redundant in the Preferences dialog and it gets unwieldy in Swedish where it becomes a single word, for example "redigerarinställningar" is quite a mouthful for "editor preferences".
+#: ../../frescobaldi_app/userguide/prefs_general.md:1
+msgid "General Preferences"
+msgstr "Allmänt"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_general.md:3
@@ -2765,6 +2927,10 @@ msgid ""
 "{experimental}."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/prefs_helpers.md:1
+msgid "Helper Applications"
+msgstr "Hjälpprogram"
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_helpers.md:3
 msgid ""
@@ -2819,6 +2985,10 @@ msgid ""
 "If Frescobaldi must fall back to printing using raster images, you can "
 "specify the number of dots per inch here."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:1
+msgid "LilyPond Documentation"
+msgstr "Dokumentation"
 
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:3
 msgid ""
@@ -2879,6 +3049,10 @@ msgid ""
 "www.lilypond.org/doc/stable/ http://www.lilypond.org/doc/development/"
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/prefs_lilypond.md:1
+msgid "LilyPond Preferences"
+msgstr "LilyPond"
+
 #: ../../frescobaldi_app/userguide/prefs_lilypond.md:3
 msgid ""
 "Here you can configure how LilyPond is run when you engrave your document."
@@ -2921,6 +3095,10 @@ msgid ""
 "searches for files."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:1
+msgid "Automatically choose LilyPond version from document"
+msgstr ""
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:3
 msgid ""
@@ -2948,6 +3126,10 @@ msgid ""
 "If the document specifies a version, the oldest suitable LilyPond version is "
 "chosen. Otherwise, the default version is chosen."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/prefs_midi.md:1
+msgid "MIDI Settings"
+msgstr "MIDI"
 
 #: ../../frescobaldi_app/userguide/prefs_midi.md:3
 msgid "Here you can configure Frescobaldi's MIDI settings."
@@ -2988,6 +3170,11 @@ msgid ""
 "beginning sets up the instruments again."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/prefs_musicviewers.md:1
+#, fuzzy
+msgid "Music Preferences"
+msgstr "Visning"
+
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:3
 msgid "Here you can configure how music is displayed and printed."
 msgstr ""
@@ -3012,6 +3199,10 @@ msgid ""
 "The print resolution is only used when raster-based printing can't be "
 "avoided."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/prefs_paths.md:1
+msgid "Paths"
+msgstr "Sökvägar"
 
 #: ../../frescobaldi_app/userguide/prefs_paths.md:3
 msgid "Hyphenation dictionaries"
@@ -3073,6 +3264,10 @@ msgid ""
 "by Frescobaldi are cached persistently."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/prefs_shortcuts.md:1
+msgid "Keyboard Shortcuts"
+msgstr "Snabbtangenter"
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_shortcuts.md:3
 msgid ""
@@ -3088,6 +3283,10 @@ msgid ""
 "enter up to four shortcuts for the action by clicking the button and typing "
 "the shortcut."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/prefs_tools.md:1
+msgid "Tools"
+msgstr "Verktyg"
 
 #: ../../frescobaldi_app/userguide/prefs_tools.md:3
 msgid "Here you can change the settings for various tools."
@@ -3119,6 +3318,10 @@ msgid ""
 "a button."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/quickinsert.md:16
+msgid "Articulations"
+msgstr "Artikulationsbeteckningar"
+
 #: ../../frescobaldi_app/userguide/quickinsert.md:18
 msgid ""
 "These musical symbols can be added to a note or rest or a selected range of "
@@ -3134,12 +3337,20 @@ msgid ""
 "articulations if they exist (e.g. `-.` instead of `-\\staccato`)."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/quickinsert.md:29
+msgid "Dynamics"
+msgstr "Dynamik"
+
 #: ../../frescobaldi_app/userguide/quickinsert.md:31
 msgid ""
 "Dynamics can also be added to a note or rest. If you select a range of "
 "music, you can add spanners which will automatically terminate at the last "
 "note, rest or chord in the selection. If you then click a sign, it will "
 "replace the terminator."
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/quickinsert.md:37
+msgid "Spanners"
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/quickinsert.md:39
@@ -3154,6 +3365,10 @@ msgid ""
 "selected. The slurs, beams or trill apply to the current note and the next "
 "one if no music is selected, or to the first and the last note or chord in "
 "the selection."
+msgstr ""
+
+#: ../../frescobaldi_app/userguide/quickinsert.md:49
+msgid "Bar Lines"
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/quickinsert.md:51
@@ -3324,6 +3539,10 @@ msgid ""
 "A full discussion on regular expressions can be found in the [http://docs."
 "python.org/library/re.html#regular-expression-syntax Python documentation]."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/sessions.md:1
+msgid "Sessions"
+msgstr "Sessioner"
 
 #: ../../frescobaldi_app/userguide/sessions.md:3
 msgid ""
@@ -3550,6 +3769,10 @@ msgid ""
 "alter the document through the `cursor`."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/snippets.md:1
+msgid "Snippets"
+msgstr "Kodsnuttar"
+
 #: ../../frescobaldi_app/userguide/snippets.md:3
 msgid ""
 "With the snippets manager you can store often used pieces of text called "
@@ -3587,6 +3810,10 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/toc.md:1
 msgid "Table of Contents"
 msgstr "Innehållsförteckning"
+
+#: ../../frescobaldi_app/userguide/transpose.md:1
+msgid "Transpose"
+msgstr "Transponera"
 
 #: ../../frescobaldi_app/userguide/transpose.md:3
 msgid ""
@@ -3674,9 +3901,6 @@ msgstr ""
 
 #~ msgid "About"
 #~ msgstr "Om"
-
-#~ msgid "Credits"
-#~ msgstr "Tack till"
 
 #~ msgid "Version"
 #~ msgstr "Version"
@@ -4001,9 +4225,6 @@ msgstr ""
 
 #~ msgid "Position: {pos}"
 #~ msgstr "Position: {pos}"
-
-#~ msgid "Edit in Place"
-#~ msgstr "Redigera på plats"
 
 #~ msgid "Editing line {linenum} of \"{document}\" ({variable})"
 #~ msgstr "Redigerar rad {linenum} av \"{document}\" ({variable})"
@@ -4710,9 +4931,6 @@ msgstr ""
 #~ msgid "Engraving mode:"
 #~ msgstr "Gravyr-läge:"
 
-#~ msgid "Preview"
-#~ msgstr "Förhandsgranskning"
-
 #~ msgid "Publish"
 #~ msgstr "Publicera"
 
@@ -4950,36 +5168,14 @@ msgstr ""
 #~ msgid "Import an abc file using abc2ly."
 #~ msgstr "Importera en ABC-fil med abc2ly."
 
-#~ msgid "Import beaming"
-#~ msgstr "Importera bindningar"
-
 #~ msgid "Run abc2ly"
 #~ msgstr "Kör abc2ly"
-
-#~ msgid "Pitches in absolute mode"
-#~ msgstr "Tonhöjder i absolut läge"
 
 #~ msgid "Run midi2ly"
 #~ msgstr "Kör midi2ly"
 
-# Arguably wrong space in source. Should 'Music' be translated here?
-#~ msgid "Import Music XML"
-#~ msgstr "Importera MusicXML"
-
-#~ msgid "Import articulation directions"
-#~ msgstr "Importera riktning för artikulationsbeteckningar"
-
-#~ msgid "Import rest positions"
-#~ msgstr "Importera position för pauser"
-
-#~ msgid "Import page layout"
-#~ msgstr "Importera sidlayout"
-
 #~ msgid "Comment out midi block"
 #~ msgstr "Gör MIDI-blocket till en kommentar"
-
-#~ msgid "Language for pitch names"
-#~ msgstr "Språk för namn på tonhöjder"
 
 #~ msgid "Default"
 #~ msgstr "Standard"
@@ -5008,24 +5204,8 @@ msgstr ""
 #~ msgstr "Dokument-typsnitt..."
 
 #, fuzzy
-#~ msgid "Document Fonts"
-#~ msgstr "Dokument-typsnitt..."
-
-#, fuzzy
 #~ msgid "Copy font command to clipboard"
 #~ msgstr "Kopiera till urklipp"
-
-#, fuzzy
-#~ msgid "Text Fonts"
-#~ msgstr "Textfiler"
-
-#, fuzzy
-#~ msgid "Music Fonts"
-#~ msgstr "MusicXML-filer"
-
-#, fuzzy
-#~ msgid "Font Command"
-#~ msgstr "Kommando"
 
 #, fuzzy
 #~ msgid "Roman"
@@ -5127,9 +5307,6 @@ msgstr ""
 #~ msgid "Completed successfully in {time}."
 #~ msgstr "Avslutades korrekt efter {time}."
 
-#~ msgid "Annotate Spacing"
-#~ msgstr "Annotera avstånd"
-
 #~ msgid ""
 #~ "Use LilyPond's \"annotate spacing\" option to\n"
 #~ "display measurement information"
@@ -5143,20 +5320,11 @@ msgstr ""
 #~ msgid "Display the control points that determine curve shapes"
 #~ msgstr "Visa de kontrollpunkter som avgör formen på kurvor"
 
-#~ msgid "Color explicit directions"
-#~ msgstr "Färga uttryckliga riktningar"
-
 #~ msgid "Highlight elements that are explicitly switched up- or downwards"
 #~ msgstr "Markera element som är uttryckligen riktade uppåt eller nedåt"
 
-#~ msgid "Display Grob Anchors"
-#~ msgstr "Visa grob-ankare"
-
 #~ msgid "Display a dot at the anchor point of each grob"
 #~ msgstr "Visa en punkt vid fästpunkten för varje grob"
-
-#~ msgid "Display Grob Names"
-#~ msgstr "Visa grob-namn"
 
 #~ msgid "Display the name of each grob"
 #~ msgstr "Visa namnet på varje grob"
@@ -5167,14 +5335,8 @@ msgstr ""
 #~ msgid "Display info on the paper columns"
 #~ msgstr "Visa information om papperskolumner"
 
-#~ msgid "Display Skylines"
-#~ msgstr "Visa horisonter"
-
 #~ msgid "Display the skylines that LilyPond uses to detect collisions."
 #~ msgstr "Visa horisonter som LilyPond använder för att upptäcka kollisioner."
-
-#~ msgid "Color \\voiceXXX"
-#~ msgstr "Färga \\voiceXXX"
 
 #~ msgid "Highlight notes that are explicitly set to \\voiceXXX"
 #~ msgstr "Markera noter som uttryckligen har angetts tillhöra \\voiceXXX"
@@ -5193,9 +5355,6 @@ msgstr ""
 
 #~ msgid "Run LilyPond with verbose output"
 #~ msgstr "Kör LilyPond med utförlig utdata"
-
-#~ msgid "Point-and-Click"
-#~ msgstr "Peka-och-klicka"
 
 #~ msgid "Run LilyPond in preview mode (with Point and Click)"
 #~ msgstr "Kör LilyPond i förhandsgranskningsläge (med peka och klicka)"
@@ -5604,9 +5763,6 @@ msgstr ""
 
 #~ msgid "(for LilyPond 2.14 and higher.)"
 #~ msgstr "(för LilyPond 2.14 och högre.)"
-
-#~ msgid "Transpose"
-#~ msgstr "Transponera"
 
 #~ msgid ""
 #~ "Please enter two absolute pitches, separated by a space, using the pitch "
@@ -6409,48 +6565,6 @@ msgstr ""
 #~ msgid "What's This?"
 #~ msgstr "Vad är det här?"
 
-#~ msgid "Preferences"
-#~ msgstr "Inställningar"
-
-# I opted to skip 'Preferences' in this one and others below because I felt it redundant in the Preferences dialog and it gets unwieldy in Swedish where it becomes a single word, for example "redigerarinställningar" is quite a mouthful for "editor preferences".
-#~ msgid "General Preferences"
-#~ msgstr "Allmänt"
-
-#, fuzzy
-#~ msgid "Music Preferences"
-#~ msgstr "Visning"
-
-#~ msgid "LilyPond Preferences"
-#~ msgstr "LilyPond"
-
-#~ msgid "MIDI Settings"
-#~ msgstr "MIDI"
-
-#~ msgid "Helper Applications"
-#~ msgstr "Hjälpprogram"
-
-#~ msgid "Paths"
-#~ msgstr "Sökvägar"
-
-#~ msgid "LilyPond Documentation"
-#~ msgstr "Dokumentation"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Snabbtangenter"
-
-#~ msgid "Editor Preferences"
-#~ msgstr "Redigerare"
-
-#~ msgid "Fonts & Colors"
-#~ msgstr "Typsnitt och färger"
-
-#~ msgid "Tools"
-#~ msgstr "Verktyg"
-
-#, fuzzy
-#~ msgid "Extensions"
-#~ msgstr "Sessioner"
-
 #~ msgid "Paths to LilyPond Documentation"
 #~ msgstr "Sökvägar för dokumentation till LilyPond"
 
@@ -6483,17 +6597,11 @@ msgstr ""
 #~ msgid "Matching Item:"
 #~ msgstr "Matchande objekt:"
 
-#~ msgid "Highlighting Options"
-#~ msgstr "Syntaxmarkering"
-
 #~ msgid "{num} sec"
 #~ msgstr "{num} sek"
 
 #~ msgid "Infinite"
 #~ msgstr "Oändlig"
-
-#~ msgid "Indenting Preferences"
-#~ msgstr "Indrag"
 
 #~ msgid "Visible Tab Width:"
 #~ msgstr "Synlig bredd för tabulator:"
@@ -6545,11 +6653,6 @@ msgstr ""
 
 #~ msgid "Copy HTML as plain text"
 #~ msgstr "Kopiera HTML som oformaterad text"
-
-# I opted to skip 'Preferences' in this one and others below because I felt it redundant in the Preferences dialog and it gets unwieldy in Swedish where it becomes a single word, for example "redigerarinställningar" is quite a mouthful for "editor preferences".
-#, fuzzy
-#~ msgid "General Settings"
-#~ msgstr "Allmänt"
 
 #, fuzzy
 #~ msgid "Use Extensions"
@@ -6854,9 +6957,6 @@ msgstr ""
 #~ msgid "The default folder for your LilyPond documents (optional)."
 #~ msgstr "Förvald katalog för dina LilyPond-dokument (valfritt)."
 
-#~ msgid "Sessions"
-#~ msgstr "Sessioner"
-
 #~ msgid "Session to load if Frescobaldi is started without arguments"
 #~ msgstr "Session att ladda om Frescobaldi startas utan argument"
 
@@ -6868,9 +6968,6 @@ msgstr ""
 
 #~ msgid "Start with session:"
 #~ msgstr "Starta med session:"
-
-#~ msgid "Experimental Features"
-#~ msgstr "Experimentella funktioner"
 
 #~ msgid "Enable Experimental Features"
 #~ msgstr "Aktivera experimentella funktioner"
@@ -7064,9 +7161,6 @@ msgstr ""
 #~ msgid "Remove articulations etc."
 #~ msgstr "Ta bort artikulationsbeteckningar osv."
 
-#~ msgid "Articulations"
-#~ msgstr "Artikulationsbeteckningar"
-
 #~ msgid "Different kinds of articulations and other signs."
 #~ msgstr "Olika former av artikulationsbeteckningar och andra tecken."
 
@@ -7195,9 +7289,6 @@ msgstr ""
 
 #~ msgid "None"
 #~ msgstr "Inga"
-
-#~ msgid "Dynamics"
-#~ msgstr "Dynamik"
 
 #~ msgid "Crescendo"
 #~ msgstr "Crescendo"
@@ -7988,9 +8079,6 @@ msgstr ""
 
 #~ msgid "Save as Template"
 #~ msgstr "Spara som mall"
-
-#~ msgid "Snippets"
-#~ msgstr "Kodsnuttar"
 
 #~ msgid "&Add..."
 #~ msgstr "Lägg till..."

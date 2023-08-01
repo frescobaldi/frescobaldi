@@ -82,6 +82,11 @@ msgstr "Karta pro abc2ly"
 msgid "In this tab you have the following options:"
 msgstr "Na této kartě máte následující volby:"
 
+#: ../../frescobaldi_app/userguide/abc_import.md:20
+#: ../../frescobaldi_app/userguide/musicxml_import.md:19
+msgid "Import beaming"
+msgstr "Zavést trámce"
+
 #: ../../frescobaldi_app/userguide/abc_import.md:22
 msgid "This option can be used to retain the beaming from the ABC notation."
 msgstr "Této volby lze použít k ponechání trámců z notace ABC."
@@ -413,6 +418,10 @@ msgstr ""
 "Třetí cestou, jak vytvořit nový dokument, je použít [scorewiz Průvodce pro "
 "notový zápis]."
 
+#: ../../frescobaldi_app/userguide/credits.md:1
+msgid "Credits"
+msgstr "Zásluhy"
+
 #: ../../frescobaldi_app/userguide/credits.md:3
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
 msgstr "{appname} je napsán v {python} a používá sadu nástrojů {qt}."
@@ -455,6 +464,12 @@ msgstr "Tlačítka pro rychlé vložení pro ozdoby"
 #: ../../frescobaldi_app/userguide/credits.md:24
 msgid "MusicXML, MIDI and ABC im- and export"
 msgstr "Zavedení a vyvedení MusicXML, MIDI a ABC"
+
+#: ../../frescobaldi_app/userguide/credits.md:24
+#: ../../frescobaldi_app/userguide/credits.md:46
+#: ../../frescobaldi_app/userguide/manuscriptview.md:1
+msgid "Manuscript Viewer"
+msgstr "Prohlížeč rukopisů"
 
 #: ../../frescobaldi_app/userguide/credits.md:29
 msgid "Kinetic Scrolling for the Music View"
@@ -533,6 +548,10 @@ msgstr ""
 "A velké poděkování patří pochopitelně vývojářům LilyPondu, kteří vytvořili "
 "tak skvělého sazeče not!"
 
+#: ../../frescobaldi_app/userguide/documentfonts.md:1
+msgid "Document Fonts"
+msgstr "Písma v dokumentu"
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts.md:3
 msgid ""
@@ -571,12 +590,22 @@ msgid ""
 "can be reset to LilyPond's default text and music fonts."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/documentfonts.md:25
+#: ../../frescobaldi_app/userguide/documentfonts_text.md:1
+msgid "Text Fonts"
+msgstr "Písma pro text"
+
 #: ../../frescobaldi_app/userguide/documentfonts.md:27
 msgid ""
 "The tab {page_textfonts} provides a searchable tree view of all text fonts "
 "available to the current LilyPond installation. It also allows to select "
 "text fonts for use in the score document."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/documentfonts.md:31
+#: ../../frescobaldi_app/userguide/documentfonts_music.md:1
+msgid "Music Fonts"
+msgstr "Písma pro noty"
 
 #: ../../frescobaldi_app/userguide/documentfonts.md:33
 msgid ""
@@ -585,11 +614,19 @@ msgid ""
 "installation."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/documentfonts.md:36
+msgid "Font Command"
+msgstr "Příkaz pro písmo"
+
 #: ../../frescobaldi_app/userguide/documentfonts.md:38
 msgid ""
 "The tab {page_fontcommand} provides controls to configure the way how the "
 "font-setting command is generated."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/documentfonts.md:41
+msgid "Preview"
+msgstr "Náhled"
 
 #: ../../frescobaldi_app/userguide/documentfonts.md:43
 msgid ""
@@ -902,6 +939,10 @@ msgid ""
 "This may be especially confusing if the document itself specifies "
 "alternative fonts which will then be used."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/documentfonts_preview.md:41
+msgid "Current Document"
+msgstr "Nynější dokument"
 
 #: ../../frescobaldi_app/userguide/documentfonts_preview.md:43
 msgid ""
@@ -1257,6 +1298,10 @@ msgstr ""
 "Přidá volbu `--verbose` do příkazového řádku LilyPondu, čímž způsobí, že "
 "LilyPond v okně se zápisem zobrazí spoustu informací."
 
+#: ../../frescobaldi_app/userguide/engrave_layout.md:15
+msgid "Point-and-Click"
+msgstr "Ukázat a klepnout"
+
 #: ../../frescobaldi_app/userguide/engrave_layout.md:16
 msgid ""
 "Enables the point and click navigation links in the Music View. Enabled by "
@@ -1278,6 +1323,11 @@ msgid ""
 msgstr ""
 "Tento režim zvýrazní hlasy, jež byly výslovně nastaveny jedním z příkazů "
 "`\\voiceXXX`. Toto je užitečné při práci s vícehlasými věcmi."
+
+#: ../../frescobaldi_app/userguide/engrave_layout.md:23
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:27
+msgid "Color explicit directions"
+msgstr "Barvit neskrývané směry"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/engrave_layout.md:24
@@ -1313,6 +1363,11 @@ msgstr ""
 "Pokud je notový zápis vyryt LilyPondem ve verzi 2.17.6 nebo novější, tento "
 "problém už není přítomen."
 
+#: ../../frescobaldi_app/userguide/engrave_layout.md:38
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:44
+msgid "Display Grob Anchors"
+msgstr "Zobrazit kotvy obrazových předmětů (grob)"
+
 #: ../../frescobaldi_app/userguide/engrave_layout.md:39
 msgid ""
 "In LilyPond, all graphical objects have an anchor (a reference point). What "
@@ -1345,6 +1400,11 @@ msgid "This Mode displays a red dot for each grob's anchor point."
 msgstr ""
 "Tento režim zobrazuje červenou tečku pro každý kotevní bod obrazového "
 "předmětu (grob)."
+
+#: ../../frescobaldi_app/userguide/engrave_layout.md:53
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:59
+msgid "Display Grob Names"
+msgstr "Zobrazit názvy obrazových předmětů (grob)"
 
 #: ../../frescobaldi_app/userguide/engrave_layout.md:54
 msgid "This mode prints a grob's name next to it."
@@ -1382,6 +1442,10 @@ msgstr ""
 "předmětů (grob) a zvláště užitečným se stane, jakmile jej je možné zapnout "
 "pro jednotlivé obrazové předměty (grob)."
 
+#: ../../frescobaldi_app/userguide/engrave_layout.md:68
+msgid "Display Skylines"
+msgstr "Zobrazit nosná lana"
+
 #: ../../frescobaldi_app/userguide/engrave_layout.md:69
 msgid ""
 "LilyPond uses \"Skylines\" to calculate the vertical dimensions of its "
@@ -1404,6 +1468,10 @@ msgid ""
 msgstr ""
 "LilyPond uspořádá vodorovné rozestupy v \"papírových sloupcích\". Tento "
 "režim vytiskne spoustu údajů o vzdálenostech mezi předměty."
+
+#: ../../frescobaldi_app/userguide/engrave_layout.md:78
+msgid "Annotate Spacing"
+msgstr "Vysvětlit rozmístění"
 
 #: ../../frescobaldi_app/userguide/engrave_layout.md:79
 msgid ""
@@ -1482,6 +1550,10 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/engrave_layout_configure.md:15
 msgid "The modes use the following configuration variables:"
 msgstr "Režimy používají následující proměnné nastavení:"
+
+#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:18
+msgid "Color \\voiceXXX"
+msgstr "Barva \\voiceXXX"
 
 #: ../../frescobaldi_app/userguide/engrave_layout_configure.md:19
 msgid "These variables currently can't be redefined in input files."
@@ -1665,6 +1737,10 @@ msgstr ""
 "A pokud povolíte volbu pro *automatické rytí*, Frescobaldi spustí LilyPond "
 "automaticky pokaždé, když je dokument změněn (v režimu náhledu)."
 
+#: ../../frescobaldi_app/userguide/experimental_features.md:1
+msgid "Experimental Features"
+msgstr "Pokusné vlastnosti"
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/experimental_features.md:3
 msgid ""
@@ -1725,6 +1801,10 @@ msgid ""
 "require a restart of Frescobaldi to take effect."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/ext_configuration.md:7
+msgid "General Settings"
+msgstr "Obecná nastavení"
+
 #: ../../frescobaldi_app/userguide/ext_configuration.md:9
 msgid ""
 "The use of extensions can be deactivated globally. Without this checkbox "
@@ -1739,6 +1819,10 @@ msgid ""
 "directory should do no harm as only valid and functional extensions are "
 "loaded."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/ext_configuration.md:16
+msgid "Installed Extensions"
+msgstr "Nainstalovaná rozšíření"
 
 #: ../../frescobaldi_app/userguide/ext_configuration.md:18
 msgid ""
@@ -1773,6 +1857,10 @@ msgid ""
 "problem."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/ext_configuration.md:36
+msgid "Failed Extensions"
+msgstr "Selhavší rozšíření"
+
 #: ../../frescobaldi_app/userguide/ext_configuration.md:38
 msgid ""
 "Extensions can be faulty so that either the meta information can not be "
@@ -1796,6 +1884,10 @@ msgid ""
 "about the issue, including the full stacktrace that can (and should) be sent "
 "to the extension maintainer(s) to investigate the issue."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/ext_configuration.md:52
+msgid "Extension Configuration"
+msgstr "Nastavení rozšíření"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/ext_configuration.md:54
@@ -2529,6 +2621,11 @@ msgstr ""
 msgid "The midi2ly tab"
 msgstr "Karta pro midi2ly"
 
+#: ../../frescobaldi_app/userguide/midi_import.md:16
+#: ../../frescobaldi_app/userguide/musicxml_import.md:20
+msgid "Pitches in absolute mode"
+msgstr "Výšky tónů v režimu prosté (absolutní) výšky tónu"
+
 #: ../../frescobaldi_app/userguide/midi_import.md:18
 msgid ""
 "This option can be used if you prefer to have the source code in absolute "
@@ -2759,6 +2856,10 @@ msgstr ""
 "{menu_music_copy_image} pro zkopírování vybraných not jako rastrového "
 "obrázku do schránky, souboru nebo jiného programu."
 
+#: ../../frescobaldi_app/userguide/musicview_editinplace.md:1
+msgid "Edit in Place"
+msgstr "Upravit v místě"
+
 #: ../../frescobaldi_app/userguide/musicview_editinplace.md:3
 msgid "In this dialog you can edit one line of the text document."
 msgstr "V tomto dialogu můžete upravit jeden řádek textového dokumentu."
@@ -2798,6 +2899,10 @@ msgstr "Můžete použít soubor MusicXML pro vyvedení do jiných programů."
 msgid "This feature is currently experimental, see {experimental}."
 msgstr "tato vlastnost je nyní pokusná. Podívejte se na {experimental}."
 
+#: ../../frescobaldi_app/userguide/musicxml_import.md:1
+msgid "Import Music XML"
+msgstr "Zavést MusicXML"
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/musicxml_import.md:3
 msgid ""
@@ -2820,6 +2925,22 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/musicxml_import.md:12
 msgid "The musicxml2ly tab"
 msgstr "Karta pro musicxml2ly"
+
+#: ../../frescobaldi_app/userguide/musicxml_import.md:16
+msgid "Import articulation directions"
+msgstr "Zavést směry artikulací"
+
+#: ../../frescobaldi_app/userguide/musicxml_import.md:17
+msgid "Import rest positions"
+msgstr "Zavést polohy pomlk"
+
+#: ../../frescobaldi_app/userguide/musicxml_import.md:18
+msgid "Import page layout"
+msgstr "Zavést rozvržení strany"
+
+#: ../../frescobaldi_app/userguide/musicxml_import.md:21
+msgid "Language for pitch names"
+msgstr "Jazyk pro názvy výšek tónů"
 
 #: ../../frescobaldi_app/userguide/musicxml_import.md:23
 msgid ""
@@ -3036,6 +3157,10 @@ msgstr ""
 "poměrnými samostatné podvýrazy, může být nezbytné vybrat noty v prvním "
 "výrazu, a vynechat otevírající závorky vyšší úrovně."
 
+#: ../../frescobaldi_app/userguide/preferences.md:1
+msgid "Preferences"
+msgstr "Nastavení"
+
 #: ../../frescobaldi_app/userguide/preferences.md:3
 msgid ""
 "In the Preferences Dialog (under {menu_edit_preferences}) you can configure "
@@ -3043,6 +3168,14 @@ msgid ""
 msgstr ""
 "V dialogu pro nastavení (pod {menu_edit_preferences}) můžete nastavit hodně "
 "stránek Frescobaldi a LilyPondu."
+
+#: ../../frescobaldi_app/userguide/prefs_editor.md:1
+msgid "Editor Preferences"
+msgstr "Nastavení editoru"
+
+#: ../../frescobaldi_app/userguide/prefs_editor.md:3
+msgid "Highlighting Options"
+msgstr "Volby pro zvýraznění"
 
 #: ../../frescobaldi_app/userguide/prefs_editor.md:5
 msgid ""
@@ -3055,6 +3188,10 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/prefs_editor.md:8
 msgid "Use the value 0 for infinite."
 msgstr "Použít hodnotu 0 pro nekonečno."
+
+#: ../../frescobaldi_app/userguide/prefs_editor.md:11
+msgid "Indenting Preferences"
+msgstr "Nastavení odsazování"
 
 #: ../../frescobaldi_app/userguide/prefs_editor.md:13
 msgid "Here you can specify how you want to handle Tabs and indenting."
@@ -3111,6 +3248,10 @@ msgid ""
 msgstr ""
 "Také můžete nastavit nastavení odsazování na dokument. Podívejte se na "
 "{document_variables}."
+
+#: ../../frescobaldi_app/userguide/prefs_editor.md:33
+msgid "Source Export Preferences"
+msgstr "Nastavení vyvádění zdroje"
 
 #: ../../frescobaldi_app/userguide/prefs_editor.md:35
 msgid ""
@@ -3189,11 +3330,19 @@ msgstr ""
 "to na vytvoření prvku `<div class=\"lilypond\">`, pokud je tento pro "
 "stávající CSS vhodnější."
 
+#: ../../frescobaldi_app/userguide/prefs_extensions.md:1
+msgid "Extensions"
+msgstr "Rozšíření"
+
 #: ../../frescobaldi_app/userguide/prefs_extensions.md:3
 msgid ""
 "List and (partially) configure installed extensions. See {extending} and "
 "especially {configure}."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/prefs_fontscolors.md:1
+msgid "Fonts & Colors"
+msgstr "Písma a barvy"
 
 #: ../../frescobaldi_app/userguide/prefs_fontscolors.md:3
 msgid ""
@@ -3237,6 +3386,10 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/prefs_shortcuts.md:12
 msgid "You can define a new scheme by using the New button."
 msgstr "Můžete stanovit nové schéma pomocí tlačítka Nový."
+
+#: ../../frescobaldi_app/userguide/prefs_general.md:1
+msgid "General Preferences"
+msgstr "Obecné volby"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_general.md:3
@@ -3321,6 +3474,10 @@ msgstr ""
 "se právě vyvíjejí a nejsou ještě považovány za hotové. Podívejte se na "
 "{experimental}."
 
+#: ../../frescobaldi_app/userguide/prefs_helpers.md:1
+msgid "Helper Applications"
+msgstr "Pomocné programy"
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_helpers.md:3
 msgid ""
@@ -3397,6 +3554,10 @@ msgstr ""
 "Pokud Frescobaldi musí sáhnout k tisku pomocí rastrových obrázků, můžete zde "
 "zadat počet teček na palec."
 
+#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:1
+msgid "LilyPond Documentation"
+msgstr "Dokumentace k LilyPondu"
+
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:3
 #, fuzzy
 msgid ""
@@ -3472,6 +3633,10 @@ msgstr ""
 "http://www.lilypond.org/doc/v2.18/ http://www.lilypond.org/doc/v2.19/ http://"
 "www.lilypond.org/doc/stable/ http://www.lilypond.org/doc/development/"
 
+#: ../../frescobaldi_app/userguide/prefs_lilypond.md:1
+msgid "LilyPond Preferences"
+msgstr "Nastavení LilyPondu"
+
 #: ../../frescobaldi_app/userguide/prefs_lilypond.md:3
 msgid ""
 "Here you can configure how LilyPond is run when you engrave your document."
@@ -3529,6 +3694,10 @@ msgstr ""
 "soubory. Můžete změnit pořadí zahrnutých souborů jejich přetažením na "
 "seznam. Tímto se ovlivní pořadí, v němž LilyPond hledá soubory."
 
+#: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:1
+msgid "Automatically choose LilyPond version from document"
+msgstr "Automaticky vybrat verzi LilyPondu z dokumentu."
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:3
 msgid ""
@@ -3563,6 +3732,10 @@ msgid ""
 msgstr ""
 "Pokud dokument stanovuje verzi, je vybrána nejstarší vhodná verze LilyPondu. "
 "Jinak je vybrána výchozí verze."
+
+#: ../../frescobaldi_app/userguide/prefs_midi.md:1
+msgid "MIDI Settings"
+msgstr "Nastavení MIDI"
 
 #: ../../frescobaldi_app/userguide/prefs_midi.md:3
 msgid "Here you can configure Frescobaldi's MIDI settings."
@@ -3617,6 +3790,10 @@ msgstr ""
 "nástroje jsou nastaveny znovu na výchozí klavír (nástroj 0). V tom případě "
 "přehrávání souboru od začátku nastaví nástroje znovu."
 
+#: ../../frescobaldi_app/userguide/prefs_musicviewers.md:1
+msgid "Music Preferences"
+msgstr "Nastavení not"
+
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:3
 #, fuzzy
 msgid "Here you can configure how music is displayed and printed."
@@ -3642,6 +3819,10 @@ msgid ""
 "The print resolution is only used when raster-based printing can't be "
 "avoided."
 msgstr ""
+
+#: ../../frescobaldi_app/userguide/prefs_paths.md:1
+msgid "Paths"
+msgstr "Cesty"
 
 #: ../../frescobaldi_app/userguide/prefs_paths.md:3
 #, fuzzy
@@ -3707,6 +3888,10 @@ msgid ""
 "by Frescobaldi are cached persistently."
 msgstr ""
 
+#: ../../frescobaldi_app/userguide/prefs_shortcuts.md:1
+msgid "Keyboard Shortcuts"
+msgstr "Klávesové zkratky"
+
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_shortcuts.md:3
 msgid ""
@@ -3729,6 +3914,10 @@ msgstr ""
 "tlačítko pro úpravy, nebo klepněte dvakrát na činnost. V dialogu, který se "
 "objeví, můžete činnosti zadat až čtyři klávesové zkratky pro činnost "
 "klepnutím na tlačítko a napsáním klávesové zkratky. "
+
+#: ../../frescobaldi_app/userguide/prefs_tools.md:1
+msgid "Tools"
+msgstr "Nástroje"
 
 #: ../../frescobaldi_app/userguide/prefs_tools.md:3
 msgid "Here you can change the settings for various tools."
@@ -3769,6 +3958,10 @@ msgstr ""
 "vložení mají nastavitelné klávesové zkratky; můžete je měnit klepnutím "
 "pravým tlačítkem myši na tlačítko."
 
+#: ../../frescobaldi_app/userguide/quickinsert.md:16
+msgid "Articulations"
+msgstr "Artikulace"
+
 #: ../../frescobaldi_app/userguide/quickinsert.md:18
 msgid ""
 "These musical symbols can be added to a note or rest or a selected range of "
@@ -3790,6 +3983,10 @@ msgstr ""
 "Pokud je zaškrtnuto *Povolit zkrácený zápis*, Frescobaldi použije krátké "
 "značky pro artikulace, pokud existují (např. `-.` místo `-\\staccato`)."
 
+#: ../../frescobaldi_app/userguide/quickinsert.md:29
+msgid "Dynamics"
+msgstr "Dynamika"
+
 #: ../../frescobaldi_app/userguide/quickinsert.md:31
 msgid ""
 "Dynamics can also be added to a note or rest. If you select a range of "
@@ -3801,6 +3998,10 @@ msgstr ""
 "můžete přidat natahovače, které budou automaticky končit na poslední notě, "
 "pomlce nebo akordu ve výběru. Pokud potom klepnete na značku, tato nahradí "
 "ukončovatele."
+
+#: ../../frescobaldi_app/userguide/quickinsert.md:37
+msgid "Spanners"
+msgstr "Natahovače"
 
 #: ../../frescobaldi_app/userguide/quickinsert.md:39
 msgid ""
@@ -3821,6 +4022,10 @@ msgstr ""
 "vybrány žádné noty. Legatové obloučky, trámce nebo trylky se vztahují na "
 "nynější notu a na další pokud nejsou vybrány žádné noty, nebo k první a "
 "poslední notě nebo akordu ve výběru."
+
+#: ../../frescobaldi_app/userguide/quickinsert.md:49
+msgid "Bar Lines"
+msgstr "Taktové čáry"
 
 #: ../../frescobaldi_app/userguide/quickinsert.md:51
 msgid "Here you can insert bar lines or various breathing signs."
@@ -4041,6 +4246,10 @@ msgid ""
 msgstr ""
 "Vyčerpávající diskuzi k regulárním výrazům je možné najít [http://docs."
 "python.org/library/re.html#regular-expression-syntax Dokumentace k Pythonu]."
+
+#: ../../frescobaldi_app/userguide/sessions.md:1
+msgid "Sessions"
+msgstr "Sezení"
 
 #: ../../frescobaldi_app/userguide/sessions.md:3
 msgid ""
@@ -4324,6 +4533,10 @@ msgstr ""
 "vložení textu z proměnné `text`. V takovém případě můžete pozměnit přes "
 "`cursor`."
 
+#: ../../frescobaldi_app/userguide/snippets.md:1
+msgid "Snippets"
+msgstr "Úryvky"
+
 #: ../../frescobaldi_app/userguide/snippets.md:3
 msgid ""
 "With the snippets manager you can store often used pieces of text called "
@@ -4377,6 +4590,10 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/toc.md:1
 msgid "Table of Contents"
 msgstr "Obsah"
+
+#: ../../frescobaldi_app/userguide/transpose.md:1
+msgid "Transpose"
+msgstr "Převést"
 
 #: ../../frescobaldi_app/userguide/transpose.md:3
 msgid ""
@@ -4517,9 +4734,6 @@ msgstr ""
 
 #~ msgid "About"
 #~ msgstr "O programu"
-
-#~ msgid "Credits"
-#~ msgstr "Zásluhy"
 
 #~ msgid "Version"
 #~ msgstr "Verze"
@@ -4853,9 +5067,6 @@ msgstr ""
 
 #~ msgid "Position: {pos}"
 #~ msgstr "Poloha: {pos}"
-
-#~ msgid "Edit in Place"
-#~ msgstr "Upravit v místě"
 
 #~ msgid "Editing line {linenum} of \"{document}\" ({variable})"
 #~ msgstr "Úprava řádku {linenum} \"{document}\" ({variable})"
@@ -5569,9 +5780,6 @@ msgstr ""
 #~ msgid "Engraving mode:"
 #~ msgstr "Rycí režim:"
 
-#~ msgid "Preview"
-#~ msgstr "Náhled"
-
 #~ msgid "Publish"
 #~ msgstr "Vydání"
 
@@ -5829,35 +6037,14 @@ msgstr ""
 #~ msgid "Import an abc file using abc2ly."
 #~ msgstr "Zavést soubor ABC pomocí abc2ly."
 
-#~ msgid "Import beaming"
-#~ msgstr "Zavést trámce"
-
 #~ msgid "Run abc2ly"
 #~ msgstr "Spustit abc2ly"
-
-#~ msgid "Pitches in absolute mode"
-#~ msgstr "Výšky tónů v režimu prosté (absolutní) výšky tónu"
 
 #~ msgid "Run midi2ly"
 #~ msgstr "Spustit midi2ly"
 
-#~ msgid "Import Music XML"
-#~ msgstr "Zavést MusicXML"
-
-#~ msgid "Import articulation directions"
-#~ msgstr "Zavést směry artikulací"
-
-#~ msgid "Import rest positions"
-#~ msgstr "Zavést polohy pomlk"
-
-#~ msgid "Import page layout"
-#~ msgstr "Zavést rozvržení strany"
-
 #~ msgid "Comment out midi block"
 #~ msgstr "Zrušit poznámku bloku MIDI"
-
-#~ msgid "Language for pitch names"
-#~ msgstr "Jazyk pro názvy výšek tónů"
 
 #~ msgid "Default"
 #~ msgstr "Výchozí"
@@ -5889,28 +6076,12 @@ msgstr ""
 #~ msgstr "Písma v dokumentu..."
 
 #, fuzzy
-#~ msgid "Document Fonts"
-#~ msgstr "Písma v dokumentu..."
-
-#, fuzzy
 #~ msgid "Copy font command to clipboard"
 #~ msgstr "&Kopírovat do schránky"
 
 #, fuzzy
 #~ msgid "Insert font command at the current cursor position"
 #~ msgstr "Přesunout prohlížeč na nynější polohu ukazatele"
-
-#, fuzzy
-#~ msgid "Text Fonts"
-#~ msgstr "Textové soubory"
-
-#, fuzzy
-#~ msgid "Music Fonts"
-#~ msgstr "Soubory MusicXML"
-
-#, fuzzy
-#~ msgid "Font Command"
-#~ msgstr "Příkaz"
 
 #, fuzzy
 #~ msgid "Roman"
@@ -6048,9 +6219,6 @@ msgstr ""
 #~ msgid "Run external command"
 #~ msgstr "Jiné příkazy:"
 
-#~ msgid "Annotate Spacing"
-#~ msgstr "Vysvětlit rozmístění"
-
 #~ msgid ""
 #~ "Use LilyPond's \"annotate spacing\" option to\n"
 #~ "display measurement information"
@@ -6064,20 +6232,11 @@ msgstr ""
 #~ msgid "Display the control points that determine curve shapes"
 #~ msgstr "Zobrazit kontrolní body, jež určují tvary křivek"
 
-#~ msgid "Color explicit directions"
-#~ msgstr "Barvit neskrývané směry"
-
 #~ msgid "Highlight elements that are explicitly switched up- or downwards"
 #~ msgstr "Zvýraznit prvky, jež jsou výslovně přepnuty nahoru nebo dolů"
 
-#~ msgid "Display Grob Anchors"
-#~ msgstr "Zobrazit kotvy obrazových předmětů (grob)"
-
 #~ msgid "Display a dot at the anchor point of each grob"
 #~ msgstr "Zobrazit tečku u kotevního bodu každého obrazového předmětu (grob)"
-
-#~ msgid "Display Grob Names"
-#~ msgstr "Zobrazit názvy obrazových předmětů (grob)"
 
 #~ msgid "Display the name of each grob"
 #~ msgstr "Zobrazit název každého obrazového předmětu (grob)"
@@ -6088,14 +6247,8 @@ msgstr ""
 #~ msgid "Display info on the paper columns"
 #~ msgstr "Zobrazit informace na papírových sloupcích"
 
-#~ msgid "Display Skylines"
-#~ msgstr "Zobrazit nosná lana"
-
 #~ msgid "Display the skylines that LilyPond uses to detect collisions."
 #~ msgstr "Zobrazit nosná lana, jež LilyPond používá k zjištění střetů."
-
-#~ msgid "Color \\voiceXXX"
-#~ msgstr "Barva \\voiceXXX"
 
 #~ msgid "Highlight notes that are explicitly set to \\voiceXXX"
 #~ msgstr "Zvýraznit poznámky, jež jsou výslovně nastaveny na \\voiceXXX"
@@ -6114,9 +6267,6 @@ msgstr ""
 
 #~ msgid "Run LilyPond with verbose output"
 #~ msgstr "Spustit LilyPond s podrobným výstupem"
-
-#~ msgid "Point-and-Click"
-#~ msgstr "Ukázat a klepnout"
 
 #~ msgid "Run LilyPond in preview mode (with Point and Click)"
 #~ msgstr "Spustit LilyPond v režimu náhledu (s funkcí ukázat a klepnout)"
@@ -6582,9 +6732,6 @@ msgstr ""
 
 #~ msgid "(for LilyPond 2.14 and higher.)"
 #~ msgstr "(pro LilyPond ve verzi 2.14 a vyšší.)"
-
-#~ msgid "Transpose"
-#~ msgstr "Převést"
 
 #~ msgid ""
 #~ "Please enter two absolute pitches, separated by a space, using the pitch "
@@ -7395,47 +7542,6 @@ msgstr ""
 #~ msgid "What's This?"
 #~ msgstr "Co je toto?"
 
-#~ msgid "Preferences"
-#~ msgstr "Nastavení"
-
-#~ msgid "General Preferences"
-#~ msgstr "Obecné volby"
-
-#, fuzzy
-#~ msgid "Music Preferences"
-#~ msgstr "Nastavení zobrazení"
-
-#~ msgid "LilyPond Preferences"
-#~ msgstr "Nastavení LilyPondu"
-
-#~ msgid "MIDI Settings"
-#~ msgstr "Nastavení MIDI"
-
-#~ msgid "Helper Applications"
-#~ msgstr "Pomocné programy"
-
-#~ msgid "Paths"
-#~ msgstr "Cesty"
-
-#~ msgid "LilyPond Documentation"
-#~ msgstr "Dokumentace k LilyPondu"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Klávesové zkratky"
-
-#~ msgid "Editor Preferences"
-#~ msgstr "Nastavení editoru"
-
-#~ msgid "Fonts & Colors"
-#~ msgstr "Písma a barvy"
-
-#~ msgid "Tools"
-#~ msgstr "Nástroje"
-
-#, fuzzy
-#~ msgid "Extensions"
-#~ msgstr "Sezení"
-
 #~ msgid "Paths to LilyPond Documentation"
 #~ msgstr "Cesty k dokumentaci k LilyPondu"
 
@@ -7486,9 +7592,6 @@ msgstr ""
 #~ msgid "Matching Item:"
 #~ msgstr "Odpovídající položka:"
 
-#~ msgid "Highlighting Options"
-#~ msgstr "Volby pro zvýraznění"
-
 #~ msgid ""
 #~ "Below you can define how long \"matching\" items like matching brackets "
 #~ "or the items linked through Point-and-Click are highlighted."
@@ -7502,9 +7605,6 @@ msgstr ""
 
 #~ msgid "Infinite"
 #~ msgstr "Nekonečný"
-
-#~ msgid "Indenting Preferences"
-#~ msgstr "Nastavení odsazování"
 
 #~ msgid "Visible Tab Width:"
 #~ msgstr "Viditelná šířka zarážky:"
@@ -7577,9 +7677,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Je-li povoleno, ukazatel při použití kláves vodorovných šipek zůstane na "
 #~ "nynějším řádku a nepřesune se na další nebo předchozí řádek."
-
-#~ msgid "Source Export Preferences"
-#~ msgstr "Nastavení vyvádění zdroje"
 
 #~ msgid "Show line numbers"
 #~ msgstr "Ukázat čísla řádků"
@@ -7678,20 +7775,12 @@ msgstr ""
 #~ msgstr "Vlastní uvozovky (zadejte níže)"
 
 #, fuzzy
-#~ msgid "General Settings"
-#~ msgstr "Nastavení programu Rumor."
-
-#, fuzzy
 #~ msgid "Use Extensions"
 #~ msgstr "Použít pomocné linky"
 
 #, fuzzy
 #~ msgid "Extension API: {apiversion}"
 #~ msgstr "Verze {version}"
-
-#, fuzzy
-#~ msgid "Installed Extensions"
-#~ msgstr "Nainstalovat do:"
 
 #~ msgid "Name"
 #~ msgstr "Název"
@@ -7710,10 +7799,6 @@ msgstr ""
 
 #~ msgid "Description"
 #~ msgstr "Popis"
-
-#, fuzzy
-#~ msgid "Extension Configuration"
-#~ msgstr "Nastavení náhledového režimu"
 
 #~ msgid "Use this scheme for printing"
 #~ msgstr "Použít toto schéma pro tisk"
@@ -8010,9 +8095,6 @@ msgstr ""
 #~ msgid "Use custom default file name:"
 #~ msgstr "Předloha hlavičky"
 
-#~ msgid "Sessions"
-#~ msgstr "Sezení"
-
 #~ msgid "Session to load if Frescobaldi is started without arguments"
 #~ msgstr "Sezení, které se má nahrát, je-li Frescobaldi spuštěn bez argumentů"
 
@@ -8024,9 +8106,6 @@ msgstr ""
 
 #~ msgid "Start with session:"
 #~ msgstr "Začít se sezením:"
-
-#~ msgid "Experimental Features"
-#~ msgstr "Pokusné vlastnosti"
 
 #~ msgid "Enable Experimental Features"
 #~ msgstr "Povolit pokusné vlastnosti"
@@ -8106,9 +8185,6 @@ msgstr ""
 
 #~ msgid "LilyPond versions to use"
 #~ msgstr "Verze LilyPondu k použití"
-
-#~ msgid "Automatically choose LilyPond version from document"
-#~ msgstr "Automaticky vybrat verzi LilyPondu z dokumentu."
 
 #~ msgid ""
 #~ "If checked, the document's version determines the LilyPond version to "
@@ -8548,9 +8624,6 @@ msgstr ""
 #~ msgid "Remove articulations etc."
 #~ msgstr "Odstranit artikulace atd."
 
-#~ msgid "Articulations"
-#~ msgstr "Artikulace"
-
 #~ msgid "Different kinds of articulations and other signs."
 #~ msgstr "Různé druhy artikulací a dalších značek."
 
@@ -8686,9 +8759,6 @@ msgstr ""
 #~ msgid "Half open (e.g. hi-hat)"
 #~ msgstr "Napůl otevřeno (např. hajtka)"
 
-#~ msgid "Bar Lines"
-#~ msgstr "Taktové čáry"
-
 #~ msgid "Bar lines, breathing signs, etcetera."
 #~ msgstr "Taktové čáry, značky pro dýchání atd."
 
@@ -8779,17 +8849,11 @@ msgstr ""
 #~ msgid "None"
 #~ msgstr "Žádný"
 
-#~ msgid "Dynamics"
-#~ msgstr "Dynamika"
-
 #~ msgid "Dynamic symbols."
 #~ msgstr "Symboly pro dynamiku."
 
 #~ msgid "Dynamic sign {name}"
 #~ msgstr "Značka dynamiky {name}"
-
-#~ msgid "Spanners"
-#~ msgstr "Natahovače"
 
 #~ msgid "Hairpin crescendo"
 #~ msgstr "Sponka crescenda"
@@ -10552,9 +10616,6 @@ msgstr ""
 #~ "\n"
 #~ "Chcete ji přepsat?"
 
-#~ msgid "Snippets"
-#~ msgstr "Úryvky"
-
 #~ msgid "&Snippets"
 #~ msgstr "Úr&yvky"
 
@@ -10809,9 +10870,6 @@ msgstr ""
 
 #~ msgid "Manuscript"
 #~ msgstr "Rukopis"
-
-#~ msgid "Manuscript Viewer"
-#~ msgstr "Prohlížeč rukopisů"
 
 #~ msgctxt "dialog title"
 #~ msgid "Open Manuscript(s)"

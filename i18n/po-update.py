@@ -61,25 +61,16 @@ result = subprocess.call(command)
 
 # 2. create a POT file for the user guide
 userguide = sorted(glob.glob(os.path.join(frescobaldi_app, 'userguide', '*.md')))
-md2pot.md2pot('temp1.pot', userguide)
+md2pot.md2pot('temp.pot', userguide)
+subprocess.call('msguniq -t UTF-8 -o userguide.pot temp.pot'.split())
+os.remove("temp.pot")
 
-# 3. uniq that one
-subprocess.call('msguniq -t UTF-8 -o temp2.pot temp1.pot'.split())
-os.remove('temp1.pot')
-
-# 4. remove dups with frescobaldi.pot from user guide
-subprocess.call('msgcat --more-than=1 -o common.pot frescobaldi.pot temp2.pot'.split())
-subprocess.call('msgcat --less-than=2 -o userguide.pot common.pot temp2.pot'.split())
-os.remove('common.pot')
-os.remove('temp2.pot')
-
-# now we have frescobaldi.pot, and userguide.pot which does not
-# contain double messages from frescobaldi.pot
-
+# 3. Update PO files
 frescobaldi_po = f"i18n/frescobaldi/{language}.po"
 userguide_po = f"i18n/userguide/{language}.po"
 subprocess.run(["msgmerge", "-U", frescobaldi_po, "frescobaldi.pot"])
 subprocess.run(["msgmerge", "-U", userguide_po, "userguide.pot"])
 
+# 4. Clean up
 os.remove("frescobaldi.pot")
 os.remove("userguide.pot")
