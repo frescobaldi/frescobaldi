@@ -119,7 +119,7 @@ def suitable(version):
     Otherwise the most recent LilyPond version is returned.
 
     """
-    infos_ = [i for i in infos() if i.auto]
+    infos_ = [i for i in infos() if i.autoVersionIncluded]
     if infos_:
         infos_.sort(key=lambda i: i.version())
         for i in infos_:
@@ -158,7 +158,7 @@ class LilyPondInfo(object):
 
     def __init__(self, command):
         self._command = command
-        self.auto = True
+        self.autoVersionIncluded = True
         self.name = "LilyPond"
         self._lytools = {}
 
@@ -383,7 +383,7 @@ class LilyPondInfo(object):
         if cmd:
             info = cls(cmd)
             if info.abscommand.wait():
-                info.auto = settings.value("auto", True, bool)
+                info.autoVersionIncluded = settings.value("auto", True, bool)
                 info.name = settings.value("name", "LilyPond", str)
                 for name in cls.ly_tool_names:
                     info.set_ly_tool(name, settings.value(name, name, str))
@@ -401,7 +401,7 @@ class LilyPondInfo(object):
         settings.setValue("datadir", self.datadir() or "")
         if self.abscommand():
             settings.setValue("mtime", int(os.path.getmtime(self.abscommand())))
-        settings.setValue("auto", self.auto)
+        settings.setValue("auto", self.autoVersionIncluded)
         settings.setValue("name", self.name)
         for name in self.ly_tool_names:
             value = self._lytools.get(name, name)
