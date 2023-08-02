@@ -35,6 +35,7 @@ All the point & click stuff is handled in the pointandclick module.
 
 import functools
 import os
+import platform
 import sys
 import weakref
 
@@ -157,8 +158,8 @@ class MusicViewPanel(panel.Panel):
             # warn about printing directly with cups on Mac
             s = QSettings()
             if (s.value("printing/directcups",
-                       False if sys.platform.startswith('darwin') else True, bool)
-                and sys.platform.startswith('darwin')):
+                       False if platform.system() == "Darwin" else True, bool)
+                and platform.system() == "Darwin"):
                 from PyQt5.QtCore import QUrl
                 from PyQt5.QtWidgets import QMessageBox
                 result =  QMessageBox.warning(self.mainwindow(),
@@ -426,5 +427,3 @@ class DocumentChooser(QComboBox):
         self.setWhatsThis(_(
             "Choose the PDF document to display or drag the file "
             "to another application or location."))
-
-

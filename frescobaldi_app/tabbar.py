@@ -22,7 +22,7 @@ The tab bar with the documents.
 """
 
 
-import sys
+import platform
 
 from PyQt5.QtCore import QSettings, Qt, QUrl, pyqtSignal
 from PyQt5.QtWidgets import QMenu, QTabBar
@@ -111,7 +111,7 @@ QTabBar::tab:only-one {
     border-bottom-right-radius: 4px;
 }
 """
-        if sys.platform.startswith('darwin'):
+        if platform.system() == "Darwin":
             self.setStyleSheet(style)
 
     def readSettings(self):

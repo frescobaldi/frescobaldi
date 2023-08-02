@@ -4,6 +4,7 @@
 
 
 import os
+import platform
 import sys
 
 from ctypes import (CDLL, CFUNCTYPE, POINTER, Structure, byref, c_char_p,
@@ -16,13 +17,13 @@ _PM_MACOSX_APP = '../Frameworks/libportmidi.dylib'
 
 # the basename of the portmidi/porttime libraries on different platforms
 _PM_DLL = dict(
-    win32 = 'libportmidi-0',
+    Windows = 'libportmidi-0',
 )
 _PT_DLL = dict(
-    win32 = 'libporttime-0',
+    Windows = 'libporttime-0',
 )
 
-if sys.platform.startswith('win'):
+if platform.system() == "Windows":
     # ctypes.util.find_library() does not implement the full Windows DLL search
     # order, so we have to provide it ourselves, so that the PortMidi DLL can
     # be found. See the docstring of the find_library() function for more
@@ -91,12 +92,12 @@ if sys.platform.startswith('win'):
                 return fname
         return None
 
-    dll_name = find_library(_PM_DLL['win32'], [os.path.dirname(__file__)])
-elif sys.platform.startswith('darwin') and macosx.inside_app_bundle() and os.path.exists(_PM_MACOSX_APP):
+    dll_name = find_library(_PM_DLL['Windows'], [os.path.dirname(__file__)])
+elif platform.system() == "Darwin" and macosx.inside_app_bundle() and os.path.exists(_PM_MACOSX_APP):
     dll_name = _PM_MACOSX_APP
 else:
     from ctypes.util import find_library
-    dll_name = find_library(_PM_DLL.get(sys.platform, 'portmidi'))
+    dll_name = find_library(_PM_DLL.get(platform.system(), 'portmidi'))
 if dll_name is None:
     raise ImportError("Couldn't find the PortMidi library.")
 
@@ -106,7 +107,7 @@ libpm = CDLL(dll_name)
 if hasattr(libpm, 'Pt_Time'):
     libpt = libpm
 else:
-    libpt = CDLL(find_library(_PT_DLL.get(sys.platform, 'porttime')))
+    libpt = CDLL(find_library(_PT_DLL.get(platform.system(), 'porttime')))
 
 
 # portmidi.h
@@ -237,4 +238,3 @@ libpt.Pt_Start.argtypes = [c_int32, PtCallback, c_void_p]
 libpt.Pt_Stop.restype = PtError
 libpt.Pt_Started.restype = c_int32
 libpt.Pt_Time.restype = PtTimestamp
-

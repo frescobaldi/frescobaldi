@@ -24,6 +24,7 @@ Completions data harvested from a Document.
 
 import itertools
 import os
+import platform
 
 import listmodel
 import plugin
@@ -155,7 +156,7 @@ class DocumentDataSource(plugin.DocumentPlugin):
                 and f.islower()))
 
         # forward slashes on Windows (issue #804)
-        if os.name == "nt":
+        if platform.system() == "Windows":
             names = [name.replace('\\', '/') for name in names]
 
         return listmodel.ListModel(names)

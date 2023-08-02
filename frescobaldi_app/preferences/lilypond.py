@@ -23,6 +23,7 @@ LilyPond preferences page
 
 
 import os
+import platform
 import sys
 
 from PyQt5.QtCore import QSettings, Qt
@@ -279,7 +280,7 @@ class InfoDialog(QDialog):
 
     def newInfo(self):
         """Returns a new LilyPondInfo instance for our settings."""
-        if sys.platform.startswith('darwin') and self.lilypond.path().endswith('.app'):
+        if platform.system() == "Darwin" and self.lilypond.path().endswith('.app'):
             info = lilypondinfo.LilyPondInfo(
                 self.lilypond.path() + '/Contents/Resources/bin/lilypond')
         else:

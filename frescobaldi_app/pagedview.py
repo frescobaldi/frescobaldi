@@ -26,7 +26,7 @@ This is used throughout Frescobaldi, to obey color settings etc.
 
 import itertools
 import os
-import sys
+import platform
 
 from PyQt5.QtCore import pyqtSignal, QMargins, QSettings, Qt
 from PyQt5.QtWidgets import QMessageBox
@@ -199,7 +199,7 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         # but its settings are ignored and any choice (including opening the PDF)
         # results in printing to cups' default printer
         if (s.value("printing/directcups",
-                    False if sys.platform.startswith('darwin') else True, bool)
+                    False if platform.system() == "Darwin" else True, bool)
             and isinstance(self.document(), qpageview.poppler.PopplerDocument)
             and os.path.isfile(self.document().filename())
             and not printer.outputFileName()):
@@ -319,5 +319,3 @@ def loadSvgs(filenames):
 def loadImages(filenames):
     """Like qpageview.loadImages(), but uses a preconfigured renderer."""
     return qpageview.loadImages(filenames, getRenderer("image"))
-
-

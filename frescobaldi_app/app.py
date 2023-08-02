@@ -130,7 +130,7 @@ def instantiate():
     QApplication.setDesktopFileName(appinfo.desktop_file_name)
     QApplication.setOrganizationName(appinfo.name)
     QApplication.setOrganizationDomain(appinfo.domain)
-    if sys.platform.startswith('darwin'):
+    if platform.system() == "Darwin":
         qApp._menubar = QMenuBar()
     appInstantiated()
 

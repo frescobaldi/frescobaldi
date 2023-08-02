@@ -33,6 +33,8 @@ from PyQt5.QtGui import (
 from PyQt5.QtWidgets import QMessageBox
 
 import os
+import platform
+
 import appinfo
 import textformats
 import app
@@ -101,7 +103,7 @@ def importTheme(filename, widget, schemeWidget):
 
     fontElt = root.find('font')
 
-    defaultfont = "Lucida Console" if os.name == "nt" else "monospace"
+    defaultfont = "Lucida Console" if platform.system() == "Windows" else "monospace"
     if fontElt.get('fontFamily') in QFontDatabase().families():
         fontFamily = fontElt.get('fontFamily')
     else:

@@ -101,10 +101,10 @@ Case:   ClassName, module_name, methodname() (or methodName() for classes that
         inherit from Qt classes). Instance attributes that are not meant to be
         used from outside an instance are prefixed with an underscore, e.g.
         self._document.
-        
+
         There is a habit, inspired by Qt, to use setters and getters for such
         attributes: obj.setDocument(document) and obj.document().
-        
+
         Names for actions (e.g. file_open) and QSettings keys should always be
         lowercase and use underscores where needed.
 
@@ -126,19 +126,13 @@ package. The different groups separated by a blank line:
     from . import widget            # imports from current package
 
 Avoid platform specific code, but when it is really needed, you can test
-for Windows:
+for them:
 
-    if sys.platform.startswith('win'):
+    if platform.system() == "Linux":
         ...
-
-or:
-
-    if os.name == "nt":
+    elif platform.system() == "Darwin": # macOS
         ...
-
-Testing for Mac OS X can be done using:
-
-    if sys.platform.startswith('darwin'):
+    elif platform.system() == "Windows":
         ...
 
 
@@ -227,9 +221,9 @@ of testing and development, you don't even need to install Python at all.
 
 6. go to the frescobaldi directory and copy all the files from the installed
    version, except for the frescobaldi_app directory:
-   
+
    cd frescobaldi
-   
+
    cp /c/Program\ Files/Frescobaldi/*.pyd .
    cp /c/Program\ Files/Frescobaldi/frescobaldi.exe .
    cp /c/Program\ Files/Frescobaldi/*.dll .
@@ -253,4 +247,3 @@ Checklist before making a new release:
 - Bump the version in `frescobaldi_app/appinfo.py`.
 - Add the release date in `CHANGELOG.md` and `linux/org.frescobaldi.Frescobaldi.metainfo.xml.in`.
 - Update the list of contributors in `frescobaldi_app/userguide/credits.md`.
-

@@ -25,7 +25,7 @@ Settings stuff and handling for different LilyPond versions.
 import glob
 import codecs
 import os
-import sys
+import platform
 import re
 
 from PyQt5.QtCore import QEventLoop, QSettings, QTimer
@@ -38,7 +38,7 @@ import job.queue
 import util
 import qutil
 
-if sys.platform.startswith('darwin'):
+if platform.system() == "Darwin":
     import macosx
 
 _infos = None   # this can hold a list of configured LilyPondInfo instances
@@ -87,7 +87,7 @@ def default():
     on other platforms simply "lilypond".
 
     """
-    lilypond = "lilypond-windows.exe" if os.name == "nt" else "lilypond"
+    lilypond = "lilypond-windows.exe" if platform.system() == "Windows" else "lilypond"
     return LilyPondInfo(lilypond)
 
 
@@ -101,7 +101,7 @@ def preferred():
     s = QSettings()
     s.beginGroup("lilypond_settings")
     # find default version
-    defaultCommand = "lilypond-windows.exe" if os.name == "nt" else "lilypond"
+    defaultCommand = "lilypond-windows.exe" if platform.system() == "Windows" else "lilypond"
     userDefault = s.value("default", defaultCommand, str)
     if userDefault != defaultCommand:
         for info in infos_:
@@ -169,13 +169,13 @@ class LilyPondInfo(object):
     @CachedProperty.cachedproperty
     def abscommand(self):
         """The absolute path of the command."""
-        if os.name == "nt":
+        if platform.system() == "Windows":
             # on Windows, newer versions of LilyPond don't add themselves to the
             # PATH, so add a probable path here
             path = glob.glob(os.path.join(
                 os.environ.get('ProgramFiles', 'C:\\Program Files'),
                 'LilyPond*', 'usr', 'bin'))
-        elif sys.platform.startswith('darwin'):
+        elif platform.system() == "Darwin":
             # also on Mac OS X, LilyPond is not automatically added to the PATH
             path = [
                 os.path.join('/Applications', 'LilyPond.app', 'Contents', 'Resources', 'bin'),
@@ -230,7 +230,7 @@ class LilyPondInfo(object):
             if command.endswith(outstrip):
                 command=command[:-len(outstrip)]
             macstrip='/Contents/Resources/bin/lilypond'
-            if sys.platform.startswith('darwin') and command.endswith('.app' + macstrip):
+            if platform.system() == "Darwin" and command.endswith('.app' + macstrip):
                 command=command[:-len(macstrip)]
             return util.homify(command)
         else:
@@ -338,7 +338,7 @@ class LilyPondInfo(object):
 
         # on Windows the tool command is not directly executable, but
         # must be started using the LilyPond-provided Python interpreter
-        if os.name == "nt":
+        if platform.system() == "Windows":
             if not os.access(toolpath, os.R_OK) and not toolpath.endswith('.py'):
                 toolpath += '.py'
             command = [self.python(), toolpath]
