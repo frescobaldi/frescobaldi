@@ -25,6 +25,7 @@ and capture the output to get it later or to have a log follow it.
 
 import codecs
 import os
+import platform
 import time
 
 from PyQt5.QtCore import QCoreApplication, QProcess, QProcessEnvironment
@@ -266,7 +267,7 @@ class Job(object):
         if self._process:
             self._aborted = True
             self.abort_message()
-            if os.name == "nt":
+            if platform.system() == "Windows":
                 self._process.kill()
             else:
                 self._process.terminate()

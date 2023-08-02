@@ -23,6 +23,7 @@ Helper application stuff.
 
 
 import os
+import platform
 import re
 import subprocess
 import sys
@@ -115,9 +116,9 @@ def terminalCommands():
     There is always yielded at least one, which is suitable as default.
 
     """
-    if os.name == "nt":
+    if platform.system() == "Windows":
         yield ['cmd.exe']
-    elif sys.platform == 'darwin':
+    elif platform.system() == "Darwin":
         yield ['open', '-a', 'Terminal', '$f']
     else:
         # find a default linux terminal

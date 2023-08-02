@@ -35,6 +35,7 @@ toplevel.install()              # Add the path to frescobaldi_app to sys.path
 import checks                   # check whether Frescobaldi really can run
 
 import os
+import platform
 import re
 
 from PyQt5.QtCore import QSettings, QTimer, QUrl
@@ -98,11 +99,11 @@ def parse_commandline():
     args = QApplication.arguments()
 
     # Decode arguments to properly handle Unicode on Windows
-    if os.name == 'nt':
+    if platform.system() == 'Windows':
         args = [os.fsdecode(bytes(arg, 'mbcs')) for arg in args]
 
     # Strip interpreter name and its command line options on Windows
-    if os.name == 'nt':
+    if platform.system() == 'Windows':
         while args:
             if os.path.basename(args[0]).lower().startswith(appinfo.name):
                 break
@@ -217,7 +218,7 @@ def main(debug=False):
     import autocomplete     # auto-complete input
     import wordboundary     # better wordboundary behaviour for the editor
 
-    if sys.platform.startswith('darwin'):
+    if platform.system() == "Darwin":
         import macosx.setup
         macosx.setup.initialize()
 

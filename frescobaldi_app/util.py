@@ -27,6 +27,7 @@ import glob
 import itertools
 import io
 import os
+import platform
 import re
 import unicodedata
 
@@ -60,7 +61,7 @@ def findexe(cmd, path=None):
                     return os.path.join(p, cmd)
 
 
-if os.name == 'nt':
+if platform.system() == "Windows":
     def equal_paths(p1, p2):
         """Returns True if the paths are equal (case and separator insensitive)."""
         return p1.lower().replace('\\', '/') == p2.lower().replace('\\', '/')
@@ -71,7 +72,7 @@ else:
 
 
 # Make sure that also on Windows, directory slashes remain forward
-if os.name == 'nt':
+if platform.system() == "Windows":
     def normpath(path):
         """A version of os.path.normpath that keeps slashes forward."""
         return os.path.normpath(path).replace('\\', '/')

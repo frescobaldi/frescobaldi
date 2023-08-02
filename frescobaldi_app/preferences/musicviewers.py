@@ -22,8 +22,8 @@ Music View preferences.
 """
 
 
+import platform
 import re
-import sys
 
 from PyQt5.QtCore import QSettings, Qt
 from PyQt5.QtGui import QFont
@@ -196,7 +196,7 @@ class Printing(preferences.Group):
         # see comment in pagedview and warning messages in musicview/__init__
         # and viewers/__init__ for the rationale for the default value
         self.useCups.setChecked(s.value("printing/directcups",
-                False if sys.platform.startswith('darwin') else True,
+                False if platform.system() == "Darwin" else True,
                 bool))
         with qutil.signalsBlocked(self.resolution):
             self.resolution.setEditText(format(s.value("printing/dpi", 300, int)))

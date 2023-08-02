@@ -25,7 +25,7 @@ Frescobaldi Main Window.
 
 import itertools
 import os
-import sys
+import platform
 import weakref
 
 from PyQt5.QtCore import (pyqtSignal, QByteArray, QDir, QMimeData, QSettings,
@@ -390,7 +390,8 @@ class MainWindow(QMainWindow):
         self.resize(settings.value("size", defaultSize, QSize))
         self.restoreState(settings.value('state', QByteArray(), QByteArray))
         self.tabBar.setVisible(settings.value('tabbar', True, bool))
-        if os.name != "posix" and settings.value('maximized', False, bool):
+        # DOCME: why only Windows?
+        if platform.system() == "Windows" and settings.value('maximized', False, bool):
             self.showMaximized()
 
     def writeSettings(self):
@@ -1312,7 +1313,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_replace.setShortcuts(QKeySequence.Replace)
         self.edit_preferences.setShortcuts(QKeySequence.Preferences)
 
-        if sys.platform.startswith('darwin'):
+        if platform.system() == "Darwin":
             self.view_next_document.setShortcut(Qt.META + Qt.Key_Tab)
             self.view_previous_document.setShortcut(Qt.META + Qt.SHIFT + Qt.Key_Tab)
         else:
@@ -1327,7 +1328,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.help_manual.setShortcuts(QKeySequence.HelpContents)
 
         # Mac OS X-specific roles?
-        if sys.platform.startswith('darwin'):
+        if platform.system() == "Darwin":
             import macosx
             if macosx.use_osx_menu_roles():
                 self.file_quit.setMenuRole(QAction.QuitRole)

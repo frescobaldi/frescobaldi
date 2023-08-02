@@ -33,7 +33,7 @@ This is an abstract base class for different viewer modules.
 
 import functools
 import os
-import sys
+import platform
 import weakref
 
 from PyQt5.QtCore import QSettings, QTimer, Qt, pyqtSignal
@@ -187,8 +187,8 @@ class AbstractViewPanel(panel.Panel):
             # warn about printing directly with cups on Mac
             s = QSettings()
             if (s.value("printing/directcups",
-                       False if sys.platform.startswith('darwin') else True, bool)
-                and sys.platform.startswith('darwin')):
+                       False if platform.system() == "Darwin" else True, bool)
+                and platform.system() == "Darwin"):
                 from PyQt5.QtCore import QUrl
                 from PyQt5.QtWidgets import QMessageBox
                 result =  QMessageBox.warning(self.mainwindow(),

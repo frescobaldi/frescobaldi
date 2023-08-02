@@ -22,7 +22,7 @@ A QWidget showing a "could not load PyQtWebEngine" message.
 """
 
 
-import sys
+import platform
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QLabel, QLayout, QVBoxLayout, QWidget
@@ -47,7 +47,7 @@ class WebEngineDummy(QWidget):
         message = (_("<b>Could not load PyQtWebEngine, "
                      + "so the {tool} cannot be loaded.</b>").format(
                      tool = self.parentWidget().windowTitle()))
-        if sys.platform.startswith('darwin'):
+        if platform.system() == "Darwin":
             import macosx
             if (macosx.inside_app_bundle()
                     and not macosx.inside_lightweight_app_bundle()):
