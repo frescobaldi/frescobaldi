@@ -60,12 +60,6 @@ def findexe(cmd, path=None):
                     return os.path.join(p, cmd)
 
 
-def iswritable(path):
-    """Returns True if the path can be written to or created."""
-    return ((os.path.exists(path) and os.access(path, os.W_OK))
-            or os.access(os.path.dirname(path), os.W_OK))
-
-
 if os.name == 'nt':
     def equal_paths(p1, p2):
         """Returns True if the paths are equal (case and separator insensitive)."""
@@ -208,17 +202,6 @@ def next_file(filename):
     else:
         name = a + '-' + format(num+1)
     return name + ext
-
-
-def bytes_environ(encoding='latin1'):
-    """Return the environment as a dictionary with bytes keys and values.
-
-    This can be used for subprocess, as it chokes on Windows on unicode strings
-    in Python 2.x.
-
-    """
-    return dict((s.encode(encoding) if type(s) is not type(b'') else s
-                 for s in v) for v in os.environ.items())
 
 
 def uniq(iterable):
