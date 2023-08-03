@@ -53,6 +53,10 @@ def pageorder():
     yield Extensions
 
 
+class CancelClosingPreferences(Exception):
+    pass
+
+
 class PreferencesDialog(QDialog):
 
     def __init__(self, mainwindow):
@@ -83,9 +87,12 @@ class PreferencesDialog(QDialog):
             | QDialogButtonBox.Reset
             | QDialogButtonBox.Help)
         layout.addWidget(b)
-        b.accepted.connect(self.accept)
+        b.accepted.connect(self.maybeAccept)
         b.rejected.connect(self.reject)
-        b.button(QDialogButtonBox.Apply).clicked.connect(self.saveSettings)
+        # saveSettings() may raise CancelClosingPreferences. This is primarily
+        # for use when it makes sense for the "Ok" button, but may occur in "Apply",
+        # so we need to catch it.
+        b.button(QDialogButtonBox.Apply).clicked.connect(self.trySaveSettings)
         b.button(QDialogButtonBox.Reset).clicked.connect(self.loadSettings)
         b.button(QDialogButtonBox.Help).clicked.connect(self.showHelp)
         b.button(QDialogButtonBox.Help).setShortcut(QKeySequence.HelpContents)
@@ -107,9 +114,20 @@ class PreferencesDialog(QDialog):
         self.pagelist.setFixedWidth(self.pagelist.sizeHintForColumn(0) + 12)
         self.setWindowTitle(app.caption(_("Preferences")))
 
-    def done(self, result):
-        if result and self.buttons.button(QDialogButtonBox.Apply).isEnabled():
+    def trySaveSettings(self):
+        try:
             self.saveSettings()
+        except CancelClosingPreferences:
+            return False
+        else:
+            return True
+
+    def maybeAccept(self):
+        if (not self.buttons.button(QDialogButtonBox.Apply).isEnabled()
+              or self.trySaveSettings()):
+            self.accept()
+
+    def done(self, result):
         # save our size and selected page
         global _prefsindex
         _prefsindex = self.pagelist.currentRow()
@@ -134,7 +152,7 @@ class PreferencesDialog(QDialog):
         """Saves the settings and applies them."""
         for page in self.pages():
             if page.hasChanges:
-                page.saveSettings()
+                page.saveSettings() # this may raise CancelClosingPreferences
                 page.hasChanges = False
         self.buttons.button(QDialogButtonBox.Apply).setEnabled(False)
 
