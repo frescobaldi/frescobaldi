@@ -154,7 +154,13 @@ class InfoList(widgets.listedit.ListEdit):
         dlg = self.infoDialog()
         dlg.loadInfo(item._info)
         dlg.lilypond.lineEdit.setFocus()
-        was_default = item._info.command == self.parentWidget()._defaultCommand
+        # Since we use the command as the way to remember which version is the
+        # default, and the user may edit the command here, we need to update
+        # it. The check "item in self.items()" is true if this is an existing
+        # item that we are updating, with the "Edit" button, but false if it's
+        # a fresh item as created by the "Add" button in createItem() above.
+        was_default = (item in self.items()
+                       and item._info.command == self.parentWidget()._defaultCommand)
         if dlg.exec_():
             item._info = dlg.newInfo()
             if was_default:
