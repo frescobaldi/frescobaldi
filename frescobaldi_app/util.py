@@ -27,6 +27,7 @@ import glob
 import itertools
 import io
 import os
+import pathlib
 import platform
 import re
 import unicodedata
@@ -292,3 +293,8 @@ def platform_newlines(text):
 
     """
     return universal_newlines(text).replace('\n', os.linesep)
+
+
+# This is the pathlib.Path.is_relative_to() method in Python 3.9+
+def path_is_relative_to(path, other):
+    return path == other or other in path.parents
