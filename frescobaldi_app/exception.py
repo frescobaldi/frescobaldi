@@ -52,7 +52,7 @@ class ExceptionDialog(QDialog):
         tblimited = traceback.format_exception(exctype, excvalue, exctb, limit=-5)
         self._tblimited = ''.join(tblimited)
 
-        self._ext_maintainer = app.extensions().is_extension_exception(tbfull)
+        self._ext_maintainer = app.extensions().is_extension_exception(exctb)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
