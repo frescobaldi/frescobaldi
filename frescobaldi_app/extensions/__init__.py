@@ -26,7 +26,7 @@ import os
 import pathlib
 import sys
 from time import perf_counter
-import traceback
+from traceback import extract_tb
 
 from PyQt5.QtCore import (
     QDir,
@@ -793,14 +793,14 @@ class Extensions(QObject):
         result = list(self._infos.keys())
         return sorted(result)
 
-    def is_extension_exception(self, tb):
+    def is_extension_exception(self, traceback):
         """Check if the given traceback points to an exception occurring
         within an extension. If so, return a tuple with
         - extension name (display name)
         - first maintainer
         - extension key.
         If the exception is *not* from an extension return None"""
-        for frame_summary in traceback.extract_tb(tb):
+        for frame_summary in extract_tb(traceback):
             file_path = pathlib.Path(frame_summary.filename)
             root_path = pathlib.Path(self.root_directory())
             if util.path_is_relative_to(file_path, root_path):
