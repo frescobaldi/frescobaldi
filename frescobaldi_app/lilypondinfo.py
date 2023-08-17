@@ -25,10 +25,12 @@ Settings stuff and handling for different LilyPond versions.
 import glob
 import codecs
 import os
+import pathlib
 import platform
 import re
+import shutil
 
-from PyQt5.QtCore import QEventLoop, QSettings, QTimer
+from PyQt5.QtCore import QEventLoop, QSettings, QStandardPaths, QTimer
 from PyQt5.QtWidgets import QProgressDialog
 
 import app
@@ -43,6 +45,12 @@ if platform.system() == "Darwin":
 
 _infos = None   # this can hold a list of configured LilyPondInfo instances
 
+LILYPOND_AUTOINSTALL_DIR = (
+    os.path.join(QStandardPaths.writableLocation(QStandardPaths.DataLocation),
+                 "lilypond-binaries")
+)
+# According to the Qt documentation, the location may need to be created.
+pathlib.Path(LILYPOND_AUTOINSTALL_DIR).mkdir(parents=True, exist_ok=True)
 
 def infos():
     """Returns all configured LilyPondInfo for the different used LilyPond versions."""
@@ -346,13 +354,31 @@ class LilyPondInfo(object):
             command = [toolpath]
         return command
 
+    @property
+    def isAutoManaged(self):
+        """Return true if the LilyPond installation was auto-installed by Frescobaldi."""
+        command_path = pathlib.Path(self.command)
+        autoinstall_path = pathlib.Path(LILYPOND_AUTOINSTALL_DIR)
+        #return command_path.is_relative_to(autoinstall_path) # Python 3.9+
+        return autoinstall_path in command_path.parents
+
+    def forget(self):
+        """If this is an auto-managed installation, then wipe it from the file system."""
+        if self.isAutoManaged:
+            shutil.rmtree(self.prefix())
+
     @CachedProperty.cachedproperty(depends=versionString)
     def prettyName(self):
         """Return a pretty-printable name for this LilyPond instance."""
-        return "{name} {version} ({command})".format(
-            name = self.name,
-            version = self.versionString(),
-            command = self.displaycommand())
+        # Don't show the internal path for auto-managed installations
+        if self.isAutoManaged:
+            return "{name} {version}".format(name=self.name,
+                                             version=self.versionString())
+        else:
+            return "{name} {version} ({command})".format(
+                name = self.name,
+                version = self.versionString(),
+                command = self.displaycommand())
 
     def ly_tool(self, name):
         """Get the configured command for the ly tool (e.g. midi2ly).
