@@ -322,11 +322,11 @@ class InfoItem(QListWidgetItem):
         return self
 
     def updateProgress(self, bytes_received, bytes_total):
-        progress = round(bytes_received/bytes_total * 100)
         if isinstance(self.state, DownloadErrorState):
             # This happens when the download is cancelled with abortDownload();
             # Qt triggers the downloadProgress signal one last time.
             return
+        progress = round(bytes_received/bytes_total * 100)
         assert isinstance(self.state, DownloadingState)
         self.state.download_progress = progress
         self.display()
