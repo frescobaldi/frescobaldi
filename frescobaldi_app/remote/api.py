@@ -63,7 +63,7 @@ class Remote(object):
                 self.write(b'open ' + u.toEncoded() + b'\n')
             self.write(b'set_current ' + u.toEncoded() + b'\n')
             if args.line is not None:
-                self.write('set_cursor {0} {1}\n'.format(args.line, args.column).encode('utf-8'))
+                self.write('set_cursor {0} {1}\n'.format(args.line, args.column or 0).encode('utf-8'))
         self.write(b'activate_window\n')
 
 
