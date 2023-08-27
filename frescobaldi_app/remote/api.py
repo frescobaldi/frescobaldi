@@ -125,7 +125,7 @@ class Incoming(object):
         elif cmd == b'set_cursor':
             line, column = map(int, args)
             cursor = win.textCursor()
-            pos = cursor.document().findBlockByNumber(line - 1).position() + column
+            pos = cursor.document().findBlockByNumber(line - 1).position() + (column - 1)
             cursor.setPosition(pos)
             win.currentView().setTextCursor(cursor)
         elif cmd == b'bye':
