@@ -258,7 +258,7 @@ class Dialog(QDialog):
         orgname = doc.url().toLocalFile()
         filename = os.path.splitext(orgname)[0] + '['+tabdata.filename+']'+'.'+tabdata.ext
         caption = app.caption(_("dialog title", "Save File"))
-        filetypes = '{} (*.txt);;{} (*.htm);;{} (*)'.format(_("Text Files"), _("HTML Files"), _("All Files"))
+        filetypes = f'{_("Text Files")} (*.txt);;{_("HTML Files")} (*.htm);;{_("All Files")} (*)'
         filename = QFileDialog.getSaveFileName(self.mainwindow, caption, filename, filetypes)[0]
         if not filename:
             return False # cancelled

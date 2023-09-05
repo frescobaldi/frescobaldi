@@ -75,9 +75,8 @@ v = sys.version_info
 r = appinfo.required_python_version
 if v < r:
     error("Python version too old",
-        "Frescobaldi is started with Python {}.{} "
-        "but requires at least version {}.{}.".format(
-          v[0], v[1], r[0], r[1]))
+        f"Frescobaldi is started with Python {v[0]}.{v[1]} \
+but requires at least version {r[0]}.{r[1]}.")
 
 
 # Check popplerqt5 availability
