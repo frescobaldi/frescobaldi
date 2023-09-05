@@ -152,6 +152,7 @@ _('QPlatformTheme', 'Save')
 _('QPlatformTheme', 'Cancel')
 _('QPlatformTheme', 'Discard')
 _('QPlatformTheme', 'Restore Defaults')
+_('QPlatformTheme', 'Close')
 
 _("QScrollBar", "Bottom")
 _("QScrollBar", "Left edge")
