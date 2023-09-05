@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
 "POT-Creation-Date: 2023-06-17 20:04+0200\n"
-"PO-Revision-Date: 2023-02-14 20:25+0100\n"
+"PO-Revision-Date: 2023-09-06 00:31+0200\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -473,9 +473,8 @@ msgid "Most of the bundled icons are created by {tango}."
 msgstr "La plupart des icônes embarquées sont créées par {tango}."
 
 #: ../../frescobaldi_app/userguide/credits.md:9
-#, fuzzy
 msgid "The following people contributed to {appname} (in alphabetical order):"
-msgstr "Les personnes suivantes ont contribué au développement de {appname} :"
+msgstr "Les personnes suivantes ont contribué au développement de {appname}, dans l'ordre alphabétique :"
 
 #: ../../frescobaldi_app/userguide/credits.md:12
 msgid "Bug and compatibility fixes, miscellaneous"
@@ -486,9 +485,8 @@ msgid "Main author and core developer"
 msgstr "Auteur principal et développeur"
 
 #: ../../frescobaldi_app/userguide/credits.md:18
-#, fuzzy
 msgid "Encoding-related fixes and other improvements"
-msgstr "Beaucoup de code, et améliorations de fonctions"
+msgstr "Corrections liées aux encodages et autres améliorations"
 
 #: ../../frescobaldi_app/userguide/credits.md:21
 msgid "Modal Transpose"
@@ -525,9 +523,8 @@ msgid "Windows installers"
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:39
-#, fuzzy
 msgid "Homebrew formula for macOS"
-msgstr "Formule Homebrew pour Mac OS X"
+msgstr "Formule Homebrew pour macOS"
 
 #: ../../frescobaldi_app/userguide/credits.md:42
 msgid "various other improvements"
@@ -733,16 +730,11 @@ msgstr "Polices de texte considérées"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts_command.md:13
-#, fuzzy
 msgid ""
 "Three checkboxes regulate whether roman, sans, and typewriter fonts are "
 "considered in the font-settings command. For each family that is *not* "
 "checked LilyPond will use the default fonts."
-msgstr ""
-"Trois cases à cocher permettent de déterminer si les polices sérif, sans "
-"sérif, et monospace sont prises en compte dans la commande font-settings. "
-"Pour chaque famille qui n’est *pas* cochée, LilyPond utilisera les polices "
-"par défaut."
+msgstr "Trois cases à cocher permettent de déterminer si les polices sérif, sans sérif, et monospace sont prises en compte dans la commande de réglage des polices. Pour chaque famille qui n’est *pas* cochée, LilyPond utilisera les polices par défaut."
 
 #: ../../frescobaldi_app/userguide/documentfonts_command.md:17
 msgid "Command generation style"
@@ -870,7 +862,6 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts_music.md:3
-#, fuzzy
 msgid ""
 "LilyPond can natively use alternative notation fonts since version "
 "`2.19.12`, and version `2.18.2` can be patched with some (little) effort. "
@@ -1284,7 +1275,6 @@ msgstr "Sélection des polices de texte"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/documentfonts_text.md:28
-#, fuzzy
 msgid ""
 "A context menu in the tree view shows the three fonts currently selected as "
 "*Roman*, *Sans* and *Typewriter* fonts. Clicking on any of the three menu "
@@ -2596,7 +2586,6 @@ msgstr ""
 "La version 1.0.0 sortit à Noël 2009 et la version 1.2.0. à Noël 2010."
 
 #: ../../frescobaldi_app/userguide/history.md:13
-#, fuzzy
 msgid ""
 "At that time it was decided to move away from the KDE4 libraries and just "
 "use Python and Qt4 which are easily available on all major computing "
@@ -3070,7 +3059,6 @@ msgstr ""
 "utiliser pour lire les fichiers MIDI."
 
 #: ../../frescobaldi_app/userguide/modal_transpose.md:1
-#, fuzzy
 msgid "Modal transpose"
 msgstr "Transposition modale"
 
@@ -3083,7 +3071,6 @@ msgstr ""
 "une gamme ou une tonalité donnée."
 
 #: ../../frescobaldi_app/userguide/modal_transpose.md:5
-#, fuzzy
 msgid ""
 "Enter the number of steps you want to transpose followed by the given scale."
 msgstr ""
@@ -3091,17 +3078,13 @@ msgstr ""
 "exemple « 5 F »)"
 
 #: ../../frescobaldi_app/userguide/modal_transpose.md:7
-#, fuzzy
 msgid ""
 "E.g. when transposing a major second upwards in the key of C major, you "
 "would enter:"
-msgstr ""
-"Par exemple si vous voulez remonter les notes d’une seconde majeure et les "
-"écrire en Do Majeur, il faudrait entrer :"
+msgstr "Par exemple si vous voulez remonter d’une seconde majeure une pièce en do majeur, il faudrait entrer :"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/modal_transpose.md:13
-#, fuzzy
 msgid ""
 "*Note that if some of the original pitches are outside the given key the "
 "relation will be kept and the pitches will not be adjusted to the key. Hence "
@@ -3138,7 +3121,6 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/mode_shift.md:9
-#, fuzzy
 msgid ""
 "*Note that unlike the modal transposer all pitches will be shifted to the "
 "chosen scale regardless of which mode they possibly belonged to originally.*"
@@ -3149,7 +3131,6 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/mode_shift.md:12
-#, fuzzy
 msgid ""
 "*Note also that when using modes with less than seven scale steps (e. g. "
 "hexatonic and pentatonic modes) the mode shift can lead to double notes.*"
@@ -3470,7 +3451,6 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/outline_configure.md:11
-#, fuzzy
 msgid ""
 "In regular expressions, `^` matches at the beginning of every line, and `$` "
 "matches at the end of a line."
@@ -3816,16 +3796,11 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_general.md:18
-#, fuzzy
 msgid ""
 "Under *When saving documents*, you can choose what to do when a document is "
 "saved, such as remembering the cursor position and marked lines, formatting, "
 "or leaving a backup copy of the document (with a `~` appended)."
-msgstr ""
-"Sous *Lors de l’enregistrement de documents*, vous pouvez choisir que faire "
-"lorsqu’un document est enregistrée, comme se souvenir de la position du "
-"curseur, des lignes repérées, ou laisser une copie de sauvegarde du document "
-"(avec une extension `~`)."
+msgstr "Sous *Lors de l’enregistrement de documents*, vous pouvez choisir que faire lorsqu’un document est enregistrée, comme se souvenir de la position du curseur, des lignes repérées, ou laisser une copie de sauvegarde du document (avec une extension `~`)."
 
 #: ../../frescobaldi_app/userguide/prefs_general.md:22
 msgid ""
@@ -3945,7 +3920,6 @@ msgid "LilyPond Documentation"
 msgstr "Documentation LilyPond"
 
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:3
-#, fuzzy
 msgid ""
 "Here you can add local paths or remote URLs pointing to LilyPond "
 "documentation."
@@ -3958,21 +3932,15 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:8
-#, fuzzy
 msgid "Local path"
-msgstr "Copier le chemin global"
+msgstr "Chemin local"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:10
-#, fuzzy
 msgid ""
 "A local path should point to the directory where either the `Documentation` "
 "directory lives, or the whole `share/doc/lilypond/html/offline-root` path."
-msgstr ""
-"Vous pouvez ici ajouter les emplacements locaux ou URLs pointant vers la "
-"documentation de LilyPond. Un emplacement local doit pointer vers le dossier "
-"où se trouve soit le dossier `Documentation`, soit l’emplacement complet "
-"`share/doc/lilypond/html/offline-root`."
+msgstr "Un emplacement local doit pointer vers le dossier où se trouve soit le dossier `Documentation`, soit l’emplacement complet `share/doc/lilypond/html/offline-root`."
 
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:13
 msgid ""
@@ -3987,9 +3955,8 @@ msgstr ""
 "différents sous-dossiers et demander à Frescobaldi de les trouver."
 
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:18
-#, fuzzy
 msgid "Remote URL"
-msgstr "Supprimer"
+msgstr "URL"
 
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:20
 msgid ""
@@ -4186,11 +4153,8 @@ msgid "Music Preferences"
 msgstr "Préférences musicales"
 
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:3
-#, fuzzy
 msgid "Here you can configure how music is displayed and printed."
-msgstr ""
-"Ici vous pouvez configurer la manière dont LilyPond est lancé lorsque vous "
-"compilez votre document."
+msgstr "Ici vous pouvez configurer la manière dont la musique est affichée et imprimée."
 
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:5
 msgid ""
@@ -4218,7 +4182,6 @@ msgid "Paths"
 msgstr "Emplacements"
 
 #: ../../frescobaldi_app/userguide/prefs_paths.md:3
-#, fuzzy
 msgid "Hyphenation dictionaries"
 msgstr "Dossiers contenant les dictionnaires de césures de paroles"
 
@@ -4240,9 +4203,8 @@ msgstr ""
 "textes des paroles en syllabes."
 
 #: ../../frescobaldi_app/userguide/prefs_paths.md:11
-#, fuzzy
 msgid "Music fonts"
-msgstr "Musique"
+msgstr "Polices musicales"
 
 #: ../../frescobaldi_app/userguide/prefs_paths.md:13
 msgid ""
@@ -4673,14 +4635,11 @@ msgstr ""
 "liste de fichiers ouverts vers une session."
 
 #: ../../frescobaldi_app/userguide/sessions.md:7
-#, fuzzy
 msgid ""
 "Available sessions are accessible through the {menu_session} menu. When you "
 "switch sessions, all current documents are closed first and then the "
 "documents of the other session are opened."
-msgstr ""
-"Quand vous changez de session, tous les documents en cours sont d’abord "
-"fermés puis les documents de l’autre session sont ouverts."
+msgstr "Les sessions disponibles se trouvent dans le menu {menu_session}. Quand vous changez de session, tous les documents en cours sont d’abord fermés puis les documents de l’autre session sont ouverts."
 
 #: ../../frescobaldi_app/userguide/sessions.md:11
 msgid ""
