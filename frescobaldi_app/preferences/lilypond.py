@@ -396,7 +396,7 @@ class AddMenu(QMenu):
         # Fake menu item as placeholder while the download is in progress.
         self.addAction(_("Downloading LilyPond version list...")).setEnabled(False)
         # Action to add custom LilyPond version anywhere on the file system.
-        self.customAction = QAction(_("Custom..."))
+        self.customAction = QAction(_("Button to register a custom LilyPond installation", "Custom..."))
         self.addAction(self.customAction)
         # In most ListEdit's, this is the slot connected to the "Add"
         # button, here's it's connected to the "Custom" button.
