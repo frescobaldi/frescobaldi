@@ -258,12 +258,12 @@ class FontCommandWidget(QScrollArea):
         self.cb_oll.setText(_("Load openLilyLib"))
         self.cb_oll.setToolTip(_(
             "Load openLilyLib (oll-core) explicitly.\n"
-            + "Unckeck if oll-core is already loaded elsewhere."
+            + "Uncheck if oll-core is already loaded elsewhere."
         ))
         self.cb_loadpackage.setText(_("Load notation-fonts package"))
         self.cb_loadpackage.setToolTip(_(
             "Load the notation-fonts package explicitly.\n"
-            + "Unckeck if it is already loaded elsewhere."
+            + "Uncheck if it is already loaded elsewhere."
         ))
         self.cb_extensions.setText(_("Load font extensions (if available)"))
         self.cb_extensions.setToolTip(_(
