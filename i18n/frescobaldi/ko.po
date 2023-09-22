@@ -2317,7 +2317,7 @@ msgstr ""
 #: ../../frescobaldi_app/fonts/fontcommand.py:253
 msgid ""
 "Specify the music font.\n"
-"This is a reminder only and can not be unckecked because the openLilyLib "
+"This is a reminder only and can not be unchecked because the openLilyLib "
 "approach necessarily sets the music font."
 msgstr ""
 "악보 글꼴을 지정합니다.\n"
