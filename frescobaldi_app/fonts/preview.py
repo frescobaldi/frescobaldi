@@ -178,7 +178,7 @@ class FontsPreviewWidget(QWidget):
             )
         })
         add_entry({
-            'label': _('Scriabine (Piano)'),
+            'label': _('Scriabin (Piano)'),
             'file': 'scriabine.ly',
             'tooltip': _(
                 "Late romantic, complex piano music"

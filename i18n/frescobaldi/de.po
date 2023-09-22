@@ -2629,7 +2629,7 @@ msgid "Baroque music lends itself to traditional fonts"
 msgstr "Traditionelle Zeichensätze bieten sich für Barockmusik an"
 
 #: ../../frescobaldi_app/fonts/preview.py:181
-msgid "Scriabine (Piano)"
+msgid "Scriabin (Piano)"
 msgstr "Skrjabin (Klavier)"
 
 #: ../../frescobaldi_app/fonts/preview.py:184
