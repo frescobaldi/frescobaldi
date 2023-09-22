@@ -2557,7 +2557,7 @@ msgid "Baroque music lends itself to traditional fonts"
 msgstr "바로크 악보는 전통적인 글꼴에 적합합니다"
 
 #: ../../frescobaldi_app/fonts/preview.py:181
-msgid "Scriabine (Piano)"
+msgid "Scriabin (Piano)"
 msgstr "스크랴빈 (피아노)"
 
 #: ../../frescobaldi_app/fonts/preview.py:184

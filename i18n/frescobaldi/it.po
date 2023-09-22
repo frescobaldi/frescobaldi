@@ -2584,7 +2584,7 @@ msgid "Baroque music lends itself to traditional fonts"
 msgstr "La musica barocca è adatta per tipi di carattere tradizionali"
 
 #: ../../frescobaldi_app/fonts/preview.py:181
-msgid "Scriabine (Piano)"
+msgid "Scriabin (Piano)"
 msgstr "Skrjabin (pianoforte)"
 
 #: ../../frescobaldi_app/fonts/preview.py:184

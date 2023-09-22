@@ -2586,7 +2586,7 @@ msgid "Baroque music lends itself to traditional fonts"
 msgstr "Музыка эпохи барокко записывается традиционными шрифтами"
 
 #: ../../frescobaldi_app/fonts/preview.py:181
-msgid "Scriabine (Piano)"
+msgid "Scriabin (Piano)"
 msgstr "Скрябин (фортепиано)"
 
 #: ../../frescobaldi_app/fonts/preview.py:184

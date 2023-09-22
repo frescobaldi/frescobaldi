@@ -2596,7 +2596,7 @@ msgstr ""
 "La musique baroque se prête bien aux polices de caractère traditionnelles"
 
 #: ../../frescobaldi_app/fonts/preview.py:181
-msgid "Scriabine (Piano)"
+msgid "Scriabin (Piano)"
 msgstr "Scriabine (Piano)"
 
 #: ../../frescobaldi_app/fonts/preview.py:184
