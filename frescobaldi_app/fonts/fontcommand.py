@@ -251,7 +251,7 @@ class FontCommandWidget(QScrollArea):
         self.cb_oll_music.setText(_("Set music font"))
         self.cb_oll_music.setToolTip(_(
             "Specify the music font.\n"
-            + "This is a reminder only and can not be unckecked "
+            + "This is a reminder only and can not be unchecked "
             + "because the openLilyLib approach necessarily sets "
             + "the music font."
         ))
