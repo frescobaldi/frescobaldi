@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-09-06 00:14+0200\n"
+"POT-Creation-Date: 2023-09-23 16:20+0200\n"
 "PO-Revision-Date: 2023-09-06 00:52+0200\n"
 "Last-Translator: Rémy Claverie <remy.claverie@orange.fr>\n"
 "Language-Team: French <lilypond-user-fr@gnu.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 "X-Language: fr\n"
 "X-Source-Language: C\n"
 
-#: ../../frescobaldi_app/__main__.py:63 ../../frescobaldi_app/about.py:110
+#: ../../frescobaldi_app/__main__.py:63 ../../frescobaldi_app/about.py:109
 msgid "A LilyPond Music Editor"
 msgstr "Un éditeur de partitions pour LilyPond"
 
@@ -125,47 +125,47 @@ msgstr ""
 "package ly du dossier frescobaldi_app, ou supprimez complètement puis ré-"
 "installez Frescobaldi."
 
-#: ../../frescobaldi_app/about.py:49
+#: ../../frescobaldi_app/about.py:48
 #, python-brace-format
 msgid "About {appname}"
 msgstr "À propos de {appname}"
 
-#: ../../frescobaldi_app/about.py:56
+#: ../../frescobaldi_app/about.py:55
 msgid "About"
 msgstr "À propos"
 
-#: ../../frescobaldi_app/about.py:57
+#: ../../frescobaldi_app/about.py:56
 msgid "Credits"
 msgstr "Crédits"
 
-#: ../../frescobaldi_app/about.py:58
+#: ../../frescobaldi_app/about.py:57
 #: ../../frescobaldi_app/preferences/extensions.py:159
 msgid "Version"
 msgstr "Version"
 
-#: ../../frescobaldi_app/about.py:109
+#: ../../frescobaldi_app/about.py:108
 #, python-brace-format
 msgid "Version {version}"
 msgstr "Version {version}"
 
-#: ../../frescobaldi_app/about.py:111
+#: ../../frescobaldi_app/about.py:110
 #, python-brace-format
 msgid "Copyright (c) {year} by {author}"
 msgstr "Copyright (c) {year} par {author}"
 
-#: ../../frescobaldi_app/about.py:115
+#: ../../frescobaldi_app/about.py:114
 msgid "Send an e-mail message to the maintainers."
 msgstr "Envoyer un message par courriel aux mainteneurs."
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../../frescobaldi_app/about.py:118
+#: ../../frescobaldi_app/about.py:117
 #: ../../frescobaldi_app/userguide/resolve.py:44
 msgid "Translated by Your Name."
 msgstr ""
 "Traduit par Valentin Villenave, David Bouriaud, Ryan Kavanagh, Raphaël "
 "Doursenaud, Philippe Massart et Denis Bitouzé."
 
-#: ../../frescobaldi_app/about.py:123
+#: ../../frescobaldi_app/about.py:122
 #, python-brace-format
 msgid "Licensed under the {gpl}."
 msgstr "Sous licence {gpl}."
@@ -182,7 +182,7 @@ msgstr "Fichiers LaTeX"
 msgid "DocBook Files"
 msgstr "Fichiers DocBook"
 
-#: ../../frescobaldi_app/app.py:223 ../../frescobaldi_app/convert_ly.py:261
+#: ../../frescobaldi_app/app.py:223
 msgid "HTML Files"
 msgstr "Fichiers HTML"
 
@@ -194,7 +194,7 @@ msgstr "Fichiers Texinfo"
 msgid "Scheme Files"
 msgstr "Fichiers Scheme"
 
-#: ../../frescobaldi_app/app.py:226 ../../frescobaldi_app/convert_ly.py:261
+#: ../../frescobaldi_app/app.py:226
 #: ../../frescobaldi_app/file_export/__init__.py:59
 #: ../../frescobaldi_app/file_export/__init__.py:90
 #: ../../frescobaldi_app/file_import/__init__.py:124
@@ -359,10 +359,6 @@ msgstr "Le document n'a pas été modifié."
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Enregistrer le fichier"
-
-#: ../../frescobaldi_app/convert_ly.py:261
-msgid "Text Files"
-msgstr "Fichiers Texte"
 
 #: ../../frescobaldi_app/copy2image.py:143
 #: ../../frescobaldi_app/scorewiz/parts/containers.py:69
@@ -531,7 +527,7 @@ msgstr "Enregistrer l'image sous"
 #: ../../frescobaldi_app/preferences/fontscolors.py:550
 #: ../../frescobaldi_app/preferences/import_export.py:94
 #: ../../frescobaldi_app/preferences/import_export.py:177
-#: ../../frescobaldi_app/preferences/shortcuts.py:210
+#: ../../frescobaldi_app/preferences/shortcuts.py:208
 #: ../../frescobaldi_app/sessions/dialog.py:108
 #: ../../frescobaldi_app/sessions/dialog.py:129
 #: ../../frescobaldi_app/snippet/import_export.py:105
@@ -749,7 +745,9 @@ msgstr "Erreur interne"
 msgid ""
 "Please use the button below to send a bug report to the maintainer of this "
 "extension by email."
-msgstr "Cliquez sur le bouton ci-dessous pour envoyer un signalement de bug aux mainteneurs de cette extension."
+msgstr ""
+"Cliquez sur le bouton ci-dessous pour envoyer un signalement de bug aux "
+"mainteneurs de cette extension."
 
 #: ../../frescobaldi_app/exception.py:92
 msgid "An internal error has occurred:"
@@ -766,7 +764,13 @@ msgid ""
 "developers know about this problem. If you have general questions, you can "
 "also send them to the <a href=\"https://groups.google.com/g/"
 "frescobaldi\">Frescobaldi user group</a>."
-msgstr "Nous vous serions très reconnaissants d'ouvrir un signalement de bug sur GitHub, la plateforme de développement du projet Frescobaldi, à l'aide du bouton ci-dessous. Si vous avez des questions d'ordre général sur Frescobaldi, vous pouvez également les poser (en anglais) sur le <a href=\"https://groups.google.com/g/frescobaldi\">groupe des utilisateurs de Frescobaldi</a>."
+msgstr ""
+"Nous vous serions très reconnaissants d'ouvrir un signalement de bug sur "
+"GitHub, la plateforme de développement du projet Frescobaldi, à l'aide du "
+"bouton ci-dessous. Si vous avez des questions d'ordre général sur "
+"Frescobaldi, vous pouvez également les poser (en anglais) sur le <a "
+"href=\"https://groups.google.com/g/frescobaldi\">groupe des utilisateurs de "
+"Frescobaldi</a>."
 
 #: ../../frescobaldi_app/exception.py:103
 msgid "Send Bug Report..."
@@ -2040,7 +2044,7 @@ msgstr "Fichiers XML"
 
 #: ../../frescobaldi_app/file_export/__init__.py:74
 #: ../../frescobaldi_app/preferences/fontscolors.py:285
-#: ../../frescobaldi_app/preferences/shortcuts.py:211
+#: ../../frescobaldi_app/preferences/shortcuts.py:209
 #: ../../frescobaldi_app/snippet/widget.py:327
 #, python-brace-format
 msgid ""
@@ -2519,7 +2523,7 @@ msgid "Font removal failed:"
 msgstr "La suppression de la police a échoué:"
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:614
-#: ../../frescobaldi_app/fonts/textfonts.py:296
+#: ../../frescobaldi_app/fonts/textfonts.py:294
 msgid "Font"
 msgstr "Police"
 
@@ -2671,27 +2675,27 @@ msgstr "Basculer vers {family} (actuellement: {current})"
 msgid "Fontconfig data:"
 msgstr "Données Fontconfig:"
 
-#: ../../frescobaldi_app/fonts/textfonts.py:245
+#: ../../frescobaldi_app/fonts/textfonts.py:243
 msgid "The quick brown fox jumps over the lazy dog"
 msgstr "Voix ambiguë d'un cœur qui, au zéphyr, préfère les jattes de kiwis"
 
-#: ../../frescobaldi_app/fonts/textfonts.py:297
+#: ../../frescobaldi_app/fonts/textfonts.py:295
 msgid "Sample"
 msgstr "Échantillon"
 
-#: ../../frescobaldi_app/fonts/textfonts.py:326
+#: ../../frescobaldi_app/fonts/textfonts.py:324
 msgid "Configuration Files"
 msgstr "Réglages"
 
-#: ../../frescobaldi_app/fonts/textfonts.py:327
+#: ../../frescobaldi_app/fonts/textfonts.py:325
 msgid "Configuration Directories"
 msgstr "Dossiers de configuration"
 
-#: ../../frescobaldi_app/fonts/textfonts.py:328
+#: ../../frescobaldi_app/fonts/textfonts.py:326
 msgid "Searched Font Directories"
 msgstr "Dossiers de polices inspectés"
 
-#: ../../frescobaldi_app/fonts/textfonts.py:542
+#: ../../frescobaldi_app/fonts/textfonts.py:540
 msgid "Available Fonts"
 msgstr "Polices disponibles"
 
@@ -4606,7 +4610,8 @@ msgstr "Voir aussi {link}"
 
 #: ../../frescobaldi_app/preferences/lilypond.py:141
 msgid "LilyPond downloads are in progress. Stop them?"
-msgstr "Des téléchargements de LilyPond sont en cours. Voulez-vous les interrompre ?"
+msgstr ""
+"Des téléchargements de LilyPond sont en cours. Voulez-vous les interrompre ?"
 
 #: ../../frescobaldi_app/preferences/lilypond.py:183
 msgid "Set as &Default"
@@ -4631,6 +4636,8 @@ msgid "Downloading LilyPond version list..."
 msgstr "Téléchargement de la liste des versions..."
 
 #: ../../frescobaldi_app/preferences/lilypond.py:399
+#, fuzzy
+msgctxt "Button to register a custom LilyPond installation"
 msgid "Custom..."
 msgstr "Installation personnalisée..."
 
@@ -5078,16 +5085,16 @@ msgstr "Menu {name}"
 msgid "Other commands:"
 msgstr "Autres commandes :"
 
-#: ../../frescobaldi_app/preferences/shortcuts.py:193
+#: ../../frescobaldi_app/preferences/shortcuts.py:191
 #, python-brace-format
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "Éditer le raccourci pour « {name} »"
 
-#: ../../frescobaldi_app/preferences/shortcuts.py:198
+#: ../../frescobaldi_app/preferences/shortcuts.py:196
 msgid "(no shortcut)"
 msgstr "(pas de raccourci)"
 
-#: ../../frescobaldi_app/preferences/shortcuts.py:365
+#: ../../frescobaldi_app/preferences/shortcuts.py:363
 msgid "(default)"
 msgstr "(par défaut)"
 
@@ -6178,8 +6185,8 @@ msgstr "Pas de réglages possibles."
 
 #: ../../frescobaldi_app/scorewiz/parts/_base.py:75
 #, python-brace-format
-msgid "Part {0}"
-msgstr "Partie {0}"
+msgid "Part {self.__class__.__name__}"
+msgstr ""
 
 #: ../../frescobaldi_app/scorewiz/parts/_base.py:152
 msgid "Adjust how many separate voices you want on each staff."
@@ -9837,6 +9844,13 @@ msgid "Score Wizard to quickly setup a music score"
 msgstr ""
 "Assistant de création de partition ({key}) dans {menu} pour créer rapidement "
 "une nouvelle partition LilyPond"
+
+#~ msgid "Text Files"
+#~ msgstr "Fichiers Texte"
+
+#, python-brace-format
+#~ msgid "Part {0}"
+#~ msgstr "Partie {0}"
 
 #~ msgid "Open Document in &New Window"
 #~ msgstr "Ouvrir le document dans une nouvelle fenêtre"

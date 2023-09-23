@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-08-01 18:10+0200\n"
+"POT-Creation-Date: 2023-09-23 16:20+0200\n"
 "PO-Revision-Date: 2021-04-29 16:20+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -24,79 +24,79 @@ msgstr ""
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 19.12.3\n"
 
-#: ../../frescobaldi_app/__main__.py:62 ../../frescobaldi_app/about.py:110
+#: ../../frescobaldi_app/__main__.py:63 ../../frescobaldi_app/about.py:109
 msgid "A LilyPond Music Editor"
 msgstr "Редактор музыки для LilyPond"
 
-#: ../../frescobaldi_app/__main__.py:65
+#: ../../frescobaldi_app/__main__.py:66
 msgid "show program's version number and exit"
 msgstr "показать версию программы и выйти"
 
-#: ../../frescobaldi_app/__main__.py:67
+#: ../../frescobaldi_app/__main__.py:68
 #, python-brace-format
 msgid "show version numbers of {appname} and its supporting modules and exit"
 msgstr ""
 "показать номера версий приложения {appname} и его дополнительных модулей и "
 "выйти"
 
-#: ../../frescobaldi_app/__main__.py:69
+#: ../../frescobaldi_app/__main__.py:70
 msgid "ENC"
 msgstr "ENC"
 
-#: ../../frescobaldi_app/__main__.py:70
+#: ../../frescobaldi_app/__main__.py:71
 msgid "Encoding to use"
 msgstr "Задать кодировку"
 
-#: ../../frescobaldi_app/__main__.py:71 ../../frescobaldi_app/__main__.py:73
+#: ../../frescobaldi_app/__main__.py:72 ../../frescobaldi_app/__main__.py:74
 msgid "NUM"
 msgstr "NUM"
 
-#: ../../frescobaldi_app/__main__.py:72
+#: ../../frescobaldi_app/__main__.py:73
 msgid "Line number to go to, starting at 1"
 msgstr "Начальная строка, начиная с 1"
 
-#: ../../frescobaldi_app/__main__.py:74
+#: ../../frescobaldi_app/__main__.py:75
 msgid "Column to go to, starting at 1"
 msgstr "Начальная колонка, начиная с 1"
 
-#: ../../frescobaldi_app/__main__.py:75
+#: ../../frescobaldi_app/__main__.py:76
 msgid "NAME"
 msgstr "NAME"
 
-#: ../../frescobaldi_app/__main__.py:76
+#: ../../frescobaldi_app/__main__.py:77
 #, python-brace-format
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Начальный сеанс («{none}» для пустого сеанса)"
 
-#: ../../frescobaldi_app/__main__.py:79
+#: ../../frescobaldi_app/__main__.py:80
 msgid "List the session names and exit"
 msgstr "Вывести список сеансов и выйти"
 
-#: ../../frescobaldi_app/__main__.py:81
+#: ../../frescobaldi_app/__main__.py:82
 msgid "Always start a new instance"
 msgstr "Всегда начинать новый процесс"
 
-#: ../../frescobaldi_app/__main__.py:82
+#: ../../frescobaldi_app/__main__.py:83
 msgid "STR"
 msgstr "STR"
 
-#: ../../frescobaldi_app/__main__.py:83
+#: ../../frescobaldi_app/__main__.py:84
 msgid "Path to python-ly"
 msgstr "Путь к python-ly"
 
-#: ../../frescobaldi_app/__main__.py:84
+#: ../../frescobaldi_app/__main__.py:85
 msgid "file"
 msgstr "файл"
 
-#: ../../frescobaldi_app/__main__.py:85
+#: ../../frescobaldi_app/__main__.py:86
 msgid "File to be opened"
 msgstr "Открыть данный файл"
 
-#: ../../frescobaldi_app/__main__.py:153
+#: ../../frescobaldi_app/__main__.py:154
 msgid "Can't run Frescobaldi"
 msgstr "Не удалось запустить Frescobaldi"
 
-#: ../../frescobaldi_app/__main__.py:154
+#: ../../frescobaldi_app/__main__.py:155
 #, python-brace-format
 msgid ""
 "We are sorry, but Frescobaldi can't run properly.\n"
@@ -117,45 +117,45 @@ msgstr ""
 "пакет «ly» из каталога «frescobaldi_app» или полностью удалите\n"
 "и заново установите Frescobaldi."
 
-#: ../../frescobaldi_app/about.py:49
+#: ../../frescobaldi_app/about.py:48
 #, python-brace-format
 msgid "About {appname}"
 msgstr "О {appname}"
 
-#: ../../frescobaldi_app/about.py:56
+#: ../../frescobaldi_app/about.py:55
 msgid "About"
 msgstr "О Frescobaldi"
 
-#: ../../frescobaldi_app/about.py:57
+#: ../../frescobaldi_app/about.py:56
 msgid "Credits"
 msgstr "Благодарности"
 
-#: ../../frescobaldi_app/about.py:58
+#: ../../frescobaldi_app/about.py:57
 #: ../../frescobaldi_app/preferences/extensions.py:159
 msgid "Version"
 msgstr "Версия"
 
-#: ../../frescobaldi_app/about.py:109
+#: ../../frescobaldi_app/about.py:108
 #, python-brace-format
 msgid "Version {version}"
 msgstr "Версия {version}"
 
-#: ../../frescobaldi_app/about.py:111
+#: ../../frescobaldi_app/about.py:110
 #, python-brace-format
 msgid "Copyright (c) {year} by {author}"
 msgstr "Авторские права © {author}, {year}"
 
-#: ../../frescobaldi_app/about.py:115
+#: ../../frescobaldi_app/about.py:114
 msgid "Send an e-mail message to the maintainers."
 msgstr "Отправить e-mail разработчикам"
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
-#: ../../frescobaldi_app/about.py:118
+#: ../../frescobaldi_app/about.py:117
 #: ../../frescobaldi_app/userguide/resolve.py:44
 msgid "Translated by Your Name."
 msgstr "Перевод: Герасименко Олеся, translation-team@basealt.ru."
 
-#: ../../frescobaldi_app/about.py:123
+#: ../../frescobaldi_app/about.py:122
 #, python-brace-format
 msgid "Licensed under the {gpl}."
 msgstr "Распространяется по лицензии {gpl}."
@@ -172,7 +172,7 @@ msgstr "Файлы LaTeX"
 msgid "DocBook Files"
 msgstr "Файлы DocBook"
 
-#: ../../frescobaldi_app/app.py:223 ../../frescobaldi_app/convert_ly.py:260
+#: ../../frescobaldi_app/app.py:223
 msgid "HTML Files"
 msgstr "Файлы HTML"
 
@@ -184,7 +184,7 @@ msgstr "Файлы Texinfo"
 msgid "Scheme Files"
 msgstr "Файлы Scheme"
 
-#: ../../frescobaldi_app/app.py:226 ../../frescobaldi_app/convert_ly.py:260
+#: ../../frescobaldi_app/app.py:226
 #: ../../frescobaldi_app/file_export/__init__.py:59
 #: ../../frescobaldi_app/file_export/__init__.py:90
 #: ../../frescobaldi_app/file_import/__init__.py:124
@@ -259,19 +259,19 @@ msgstr "Перейти к определению (файл {filename})"
 msgid "&Jump to definition (unknown)"
 msgstr "Перейти к определению (неизвестно)"
 
-#: ../../frescobaldi_app/convert_ly.py:129
+#: ../../frescobaldi_app/convert_ly.py:130
 msgid "From version:"
 msgstr "От версии:"
 
-#: ../../frescobaldi_app/convert_ly.py:130
+#: ../../frescobaldi_app/convert_ly.py:131
 msgid "To version:"
 msgstr "До версии:"
 
-#: ../../frescobaldi_app/convert_ly.py:131
+#: ../../frescobaldi_app/convert_ly.py:132
 msgid "Save convert-ly messages in document"
 msgstr "Сохранить сообщения convert-ly в документе"
 
-#: ../../frescobaldi_app/convert_ly.py:133
+#: ../../frescobaldi_app/convert_ly.py:134
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
@@ -279,57 +279,57 @@ msgstr ""
 "Если параметр включён, сообщения convert-ly будут добавлены в комментарий в "
 "конце документа."
 
-#: ../../frescobaldi_app/convert_ly.py:135
+#: ../../frescobaldi_app/convert_ly.py:136
 msgid "&Messages"
 msgstr "&Сообщения"
 
-#: ../../frescobaldi_app/convert_ly.py:136
+#: ../../frescobaldi_app/convert_ly.py:137
 msgid "&Changes"
 msgstr "&Изменения"
 
-#: ../../frescobaldi_app/convert_ly.py:137
+#: ../../frescobaldi_app/convert_ly.py:138
 msgid "&Diff"
 msgstr "&Различия"
 
-#: ../../frescobaldi_app/convert_ly.py:138
+#: ../../frescobaldi_app/convert_ly.py:139
 msgid "Run Again"
 msgstr "Запустить снова"
 
-#: ../../frescobaldi_app/convert_ly.py:139
+#: ../../frescobaldi_app/convert_ly.py:140
 msgid "Save as file"
 msgstr "Сохранить как файл"
 
-#: ../../frescobaldi_app/convert_ly.py:156
+#: ../../frescobaldi_app/convert_ly.py:157
 #: ../../frescobaldi_app/copy2image.py:230
 #: ../../frescobaldi_app/editinplace.py:160
 #: ../../frescobaldi_app/docbrowser/browser.py:160
 msgid "<unknown>"
 msgstr "<неизвестно>"
 
-#: ../../frescobaldi_app/convert_ly.py:157
+#: ../../frescobaldi_app/convert_ly.py:158
 #, python-brace-format
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Convert-ly от LilyPond версии {version}"
 
-#: ../../frescobaldi_app/convert_ly.py:176
+#: ../../frescobaldi_app/convert_ly.py:177
 #: ../../frescobaldi_app/externalchanges/widget.py:286
 #: ../../frescobaldi_app/fonts/preview.py:97
 msgid "Current Document"
 msgstr "Текущий документ"
 
-#: ../../frescobaldi_app/convert_ly.py:176
+#: ../../frescobaldi_app/convert_ly.py:177
 msgid "Converted Document"
 msgstr "Преобразованный документ"
 
-#: ../../frescobaldi_app/convert_ly.py:201
+#: ../../frescobaldi_app/convert_ly.py:202
 msgid "(set in document)"
 msgstr "(установлена в файле)"
 
-#: ../../frescobaldi_app/convert_ly.py:215
+#: ../../frescobaldi_app/convert_ly.py:216
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Необходимо задать начальную и конечную версию."
 
-#: ../../frescobaldi_app/convert_ly.py:241
+#: ../../frescobaldi_app/convert_ly.py:242
 #, python-brace-format
 msgid ""
 "Could not start {convert_ly}:\n"
@@ -340,19 +340,15 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../../frescobaldi_app/convert_ly.py:251
+#: ../../frescobaldi_app/convert_ly.py:252
 msgid "The document has not been changed."
 msgstr "Файл не был изменён."
 
-#: ../../frescobaldi_app/convert_ly.py:259
-#: ../../frescobaldi_app/mainwindow.py:597
+#: ../../frescobaldi_app/convert_ly.py:260
+#: ../../frescobaldi_app/mainwindow.py:598
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Сохранить файл"
-
-#: ../../frescobaldi_app/convert_ly.py:260
-msgid "Text Files"
-msgstr "Текстовые файлы"
 
 #: ../../frescobaldi_app/copy2image.py:143
 #: ../../frescobaldi_app/scorewiz/parts/containers.py:69
@@ -408,7 +404,7 @@ msgid "Drag File"
 msgstr "Перетащить файл"
 
 #: ../../frescobaldi_app/copy2image.py:159
-#: ../../frescobaldi_app/mainwindow.py:1385
+#: ../../frescobaldi_app/mainwindow.py:1386
 #: ../../frescobaldi_app/docbrowser/browser.py:262
 #: ../../frescobaldi_app/fonts/dialog.py:177
 msgid "&Copy"
@@ -470,13 +466,13 @@ msgstr "Копировать файл {png} в буфер."
 #: ../../frescobaldi_app/copy2image.py:219
 #: ../../frescobaldi_app/engrave/custom.py:258
 #: ../../frescobaldi_app/fonts/musicfonts.py:617
-#: ../../frescobaldi_app/preferences/lilypond.py:376
+#: ../../frescobaldi_app/preferences/lilypond.py:719
 msgid "SVG"
 msgstr "SVG"
 
 #: ../../frescobaldi_app/copy2image.py:220
 #: ../../frescobaldi_app/engrave/custom.py:236
-#: ../../frescobaldi_app/preferences/lilypond.py:373
+#: ../../frescobaldi_app/preferences/lilypond.py:716
 msgid "PDF"
 msgstr "PDF"
 
@@ -504,15 +500,15 @@ msgstr "Сохранить изображение как"
 
 #. L10N: a basic type of input in the editor
 #: ../../frescobaldi_app/copy2image.py:322
-#: ../../frescobaldi_app/cut_assign.py:139 ../../frescobaldi_app/helpers.py:107
-#: ../../frescobaldi_app/mainwindow.py:477
-#: ../../frescobaldi_app/mainwindow.py:565
-#: ../../frescobaldi_app/mainwindow.py:621
-#: ../../frescobaldi_app/mainwindow.py:687
-#: ../../frescobaldi_app/mainwindow.py:708
-#: ../../frescobaldi_app/mainwindow.py:727
-#: ../../frescobaldi_app/mainwindow.py:815
-#: ../../frescobaldi_app/mainwindow.py:884
+#: ../../frescobaldi_app/cut_assign.py:139 ../../frescobaldi_app/helpers.py:108
+#: ../../frescobaldi_app/mainwindow.py:478
+#: ../../frescobaldi_app/mainwindow.py:566
+#: ../../frescobaldi_app/mainwindow.py:622
+#: ../../frescobaldi_app/mainwindow.py:688
+#: ../../frescobaldi_app/mainwindow.py:709
+#: ../../frescobaldi_app/mainwindow.py:728
+#: ../../frescobaldi_app/mainwindow.py:816
+#: ../../frescobaldi_app/mainwindow.py:885
 #: ../../frescobaldi_app/externalchanges/widget.py:245
 #: ../../frescobaldi_app/externalchanges/widget.py:264
 #: ../../frescobaldi_app/file_export/__init__.py:73
@@ -521,9 +517,9 @@ msgstr "Сохранить изображение как"
 #: ../../frescobaldi_app/preferences/fontscolors.py:284
 #: ../../frescobaldi_app/preferences/fontscolors.py:508
 #: ../../frescobaldi_app/preferences/fontscolors.py:550
-#: ../../frescobaldi_app/preferences/import_export.py:92
-#: ../../frescobaldi_app/preferences/import_export.py:175
-#: ../../frescobaldi_app/preferences/shortcuts.py:210
+#: ../../frescobaldi_app/preferences/import_export.py:94
+#: ../../frescobaldi_app/preferences/import_export.py:177
+#: ../../frescobaldi_app/preferences/shortcuts.py:208
 #: ../../frescobaldi_app/sessions/dialog.py:108
 #: ../../frescobaldi_app/sessions/dialog.py:129
 #: ../../frescobaldi_app/snippet/import_export.py:105
@@ -549,13 +545,13 @@ msgid "Move to include file"
 msgstr "Переместить во включаемый файл"
 
 #: ../../frescobaldi_app/cut_assign.py:135
-#: ../../frescobaldi_app/mainwindow.py:467
-#: ../../frescobaldi_app/mainwindow.py:561
-#: ../../frescobaldi_app/mainwindow.py:617
-#: ../../frescobaldi_app/mainwindow.py:683
-#: ../../frescobaldi_app/mainwindow.py:704
-#: ../../frescobaldi_app/mainwindow.py:811
-#: ../../frescobaldi_app/mainwindow.py:880
+#: ../../frescobaldi_app/mainwindow.py:468
+#: ../../frescobaldi_app/mainwindow.py:562
+#: ../../frescobaldi_app/mainwindow.py:618
+#: ../../frescobaldi_app/mainwindow.py:684
+#: ../../frescobaldi_app/mainwindow.py:705
+#: ../../frescobaldi_app/mainwindow.py:812
+#: ../../frescobaldi_app/mainwindow.py:881
 #: ../../frescobaldi_app/sessions/dialog.py:104
 #: ../../frescobaldi_app/sessions/dialog.py:125
 #, python-brace-format
@@ -569,9 +565,9 @@ msgstr ""
 "{strerror} ({errno})"
 
 #: ../../frescobaldi_app/cut_assign.py:136
-#: ../../frescobaldi_app/mainwindow.py:618
-#: ../../frescobaldi_app/mainwindow.py:684
-#: ../../frescobaldi_app/mainwindow.py:881
+#: ../../frescobaldi_app/mainwindow.py:619
+#: ../../frescobaldi_app/mainwindow.py:685
+#: ../../frescobaldi_app/mainwindow.py:882
 #: ../../frescobaldi_app/sessions/dialog.py:126
 #, python-brace-format
 msgid "Could not write to: {url}"
@@ -682,7 +678,7 @@ msgid "&Save"
 msgstr "Сохранить"
 
 #: ../../frescobaldi_app/documentcontextmenu.py:72
-#: ../../frescobaldi_app/mainwindow.py:1353
+#: ../../frescobaldi_app/mainwindow.py:1354
 msgid "Save &As..."
 msgstr "Сохранить как..."
 
@@ -691,7 +687,7 @@ msgid "&Close"
 msgstr "Закрыть"
 
 #: ../../frescobaldi_app/documentcontextmenu.py:74
-#: ../../frescobaldi_app/mainwindow.py:1366
+#: ../../frescobaldi_app/mainwindow.py:1367
 msgid "Close Other Documents"
 msgstr "Закрыть другие документы"
 
@@ -780,8 +776,8 @@ msgstr "Дождитесь окончания работы программы"
 msgid "Command completed"
 msgstr "Команда выполнена"
 
-#: ../../frescobaldi_app/helpers.py:108
-#: ../../frescobaldi_app/job/__init__.py:389
+#: ../../frescobaldi_app/helpers.py:109
+#: ../../frescobaldi_app/job/__init__.py:390
 #, python-brace-format
 msgid ""
 "Could not start {program}.\n"
@@ -838,7 +834,7 @@ msgstr "Выберите цвет:"
 msgid "Choose the desired LilyPond version."
 msgstr "Выберите желаемую версию LilyPond."
 
-#: ../../frescobaldi_app/lilypondinfo.py:143
+#: ../../frescobaldi_app/lilypondinfo.py:151
 msgid "Running LilyPond, this can take some time..."
 msgstr "Работает LilyPond, пожалуйста подождите..."
 
@@ -878,73 +874,73 @@ msgstr ""
 msgid "Tab Bar"
 msgstr "Вкладки документов"
 
-#: ../../frescobaldi_app/mainwindow.py:468
-#: ../../frescobaldi_app/mainwindow.py:705
-#: ../../frescobaldi_app/mainwindow.py:812
+#: ../../frescobaldi_app/mainwindow.py:469
+#: ../../frescobaldi_app/mainwindow.py:706
+#: ../../frescobaldi_app/mainwindow.py:813
 #: ../../frescobaldi_app/sessions/dialog.py:105
 #, python-brace-format
 msgid "Could not read from: {url}"
 msgstr "Не удалось выполнить чтение: {url}"
 
-#: ../../frescobaldi_app/mainwindow.py:472
+#: ../../frescobaldi_app/mainwindow.py:473
 msgid "Could not read:"
 msgstr "Не удалось выполнить чтение:"
 
-#: ../../frescobaldi_app/mainwindow.py:540
+#: ../../frescobaldi_app/mainwindow.py:541
 #: ../../frescobaldi_app/macosx/globalmenu.py:169
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Открыть файл"
 
-#: ../../frescobaldi_app/mainwindow.py:551
+#: ../../frescobaldi_app/mainwindow.py:552
 msgctxt "dialog title"
 msgid "Rename/Move File"
 msgstr "Переименовать/переместить файл"
 
-#: ../../frescobaldi_app/mainwindow.py:562
+#: ../../frescobaldi_app/mainwindow.py:563
 #, python-brace-format
 msgid "Could not delete: {url}"
 msgstr "Не удалось удалить: {url}"
 
-#: ../../frescobaldi_app/mainwindow.py:667
+#: ../../frescobaldi_app/mainwindow.py:668
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Сохранить копию"
 
-#: ../../frescobaldi_app/mainwindow.py:673
+#: ../../frescobaldi_app/mainwindow.py:674
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Сохранить выделенное"
 
-#: ../../frescobaldi_app/mainwindow.py:722
+#: ../../frescobaldi_app/mainwindow.py:723
 #: ../../frescobaldi_app/externalchanges/widget.py:240
 msgid "Could not reload:"
 msgstr "Не удалось перезагрузить:"
 
-#: ../../frescobaldi_app/mainwindow.py:803
+#: ../../frescobaldi_app/mainwindow.py:804
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Добавить из файла"
 
-#: ../../frescobaldi_app/mainwindow.py:835
+#: ../../frescobaldi_app/mainwindow.py:836
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Печать исходного кода"
 
-#: ../../frescobaldi_app/mainwindow.py:861
+#: ../../frescobaldi_app/mainwindow.py:862
 msgid "Export as HTML"
 msgstr "Экспорт в HTML"
 
-#: ../../frescobaldi_app/mainwindow.py:997
+#: ../../frescobaldi_app/mainwindow.py:998
 #, python-brace-format
 msgid "Goto Line Number (1-{num}):"
 msgstr "Перейти к строке номер (1-{num}):"
 
-#: ../../frescobaldi_app/mainwindow.py:1044
+#: ../../frescobaldi_app/mainwindow.py:1045
 msgid "<Please summarize your bug or feature request>"
 msgstr ""
 
-#: ../../frescobaldi_app/mainwindow.py:1045
+#: ../../frescobaldi_app/mainwindow.py:1046
 #, fuzzy
 msgid ""
 "<Please describe the issue or feature request.\n"
@@ -955,86 +951,86 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../../frescobaldi_app/mainwindow.py:1186
+#: ../../frescobaldi_app/mainwindow.py:1187
 msgid "Main Toolbar"
 msgstr "Основная панель"
 
-#: ../../frescobaldi_app/mainwindow.py:1187
+#: ../../frescobaldi_app/mainwindow.py:1188
 msgid "Music View Toolbar"
 msgstr "Панель предпросмотра"
 
-#: ../../frescobaldi_app/mainwindow.py:1342
+#: ../../frescobaldi_app/mainwindow.py:1343
 msgctxt "action: new document"
 msgid "&New Document"
 msgstr "&Новый документ"
 
-#: ../../frescobaldi_app/mainwindow.py:1343
+#: ../../frescobaldi_app/mainwindow.py:1344
 msgctxt "action: new document"
 msgid "New"
 msgstr "Создать"
 
-#: ../../frescobaldi_app/mainwindow.py:1344
+#: ../../frescobaldi_app/mainwindow.py:1345
 #: ../../frescobaldi_app/macosx/globalmenu.py:71
 msgid "&Open..."
 msgstr "Открыть..."
 
-#: ../../frescobaldi_app/mainwindow.py:1345
+#: ../../frescobaldi_app/mainwindow.py:1346
 #: ../../frescobaldi_app/macosx/globalmenu.py:102
 msgid "Open &Recent"
 msgstr "Предыдущие"
 
-#: ../../frescobaldi_app/mainwindow.py:1346
+#: ../../frescobaldi_app/mainwindow.py:1347
 msgid "Insert from &File..."
 msgstr "Добавить из файла..."
 
-#: ../../frescobaldi_app/mainwindow.py:1348
+#: ../../frescobaldi_app/mainwindow.py:1349
 msgid "Insert the contents of a file at the current cursor position."
 msgstr "Вставить содержимое файла в текущей позиции курсора."
 
-#: ../../frescobaldi_app/mainwindow.py:1349
+#: ../../frescobaldi_app/mainwindow.py:1350
 msgid "Open Current Directory"
 msgstr "Открыть текущий каталог"
 
-#: ../../frescobaldi_app/mainwindow.py:1350
+#: ../../frescobaldi_app/mainwindow.py:1351
 msgid "Open Command Prompt"
 msgstr "Открыть командную строку"
 
-#: ../../frescobaldi_app/mainwindow.py:1351
+#: ../../frescobaldi_app/mainwindow.py:1352
 msgid "&Save Document"
 msgstr "&Сохранить документ"
 
-#: ../../frescobaldi_app/mainwindow.py:1352
+#: ../../frescobaldi_app/mainwindow.py:1353
 #: ../../frescobaldi_app/externalchanges/widget.py:113
 msgid "Save"
 msgstr "Сохранить"
 
-#: ../../frescobaldi_app/mainwindow.py:1354
+#: ../../frescobaldi_app/mainwindow.py:1355
 msgid "Save Copy or Selection As..."
 msgstr "Сохранить копию или выделенное как..."
 
-#: ../../frescobaldi_app/mainwindow.py:1355
+#: ../../frescobaldi_app/mainwindow.py:1356
 msgid "&Rename/Move File..."
 msgstr "&Переименовать/переместить файл..."
 
-#: ../../frescobaldi_app/mainwindow.py:1356
+#: ../../frescobaldi_app/mainwindow.py:1357
 #: ../../frescobaldi_app/externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Сохранить все"
 
-#: ../../frescobaldi_app/mainwindow.py:1357
+#: ../../frescobaldi_app/mainwindow.py:1358
 msgid "Re&load"
 msgstr "&Перезагрузить"
 
-#: ../../frescobaldi_app/mainwindow.py:1358
+#: ../../frescobaldi_app/mainwindow.py:1359
 #: ../../frescobaldi_app/externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Перезагрузить все"
 
-#: ../../frescobaldi_app/mainwindow.py:1359
+#: ../../frescobaldi_app/mainwindow.py:1360
 msgid "Check for External Changes..."
 msgstr "Проверить наличие внешних изменений..."
 
-#: ../../frescobaldi_app/mainwindow.py:1361
+#: ../../frescobaldi_app/mainwindow.py:1362
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -1042,158 +1038,158 @@ msgstr ""
 "Открыть окно, чтобы проверить, были ли открытые документы изменены или "
 "удалены другими программами."
 
-#: ../../frescobaldi_app/mainwindow.py:1363
+#: ../../frescobaldi_app/mainwindow.py:1364
 msgid "Print Source..."
 msgstr "Печать исходного кода..."
 
-#: ../../frescobaldi_app/mainwindow.py:1364
+#: ../../frescobaldi_app/mainwindow.py:1365
 msgid "&Close Document"
 msgstr "&Закрыть документ"
 
-#: ../../frescobaldi_app/mainwindow.py:1365 ../../frescobaldi_app/panel.py:108
+#: ../../frescobaldi_app/mainwindow.py:1366 ../../frescobaldi_app/panel.py:108
 #: ../../frescobaldi_app/search/__init__.py:120
 #: ../../frescobaldi_app/viewers/__init__.py:352
 #: ../../frescobaldi_app/viewers/manuscript/__init__.py:78
 msgid "Close"
 msgstr "Закрыть"
 
-#: ../../frescobaldi_app/mainwindow.py:1367
+#: ../../frescobaldi_app/mainwindow.py:1368
 msgid "Close All Documents"
 msgstr "Закрыть все документы"
 
-#: ../../frescobaldi_app/mainwindow.py:1369
+#: ../../frescobaldi_app/mainwindow.py:1370
 msgid "Closes all documents but preserves the current session."
 msgstr "Закрыть все файлы, но сохранить текущий сеанс."
 
-#: ../../frescobaldi_app/mainwindow.py:1372
+#: ../../frescobaldi_app/mainwindow.py:1373
 msgid "Close All Documents and Session"
 msgstr "Закрыть все файлы и сеанс"
 
-#: ../../frescobaldi_app/mainwindow.py:1375
+#: ../../frescobaldi_app/mainwindow.py:1376
 msgid "Closes all documents and leaves the current session."
 msgstr "Закрыть все файлы и завершить текущий сеанс."
 
-#: ../../frescobaldi_app/mainwindow.py:1377
+#: ../../frescobaldi_app/mainwindow.py:1378
 #: ../../frescobaldi_app/macosx/globalmenu.py:77
 msgid "&Quit"
 msgstr "Выход"
 
-#: ../../frescobaldi_app/mainwindow.py:1378
+#: ../../frescobaldi_app/mainwindow.py:1379
 #, python-brace-format
 msgid "Restart {appname}"
 msgstr "Перезапустить {appname}"
 
-#: ../../frescobaldi_app/mainwindow.py:1380
+#: ../../frescobaldi_app/mainwindow.py:1381
 msgid "Export Source as Colored &HTML..."
 msgstr "Экспорт исходного кода в цветной &HTML..."
 
-#: ../../frescobaldi_app/mainwindow.py:1382
+#: ../../frescobaldi_app/mainwindow.py:1383
 msgid "&Undo"
 msgstr "Отменить"
 
-#: ../../frescobaldi_app/mainwindow.py:1383
+#: ../../frescobaldi_app/mainwindow.py:1384
 msgid "Re&do"
 msgstr "Повторить"
 
-#: ../../frescobaldi_app/mainwindow.py:1384
+#: ../../frescobaldi_app/mainwindow.py:1385
 msgid "Cu&t"
 msgstr "Вырезать"
 
-#: ../../frescobaldi_app/mainwindow.py:1386
+#: ../../frescobaldi_app/mainwindow.py:1387
 msgid "Copy as Colored &HTML"
 msgstr "Копировать как цветной &HTML"
 
-#: ../../frescobaldi_app/mainwindow.py:1387
+#: ../../frescobaldi_app/mainwindow.py:1388
 msgid "&Paste"
 msgstr "Вставить"
 
-#: ../../frescobaldi_app/mainwindow.py:1388
+#: ../../frescobaldi_app/mainwindow.py:1389
 msgid "Select &All"
 msgstr "Выделить все"
 
-#: ../../frescobaldi_app/mainwindow.py:1389
+#: ../../frescobaldi_app/mainwindow.py:1390
 msgid "Select &Block"
 msgstr "Выделить блок"
 
-#: ../../frescobaldi_app/mainwindow.py:1390
+#: ../../frescobaldi_app/mainwindow.py:1391
 msgid "Select &None"
 msgstr "Снять выделение"
 
-#: ../../frescobaldi_app/mainwindow.py:1391
+#: ../../frescobaldi_app/mainwindow.py:1392
 msgid "Select Whole Lines Up"
 msgstr "Выделить строки выше"
 
-#: ../../frescobaldi_app/mainwindow.py:1392
+#: ../../frescobaldi_app/mainwindow.py:1393
 msgid "Select Whole Lines Down"
 msgstr "Выделить строки ниже"
 
-#: ../../frescobaldi_app/mainwindow.py:1393
+#: ../../frescobaldi_app/mainwindow.py:1394
 msgid "&Find..."
 msgstr "Найти..."
 
-#: ../../frescobaldi_app/mainwindow.py:1394
+#: ../../frescobaldi_app/mainwindow.py:1395
 msgid "Find Ne&xt"
 msgstr "Найти далее"
 
-#: ../../frescobaldi_app/mainwindow.py:1395
+#: ../../frescobaldi_app/mainwindow.py:1396
 msgid "Find Pre&vious"
 msgstr "Найти предыдущий"
 
-#: ../../frescobaldi_app/mainwindow.py:1396
+#: ../../frescobaldi_app/mainwindow.py:1397
 msgid "&Replace..."
 msgstr "Заменить..."
 
-#: ../../frescobaldi_app/mainwindow.py:1397
+#: ../../frescobaldi_app/mainwindow.py:1398
 #: ../../frescobaldi_app/macosx/globalmenu.py:123
 msgid "Pr&eferences..."
 msgstr "Настройки..."
 
-#: ../../frescobaldi_app/mainwindow.py:1399
+#: ../../frescobaldi_app/mainwindow.py:1400
 msgid "&Next Document"
 msgstr "&Следующий файл"
 
-#: ../../frescobaldi_app/mainwindow.py:1400
+#: ../../frescobaldi_app/mainwindow.py:1401
 msgid "&Previous Document"
 msgstr "&Предыдущий файл"
 
-#: ../../frescobaldi_app/mainwindow.py:1401
+#: ../../frescobaldi_app/mainwindow.py:1402
 msgid "Wrap &Lines"
 msgstr "Переносить &строки"
 
-#: ../../frescobaldi_app/mainwindow.py:1402
+#: ../../frescobaldi_app/mainwindow.py:1403
 msgid "Scroll Up"
 msgstr "Вверх"
 
-#: ../../frescobaldi_app/mainwindow.py:1403
+#: ../../frescobaldi_app/mainwindow.py:1404
 msgid "Scroll Down"
 msgstr "Вниз"
 
-#: ../../frescobaldi_app/mainwindow.py:1404
+#: ../../frescobaldi_app/mainwindow.py:1405
 msgid "&Goto Line..."
 msgstr "&Перейти к строке..."
 
-#: ../../frescobaldi_app/mainwindow.py:1406
+#: ../../frescobaldi_app/mainwindow.py:1407
 #: ../../frescobaldi_app/macosx/globalmenu.py:129
 msgid "New &Window"
 msgstr "Новое &окно"
 
-#: ../../frescobaldi_app/mainwindow.py:1407
+#: ../../frescobaldi_app/mainwindow.py:1408
 msgid "&Fullscreen"
 msgstr "Полноэкранный режим"
 
-#: ../../frescobaldi_app/mainwindow.py:1409
+#: ../../frescobaldi_app/mainwindow.py:1410
 msgid "&User Guide"
 msgstr "Руководство пользователя"
 
-#: ../../frescobaldi_app/mainwindow.py:1410
+#: ../../frescobaldi_app/mainwindow.py:1411
 msgid "&What's This?"
 msgstr "Что это такое?"
 
-#: ../../frescobaldi_app/mainwindow.py:1411
+#: ../../frescobaldi_app/mainwindow.py:1412
 msgid "Report a &Bug..."
 msgstr "Сообщить об ошибке..."
 
-#: ../../frescobaldi_app/mainwindow.py:1412
+#: ../../frescobaldi_app/mainwindow.py:1413
 #: ../../frescobaldi_app/macosx/globalmenu.py:147
 #, python-brace-format
 msgid "&About {appname}..."
@@ -1714,7 +1710,7 @@ msgid "Layout Control"
 msgstr "Управление макетом"
 
 #: ../../frescobaldi_app/engrave/custom.py:137
-#: ../../frescobaldi_app/preferences/lilypond.py:324
+#: ../../frescobaldi_app/preferences/lilypond.py:667
 msgid "Delete intermediate output files"
 msgstr "Удалить промежуточные файлы"
 
@@ -1724,7 +1720,7 @@ msgid "Embed Source Code"
 msgstr "Внедрять исходный код (LilyPond >= 2.19.39)"
 
 #: ../../frescobaldi_app/engrave/custom.py:139
-#: ../../frescobaldi_app/preferences/lilypond.py:331
+#: ../../frescobaldi_app/preferences/lilypond.py:674
 msgid "Run LilyPond with English messages"
 msgstr "Запускать LilyPond с английскими сообщениями"
 
@@ -1764,16 +1760,16 @@ msgstr "&Сгенерированные файлы"
 msgid "No files available"
 msgstr "Файлы недоступны"
 
-#: ../../frescobaldi_app/extensions/__init__.py:229
+#: ../../frescobaldi_app/extensions/__init__.py:231
 #, python-brace-format
 msgid "Invalid extension menu: {name}"
 msgstr "Некорректное меню расширения: {name}"
 
-#: ../../frescobaldi_app/extensions/__init__.py:239
+#: ../../frescobaldi_app/extensions/__init__.py:241
 msgid "&Tool Panel"
 msgstr "&Панель инструментов"
 
-#: ../../frescobaldi_app/extensions/__init__.py:323
+#: ../../frescobaldi_app/extensions/__init__.py:325
 #, python-brace-format
 msgid ""
 "Class '{classname}' can't access Extension object. It should provide an "
@@ -1782,11 +1778,11 @@ msgstr ""
 "Класс «{classname}» не может получить доступ к объекту Extension. Он должен "
 "предоставлять переменную класса _extension_name."
 
-#: ../../frescobaldi_app/extensions/__init__.py:391
+#: ../../frescobaldi_app/extensions/__init__.py:393
 msgid "Invalid metadata:"
 msgstr "Недопустимые метаданные:"
 
-#: ../../frescobaldi_app/extensions/__init__.py:393
+#: ../../frescobaldi_app/extensions/__init__.py:395
 msgid ""
 "Extensions whose extension.cnf file has errors.\n"
 "They will be loaded nevertheless."
@@ -1794,11 +1790,11 @@ msgstr ""
 "Расширения с ошибками в файле extension.cnf.\n"
 "Тем не менее, они будут загружены."
 
-#: ../../frescobaldi_app/extensions/__init__.py:414
+#: ../../frescobaldi_app/extensions/__init__.py:416
 msgid "Failed to load:"
 msgstr "Не удалось загрузить:"
 
-#: ../../frescobaldi_app/extensions/__init__.py:416
+#: ../../frescobaldi_app/extensions/__init__.py:418
 msgid ""
 "Extensions that failed to load properly.\n"
 "Double click on name to show the stacktrace.\n"
@@ -1808,11 +1804,11 @@ msgstr ""
 "Для просмотра трассировки стека сделайте двойной щелчок по имени.\n"
 "Обратитесь к сопровождающему расширения."
 
-#: ../../frescobaldi_app/extensions/__init__.py:443
+#: ../../frescobaldi_app/extensions/__init__.py:445
 msgid "Failed dependencies:"
 msgstr "Зависимости с ошибками:"
 
-#: ../../frescobaldi_app/extensions/__init__.py:446
+#: ../../frescobaldi_app/extensions/__init__.py:448
 msgid ""
 "Extensions with failed or circular dependencies.\n"
 "They are not loaded."
@@ -1820,29 +1816,29 @@ msgstr ""
 "Расширения с ошибками зависимостей или циклическими зависимостями.\n"
 "Они не будут загружены."
 
-#: ../../frescobaldi_app/extensions/__init__.py:453
+#: ../../frescobaldi_app/extensions/__init__.py:455
 #: ../../frescobaldi_app/fonts/musicfonts.py:590
 msgid "Missing:"
 msgstr "Отсутствующие:"
 
-#: ../../frescobaldi_app/extensions/__init__.py:463
+#: ../../frescobaldi_app/extensions/__init__.py:465
 msgid "Inactive:"
 msgstr "Неактивные:"
 
-#: ../../frescobaldi_app/extensions/__init__.py:473
+#: ../../frescobaldi_app/extensions/__init__.py:475
 msgid "Circular:"
 msgstr "Циклические:"
 
-#: ../../frescobaldi_app/extensions/__init__.py:526
+#: ../../frescobaldi_app/extensions/__init__.py:528
 #, python-brace-format
 msgid "Extension '{name}' failed to load with the given explanation:"
 msgstr "Расширение «{name}» не удалось загрузить по следующей причине:"
 
-#: ../../frescobaldi_app/extensions/__init__.py:839
+#: ../../frescobaldi_app/extensions/__init__.py:837
 msgid "&Extensions"
 msgstr "&Расширения"
 
-#: ../../frescobaldi_app/extensions/__init__.py:862
+#: ../../frescobaldi_app/extensions/__init__.py:860
 msgid ""
 "There were problems loading the extensions.\n"
 "The following details are also available from the Preferences dialog."
@@ -1850,7 +1846,7 @@ msgstr ""
 "При загрузке расширений возникли ошибки.\n"
 "Следующие подробности также доступны в диалоге «Настройки»."
 
-#: ../../frescobaldi_app/extensions/__init__.py:919
+#: ../../frescobaldi_app/extensions/__init__.py:917
 msgid "Extensions have changed"
 msgstr "Расширения изменились"
 
@@ -2025,7 +2021,7 @@ msgstr "Файлы XML"
 
 #: ../../frescobaldi_app/file_export/__init__.py:74
 #: ../../frescobaldi_app/preferences/fontscolors.py:285
-#: ../../frescobaldi_app/preferences/shortcuts.py:211
+#: ../../frescobaldi_app/preferences/shortcuts.py:209
 #: ../../frescobaldi_app/snippet/widget.py:327
 #, python-brace-format
 msgid ""
@@ -2510,7 +2506,7 @@ msgid "Font removal failed:"
 msgstr "Не удалось удалить шрифты:"
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:614
-#: ../../frescobaldi_app/fonts/textfonts.py:296
+#: ../../frescobaldi_app/fonts/textfonts.py:294
 msgid "Font"
 msgstr "Шрифт"
 
@@ -2664,59 +2660,59 @@ msgstr "Указать как {family} (текущее значение: {curren
 msgid "Fontconfig data:"
 msgstr "Данные настройки шрифтов:"
 
-#: ../../frescobaldi_app/fonts/textfonts.py:245
+#: ../../frescobaldi_app/fonts/textfonts.py:243
 msgid "The quick brown fox jumps over the lazy dog"
 msgstr "Съешь ещё этих мягких французских булок, да выпей чаю"
 
-#: ../../frescobaldi_app/fonts/textfonts.py:297
+#: ../../frescobaldi_app/fonts/textfonts.py:295
 msgid "Sample"
 msgstr "Образец"
 
-#: ../../frescobaldi_app/fonts/textfonts.py:326
+#: ../../frescobaldi_app/fonts/textfonts.py:324
 msgid "Configuration Files"
 msgstr "Файлы конфигурации"
 
-#: ../../frescobaldi_app/fonts/textfonts.py:327
+#: ../../frescobaldi_app/fonts/textfonts.py:325
 msgid "Configuration Directories"
 msgstr "Каталоги конфигурации"
 
-#: ../../frescobaldi_app/fonts/textfonts.py:328
+#: ../../frescobaldi_app/fonts/textfonts.py:326
 msgid "Searched Font Directories"
 msgstr "Каталоги шрифтов для выполнения поиска"
 
-#: ../../frescobaldi_app/fonts/textfonts.py:542
+#: ../../frescobaldi_app/fonts/textfonts.py:540
 msgid "Available Fonts"
 msgstr "Доступные шрифты"
 
-#: ../../frescobaldi_app/job/__init__.py:370
+#: ../../frescobaldi_app/job/__init__.py:371
 #, python-brace-format
 msgid "Starting {job}..."
 msgstr "Запуск {job}..."
 
-#: ../../frescobaldi_app/job/__init__.py:379
+#: ../../frescobaldi_app/job/__init__.py:380
 #, python-brace-format
 msgid "Aborting {job}..."
 msgstr "Прерывание {job}..."
 
-#: ../../frescobaldi_app/job/__init__.py:392
+#: ../../frescobaldi_app/job/__init__.py:393
 msgid "Could not read from the process."
 msgstr "Невозможно чтение из процесса."
 
-#: ../../frescobaldi_app/job/__init__.py:394
+#: ../../frescobaldi_app/job/__init__.py:395
 msgid "An unknown error occurred."
 msgstr "Произошла неизвестная ошибка."
 
-#: ../../frescobaldi_app/job/__init__.py:403
+#: ../../frescobaldi_app/job/__init__.py:404
 #, python-brace-format
 msgid "Exited with return code {code}."
 msgstr "Программа завершилась с кодом {code}."
 
-#: ../../frescobaldi_app/job/__init__.py:405
+#: ../../frescobaldi_app/job/__init__.py:406
 #, python-brace-format
 msgid "Exited with exit status {status}."
 msgstr "Программа завершилась со статусом {status}."
 
-#: ../../frescobaldi_app/job/__init__.py:408
+#: ../../frescobaldi_app/job/__init__.py:409
 #, python-brace-format
 msgid "Completed successfully in {time}."
 msgstr "Успешно завершено за {time}"
@@ -3196,21 +3192,21 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "ДОЛЯ"
 
-#: ../../frescobaldi_app/musicview/__init__.py:115
+#: ../../frescobaldi_app/musicview/__init__.py:116
 msgctxt "window title"
 msgid "Music View"
 msgstr "Предпросмотр"
 
-#: ../../frescobaldi_app/musicview/__init__.py:116
+#: ../../frescobaldi_app/musicview/__init__.py:117
 msgid "&Music View"
 msgstr "Предпросмотр"
 
-#: ../../frescobaldi_app/musicview/__init__.py:165
+#: ../../frescobaldi_app/musicview/__init__.py:166
 #: ../../frescobaldi_app/viewers/__init__.py:195
 msgid "Print Music"
 msgstr "Печать музыки"
 
-#: ../../frescobaldi_app/musicview/__init__.py:166
+#: ../../frescobaldi_app/musicview/__init__.py:167
 #: ../../frescobaldi_app/viewers/__init__.py:196
 msgid ""
 "As per your settings, you are about to print the file directly to CUPS.\n"
@@ -3232,66 +3228,66 @@ msgstr ""
 "\n"
 "(Если есть сомнения, скорее всего, следует ответить «нет».)"
 
-#: ../../frescobaldi_app/musicview/__init__.py:264
+#: ../../frescobaldi_app/musicview/__init__.py:265
 #: ../../frescobaldi_app/viewers/__init__.py:340
 msgid "Select Music View Document"
 msgstr "Выберите документ для предпросмотра"
 
-#: ../../frescobaldi_app/musicview/__init__.py:265
+#: ../../frescobaldi_app/musicview/__init__.py:266
 #: ../../frescobaldi_app/viewers/__init__.py:341
 msgid "&Print Music..."
 msgstr "Напечатать музыку..."
 
-#: ../../frescobaldi_app/musicview/__init__.py:266
+#: ../../frescobaldi_app/musicview/__init__.py:267
 #: ../../frescobaldi_app/viewers/__init__.py:342
 msgid "Zoom Music"
 msgstr "Увеличить"
 
-#: ../../frescobaldi_app/musicview/__init__.py:267
+#: ../../frescobaldi_app/musicview/__init__.py:268
 msgid "Save current View settings as default"
 msgstr "Сохранить текущие параметры вида как параметры по умолчанию"
 
-#: ../../frescobaldi_app/musicview/__init__.py:268
+#: ../../frescobaldi_app/musicview/__init__.py:269
 #: ../../frescobaldi_app/viewers/__init__.py:343
 msgid "&Maximize"
 msgstr "Развернуть"
 
-#: ../../frescobaldi_app/musicview/__init__.py:269
+#: ../../frescobaldi_app/musicview/__init__.py:270
 #: ../../frescobaldi_app/viewers/__init__.py:344
 msgid "&Jump to Cursor Position"
 msgstr "Перейти к позиции курсора"
 
-#: ../../frescobaldi_app/musicview/__init__.py:270
+#: ../../frescobaldi_app/musicview/__init__.py:271
 #: ../../frescobaldi_app/viewers/__init__.py:345
 msgid "S&ynchronize with Cursor Position"
 msgstr "Синхронизировать с позицией курсора"
 
-#: ../../frescobaldi_app/musicview/__init__.py:271
+#: ../../frescobaldi_app/musicview/__init__.py:272
 #: ../../frescobaldi_app/viewers/__init__.py:346
 msgid "Copy to &Image..."
 msgstr "Копировать изображение..."
 
-#: ../../frescobaldi_app/musicview/__init__.py:272
+#: ../../frescobaldi_app/musicview/__init__.py:273
 msgid "Copy Selected &Text"
 msgstr "Копировать выделенный &текст"
 
-#: ../../frescobaldi_app/musicview/__init__.py:273
+#: ../../frescobaldi_app/musicview/__init__.py:274
 #: ../../frescobaldi_app/viewers/__init__.py:347
 msgid "&Reload"
 msgstr "О&бновить"
 
-#: ../../frescobaldi_app/musicview/__init__.py:274
+#: ../../frescobaldi_app/musicview/__init__.py:275
 #: ../../frescobaldi_app/scorewiz/dialog.py:84
 #: ../../frescobaldi_app/sessions/dialog.py:268
 msgid "Clear"
 msgstr "Очистить"
 
-#: ../../frescobaldi_app/musicview/__init__.py:425
+#: ../../frescobaldi_app/musicview/__init__.py:426
 #: ../../frescobaldi_app/viewers/__init__.py:614
 msgid "Choose the PDF document to display."
 msgstr "Выберите PDF-файл для отображения."
 
-#: ../../frescobaldi_app/musicview/__init__.py:427
+#: ../../frescobaldi_app/musicview/__init__.py:428
 #: ../../frescobaldi_app/viewers/__init__.py:616
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
@@ -3528,58 +3524,58 @@ msgstr ""
 "Музыка содержит четвертьтоновые альтерации, которые недоступны в языковой "
 "записи «{language}»."
 
-#: ../../frescobaldi_app/preferences/__init__.py:108
+#: ../../frescobaldi_app/preferences/__init__.py:115
 #: ../../frescobaldi_app/preferences/midi.py:170
 msgid "Preferences"
 msgstr "Настройки"
 
-#: ../../frescobaldi_app/preferences/__init__.py:175
+#: ../../frescobaldi_app/preferences/__init__.py:193
 #: ../../frescobaldi_app/preferences/general.py:146
 msgid "General Preferences"
 msgstr "Общие настройки"
 
-#: ../../frescobaldi_app/preferences/__init__.py:186
+#: ../../frescobaldi_app/preferences/__init__.py:204
 msgid "Music Preferences"
 msgstr "Настройки музыки"
 
-#: ../../frescobaldi_app/preferences/__init__.py:197
+#: ../../frescobaldi_app/preferences/__init__.py:215
 msgid "LilyPond Preferences"
 msgstr "Настройки LilyPond"
 
-#: ../../frescobaldi_app/preferences/__init__.py:208
+#: ../../frescobaldi_app/preferences/__init__.py:226
 msgid "MIDI Settings"
 msgstr "Настройки MIDI"
 
-#: ../../frescobaldi_app/preferences/__init__.py:219
+#: ../../frescobaldi_app/preferences/__init__.py:237
 #: ../../frescobaldi_app/preferences/helpers.py:82
 msgid "Helper Applications"
 msgstr "Дополнительные приложения"
 
-#: ../../frescobaldi_app/preferences/__init__.py:230
+#: ../../frescobaldi_app/preferences/__init__.py:248
 msgid "Paths"
 msgstr "Пути"
 
-#: ../../frescobaldi_app/preferences/__init__.py:241
+#: ../../frescobaldi_app/preferences/__init__.py:259
 msgid "LilyPond Documentation"
 msgstr "Документация LilyPond"
 
-#: ../../frescobaldi_app/preferences/__init__.py:252
+#: ../../frescobaldi_app/preferences/__init__.py:270
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
-#: ../../frescobaldi_app/preferences/__init__.py:263
+#: ../../frescobaldi_app/preferences/__init__.py:281
 msgid "Editor Preferences"
 msgstr "Настройки редактора"
 
-#: ../../frescobaldi_app/preferences/__init__.py:274
+#: ../../frescobaldi_app/preferences/__init__.py:292
 msgid "Fonts & Colors"
 msgstr "Шрифты и цвета"
 
-#: ../../frescobaldi_app/preferences/__init__.py:285
+#: ../../frescobaldi_app/preferences/__init__.py:303
 msgid "Tools"
 msgstr "Инструменты"
 
-#: ../../frescobaldi_app/preferences/__init__.py:296
+#: ../../frescobaldi_app/preferences/__init__.py:314
 msgid "Extensions"
 msgstr "Расширения"
 
@@ -4109,7 +4105,7 @@ msgid "Comment"
 msgstr "Комментарий"
 
 #: ../../frescobaldi_app/preferences/fontscolors.py:514
-#: ../../frescobaldi_app/preferences/lilypond.py:261
+#: ../../frescobaldi_app/preferences/lilypond.py:609
 #: ../../frescobaldi_app/scorewiz/settings.py:335
 msgid "LilyPond"
 msgstr "LilyPond"
@@ -4536,12 +4532,12 @@ msgstr "Команда для открытия терминала или ком�
 msgid "Command (base) to run Git versioning actions."
 msgstr "Команда (базовая) для запуска действий Git по управлению версиями."
 
-#: ../../frescobaldi_app/preferences/import_export.py:90
+#: ../../frescobaldi_app/preferences/import_export.py:92
 msgid "No theme found."
 msgstr "Тема не найдена."
 
-#: ../../frescobaldi_app/preferences/import_export.py:93
-#: ../../frescobaldi_app/preferences/import_export.py:176
+#: ../../frescobaldi_app/preferences/import_export.py:95
+#: ../../frescobaldi_app/preferences/import_export.py:178
 #: ../../frescobaldi_app/snippet/import_export.py:106
 #, python-brace-format
 msgid ""
@@ -4555,19 +4551,19 @@ msgstr ""
 "{url}\n"
 "{error}"
 
-#: ../../frescobaldi_app/preferences/import_export.py:173
+#: ../../frescobaldi_app/preferences/import_export.py:175
 msgid "No shortcuts found."
 msgstr "Комбинации клавиш не найдены."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:86
+#: ../../frescobaldi_app/preferences/lilypond.py:105
 msgid "LilyPond versions to use"
 msgstr "Версии LilyPond"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:87
+#: ../../frescobaldi_app/preferences/lilypond.py:106
 msgid "Automatically choose LilyPond version from document"
 msgstr "Автоматически выбирать версию сообразно команде в файле"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:89
+#: ../../frescobaldi_app/preferences/lilypond.py:108
 msgid ""
 "If checked, the document's version determines the LilyPond version to use.\n"
 "See \"What's This\" for more information."
@@ -4576,76 +4572,124 @@ msgstr ""
 "которую следует использовать. Дополнительные сведения доступны в\n"
 "разделе «Что это такое?»."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:92
+#: ../../frescobaldi_app/preferences/lilypond.py:111
 #, python-brace-format
 msgid "See also {link}."
 msgstr "Смотрите также {link}."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:140
+#: ../../frescobaldi_app/preferences/lilypond.py:141
+msgid "LilyPond downloads are in progress. Stop them?"
+msgstr ""
+
+#: ../../frescobaldi_app/preferences/lilypond.py:183
 msgid "Set as &Default"
 msgstr "Установить по умолчанию"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:181
+#: ../../frescobaldi_app/preferences/lilypond.py:361
+#, fuzzy, python-brace-format
+msgid "Could not download LilyPond {version}"
+msgstr "Convert-ly от LilyPond версии {version}"
+
+#: ../../frescobaldi_app/preferences/lilypond.py:365
+#, python-brace-format
+msgid "Downloading LilyPond {version}... {progress}%"
+msgstr ""
+
+#: ../../frescobaldi_app/preferences/lilypond.py:376
 msgid "default"
 msgstr "По умолчанию"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:254
+#: ../../frescobaldi_app/preferences/lilypond.py:397
+#, fuzzy
+msgid "Downloading LilyPond version list..."
+msgstr "Запуск LilyPond для вывода списка шрифтов..."
+
+#: ../../frescobaldi_app/preferences/lilypond.py:399
+#, fuzzy
+msgctxt "Button to register a custom LilyPond installation"
+msgid "Custom..."
+msgstr "Особый"
+
+#: ../../frescobaldi_app/preferences/lilypond.py:439
+#, python-brace-format
+msgctxt "latest stable LilyPond release"
+msgid "{major}.{minor}.{micro} (latest &stable)"
+msgstr ""
+
+#: ../../frescobaldi_app/preferences/lilypond.py:453
+#, python-brace-format
+msgctxt "latest unstable LilyPond release"
+msgid "{major}.{minor}.{micro} (latest &unstable)"
+msgstr ""
+
+#: ../../frescobaldi_app/preferences/lilypond.py:462
+#, fuzzy
+msgctxt "LilyPond versions other than latest stable/unstable"
+msgid "Other..."
+msgstr "Другие"
+
+#: ../../frescobaldi_app/preferences/lilypond.py:485
+#, fuzzy
+msgid "Could not download LilyPond version list"
+msgstr "Выберите желаемую версию LilyPond."
+
+#: ../../frescobaldi_app/preferences/lilypond.py:602
 msgid "Convert-ly:"
 msgstr "Convert-ly:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:255
+#: ../../frescobaldi_app/preferences/lilypond.py:603
 msgid "LilyPond-book:"
 msgstr "LilyPond-book:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:256
+#: ../../frescobaldi_app/preferences/lilypond.py:604
 msgid "Midi2ly:"
 msgstr "Midi2ly:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:257
+#: ../../frescobaldi_app/preferences/lilypond.py:605
 msgid "MusicXML2ly:"
 msgstr "MusicXML2ly:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:258
+#: ../../frescobaldi_app/preferences/lilypond.py:606
 msgid "ABC2ly:"
 msgstr "ABC2ly:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:262
+#: ../../frescobaldi_app/preferences/lilypond.py:610
 msgid "Label:"
 msgstr "Подпись:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:263
+#: ../../frescobaldi_app/preferences/lilypond.py:611
 msgid "How this version of LilyPond will be displayed."
 msgstr "Как будет отображена эта версия LilyPond."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:264
+#: ../../frescobaldi_app/preferences/lilypond.py:613
 msgid "LilyPond Command:"
 msgstr "Команда LilyPond:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:265
+#: ../../frescobaldi_app/preferences/lilypond.py:614
 msgid "Name or full path of the LilyPond program."
 msgstr "Имя или полный путь к программе LilyPond"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:266
+#: ../../frescobaldi_app/preferences/lilypond.py:615
 msgid "Include in automatic version selection"
 msgstr "Использовать при автовыборе версии"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:267
+#: ../../frescobaldi_app/preferences/lilypond.py:616
 msgid "General"
 msgstr "Общие"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:268
+#: ../../frescobaldi_app/preferences/lilypond.py:617
 msgid "Tool Commands"
 msgstr "Команды инструментов"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:319
+#: ../../frescobaldi_app/preferences/lilypond.py:662
 msgid "Running LilyPond"
 msgstr "Запуск LilyPond"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:320
+#: ../../frescobaldi_app/preferences/lilypond.py:663
 msgid "Save document if possible"
 msgstr "Сохранять документ, если возможно"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:322
+#: ../../frescobaldi_app/preferences/lilypond.py:665
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
@@ -4654,15 +4698,15 @@ msgstr ""
 "в локальном расположении и был изменён. В ином случае при запуске\n"
 "LilyPond используется временный файл."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:326
+#: ../../frescobaldi_app/preferences/lilypond.py:669
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr "Если параметр включён, LilyPond удалит промежуточные файлы PostScript."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:327
+#: ../../frescobaldi_app/preferences/lilypond.py:670
 msgid "Embed Source Code files in publish mode"
 msgstr "Встраивать файлы исходного кода в режиме публикации"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:329
+#: ../../frescobaldi_app/preferences/lilypond.py:672
 #, fuzzy
 msgid ""
 "If checked, the LilyPond source files will be embedded in the PDF\n"
@@ -4672,7 +4716,7 @@ msgstr ""
 "внедряться в PDF при запуске LilyPond в режиме публикации.\n"
 "Эта возможность доступна, начиная с версии LilyPond 2.19.39."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:333
+#: ../../frescobaldi_app/preferences/lilypond.py:676
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
@@ -4680,27 +4724,27 @@ msgstr ""
 "Если параметр включён, выходные сообщения LilyPond будут\n"
 "на английском языке. Это полезно для отправки отчётов об ошибках."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:335
+#: ../../frescobaldi_app/preferences/lilypond.py:678
 msgid "LilyPond include path:"
 msgstr "Дополнительные пути LilyPond:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:372
+#: ../../frescobaldi_app/preferences/lilypond.py:715
 msgid "Default output format"
 msgstr "Выходной формат по умолчанию"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:375
+#: ../../frescobaldi_app/preferences/lilypond.py:718
 msgid "Create PDF (Portable Document Format) documents by default."
 msgstr "Создавать документы PDF по умолчанию."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:378
+#: ../../frescobaldi_app/preferences/lilypond.py:721
 msgid "Create SVG (Scalable Vector Graphics) documents by default."
 msgstr "Создавать документы SVG по умолчанию."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:379
+#: ../../frescobaldi_app/preferences/lilypond.py:722
 msgid "Open default viewer after successful compile"
 msgstr "Открыть просмотрщик по умолчанию после успешной компиляции"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:381
+#: ../../frescobaldi_app/preferences/lilypond.py:724
 msgid ""
 "Shows the PDF or SVG music view when a compile job finishes successfully."
 msgstr ""
@@ -5015,16 +5059,16 @@ msgstr "Меню {name}"
 msgid "Other commands:"
 msgstr "Другие команды:"
 
-#: ../../frescobaldi_app/preferences/shortcuts.py:193
+#: ../../frescobaldi_app/preferences/shortcuts.py:191
 #, python-brace-format
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "&Редактировать комбинацию клавиш для «{name}»"
 
-#: ../../frescobaldi_app/preferences/shortcuts.py:198
+#: ../../frescobaldi_app/preferences/shortcuts.py:196
 msgid "(no shortcut)"
 msgstr "(нет комбинации)"
 
-#: ../../frescobaldi_app/preferences/shortcuts.py:365
+#: ../../frescobaldi_app/preferences/shortcuts.py:363
 msgid "(default)"
 msgstr "(по умолчанию)"
 
@@ -6115,8 +6159,8 @@ msgstr "Настройки недоступны."
 
 #: ../../frescobaldi_app/scorewiz/parts/_base.py:75
 #, python-brace-format
-msgid "Part {0}"
-msgstr "Партия {0}"
+msgid "Part {self.__class__.__name__}"
+msgstr ""
 
 #: ../../frescobaldi_app/scorewiz/parts/_base.py:152
 msgid "Adjust how many separate voices you want on each staff."
@@ -8960,667 +9004,673 @@ msgctxt "QPlatformTheme"
 msgid "Restore Defaults"
 msgstr "По умолчанию"
 
-#: ../../i18n/messages.py:156
+#: ../../i18n/messages.py:155
+#, fuzzy
+msgctxt "QPlatformTheme"
+msgid "Close"
+msgstr "Закрыть"
+
+#: ../../i18n/messages.py:157
 msgctxt "QScrollBar"
 msgid "Bottom"
 msgstr "В конец"
 
-#: ../../i18n/messages.py:157
+#: ../../i18n/messages.py:158
 msgctxt "QScrollBar"
 msgid "Left edge"
 msgstr "Левый край"
 
-#: ../../i18n/messages.py:158
+#: ../../i18n/messages.py:159
 msgctxt "QScrollBar"
 msgid "Page down"
 msgstr "Страница вниз"
 
-#: ../../i18n/messages.py:159
+#: ../../i18n/messages.py:160
 msgctxt "QScrollBar"
 msgid "Page left"
 msgstr "Страница налево"
 
-#: ../../i18n/messages.py:160
+#: ../../i18n/messages.py:161
 msgctxt "QScrollBar"
 msgid "Page right"
 msgstr "Страница направо"
 
-#: ../../i18n/messages.py:161
+#: ../../i18n/messages.py:162
 msgctxt "QScrollBar"
 msgid "Page up"
 msgstr "Страница вверх"
 
-#: ../../i18n/messages.py:162
+#: ../../i18n/messages.py:163
 msgctxt "QScrollBar"
 msgid "Right edge"
 msgstr "Правый край"
 
-#: ../../i18n/messages.py:163
+#: ../../i18n/messages.py:164
 msgctxt "QScrollBar"
 msgid "Scroll down"
 msgstr "Вниз"
 
-#: ../../i18n/messages.py:164
+#: ../../i18n/messages.py:165
 msgctxt "QScrollBar"
 msgid "Scroll here"
 msgstr "Прокрутить сюда"
 
-#: ../../i18n/messages.py:165
+#: ../../i18n/messages.py:166
 msgctxt "QScrollBar"
 msgid "Scroll left"
 msgstr "Прокрутить налево"
 
-#: ../../i18n/messages.py:166
+#: ../../i18n/messages.py:167
 msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Прокрутить направо"
 
-#: ../../i18n/messages.py:167
+#: ../../i18n/messages.py:168
 msgctxt "QScrollBar"
 msgid "Scroll up"
 msgstr "Вверх"
 
-#: ../../i18n/messages.py:168
+#: ../../i18n/messages.py:169
 msgctxt "QScrollBar"
 msgid "Top"
 msgstr "В начало"
 
-#: ../../i18n/messages.py:170
+#: ../../i18n/messages.py:171
 msgctxt "QShortcut"
 msgid "+"
 msgstr "+"
 
-#: ../../i18n/messages.py:171
+#: ../../i18n/messages.py:172
 msgctxt "QShortcut"
 msgid "Add Favorite"
 msgstr "Добавить в избранное"
 
-#: ../../i18n/messages.py:172
+#: ../../i18n/messages.py:173
 msgctxt "QShortcut"
 msgid "Adjust Brightness"
 msgstr "Настроить яркость"
 
-#: ../../i18n/messages.py:173
+#: ../../i18n/messages.py:174
 msgctxt "QShortcut"
 msgid "Alt"
 msgstr "Alt"
 
-#: ../../i18n/messages.py:174
+#: ../../i18n/messages.py:175
 msgctxt "QShortcut"
 msgid "Application Left"
 msgstr "Левая софт-кнопка"
 
-#: ../../i18n/messages.py:175
+#: ../../i18n/messages.py:176
 msgctxt "QShortcut"
 msgid "Application Right"
 msgstr "Правая софт-кнопка"
 
-#: ../../i18n/messages.py:176
+#: ../../i18n/messages.py:177
 msgctxt "QShortcut"
 msgid "Audio Cycle Track"
 msgstr "Зацикленное воспроизведение дорожки"
 
-#: ../../i18n/messages.py:177
+#: ../../i18n/messages.py:178
 msgctxt "QShortcut"
 msgid "Audio Forward"
 msgstr "Вперёд (аудио)"
 
-#: ../../i18n/messages.py:178
+#: ../../i18n/messages.py:179
 msgctxt "QShortcut"
 msgid "Audio Random Play"
 msgstr "Случайное воспроизведение (аудио)"
 
-#: ../../i18n/messages.py:179
+#: ../../i18n/messages.py:180
 msgctxt "QShortcut"
 msgid "Audio Repeat"
 msgstr "Повтор (аудио)"
 
-#: ../../i18n/messages.py:180
+#: ../../i18n/messages.py:181
 msgctxt "QShortcut"
 msgid "Audio Rewind"
 msgstr "Перемотка назад (аудио)"
 
-#: ../../i18n/messages.py:181
+#: ../../i18n/messages.py:182
 msgctxt "QShortcut"
 msgid "Away"
 msgstr "Отсутствует"
 
-#: ../../i18n/messages.py:182
+#: ../../i18n/messages.py:183
 msgctxt "QShortcut"
 msgid "Back"
 msgstr "Назад"
 
-#: ../../i18n/messages.py:183
+#: ../../i18n/messages.py:184
 msgctxt "QShortcut"
 msgid "Back Forward"
 msgstr "Назад/вперёд"
 
-#: ../../i18n/messages.py:184
+#: ../../i18n/messages.py:185
 msgctxt "QShortcut"
 msgid "Backspace"
 msgstr "Backspace"
 
-#: ../../i18n/messages.py:185
+#: ../../i18n/messages.py:186
 msgctxt "QShortcut"
 msgid "Backtab"
 msgstr "Backtab"
 
-#: ../../i18n/messages.py:186
+#: ../../i18n/messages.py:187
 msgctxt "QShortcut"
 msgid "Bass Boost"
 msgstr "Усиление басов"
 
-#: ../../i18n/messages.py:187
+#: ../../i18n/messages.py:188
 msgctxt "QShortcut"
 msgid "Bass Down"
 msgstr "Басы ниже"
 
-#: ../../i18n/messages.py:188
+#: ../../i18n/messages.py:189
 msgctxt "QShortcut"
 msgid "Bass Up"
 msgstr "Басы выше"
 
-#: ../../i18n/messages.py:189
+#: ../../i18n/messages.py:190
 msgctxt "QShortcut"
 msgid "Battery"
 msgstr "Батарея"
 
-#: ../../i18n/messages.py:190
+#: ../../i18n/messages.py:191
 msgctxt "QShortcut"
 msgid "Browser"
 msgstr "Браузер"
 
-#: ../../i18n/messages.py:191
+#: ../../i18n/messages.py:192
 msgctxt "QShortcut"
 msgid "Cancel"
 msgstr "Отмена"
 
-#: ../../i18n/messages.py:192
+#: ../../i18n/messages.py:193
 msgctxt "QShortcut"
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
-#: ../../i18n/messages.py:193
+#: ../../i18n/messages.py:194
 msgctxt "QShortcut"
 msgid "CapsLock"
 msgstr "CapsLock"
 
-#: ../../i18n/messages.py:194
+#: ../../i18n/messages.py:195
 msgctxt "QShortcut"
 msgid "Clear"
 msgstr "Очистить"
 
-#: ../../i18n/messages.py:195
+#: ../../i18n/messages.py:196
 msgctxt "QShortcut"
 msgid "Clear Grab"
 msgstr "Очистить захват"
 
-#: ../../i18n/messages.py:196
+#: ../../i18n/messages.py:197
 msgctxt "QShortcut"
 msgid "Close"
 msgstr "Закрыть"
 
-#: ../../i18n/messages.py:197
+#: ../../i18n/messages.py:198
 msgctxt "QShortcut"
 msgid "Copy"
 msgstr "Копировать"
 
-#: ../../i18n/messages.py:198
+#: ../../i18n/messages.py:199
 msgctxt "QShortcut"
 msgid "Ctrl"
 msgstr "Ctrl"
 
-#: ../../i18n/messages.py:199
+#: ../../i18n/messages.py:200
 msgctxt "QShortcut"
 msgid "Cut"
 msgstr "Вырезать"
 
-#: ../../i18n/messages.py:200
+#: ../../i18n/messages.py:201
 msgctxt "QShortcut"
 msgid "Del"
 msgstr "Del"
 
-#: ../../i18n/messages.py:201
+#: ../../i18n/messages.py:202
 msgctxt "QShortcut"
 msgid "Delete"
 msgstr "Удалить"
 
-#: ../../i18n/messages.py:202
+#: ../../i18n/messages.py:203
 msgctxt "QShortcut"
 msgid "Display"
 msgstr "Показать"
 
-#: ../../i18n/messages.py:203
+#: ../../i18n/messages.py:204
 msgctxt "QShortcut"
 msgid "Documents"
 msgstr "Документы"
 
-#: ../../i18n/messages.py:204
+#: ../../i18n/messages.py:205
 msgctxt "QShortcut"
 msgid "Down"
 msgstr "Вниз"
 
-#: ../../i18n/messages.py:205
+#: ../../i18n/messages.py:206
 msgctxt "QShortcut"
 msgid "Eject"
 msgstr "Извлечь"
 
-#: ../../i18n/messages.py:206
+#: ../../i18n/messages.py:207
 msgctxt "QShortcut"
 msgid "End"
 msgstr "End"
 
-#: ../../i18n/messages.py:207
+#: ../../i18n/messages.py:208
 msgctxt "QShortcut"
 msgid "Enter"
 msgstr "Enter"
 
-#: ../../i18n/messages.py:208
+#: ../../i18n/messages.py:209
 msgctxt "QShortcut"
 msgid "Esc"
 msgstr "Esc"
 
-#: ../../i18n/messages.py:209
+#: ../../i18n/messages.py:210
 msgctxt "QShortcut"
 msgid "Exit"
 msgstr "Выход"
 
-#: ../../i18n/messages.py:210
+#: ../../i18n/messages.py:211
 msgctxt "QShortcut"
 msgid "F%1"
 msgstr "F%1"
 
-#: ../../i18n/messages.py:211
+#: ../../i18n/messages.py:212
 msgctxt "QShortcut"
 msgid "Forward"
 msgstr "Вперёд"
 
-#: ../../i18n/messages.py:212
+#: ../../i18n/messages.py:213
 msgctxt "QShortcut"
 msgid "Go"
 msgstr "Перейти"
 
-#: ../../i18n/messages.py:213
+#: ../../i18n/messages.py:214
 msgctxt "QShortcut"
 msgid "Help"
 msgstr "Справка"
 
-#: ../../i18n/messages.py:214
+#: ../../i18n/messages.py:215
 msgctxt "QShortcut"
 msgid "History"
 msgstr "Журнал"
 
-#: ../../i18n/messages.py:215
+#: ../../i18n/messages.py:216
 msgctxt "QShortcut"
 msgid "Home Page"
 msgstr "Домашняя страница"
 
-#: ../../i18n/messages.py:216
+#: ../../i18n/messages.py:217
 msgctxt "QShortcut"
 msgid "Ins"
 msgstr "Ins"
 
-#: ../../i18n/messages.py:217
+#: ../../i18n/messages.py:218
 msgctxt "QShortcut"
 msgid "Insert"
 msgstr "Вставить"
 
-#: ../../i18n/messages.py:218
+#: ../../i18n/messages.py:219
 msgctxt "QShortcut"
 msgid "Left"
 msgstr "Влево"
 
-#: ../../i18n/messages.py:219
+#: ../../i18n/messages.py:220
 msgctxt "QShortcut"
 msgid "Media Next"
 msgstr "Следующий (медиа)"
 
-#: ../../i18n/messages.py:220
+#: ../../i18n/messages.py:221
 msgctxt "QShortcut"
 msgid "Media Pause"
 msgstr "Приостановить (медиа)"
 
-#: ../../i18n/messages.py:221
+#: ../../i18n/messages.py:222
 msgctxt "QShortcut"
 msgid "Media Play"
 msgstr "Воспроизвести (медиа)"
 
-#: ../../i18n/messages.py:222
+#: ../../i18n/messages.py:223
 msgctxt "QShortcut"
 msgid "Media Previous"
 msgstr "Предыдущий (медиа)"
 
-#: ../../i18n/messages.py:223
+#: ../../i18n/messages.py:224
 msgctxt "QShortcut"
 msgid "Media Record"
 msgstr "Запись (медиа)"
 
-#: ../../i18n/messages.py:224
+#: ../../i18n/messages.py:225
 msgctxt "QShortcut"
 msgid "Media Stop"
 msgstr "Остановить (медиа)"
 
-#: ../../i18n/messages.py:225
+#: ../../i18n/messages.py:226
 msgctxt "QShortcut"
 msgid "Menu"
 msgstr "Меню"
 
-#: ../../i18n/messages.py:226
+#: ../../i18n/messages.py:227
 msgctxt "QShortcut"
 msgid "Meta"
 msgstr "Мета"
 
-#: ../../i18n/messages.py:227
+#: ../../i18n/messages.py:228
 msgctxt "QShortcut"
 msgid "Music"
 msgstr "Музыка"
 
-#: ../../i18n/messages.py:228
+#: ../../i18n/messages.py:229
 msgctxt "QShortcut"
 msgid "News"
 msgstr "Новости"
 
-#: ../../i18n/messages.py:229
+#: ../../i18n/messages.py:230
 msgctxt "QShortcut"
 msgid "Number Lock"
 msgstr "Фиксация числовых клавиш"
 
-#: ../../i18n/messages.py:230
+#: ../../i18n/messages.py:231
 msgctxt "QShortcut"
 msgid "Num Lock"
 msgstr "Num Lock"
 
-#: ../../i18n/messages.py:231
+#: ../../i18n/messages.py:232
 msgctxt "QShortcut"
 msgid "NumLock"
 msgstr "NumLock"
 
-#: ../../i18n/messages.py:232
+#: ../../i18n/messages.py:233
 msgctxt "QShortcut"
 msgid "Open URL"
 msgstr "Открыть URL-адрес"
 
-#: ../../i18n/messages.py:233
+#: ../../i18n/messages.py:234
 msgctxt "QShortcut"
 msgid "Option"
 msgstr "Параметр"
 
-#: ../../i18n/messages.py:234
+#: ../../i18n/messages.py:235
 msgctxt "QShortcut"
 msgid "Page Down"
 msgstr "Страница вниз"
 
-#: ../../i18n/messages.py:235
+#: ../../i18n/messages.py:236
 msgctxt "QShortcut"
 msgid "Page Up"
 msgstr "Страница вверх"
 
-#: ../../i18n/messages.py:236
+#: ../../i18n/messages.py:237
 msgctxt "QShortcut"
 msgid "Paste"
 msgstr "Вставить"
 
-#: ../../i18n/messages.py:237
+#: ../../i18n/messages.py:238
 msgctxt "QShortcut"
 msgid "Pause"
 msgstr "Приостановить"
 
-#: ../../i18n/messages.py:238
+#: ../../i18n/messages.py:239
 msgctxt "QShortcut"
 msgid "PgDown"
 msgstr "PgDown"
 
-#: ../../i18n/messages.py:239
+#: ../../i18n/messages.py:240
 msgctxt "QShortcut"
 msgid "PgUp"
 msgstr "PgUp"
 
-#: ../../i18n/messages.py:240
+#: ../../i18n/messages.py:241
 msgctxt "QShortcut"
 msgid "Play"
 msgstr "Воспроизвести"
 
-#: ../../i18n/messages.py:241
+#: ../../i18n/messages.py:242
 msgctxt "QShortcut"
 msgid "Refresh"
 msgstr "Обновить"
 
-#: ../../i18n/messages.py:242
+#: ../../i18n/messages.py:243
 msgctxt "QShortcut"
 msgid "Reload"
 msgstr "Перезагрузить"
 
-#: ../../i18n/messages.py:243
+#: ../../i18n/messages.py:244
 msgctxt "QShortcut"
 msgid "Return"
 msgstr "Return"
 
-#: ../../i18n/messages.py:244
+#: ../../i18n/messages.py:245
 msgctxt "QShortcut"
 msgid "Right"
 msgstr "Вправо"
 
-#: ../../i18n/messages.py:245
+#: ../../i18n/messages.py:246
 msgctxt "QShortcut"
 msgid "Save"
 msgstr "Сохранить"
 
-#: ../../i18n/messages.py:246
+#: ../../i18n/messages.py:247
 msgctxt "QShortcut"
 msgid "Scroll Lock"
 msgstr "Фиксация прокрутки"
 
-#: ../../i18n/messages.py:247
+#: ../../i18n/messages.py:248
 msgctxt "QShortcut"
 msgid "ScrollLock"
 msgstr "ScrollLock"
 
-#: ../../i18n/messages.py:248
+#: ../../i18n/messages.py:249
 msgctxt "QShortcut"
 msgid "Search"
 msgstr "Поиск"
 
-#: ../../i18n/messages.py:249
+#: ../../i18n/messages.py:250
 msgctxt "QShortcut"
 msgid "Select"
 msgstr "Выбрать"
 
-#: ../../i18n/messages.py:250
+#: ../../i18n/messages.py:251
 msgctxt "QShortcut"
 msgid "Send"
 msgstr "Отправить"
 
-#: ../../i18n/messages.py:251
+#: ../../i18n/messages.py:252
 msgctxt "QShortcut"
 msgid "Shift"
 msgstr "Shift"
 
-#: ../../i18n/messages.py:252
+#: ../../i18n/messages.py:253
 msgctxt "QShortcut"
 msgid "Space"
 msgstr "Пробел"
 
-#: ../../i18n/messages.py:253
+#: ../../i18n/messages.py:254
 msgctxt "QShortcut"
 msgid "Spellchecker"
 msgstr "Проверка орфографии"
 
-#: ../../i18n/messages.py:254
+#: ../../i18n/messages.py:255
 msgctxt "QShortcut"
 msgid "Split Screen"
 msgstr "Разделить экран"
 
-#: ../../i18n/messages.py:255
+#: ../../i18n/messages.py:256
 msgctxt "QShortcut"
 msgid "Spreadsheet"
 msgstr "Электронная таблица"
 
-#: ../../i18n/messages.py:256
+#: ../../i18n/messages.py:257
 msgctxt "QShortcut"
 msgid "Standby"
 msgstr "Режим ожидания"
 
-#: ../../i18n/messages.py:257
+#: ../../i18n/messages.py:258
 msgctxt "QShortcut"
 msgid "Stop"
 msgstr "Остановить"
 
-#: ../../i18n/messages.py:258
+#: ../../i18n/messages.py:259
 msgctxt "QShortcut"
 msgid "Subtitle"
 msgstr "Субтитры"
 
-#: ../../i18n/messages.py:259
+#: ../../i18n/messages.py:260
 msgctxt "QShortcut"
 msgid "Support"
 msgstr "Поддержка"
 
-#: ../../i18n/messages.py:260
+#: ../../i18n/messages.py:261
 msgctxt "QShortcut"
 msgid "Suspend"
 msgstr "Приостановить"
 
-#: ../../i18n/messages.py:261
+#: ../../i18n/messages.py:262
 msgctxt "QShortcut"
 msgid "SysReq"
 msgstr "SysReq"
 
-#: ../../i18n/messages.py:262
+#: ../../i18n/messages.py:263
 msgctxt "QShortcut"
 msgid "Tab"
 msgstr "Tab"
 
-#: ../../i18n/messages.py:263
+#: ../../i18n/messages.py:264
 msgctxt "QShortcut"
 msgid "Task Panel"
 msgstr "Панель задач"
 
-#: ../../i18n/messages.py:264
+#: ../../i18n/messages.py:265
 msgctxt "QShortcut"
 msgid "Terminal"
 msgstr "Терминал"
 
-#: ../../i18n/messages.py:265
+#: ../../i18n/messages.py:266
 msgctxt "QShortcut"
 msgid "Time"
 msgstr "Время"
 
-#: ../../i18n/messages.py:266
+#: ../../i18n/messages.py:267
 msgctxt "QShortcut"
 msgid "Toggle Media Play/Pause"
 msgstr "Приостановить/продолжить воспроизведение"
 
-#: ../../i18n/messages.py:267
+#: ../../i18n/messages.py:268
 msgctxt "QShortcut"
 msgid "Tools"
 msgstr "Инструменты"
 
-#: ../../i18n/messages.py:268
+#: ../../i18n/messages.py:269
 msgctxt "QShortcut"
 msgid "Top Menu"
 msgstr "Главное меню"
 
-#: ../../i18n/messages.py:269
+#: ../../i18n/messages.py:270
 msgctxt "QShortcut"
 msgid "Treble Down"
 msgstr "ВЧ ниже"
 
-#: ../../i18n/messages.py:270
+#: ../../i18n/messages.py:271
 msgctxt "QShortcut"
 msgid "Treble Up"
 msgstr "ВЧ выше"
 
-#: ../../i18n/messages.py:271
+#: ../../i18n/messages.py:272
 msgctxt "QShortcut"
 msgid "Up"
 msgstr "Вверх"
 
-#: ../../i18n/messages.py:272
+#: ../../i18n/messages.py:273
 msgctxt "QShortcut"
 msgid "Video"
 msgstr "Видео"
 
-#: ../../i18n/messages.py:273
+#: ../../i18n/messages.py:274
 msgctxt "QShortcut"
 msgid "View"
 msgstr "Вид"
 
-#: ../../i18n/messages.py:274
+#: ../../i18n/messages.py:275
 msgctxt "QShortcut"
 msgid "Volume Down"
 msgstr "Тише"
 
-#: ../../i18n/messages.py:275
+#: ../../i18n/messages.py:276
 msgctxt "QShortcut"
 msgid "Volume Mute"
 msgstr "Выключить звук"
 
-#: ../../i18n/messages.py:276
+#: ../../i18n/messages.py:277
 msgctxt "QShortcut"
 msgid "Volume Up"
 msgstr "Громче"
 
-#: ../../i18n/messages.py:277
+#: ../../i18n/messages.py:278
 msgctxt "QShortcut"
 msgid "Zoom"
 msgstr "Увеличить"
 
-#: ../../i18n/messages.py:278
+#: ../../i18n/messages.py:279
 msgctxt "QShortcut"
 msgid "Zoom In"
 msgstr "Увеличить"
 
-#: ../../i18n/messages.py:279
+#: ../../i18n/messages.py:280
 msgctxt "QShortcut"
 msgid "Zoom Out"
 msgstr "Уменьшить"
 
-#: ../../i18n/messages.py:281
+#: ../../i18n/messages.py:282
 msgctxt "QTabBar"
 msgid "Scroll Left"
 msgstr "Прокрутить налево"
 
-#: ../../i18n/messages.py:282
+#: ../../i18n/messages.py:283
 msgctxt "QTabBar"
 msgid "Scroll Right"
 msgstr "Прокрутить направо"
 
-#: ../../i18n/messages.py:284
+#: ../../i18n/messages.py:285
 msgctxt "QTextControl"
 msgid "&Undo"
 msgstr "&Отменить"
 
-#: ../../i18n/messages.py:285
+#: ../../i18n/messages.py:286
 msgctxt "QTextControl"
 msgid "&Redo"
 msgstr "&Повторить"
 
-#: ../../i18n/messages.py:286
+#: ../../i18n/messages.py:287
 msgctxt "QTextControl"
 msgid "Cu&t"
 msgstr "&Вырезать"
 
-#: ../../i18n/messages.py:287
+#: ../../i18n/messages.py:288
 msgctxt "QTextControl"
 msgid "&Copy"
 msgstr "&Копировать"
 
-#: ../../i18n/messages.py:288
+#: ../../i18n/messages.py:289
 msgctxt "QTextControl"
 msgid "&Paste"
 msgstr "В&ставить"
 
-#: ../../i18n/messages.py:289
+#: ../../i18n/messages.py:290
 msgctxt "QTextControl"
 msgid "Delete"
 msgstr "Удалить"
 
-#: ../../i18n/messages.py:290
+#: ../../i18n/messages.py:291
 msgctxt "QTextControl"
 msgid "Select All"
 msgstr "Выделить все"
 
-#: ../../i18n/messages.py:292
+#: ../../i18n/messages.py:293
 msgctxt "QWhatsThisAction"
 msgid "What's This?"
 msgstr "Что это такое?"
@@ -9764,6 +9814,13 @@ msgstr "Диспетчер и редактор сниппетов"
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:58
 msgid "Score Wizard to quickly setup a music score"
 msgstr "Мастер партитуры для быстрого создания партитуры"
+
+#~ msgid "Text Files"
+#~ msgstr "Текстовые файлы"
+
+#, python-brace-format
+#~ msgid "Part {0}"
+#~ msgstr "Партия {0}"
 
 #~ msgid "Open Document in &New Window"
 #~ msgstr "Открыть файл в &новом окне"
