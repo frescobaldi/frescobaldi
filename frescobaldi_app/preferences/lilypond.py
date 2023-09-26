@@ -45,6 +45,7 @@ import qutil
 import icons
 import preferences
 import lilypondinfo
+import linux
 import qsettings
 import widgets.listedit
 import widgets.urlrequester
@@ -201,9 +202,20 @@ class InfoList(widgets.listedit.ListEdit):
         self.editButton.setEnabled(is_installed_item)
 
     def createItem(self):
+        if linux.inside_flatpak():
+            QMessageBox.critical(self, app.caption(_("Error")),
+                                 _("""You have installed Frescobaldi from Flathub using \
+Flatpak. Because Flatpak isolates apps from the rest of the system, it is not possible \
+to use custom LilyPond binaries in this configuration. Please either let Frescobaldi auto-install \
+a given LilyPond version, using the “Add…” menu, or if you wish to use a custom build, \
+install Frescobaldi using a distribution package or from source."""))
+            return None
         return InfoItem(InstalledState(lilypondinfo.LilyPondInfo("lilypond")))
 
     def openEditor(self, item):
+        if item is None: # Flatpak case above
+            return False
+
         # Either we're adding a custom version and the item is created in createItem
         # above, or we're editing an existing version because the "Edit" button was clicked,
         # and it's disabled for versions that are being downloaded or failed to download.
