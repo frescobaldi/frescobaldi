@@ -39,11 +39,37 @@ The following variables can be used:
              whitespace.)_
   `keep`: _(Selects all inserted text.)_
 
-The other lines of the snippet define the text to be inserted in the editor. 
-Here, you can insert variables prefixed with a `$`. A double `$` will be 
+The other lines of the snippet define the text to be inserted in the editor.
+Here, you can insert variables prefixed with a `$`. A double `$` will be
 replaced with a single one. The following variables are recognized:
-        
-{snippet_editor_expander}
+
+!`DATE`
+: The current date in YYYY-MM-DD format.
+
+!`LILYPOND_VERSION`
+: The version of the default LilyPond program.
+
+!`FRESCOBALDI_VERSION`
+: The version of Frescobaldi.
+
+!`URL`
+: The URL of the current document.
+
+!`FILE_NAME`
+: The full local filename of the current document.
+
+!`DOCUMENT_NAME`
+: The name of the current document.
+
+!`CURSOR`
+: Moves the text cursor here after insert.
+
+!`ANCHOR`
+: Selects text from here to the position given using the `$CURSOR` variable.
+
+!`SELECTION`
+: The selected text if available. If not, the text cursor is moved here.
+
 
 #SUBDOCS
 snippet_python

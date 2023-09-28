@@ -22,43 +22,10 @@ Expand variables like $DATE, $LILYPOND_VERSION etc. in snippets.
 """
 
 
-import builtins
 import time
 
 import appinfo
 import lilypondinfo
-
-
-def _(docstring):
-    """Returns a decorator.
-
-    The decorator gives a function a doc() method, returning the translated docstring.
-    The untranslated docstring will be added as __doc__ to the function.
-
-    builtins._ is expected to be the translation function.
-
-    We use the underscore as function name so xgettext picks up the strings
-    to be translated.
-
-    """
-    def deco(f):
-        f.__doc__ = docstring
-        f.doc = lambda: builtins._(docstring)
-        return f
-    return deco
-
-
-def documentation(cls):
-    """Yields tuples documenting the methods of the specified class.
-
-    The tuples are: (function_name, docstring). The docstrings are translated.
-    The tuples are sorted on function_name.
-
-    """
-    for name, meth in sorted(cls.__dict__.items()):
-        if name.startswith('_'):
-            return
-        yield name, meth.doc()
 
 
 ANCHOR, CURSOR, SELECTION = constants = 1, 2, 3 # just some constants
@@ -68,44 +35,34 @@ class Expander:
 
     The methods return text or other events (currently simply integer constants).
 
+    Each variable is documented in the user guide.
     """
     def __init__(self, cursor):
         self.cursor = cursor
 
-    @_("The current date in YYYY-MM-DD format.")
     def DATE(self):
         return time.strftime('%Y-%m-%d')
 
-    @_("The version of the default LilyPond program.")
     def LILYPOND_VERSION(self):
         return lilypondinfo.preferred().versionString()
 
-    @_("The version of Frescobaldi.")
     def FRESCOBALDI_VERSION(self):
         return appinfo.version
 
-    @_("The URL of the current document.")
     def URL(self):
         return self.cursor.document().url().toString()
 
-    @_("The full local filename of the current document.")
     def FILE_NAME(self):
         return self.cursor.document().url().toLocalFile()
 
-    @_("The name of the current document.")
     def DOCUMENT_NAME(self):
         return self.cursor.document().documentName()
 
-    @_("Moves the text cursor here after insert.")
     def CURSOR(self):
         return CURSOR
 
-    @_("Selects text from here to the position given using the <code>$CURSOR</code> variable")
     def ANCHOR(self):
         return ANCHOR
 
-    @_("The selected text if available. If not, the text cursor is moved here.")
     def SELECTION(self):
         return SELECTION if self.cursor.hasSelection() else CURSOR
-
-
