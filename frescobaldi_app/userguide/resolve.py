@@ -66,14 +66,3 @@ def table_of_contents():
         addpage(page)
     html.append('</ul>\n')
     return ''.join(html)
-
-def snippet_editor_expander():
-    """Return the auto-generated list of docstrings of the snippet variables."""
-    from snippet import expand
-    text = []
-    text.append("<dl>")
-    text.extend(map("<dt><code>${0[0]}</code></dt><dd>{0[1]}</dd>".format,
-                    expand.documentation(expand.Expander)))
-    text.append("</dl>")
-    return ''.join(text)
-
