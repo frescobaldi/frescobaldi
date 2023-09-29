@@ -21,7 +21,7 @@
 This handles the QEvent::IconDrag event type sent to the mainwindow when
 the window icon is Command-clicked or dragged.
 
-Currently this makes only sense on Mac OS X.
+Currently this makes only sense on macOS.
 """
 
 
@@ -36,7 +36,7 @@ handler = None
 
 
 class IconDragEventHandler(QObject):
-    """Event handler to handle window icon events on Mac OS X."""
+    """Event handler to handle window icon events on macOS."""
     def eventFilter(self, mainwin, ev):
         if ev.type() != QEvent.IconDrag:
             return False
@@ -70,7 +70,7 @@ class IconDragEventHandler(QObject):
         drag.start(Qt.LinkAction | Qt.CopyAction)
 
     def commandClick(self, mainwin, ev):
-        """Called on Command-click the window icon (Mac OS X)."""
+        """Called on Command-click the window icon (macOS)."""
         pass
 
 
@@ -81,5 +81,3 @@ def initialize():
 @app.mainwindowCreated.connect
 def windowCreated(window):
     window.installEventFilter(handler)
-
-

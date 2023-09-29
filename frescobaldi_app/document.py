@@ -198,7 +198,7 @@ class AbstractDocument(QTextDocument):
         """Return the text of the document as a bytes string encoded in the
         correct encoding.
 
-        The line separator is '\\n' on Unix/Linux/Mac OS X, '\\r\\n' on Windows.
+        The line separator is '\\n' on Unix, '\\r\\n' on Windows.
 
         Useful to save to a file.
 
@@ -312,4 +312,3 @@ class EditorDocument(AbstractDocument):
         else:
             cursor.movePosition(QTextCursor.End)
         return cursor
-

@@ -184,7 +184,7 @@ class LilyPondInfo:
                 os.environ.get('ProgramFiles', 'C:\\Program Files'),
                 'LilyPond*', 'usr', 'bin'))
         elif platform.system() == "Darwin":
-            # also on Mac OS X, LilyPond is not automatically added to the PATH
+            # also on macOS, LilyPond is not automatically added to the PATH
             path = [
                 os.path.join('/Applications', 'LilyPond.app', 'Contents', 'Resources', 'bin'),
                 os.path.join('/opt', 'local', 'bin'),
@@ -224,7 +224,7 @@ class LilyPondInfo:
         """The path to the command in a format pretty to display.
 
         This removes the 'out/bin/lilypond' part of custom build LilyPond
-        versions, and on Mac OS X it removes the
+        versions, and on macOS it removes the
         '/Contents/Resources/bin/lilypond' part.
 
         Finally it replaces the users home directory with '~'.

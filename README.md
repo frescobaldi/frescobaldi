@@ -37,8 +37,8 @@ Music functions:
 - Add spanners, dynamics, articulation easily using the Quick Insert panel
 - Update LilyPond syntax using convert-ly, with display of differences
 
-Frescobaldi is designed to run on all major operating systems (Linux, Mac OS X
-and MS Windows). It is named after Girolamo Frescobaldi (1583-1643), an Italian
+Frescobaldi is designed to run on all major operating systems (Linux, macOS
+and Windows). It is named after Girolamo Frescobaldi (1583-1643), an Italian
 composer of keyboard music in the late Renaissance and early Baroque period.
 
 Here is an idea of the basic Frescobaldi workflow:

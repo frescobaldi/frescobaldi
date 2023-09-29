@@ -13,7 +13,7 @@ from ctypes import (CDLL, CFUNCTYPE, POINTER, Structure, byref, c_char_p,
 import macosx
 
 # path to portmidi in the standalone .app bundle
-_PM_MACOSX_APP = '../Frameworks/libportmidi.dylib'
+_PM_MACOS_APP = '../Frameworks/libportmidi.dylib'
 
 # the basename of the portmidi/porttime libraries on different platforms
 _PM_DLL = dict(
@@ -93,8 +93,8 @@ if platform.system() == "Windows":
         return None
 
     dll_name = find_library(_PM_DLL['Windows'], [os.path.dirname(__file__)])
-elif platform.system() == "Darwin" and macosx.inside_app_bundle() and os.path.exists(_PM_MACOSX_APP):
-    dll_name = _PM_MACOSX_APP
+elif platform.system() == "Darwin" and macosx.inside_app_bundle() and os.path.exists(_PM_MACOS_APP):
+    dll_name = _PM_MACOS_APP
 else:
     from ctypes.util import find_library
     dll_name = find_library(_PM_DLL.get(platform.system(), 'portmidi'))

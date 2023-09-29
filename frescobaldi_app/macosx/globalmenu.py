@@ -18,10 +18,10 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-The global menubar on Mac OS X.
+The global menubar on macOS.
 
 This menubar is only created when there is no MainWindow. As soon a MainWindow
-is created, this global menubar is deleted, and Mac OS X will use the menubar
+is created, this global menubar is deleted, and macOS will use the menubar
 from the MainWindow.
 
 """
@@ -222,5 +222,3 @@ def slot_session_action(action):
 def help_about():
     import about
     about.AboutDialog(None).exec_()
-
-
