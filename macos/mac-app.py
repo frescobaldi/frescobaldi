@@ -22,8 +22,8 @@ try:
 except NameError:
     string_types = str
 
-macosx = os.path.realpath(os.path.dirname(__file__))
-root = os.path.dirname(macosx)
+macos = os.path.realpath(os.path.dirname(__file__))
+root = os.path.dirname(macos)
 
 sys.path.insert(0, root)
 
@@ -36,8 +36,8 @@ try:
 except ImportError:
     dylib_name = None
 
-icon = f'{macosx}/icons/{appinfo.name}.icns'
-ipstrings = f'{macosx}/app_resources/InfoPlist.strings'
+icon = f'{macos}/icons/{appinfo.name}.icns'
+ipstrings = f'{macos}/app_resources/InfoPlist.strings'
 
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('-f', '--force', action = 'store_true', \

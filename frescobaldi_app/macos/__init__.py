@@ -20,7 +20,7 @@
 """
 Functions that have to do with macOS-specific behaviour.
 
-Importing this package does nothing; the macosx.setup module sets up
+Importing this package does nothing; the macos.setup module sets up
 the macOS-specific behaviour, such as the global menu and the file open event
 handler, etc.
 
@@ -41,7 +41,7 @@ def inside_app_bundle():
 
 def inside_lightweight_app_bundle():
     """Return True if we are inside a lightweight .app bundle."""
-    # A lightweight .app bundle (created with macosx/mac-app.py without
+    # A lightweight .app bundle (created with macos/mac-app.py without
     # the standalone option) contains a symlink to the Python interpreter
     # instead of a copy.
     return (inside_app_bundle()

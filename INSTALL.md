@@ -183,10 +183,10 @@ To use the script you need cx_Freeze and Inno Setup.
 
 ## macOS application bundle
 
-The macosx/mac-app.py script can build an application bundle on macOS.
+The macos/mac-app.py script can build an application bundle on macOS.
 To see the usage notes, run:
 
-    python macosx/mac-app.py -h
+    python macos/mac-app.py -h
 
 The application bundle will be created inside a 'dist' folder in the current
 working directory.
@@ -196,7 +196,7 @@ instructions on the further steps needed to get a **fully** standalone
 self-contained application bundle).
 To use the script you need argparse (included in Python >= 2.7) and py2app.
 
-A macosx/build-dmg.sh script is provided to build the **fully** standalone
+A macos/build-dmg.sh script is provided to build the **fully** standalone
 application bundle and wrap it in a distributable DMG disk image along with
 the README and COPYING files.
 The script assumes a specific system configuration (for details run the script

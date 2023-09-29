@@ -48,9 +48,9 @@ class WebEngineDummy(QWidget):
                      + "so the {tool} cannot be loaded.</b>").format(
                      tool = self.parentWidget().windowTitle()))
         if platform.system() == "Darwin":
-            import macosx
-            if (macosx.inside_app_bundle()
-                    and not macosx.inside_lightweight_app_bundle()):
+            import macos
+            if (macos.inside_app_bundle()
+                    and not macos.inside_lightweight_app_bundle()):
                 message = (
                     message + "<br><br>"
                     + _("PyQtWebEngine has been intentionally excluded from "
