@@ -289,7 +289,7 @@ def universal_newlines(text):
 def platform_newlines(text):
     """Convert newlines in text to the platform-specific newline.
 
-    On Unix/Linux/Mac OS X this is '\\n', on Windows '\\r\\n'.
+    On Unix this is '\\n', on Windows '\\r\\n'.
 
     """
     return universal_newlines(text).replace('\n', os.linesep)

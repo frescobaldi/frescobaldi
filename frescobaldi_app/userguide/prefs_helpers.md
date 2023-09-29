@@ -1,11 +1,11 @@
 === Helper Applications ===
-    
+
 In this page you can enter commands to open different file types.
 `$f` is replaced with the filename,
-`$u` with the URL. 
+`$u` with the URL.
 Leave a field empty to use the operating system default application.
 
-For the e-mail setting, the command should accept a 
+For the e-mail setting, the command should accept a
 `mailto:` url.
 
 For the command prompt, the command should open a console window.
@@ -14,7 +14,7 @@ A `$f` value is replaced with the directory of the current document.
 == Printing Music ==
 
 The printing command is used to print a PostScript or PDF file.
-On Linux you don't need this, but on Windows and Mac OS X you can
+On Linux you don't need this, but on Windows and macOS you can
 provide a command to avoid that PDF documents are being printed
 using raster images, which is less optimal.
 

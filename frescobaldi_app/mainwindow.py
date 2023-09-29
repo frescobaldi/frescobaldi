@@ -1327,7 +1327,7 @@ class ActionCollection(actioncollection.ActionCollection):
 
         self.help_manual.setShortcuts(QKeySequence.HelpContents)
 
-        # Mac OS X-specific roles?
+        # macOS-specific roles?
         if platform.system() == "Darwin":
             import macosx
             if macosx.use_osx_menu_roles():

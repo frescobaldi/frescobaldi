@@ -21,7 +21,7 @@
 This handles the QEvent::FileOpen event type sent to the QApplication when
 a file is clicked in the file manager.
 
-Currently this makes only sense on Mac OS X.
+Currently this makes only sense on macOS.
 """
 
 
@@ -64,5 +64,3 @@ def initialize():
     global handler
     handler = FileOpenEventHandler()
     app.qApp.installEventFilter(handler)
-
-

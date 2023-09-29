@@ -18,10 +18,10 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Functions that have to do with Mac OS X-specific behaviour.
+Functions that have to do with macOS-specific behaviour.
 
 Importing this package does nothing; the macosx.setup module sets up
-the Mac OS X-specific behaviour, such as the global menu and the file open event
+the macOS-specific behaviour, such as the global menu and the file open event
 handler, etc.
 
 """
@@ -48,7 +48,7 @@ def inside_lightweight_app_bundle():
             and os.path.islink(os.getcwd() + '/../MacOS/python'))
 
 def use_osx_menu_roles():
-    """Return True if Mac OS X-specific menu roles are to be used."""
+    """Return True if macOS-specific menu roles are to be used."""
     global _use_roles
     try:
         return _use_roles
