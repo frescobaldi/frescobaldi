@@ -82,7 +82,7 @@ done
 if [[ ./$(basename $0) != $0 ]]
 then
   echo "Error: wrong working directory." 1>&2
-  echo "You must run "$(basename $0)" from the macosx directory of Frescobaldi's source." 1>&2
+  echo "You must run "$(basename $0)" from the macos directory of Frescobaldi's source." 1>&2
   exit 1
 fi
 

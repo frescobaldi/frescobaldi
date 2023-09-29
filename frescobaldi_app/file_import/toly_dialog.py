@@ -155,8 +155,8 @@ class ToLyDialog(QDialog):
             encoding='utf-8')
         j._output_file = output
         if platform.system() == "Darwin":
-            import macosx
-            if macosx.inside_app_bundle():
+            import macos
+            if macos.inside_app_bundle():
                 j.environment['PYTHONPATH'] = None
                 j.environment['PYTHONHOME'] = None
 

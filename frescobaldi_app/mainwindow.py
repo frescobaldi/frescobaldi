@@ -1329,8 +1329,8 @@ class ActionCollection(actioncollection.ActionCollection):
 
         # macOS-specific roles?
         if platform.system() == "Darwin":
-            import macosx
-            if macosx.use_osx_menu_roles():
+            import macos
+            if macos.use_osx_menu_roles():
                 self.file_quit.setMenuRole(QAction.QuitRole)
                 self.edit_preferences.setMenuRole(QAction.PreferencesRole)
                 self.help_about.setMenuRole(QAction.AboutRole)

@@ -41,7 +41,7 @@ import util
 import qutil
 
 if platform.system() == "Darwin":
-    import macosx
+    import macos
 
 _infos = None   # this can hold a list of configured LilyPondInfo instances
 
@@ -194,7 +194,7 @@ class LilyPondInfo:
                 # Default path for Homebrew on MacOS x86_64.
                 '/usr/local/bin',
             ]
-            if macosx.inside_app_bundle():
+            if macos.inside_app_bundle():
                 # By default, the PATH environment variable for app bundles
                 # does not contain the path which is required for lilypond
                 # and other helper programs like gs.

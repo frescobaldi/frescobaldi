@@ -96,10 +96,10 @@ def python_poppler_version():
 if platform.system() == "Darwin":
     @_catch_unknown
     def mac_installation_kind():
-        import macosx
-        if macosx.inside_lightweight_app_bundle():
+        import macos
+        if macos.inside_lightweight_app_bundle():
             return 'lightweight .app bundle'
-        elif macosx.inside_app_bundle():
+        elif macos.inside_app_bundle():
             return 'standalone .app bundle'
         else:
             return 'command line'

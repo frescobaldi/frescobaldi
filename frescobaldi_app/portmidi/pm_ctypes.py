@@ -10,7 +10,7 @@ import sys
 from ctypes import (CDLL, CFUNCTYPE, POINTER, Structure, byref, c_char_p,
     c_int32, c_uint, c_void_p, cast, create_string_buffer)
 
-import macosx
+import macos
 
 # path to portmidi in the standalone .app bundle
 _PM_MACOS_APP = '../Frameworks/libportmidi.dylib'
@@ -93,7 +93,7 @@ if platform.system() == "Windows":
         return None
 
     dll_name = find_library(_PM_DLL['Windows'], [os.path.dirname(__file__)])
-elif platform.system() == "Darwin" and macosx.inside_app_bundle() and os.path.exists(_PM_MACOS_APP):
+elif platform.system() == "Darwin" and macos.inside_app_bundle() and os.path.exists(_PM_MACOS_APP):
     dll_name = _PM_MACOS_APP
 else:
     from ctypes.util import find_library

@@ -225,8 +225,8 @@ class Dialog(QDialog):
         else:
             j.environment.pop('LC_MESSAGES', None)
         if platform.system() == "Darwin":
-            import macosx
-            if macosx.inside_app_bundle():
+            import macos
+            if macos.inside_app_bundle():
                 j.environment['PYTHONPATH'] = None
                 j.environment['PYTHONHOME'] = None
 
