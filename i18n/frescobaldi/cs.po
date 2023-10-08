@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-09-23 16:19+0200\n"
+"POT-Creation-Date: 2023-10-08 13:04+0200\n"
 "PO-Revision-Date: 2020-11-29 20:51+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -458,13 +458,13 @@ msgstr "Kopírovat soubor {png} do schránky."
 #: ../../frescobaldi_app/copy2image.py:219
 #: ../../frescobaldi_app/engrave/custom.py:258
 #: ../../frescobaldi_app/fonts/musicfonts.py:617
-#: ../../frescobaldi_app/preferences/lilypond.py:719
+#: ../../frescobaldi_app/preferences/lilypond.py:731
 msgid "SVG"
 msgstr "SVG"
 
 #: ../../frescobaldi_app/copy2image.py:220
 #: ../../frescobaldi_app/engrave/custom.py:236
-#: ../../frescobaldi_app/preferences/lilypond.py:716
+#: ../../frescobaldi_app/preferences/lilypond.py:728
 msgid "PDF"
 msgstr "PDF"
 
@@ -511,6 +511,7 @@ msgstr "Uložit obrázek jako"
 #: ../../frescobaldi_app/preferences/fontscolors.py:550
 #: ../../frescobaldi_app/preferences/import_export.py:94
 #: ../../frescobaldi_app/preferences/import_export.py:177
+#: ../../frescobaldi_app/preferences/lilypond.py:206
 #: ../../frescobaldi_app/preferences/shortcuts.py:208
 #: ../../frescobaldi_app/sessions/dialog.py:108
 #: ../../frescobaldi_app/sessions/dialog.py:129
@@ -1698,7 +1699,7 @@ msgid "Layout Control"
 msgstr "Ovládání rozvržení"
 
 #: ../../frescobaldi_app/engrave/custom.py:137
-#: ../../frescobaldi_app/preferences/lilypond.py:667
+#: ../../frescobaldi_app/preferences/lilypond.py:679
 msgid "Delete intermediate output files"
 msgstr "Smazat přechodné výstupní soubory"
 
@@ -1708,7 +1709,7 @@ msgid "Embed Source Code"
 msgstr "Vložit zdrojový kód (LilyPond >= 2.19.39)"
 
 #: ../../frescobaldi_app/engrave/custom.py:139
-#: ../../frescobaldi_app/preferences/lilypond.py:674
+#: ../../frescobaldi_app/preferences/lilypond.py:686
 msgid "Run LilyPond with English messages"
 msgstr "Spustit LilyPond s anglickými zprávami"
 
@@ -4073,7 +4074,7 @@ msgid "Comment"
 msgstr "Poznámka"
 
 #: ../../frescobaldi_app/preferences/fontscolors.py:514
-#: ../../frescobaldi_app/preferences/lilypond.py:609
+#: ../../frescobaldi_app/preferences/lilypond.py:621
 #: ../../frescobaldi_app/scorewiz/settings.py:335
 msgid "LilyPond"
 msgstr "LilyPond"
@@ -4521,15 +4522,15 @@ msgstr ""
 msgid "No shortcuts found."
 msgstr "Nenalezeny žádné klávesové zkratky."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:105
+#: ../../frescobaldi_app/preferences/lilypond.py:106
 msgid "LilyPond versions to use"
 msgstr "Verze LilyPondu k použití"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:106
+#: ../../frescobaldi_app/preferences/lilypond.py:107
 msgid "Automatically choose LilyPond version from document"
 msgstr "Automaticky vybrat verzi LilyPondu z dokumentu."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:108
+#: ../../frescobaldi_app/preferences/lilypond.py:109
 msgid ""
 "If checked, the document's version determines the LilyPond version to use.\n"
 "See \"What's This\" for more information."
@@ -4537,124 +4538,134 @@ msgstr ""
 "Je-li zaškrtnuto, verze dokumentu určuje, která verze LilyPondu se použije.\n"
 "Pro další informace se podívejte na \"Co je toto\"."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:111
+#: ../../frescobaldi_app/preferences/lilypond.py:112
 #, python-brace-format
 msgid "See also {link}."
 msgstr "Podívejte se také na {link}."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:141
+#: ../../frescobaldi_app/preferences/lilypond.py:142
 msgid "LilyPond downloads are in progress. Stop them?"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:183
+#: ../../frescobaldi_app/preferences/lilypond.py:184
 msgid "Set as &Default"
 msgstr "Nastavit jako &výchozí"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:361
+#: ../../frescobaldi_app/preferences/lilypond.py:207
+msgid ""
+"You have installed Frescobaldi from Flathub using Flatpak. Because Flatpak "
+"isolates apps from the rest of the system, it is not possible to use custom "
+"LilyPond binaries in this configuration. Please either let Frescobaldi auto-"
+"install a given LilyPond version, using the “Add…” menu, or if you wish to "
+"use a custom build, install Frescobaldi using a distribution package or from "
+"source."
+msgstr ""
+
+#: ../../frescobaldi_app/preferences/lilypond.py:373
 #, fuzzy, python-brace-format
 msgid "Could not download LilyPond {version}"
 msgstr "Convert-ly z LilyPondu {version}"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:365
+#: ../../frescobaldi_app/preferences/lilypond.py:377
 #, python-brace-format
 msgid "Downloading LilyPond {version}... {progress}%"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:376
+#: ../../frescobaldi_app/preferences/lilypond.py:388
 msgid "default"
 msgstr "Výchozí"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:397
+#: ../../frescobaldi_app/preferences/lilypond.py:409
 #, fuzzy
 msgid "Downloading LilyPond version list..."
 msgstr "Stahuje se výpis obsahu adresáře..."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:399
+#: ../../frescobaldi_app/preferences/lilypond.py:411
 #, fuzzy
 msgctxt "Button to register a custom LilyPond installation"
 msgid "Custom..."
 msgstr "Vlastní"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:439
+#: ../../frescobaldi_app/preferences/lilypond.py:451
 #, python-brace-format
 msgctxt "latest stable LilyPond release"
 msgid "{major}.{minor}.{micro} (latest &stable)"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:453
+#: ../../frescobaldi_app/preferences/lilypond.py:465
 #, python-brace-format
 msgctxt "latest unstable LilyPond release"
 msgid "{major}.{minor}.{micro} (latest &unstable)"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:462
+#: ../../frescobaldi_app/preferences/lilypond.py:474
 #, fuzzy
 msgctxt "LilyPond versions other than latest stable/unstable"
 msgid "Other..."
 msgstr "Jiné"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:485
+#: ../../frescobaldi_app/preferences/lilypond.py:497
 #, fuzzy
 msgid "Could not download LilyPond version list"
 msgstr "Vyberte požadovanou verzi LilyPondu."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:602
+#: ../../frescobaldi_app/preferences/lilypond.py:614
 msgid "Convert-ly:"
 msgstr "Convert-ly:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:603
+#: ../../frescobaldi_app/preferences/lilypond.py:615
 msgid "LilyPond-book:"
 msgstr "LilyPond-book:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:604
+#: ../../frescobaldi_app/preferences/lilypond.py:616
 msgid "Midi2ly:"
 msgstr "Midi2ly:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:605
+#: ../../frescobaldi_app/preferences/lilypond.py:617
 msgid "MusicXML2ly:"
 msgstr "MusicXML2ly:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:606
+#: ../../frescobaldi_app/preferences/lilypond.py:618
 msgid "ABC2ly:"
 msgstr "ABC2ly:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:610
+#: ../../frescobaldi_app/preferences/lilypond.py:622
 msgid "Label:"
 msgstr "Štítek:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:611
+#: ../../frescobaldi_app/preferences/lilypond.py:623
 msgid "How this version of LilyPond will be displayed."
 msgstr "Jak se bude tato verze LilyPondu zobrazovat."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:613
+#: ../../frescobaldi_app/preferences/lilypond.py:625
 msgid "LilyPond Command:"
 msgstr "Příkaz pro LilyPond:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:614
+#: ../../frescobaldi_app/preferences/lilypond.py:626
 msgid "Name or full path of the LilyPond program."
 msgstr "Název nebo úplná cesta k programu LilyPond."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:615
+#: ../../frescobaldi_app/preferences/lilypond.py:627
 msgid "Include in automatic version selection"
 msgstr "Zahrnout do automatického výběru verze"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:616
+#: ../../frescobaldi_app/preferences/lilypond.py:628
 msgid "General"
 msgstr "Obecné"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:617
+#: ../../frescobaldi_app/preferences/lilypond.py:629
 msgid "Tool Commands"
 msgstr "Příkazy"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:662
+#: ../../frescobaldi_app/preferences/lilypond.py:674
 msgid "Running LilyPond"
 msgstr "Spuštění LilyPondu"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:663
+#: ../../frescobaldi_app/preferences/lilypond.py:675
 msgid "Save document if possible"
 msgstr "Uložit dokument, je-li to možné"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:665
+#: ../../frescobaldi_app/preferences/lilypond.py:677
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
@@ -4662,15 +4673,15 @@ msgstr ""
 "Je-li zaškrtnuto, dokument je uložen, když je místní nebo upravený.\n"
 "Jinak je pro běh LilyPondu použit dočasný soubor."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:669
+#: ../../frescobaldi_app/preferences/lilypond.py:681
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr "Je-li zaškrtnuto, LilyPond smaže prostřední soubory PostScript."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:670
+#: ../../frescobaldi_app/preferences/lilypond.py:682
 msgid "Embed Source Code files in publish mode"
 msgstr "Vložit soubory se zdrojovým kódem v režimu vydání"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:672
+#: ../../frescobaldi_app/preferences/lilypond.py:684
 #, fuzzy
 msgid ""
 "If checked, the LilyPond source files will be embedded in the PDF\n"
@@ -4680,7 +4691,7 @@ msgstr ""
 "když je LilyPond spuštěn v režimu vydání.\n"
 "Tato vlastnost je dostupná od LilyPondu verze 2.19.39."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:676
+#: ../../frescobaldi_app/preferences/lilypond.py:688
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
@@ -4688,31 +4699,31 @@ msgstr ""
 "Je-li zaškrtnuto, výstupní zprávy LilyPondu budou v anglickém jazyce.\n"
 "To může být užitečné pro hlášení o chybách."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:678
+#: ../../frescobaldi_app/preferences/lilypond.py:690
 msgid "LilyPond include path:"
 msgstr "Cesta obsahující LilyPond:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:715
+#: ../../frescobaldi_app/preferences/lilypond.py:727
 msgid "Default output format"
 msgstr "Výchozí výstupní formát"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:718
+#: ../../frescobaldi_app/preferences/lilypond.py:730
 msgid "Create PDF (Portable Document Format) documents by default."
 msgstr ""
 "Vytvářet dokumenty PDF (Portable Document Format - přenositelný formát "
 "dokumentu) ve výchozím nastavení."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:721
+#: ../../frescobaldi_app/preferences/lilypond.py:733
 msgid "Create SVG (Scalable Vector Graphics) documents by default."
 msgstr ""
 "Vytvářet dokumenty SVG (Scalable Vector Graphics - škálovatelná vektorová "
 "grafika) ve výchozím nastavení."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:722
+#: ../../frescobaldi_app/preferences/lilypond.py:734
 msgid "Open default viewer after successful compile"
 msgstr "Po úspěšném překladu otevřít výchozí prohlížeč"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:724
+#: ../../frescobaldi_app/preferences/lilypond.py:736
 msgid ""
 "Shows the PDF or SVG music view when a compile job finishes successfully."
 msgstr ""
