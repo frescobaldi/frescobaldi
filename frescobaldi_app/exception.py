@@ -114,7 +114,7 @@ class ExceptionDialog(QDialog):
             extension = self._ext_maintainer[0]
             rcpt = self._ext_maintainer[1]
             ext_intro = '\n{}\n\n'.format(
-                _("An error occurred in extension '{name}'").format(name=extension))
+                _("An error occurred in extension '{name}':").format(name=extension))
             ext_header = f' [{self._ext_maintainer[0]}]'
             bugreport.email(
                 self._tbshort + ext_header,

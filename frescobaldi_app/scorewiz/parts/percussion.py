@@ -247,7 +247,7 @@ class Drums(_base.Part):
             ly.dom.Line(f"\\override StaffSymbol #'line-count = #{v}", p.getWith())
         if self.drumStems.isChecked():
             ly.dom.Line("\\override Stem #'stencil = ##f", p.getWith())
-            ly.dom.Line("\\override Stem #'length = #3  % " + _("keep some distance."),
+            ly.dom.Line("\\override Stem #'length = #3  % " + _("keep some distance"),
                 p.getWith())
         data.nodes.append(p)
 

@@ -54,7 +54,7 @@ class ExternalCommandDialog(widgets.dialog.Dialog):
 
     def run_job(self, job):
         """Run a job.Job()."""
-        self.setMessage(_("Please wait until the command finishes"))
+        self.setMessage(_("Please wait until the command finishes."))
         self.setStandardButtons(('cancel',))
         self.job = job
         self.log.connectJob(job)
@@ -89,5 +89,3 @@ class ExternalCommandDialog(widgets.dialog.Dialog):
 
         """
         pass
-
-

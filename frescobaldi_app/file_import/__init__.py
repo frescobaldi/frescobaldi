@@ -93,8 +93,8 @@ class FileImport(plugin.MainWindowPlugin):
                 self.run_import()
             else:
                 QMessageBox.critical(None, _("Error"),
-                    _("The file {filename} could not be converted. "
-                      "Wrong file type.").format(filename=filename))
+                    _("The file {filename} could not be converted: "
+                      "wrong file type.").format(filename=filename))
 
     def get_import_file(self, filetypes, caption, multiple=False):
         """Open a File Open dialog for the requested filetype(s),

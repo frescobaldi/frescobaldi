@@ -195,7 +195,7 @@ class FontsPreviewWidget(QWidget):
             'label': _('Real Book (Lead Sheet)'),
             'file': 'realbook.ly',
             'tooltip': _(
-                "Jazz-like lead sheet.\n"
+                "Jazz-like lead sheet\n"
                 + "NOTE: beautiful results rely on appropriate text fonts.\n"
                 + "Good choices are \"lilyjazz-text\" for roman and\n"
                 + "\"lilyjazz-chords\" for sans text fonts."
@@ -206,7 +206,7 @@ class FontsPreviewWidget(QWidget):
             'file': 'schenker.ly',
             'tooltip': _(
                 "Schenker diagram with absolutely\n"
-                + "non-standard notation."
+                + "non-standard notation"
             )
         })
         add_entry({

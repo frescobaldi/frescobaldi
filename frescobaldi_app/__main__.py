@@ -68,22 +68,22 @@ def parse_commandline():
         help=_("show version numbers of {appname} and its supporting modules "
                "and exit").format(appname=appinfo.appname))
     parser.add_argument('-e', '--encoding', metavar=_("ENC"),
-        help=_("Encoding to use"))
+        help=_("encoding to use"))
     parser.add_argument('-l', '--line', type=int, metavar=_("NUM"),
-        help=_("Line number to go to, starting at 1"))
+        help=_("line number to go to, starting at 1"))
     parser.add_argument('-c', '--column', type=int, metavar=_("NUM"),
-        help=_("Column to go to, starting at 1"))
+        help=_("column to go to, starting at 1"))
     parser.add_argument('--start', metavar=_("NAME"),
-        help=_("Session to start ('{none}' for empty session)").format(none="-"),
+        help=_("session to start ('{none}' for empty session)").format(none="-"),
         dest="session")
     parser.add_argument('--list-sessions', action="store_true", default=False,
-        help=_("List the session names and exit"))
+        help=_("list the session names and exit"))
     parser.add_argument('-n', '--new', action="store_true", default=False,
-        help=_("Always start a new instance"))
+        help=_("always start a new instance"))
     parser.add_argument('--python-ly', type=str, metavar=_("STR"), default="",
-        help=_("Path to python-ly"))
+        help=_("path to python-ly"))
     parser.add_argument('files', metavar=_("file"), nargs='*',
-        help=_("File to be opened"))
+        help=_("file to be opened"))
 
     # Make sure debugger options are recognized as valid. These are passed automatically
     # from PyDev in Eclipse to the inferior process.

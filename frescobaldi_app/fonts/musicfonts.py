@@ -165,7 +165,7 @@ class MusicFontsWidget(QWidget):
                 "Installing fonts in the LilyPond installation "
                 "appears to require administrator privileges on "
                 "your system and can unfortunately not be handled "
-                "by Frescobaldi,"
+                "by Frescobaldi."
             ))
             msg_box.setDetailedText(f"{e}")
             msg_box.exec()

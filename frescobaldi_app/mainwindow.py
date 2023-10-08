@@ -995,7 +995,7 @@ class MainWindow(QMainWindow):
         dlg.setIntMinimum(1)
         dlg.setIntMaximum(line_count)
         dlg.setIntValue(current_line)
-        dlg.setLabelText(_("Goto Line Number (1-{num}):").format(num=line_count))
+        dlg.setLabelText(_("Go to Line Number (1-{num}):").format(num=line_count))
         dlg.setWindowFlags(Qt.Popup)
         dlg.move(pos)
         dlg_result = dlg.exec()
@@ -1402,7 +1402,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_wrap_lines.setText(_("Wrap &Lines"))
         self.view_scroll_up.setText(_("Scroll Up"))
         self.view_scroll_down.setText(_("Scroll Down"))
-        self.view_goto_line.setText(_("&Goto Line..."))
+        self.view_goto_line.setText(_("&Go to Line..."))
 
         self.window_new.setText(_("New &Window"))
         self.window_fullscreen.setText(_("&Fullscreen"))

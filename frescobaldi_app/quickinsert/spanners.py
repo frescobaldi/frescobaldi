@@ -78,7 +78,7 @@ class Spanners(tool.Tool):
 
     def tooltip(self):
         """Returns a tooltip"""
-        return _("Slurs, spanners, etcetera.")
+        return _("Slurs, spanners, etc.")
 
 
 class ArpeggioGroup(buttongroup.ButtonGroup):
@@ -313,4 +313,3 @@ _glissandoStyles = {
     'glissando_zigzag': 'zigzag',
     'glissando_trill':  'trill',
 }
-

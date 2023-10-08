@@ -265,7 +265,7 @@ class SessionsAndFiles(preferences.Group):
             "Add pull-down menus in main toolbar"
         ))
         self.verbose_toolbuttons.setToolTip("<font>{}</font>".format(
-            _("If set the file related buttons in the main toolbar will "
+            _("If set, the file related buttons in the main toolbar will "
             "provide pull-down menus with additional functions.")
         ))
 
@@ -296,8 +296,8 @@ class SessionsAndFiles(preferences.Group):
         self.basedirLabel.setToolTip(_("The default folder for your LilyPond documents (optional)."))
         self.customFilename.setText(_("Use custom default file name:"))
         self.customFilename.setToolTip(_(
-            "If checked, Frescobaldi will use the template to generate default file name.\n"
-            "{title} and {composer} will be replaced by title and composer of that document"))
+            "If checked, Frescobaldi will use the template to generate a default file name.\n"
+            "{title} and {composer} will be replaced by title and composer of that document."))
 
         # Sessions Tab
         self.tabs.setTabText(2, _("Sessions"))

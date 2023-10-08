@@ -50,7 +50,7 @@ class BarLines(tool.Tool):
 
     def tooltip(self):
         """Returns a tooltip"""
-        return _("Bar lines, breathing signs, etcetera.")
+        return _("Bar lines, breathing signs, etc.")
 
 
 class BarlinesGroup(buttongroup.ButtonGroup):
@@ -125,6 +125,3 @@ class BreatheGroup(buttongroup.ButtonGroup):
                     '#(make-musicglyph-markup "scripts.{}")\n'
                     "\\breathe").format(glyph)
             self.insertText(text, blankline=True)
-
-
-
