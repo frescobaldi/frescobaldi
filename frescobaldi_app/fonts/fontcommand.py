@@ -245,7 +245,7 @@ class FontCommandWidget(QScrollArea):
         self.cb_paper_block.setText(_("Complete \\paper block"))
         self.cb_paper_block.setToolTip(_(
             "Wrap setting in a complete \\paper block.\n"
-            + "If unchecked generate the raw font setting command."
+            + "If unchecked, generate the raw font setting command."
         ))
 
         self.cb_oll_music.setText(_("Set music font"))

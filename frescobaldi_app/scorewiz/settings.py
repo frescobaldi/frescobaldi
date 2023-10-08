@@ -168,7 +168,7 @@ class GeneralPreferences(QGroupBox):
         self.paperOrientation.setItemText(0, _("Regular"))
         self.paperOrientation.setItemText(1, _("Landscape"))
         self.paperOrientation.setItemText(2, _("Rotated"))
-        self.paperOrientation.setItemData(0, _("Regular portrait orientation."), Qt.ToolTipRole)
+        self.paperOrientation.setItemData(0, _("Regular portrait orientation"), Qt.ToolTipRole)
         self.paperOrientation.setItemData(1, _(
             "Set paper orientation to landscape while keeping upright printing orientation."),
             Qt.ToolTipRole)

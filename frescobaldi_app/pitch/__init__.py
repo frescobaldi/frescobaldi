@@ -187,11 +187,9 @@ class Actions(actioncollection.ActionCollection):
         self.pitch_relative_assume_first_pitch_absolute.setToolTip(_(
             "If checked, always assume that the first pitch of a \\relative {...}\n"
             "expression without startpitch is absolute. Otherwise, Frescobaldi\n"
-            "only assumes this when the LilyPond version >= 2.18."))
+            "only assumes this when the LilyPond version is >= 2.18."))
         self.pitch_relative_write_startpitch.setText(_(
             "Write \\relative with startpitch"))
         self.pitch_relative_write_startpitch.setToolTip(_(
             "If checked, when converting absolute music to relative, a startpitch\n"
             "is added. Otherwise, no starting pitch is written."))
-
-

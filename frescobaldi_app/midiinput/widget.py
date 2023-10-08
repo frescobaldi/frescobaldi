@@ -160,7 +160,7 @@ class Widget(QWidget):
         s.setValue("chordmode", self._chordmode.isChecked())
         s.setValue("relativemode", self._relativemode.isChecked())
         s.setValue("repitchmode", self._repitchmode.isChecked())
-    
+
     def loadsettings(self):
         s = QSettings()
         s.beginGroup("midiinputdock")
@@ -214,7 +214,7 @@ class Widget(QWidget):
             "See \"What's This\" for more information."))
         self._relativemode.setWhatsThis(_(
             "Enter octaves of notes relative to the last note. "
-            "This refers to the last key pressed on the MIDI keyboard, not the last note in the document."
+            "This refers to the last key pressed on the MIDI keyboard, not the last note in the document. "
             "Hold Shift with a note to enter an octave check."))
         self._repitchmode.setText(_("Re-pitch mode"))
         self._repitchmode.setToolTip(_(

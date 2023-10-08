@@ -75,7 +75,7 @@ class Dynamics(tool.Tool):
 
     def tooltip(self):
         """Returns a tooltip"""
-        return _("Dynamic symbols.")
+        return _("Dynamic symbols")
 
 
 class Group(buttongroup.ButtonGroup):
@@ -199,5 +199,3 @@ dynamic_spanners = {
     'decresc':       '\\decresc',
     'dim':           '\\dim',
 }
-
-
