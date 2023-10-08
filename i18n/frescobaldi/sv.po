@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 3.0.0\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-09-23 16:20+0200\n"
+"POT-Creation-Date: 2023-10-08 13:04+0200\n"
 "PO-Revision-Date: 2016-08-16 13:46+0200\n"
 "Last-Translator: Dag Odenhall <dag.odenhall@gmail.com>\n"
 "Language-Team: dag.odenhall@gmail.com\n"
@@ -456,13 +456,13 @@ msgstr "Kopiera till urklipp"
 #: ../../frescobaldi_app/copy2image.py:219
 #: ../../frescobaldi_app/engrave/custom.py:258
 #: ../../frescobaldi_app/fonts/musicfonts.py:617
-#: ../../frescobaldi_app/preferences/lilypond.py:719
+#: ../../frescobaldi_app/preferences/lilypond.py:731
 msgid "SVG"
 msgstr "SVG"
 
 #: ../../frescobaldi_app/copy2image.py:220
 #: ../../frescobaldi_app/engrave/custom.py:236
-#: ../../frescobaldi_app/preferences/lilypond.py:716
+#: ../../frescobaldi_app/preferences/lilypond.py:728
 msgid "PDF"
 msgstr "PDF"
 
@@ -510,6 +510,7 @@ msgstr "Spara bild som"
 #: ../../frescobaldi_app/preferences/fontscolors.py:550
 #: ../../frescobaldi_app/preferences/import_export.py:94
 #: ../../frescobaldi_app/preferences/import_export.py:177
+#: ../../frescobaldi_app/preferences/lilypond.py:206
 #: ../../frescobaldi_app/preferences/shortcuts.py:208
 #: ../../frescobaldi_app/sessions/dialog.py:108
 #: ../../frescobaldi_app/sessions/dialog.py:129
@@ -1727,7 +1728,7 @@ msgid "Layout Control"
 msgstr "Layoutkontroll"
 
 #: ../../frescobaldi_app/engrave/custom.py:137
-#: ../../frescobaldi_app/preferences/lilypond.py:667
+#: ../../frescobaldi_app/preferences/lilypond.py:679
 msgid "Delete intermediate output files"
 msgstr "Ta bort mellanliggande utdatafiler"
 
@@ -1737,7 +1738,7 @@ msgid "Embed Source Code"
 msgstr "Bädda in källkoden (LilyPond >= 2.19.39)"
 
 #: ../../frescobaldi_app/engrave/custom.py:139
-#: ../../frescobaldi_app/preferences/lilypond.py:674
+#: ../../frescobaldi_app/preferences/lilypond.py:686
 msgid "Run LilyPond with English messages"
 msgstr "Kör LilyPond med engelska meddelanden"
 
@@ -4007,7 +4008,7 @@ msgid "Comment"
 msgstr "Kommentar"
 
 #: ../../frescobaldi_app/preferences/fontscolors.py:514
-#: ../../frescobaldi_app/preferences/lilypond.py:609
+#: ../../frescobaldi_app/preferences/lilypond.py:621
 #: ../../frescobaldi_app/scorewiz/settings.py:335
 msgid "LilyPond"
 msgstr "LilyPond"
@@ -4448,183 +4449,193 @@ msgstr ""
 msgid "No shortcuts found."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:105
+#: ../../frescobaldi_app/preferences/lilypond.py:106
 msgid "LilyPond versions to use"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:106
+#: ../../frescobaldi_app/preferences/lilypond.py:107
 msgid "Automatically choose LilyPond version from document"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:108
+#: ../../frescobaldi_app/preferences/lilypond.py:109
 msgid ""
 "If checked, the document's version determines the LilyPond version to use.\n"
 "See \"What's This\" for more information."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:111
+#: ../../frescobaldi_app/preferences/lilypond.py:112
 #, python-brace-format
 msgid "See also {link}."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:141
+#: ../../frescobaldi_app/preferences/lilypond.py:142
 msgid "LilyPond downloads are in progress. Stop them?"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:183
+#: ../../frescobaldi_app/preferences/lilypond.py:184
 msgid "Set as &Default"
 msgstr "Använ&d som standard"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:361
+#: ../../frescobaldi_app/preferences/lilypond.py:207
+msgid ""
+"You have installed Frescobaldi from Flathub using Flatpak. Because Flatpak "
+"isolates apps from the rest of the system, it is not possible to use custom "
+"LilyPond binaries in this configuration. Please either let Frescobaldi auto-"
+"install a given LilyPond version, using the “Add…” menu, or if you wish to "
+"use a custom build, install Frescobaldi using a distribution package or from "
+"source."
+msgstr ""
+
+#: ../../frescobaldi_app/preferences/lilypond.py:373
 #, fuzzy, python-brace-format
 msgid "Could not download LilyPond {version}"
 msgstr "Convert-ly från LilyPond {version}"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:365
+#: ../../frescobaldi_app/preferences/lilypond.py:377
 #, python-brace-format
 msgid "Downloading LilyPond {version}... {progress}%"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:376
+#: ../../frescobaldi_app/preferences/lilypond.py:388
 msgid "default"
 msgstr "standard"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:397
+#: ../../frescobaldi_app/preferences/lilypond.py:409
 #, fuzzy
 msgid "Downloading LilyPond version list..."
 msgstr "Kör LilyPond, detta kan ta en stund..."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:399
+#: ../../frescobaldi_app/preferences/lilypond.py:411
 msgctxt "Button to register a custom LilyPond installation"
 msgid "Custom..."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:439
+#: ../../frescobaldi_app/preferences/lilypond.py:451
 #, python-brace-format
 msgctxt "latest stable LilyPond release"
 msgid "{major}.{minor}.{micro} (latest &stable)"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:453
+#: ../../frescobaldi_app/preferences/lilypond.py:465
 #, python-brace-format
 msgctxt "latest unstable LilyPond release"
 msgid "{major}.{minor}.{micro} (latest &unstable)"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:462
+#: ../../frescobaldi_app/preferences/lilypond.py:474
 #, fuzzy
 msgctxt "LilyPond versions other than latest stable/unstable"
 msgid "Other..."
 msgstr "Annat"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:485
+#: ../../frescobaldi_app/preferences/lilypond.py:497
 #, fuzzy
 msgid "Could not download LilyPond version list"
 msgstr "Välj den version av LilyPond du önskar."
 
-#: ../../frescobaldi_app/preferences/lilypond.py:602
+#: ../../frescobaldi_app/preferences/lilypond.py:614
 msgid "Convert-ly:"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:603
+#: ../../frescobaldi_app/preferences/lilypond.py:615
 msgid "LilyPond-book:"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:604
+#: ../../frescobaldi_app/preferences/lilypond.py:616
 msgid "Midi2ly:"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:605
+#: ../../frescobaldi_app/preferences/lilypond.py:617
 msgid "MusicXML2ly:"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:606
+#: ../../frescobaldi_app/preferences/lilypond.py:618
 msgid "ABC2ly:"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:610
+#: ../../frescobaldi_app/preferences/lilypond.py:622
 msgid "Label:"
 msgstr "Etikett:"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:611
+#: ../../frescobaldi_app/preferences/lilypond.py:623
 msgid "How this version of LilyPond will be displayed."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:613
+#: ../../frescobaldi_app/preferences/lilypond.py:625
 msgid "LilyPond Command:"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:614
+#: ../../frescobaldi_app/preferences/lilypond.py:626
 msgid "Name or full path of the LilyPond program."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:615
+#: ../../frescobaldi_app/preferences/lilypond.py:627
 msgid "Include in automatic version selection"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:616
+#: ../../frescobaldi_app/preferences/lilypond.py:628
 msgid "General"
 msgstr "Allmänt"
 
-#: ../../frescobaldi_app/preferences/lilypond.py:617
+#: ../../frescobaldi_app/preferences/lilypond.py:629
 msgid "Tool Commands"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:662
+#: ../../frescobaldi_app/preferences/lilypond.py:674
 msgid "Running LilyPond"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:663
+#: ../../frescobaldi_app/preferences/lilypond.py:675
 msgid "Save document if possible"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:665
+#: ../../frescobaldi_app/preferences/lilypond.py:677
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:669
+#: ../../frescobaldi_app/preferences/lilypond.py:681
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:670
+#: ../../frescobaldi_app/preferences/lilypond.py:682
 msgid "Embed Source Code files in publish mode"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:672
+#: ../../frescobaldi_app/preferences/lilypond.py:684
 msgid ""
 "If checked, the LilyPond source files will be embedded in the PDF\n"
 "when LilyPond is started in publish mode."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:676
+#: ../../frescobaldi_app/preferences/lilypond.py:688
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:678
+#: ../../frescobaldi_app/preferences/lilypond.py:690
 msgid "LilyPond include path:"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:715
+#: ../../frescobaldi_app/preferences/lilypond.py:727
 msgid "Default output format"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:718
+#: ../../frescobaldi_app/preferences/lilypond.py:730
 msgid "Create PDF (Portable Document Format) documents by default."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:721
+#: ../../frescobaldi_app/preferences/lilypond.py:733
 msgid "Create SVG (Scalable Vector Graphics) documents by default."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:722
+#: ../../frescobaldi_app/preferences/lilypond.py:734
 msgid "Open default viewer after successful compile"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/lilypond.py:724
+#: ../../frescobaldi_app/preferences/lilypond.py:736
 msgid ""
 "Shows the PDF or SVG music view when a compile job finishes successfully."
 msgstr ""
