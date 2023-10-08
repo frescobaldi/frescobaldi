@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-10-08 13:04+0200\n"
+"POT-Creation-Date: 2023-10-08 13:14+0200\n"
 "PO-Revision-Date: 2021-04-29 16:20+0300\n"
 "Last-Translator: Olesya Gerasimenko <translation-team@basealt.ru>\n"
 "Language-Team: Basealt Translation Team\n"
@@ -44,7 +44,7 @@ msgid "ENC"
 msgstr "ENC"
 
 #: ../../frescobaldi_app/__main__.py:71
-msgid "Encoding to use"
+msgid "encoding to use"
 msgstr "Задать кодировку"
 
 #: ../../frescobaldi_app/__main__.py:72 ../../frescobaldi_app/__main__.py:74
@@ -52,11 +52,11 @@ msgid "NUM"
 msgstr "NUM"
 
 #: ../../frescobaldi_app/__main__.py:73
-msgid "Line number to go to, starting at 1"
+msgid "line number to go to, starting at 1"
 msgstr "Начальная строка, начиная с 1"
 
 #: ../../frescobaldi_app/__main__.py:75
-msgid "Column to go to, starting at 1"
+msgid "column to go to, starting at 1"
 msgstr "Начальная колонка, начиная с 1"
 
 #: ../../frescobaldi_app/__main__.py:76
@@ -65,15 +65,15 @@ msgstr "NAME"
 
 #: ../../frescobaldi_app/__main__.py:77
 #, python-brace-format
-msgid "Session to start ('{none}' for empty session)"
+msgid "session to start ('{none}' for empty session)"
 msgstr "Начальный сеанс («{none}» для пустого сеанса)"
 
 #: ../../frescobaldi_app/__main__.py:80
-msgid "List the session names and exit"
+msgid "list the session names and exit"
 msgstr "Вывести список сеансов и выйти"
 
 #: ../../frescobaldi_app/__main__.py:82
-msgid "Always start a new instance"
+msgid "always start a new instance"
 msgstr "Всегда начинать новый процесс"
 
 #: ../../frescobaldi_app/__main__.py:83
@@ -81,7 +81,7 @@ msgid "STR"
 msgstr "STR"
 
 #: ../../frescobaldi_app/__main__.py:84
-msgid "Path to python-ly"
+msgid "path to python-ly"
 msgstr "Путь к python-ly"
 
 #: ../../frescobaldi_app/__main__.py:85
@@ -89,7 +89,7 @@ msgid "file"
 msgstr "файл"
 
 #: ../../frescobaldi_app/__main__.py:86
-msgid "File to be opened"
+msgid "file to be opened"
 msgstr "Открыть данный файл"
 
 #: ../../frescobaldi_app/__main__.py:154
@@ -761,7 +761,7 @@ msgstr "Послать отчет об ошибке по e-mail..."
 
 #: ../../frescobaldi_app/exception.py:117
 #, python-brace-format
-msgid "An error occurred in extension '{name}'"
+msgid "An error occurred in extension '{name}':"
 msgstr "В расширении «{name}» произошла ошибка"
 
 #: ../../frescobaldi_app/exception.py:122
@@ -770,7 +770,7 @@ msgid "Optionally describe below what you were doing:"
 msgstr "По возможности опишите ваши действия:"
 
 #: ../../frescobaldi_app/externalcommand.py:57
-msgid "Please wait until the command finishes"
+msgid "Please wait until the command finishes."
 msgstr "Дождитесь окончания работы программы"
 
 #: ../../frescobaldi_app/externalcommand.py:66
@@ -934,7 +934,7 @@ msgstr "Экспорт в HTML"
 
 #: ../../frescobaldi_app/mainwindow.py:998
 #, python-brace-format
-msgid "Goto Line Number (1-{num}):"
+msgid "Go to Line Number (1-{num}):"
 msgstr "Перейти к строке номер (1-{num}):"
 
 #: ../../frescobaldi_app/mainwindow.py:1045
@@ -1166,7 +1166,7 @@ msgid "Scroll Down"
 msgstr "Вниз"
 
 #: ../../frescobaldi_app/mainwindow.py:1405
-msgid "&Goto Line..."
+msgid "&Go to Line..."
 msgstr "&Перейти к строке..."
 
 #: ../../frescobaldi_app/mainwindow.py:1407
@@ -2067,7 +2067,7 @@ msgstr "Экспорт в различные звуковые форматы."
 
 #: ../../frescobaldi_app/file_import/__init__.py:96
 #, python-brace-format
-msgid "The file {filename} could not be converted. Wrong file type."
+msgid "The file {filename} could not be converted: wrong file type."
 msgstr "Не удалось преобразовать файл {filename}. Неверный тип файла."
 
 #: ../../frescobaldi_app/file_import/__init__.py:120
@@ -2325,7 +2325,7 @@ msgstr "Полный блок \\paper"
 #: ../../frescobaldi_app/fonts/fontcommand.py:247
 msgid ""
 "Wrap setting in a complete \\paper block.\n"
-"If unchecked generate the raw font setting command."
+"If unchecked, generate the raw font setting command."
 msgstr ""
 "Заключать параметр в полном блоке \\paper.\n"
 "Если параметр не включён, генерируется необработанная команда установки "
@@ -2472,7 +2472,7 @@ msgstr "Не удалось установить шрифты!"
 msgid ""
 "Installing fonts in the LilyPond installation appears to require "
 "administrator privileges on your system and can unfortunately not be handled "
-"by Frescobaldi,"
+"by Frescobaldi."
 msgstr ""
 "Для установки шрифтов в каталог установки LilyPond необходимо обладать "
 "правами администратора системы; к сожалению, установку нельзя выполнить с "
@@ -2604,7 +2604,7 @@ msgstr "Джазовые стандарты (нотная тетрадь)"
 
 #: ../../frescobaldi_app/fonts/preview.py:198
 msgid ""
-"Jazz-like lead sheet.\n"
+"Jazz-like lead sheet\n"
 "NOTE: beautiful results rely on appropriate text fonts.\n"
 "Good choices are \"lilyjazz-text\" for roman and\n"
 "\"lilyjazz-chords\" for sans text fonts."
@@ -2622,7 +2622,7 @@ msgstr "Диаграмма Шенкера"
 #: ../../frescobaldi_app/fonts/preview.py:208
 msgid ""
 "Schenker diagram with absolutely\n"
-"non-standard notation."
+"non-standard notation"
 msgstr ""
 "Диаграмма Шенкера с абсолютно\n"
 "нестандартной нотацией."
@@ -3091,7 +3091,7 @@ msgstr ""
 #: ../../frescobaldi_app/midiinput/widget.py:216
 msgid ""
 "Enter octaves of notes relative to the last note. This refers to the last "
-"key pressed on the MIDI keyboard, not the last note in the document.Hold "
+"key pressed on the MIDI keyboard, not the last note in the document. Hold "
 "Shift with a note to enter an octave check."
 msgstr ""
 "Ввод октав нот относительно последней ноты. Имеется в виду последняя "
@@ -3421,7 +3421,7 @@ msgstr "Первая высота в \\relative {...} является абсо�
 msgid ""
 "If checked, always assume that the first pitch of a \\relative {...}\n"
 "expression without startpitch is absolute. Otherwise, Frescobaldi\n"
-"only assumes this when the LilyPond version >= 2.18."
+"only assumes this when the LilyPond version is >= 2.18."
 msgstr ""
 "Если параметр включён, предполагается, что первая высота выражения\n"
 "\\relative {...} без начальной высоты является абсолютной. Если нет,\n"
@@ -4351,7 +4351,7 @@ msgstr "Добавить раскрывающиеся меню на основн
 
 #: ../../frescobaldi_app/preferences/general.py:268
 msgid ""
-"If set the file related buttons in the main toolbar will provide pull-down "
+"If set, the file related buttons in the main toolbar will provide pull-down "
 "menus with additional functions."
 msgstr ""
 "Если этот параметр установлен, связанные с файлом кнопки на основной панели "
@@ -4426,10 +4426,10 @@ msgstr "Использовать особое имя файла по умолч�
 #: ../../frescobaldi_app/preferences/general.py:299
 #, python-brace-format
 msgid ""
-"If checked, Frescobaldi will use the template to generate default file "
+"If checked, Frescobaldi will use the template to generate a default file "
 "name.\n"
 "{title} and {composer} will be replaced by title and composer of that "
-"document"
+"document."
 msgstr ""
 "Если параметр включён, программа Frescobaldi будет использовать шаблон\n"
 "для генерации имени файла по умолчанию.\n"
@@ -5385,7 +5385,7 @@ msgid "Bar Lines"
 msgstr "Тактовые черты"
 
 #: ../../frescobaldi_app/quickinsert/barlines.py:53
-msgid "Bar lines, breathing signs, etcetera."
+msgid "Bar lines, breathing signs, etc."
 msgstr "Тактовые черты, знаки дыхания и т. п."
 
 #: ../../frescobaldi_app/quickinsert/barlines.py:61
@@ -5515,7 +5515,7 @@ msgid "Dynamics"
 msgstr "Динамика"
 
 #: ../../frescobaldi_app/quickinsert/dynamics.py:78
-msgid "Dynamic symbols."
+msgid "Dynamic symbols"
 msgstr "Динамические символы"
 
 #: ../../frescobaldi_app/quickinsert/dynamics.py:155
@@ -5550,7 +5550,7 @@ msgid "Decrescendo"
 msgstr "Decrescendo"
 
 #: ../../frescobaldi_app/quickinsert/spanners.py:81
-msgid "Slurs, spanners, etcetera."
+msgid "Slurs, spanners, etc."
 msgstr "Лиги, линии и прочее"
 
 #: ../../frescobaldi_app/quickinsert/spanners.py:86
@@ -6095,7 +6095,7 @@ msgid "Rotated"
 msgstr "Повёрнутая"
 
 #: ../../frescobaldi_app/scorewiz/settings.py:171
-msgid "Regular portrait orientation."
+msgid "Regular portrait orientation"
 msgstr "Обычная книжная ориентация."
 
 #: ../../frescobaldi_app/scorewiz/settings.py:173
@@ -6677,7 +6677,7 @@ msgid "Drums follow here."
 msgstr "Партия ударных"
 
 #: ../../frescobaldi_app/scorewiz/parts/percussion.py:250
-msgid "keep some distance."
+msgid "keep some distance"
 msgstr "сохранять дистанцию"
 
 #: ../../frescobaldi_app/scorewiz/parts/percussion.py:256
