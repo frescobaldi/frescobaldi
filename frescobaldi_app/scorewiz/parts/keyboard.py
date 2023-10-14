@@ -113,7 +113,7 @@ class Organ(KeyboardPart):
 
     def createWidgets(self, layout):
         super().createWidgets(layout)
-        grid = layout.itemAt(layout.count() - 2).layout()
+        grid = layout.itemAt(layout.count() - 3).layout()
         self.pedalVoices = QSpinBox(minimum=0, maximum=4, value=1)
         self.pedalVoicesLabel = QLabel()
         self.pedalVoicesLabel.setBuddy(self.pedalVoices)
