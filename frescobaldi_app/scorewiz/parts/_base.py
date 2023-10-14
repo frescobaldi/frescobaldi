@@ -121,6 +121,8 @@ class PianoStaffPart(Part):
         self.lowerVoicesLabel = QLabel()
         self.upperVoices = QSpinBox(minimum=1, maximum=4, value=1)
         self.lowerVoices = QSpinBox(minimum=1, maximum=4, value=1)
+        self.dynamicsStaff = QCheckBox()
+        self.dynamicsStaff.setChecked(True)
 
         self.upperVoicesLabel.setBuddy(self.upperVoices)
         self.lowerVoicesLabel.setBuddy(self.lowerVoices)
@@ -132,6 +134,7 @@ class PianoStaffPart(Part):
         grid.addWidget(self.lowerVoicesLabel, 1, 0)
         grid.addWidget(self.lowerVoices, 1, 1)
         layout.addLayout(grid)
+        layout.addWidget(self.dynamicsStaff)
 
         if self.midiInstruments:
             self.createMidiInstrumentWidgets(layout)
@@ -154,6 +157,7 @@ class PianoStaffPart(Part):
               "like a fugue.")))
         self.upperVoicesLabel.setText(_("Right hand:"))
         self.lowerVoicesLabel.setText(_("Left hand:"))
+        self.dynamicsStaff.setText(_("Center dynamics between staffs"))
         if self.midiInstruments:
             self.translateMidiInstrumentWidgets()
 
@@ -188,6 +192,16 @@ class PianoStaffPart(Part):
             ly.dom.Identifier(a.name, c)
         return staff
 
+    def buildDynamicsStaff(self, data, pianoSim):
+        """Build a special staff to display dynamics."""
+        dynamicsStaff = ly.dom.Dynamics(parent=pianoSim)
+        a = data.assign('dynamics')
+        ly.dom.Identifier(a.name, dynamicsStaff)
+        s = ly.dom.Seq(a)
+        ly.dom.Identifier(data.globalName, s).after = 1
+        ly.dom.LineComment(_("Dynamics follow here."), s)
+        ly.dom.BlankLine(s)
+
     def build(self, data, builder):
         """ Setup structure for a 2-staff PianoStaff. """
         p = ly.dom.PianoStaff()
@@ -195,6 +209,10 @@ class PianoStaffPart(Part):
         s = ly.dom.Sim(p)
         # add two staves, with a respective number of voices.
         self.buildStaff(data, builder, 'right', 1, self.upperVoices.value(), s)
+        if (self.dynamicsStaff.isChecked()
+            and self.upperVoices.value() and self.lowerVoices.value()):
+            # both staffs have to be present to use this feature
+            self.buildDynamicsStaff(data, s)
         self.buildStaff(data, builder, 'left', 0, self.lowerVoices.value(), s, "bass")
         data.nodes.append(p)
 
