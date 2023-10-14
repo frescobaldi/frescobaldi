@@ -183,6 +183,8 @@ class Builder:
         if not (self.firstInstrumentName or self.otherInstrumentName):
             # override the checkbox; this setting is effectively off
             self.showInstrumentNames = False
+        # for calculating the indentation of the first system
+        self.longestInstrumentNameLength = 0
 
         # translator for instrument names
         self._ = _
@@ -421,15 +423,36 @@ class Builder:
             doc.append(h)
             ly.dom.BlankLine(doc)
 
-        # paper size
-        if self.paperSize:
-            ly.dom.Scheme(
-                '(set-paper-size "{}{}"{})'.format(
-                    self.paperSize,
-                    "landscape" if self.paperLandscape else "",
-                " 'landscape" if self.paperRotated else ""),
-                ly.dom.Paper(doc)
-            ).after = 1
+        if self.paperSize or self.showInstrumentNames:
+            paper = ly.dom.Paper(doc)
+
+            # paper size
+            if self.paperSize:
+                ly.dom.Scheme(
+                    '(set-paper-size "{}{}"{})'.format(
+                        self.paperSize,
+                        "landscape" if self.paperLandscape else "",
+                    " 'landscape" if self.paperRotated else ""),
+                    paper
+                ).after = 1
+
+            # instrument names
+            if self.showInstrumentNames:
+                # Increase indent and short-indent (defaults 15mm and 0mm,
+                # respectively) to provide enough space for instrument names
+                ly.dom.LineComment(_("Add space for instrument names"), paper)
+                # 5mm fits about 3 characters at the default font size,
+                # plus 10mm padding to keep everything within the left margin
+                longIndent = min(35,  # enough for most instrument names
+                                 10 + 5 * self.longestInstrumentNameLength // 3)
+                defaultShortIndent = 10  # enough for most abbreviations
+                if self.firstInstrumentName:
+                    indent = longIndent if self.firstInstrumentName == 'long' else defaultShortIndent
+                    ly.dom.Line(f'indent = {indent}\\mm', paper)
+                if self.otherInstrumentName:
+                    shortIndent = longIndent if self.otherInstrumentName == 'long' else defaultShortIndent
+                    ly.dom.Line(f'short-indent = {shortIndent}\\mm', paper)
+
             ly.dom.BlankLine(doc)
 
         layout = ly.dom.Layout()
@@ -515,6 +538,9 @@ class Builder:
         longName = self.instrumentName(part.title, data.num)
         shortName = self.instrumentName(part.short, data.num)
         self.setInstrumentNames(node, longName, shortName)
+        # save this to calculate the 'indent' value in document()
+        if self.showInstrumentNames:
+            self.longestInstrumentNameLength = max(self.longestInstrumentNameLength, len(longName))
 
 
 def assignparts(group):
