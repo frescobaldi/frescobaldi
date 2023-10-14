@@ -129,6 +129,8 @@ class PartData:
         ly.dom.Identifier(self.globalName, s).after = 1
         if transposition is not None:
             toct, tnote, talter = transposition
+            # this corrects the sounding pitch for MIDI after
+            # the written pitch is transposed by SingleVoicePart.build()
             ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), ly.dom.Transposition(s))
         ly.dom.LineComment(_("Music follows here."), s)
         ly.dom.BlankLine(s)
