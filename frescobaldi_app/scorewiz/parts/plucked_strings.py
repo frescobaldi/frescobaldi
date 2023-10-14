@@ -204,6 +204,7 @@ class TablaturePart(_base.Part):
             s = ly.dom.Sim(p)
             s.append(staff)
             s.append(tabstaff)
+            p.getWith()['systemStartDelimiter'] = ly.dom.Scheme("'SystemStartSquare")
 
         builder.setInstrumentNamesFromPart(p, self, data)
         data.nodes.append(p)
