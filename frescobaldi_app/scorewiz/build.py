@@ -178,6 +178,9 @@ class Builder:
         names = ['long', 'short', None]
         self.firstInstrumentName = names[instrumentNames.firstSystem.currentIndex()]
         self.otherInstrumentName = names[instrumentNames.otherSystems.currentIndex()]
+        if not (self.firstInstrumentName or self.otherInstrumentName):
+            # override the checkbox; this setting is effectively off
+            self.showInstrumentNames = False
 
         # translator for instrument names
         self._ = _
