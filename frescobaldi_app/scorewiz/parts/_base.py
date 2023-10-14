@@ -23,6 +23,7 @@ Base types for parts.
 
 
 import collections
+import fractions
 
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QHBoxLayout,
                              QLabel, QSpinBox)
@@ -107,6 +108,17 @@ class SingleVoicePart(Part):
         seq = ly.dom.Seqr(staff)
         if self.clef:
             ly.dom.Clef(self.clef, seq)
+        if self.transposition is not None:
+            toct, tnote, talter = self.transposition
+            if tnote or talter:
+                # use the appropriate key for non-octave transpositions
+                stub = ly.dom.Command('transpose', seq)
+                # the sounding pitch from PartData.assignMusic()...
+                ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), stub)
+                # ...becomes our written middle C
+                ly.dom.Pitch(0, 0, 0, stub)
+                # place the music within our \transpose block
+                seq = ly.dom.Seqr(stub)
         ly.dom.Identifier(a.name, seq)
         data.nodes.append(staff)
 
