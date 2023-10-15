@@ -82,8 +82,8 @@ class Contrabass(StringPart):
         return _("abbreviation for Contrabass", "Cb.")
 
     midiInstrument = 'contrabass'
-    clef = 'bass'
-    octave = -1
+    clef = 'bass_8'
+    octave = -2
 
 
 class BassoContinuo(Cello):
