@@ -305,14 +305,14 @@ class Banjo(TablaturePart):
         self.fourStrings.setEnabled(index <= len(self.tunings))
 
 
-class ClassicalGuitar(TablaturePart):
+class Guitar(TablaturePart):
     @staticmethod
     def title(_=_base.translate):
-        return _("Classical guitar")
+        return _("Guitar")
 
     @staticmethod
     def short(_=_base.translate):
-        return _("abbreviation for Classical guitar", "Gt.")
+        return _("abbreviation for Guitar", "Gt.")
 
     midiInstrument = 'acoustic guitar (nylon)'
     clef = "treble_8"
@@ -344,7 +344,7 @@ class ClassicalGuitar(TablaturePart):
         return self.voices.value()
 
 
-class AcousticGuitar(ClassicalGuitar):
+class AcousticGuitar(Guitar):
     @staticmethod
     def title(_=_base.translate):
         return _("Acoustic guitar")
@@ -360,7 +360,7 @@ class AcousticGuitar(ClassicalGuitar):
     )
 
 
-class ElectricGuitar(ClassicalGuitar):
+class ElectricGuitar(Guitar):
     @staticmethod
     def title(_=_base.translate):
         return _("Electric guitar")
@@ -377,18 +377,6 @@ class ElectricGuitar(ClassicalGuitar):
         'overdriven guitar',
         'distorted guitar',
     )
-
-
-class JazzGuitar(ElectricGuitar):
-    @staticmethod
-    def title(_=_base.translate):
-        return _("Jazz guitar")
-
-    @staticmethod
-    def short(_=_base.translate):
-        return _("abbreviation for Jazz guitar", "J.Gt.")
-
-    midiInstrument = 'electric guitar (jazz)'
 
 
 class AcousticBass(TablaturePart):
@@ -466,10 +454,9 @@ register(
         Mandolin,
         Banjo,
         Ukulele,
-        ClassicalGuitar,
+        Guitar,
         AcousticGuitar,
         ElectricGuitar,
-        JazzGuitar,
         AcousticBass,
         ElectricBass,
         Harp,
