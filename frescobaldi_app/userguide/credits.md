@@ -8,13 +8,13 @@ Most of the bundled icons are created by {tango}.
 
 The following people contributed to {appname} (in alphabetical order):
 
-!Jean Abou Samra
+!Jean Abou Samra:
 : Bug and compatibility fixes, miscellaneous
 
 !Wilbert Berendsen:
 : Main author and core developer
 
-!@mr-bronson
+!@mr-bronson:
 : Encoding-related fixes and other improvements
 
 !Christopher Bryan:
@@ -32,7 +32,7 @@ The following people contributed to {appname} (in alphabetical order):
 : !_(Score Wizard improvements)_,
   _(Score Wizard From Current Document)_
 
-!Jörg Hoffmann
+!Jörg Hoffmann:
 : Windows installers
 
 !Marnen Laibow-Koser:
