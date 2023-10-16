@@ -4845,6 +4845,49 @@ msgstr ""
 "Qui si possono immettere variabili precedute da un `$`. Un doppio `$` sarà "
 "sostituito con uno singolo. Sono riconosciute le seguenti variabili:"
 
+#: ../../frescobaldi_app/userguide/snippet_editor.md:47
+msgid "The current date in YYYY-MM-DD format."
+msgstr "La data attuale in formato AAAA-MM-GG."
+
+#: ../../frescobaldi_app/userguide/snippet_editor.md:50
+msgid "The version of the default LilyPond program."
+msgstr "La versione dell'eseguibile LilyPond predefinito."
+
+#: ../../frescobaldi_app/userguide/snippet_editor.md:53
+msgid "The version of Frescobaldi."
+msgstr "La versione di Frescobaldi."
+
+#: ../../frescobaldi_app/userguide/snippet_editor.md:56
+msgid "The URL of the current document."
+msgstr "URL del documento attuale."
+
+#: ../../frescobaldi_app/userguide/snippet_editor.md:59
+msgid "The full local filename of the current document."
+msgstr "Il nome locale completo del documento attuale."
+
+#: ../../frescobaldi_app/userguide/snippet_editor.md:62
+msgid "The name of the current document."
+msgstr "Il nome del documento attuale."
+
+#: ../../frescobaldi_app/userguide/snippet_editor.md:65
+msgid "Moves the text cursor here after insert."
+msgstr "Sposta il cursore qui dopo aver inserito il frammento."
+
+#. NOTE: markdown formatting
+#: ../../frescobaldi_app/userguide/snippet_editor.md:68
+#, fuzzy
+msgid ""
+"Selects text from here to the position given using the `$CURSOR` variable."
+msgstr ""
+"Seleziona il testo da questo punto fino alla posizione definita con con la "
+"variabile <code>$CURSOR</code>"
+
+#: ../../frescobaldi_app/userguide/snippet_editor.md:71
+msgid "The selected text if available. If not, the text cursor is moved here."
+msgstr ""
+"Il testo selezionato, se disponibile. Altrimenti, il cursore sarà spostato "
+"in questo punto."
+
 #: ../../frescobaldi_app/userguide/snippet_import_export.md:1
 msgid "Importing and exporting snippets"
 msgstr "Importare ed esportare frammenti."

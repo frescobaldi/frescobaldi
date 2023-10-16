@@ -7810,45 +7810,6 @@ msgstr ""
 msgid "Click to change the keyboard shortcut."
 msgstr "Klepněte pro změnu klávesové zkratky."
 
-#: ../../frescobaldi_app/snippet/expand.py:75
-msgid "The current date in YYYY-MM-DD format."
-msgstr "Nynější datum ve formátu RRRR-MM-DD."
-
-#: ../../frescobaldi_app/snippet/expand.py:79
-msgid "The version of the default LilyPond program."
-msgstr "Verze výchozího programu LilyPond."
-
-#: ../../frescobaldi_app/snippet/expand.py:83
-msgid "The version of Frescobaldi."
-msgstr "Verze Frescobaldi."
-
-#: ../../frescobaldi_app/snippet/expand.py:87
-msgid "The URL of the current document."
-msgstr "Adresa (URL) nynějšího dokumentu."
-
-#: ../../frescobaldi_app/snippet/expand.py:91
-msgid "The full local filename of the current document."
-msgstr "Úplný místní souborový název nynějšího dokumentu."
-
-#: ../../frescobaldi_app/snippet/expand.py:95
-msgid "The name of the current document."
-msgstr "Název nynějšího dokumentu."
-
-#: ../../frescobaldi_app/snippet/expand.py:99
-msgid "Moves the text cursor here after insert."
-msgstr "Přesune ukazatel textu po vložení sem."
-
-#: ../../frescobaldi_app/snippet/expand.py:103
-msgid ""
-"Selects text from here to the position given using the <code>$CURSOR</code> "
-"variable"
-msgstr "Vybere text odtud po místo dané pomocí proměnné <code>$CURSOR</code>"
-
-#: ../../frescobaldi_app/snippet/expand.py:107
-msgid "The selected text if available. If not, the text cursor is moved here."
-msgstr ""
-"Vybraný text, je-li dostupný. Pokud není, ukazatel textu je přesunut sem."
-
 #: ../../frescobaldi_app/snippet/import_export.py:103
 msgid "No snippets found."
 msgstr "Nenalezeny žádné úryvky."
