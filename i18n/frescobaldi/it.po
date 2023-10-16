@@ -7848,48 +7848,6 @@ msgstr ""
 msgid "Click to change the keyboard shortcut."
 msgstr "Fare click per configurare la scorciatoia."
 
-#: ../../frescobaldi_app/snippet/expand.py:75
-msgid "The current date in YYYY-MM-DD format."
-msgstr "La data attuale in formato AAAA-MM-GG."
-
-#: ../../frescobaldi_app/snippet/expand.py:79
-msgid "The version of the default LilyPond program."
-msgstr "La versione dell'eseguibile LilyPond predefinito."
-
-#: ../../frescobaldi_app/snippet/expand.py:83
-msgid "The version of Frescobaldi."
-msgstr "La versione di Frescobaldi."
-
-#: ../../frescobaldi_app/snippet/expand.py:87
-msgid "The URL of the current document."
-msgstr "URL del documento attuale."
-
-#: ../../frescobaldi_app/snippet/expand.py:91
-msgid "The full local filename of the current document."
-msgstr "Il nome locale completo del documento attuale."
-
-#: ../../frescobaldi_app/snippet/expand.py:95
-msgid "The name of the current document."
-msgstr "Il nome del documento attuale."
-
-#: ../../frescobaldi_app/snippet/expand.py:99
-msgid "Moves the text cursor here after insert."
-msgstr "Sposta il cursore qui dopo aver inserito il frammento."
-
-#: ../../frescobaldi_app/snippet/expand.py:103
-msgid ""
-"Selects text from here to the position given using the <code>$CURSOR</code> "
-"variable"
-msgstr ""
-"Seleziona il testo da questo punto fino alla posizione definita con con la "
-"variabile <code>$CURSOR</code>"
-
-#: ../../frescobaldi_app/snippet/expand.py:107
-msgid "The selected text if available. If not, the text cursor is moved here."
-msgstr ""
-"Il testo selezionato, se disponibile. Altrimenti, il cursore sarà spostato "
-"in questo punto."
-
 #: ../../frescobaldi_app/snippet/import_export.py:103
 msgid "No snippets found."
 msgstr "Nessun frammento trovato."

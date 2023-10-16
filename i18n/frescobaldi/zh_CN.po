@@ -7633,44 +7633,6 @@ msgstr ""
 msgid "Click to change the keyboard shortcut."
 msgstr "点击改变键盘快捷键。"
 
-#: ../../frescobaldi_app/snippet/expand.py:75
-msgid "The current date in YYYY-MM-DD format."
-msgstr "YYYY-MM-DD 格式的当前日期。"
-
-#: ../../frescobaldi_app/snippet/expand.py:79
-msgid "The version of the default LilyPond program."
-msgstr "缺省 LilyPond 程序的版本。"
-
-#: ../../frescobaldi_app/snippet/expand.py:83
-msgid "The version of Frescobaldi."
-msgstr "Frescobaldi 的版本号。"
-
-#: ../../frescobaldi_app/snippet/expand.py:87
-msgid "The URL of the current document."
-msgstr "当前文档的 URL。"
-
-#: ../../frescobaldi_app/snippet/expand.py:91
-msgid "The full local filename of the current document."
-msgstr "当前文档的完整本地文件名。"
-
-#: ../../frescobaldi_app/snippet/expand.py:95
-msgid "The name of the current document."
-msgstr "当前文档的名称。"
-
-#: ../../frescobaldi_app/snippet/expand.py:99
-msgid "Moves the text cursor here after insert."
-msgstr "插入后移动文本光标到此处。"
-
-#: ../../frescobaldi_app/snippet/expand.py:103
-msgid ""
-"Selects text from here to the position given using the <code>$CURSOR</code> "
-"variable"
-msgstr "选择从此处到使用<code>$CURSOR</code>变量给定位置的文本"
-
-#: ../../frescobaldi_app/snippet/expand.py:107
-msgid "The selected text if available. If not, the text cursor is moved here."
-msgstr "选中的文本，如果可用，否则文本光标会被移动到这里。"
-
 #: ../../frescobaldi_app/snippet/import_export.py:103
 msgid "No snippets found."
 msgstr "没有发现片段。"

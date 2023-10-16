@@ -7747,48 +7747,6 @@ msgstr ""
 msgid "Click to change the keyboard shortcut."
 msgstr "키보드 단축키를 변경하려면 클릭하세요."
 
-#: ../../frescobaldi_app/snippet/expand.py:75
-msgid "The current date in YYYY-MM-DD format."
-msgstr "현재 날짜는 YYYY-MM-DD 형식입니다."
-
-#: ../../frescobaldi_app/snippet/expand.py:79
-msgid "The version of the default LilyPond program."
-msgstr "기본 LilyPond 프로그램의 버전입니다."
-
-#: ../../frescobaldi_app/snippet/expand.py:83
-msgid "The version of Frescobaldi."
-msgstr "Frescobaldi 버전입니다."
-
-#: ../../frescobaldi_app/snippet/expand.py:87
-msgid "The URL of the current document."
-msgstr "현재 문서의 URL입니다."
-
-#: ../../frescobaldi_app/snippet/expand.py:91
-msgid "The full local filename of the current document."
-msgstr "현재 문서의 전체 로컬 파일이름입니다."
-
-#: ../../frescobaldi_app/snippet/expand.py:95
-msgid "The name of the current document."
-msgstr "현재 문서의 이름입니다."
-
-#: ../../frescobaldi_app/snippet/expand.py:99
-msgid "Moves the text cursor here after insert."
-msgstr "삽입 후 텍스트 커서를 여기로 이동합니다."
-
-#: ../../frescobaldi_app/snippet/expand.py:103
-msgid ""
-"Selects text from here to the position given using the <code>$CURSOR</code> "
-"variable"
-msgstr ""
-"<code>$CURSOR</code> 변수를 사용하여 여기에서 지정된 위치까지의 텍스트를 선택"
-"합니다"
-
-#: ../../frescobaldi_app/snippet/expand.py:107
-msgid "The selected text if available. If not, the text cursor is moved here."
-msgstr ""
-"사용 가능한 경우 선택한 텍스트입니다. 그렇지 않으면 텍스트 커서가 여기로 이동"
-"됩니다."
-
 #: ../../frescobaldi_app/snippet/import_export.py:103
 msgid "No snippets found."
 msgstr "스니펫을 찾을 수 없습니다."
