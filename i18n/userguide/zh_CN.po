@@ -2953,10 +2953,15 @@ msgstr "打印乐谱"
 #: ../../frescobaldi_app/userguide/prefs_helpers.md:16
 msgid ""
 "The printing command is used to print a PostScript or PDF file. On Linux you "
-"don't need this, but on Windows and Mac OS X you can provide a command to "
-"avoid that PDF documents are being printed using raster images, which is "
-"less optimal."
+"don't need this, but on Windows and macOS you can provide a command to avoid "
+"that PDF documents are being printed using raster images, which is less "
+"optimal."
 msgstr ""
+"用来打印 PostScript 或 PDF 文件的命令。在 Linux 上你并不需要这个，但在 "
+"Windows 和 macOS 上你可以提供一条命令来避免 PDF 文档被使用光栅化图像打印，"
+"这种打印方式不是最优的。\n"
+"<code>$pdf</code> 被替换为 PDF 文件名，或者<code>$ps</code> 被替换为 "
+"PostScript 文件名。<code>$printer</code> 被替换为使用的打印机名。"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_helpers.md:21
@@ -3185,8 +3190,8 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:11
 msgid ""
-"On systems that use the CUPS server, such as Mac OS X and GNU/Linux, PDF's "
-"can be sent directly to the printer if you want to."
+"On systems that use the CUPS server, such as macOS and GNU/Linux, PDF's can "
+"be sent directly to the printer if you want to."
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:14
@@ -8970,21 +8975,6 @@ msgstr ""
 #~ msgstr ""
 #~ "这里你可以输入一条打印 PDF 或 PostScript 文件的命令。参见帮助页来获取关于"
 #~ "打印乐谱的更多信息。"
-
-#~ msgid ""
-#~ "The printing command is used to print a PostScript or PDF file. On Linux "
-#~ "you don't need this, but on Windows and Mac OS X you can provide a "
-#~ "command to avoid that PDF documents are being printed using raster "
-#~ "images, which is less optimal.\n"
-#~ "<code>$pdf</code> gets replaced with the PDF filename, or alternatively, "
-#~ "<code>$ps</code> is replaced with the PostScript filename. "
-#~ "<code>$printer</code> is replaced with the printer's name to use."
-#~ msgstr ""
-#~ "用来打印 PostScript 或 PDF 文件的命令。在 Linux 上你并不需要这个，但在 "
-#~ "Windows 和 Mac OS X 上你可以提供一条命令来避免 PDF 文档被使用光栅化图像打"
-#~ "印，这种打印方式不是最优的。\n"
-#~ "<code>$pdf</code> 被替换为 PDF 文件名，或者<code>$ps</code> 被替换为 "
-#~ "PostScript 文件名。<code>$printer</code> 被替换为使用的打印机名。"
 
 #~ msgid "Use Frescobaldi's print dialog"
 #~ msgstr "使用 Frescobaldi 的打印对话框"

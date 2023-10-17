@@ -3906,12 +3906,12 @@ msgstr "Stampa della musica"
 #: ../../frescobaldi_app/userguide/prefs_helpers.md:16
 msgid ""
 "The printing command is used to print a PostScript or PDF file. On Linux you "
-"don't need this, but on Windows and Mac OS X you can provide a command to "
-"avoid that PDF documents are being printed using raster images, which is "
-"less optimal."
+"don't need this, but on Windows and macOS you can provide a command to avoid "
+"that PDF documents are being printed using raster images, which is less "
+"optimal."
 msgstr ""
 "Il comanndo di stampa serve a stampare su file PostScript o PDF. Su Linux "
-"non serve, ma su Windows e Mac OS X è possibile inserire un comando per "
+"non serve, ma su Windows e macOS è possibile inserire un comando per "
 "evitare che i documenti PDF siano stampati usando immagini raster, metodo "
 "meno ottimale."
 
@@ -4217,10 +4217,10 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:11
 msgid ""
-"On systems that use the CUPS server, such as Mac OS X and GNU/Linux, PDF's "
-"can be sent directly to the printer if you want to."
+"On systems that use the CUPS server, such as macOS and GNU/Linux, PDF's can "
+"be sent directly to the printer if you want to."
 msgstr ""
-"Sui sistemi operativi che usano il server CUPS, come Mac OS X e GNU/Linux, i "
+"Sui sistemi operativi che usano il server CUPS, come macOS e GNU/Linux, i "
 "PDF possono essere inviati direttamente alla stampante se si vuole."
 
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:14

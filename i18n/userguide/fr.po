@@ -474,7 +474,9 @@ msgstr "La plupart des icônes embarquées sont créées par {tango}."
 
 #: ../../frescobaldi_app/userguide/credits.md:9
 msgid "The following people contributed to {appname} (in alphabetical order):"
-msgstr "Les personnes suivantes ont contribué au développement de {appname}, dans l'ordre alphabétique :"
+msgstr ""
+"Les personnes suivantes ont contribué au développement de {appname}, dans "
+"l'ordre alphabétique :"
 
 #: ../../frescobaldi_app/userguide/credits.md:12
 msgid "Bug and compatibility fixes, miscellaneous"
@@ -734,7 +736,11 @@ msgid ""
 "Three checkboxes regulate whether roman, sans, and typewriter fonts are "
 "considered in the font-settings command. For each family that is *not* "
 "checked LilyPond will use the default fonts."
-msgstr "Trois cases à cocher permettent de déterminer si les polices sérif, sans sérif, et monospace sont prises en compte dans la commande de réglage des polices. Pour chaque famille qui n’est *pas* cochée, LilyPond utilisera les polices par défaut."
+msgstr ""
+"Trois cases à cocher permettent de déterminer si les polices sérif, sans "
+"sérif, et monospace sont prises en compte dans la commande de réglage des "
+"polices. Pour chaque famille qui n’est *pas* cochée, LilyPond utilisera les "
+"polices par défaut."
 
 #: ../../frescobaldi_app/userguide/documentfonts_command.md:17
 msgid "Command generation style"
@@ -3081,7 +3087,9 @@ msgstr ""
 msgid ""
 "E.g. when transposing a major second upwards in the key of C major, you "
 "would enter:"
-msgstr "Par exemple si vous voulez remonter d’une seconde majeure une pièce en do majeur, il faudrait entrer :"
+msgstr ""
+"Par exemple si vous voulez remonter d’une seconde majeure une pièce en do "
+"majeur, il faudrait entrer :"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/modal_transpose.md:13
@@ -3800,7 +3808,11 @@ msgid ""
 "Under *When saving documents*, you can choose what to do when a document is "
 "saved, such as remembering the cursor position and marked lines, formatting, "
 "or leaving a backup copy of the document (with a `~` appended)."
-msgstr "Sous *Lors de l’enregistrement de documents*, vous pouvez choisir que faire lorsqu’un document est enregistrée, comme se souvenir de la position du curseur, des lignes repérées, ou laisser une copie de sauvegarde du document (avec une extension `~`)."
+msgstr ""
+"Sous *Lors de l’enregistrement de documents*, vous pouvez choisir que faire "
+"lorsqu’un document est enregistrée, comme se souvenir de la position du "
+"curseur, des lignes repérées, ou laisser une copie de sauvegarde du document "
+"(avec une extension `~`)."
 
 #: ../../frescobaldi_app/userguide/prefs_general.md:22
 msgid ""
@@ -3872,12 +3884,12 @@ msgstr "Imprimer la partition"
 #: ../../frescobaldi_app/userguide/prefs_helpers.md:16
 msgid ""
 "The printing command is used to print a PostScript or PDF file. On Linux you "
-"don't need this, but on Windows and Mac OS X you can provide a command to "
-"avoid that PDF documents are being printed using raster images, which is "
-"less optimal."
+"don't need this, but on Windows and macOS you can provide a command to avoid "
+"that PDF documents are being printed using raster images, which is less "
+"optimal."
 msgstr ""
 "La commande d’impression est utilisée pour imprimer un fichier Postscript ou "
-"PDF. Sous Linux, ce n’est pas nécessaire, mais sous Windows et Mac OS X, "
+"PDF. Sous Linux, ce n’est pas nécessaire, mais sous Windows et macOS, "
 "vous pouvez définir une commande pour éviter que les documents ne soient "
 "imprimées comme images rastérisées, ce qui n’est pas optimal."
 
@@ -3940,7 +3952,10 @@ msgstr "Chemin local"
 msgid ""
 "A local path should point to the directory where either the `Documentation` "
 "directory lives, or the whole `share/doc/lilypond/html/offline-root` path."
-msgstr "Un emplacement local doit pointer vers le dossier où se trouve soit le dossier `Documentation`, soit l’emplacement complet `share/doc/lilypond/html/offline-root`."
+msgstr ""
+"Un emplacement local doit pointer vers le dossier où se trouve soit le "
+"dossier `Documentation`, soit l’emplacement complet `share/doc/lilypond/html/"
+"offline-root`."
 
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:13
 msgid ""
@@ -4154,7 +4169,9 @@ msgstr "Préférences musicales"
 
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:3
 msgid "Here you can configure how music is displayed and printed."
-msgstr "Ici vous pouvez configurer la manière dont la musique est affichée et imprimée."
+msgstr ""
+"Ici vous pouvez configurer la manière dont la musique est affichée et "
+"imprimée."
 
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:5
 msgid ""
@@ -4167,8 +4184,8 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:11
 msgid ""
-"On systems that use the CUPS server, such as Mac OS X and GNU/Linux, PDF's "
-"can be sent directly to the printer if you want to."
+"On systems that use the CUPS server, such as macOS and GNU/Linux, PDF's can "
+"be sent directly to the printer if you want to."
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:14
@@ -4639,7 +4656,10 @@ msgid ""
 "Available sessions are accessible through the {menu_session} menu. When you "
 "switch sessions, all current documents are closed first and then the "
 "documents of the other session are opened."
-msgstr "Les sessions disponibles se trouvent dans le menu {menu_session}. Quand vous changez de session, tous les documents en cours sont d’abord fermés puis les documents de l’autre session sont ouverts."
+msgstr ""
+"Les sessions disponibles se trouvent dans le menu {menu_session}. Quand vous "
+"changez de session, tous les documents en cours sont d’abord fermés puis les "
+"documents de l’autre session sont ouverts."
 
 #: ../../frescobaldi_app/userguide/sessions.md:11
 msgid ""

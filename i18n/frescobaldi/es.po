@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-10-08 13:14+0200\n"
+"POT-Creation-Date: 2023-10-17 21:15+0200\n"
 "PO-Revision-Date: 2016-05-01 18:52+0200\n"
 "Last-Translator: Francisco Vila <paconet.org@gmail.com>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -9777,10 +9777,9 @@ msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:29
 msgid ""
-"Frescobaldi is designed to run on all major operating systems (Linux, Mac OS "
-"X and MS Windows). It is named after Girolamo Frescobaldi (1583-1643), an "
-"Italian composer of keyboard music in the late Renaissance and early Baroque "
-"period."
+"Frescobaldi is designed to run on all major operating systems (Linux, macOS "
+"and Windows). It is named after Girolamo Frescobaldi (1583-1643), an Italian "
+"composer of keyboard music in the late Renaissance and early Baroque period."
 msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:38
