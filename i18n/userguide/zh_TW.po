@@ -2954,10 +2954,15 @@ msgstr "列印樂譜"
 #: ../../frescobaldi_app/userguide/prefs_helpers.md:16
 msgid ""
 "The printing command is used to print a PostScript or PDF file. On Linux you "
-"don't need this, but on Windows and Mac OS X you can provide a command to "
-"avoid that PDF documents are being printed using raster images, which is "
-"less optimal."
+"don't need this, but on Windows and macOS you can provide a command to avoid "
+"that PDF documents are being printed using raster images, which is less "
+"optimal."
 msgstr ""
+"用來列印PDF擋或PostScript擋的指令，在Linux系統上不需要這個。但是在Windows或是"
+"macOS，您可以提供一個指令來避免PDF文件被當作點陣圖列印（當作點陣圖列印不會"
+"得到最佳效果）。\n"
+"<code>$pdf</code>表示PDF檔名，或是<code>$ps</code>表示PostScript檔名；"
+"<code>$printer</code>表示印表機名稱。"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/prefs_helpers.md:21
@@ -3186,8 +3191,8 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:11
 msgid ""
-"On systems that use the CUPS server, such as Mac OS X and GNU/Linux, PDF's "
-"can be sent directly to the printer if you want to."
+"On systems that use the CUPS server, such as macOS and GNU/Linux, PDF's can "
+"be sent directly to the printer if you want to."
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:14
@@ -7216,21 +7221,6 @@ msgstr ""
 #~ msgstr ""
 #~ "您可以在此指定一個列印PDF或PostScript擋的指令。列印樂譜的更多資訊請見說明"
 #~ "頁。"
-
-#~ msgid ""
-#~ "The printing command is used to print a PostScript or PDF file. On Linux "
-#~ "you don't need this, but on Windows and Mac OS X you can provide a "
-#~ "command to avoid that PDF documents are being printed using raster "
-#~ "images, which is less optimal.\n"
-#~ "<code>$pdf</code> gets replaced with the PDF filename, or alternatively, "
-#~ "<code>$ps</code> is replaced with the PostScript filename. "
-#~ "<code>$printer</code> is replaced with the printer's name to use."
-#~ msgstr ""
-#~ "用來列印PDF擋或PostScript擋的指令，在Linux系統上不需要這個。但是在Windows"
-#~ "或是Mac OS X，您可以提供一個指令來避免PDF文件被當作點陣圖列印（當作點陣圖"
-#~ "列印不會得到最佳效果）。\n"
-#~ "<code>$pdf</code>表示PDF檔名，或是<code>$ps</code>表示PostScript檔名；"
-#~ "<code>$printer</code>表示印表機名稱。"
 
 #, fuzzy
 #~ msgid "Use Frescobaldi's print dialog"

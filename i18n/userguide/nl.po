@@ -3479,12 +3479,12 @@ msgstr "Muziek afdrukken"
 #: ../../frescobaldi_app/userguide/prefs_helpers.md:16
 msgid ""
 "The printing command is used to print a PostScript or PDF file. On Linux you "
-"don't need this, but on Windows and Mac OS X you can provide a command to "
-"avoid that PDF documents are being printed using raster images, which is "
-"less optimal."
+"don't need this, but on Windows and macOS you can provide a command to avoid "
+"that PDF documents are being printed using raster images, which is less "
+"optimal."
 msgstr ""
 "Het printcommando wordt gebruikt om een PostScript- of PDF-document af te "
-"drukken. Onder Linux heeft u dit niet nodig, maar op Windows en Mac OS X "
+"drukken. Onder Linux heeft u dit niet nodig, maar op Windows en macOS "
 "kunt u hier een commando opgeven zodat PDF-documenten niet als "
 "rasterafbeeldingen worden afgedrukt."
 
@@ -3782,8 +3782,8 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:11
 msgid ""
-"On systems that use the CUPS server, such as Mac OS X and GNU/Linux, PDF's "
-"can be sent directly to the printer if you want to."
+"On systems that use the CUPS server, such as macOS and GNU/Linux, PDF's can "
+"be sent directly to the printer if you want to."
 msgstr ""
 
 #: ../../frescobaldi_app/userguide/prefs_musicviewers.md:14
