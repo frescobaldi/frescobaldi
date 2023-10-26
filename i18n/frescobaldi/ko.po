@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 3.2\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-10-17 21:15+0200\n"
+"POT-Creation-Date: 2023-10-26 16:31+0200\n"
 "PO-Revision-Date: 2023-06-02 17:07+0900\n"
 "Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: Korean (https://app.transifex.com/marong/teams/140059/ko/)\n"
@@ -879,7 +879,7 @@ msgid "Could not read:"
 msgstr "읽을 수 없음:"
 
 #: ../../frescobaldi_app/mainwindow.py:541
-#: ../../frescobaldi_app/macosx/globalmenu.py:169
+#: ../../frescobaldi_app/macos/globalmenu.py:169
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "파일 열기"
@@ -962,12 +962,12 @@ msgid "New"
 msgstr "새로 만들기"
 
 #: ../../frescobaldi_app/mainwindow.py:1345
-#: ../../frescobaldi_app/macosx/globalmenu.py:71
+#: ../../frescobaldi_app/macos/globalmenu.py:71
 msgid "&Open..."
 msgstr "열기(&O)..."
 
 #: ../../frescobaldi_app/mainwindow.py:1346
-#: ../../frescobaldi_app/macosx/globalmenu.py:102
+#: ../../frescobaldi_app/macos/globalmenu.py:102
 msgid "Open &Recent"
 msgstr "최근 파일 열기(&R)"
 
@@ -1062,7 +1062,7 @@ msgid "Closes all documents and leaves the current session."
 msgstr "모든 문서를 닫고 현재 세션을 종료합니다."
 
 #: ../../frescobaldi_app/mainwindow.py:1378
-#: ../../frescobaldi_app/macosx/globalmenu.py:77
+#: ../../frescobaldi_app/macos/globalmenu.py:77
 msgid "&Quit"
 msgstr "종료(&Q)"
 
@@ -1132,7 +1132,7 @@ msgid "&Replace..."
 msgstr "바꾸기(&R)..."
 
 #: ../../frescobaldi_app/mainwindow.py:1398
-#: ../../frescobaldi_app/macosx/globalmenu.py:123
+#: ../../frescobaldi_app/macos/globalmenu.py:123
 msgid "Pr&eferences..."
 msgstr "환경설정(&E)..."
 
@@ -1161,7 +1161,7 @@ msgid "&Go to Line..."
 msgstr "오선으로 가기(&G)..."
 
 #: ../../frescobaldi_app/mainwindow.py:1407
-#: ../../frescobaldi_app/macosx/globalmenu.py:129
+#: ../../frescobaldi_app/macos/globalmenu.py:129
 msgid "New &Window"
 msgstr "새 창(&W)"
 
@@ -1182,7 +1182,7 @@ msgid "Report a &Bug..."
 msgstr "버그 보고하기(&B)..."
 
 #: ../../frescobaldi_app/mainwindow.py:1413
-#: ../../frescobaldi_app/macosx/globalmenu.py:147
+#: ../../frescobaldi_app/macos/globalmenu.py:147
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "{appname} 정보(&A)..."
@@ -1196,7 +1196,7 @@ msgid "&Select Matching Pair"
 msgstr "일치하는 쌍 선택하기(&S)"
 
 #: ../../frescobaldi_app/menu.py:91
-#: ../../frescobaldi_app/macosx/globalmenu.py:66
+#: ../../frescobaldi_app/macos/globalmenu.py:66
 msgctxt "menu title"
 msgid "&File"
 msgstr "파일(&F)"
@@ -1222,7 +1222,7 @@ msgid "&Print"
 msgstr "인쇄(&P)"
 
 #: ../../frescobaldi_app/menu.py:165
-#: ../../frescobaldi_app/macosx/globalmenu.py:121
+#: ../../frescobaldi_app/macos/globalmenu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "편집(&E)"
@@ -1303,13 +1303,13 @@ msgid "&Directories"
 msgstr "디렉터리(&D)"
 
 #: ../../frescobaldi_app/menu.py:472
-#: ../../frescobaldi_app/macosx/globalmenu.py:128
+#: ../../frescobaldi_app/macos/globalmenu.py:128
 msgctxt "menu title"
 msgid "&Window"
 msgstr "창(&W)"
 
 #: ../../frescobaldi_app/menu.py:492
-#: ../../frescobaldi_app/macosx/globalmenu.py:145
+#: ../../frescobaldi_app/macos/globalmenu.py:145
 msgctxt "menu title"
 msgid "&Help"
 msgstr "도움말(&H)"
@@ -2099,7 +2099,7 @@ msgid "Generic import for all LilyPond tools."
 msgstr "모든 LilyPond 도구에 대한 일반 가져오기입니다."
 
 #: ../../frescobaldi_app/file_import/__init__.py:220
-#: ../../frescobaldi_app/macosx/globalmenu.py:116
+#: ../../frescobaldi_app/macos/globalmenu.py:116
 msgid "Import MusicXML..."
 msgstr "MusicXML 가져오기..."
 
@@ -2873,25 +2873,25 @@ msgstr "이전 오류 메시지"
 msgid "Click to edit this file"
 msgstr "이 파일을 편집하려면 클릭"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:67
+#: ../../frescobaldi_app/macos/globalmenu.py:67
 msgctxt "action: new document"
 msgid "&New"
 msgstr "새로 만들기(&N)"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:69
+#: ../../frescobaldi_app/macos/globalmenu.py:69
 msgid "New Score with &Wizard..."
 msgstr "마법사를 사용한 새 모음보표(&W)..."
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:82
+#: ../../frescobaldi_app/macos/globalmenu.py:82
 msgid "New from &Template"
 msgstr "템플릿에서 새로 만들기(&T)"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:115
+#: ../../frescobaldi_app/macos/globalmenu.py:115
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "가져오기(&I)"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:134
+#: ../../frescobaldi_app/macos/globalmenu.py:134
 #: ../../frescobaldi_app/sessions/menu.py:55
 msgctxt "menu title"
 msgid "&Session"
@@ -9627,10 +9627,10 @@ msgid ""
 "and Windows). It is named after Girolamo Frescobaldi (1583-1643), an Italian "
 "composer of keyboard music in the late Renaissance and early Baroque period."
 msgstr ""
-"Frescobaldi는 모든 주요 운영 체제(Linux, macOS 및 Windows)에서 실행되도"
-"록 설계되었습니다. 르네상스 후기와 바로크 시대 초기의 건반 악보를 작곡한 이탈"
-"리아 작곡가 지롤라모 프레스코발디(Girolamo Frescobaldi, 1583-1643)의 이름을 "
-"따서 명명되었습니다."
+"Frescobaldi는 모든 주요 운영 체제(Linux, macOS 및 Windows)에서 실행되도록 설"
+"계되었습니다. 르네상스 후기와 바로크 시대 초기의 건반 악보를 작곡한 이탈리아 "
+"작곡가 지롤라모 프레스코발디(Girolamo Frescobaldi, 1583-1643)의 이름을 따서 "
+"명명되었습니다."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:38
 msgid "Text editor and music view"
@@ -9655,13 +9655,3 @@ msgstr "스니펫 관리자 및 편집기"
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:58
 msgid "Score Wizard to quickly setup a music score"
 msgstr "악보를 빠르게 설정하는 모음보표 마법사"
-
-#~ msgid "Text Files"
-#~ msgstr "텍스트 파일"
-
-#, python-brace-format
-#~ msgid "Part {0}"
-#~ msgstr "{0} 파트"
-
-#~ msgid "Force use of the tools' #! lines"
-#~ msgstr "도구의 #! 줄 강제 사용하기"

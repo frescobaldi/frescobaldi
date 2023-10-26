@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.16\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-10-17 21:15+0200\n"
+"POT-Creation-Date: 2023-10-26 16:31+0200\n"
 "PO-Revision-Date: 2023-10-15 21:36+0200\n"
 "Last-Translator: Hajo Bäß <habae@posteo.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -901,7 +901,7 @@ msgid "Could not read:"
 msgstr "Konnte nicht lesen:"
 
 #: ../../frescobaldi_app/mainwindow.py:541
-#: ../../frescobaldi_app/macosx/globalmenu.py:169
+#: ../../frescobaldi_app/macos/globalmenu.py:169
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Datei öffnen"
@@ -985,12 +985,12 @@ msgid "New"
 msgstr "&Neu"
 
 #: ../../frescobaldi_app/mainwindow.py:1345
-#: ../../frescobaldi_app/macosx/globalmenu.py:71
+#: ../../frescobaldi_app/macos/globalmenu.py:71
 msgid "&Open..."
 msgstr "&Öffnen..."
 
 #: ../../frescobaldi_app/mainwindow.py:1346
-#: ../../frescobaldi_app/macosx/globalmenu.py:102
+#: ../../frescobaldi_app/macos/globalmenu.py:102
 msgid "Open &Recent"
 msgstr "&Zuletzt verwendete Dateien"
 
@@ -1086,7 +1086,7 @@ msgid "Closes all documents and leaves the current session."
 msgstr "Schließe alle Dokumente und beende die Sitzung."
 
 #: ../../frescobaldi_app/mainwindow.py:1378
-#: ../../frescobaldi_app/macosx/globalmenu.py:77
+#: ../../frescobaldi_app/macos/globalmenu.py:77
 msgid "&Quit"
 msgstr "&Beenden"
 
@@ -1157,7 +1157,7 @@ msgid "&Replace..."
 msgstr "E&rsetzen..."
 
 #: ../../frescobaldi_app/mainwindow.py:1398
-#: ../../frescobaldi_app/macosx/globalmenu.py:123
+#: ../../frescobaldi_app/macos/globalmenu.py:123
 msgid "Pr&eferences..."
 msgstr "&Einstellungen..."
 
@@ -1187,7 +1187,7 @@ msgid "&Go to Line..."
 msgstr "&Gehe zu Zeile..."
 
 #: ../../frescobaldi_app/mainwindow.py:1407
-#: ../../frescobaldi_app/macosx/globalmenu.py:129
+#: ../../frescobaldi_app/macos/globalmenu.py:129
 msgid "New &Window"
 msgstr "&Neues Fenster"
 
@@ -1208,7 +1208,7 @@ msgid "Report a &Bug..."
 msgstr "Programmfehler mel&den..."
 
 #: ../../frescobaldi_app/mainwindow.py:1413
-#: ../../frescobaldi_app/macosx/globalmenu.py:147
+#: ../../frescobaldi_app/macos/globalmenu.py:147
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "Ü&ber {appname}..."
@@ -1222,7 +1222,7 @@ msgid "&Select Matching Pair"
 msgstr "Inhalt Klammerpaar aus&wählen"
 
 #: ../../frescobaldi_app/menu.py:91
-#: ../../frescobaldi_app/macosx/globalmenu.py:66
+#: ../../frescobaldi_app/macos/globalmenu.py:66
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Datei"
@@ -1248,7 +1248,7 @@ msgid "&Print"
 msgstr "&Drucken"
 
 #: ../../frescobaldi_app/menu.py:165
-#: ../../frescobaldi_app/macosx/globalmenu.py:121
+#: ../../frescobaldi_app/macos/globalmenu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Bearbeiten"
@@ -1329,13 +1329,13 @@ msgid "&Directories"
 msgstr "Verzeichnisse"
 
 #: ../../frescobaldi_app/menu.py:472
-#: ../../frescobaldi_app/macosx/globalmenu.py:128
+#: ../../frescobaldi_app/macos/globalmenu.py:128
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Fenster"
 
 #: ../../frescobaldi_app/menu.py:492
-#: ../../frescobaldi_app/macosx/globalmenu.py:145
+#: ../../frescobaldi_app/macos/globalmenu.py:145
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Hilfe"
@@ -2154,7 +2154,7 @@ msgid "Generic import for all LilyPond tools."
 msgstr "Allgemeiner Import für alle LilyPond-Werkzeuge."
 
 #: ../../frescobaldi_app/file_import/__init__.py:220
-#: ../../frescobaldi_app/macosx/globalmenu.py:116
+#: ../../frescobaldi_app/macos/globalmenu.py:116
 msgid "Import MusicXML..."
 msgstr "MusicXML importieren..."
 
@@ -2969,25 +2969,25 @@ msgstr "Vo&rherige Fehlermeldung"
 msgid "Click to edit this file"
 msgstr "Klicken, um Datei zu bearbeiten"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:67
+#: ../../frescobaldi_app/macos/globalmenu.py:67
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Neu"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:69
+#: ../../frescobaldi_app/macos/globalmenu.py:69
 msgid "New Score with &Wizard..."
 msgstr "Neue Partitur mit &Assistent..."
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:82
+#: ../../frescobaldi_app/macos/globalmenu.py:82
 msgid "New from &Template"
 msgstr "Neu von &Vorlage"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:115
+#: ../../frescobaldi_app/macos/globalmenu.py:115
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "&Importieren"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:134
+#: ../../frescobaldi_app/macos/globalmenu.py:134
 #: ../../frescobaldi_app/sessions/menu.py:55
 msgctxt "menu title"
 msgid "&Session"

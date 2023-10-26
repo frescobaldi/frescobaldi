@@ -3889,8 +3889,8 @@ msgid ""
 "optimal."
 msgstr ""
 "La commande d’impression est utilisée pour imprimer un fichier Postscript ou "
-"PDF. Sous Linux, ce n’est pas nécessaire, mais sous Windows et macOS, "
-"vous pouvez définir une commande pour éviter que les documents ne soient "
+"PDF. Sous Linux, ce n’est pas nécessaire, mais sous Windows et macOS, vous "
+"pouvez définir une commande pour éviter que les documents ne soient "
 "imprimées comme images rastérisées, ce qui n’est pas optimal."
 
 #. NOTE: markdown formatting
@@ -5150,6 +5150,3 @@ msgstr ""
 "à la recherche de commande spécifiant le fichier de sortie comme "
 "`\\bookOutputName`, etc); ou quand la détermination automatique échoue à "
 "cause de code LilyPond trop complexes."
-
-#~ msgid "Mac OS X packaging"
-#~ msgstr "Application Mac OS X"

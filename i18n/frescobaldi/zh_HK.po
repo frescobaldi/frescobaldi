@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.16\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-10-17 21:16+0200\n"
+"POT-Creation-Date: 2023-10-26 16:31+0200\n"
 "PO-Revision-Date: 2014-07-25 22:55+0800\n"
 "Last-Translator: Anthony Fok <foka@debian.org>\n"
 "Language-Team: Chinese (Hong Kong) <(nothing)>\n"
@@ -855,7 +855,7 @@ msgid "Could not read:"
 msgstr ""
 
 #: ../../frescobaldi_app/mainwindow.py:541
-#: ../../frescobaldi_app/macosx/globalmenu.py:169
+#: ../../frescobaldi_app/macos/globalmenu.py:169
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "開啟檔案"
@@ -936,12 +936,12 @@ msgid "New"
 msgstr "新增(&N)"
 
 #: ../../frescobaldi_app/mainwindow.py:1345
-#: ../../frescobaldi_app/macosx/globalmenu.py:71
+#: ../../frescobaldi_app/macos/globalmenu.py:71
 msgid "&Open..."
 msgstr "開啟(&O)..."
 
 #: ../../frescobaldi_app/mainwindow.py:1346
-#: ../../frescobaldi_app/macosx/globalmenu.py:102
+#: ../../frescobaldi_app/macos/globalmenu.py:102
 msgid "Open &Recent"
 msgstr "開啟最近使用的(&R)"
 
@@ -1039,7 +1039,7 @@ msgid "Closes all documents and leaves the current session."
 msgstr ""
 
 #: ../../frescobaldi_app/mainwindow.py:1378
-#: ../../frescobaldi_app/macosx/globalmenu.py:77
+#: ../../frescobaldi_app/macos/globalmenu.py:77
 msgid "&Quit"
 msgstr "結束(&Q)"
 
@@ -1109,7 +1109,7 @@ msgid "&Replace..."
 msgstr "取代(&R)..."
 
 #: ../../frescobaldi_app/mainwindow.py:1398
-#: ../../frescobaldi_app/macosx/globalmenu.py:123
+#: ../../frescobaldi_app/macos/globalmenu.py:123
 msgid "Pr&eferences..."
 msgstr "偏好設定(&E)..."
 
@@ -1138,7 +1138,7 @@ msgid "&Go to Line..."
 msgstr "打印指令："
 
 #: ../../frescobaldi_app/mainwindow.py:1407
-#: ../../frescobaldi_app/macosx/globalmenu.py:129
+#: ../../frescobaldi_app/macos/globalmenu.py:129
 msgid "New &Window"
 msgstr "新增視窗(&W)"
 
@@ -1159,7 +1159,7 @@ msgid "Report a &Bug..."
 msgstr ""
 
 #: ../../frescobaldi_app/mainwindow.py:1413
-#: ../../frescobaldi_app/macosx/globalmenu.py:147
+#: ../../frescobaldi_app/macos/globalmenu.py:147
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "關於 {appname} (&A)..."
@@ -1173,7 +1173,7 @@ msgid "&Select Matching Pair"
 msgstr ""
 
 #: ../../frescobaldi_app/menu.py:91
-#: ../../frescobaldi_app/macosx/globalmenu.py:66
+#: ../../frescobaldi_app/macos/globalmenu.py:66
 msgctxt "menu title"
 msgid "&File"
 msgstr "檔案(&F)"
@@ -1203,7 +1203,7 @@ msgid "&Print"
 msgstr "打印(&P)"
 
 #: ../../frescobaldi_app/menu.py:165
-#: ../../frescobaldi_app/macosx/globalmenu.py:121
+#: ../../frescobaldi_app/macos/globalmenu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "編輯(&E)"
@@ -1287,13 +1287,13 @@ msgid "&Directories"
 msgstr ""
 
 #: ../../frescobaldi_app/menu.py:472
-#: ../../frescobaldi_app/macosx/globalmenu.py:128
+#: ../../frescobaldi_app/macos/globalmenu.py:128
 msgctxt "menu title"
 msgid "&Window"
 msgstr "視窗(&W)"
 
 #: ../../frescobaldi_app/menu.py:492
-#: ../../frescobaldi_app/macosx/globalmenu.py:145
+#: ../../frescobaldi_app/macos/globalmenu.py:145
 msgctxt "menu title"
 msgid "&Help"
 msgstr "說明(&H)"
@@ -2042,7 +2042,7 @@ msgid "Generic import for all LilyPond tools."
 msgstr ""
 
 #: ../../frescobaldi_app/file_import/__init__.py:220
-#: ../../frescobaldi_app/macosx/globalmenu.py:116
+#: ../../frescobaldi_app/macos/globalmenu.py:116
 msgid "Import MusicXML..."
 msgstr "匯入 MusicXML..."
 
@@ -2785,25 +2785,25 @@ msgstr ""
 msgid "Click to edit this file"
 msgstr ""
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:67
+#: ../../frescobaldi_app/macos/globalmenu.py:67
 msgctxt "action: new document"
 msgid "&New"
 msgstr "新增(&N)"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:69
+#: ../../frescobaldi_app/macos/globalmenu.py:69
 msgid "New Score with &Wizard..."
 msgstr ""
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:82
+#: ../../frescobaldi_app/macos/globalmenu.py:82
 msgid "New from &Template"
 msgstr ""
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:115
+#: ../../frescobaldi_app/macos/globalmenu.py:115
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "匯入(&I)"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:134
+#: ../../frescobaldi_app/macos/globalmenu.py:134
 #: ../../frescobaldi_app/sessions/menu.py:55
 msgctxt "menu title"
 msgid "&Session"
@@ -9389,165 +9389,3 @@ msgstr ""
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:58
 msgid "Score Wizard to quickly setup a music score"
 msgstr ""
-
-#, fuzzy
-#~ msgid "Text Files"
-#~ msgstr "Texinfo 檔案"
-
-#, fuzzy
-#~ msgid "Translations:"
-#~ msgstr "移調"
-
-#, fuzzy
-#~ msgid "Improvements:"
-#~ msgstr "移除裝飾音(&O)"
-
-#, fuzzy
-#~ msgid "New features:"
-#~ msgstr "調號："
-
-#, fuzzy
-#~ msgid "New \"Goto Line\" and \"Rename file\" commands."
-#~ msgstr "其他指令："
-
-#, fuzzy
-#~ msgctxt "submenu title"
-#~ msgid "Close (advanced)"
-#~ msgstr "關閉文件"
-
-#~ msgid "Git"
-#~ msgstr "Git"
-
-#~ msgid "Printing Music"
-#~ msgstr "打印樂譜"
-
-#, fuzzy
-#~ msgid "Managing Music Fonts"
-#~ msgstr "管理作業階段"
-
-#, fuzzy
-#~ msgid "Installing Music Fonts"
-#~ msgstr "打印樂譜"
-
-#, fuzzy
-#~ msgid "Import ABC"
-#~ msgstr "匯入(&I)"
-
-#, fuzzy
-#~ msgid "Remote URL"
-#~ msgstr "移除"
-
-#~ msgid "History of Frescobaldi"
-#~ msgstr "Frescobaldi 的歷史"
-
-#, fuzzy
-#~ msgid "Import Midi"
-#~ msgstr "匯入(&I)"
-
-#, fuzzy
-#~ msgid "Document Fonts Preview"
-#~ msgstr "說明文件瀏覽器"
-
-#, fuzzy
-#~ msgid "Custom Files"
-#~ msgstr "全部檔案"
-
-#, fuzzy
-#~ msgid "Preview Caching"
-#~ msgstr "預覽"
-
-#, fuzzy
-#~ msgid "Menus"
-#~ msgstr "選單(&M)"
-
-#, fuzzy
-#~ msgid "Manuscriptview context menu"
-#~ msgstr "樂譜檢視"
-
-#, fuzzy
-#~ msgid "Tool Panel"
-#~ msgstr "LilyPond 指令："
-
-#, fuzzy
-#~ msgid "Extending Frescobaldi"
-#~ msgstr "關於 Frescobaldi"
-
-#, fuzzy
-#~ msgid "Music fonts"
-#~ msgstr "樂譜(&M)"
-
-#~ msgid "{appname} is written in {python} and uses the {qt} toolkit."
-#~ msgstr "{appname} 以 {python} 編寫，並使用 {qt} 工具箱。"
-
-#~ msgid "Main author and core developer"
-#~ msgstr "主作者及核心開發者"
-
-#, fuzzy
-#~ msgid "Auto-completion"
-#~ msgstr "自動裁剪"
-
-#, fuzzy
-#~ msgid "New document"
-#~ msgstr "關閉文件"
-
-#~ msgid "Preview mode"
-#~ msgstr "預覽模式"
-
-#, fuzzy
-#~ msgid "Export Music XML"
-#~ msgstr "匯出 Music&XML..."
-
-#~ msgid "Global Fonts"
-#~ msgstr "全域字型"
-
-#~ msgctxt "submenu title"
-#~ msgid "&Export"
-#~ msgstr "匯出(&E)"
-
-#~ msgid "PDF Document"
-#~ msgstr "PDF 文件"
-
-#~ msgid "Use Frescobaldi's print dialog"
-#~ msgstr "使用 Frescobaldi 的打印對話盒"
-
-#~ msgid "Operating System"
-#~ msgstr "操作系統"
-
-#~ msgid "Usage"
-#~ msgstr "用法"
-
-#~ msgid "Usage: %s\n"
-#~ msgstr "用法：%s\n"
-
-#~ msgid "Options"
-#~ msgstr "選項"
-
-#, fuzzy
-#~ msgid "MXL Files"
-#~ msgstr "XML 檔案"
-
-#~ msgctxt "menu title"
-#~ msgid "&Insert"
-#~ msgstr "插入(&I)"
-
-#~ msgid "Staff Size:"
-#~ msgstr "線譜大小："
-
-#~ msgid "Python"
-#~ msgstr "Python"
-
-#~ msgid "Qt4"
-#~ msgstr "Qt4"
-
-#~ msgid "Poppler"
-#~ msgstr "Poppler"
-
-#~ msgid "Edit"
-#~ msgstr "編輯"
-
-#~ msgid "Other Tools"
-#~ msgstr "其他工具"
-
-#~ msgctxt "menu title"
-#~ msgid "File"
-#~ msgstr "檔案"

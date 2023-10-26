@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-10-17 21:15+0200\n"
+"POT-Creation-Date: 2023-10-26 16:31+0200\n"
 "PO-Revision-Date: 2023-09-06 00:52+0200\n"
 "Last-Translator: Rémy Claverie <remy.claverie@orange.fr>\n"
 "Language-Team: French <lilypond-user-fr@gnu.org>\n"
@@ -907,7 +907,7 @@ msgid "Could not read:"
 msgstr "Impossible de lire :"
 
 #: ../../frescobaldi_app/mainwindow.py:541
-#: ../../frescobaldi_app/macosx/globalmenu.py:169
+#: ../../frescobaldi_app/macos/globalmenu.py:169
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Ouvrir fichier"
@@ -987,12 +987,12 @@ msgid "New"
 msgstr "&Nouveau"
 
 #: ../../frescobaldi_app/mainwindow.py:1345
-#: ../../frescobaldi_app/macosx/globalmenu.py:71
+#: ../../frescobaldi_app/macos/globalmenu.py:71
 msgid "&Open..."
 msgstr "&Ouvrir..."
 
 #: ../../frescobaldi_app/mainwindow.py:1346
-#: ../../frescobaldi_app/macosx/globalmenu.py:102
+#: ../../frescobaldi_app/macos/globalmenu.py:102
 msgid "Open &Recent"
 msgstr "Ouvrir &récent"
 
@@ -1087,7 +1087,7 @@ msgid "Closes all documents and leaves the current session."
 msgstr "Fermer tous les documents et quitter la session courante."
 
 #: ../../frescobaldi_app/mainwindow.py:1378
-#: ../../frescobaldi_app/macosx/globalmenu.py:77
+#: ../../frescobaldi_app/macos/globalmenu.py:77
 msgid "&Quit"
 msgstr "&Quitter"
 
@@ -1157,7 +1157,7 @@ msgid "&Replace..."
 msgstr "&Remplacer..."
 
 #: ../../frescobaldi_app/mainwindow.py:1398
-#: ../../frescobaldi_app/macosx/globalmenu.py:123
+#: ../../frescobaldi_app/macos/globalmenu.py:123
 msgid "Pr&eferences..."
 msgstr "Préférences..."
 
@@ -1186,7 +1186,7 @@ msgid "&Go to Line..."
 msgstr "Aller à la ligne..."
 
 #: ../../frescobaldi_app/mainwindow.py:1407
-#: ../../frescobaldi_app/macosx/globalmenu.py:129
+#: ../../frescobaldi_app/macos/globalmenu.py:129
 msgid "New &Window"
 msgstr "Nouvelle fenêtre"
 
@@ -1207,7 +1207,7 @@ msgid "Report a &Bug..."
 msgstr "Rapporter un &bogue..."
 
 #: ../../frescobaldi_app/mainwindow.py:1413
-#: ../../frescobaldi_app/macosx/globalmenu.py:147
+#: ../../frescobaldi_app/macos/globalmenu.py:147
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "À propos de {appname}..."
@@ -1221,7 +1221,7 @@ msgid "&Select Matching Pair"
 msgstr "Sélectionner les caractères appariés"
 
 #: ../../frescobaldi_app/menu.py:91
-#: ../../frescobaldi_app/macosx/globalmenu.py:66
+#: ../../frescobaldi_app/macos/globalmenu.py:66
 msgctxt "menu title"
 msgid "&File"
 msgstr "Fichier"
@@ -1247,7 +1247,7 @@ msgid "&Print"
 msgstr "Im&pression"
 
 #: ../../frescobaldi_app/menu.py:165
-#: ../../frescobaldi_app/macosx/globalmenu.py:121
+#: ../../frescobaldi_app/macos/globalmenu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Édition"
@@ -1328,13 +1328,13 @@ msgid "&Directories"
 msgstr "Répertoires :"
 
 #: ../../frescobaldi_app/menu.py:472
-#: ../../frescobaldi_app/macosx/globalmenu.py:128
+#: ../../frescobaldi_app/macos/globalmenu.py:128
 msgctxt "menu title"
 msgid "&Window"
 msgstr "Fenêtre"
 
 #: ../../frescobaldi_app/menu.py:492
-#: ../../frescobaldi_app/macosx/globalmenu.py:145
+#: ../../frescobaldi_app/macos/globalmenu.py:145
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Aide"
@@ -2144,7 +2144,7 @@ msgid "Generic import for all LilyPond tools."
 msgstr "Import générique pour tous les outils LilyPond."
 
 #: ../../frescobaldi_app/file_import/__init__.py:220
-#: ../../frescobaldi_app/macosx/globalmenu.py:116
+#: ../../frescobaldi_app/macos/globalmenu.py:116
 msgid "Import MusicXML..."
 msgstr "Importer MusicXML…"
 
@@ -2927,25 +2927,25 @@ msgstr "Message d'erreur précédent"
 msgid "Click to edit this file"
 msgstr "Cliquer pour éditer ce fichier"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:67
+#: ../../frescobaldi_app/macos/globalmenu.py:67
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nouveau"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:69
+#: ../../frescobaldi_app/macos/globalmenu.py:69
 msgid "New Score with &Wizard..."
 msgstr "Nouvelle partition avec l'assistant..."
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:82
+#: ../../frescobaldi_app/macos/globalmenu.py:82
 msgid "New from &Template"
 msgstr "Nouveau dep&uis un modèle"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:115
+#: ../../frescobaldi_app/macos/globalmenu.py:115
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "&Importer"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:134
+#: ../../frescobaldi_app/macos/globalmenu.py:134
 #: ../../frescobaldi_app/sessions/menu.py:55
 msgctxt "menu title"
 msgid "&Session"
@@ -9812,323 +9812,3 @@ msgid "Score Wizard to quickly setup a music score"
 msgstr ""
 "Assistant de création de partition ({key}) dans {menu} pour créer rapidement "
 "une nouvelle partition LilyPond"
-
-#~ msgid "Text Files"
-#~ msgstr "Fichiers Texte"
-
-#, python-brace-format
-#~ msgid "Part {0}"
-#~ msgstr "Partie {0}"
-
-#~ msgid "Open Document in &New Window"
-#~ msgstr "Ouvrir le document dans une nouvelle fenêtre"
-
-#~ msgid "Force use of the tools' #! lines"
-#~ msgstr "Forcer l'utilisation des shebangs (lignes #!) des outils"
-
-#~ msgid "Display Control Points"
-#~ msgstr "Afficher les points de contrôle"
-
-#~ msgid "Display the control points that determine curve shapes"
-#~ msgstr ""
-#~ "Afficher les points de contrôle qui déterminent la forme des courbes"
-
-#~ msgid "Notes:"
-#~ msgstr "Notes:"
-
-#~ msgid ""
-#~ "This release contains several bug fixes and improvements. It is probably "
-#~ "the last "
-#~ msgstr ""
-#~ "Cette version comporte plusieurs corrections de bugs ainsi que des "
-#~ "améliorations. C'est probablement la dernière mise à jour"
-
-#~ msgid ""
-#~ "Full history and credits for this release are available at https://github."
-#~ "com/frescobaldi/frescobaldi/compare/v3.1.2...v3.1.3"
-#~ msgstr ""
-#~ "L'historique complet des changement, ainsi que la liste des contributeurs "
-#~ "et développeurs est disponible sur https://github.com/frescobaldi/"
-#~ "frescobaldi/compare/v3.1.2...v3.1.3"
-
-#~ msgid "a Clear Music View button and menu action were added"
-#~ msgstr ""
-#~ "Un bouton, ainsi qu'un élément de menu, pour vider la vue partition, ont "
-#~ "été ajoutés"
-
-#~ msgid "Bug fixes:"
-#~ msgstr "Corrections :"
-
-#~ msgid "fixed \"NameError: name 'imp' is not defined\" when importing"
-#~ msgstr ""
-#~ "L'erreur \"NameError: name 'imp' is not defined\", qui survenait lors de "
-#~ "l'importation, a été corrigée"
-
-#~ msgid "fixed search of generated files on macOS for some Unicode file names"
-#~ msgstr ""
-#~ "La recherche de fichiers générés sur Mac OS et contenant certains "
-#~ "caractères Unicode a été corrigée"
-
-#~ msgid "fixed selection of Python on Mac OS:"
-#~ msgstr "La sélection de la version de Python sur Mac OS a été corrigée:"
-
-#~ msgid "select the system Python 2 or 3 according to LilyPond's version"
-#~ msgstr "Sélectionner Python 2 ou 3 selon la version de LilyPond"
-
-#~ msgid "support MacPorts' LilyPond tools"
-#~ msgstr "support de LilyPond par le gestionnaire MacPorts"
-
-#~ msgid ""
-#~ "add option to allow forcing the use of the tools' #! lines (useful for "
-#~ "self-compiled or other nonstandard LilyPond installations)"
-#~ msgstr ""
-#~ "ajout d'une option permettant de forcer l'utilisation des lignes # ! des "
-#~ "outils (utile pour les installations compilées ou autres installations "
-#~ "non standard de LilyPond)"
-
-#~ msgid ""
-#~ "fixed \"AttributeError: 'PreviewJob' object has no attribute "
-#~ "'lilypond_version'\""
-#~ msgstr ""
-#~ "Correction de \"L'objet AttributeError: 'PreviewJob' n'a pas de "
-#~ "'lilypond_version'\""
-
-#~ msgid "fixed Ghostscript error on Mac with MacPorts' LilyPond 2.21.x"
-#~ msgstr ""
-#~ "Correction de l'erreur Ghostscript sur Mac avec LilyPond 2.21.x de "
-#~ "MacPorts"
-
-#~ msgid "Translations:"
-#~ msgstr "Traductions :"
-
-#~ msgid "Updated translations: Dutch, Czech, Russian"
-#~ msgstr "Traductions mises à jour : Hollandais, Tchèque, Russe"
-
-#~ msgid ""
-#~ "Fixed the error \"AttributeError: 'NoneType' object has no attribute "
-#~ "'cursor'\""
-#~ msgstr ""
-#~ "Correction de l'erreur \"l'objet \"AttributeError: 'NoneType' n'a pas "
-#~ "d'attribut 'cursor'\""
-
-#~ msgid "Fixed the \"Two Pages (first page right)\" mode"
-#~ msgstr "Correction du mode \"Deux pages (première page à droite)\""
-
-#~ msgid "Fixed pinch gesture zooming in Music View on Mac OS X"
-#~ msgstr ""
-#~ "Sur Mac OS X, correction du zoom par geste de pincement dans la vue "
-#~ "Musique"
-
-#~ msgid "Fixed printing the music score on Mac OS X"
-#~ msgstr "Correction de l'impression de la partition sur Mac OS X"
-
-#~ msgid ""
-#~ "Fixed cursor navigation keyboard shortcuts on Mac OS X; new shortcuts:"
-#~ msgstr ""
-#~ "Correction des raccourcis clavier de navigation du curseur sur Mac OS X ; "
-#~ "nouveaux raccourcis :"
-
-#~ msgid "next document: ctrl+tab"
-#~ msgstr "Document suivant : ctrl+tab"
-
-#~ msgid "previous document: ctrl+shift+tab"
-#~ msgstr "Document précédent : ctrl+shift+tab"
-
-#~ msgid "start of line: cmd+left"
-#~ msgstr "début de ligne : cmd+gauche"
-
-#~ msgid "end of line: cmd+right"
-#~ msgstr "fin de ligne : cmd+droite"
-
-#~ msgid "Fixed the display of filenames in document tabs on Mac OS X"
-#~ msgstr ""
-#~ "Sur Mac OS X, correction de l'affichage des noms de fichiers dans les "
-#~ "onglets"
-
-#~ msgid "Fixed the global menu with no windows open on Mac OS X"
-#~ msgstr ""
-#~ "Sur Mac OS X, correction du menu principal lorsqu'aucune fenêtre n'est "
-#~ "ouverte"
-
-#~ msgid "Fixed the error with convert-ly on in the Mac app bundle"
-#~ msgstr ""
-#~ "Correction de l'erreur avec convert-ly dans le pack d'applications Mac"
-
-#~ msgid "Improvements:"
-#~ msgstr "Améliorations :"
-
-#~ msgid "German hyphenation patterns were added"
-#~ msgstr "Les motifs de sécure pour l'Allemand ont été ajoutés"
-
-#~ msgid "Dutch translation updated by Wilbert Berendsen"
-#~ msgstr "Traduction hollandaise mise-à-jour par Wilbert Berendsen"
-
-#~ msgid "Italian translation updated by Davide Liessi"
-#~ msgstr "Traduction italienne ajoutée par Davide Liessi"
-
-#~ msgid "Bugfixes:"
-#~ msgstr "Corrections :"
-
-#~ msgid ""
-#~ "Fixed the error AttributeError: 'PopplerDocument' has no attribute "
-#~ "'ispresent'."
-#~ msgstr ""
-#~ "Correction de l'erreur AttributeError; 'PopplerDocument' n'a pas "
-#~ "d'attribut 'ispresent'."
-
-#~ msgid ""
-#~ "Fixed the error NameError: 'QPinchGesture' is not defined (pinch in music "
-#~ "view)."
-#~ msgstr ""
-#~ "Correction de l'erreur NameError : 'QPinchGesture' n'est pas défini "
-#~ "(pincement dans l'aperçu)."
-
-#~ msgid ""
-#~ "Fixed the error NameError: 'doc' is not defined (when printing on Mac "
-#~ "OSX)."
-#~ msgstr ""
-#~ "Correction de l'erreur NameError : 'doc' n'est pas défini (lors de "
-#~ "l'impression sur Mac OSX)."
-
-#~ msgid "Requirement changes:"
-#~ msgstr "Modifications nécessaires :"
-
-#~ msgid "Frescobaldi now requires Python3.3+"
-#~ msgstr "Frescobaldi nécessite désormais Python3.3+"
-
-#~ msgid "New features:"
-#~ msgstr "Nouvelles fonctionnalités :"
-
-#~ msgid ""
-#~ "New \"Document Fonts\" dialog supporting text and music fonts and "
-#~ "providing a font sample previewer."
-#~ msgstr ""
-#~ "La boîte de dialogue \"Polices du document\" prend en charge les polices "
-#~ "de texte et de musique et propose un aperçu des échantillons de polices."
-
-#~ msgid "Possibility to load external extensions."
-#~ msgstr "Possibilité de charger des extensions externes."
-
-#~ msgid "New \"First System Only\" option in Custom Engrave."
-#~ msgstr ""
-#~ "Nouvelle option \"Premer système uniquement\" dans la gravure "
-#~ "personnalisée."
-
-#~ msgid "New \"Goto Line\" and \"Rename file\" commands."
-#~ msgstr ""
-#~ "Nouvelles commandes \"Aller à la ligne\" et \"Renommer le fichier\"."
-
-#~ msgid "Music View: view settings are remembered per-document."
-#~ msgstr "Aperçu : les paramètres de vue sont mémorisés par document."
-
-#~ msgid ""
-#~ "Music View: copy to Image can copy/export to SVG, PDF and EPS in addition "
-#~ "to PNG/JPG."
-#~ msgstr ""
-#~ "Aperçu : La copie vers une image peut s'effectuer en SVG, PDF et EPS en "
-#~ "plus des formats PNG et JPG."
-
-#~ msgid ""
-#~ "Music View: new commands to rotate left/right; new toolbar button to show/"
-#~ "hide the magnifier."
-#~ msgstr ""
-#~ "Aperçu : nouvelles commandes pour basculer gauche/droite ; nouveau bouton "
-#~ "pour afficher/masquer la loupe."
-
-#~ msgid ""
-#~ "Music View: new preferences Horizontal/Vertical and Continuous/non-"
-#~ "continuous."
-#~ msgstr ""
-#~ "Aperçu : nouvelles fontionnalités de vue \"Horizontal/Vertical\" et "
-#~ "\"Continu/non-continu\"."
-
-#~ msgid ""
-#~ "Music View: new raster layout mode (displays as many pages as fit in a "
-#~ "View)."
-#~ msgstr ""
-#~ "Aperçu : nouveau mode raster (affiche autant de pages que possible dans "
-#~ "une vue)."
-
-#~ msgid ""
-#~ "Manuscript viewer: new toolbar buttons to rotate the pages left/right and "
-#~ "to show/hide the magnifier."
-#~ msgstr ""
-#~ "Visualiseur de document : Nouveaux boutons pour tourner les pages gacuhe/"
-#~ "droite) et afficher/masquer la loupe."
-
-#~ msgid "Fixed seeking in MIDI player during playing stops sound."
-#~ msgstr ""
-#~ "Correction de la recherche dans le lecteur MIDI pendant la lecture d'un "
-#~ "son d'arrêt."
-
-#~ msgid "Paper orientation is now properly handled in New Score Wizard."
-#~ msgstr ""
-#~ "L'orientation du papier n'est pas correctement gérée dans l'assistant "
-#~ "pour les nouvelles partitions."
-
-#~ msgid ""
-#~ "Fixed discrepancy of LilyPond vs. system version of GhostScript on Linux."
-#~ msgstr ""
-#~ "Correction de la divergence entre LilyPond et la version système de "
-#~ "GhostScript sous Linux."
-
-#~ msgid "Fixed includepaths on Windows."
-#~ msgstr "Corrections des includepaths sous Windows."
-
-#~ msgid "Fixed the error NameError: name 'widgets' is not defined."
-#~ msgstr "Correction de l'erreur NameError: nom 'widgets' n'est pas défini."
-
-#~ msgid ""
-#~ "Score Wizard: Titles and Headers are now shown in preview; new checkbox "
-#~ "to write/omit pitches after \\relative command; allow \"none\" for "
-#~ "instrument names on first system."
-#~ msgstr ""
-#~ "Assistant : Les titres et les en-têtes sont maintenant affichés dans "
-#~ "l'aperçu ; nouvelle case à cocher pour écrire/omettre les diapasons après "
-#~ "la commande \\relative ; permettre \"aucun\" pour les noms d'instruments "
-#~ "sur le premier système."
-
-#~ msgid "Smarter behaviour of the autocompletion popup (#918, #922)."
-#~ msgstr ""
-#~ "Comportement plus intelligent de la popup d'autocomplétion (#918, #922)."
-
-#~ msgid "New command File-&gt;Rename/Move."
-#~ msgstr "Nouvelle commande de fchier-> Renommer/Déplacer."
-
-#~ msgid "Sessions can be grouped in the Sessions menu."
-#~ msgstr "Les sessions peuvent être regroupées dans le menu Sessions."
-
-#~ msgid "Show absolute path of include files in tooltip."
-#~ msgstr "Afficher le chemin absolu des fichiers inclus dans les infobulles."
-
-#~ msgid "Restructure Tools Menu."
-#~ msgstr "Restructurer le menu Outil."
-
-#~ msgid "File Open toolbar button shows recent files menu on long click."
-#~ msgstr ""
-#~ "Lors d'un clic long, le bouton pour ouvrir un fichier affiche le menu des "
-#~ "fichiers ouverts récemments."
-
-#~ msgid "Added \"Blank Sheet Music\" template snippet."
-#~ msgstr "Le snippet Modèle \"Page de musique vierge\" a été ajouté."
-
-#~ msgid "Frescobaldi now requires Python3.2+, Qt5, PyQt5, python-poppler-qt5."
-#~ msgstr ""
-#~ "Frescobaldi nécessite désormais Python3.2+, Qt5, PyQt5, python-poppler-"
-#~ "qt5."
-
-#~ msgid "Zoom with pinch gesture in Music View."
-#~ msgstr "Zoom avec un geste de pincement dans l'aperçu."
-
-#~ msgid ""
-#~ "An option (enabled by default) to move the cursor to the end of the line "
-#~ "when PageDown is pressed on the last line, and to move the cursor to the "
-#~ "start of the first line if PageUp is pressed on the first line."
-#~ msgstr ""
-#~ "Une option (activée par défaut) pour déplacer le curseur à la fin de la "
-#~ "ligne lorsque l'on appuie sur PageDown sur la dernière ligne, et pour "
-#~ "déplacer le curseur au début de la première ligne si l'on appuie sur "
-#~ "PageUp sur la première ligne."
-
-#~ msgid "Retina display support in Music View."
-#~ msgstr "Support des écrans Rétina dans l'aperçu."

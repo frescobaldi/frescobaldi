@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-10-17 21:15+0200\n"
+"POT-Creation-Date: 2023-10-26 16:31+0200\n"
 "PO-Revision-Date: 2015-06-19 20:20+0300\n"
 "Last-Translator: Dmytro O. Redchuk <brownian.box@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -887,7 +887,7 @@ msgid "Could not read:"
 msgstr "Неможливо зчитати:"
 
 #: ../../frescobaldi_app/mainwindow.py:541
-#: ../../frescobaldi_app/macosx/globalmenu.py:169
+#: ../../frescobaldi_app/macos/globalmenu.py:169
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Відкрити файл"
@@ -973,12 +973,12 @@ msgid "New"
 msgstr "Нова"
 
 #: ../../frescobaldi_app/mainwindow.py:1345
-#: ../../frescobaldi_app/macosx/globalmenu.py:71
+#: ../../frescobaldi_app/macos/globalmenu.py:71
 msgid "&Open..."
 msgstr "&Відкрити"
 
 #: ../../frescobaldi_app/mainwindow.py:1346
-#: ../../frescobaldi_app/macosx/globalmenu.py:102
+#: ../../frescobaldi_app/macos/globalmenu.py:102
 msgid "Open &Recent"
 msgstr "Відкрити &недавній"
 
@@ -1077,7 +1077,7 @@ msgid "Closes all documents and leaves the current session."
 msgstr "Закрити усі документи та вийти з поточної сесії."
 
 #: ../../frescobaldi_app/mainwindow.py:1378
-#: ../../frescobaldi_app/macosx/globalmenu.py:77
+#: ../../frescobaldi_app/macos/globalmenu.py:77
 msgid "&Quit"
 msgstr "Ви&йти"
 
@@ -1147,7 +1147,7 @@ msgid "&Replace..."
 msgstr "За&мінити..."
 
 #: ../../frescobaldi_app/mainwindow.py:1398
-#: ../../frescobaldi_app/macosx/globalmenu.py:123
+#: ../../frescobaldi_app/macos/globalmenu.py:123
 msgid "Pr&eferences..."
 msgstr "Налаш&тування"
 
@@ -1176,7 +1176,7 @@ msgid "&Go to Line..."
 msgstr "Команда друку:"
 
 #: ../../frescobaldi_app/mainwindow.py:1407
-#: ../../frescobaldi_app/macosx/globalmenu.py:129
+#: ../../frescobaldi_app/macos/globalmenu.py:129
 msgid "New &Window"
 msgstr "Нове &вікно"
 
@@ -1197,7 +1197,7 @@ msgid "Report a &Bug..."
 msgstr "Повідом&ити про помилку..."
 
 #: ../../frescobaldi_app/mainwindow.py:1413
-#: ../../frescobaldi_app/macosx/globalmenu.py:147
+#: ../../frescobaldi_app/macos/globalmenu.py:147
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "&Про {appname}..."
@@ -1211,7 +1211,7 @@ msgid "&Select Matching Pair"
 msgstr "Виділити фрагмент до символа-пари"
 
 #: ../../frescobaldi_app/menu.py:91
-#: ../../frescobaldi_app/macosx/globalmenu.py:66
+#: ../../frescobaldi_app/macos/globalmenu.py:66
 msgctxt "menu title"
 msgid "&File"
 msgstr "Ф&айл"
@@ -1241,7 +1241,7 @@ msgid "&Print"
 msgstr "&Друкувати"
 
 #: ../../frescobaldi_app/menu.py:165
-#: ../../frescobaldi_app/macosx/globalmenu.py:121
+#: ../../frescobaldi_app/macos/globalmenu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Редаг&ування"
@@ -1326,13 +1326,13 @@ msgid "&Directories"
 msgstr "Напрям:"
 
 #: ../../frescobaldi_app/menu.py:472
-#: ../../frescobaldi_app/macosx/globalmenu.py:128
+#: ../../frescobaldi_app/macos/globalmenu.py:128
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Вікно"
 
 #: ../../frescobaldi_app/menu.py:492
-#: ../../frescobaldi_app/macosx/globalmenu.py:145
+#: ../../frescobaldi_app/macos/globalmenu.py:145
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Допомога"
@@ -2090,7 +2090,7 @@ msgid "Generic import for all LilyPond tools."
 msgstr ""
 
 #: ../../frescobaldi_app/file_import/__init__.py:220
-#: ../../frescobaldi_app/macosx/globalmenu.py:116
+#: ../../frescobaldi_app/macos/globalmenu.py:116
 msgid "Import MusicXML..."
 msgstr "Імпортувати MusicXML..."
 
@@ -2844,25 +2844,25 @@ msgstr "Попередня помилка"
 msgid "Click to edit this file"
 msgstr "Клацніть, щоб редагувати цей файл"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:67
+#: ../../frescobaldi_app/macos/globalmenu.py:67
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Новий"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:69
+#: ../../frescobaldi_app/macos/globalmenu.py:69
 msgid "New Score with &Wizard..."
 msgstr ""
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:82
+#: ../../frescobaldi_app/macos/globalmenu.py:82
 msgid "New from &Template"
 msgstr "Новий із &шаблону"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:115
+#: ../../frescobaldi_app/macos/globalmenu.py:115
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "Імпорт"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:134
+#: ../../frescobaldi_app/macos/globalmenu.py:134
 #: ../../frescobaldi_app/sessions/menu.py:55
 msgctxt "menu title"
 msgid "&Session"
@@ -9487,718 +9487,3 @@ msgstr ""
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:58
 msgid "Score Wizard to quickly setup a music score"
 msgstr ""
-
-#~ msgid "Text Files"
-#~ msgstr "Текстові файли"
-
-#~ msgid "Open Document in &New Window"
-#~ msgstr "Відкрити &документ у новому вікні"
-
-#~ msgid "Display Control Points"
-#~ msgstr "Показувати контрольні точки"
-
-#~ msgid "Display the control points that determine curve shapes"
-#~ msgstr "Показувати контрольні точки, що визначають форму кривої"
-
-#, fuzzy
-#~ msgid "Translations:"
-#~ msgstr "Без перекладу"
-
-#, fuzzy
-#~ msgid "Fixed the \"Two Pages (first page right)\" mode"
-#~ msgstr "Дві сторінки (перша праворуч)"
-
-#, fuzzy
-#~ msgid "Improvements:"
-#~ msgstr "Видалити орнаменти"
-
-#, fuzzy
-#~ msgid "Frescobaldi now requires Python3.3+"
-#~ msgstr "Автором Frescobaldi є {author}."
-
-#, fuzzy
-#~ msgid "New features:"
-#~ msgstr "Нова назва:"
-
-#, fuzzy
-#~ msgid "New \"Goto Line\" and \"Rename file\" commands."
-#~ msgstr "Інші команди:"
-
-#, fuzzy
-#~ msgid "Frescobaldi now requires Python3.2+, Qt5, PyQt5, python-poppler-qt5."
-#~ msgstr "Автором Frescobaldi є {author}."
-
-#, fuzzy
-#~ msgid ""
-#~ "Score Wizard: allow \"none\" for instrument names on first system (#1141)."
-#~ msgstr ""
-#~ "Використовувати довгі чи короткі назви інструментів перед першою аколадою."
-
-#, fuzzy
-#~ msgctxt "submenu title"
-#~ msgid "Close (advanced)"
-#~ msgstr "Закрити документ"
-
-#, fuzzy
-#~ msgid "Pager"
-#~ msgstr "Сторінка:"
-
-#~ msgid "Fit Width"
-#~ msgstr "Влаштувати ширину"
-
-#~ msgid "Fit Height"
-#~ msgstr "Влаштувати висоту"
-
-#~ msgid "Fit Page"
-#~ msgstr "Влаштувати сторінку"
-
-#~ msgid "Git"
-#~ msgstr "Git"
-
-#~ msgid ""
-#~ "In this page you can enter commands to open different file types. `$f` is "
-#~ "replaced with the filename, `$u` with the URL. Leave a field empty to use "
-#~ "the operating system default application."
-#~ msgstr ""
-#~ "Нижче ви можете вказати команди для відкривання певних типів файлів. "
-#~ "<code>$f</code> буде замінено на назву файлу, <code>$u</code> на URL. "
-#~ "Залиште поля порожніми для використання стандартних програм."
-
-#, fuzzy
-#~ msgid "For the e-mail setting, the command should accept a `mailto:` url."
-#~ msgstr "Команда, що має обробляти посилання mailto:"
-
-#~ msgid "Printing Music"
-#~ msgstr "Команда друку"
-
-#, fuzzy
-#~ msgid "Managing Music Fonts"
-#~ msgstr "Керування файлами"
-
-#, fuzzy
-#~ msgid "Local Font Repository"
-#~ msgstr "Перейти до наступної позиції"
-
-#, fuzzy
-#~ msgid "Installing Music Fonts"
-#~ msgstr "Команда друку"
-
-#~ msgid "Importing files"
-#~ msgstr "Імпортування файлів"
-
-#, fuzzy
-#~ msgid ""
-#~ "In this dialog there are two tabs. In the first you can set some "
-#~ "parameters for the abc2ly import. In the second you can set some actions "
-#~ "on the imported LilyPond source code."
-#~ msgstr ""
-#~ "Тут ви можете встановити параметри, що будуть застосовані\n"
-#~ "до запуску LilyPond.\n"
-#~ "Ви навіть можете змінити, власне, командний рядок.\n"
-
-#~ msgid "This is the list of experimental features in Frescobaldi:"
-#~ msgstr "Перелік експериментальних можливостей Frescobaldi:"
-
-#~ msgid "Convert relative music to absolute"
-#~ msgstr "Конвертувати відносні тони в абсолютні"
-
-#~ msgid "Convert absolute music to relative"
-#~ msgstr "Конвертувати абсолютні тони у відносні"
-
-#, fuzzy
-#~ msgid "Remote URL"
-#~ msgstr "Видалити"
-
-#~ msgid "Indentation and Formatting"
-#~ msgstr "Відступи та форматування"
-
-#~ msgid "Table of Contents"
-#~ msgstr "Зміст"
-
-#~ msgid "History of Frescobaldi"
-#~ msgstr "Історія Frescobaldi"
-
-#~ msgid "Not Found"
-#~ msgstr "Не знайдено"
-
-#~ msgid "The musicxml2ly tab"
-#~ msgstr "Вкладка musicxml2ly"
-
-#~ msgid "or:"
-#~ msgstr "або:"
-
-#, fuzzy
-#~ msgid ""
-#~ "In this dialog there are two tabs. In the first you can set some "
-#~ "parameters for the midi2ly import. In the second you can set some actions "
-#~ "on the imported LilyPond source code."
-#~ msgstr ""
-#~ "Тут ви можете встановити параметри, що будуть застосовані\n"
-#~ "до запуску LilyPond.\n"
-#~ "Ви навіть можете змінити, власне, командний рядок.\n"
-
-#~ msgid "Troubleshooting"
-#~ msgstr "Виявлення проблем"
-
-#~ msgid "The Music View"
-#~ msgstr "Перегляд твору"
-
-#~ msgid "The Music View displays the PDF document created by LilyPond."
-#~ msgstr "Вікно перегляду твору показує згенерований документ PDF."
-
-#~ msgid "You can also adjust the view:"
-#~ msgstr "Ви також можете налаштувати перегляд:"
-
-#, fuzzy
-#~ msgid "Document Fonts Preview"
-#~ msgstr "Шрифти документа..."
-
-#, fuzzy
-#~ msgid "Custom Files"
-#~ msgstr "Файли ABC"
-
-#, fuzzy
-#~ msgid "Preview Caching"
-#~ msgstr "Підсвічення перегляду"
-
-#~ msgid "Introduction"
-#~ msgstr "Вступ"
-
-#, fuzzy
-#~ msgid "Menus"
-#~ msgstr "Головне меню"
-
-#, fuzzy
-#~ msgid "Manuscriptview context menu"
-#~ msgstr "Перегляд твору"
-
-#, fuzzy
-#~ msgid "Extending Frescobaldi"
-#~ msgstr "Про Frescobaldi"
-
-#, fuzzy
-#~ msgid "Selecting Text Fonts"
-#~ msgstr "Виділений текст"
-
-#~ msgid "Document Variables"
-#~ msgstr "Змінні документа"
-
-#, fuzzy
-#~ msgid "mode"
-#~ msgstr "режим"
-
-#~ msgid "filename"
-#~ msgstr "назва файла"
-
-#~ msgid "encoding"
-#~ msgstr "кодування"
-
-#~ msgid "version"
-#~ msgstr "версія"
-
-#, fuzzy
-#~ msgid "Hyphenation dictionaries"
-#~ msgstr "Теки, що містять словники переносів"
-
-#, fuzzy
-#~ msgid "Music fonts"
-#~ msgstr "Тут іде музика."
-
-#~ msgid "{appname} is written in {python} and uses the {qt} toolkit."
-#~ msgstr "{appname} написано на {python} з використанням бібліотек {qt}."
-
-#~ msgid ""
-#~ "The Music View is powered by the {poppler} library by {authors} and "
-#~ "others."
-#~ msgstr ""
-#~ "Перегляд твору використовує бібліотеку {poppler} — {authors} та інші."
-
-#~ msgid "Most of the bundled icons are created by {tango}."
-#~ msgstr "Більшість значків створив {tango}."
-
-#~ msgid "The following people contributed to {appname}:"
-#~ msgstr "Перелічені особи зробили внесок у {appname}:"
-
-#~ msgid "Kinetic Scrolling for the Music View"
-#~ msgstr "Динамічне прокручування Перегляду твору"
-
-#~ msgid "various other improvements"
-#~ msgstr "низка інших покращень"
-
-#~ msgid "Layout control modes"
-#~ msgstr "Режими керування переглядом"
-
-#~ msgid "various other contributions"
-#~ msgstr "інші внески"
-
-#~ msgid "MIDI capturing"
-#~ msgstr "Захоплювання MIDI"
-
-#~ msgid "Finding lots of bugs"
-#~ msgstr "Знайдення купи вад"
-
-#~ msgid "Many code and feature improvements"
-#~ msgstr "Багато покращень коду та функціоналу"
-
-#~ msgid "work on proper Python 3 support"
-#~ msgstr "робота над коректною підтримкою Python 3"
-
-#~ msgid "{appname} is translated into the following languages:"
-#~ msgstr "{appname} перекладено такими мовами:"
-
-#, fuzzy
-#~ msgid "Edit in place"
-#~ msgstr "Редагування файлів"
-
-#, fuzzy
-#~ msgid "Auto-completion"
-#~ msgstr "&Автоматичне доповнення"
-
-#~ msgid "Editing Files"
-#~ msgstr "Редагування файлів"
-
-#~ msgid "The following variables can be used:"
-#~ msgstr "Можна використовувати такі змінні:"
-
-#~ msgid "Selects all inserted text."
-#~ msgstr "Виділяє весь вставлений текст."
-
-#~ msgid "The Quick Insert Panel"
-#~ msgstr "Панель швидкої вставки"
-
-#~ msgid "Creating new files"
-#~ msgstr "Створення нових файлів"
-
-#~ msgid "New document"
-#~ msgstr "Новий документ"
-
-#~ msgid "New from template"
-#~ msgstr "Новий із шаблону"
-
-#~ msgid "Using the Score Wizard"
-#~ msgstr "Використання Майстра налаштування твору"
-
-#~ msgid "The following replacements will be made:"
-#~ msgstr "Буде здійснено наступні заміни:"
-
-#~ msgid "All the include paths"
-#~ msgstr "Усі шляхи пошуку (include paths)"
-
-#~ msgid "The filename of the document"
-#~ msgstr "Назва файла документа"
-
-#~ msgid "Exporting files"
-#~ msgstr "Експортування файлів"
-
-#~ msgid "Preview mode"
-#~ msgstr "Режим попереднього перегляду"
-
-#~ msgid "The Score Wizard"
-#~ msgstr "Майстер налаштування твору"
-
-#~ msgid "Lyrics"
-#~ msgstr "Вокальний текст"
-
-#~ msgid "Search and replace"
-#~ msgstr "Знайти і замінити"
-
-#~ msgid ""
-#~ "In regular expression search mode, some characters have a special meaning:"
-#~ msgstr ""
-#~ "При пошукові за регулярними виразами певні символи мають спеціальні "
-#~ "значення:"
-
-#~ msgid "Here you can change the settings for various tools."
-#~ msgstr "Тут ви можете змінити налаштування різних засобів."
-
-#~ msgid "Frescobaldi Manual"
-#~ msgstr "Підручник Frescobaldi"
-
-#~ msgid "Export Music XML"
-#~ msgstr "Експортувати як Music XML"
-
-#~ msgid "Managing Files"
-#~ msgstr "Керування файлами"
-
-#~ msgid "Global Fonts"
-#~ msgstr "Глобальні шрифти"
-
-#~ msgctxt "submenu title"
-#~ msgid "&Export"
-#~ msgstr "Експорт"
-
-#~ msgid "Drag to dock/undock"
-#~ msgstr "Потягніть щоб причепити/відчепити"
-
-#~ msgid "Could not load the {name} module."
-#~ msgstr "Не вдалося завантажити модуль {name}."
-
-#~ msgid "PDF Document"
-#~ msgstr "Документ PDF"
-
-#~ msgid "Show Available &Fonts..."
-#~ msgstr "Показати доступні шрифти..."
-
-#~ msgid "Command line:"
-#~ msgstr "Командний рядок:"
-
-#~ msgid "The file couldn't be converted. Error message:\n"
-#~ msgstr "Неможливо конвертувати файл. Помилка:\n"
-
-#~ msgid "When saving documents"
-#~ msgstr "Зберігаючи документи"
-
-#~ msgid "When creating new documents"
-#~ msgstr "Створюючи новий документ"
-
-#, fuzzy
-#~ msgid "Failed to render page"
-#~ msgstr "Який саме файл відкрити"
-
-#~ msgid "Operating System"
-#~ msgstr "Операційна система"
-
-#~ msgid "Copy <pre> element only"
-#~ msgstr "Копіювати лише елементи <pre>"
-
-#~ msgid "Usage"
-#~ msgstr "Використання"
-
-#~ msgid "Usage: %s\n"
-#~ msgstr "Використання: %s\n"
-
-#, fuzzy
-#~ msgid "Shift mode"
-#~ msgstr "Акорд"
-
-#, fuzzy
-#~ msgctxt "menu title"
-#~ msgid "&Insert"
-#~ msgstr "&Швидка вставка"
-
-#~ msgid "{appname} [options] file ..."
-#~ msgstr "{appname} [ключі] файл ..."
-
-#~ msgid ""
-#~ "Can't load non-local document:\n"
-#~ "\n"
-#~ "{url}"
-#~ msgstr ""
-#~ "Не можу відкрити віддалений документ:\n"
-#~ "\n"
-#~ "{url}"
-
-#, fuzzy
-#~ msgid ""
-#~ "Could not reload the document:\n"
-#~ "\n"
-#~ "{url}"
-#~ msgstr ""
-#~ "Не можу відкрити віддалений документ:\n"
-#~ "\n"
-#~ "{url}"
-
-#, fuzzy
-#~ msgid "The document could not be saved."
-#~ msgstr "Документ не було змінено."
-
-#, fuzzy
-#~ msgid "One document could not be saved."
-#~ msgstr "Документ не було змінено."
-
-#, fuzzy
-#~ msgid ""
-#~ "Can't write to destination:\n"
-#~ "\n"
-#~ "{url}"
-#~ msgstr ""
-#~ "Не можу записати у призначення:\n"
-#~ "\n"
-#~ "{url}"
-
-#~ msgid "Staff Size:"
-#~ msgstr "Розмір нотоносця"
-
-#, fuzzy
-#~ msgctxt "QHttp"
-#~ msgid "Connection closed"
-#~ msgstr "Суцільні тактові риски"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Community"
-#~ msgstr "Коментар"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Finance"
-#~ msgstr "Скасувати"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Home"
-#~ msgstr "Додому"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Hot Links"
-#~ msgstr "Посилання:"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Keyboard Brightness Up"
-#~ msgstr "Гарячі клавіші"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Keyboard Menu"
-#~ msgstr "Гарячі клавіші"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Mail Forward"
-#~ msgstr "Вперед"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Meeting"
-#~ msgstr "Налаштування MIDI"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Messenger"
-#~ msgstr "П&овідомлення"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Print"
-#~ msgstr "Друк"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Print Screen"
-#~ msgstr "Друкувати джерело"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Reply"
-#~ msgstr "Замінити:"
-
-#, fuzzy
-#~ msgctxt "QShortcut"
-#~ msgid "Travel"
-#~ msgstr "Гравіювати"
-
-#, fuzzy
-#~ msgid "Write the LilyPond version in a new document"
-#~ msgstr "Автоматично визначати версію LilyPond з документа"
-
-#, fuzzy
-#~ msgid "Open File at C&ursor"
-#~ msgstr "Відкрити файл"
-
-#, fuzzy
-#~ msgid "Setup New Score (in current document)..."
-#~ msgstr "Налаштувати новий твір..."
-
-#, fuzzy
-#~ msgid "The following replacements will be made in the command line:"
-#~ msgstr "Буде здійснено наступні заміни:"
-
-#, fuzzy
-#~ msgid ""
-#~ "The Music View is powered by the [http://poppler.freedesktop.org/ "
-#~ "Poppler] library by {authors} and others."
-#~ msgstr ""
-#~ "Перегляд твору використовує бібліотеку {poppler} — {authors} та інші."
-
-#, fuzzy
-#~ msgid ""
-#~ "Most of the bundled icons are created by [http://tango.freedesktop.org/ "
-#~ "The Tango Desktop Project]."
-#~ msgstr "Більшість значків створив {tango}."
-
-#, fuzzy
-#~ msgid ""
-#~ "{appname} is written in [http://www.python.org/ Python] and uses the "
-#~ "[http://qt-project.org/ Qt] toolkit."
-#~ msgstr "{appname} написано на {python} з використанням бібліотек {qt}."
-
-#~ msgid "The Tango Desktop Project"
-#~ msgstr "Проект Tango Desktop"
-
-#~ msgctxt "menu title"
-#~ msgid "Tools"
-#~ msgstr "Інструменти"
-
-#~ msgctxt "menu title"
-#~ msgid "Edit"
-#~ msgstr "Редагування"
-
-#~ msgid ""
-#~ "<p>\n"
-#~ "Frescobaldi can automatically place hyphens '{hyphen}' inside texts to "
-#~ "make\n"
-#~ "those texts usable as lyrics.\n"
-#~ "It can use hyphenation dictionaries of OpenOffice.org, Scribus, etc.\n"
-#~ "</p>\n"
-#~ "\n"
-#~ "<p>\n"
-#~ "To use this feature you must first select the text you want to hyphenate. "
-#~ "Then\n"
-#~ "press {key_hyphen} or choose {menu_hyphen}.\n"
-#~ "In the dialog that appears, select the language.\n"
-#~ "Click OK or press Enter to have the hyphenation take place. \n"
-#~ "</p>\n"
-#~ "\n"
-#~ "<p>\n"
-#~ "A small limitation is that word processor hyphenation dictionaries often "
-#~ "don't\n"
-#~ "want to break a word right after the first letter (e.g. '{example}'), "
-#~ "because that\n"
-#~ "does not look nice in word processor texts. So it can happen that you\n"
-#~ "have to add some hyphens after the first letter of such lyrics. \n"
-#~ "</p>\n"
-#~ "\n"
-#~ "<p>\n"
-#~ "There is also a command to remove hyphenation. This can be useful if you "
-#~ "have a\n"
-#~ "stanza of lyrics that you just want to display as a markup below the "
-#~ "music.\n"
-#~ "Under {menu_settings} you can enter a list of directories to search for\n"
-#~ "hyphenation pattern files.\n"
-#~ "</p>\n"
-#~ msgstr ""
-#~ "<p>\n"
-#~ "Frescobaldi може автоматично додавати переноси '{hyphen}' у текст,\n"
-#~ "щоб той текст можна було використовувати як вокальний текст.\n"
-#~ "При цьому можливо використовувати словники від OpenOffice.org, Scribus "
-#~ "тощо.\n"
-#~ "</p>\n"
-#~ "\n"
-#~ "<p>\n"
-#~ "Для використання цих можливостей вам необхідно спершу виділити потрібний "
-#~ "текст. Після цього натисніть {key_hyphen} чи виберіть {menu_hyphen}.\n"
-#~ "У діалоговому вікні виберіть мову та натисніть ОК чи <Enter>, щоб додати "
-#~ "переноси.\n"
-#~ "</p>\n"
-#~ "\n"
-#~ "<p>\n"
-#~ "Зауважте, що словники програм верстки часто не додають переноси після "
-#~ "першої літери (наприклад, '{example}'), оскільки це псує вигляд тексту. "
-#~ "Отже, ви, можливо, захочете додати кілька переносів у вокальний текст.\n"
-#~ "</p>\n"
-#~ "\n"
-#~ "<p>\n"
-#~ "Також є команда для видалення переносів. Це може бути зручно, якщо ви "
-#~ "хочете просто надрукувати строфу вокального тексту на сторінці під "
-#~ "нотами.\n"
-#~ "У {menu_settings} ви можете додати перелік тек для пошуку словників "
-#~ "переносів.\n"
-#~ "</p>\n"
-
-#~ msgid ""
-#~ "In this dialog you can set some parameters for the LilyPond command to be "
-#~ "used\n"
-#~ "to engrave your document.\n"
-#~ "It is even possible to edit the command line itself.\n"
-#~ msgstr ""
-#~ "Тут ви можете встановити параметри, що будуть застосовані\n"
-#~ "до запуску LilyPond.\n"
-#~ "Ви навіть можете змінити, власне, командний рядок.\n"
-
-#, fuzzy
-#~ msgid "Engrave (Preview)"
-#~ msgstr "Граві&ювати (перегляд)"
-
-#, fuzzy
-#~ msgid "Preview Options"
-#~ msgstr "Переглянути"
-
-#, fuzzy
-#~ msgid "Engrave (Publication)"
-#~ msgstr "Гравіювати (&начисто)"
-
-#, fuzzy
-#~ msgid "Engrave (Custom)"
-#~ msgstr "Гравіювати нестандартно"
-
-#~ msgid "What's This"
-#~ msgstr "Що це?"
-
-#~ msgid "Clear Error Marks"
-#~ msgstr "Зняти позначки помилок"
-
-#~ msgid "Copy to Image..."
-#~ msgstr "Копіювати у зображення..."
-
-#~ msgid "Edit"
-#~ msgstr "Редагувати"
-
-#~ msgid "Other Tools"
-#~ msgstr "Інші інструменти"
-
-#~ msgid "Session"
-#~ msgstr "Сесія"
-
-#~ msgid "Setup New Score..."
-#~ msgstr "Налаштувати новий твір..."
-
-#~ msgctxt "menu title"
-#~ msgid "File"
-#~ msgstr "Файл"
-
-#, fuzzy
-#~ msgid "Engrave (layout control mode)"
-#~ msgstr "Гравіювати (&начисто)"
-
-#, fuzzy
-#~ msgid "Engraving: (custom mode)"
-#~ msgstr "Пере&рвати процес гравіювання"
-
-#, fuzzy
-#~ msgid "Engraving: Preview mode"
-#~ msgstr "Пере&рвати процес гравіювання"
-
-#, fuzzy
-#~ msgid "Preview options to use"
-#~ msgstr "Використовувати версію LilyPond"
-
-#~ msgid "Shortcut Conflict"
-#~ msgstr "Конфлікт гарячих клавіш"
-
-#~ msgid "Edit again"
-#~ msgstr "Редагувати знову"
-
-#, fuzzy
-#~ msgid "Pre&view Options"
-#~ msgstr "Переглянути"
-
-#, fuzzy
-#~ msgid "More documentation to come ..."
-#~ msgstr "Закрити документи ціїє теки"
-
-#~ msgctxt "New Scheme"
-#~ msgid "&New..."
-#~ msgstr "&Нова..."
-
-#, fuzzy
-#~ msgid ""
-#~ "No print command to print a PostScript file could be found.\n"
-#~ "\n"
-#~ "Therefore the document will be printed using raster images at "
-#~ "{resolution} DPI. It is recommended to print using a dedicated PDF "
-#~ "viewer.\n"
-#~ "\n"
-#~ "Do you want to continue?"
-#~ msgstr ""
-#~ "Не знайдено жодної команди для друку файлів PostScript.\n"
-#~ "\n"
-#~ "Отже, документ буде надруковано як растрове зображення з {resolution}DPI. "
-#~ "Варто друкувати зовнішнім переглядачем документів PDF.\n"
-#~ "\n"
-#~ "Продовжити?"
-
-#~ msgctxt "submenu title"
-#~ msgid "Music &View"
-#~ msgstr "Перегляд &твору"
