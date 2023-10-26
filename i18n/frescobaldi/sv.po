@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 3.0.0\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-10-17 21:15+0200\n"
+"POT-Creation-Date: 2023-10-26 16:31+0200\n"
 "PO-Revision-Date: 2016-08-16 13:46+0200\n"
 "Last-Translator: Dag Odenhall <dag.odenhall@gmail.com>\n"
 "Language-Team: dag.odenhall@gmail.com\n"
@@ -893,7 +893,7 @@ msgid "Could not read:"
 msgstr "Kunde inte läsa:"
 
 #: ../../frescobaldi_app/mainwindow.py:541
-#: ../../frescobaldi_app/macosx/globalmenu.py:169
+#: ../../frescobaldi_app/macos/globalmenu.py:169
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Öppna fil"
@@ -979,12 +979,12 @@ msgid "New"
 msgstr "&Nytt"
 
 #: ../../frescobaldi_app/mainwindow.py:1345
-#: ../../frescobaldi_app/macosx/globalmenu.py:71
+#: ../../frescobaldi_app/macos/globalmenu.py:71
 msgid "&Open..."
 msgstr "Öppna..."
 
 #: ../../frescobaldi_app/mainwindow.py:1346
-#: ../../frescobaldi_app/macosx/globalmenu.py:102
+#: ../../frescobaldi_app/macos/globalmenu.py:102
 msgid "Open &Recent"
 msgstr "Öppna senaste"
 
@@ -1084,7 +1084,7 @@ msgid "Closes all documents and leaves the current session."
 msgstr "Stänger alla dokument och lämnar den aktuella sessionen."
 
 #: ../../frescobaldi_app/mainwindow.py:1378
-#: ../../frescobaldi_app/macosx/globalmenu.py:77
+#: ../../frescobaldi_app/macos/globalmenu.py:77
 msgid "&Quit"
 msgstr "Avsluta"
 
@@ -1154,7 +1154,7 @@ msgid "&Replace..."
 msgstr "E&rsätt..."
 
 #: ../../frescobaldi_app/mainwindow.py:1398
-#: ../../frescobaldi_app/macosx/globalmenu.py:123
+#: ../../frescobaldi_app/macos/globalmenu.py:123
 msgid "Pr&eferences..."
 msgstr "Inställningar..."
 
@@ -1183,7 +1183,7 @@ msgid "&Go to Line..."
 msgstr "Utskriftskommando:"
 
 #: ../../frescobaldi_app/mainwindow.py:1407
-#: ../../frescobaldi_app/macosx/globalmenu.py:129
+#: ../../frescobaldi_app/macos/globalmenu.py:129
 msgid "New &Window"
 msgstr "Nytt fönster"
 
@@ -1204,7 +1204,7 @@ msgid "Report a &Bug..."
 msgstr "Rapportera ett fel..."
 
 #: ../../frescobaldi_app/mainwindow.py:1413
-#: ../../frescobaldi_app/macosx/globalmenu.py:147
+#: ../../frescobaldi_app/macos/globalmenu.py:147
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "Om {appname}..."
@@ -1218,7 +1218,7 @@ msgid "&Select Matching Pair"
 msgstr "Markera matchande par"
 
 #: ../../frescobaldi_app/menu.py:91
-#: ../../frescobaldi_app/macosx/globalmenu.py:66
+#: ../../frescobaldi_app/macos/globalmenu.py:66
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Fil"
@@ -1248,7 +1248,7 @@ msgid "&Print"
 msgstr "Skriv ut"
 
 #: ../../frescobaldi_app/menu.py:165
-#: ../../frescobaldi_app/macosx/globalmenu.py:121
+#: ../../frescobaldi_app/macos/globalmenu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "R&edigera"
@@ -1332,13 +1332,13 @@ msgid "&Directories"
 msgstr "Riktning:"
 
 #: ../../frescobaldi_app/menu.py:472
-#: ../../frescobaldi_app/macosx/globalmenu.py:128
+#: ../../frescobaldi_app/macos/globalmenu.py:128
 msgctxt "menu title"
 msgid "&Window"
 msgstr "Fönster"
 
 #: ../../frescobaldi_app/menu.py:492
-#: ../../frescobaldi_app/macosx/globalmenu.py:145
+#: ../../frescobaldi_app/macos/globalmenu.py:145
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Hjälp"
@@ -2113,7 +2113,7 @@ msgid "Generic import for all LilyPond tools."
 msgstr "Allmän import för alla LilyPond-verktyg."
 
 #: ../../frescobaldi_app/file_import/__init__.py:220
-#: ../../frescobaldi_app/macosx/globalmenu.py:116
+#: ../../frescobaldi_app/macos/globalmenu.py:116
 msgid "Import MusicXML..."
 msgstr "Importera MusicXML..."
 
@@ -2864,25 +2864,25 @@ msgstr "Föregående felmeddelande"
 msgid "Click to edit this file"
 msgstr "Klicka för att redigera den här filen"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:67
+#: ../../frescobaldi_app/macos/globalmenu.py:67
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nytt"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:69
+#: ../../frescobaldi_app/macos/globalmenu.py:69
 msgid "New Score with &Wizard..."
 msgstr "Nytt partitur med guiden..."
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:82
+#: ../../frescobaldi_app/macos/globalmenu.py:82
 msgid "New from &Template"
 msgstr "Ny&tt från mall"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:115
+#: ../../frescobaldi_app/macos/globalmenu.py:115
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "&Importera"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:134
+#: ../../frescobaldi_app/macos/globalmenu.py:134
 #: ../../frescobaldi_app/sessions/menu.py:55
 msgctxt "menu title"
 msgid "&Session"
@@ -9552,201 +9552,3 @@ msgstr ""
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:58
 msgid "Score Wizard to quickly setup a music score"
 msgstr ""
-
-#~ msgid "Text Files"
-#~ msgstr "Textfiler"
-
-#~ msgid "Open Document in &New Window"
-#~ msgstr "Öppna dokumentet i &nytt fönster"
-
-#~ msgid "Display Control Points"
-#~ msgstr "Visa kontrollpunkter"
-
-#~ msgid "Display the control points that determine curve shapes"
-#~ msgstr "Visa de kontrollpunkter som avgör formen på kurvor"
-
-#, fuzzy
-#~ msgid "support MacPorts' LilyPond tools"
-#~ msgstr "Allmän import för alla LilyPond-verktyg."
-
-#, fuzzy
-#~ msgid "Translations:"
-#~ msgstr "Ingen översättning"
-
-#, fuzzy
-#~ msgid "Fixed the \"Two Pages (first page right)\" mode"
-#~ msgstr "Dubbelsidig (första sidan till höger)"
-
-#, fuzzy
-#~ msgid "Improvements:"
-#~ msgstr "Ta bort kommentarer"
-
-#, fuzzy
-#~ msgid "New features:"
-#~ msgstr "Nytt namn:"
-
-#~ msgctxt "abbreviation for Bass"
-#~ msgid "Bs."
-#~ msgstr "B."
-
-#, fuzzy
-#~ msgctxt "submenu title"
-#~ msgid "Close (advanced)"
-#~ msgstr "Stäng dokumentet"
-
-#~ msgid "Fit Width"
-#~ msgstr "Fyll bredden"
-
-#~ msgid "Fit Height"
-#~ msgstr "Fyll höjd"
-
-#~ msgid "Fit Page"
-#~ msgstr "Fyll sidan"
-
-#~ msgid "Git"
-#~ msgstr "Git"
-
-#~ msgid "Printing Music"
-#~ msgstr "Skriv ut musik"
-
-#, fuzzy
-#~ msgid "Managing Music Fonts"
-#~ msgstr "Hantera sessioner"
-
-#, fuzzy
-#~ msgid "Local Font Repository"
-#~ msgstr "Gå till nästa position"
-
-#, fuzzy
-#~ msgid "Installing Music Fonts"
-#~ msgstr "Skriv ut musik"
-
-#~ msgid "Importing files"
-#~ msgstr "Importerar filer"
-
-#~ msgid "Remote URL"
-#~ msgstr "Webbadress"
-
-#~ msgid "Table of Contents"
-#~ msgstr "Innehållsförteckning"
-
-#~ msgid "Not Found"
-#~ msgstr "Hittades inte"
-
-#~ msgid "Troubleshooting"
-#~ msgstr "Felsökning"
-
-#, fuzzy
-#~ msgid "Document Fonts Preview"
-#~ msgstr "Dokument-typsnitt..."
-
-#, fuzzy
-#~ msgid "Default Examples"
-#~ msgstr "Standard"
-
-#, fuzzy
-#~ msgid "Custom Files"
-#~ msgstr "Inkludera anpassad fil:"
-
-#, fuzzy
-#~ msgid "Preview Caching"
-#~ msgstr "Markering i musikvyn"
-
-#~ msgid "Getting Started"
-#~ msgstr "Komma igång"
-
-#~ msgid "Introduction"
-#~ msgstr "Introduktion"
-
-#, fuzzy
-#~ msgid "Menus"
-#~ msgstr "Meny"
-
-#, fuzzy
-#~ msgid "Tool Panel"
-#~ msgstr "Aktivitetsruta"
-
-#, fuzzy
-#~ msgid "Extending Frescobaldi"
-#~ msgstr "Kan inte starta Frescobaldi"
-
-#, fuzzy
-#~ msgid "Selecting Text Fonts"
-#~ msgstr "Markerad text"
-
-#~ msgid "mode"
-#~ msgstr "läge"
-
-#~ msgid "filename"
-#~ msgstr "filnamn"
-
-#~ msgid "name"
-#~ msgstr "namn"
-
-#~ msgid "version"
-#~ msgstr "version"
-
-#~ msgid "number"
-#~ msgstr "tal"
-
-#, fuzzy
-#~ msgid "Music fonts"
-#~ msgstr "Musik"
-
-#, fuzzy
-#~ msgid "Auto-completion"
-#~ msgstr "Komplettera automatiskt"
-
-#~ msgid "New document"
-#~ msgstr "Nytt dokument"
-
-#~ msgid "Exporting files"
-#~ msgstr "Exporterar filer"
-
-#~ msgid "Lyrics"
-#~ msgstr "Låttext"
-
-#~ msgid "Search and replace"
-#~ msgstr "Sök och ersätt"
-
-#~ msgid "Global Fonts"
-#~ msgstr "Globala teckensnitt"
-
-#~ msgctxt "submenu title"
-#~ msgid "&Export"
-#~ msgstr "&Exportera"
-
-#~ msgid "Drag to dock/undock"
-#~ msgstr "Dra för att fästa/lossa"
-
-#~ msgid "Could not load the {name} module."
-#~ msgstr "Kunde inte ladda modulen {name}."
-
-#~ msgid "PDF Document"
-#~ msgstr "PDF-dokument"
-
-#~ msgid "Show Available &Fonts..."
-#~ msgstr "Visa tillgängliga teckensnitt..."
-
-#~ msgid "Command line:"
-#~ msgstr "Kommandorad:"
-
-#~ msgid "The file couldn't be converted. Error message:\n"
-#~ msgstr "Filen kunde inte konverteras. Felmeddelande:\n"
-
-#~ msgid "When saving documents"
-#~ msgstr "När du sparar dokument"
-
-#~ msgid "When creating new documents"
-#~ msgstr "När du skapar nya dokument"
-
-#~ msgid ""
-#~ "Here you can enter a command to print a PDF or PostScript file. See the "
-#~ "Help page for more information about printing music."
-#~ msgstr ""
-#~ "Här kan du ange ett kommando för att skriva ut en PDF- eller PostScript-"
-#~ "fil. Se hjälpsidan för mer information om utskrift av musik."
-
-#, fuzzy
-#~ msgid "Failed to render page"
-#~ msgstr "Filen som ska öppnas"

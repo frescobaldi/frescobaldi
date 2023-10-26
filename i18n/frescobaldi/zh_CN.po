@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.18.1\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-10-17 21:15+0200\n"
+"POT-Creation-Date: 2023-10-26 16:31+0200\n"
 "PO-Revision-Date: 2017-05-30 23:15+0800\n"
 "Last-Translator: Yuning Zhang <codeworm96@outlook.com>\n"
 "Language-Team: Chinese <codeworm96@outlook.com>\n"
@@ -886,7 +886,7 @@ msgid "Could not read:"
 msgstr "不能读取："
 
 #: ../../frescobaldi_app/mainwindow.py:541
-#: ../../frescobaldi_app/macosx/globalmenu.py:169
+#: ../../frescobaldi_app/macos/globalmenu.py:169
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "打开文件"
@@ -972,12 +972,12 @@ msgid "New"
 msgstr "新建(&N)"
 
 #: ../../frescobaldi_app/mainwindow.py:1345
-#: ../../frescobaldi_app/macosx/globalmenu.py:71
+#: ../../frescobaldi_app/macos/globalmenu.py:71
 msgid "&Open..."
 msgstr "打开(&O)..."
 
 #: ../../frescobaldi_app/mainwindow.py:1346
-#: ../../frescobaldi_app/macosx/globalmenu.py:102
+#: ../../frescobaldi_app/macos/globalmenu.py:102
 msgid "Open &Recent"
 msgstr "打开最近使用的(&R)"
 
@@ -1076,7 +1076,7 @@ msgid "Closes all documents and leaves the current session."
 msgstr "关闭所有文档并离开当前会话。"
 
 #: ../../frescobaldi_app/mainwindow.py:1378
-#: ../../frescobaldi_app/macosx/globalmenu.py:77
+#: ../../frescobaldi_app/macos/globalmenu.py:77
 msgid "&Quit"
 msgstr "退出(&Q)"
 
@@ -1146,7 +1146,7 @@ msgid "&Replace..."
 msgstr "替换(&R)..."
 
 #: ../../frescobaldi_app/mainwindow.py:1398
-#: ../../frescobaldi_app/macosx/globalmenu.py:123
+#: ../../frescobaldi_app/macos/globalmenu.py:123
 msgid "Pr&eferences..."
 msgstr "首选项(&E)..."
 
@@ -1175,7 +1175,7 @@ msgid "&Go to Line..."
 msgstr "打印命令："
 
 #: ../../frescobaldi_app/mainwindow.py:1407
-#: ../../frescobaldi_app/macosx/globalmenu.py:129
+#: ../../frescobaldi_app/macos/globalmenu.py:129
 msgid "New &Window"
 msgstr "新增窗口(&W)"
 
@@ -1196,7 +1196,7 @@ msgid "Report a &Bug..."
 msgstr "报告缺陷(&B)..."
 
 #: ../../frescobaldi_app/mainwindow.py:1413
-#: ../../frescobaldi_app/macosx/globalmenu.py:147
+#: ../../frescobaldi_app/macos/globalmenu.py:147
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "关于 {appname} (&A)..."
@@ -1210,7 +1210,7 @@ msgid "&Select Matching Pair"
 msgstr "选择匹配对(&S)"
 
 #: ../../frescobaldi_app/menu.py:91
-#: ../../frescobaldi_app/macosx/globalmenu.py:66
+#: ../../frescobaldi_app/macos/globalmenu.py:66
 msgctxt "menu title"
 msgid "&File"
 msgstr "文件(&F)"
@@ -1240,7 +1240,7 @@ msgid "&Print"
 msgstr "打印(&P)"
 
 #: ../../frescobaldi_app/menu.py:165
-#: ../../frescobaldi_app/macosx/globalmenu.py:121
+#: ../../frescobaldi_app/macos/globalmenu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "编辑(&E)"
@@ -1324,13 +1324,13 @@ msgid "&Directories"
 msgstr "方向："
 
 #: ../../frescobaldi_app/menu.py:472
-#: ../../frescobaldi_app/macosx/globalmenu.py:128
+#: ../../frescobaldi_app/macos/globalmenu.py:128
 msgctxt "menu title"
 msgid "&Window"
 msgstr "窗口(&W)"
 
 #: ../../frescobaldi_app/menu.py:492
-#: ../../frescobaldi_app/macosx/globalmenu.py:145
+#: ../../frescobaldi_app/macos/globalmenu.py:145
 msgctxt "menu title"
 msgid "&Help"
 msgstr "帮助(&H)"
@@ -2096,7 +2096,7 @@ msgid "Generic import for all LilyPond tools."
 msgstr "对所有 LilyPond 工具的通用导入。"
 
 #: ../../frescobaldi_app/file_import/__init__.py:220
-#: ../../frescobaldi_app/macosx/globalmenu.py:116
+#: ../../frescobaldi_app/macos/globalmenu.py:116
 msgid "Import MusicXML..."
 msgstr "导入 MusicXML..."
 
@@ -2846,25 +2846,25 @@ msgstr "上一个错误信息"
 msgid "Click to edit this file"
 msgstr "点击编辑本文件"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:67
+#: ../../frescobaldi_app/macos/globalmenu.py:67
 msgctxt "action: new document"
 msgid "&New"
 msgstr "新建(&N)"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:69
+#: ../../frescobaldi_app/macos/globalmenu.py:69
 msgid "New Score with &Wizard..."
 msgstr "用向导新建乐谱(&W)..."
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:82
+#: ../../frescobaldi_app/macos/globalmenu.py:82
 msgid "New from &Template"
 msgstr "从模板生成新文件"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:115
+#: ../../frescobaldi_app/macos/globalmenu.py:115
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "导入(&I)"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:134
+#: ../../frescobaldi_app/macos/globalmenu.py:134
 #: ../../frescobaldi_app/sessions/menu.py:55
 msgctxt "menu title"
 msgid "&Session"
@@ -9588,306 +9588,3 @@ msgstr "片段错误"
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:58
 msgid "Score Wizard to quickly setup a music score"
 msgstr ""
-
-#~ msgid "Text Files"
-#~ msgstr "Text 文件"
-
-#~ msgid "Open Document in &New Window"
-#~ msgstr "在新窗口打开文档(&N)"
-
-#~ msgid "Display Control Points"
-#~ msgstr "显示控制点"
-
-#~ msgid "Display the control points that determine curve shapes"
-#~ msgstr "显示决定曲线形状的控制点"
-
-#, fuzzy
-#~ msgid "support MacPorts' LilyPond tools"
-#~ msgstr "对所有 LilyPond 工具的通用导入。"
-
-#, fuzzy
-#~ msgid "Translations:"
-#~ msgstr "不翻译"
-
-#, fuzzy
-#~ msgid "Fixed the \"Two Pages (first page right)\" mode"
-#~ msgstr "双页(第一页在右)"
-
-#, fuzzy
-#~ msgid "Improvements:"
-#~ msgstr "移除注释(&C)"
-
-#, fuzzy
-#~ msgid "New features:"
-#~ msgstr "新名称："
-
-#, fuzzy
-#~ msgid "New \"Goto Line\" and \"Rename file\" commands."
-#~ msgstr "其他命令："
-
-#~ msgid ""
-#~ "Unfortunately, this version of Frescobaldi is unable to print PDF "
-#~ "documents on Mac OS X due to various technical reasons.\n"
-#~ "\n"
-#~ "Do you want to open the file in the default viewer for printing instead? "
-#~ "(remember to close it again to avoid access problems)\n"
-#~ "\n"
-#~ "Choose Yes if you want that, No if you want to try the built-in printing "
-#~ "functionality anyway, or Cancel to cancel printing."
-#~ msgstr ""
-#~ "非常不幸，在 Mac OS X 中，由于各种技术原因，本版 Frescobaldi 不能打印 PDF "
-#~ "文档。\n"
-#~ "\n"
-#~ "作为替代，你想在缺省的阅览器中打开本文件吗？(记住再次关闭它来避免访问问"
-#~ "题)\n"
-#~ "\n"
-#~ "选是如果你想这样，选不如果你无论如何都想试试内置的打印功能，或者选取消来取"
-#~ "消打印。"
-
-#, fuzzy
-#~ msgctxt "submenu title"
-#~ msgid "Close (advanced)"
-#~ msgstr "关闭文档"
-
-#, fuzzy
-#~ msgid "Pager"
-#~ msgstr "适合页面"
-
-#~ msgid "Fit Width"
-#~ msgstr "适合宽度"
-
-#~ msgid "Fit Height"
-#~ msgstr "适合高度"
-
-#~ msgid "Fit Page"
-#~ msgstr "适合页面"
-
-#~ msgid "Git"
-#~ msgstr "Git"
-
-#~ msgid "Printing Music"
-#~ msgstr "打印乐谱"
-
-#, fuzzy
-#~ msgid "Managing Music Fonts"
-#~ msgstr "管理会话"
-
-#, fuzzy
-#~ msgid "Local Font Repository"
-#~ msgstr "到下一个位置"
-
-#, fuzzy
-#~ msgid "Installing Music Fonts"
-#~ msgstr "打印乐谱"
-
-#~ msgid "Python Snippets"
-#~ msgstr "Python 片段"
-
-#~ msgid "Import ABC"
-#~ msgstr "导入ABC"
-
-#~ msgid "The abc2ly tab"
-#~ msgstr "abc2ly 谱表"
-
-#~ msgid "Local path"
-#~ msgstr "本地路径"
-
-#~ msgid "Remote URL"
-#~ msgstr "远程 URL"
-
-#~ msgid "History of Frescobaldi"
-#~ msgstr "Frescobaldi 的历史"
-
-#~ msgid "Not Found"
-#~ msgstr "没有发现"
-
-#~ msgid "Import Midi"
-#~ msgstr "导入Midi"
-
-#~ msgid "The midi2ly tab"
-#~ msgstr "midi2ly tab 谱表"
-
-#~ msgid "Troubleshooting"
-#~ msgstr "找错"
-
-#~ msgid "You can also adjust the view:"
-#~ msgstr "你也可以调整视图："
-
-#, fuzzy
-#~ msgid "Document Fonts Preview"
-#~ msgstr "文档字体..."
-
-#, fuzzy
-#~ msgid "Default Examples"
-#~ msgstr "缺省样式"
-
-#, fuzzy
-#~ msgid "Custom Files"
-#~ msgstr "包含自定义文件："
-
-#, fuzzy
-#~ msgid "Preview Caching"
-#~ msgstr "预览高亮"
-
-#~ msgid "Getting Started"
-#~ msgstr "开始"
-
-#, fuzzy
-#~ msgid "Menus"
-#~ msgstr "菜单"
-
-#, fuzzy
-#~ msgid "Manuscriptview context menu"
-#~ msgstr "手稿阅览器"
-
-#, fuzzy
-#~ msgid "Tool Panel"
-#~ msgstr "任务面板"
-
-#~ msgid "Publish mode"
-#~ msgstr "出版模式"
-
-#, fuzzy
-#~ msgid "Extending Frescobaldi"
-#~ msgstr "关于 Frescobaldi"
-
-#, fuzzy
-#~ msgid "Selecting Text Fonts"
-#~ msgstr "选中的文字"
-
-#~ msgid "name"
-#~ msgstr "名称"
-
-#~ msgid "encoding"
-#~ msgstr "编码"
-
-#~ msgid "version"
-#~ msgstr "版本"
-
-#~ msgid "Indentation variables"
-#~ msgstr "缩进变量"
-
-#~ msgid "number"
-#~ msgstr "数字"
-
-#~ msgid "Layout control mode"
-#~ msgstr "布局控制模式"
-
-#, fuzzy
-#~ msgid "Hyphenation dictionaries"
-#~ msgstr "包含断字词典的文件夹"
-
-#, fuzzy
-#~ msgid "Music fonts"
-#~ msgstr "音乐"
-
-#~ msgid "{appname} is written in {python} and uses the {qt} toolkit."
-#~ msgstr "{appname} 以 {python} 编写，并使用 {qt} 工具箱。"
-
-#~ msgid "Main author and core developer"
-#~ msgstr "主作者及核心开发者"
-
-#~ msgid "Mac OS X packaging"
-#~ msgstr "Mac OS X 包"
-
-#~ msgid "Layout control modes"
-#~ msgstr "布局控制模式"
-
-#~ msgid "Finding lots of bugs"
-#~ msgstr "发现很多缺陷"
-
-#~ msgid "Engraving Scores"
-#~ msgstr "雕刻音符"
-
-#~ msgid "Edit in place"
-#~ msgstr "原地编辑"
-
-#, fuzzy
-#~ msgid "Auto-completion"
-#~ msgstr "自动补全(&C)"
-
-#~ msgid "New document"
-#~ msgstr "新文档"
-
-#~ msgid "Preview mode"
-#~ msgstr "预览模式"
-
-#~ msgid "Search and replace"
-#~ msgstr "查找并替换"
-
-#~ msgid "Export Music XML"
-#~ msgstr "导出 Music XML"
-
-#~ msgid "Global Fonts"
-#~ msgstr "全局字体"
-
-#~ msgctxt "submenu title"
-#~ msgid "&Export"
-#~ msgstr "导出(&E)"
-
-#~ msgid "Drag to dock/undock"
-#~ msgstr "拖拽来停靠/取消停靠"
-
-#~ msgid "Could not load the {name} module."
-#~ msgstr "无法载入 {name} 模块。"
-
-#~ msgid "PDF Document"
-#~ msgstr "PDF 文档"
-
-#~ msgid "Show Available &Fonts..."
-#~ msgstr "显示可用的字体(&F)..."
-
-#~ msgid "Command line:"
-#~ msgstr "命令行："
-
-#~ msgid "The file couldn't be converted. Error message:\n"
-#~ msgstr "该文件不能被转换。错误信息：\n"
-
-#~ msgid "When saving documents"
-#~ msgstr "保存文档时"
-
-#~ msgid "When creating new documents"
-#~ msgstr "创建新文档时"
-
-#~ msgid ""
-#~ "Here you can enter a command to print a PDF or PostScript file. See the "
-#~ "Help page for more information about printing music."
-#~ msgstr ""
-#~ "这里你可以输入一条打印 PDF 或 PostScript 文件的命令。参见帮助页来获取关于"
-#~ "打印乐谱的更多信息。"
-
-#~ msgid ""
-#~ "The printing command is used to print a PostScript or PDF file. On Linux "
-#~ "you don't need this, but on Windows and Mac OS X you can provide a "
-#~ "command to avoid that PDF documents are being printed using raster "
-#~ "images, which is less optimal.\n"
-#~ "<code>$pdf</code> gets replaced with the PDF filename, or alternatively, "
-#~ "<code>$ps</code> is replaced with the PostScript filename. "
-#~ "<code>$printer</code> is replaced with the printer's name to use."
-#~ msgstr ""
-#~ "用来打印 PostScript 或 PDF 文件的命令。在 Linux 上你并不需要这个，但在 "
-#~ "Windows 和 Mac OS X 上你可以提供一条命令来避免 PDF 文档被使用光栅化图像打"
-#~ "印，这种打印方式不是最优的。\n"
-#~ "<code>$pdf</code> 被替换为 PDF 文件名，或者<code>$ps</code> 被替换为 "
-#~ "PostScript 文件名。<code>$printer</code> 被替换为使用的打印机名。"
-
-#~ msgid "Use Frescobaldi's print dialog"
-#~ msgstr "使用 Frescobaldi 的打印对话框"
-
-#~ msgid ""
-#~ "If enabled, Frescobaldi will show the print dialog and create a PDF or "
-#~ "PostScript document containing only the selected pages to print. "
-#~ "Otherwise, the command is called directly and is expected to show a print "
-#~ "dialog itself."
-#~ msgstr ""
-#~ "如启用，Frescobaldi 会显示打印对话框并创建只包含选中要打印的页的PDF 或 "
-#~ "PostScript 文档。否则，命令将会被直接调用且期望命令自行显示打印对话框。"
-
-#~ msgid "Failed to render page"
-#~ msgstr "页面渲染失败"
-
-#~ msgid "Checkout Successful"
-#~ msgstr "Checkout 成功"
-
-#~ msgid "Operating System"
-#~ msgstr "操作系统"

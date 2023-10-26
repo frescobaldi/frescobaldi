@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 3.2\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-10-17 21:15+0200\n"
+"POT-Creation-Date: 2023-10-26 16:31+0200\n"
 "PO-Revision-Date: 2023-01-16 00:07+0900\n"
 "Last-Translator: Jun Tamura <j.tamura@me.com>\n"
 "Language-Team: Japanese\n"
@@ -856,7 +856,7 @@ msgid "Could not read:"
 msgstr ""
 
 #: ../../frescobaldi_app/mainwindow.py:541
-#: ../../frescobaldi_app/macosx/globalmenu.py:169
+#: ../../frescobaldi_app/macos/globalmenu.py:169
 msgctxt "dialog title"
 msgid "Open File"
 msgstr ""
@@ -934,12 +934,12 @@ msgid "New"
 msgstr "新規"
 
 #: ../../frescobaldi_app/mainwindow.py:1345
-#: ../../frescobaldi_app/macosx/globalmenu.py:71
+#: ../../frescobaldi_app/macos/globalmenu.py:71
 msgid "&Open..."
 msgstr "開く(&O)…"
 
 #: ../../frescobaldi_app/mainwindow.py:1346
-#: ../../frescobaldi_app/macosx/globalmenu.py:102
+#: ../../frescobaldi_app/macos/globalmenu.py:102
 msgid "Open &Recent"
 msgstr "最近使ったドキュメントを開く(&R)"
 
@@ -1032,7 +1032,7 @@ msgid "Closes all documents and leaves the current session."
 msgstr ""
 
 #: ../../frescobaldi_app/mainwindow.py:1378
-#: ../../frescobaldi_app/macosx/globalmenu.py:77
+#: ../../frescobaldi_app/macos/globalmenu.py:77
 msgid "&Quit"
 msgstr "終了(&Q)"
 
@@ -1102,7 +1102,7 @@ msgid "&Replace..."
 msgstr "置換(&R)…"
 
 #: ../../frescobaldi_app/mainwindow.py:1398
-#: ../../frescobaldi_app/macosx/globalmenu.py:123
+#: ../../frescobaldi_app/macos/globalmenu.py:123
 msgid "Pr&eferences..."
 msgstr "設定(&e)…"
 
@@ -1131,7 +1131,7 @@ msgid "&Go to Line..."
 msgstr "行へ移動(&G)…"
 
 #: ../../frescobaldi_app/mainwindow.py:1407
-#: ../../frescobaldi_app/macosx/globalmenu.py:129
+#: ../../frescobaldi_app/macos/globalmenu.py:129
 msgid "New &Window"
 msgstr "新規ウィンドウ(&W)"
 
@@ -1152,7 +1152,7 @@ msgid "Report a &Bug..."
 msgstr "バグを報告(&B)"
 
 #: ../../frescobaldi_app/mainwindow.py:1413
-#: ../../frescobaldi_app/macosx/globalmenu.py:147
+#: ../../frescobaldi_app/macos/globalmenu.py:147
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "{appname} について(&A)…"
@@ -1166,7 +1166,7 @@ msgid "&Select Matching Pair"
 msgstr "対応するペアまでの間を選択"
 
 #: ../../frescobaldi_app/menu.py:91
-#: ../../frescobaldi_app/macosx/globalmenu.py:66
+#: ../../frescobaldi_app/macos/globalmenu.py:66
 msgctxt "menu title"
 msgid "&File"
 msgstr "ファイル(&F)"
@@ -1192,7 +1192,7 @@ msgid "&Print"
 msgstr "印刷(&P)"
 
 #: ../../frescobaldi_app/menu.py:165
-#: ../../frescobaldi_app/macosx/globalmenu.py:121
+#: ../../frescobaldi_app/macos/globalmenu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "編集(&E)"
@@ -1273,13 +1273,13 @@ msgid "&Directories"
 msgstr "ディレクトリ(&D)"
 
 #: ../../frescobaldi_app/menu.py:472
-#: ../../frescobaldi_app/macosx/globalmenu.py:128
+#: ../../frescobaldi_app/macos/globalmenu.py:128
 msgctxt "menu title"
 msgid "&Window"
 msgstr "ウィンドウ(&W)"
 
 #: ../../frescobaldi_app/menu.py:492
-#: ../../frescobaldi_app/macosx/globalmenu.py:145
+#: ../../frescobaldi_app/macos/globalmenu.py:145
 msgctxt "menu title"
 msgid "&Help"
 msgstr "ヘルプ(&H)"
@@ -2019,7 +2019,7 @@ msgid "Generic import for all LilyPond tools."
 msgstr ""
 
 #: ../../frescobaldi_app/file_import/__init__.py:220
-#: ../../frescobaldi_app/macosx/globalmenu.py:116
+#: ../../frescobaldi_app/macos/globalmenu.py:116
 msgid "Import MusicXML..."
 msgstr "MusicXML ファイルをインポート…"
 
@@ -2742,25 +2742,25 @@ msgstr "前のエラーメッセージ"
 msgid "Click to edit this file"
 msgstr ""
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:67
+#: ../../frescobaldi_app/macos/globalmenu.py:67
 msgctxt "action: new document"
 msgid "&New"
 msgstr "新規(&N)"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:69
+#: ../../frescobaldi_app/macos/globalmenu.py:69
 msgid "New Score with &Wizard..."
 msgstr "新規スコアを Wizard を使って作成(&W)…"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:82
+#: ../../frescobaldi_app/macos/globalmenu.py:82
 msgid "New from &Template"
 msgstr ""
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:115
+#: ../../frescobaldi_app/macos/globalmenu.py:115
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "インポート(&I)"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:134
+#: ../../frescobaldi_app/macos/globalmenu.py:134
 #: ../../frescobaldi_app/sessions/menu.py:55
 msgctxt "menu title"
 msgid "&Session"
@@ -9316,29 +9316,3 @@ msgstr ""
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:58
 msgid "Score Wizard to quickly setup a music score"
 msgstr ""
-
-#~ msgid "Text Files"
-#~ msgstr "テキストファイル"
-
-#~ msgid "Force use of the tools' #! lines"
-#~ msgstr "ツールの “#!” 行を強制的に使用"
-
-#, fuzzy
-#~| msgid "No Translation"
-#~ msgid "Translations:"
-#~ msgstr "翻訳無し"
-
-#, fuzzy
-#~| msgid "Two Pages (first page right)"
-#~ msgid "Fixed the \"Two Pages (first page right)\" mode"
-#~ msgstr "2ページ（最初のページを右）"
-
-#, fuzzy
-#~| msgid "Remove &Comments"
-#~ msgid "Improvements:"
-#~ msgstr "コメントを削除(&C)"
-
-#, fuzzy
-#~| msgid "Remember View settings per-document"
-#~ msgid "Music View: view settings are remembered per-document."
-#~ msgstr "ドキュメント毎にビュー設定を記憶"
