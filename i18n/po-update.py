@@ -71,6 +71,10 @@ userguide_po = f"i18n/userguide/{language}.po"
 subprocess.run(["msgmerge", "-U", frescobaldi_po, "frescobaldi.pot"])
 subprocess.run(["msgmerge", "-U", userguide_po, "userguide.pot"])
 
-# 4. Clean up
+# 4. Remove obsolete messages (we don't want them, they clutter the files)
+subprocess.run(["msgattrib", "--no-obsolete", "-o", frescobaldi_po, frescobaldi_po])
+subprocess.run(["msgattrib", "--no-obsolete", "-o", userguide_po, userguide_po])
+
+# 5. Clean up
 os.remove("frescobaldi.pot")
 os.remove("userguide.pot")
