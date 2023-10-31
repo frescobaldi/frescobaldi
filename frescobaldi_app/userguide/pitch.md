@@ -26,4 +26,4 @@ modal_transpose
 mode_shift
 
 #VARS
-menu menu tools -> submenu title|&Pitch
+menu menu tools -> submenu title|Musical &Transformations -> submenu title|&Pitch

@@ -23,6 +23,6 @@ which will then, repetitively, be applied to a selection of notes.
 
 
 #VARS
-menu menu tools -> submenu title|&Rhythm
+menu menu tools -> submenu title|Musical &Transformations -> submenu title|&Rhythm
 
 

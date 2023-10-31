@@ -43,11 +43,11 @@ Frescobaldi to automatically do some adjustments on the new file.
 
 Reformat source:
 :  the code is reformatted.
-   (This is identical to running Tools -> Format.)
+   (This is identical to running {menu_format}.)
 
 Trim durations (Make implicit per line):
 :  repeated time duration on the same line are deleted.
-   (This is identical to running Tools -> Rhythm -> Make implicit per line.)
+   (This is identical to running {menu_implicit}.)
 
 Remove fraction duration scaling:
 :  if single notes, rests or chords are multiplied by a fraction `N/M` by
@@ -57,8 +57,11 @@ Remove fraction duration scaling:
 
 Engrave directly:
 :  LilyPond runs directly.
-   (This is identical to running LilyPond -> Engrave (preview).)
+   (This is identical to running {menu_preview}.)
 
 
 #VARS
-menu_import menu file -> &Import -> Import MusicXML...
+menu_import menu file -> submenu title|&Import/Export -> Import MusicXML...
+menu_format menu tools -> submenu title|Code &Formatting -> &Format
+menu_implicit menu tools -> submenu title|Musical &Transformations -> submenu title|Rhythm -> Make implicit (per &line)
+menu_preview menu lilypond -> &Engrave (preview)
