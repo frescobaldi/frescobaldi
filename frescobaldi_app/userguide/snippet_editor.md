@@ -12,7 +12,7 @@ The following variables can be used:
 : Place the snippet in the insert menu, grouped by the (optional) value.
 
 !`template`
-: Place the snippet in the menu {file_new_from_template}, grouped by the
+: Place the snippet in the menu {file_new}, grouped by the
   (optional) value. When triggered via the menu, the snippet is inserted into a
   new document.
 
@@ -77,4 +77,4 @@ snippet_python
 #VARS
 directory md `frescobaldi_app/symbols`
 link help snippet_python
-file_new_from_template menu file -> New from &Template
+file_new menu file -> New

@@ -98,4 +98,4 @@ Include Custom File
 engrave_layout_configure
 
 #VARS
-menu_layout_control menu tools -> Layout Control &Options
+menu_layout_control menu tools -> submenu title|&Viewers -> Layout &Control Options

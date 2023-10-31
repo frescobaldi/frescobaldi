@@ -63,7 +63,7 @@ copying to clipboard. Available options are:
 
 
 #VARS
-menu_autoindent menu tools -> &Automatic Indent
+menu_autoindent menu tools -> submenu title|Code &Formatting -> &Automatic Indent
 document_variables help docvars
 
 #SEEALSO

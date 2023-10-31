@@ -9,7 +9,7 @@ dialog see {musicxml}, {midi} and {abc}.
 If you get a file type error use the specific importer directly from the menu.*
 
 #VARS
-menu_import menu file -> &Import -> Import...
+menu_import menu file -> &Import/Export -> Import...
 musicxml help musicxml_import
 midi help midi_import
 abc help abc_import

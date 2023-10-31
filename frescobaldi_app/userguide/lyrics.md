@@ -23,7 +23,7 @@ hyphenation pattern files.
 hyphen md ` -- `
 example md `a -- men`
 key_hyphen shortcut lyrics lyrics_hyphenate
-menu_hyphen menu tools -> submenu title|&Lyrics -> &Hyphenate Lyrics Text...
+menu_hyphen menu tools -> submenu title|Musical &Transformations -> submenu title|&Lyrics -> &Hyphenate Lyrics Text...
 menu_settings menu edit -> Pr&eferences... -> Paths
 
 
