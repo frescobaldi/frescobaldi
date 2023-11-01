@@ -237,11 +237,11 @@ r"""-*- name: 44;
 
 'tactus': T(_("Tactus Time Signature (number with note)"),
 r"""-*- name: tac;
-\once \override Staff.TimeSignature #'style = #'()
-\once \override Staff.TimeSignature #'stencil = #ly:text-interface::print
-\once \override Staff.TimeSignature #'text = \markup {
+\once \override Staff.TimeSignature.style = #'numbered
+\once \override Staff.TimeSignature.stencil = #ly:text-interface::print
+\once \override Staff.TimeSignature.text = \markup {
   \override #'(baseline-skip . 0.5)
-  \column { \number $CURSOR1$ANCHOR \tiny \note #"2" #-.6 }
+  \column { \number $CURSOR1$ANCHOR \tiny \note {2} #-.6 }
 }
 """),
 
@@ -371,11 +371,11 @@ r"""-*- name: ss; python;
 if state[-1] == 'music':
     text = (
         "\\set Staff.fontSize = #-1\n"
-        "\\override Staff.StaffSymbol #'staff-space = #(magstep -1)\n")
+        "\\override Staff.StaffSymbol.staff-space = #(magstep -1)\n")
 else:
     text = (
         "fontSize = #-1\n"
-        "\\override StaffSymbol #'staff-space = #(magstep -1)")
+        "\\override StaffSymbol.staff-space = #(magstep -1)")
     if state[-1] == 'new':
         text = '\\with {\n%s\n}' % text
     elif state[-1] not in ('context', 'with'):
@@ -738,13 +738,13 @@ verseThree = \lyricmode {
       \new Voice = "alto" { \voiceTwo \alto }
     >>
     \new Lyrics \with {
-      \override VerticalAxisGroup #'staff-affinity = #CENTER
+      \override VerticalAxisGroup.staff-affinity = #CENTER
     } \lyricsto "soprano" \verseOne
     \new Lyrics \with {
-      \override VerticalAxisGroup #'staff-affinity = #CENTER
+      \override VerticalAxisGroup.staff-affinity = #CENTER
     } \lyricsto "soprano" \verseTwo
     \new Lyrics \with {
-      \override VerticalAxisGroup #'staff-affinity = #CENTER
+      \override VerticalAxisGroup.staff-affinity = #CENTER
     } \lyricsto "soprano" \verseThree
     \new Staff \with {
       midiInstrument = "choir aahs"
