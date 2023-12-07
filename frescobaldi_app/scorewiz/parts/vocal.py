@@ -384,8 +384,8 @@ class Choir(VocalPart):
         # a function to set staff affinity (in LilyPond 2.13.4 and above):
         if builder.lyVersion >= (2, 13, 4):
             def setStaffAffinity(context, affinity):
-                ly.dom.Line("\\override VerticalAxisGroup "
-                     "#'staff-affinity = #" + affinity, context.getWith())
+                ly.dom.Line("\\override VerticalAxisGroup.staff-affinity = #" +
+                            affinity, context.getWith())
         else:
             def setStaffAffinity(lyricsContext, affinity):
                 pass
@@ -517,7 +517,7 @@ class Choir(VocalPart):
                     ambitusContext = (s if numVoices == 1 else v).getWith()
                     ly.dom.Line('\\consists "Ambitus_engraver"', ambitusContext)
                     if voiceNum > 1:
-                        ly.dom.Line("\\override Ambitus #'X-offset = #{}".format(
+                        ly.dom.Line("\\override Ambitus.X-offset = #{}".format(
                                  (voiceNum - 1) * 2.0), ambitusContext)
 
                 pianoReduction[voice].append(a.name)
@@ -583,7 +583,7 @@ class Choir(VocalPart):
 
             # Make the piano part somewhat smaller
             ly.dom.Line("fontSize = #-1", piano.getWith())
-            ly.dom.Line("\\override StaffSymbol #'staff-space = #(magstep -1)",
+            ly.dom.Line("\\override StaffSymbol.staff-space = #(magstep -1)",
                 piano.getWith())
 
             # Nice to add Mark engravers

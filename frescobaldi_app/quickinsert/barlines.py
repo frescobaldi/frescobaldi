@@ -121,7 +121,7 @@ class BreatheGroup(buttongroup.ButtonGroup):
             self.insertText('\\breathe')
         else:
             glyph = name[8:].replace('_', '.')
-            text = ("\\once \\override BreathingSign #'text = "
+            text = ("\\once \\override BreathingSign.text = "
                     '#(make-musicglyph-markup "scripts.{}")\n'
                     "\\breathe").format(glyph)
             self.insertText(text, blankline=True)
