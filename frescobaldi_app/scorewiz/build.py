@@ -466,7 +466,7 @@ class Builder:
         if self.smartNeutralDirection:
             ctxt_voice = ly.dom.Context('Voice', layout)
             ly.dom.Line('\\consists "Melody_engraver"', ctxt_voice)
-            ly.dom.Line("\\override Stem #'neutral-direction = #'()", ctxt_voice)
+            ly.dom.Line("\\override Stem.neutral-direction = #'()", ctxt_voice)
 
         if len(layout):
             doc.append(layout)

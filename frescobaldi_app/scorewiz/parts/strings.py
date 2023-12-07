@@ -101,8 +101,8 @@ class BassoContinuo(Cello):
         a = data.assign('bcFigures')
         b = ly.dom.FigureMode(a)
         ly.dom.Identifier(data.globalName, b)
-        ly.dom.Line("\\override Staff.BassFigureAlignmentPositioning "
-                    "#'direction = #DOWN", b)
+        ly.dom.Line("\\override Staff.BassFigureAlignmentPositioning"
+                    ".direction = #DOWN", b)
         ly.dom.LineComment(_("Figures follow here."), b)
         ly.dom.BlankLine(b)
         figbass = ly.dom.FiguredBass()

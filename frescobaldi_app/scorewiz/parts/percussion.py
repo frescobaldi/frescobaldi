@@ -244,10 +244,10 @@ class Drums(_base.Part):
             v = ('drums', 'timbales', 'congas', 'bongos', 'percussion')[i]
             p.getWith()['drumStyleTable'] = ly.dom.Scheme(v + '-style')
             v = (5, 2, 2, 2, 1)[i]
-            ly.dom.Line(f"\\override StaffSymbol #'line-count = #{v}", p.getWith())
+            ly.dom.Line(f"\\override StaffSymbol.line-count = #{v}", p.getWith())
         if self.drumStems.isChecked():
-            ly.dom.Line("\\override Stem #'stencil = ##f", p.getWith())
-            ly.dom.Line("\\override Stem #'length = #3  % " + _("keep some distance"),
+            ly.dom.Line("\\override Stem.stencil = ##f", p.getWith())
+            ly.dom.Line("\\override Stem.length = #3  % " + _("keep some distance"),
                 p.getWith())
         data.nodes.append(p)
 
