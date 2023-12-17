@@ -20,12 +20,7 @@ up-to-date application.
 
 https://flathub.org/apps/org.frescobaldi.Frescobaldi
 
-**In this case, be sure to grant the Frescobaldi application access on your home
-directory in the Flatseal application, or you will not be able to use LilyPond
-files other than in specific directories (like `~/Documents`) due to the
-sandboxing that Flatpak imposes.**
-
-Also, if you previously installed Frescobaldi via your distribution, remember to
+If you previously installed Frescobaldi via your distribution, remember to
 remove it before installing it through Flatpak. Otherwise, they will coexist on
 your computer; while this is not a problem per se, you could get the old
 Frescobaldi version when you launch Frescobaldi graphically.
