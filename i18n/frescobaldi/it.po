@@ -9,10 +9,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Frescobaldi 3.2\n"
+"Project-Id-Version: Frescobaldi 3.3.0\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2023-10-26 16:31+0200\n"
-"PO-Revision-Date: 2023-05-04 01:38+0200\n"
+"POT-Creation-Date: 2023-12-20 23:01+0100\n"
+"PO-Revision-Date: 2023-12-20 23:29+0100\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italian <>\n"
 "Language: it\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 42.0\n"
+"X-Generator: Gtranslator 45.3\n"
 
 #: ../../frescobaldi_app/__main__.py:63 ../../frescobaldi_app/about.py:109
 msgid "A LilyPond Music Editor"
@@ -733,6 +733,8 @@ msgid ""
 "Please use the button below to send a bug report to the maintainer of this "
 "extension by email."
 msgstr ""
+"Usare il pulsante in basso per inviare una segnalazione errore via email al "
+"manutentore di questa estensione."
 
 #: ../../frescobaldi_app/exception.py:92
 msgid "An internal error has occurred:"
@@ -750,11 +752,15 @@ msgid ""
 "also send them to the <a href=\"https://groups.google.com/g/"
 "frescobaldi\">Frescobaldi user group</a>."
 msgstr ""
+"Ti invitiamo a usare il pulsante in basso per aprire un nuovo \"issue\" su "
+"GitHub, la piattaforma di sviluppo utilizzata dal progetto Frescobaldi, in "
+"modo da far conoscere questo problema agli sviluppatori. Se hai domande "
+"generiche, puoi inviarle al <a href=\"https://groups.google.com/g/"
+"frescobaldi\">gruppo di utenti di Frescobaldi</a>."
 
 #: ../../frescobaldi_app/exception.py:103
-#, fuzzy
 msgid "Send Bug Report..."
-msgstr "Invia una segnalazione di bug..."
+msgstr "Invia una segnalazione errore..."
 
 #: ../../frescobaldi_app/exception.py:117
 #, python-brace-format
@@ -936,18 +942,15 @@ msgstr "Vai al numero di linea (1-{num}):"
 
 #: ../../frescobaldi_app/mainwindow.py:1045
 msgid "<Please summarize your bug or feature request>"
-msgstr ""
+msgstr "<Riassumi il problema o la funzione richiesta>"
 
 #: ../../frescobaldi_app/mainwindow.py:1046
-#, fuzzy
 msgid ""
 "<Please describe the issue or feature request.\n"
 "Provide as much information as possible.>"
 msgstr ""
-"Descrivi il problema o la funzione richiesta\n"
-"nel modo più dettagliato possibile.\n"
-"\n"
-"\n"
+"<Descrivi il problema o la funzione richiesta\n"
+"nel modo più dettagliato possibile.>"
 
 #: ../../frescobaldi_app/mainwindow.py:1187
 msgid "Main Toolbar"
@@ -1711,9 +1714,8 @@ msgid "Delete intermediate output files"
 msgstr "Lascia che LilyPond cancelli i file di output intermedi"
 
 #: ../../frescobaldi_app/engrave/custom.py:138
-#, fuzzy
 msgid "Embed Source Code"
-msgstr "Incorpora codice sorgente (LilyPond >= 2.19.39)"
+msgstr "Incorpora codice sorgente"
 
 #: ../../frescobaldi_app/engrave/custom.py:139
 #: ../../frescobaldi_app/preferences/lilypond.py:686
@@ -2190,7 +2192,7 @@ msgstr "Lingua per i nomi delle note"
 #: ../../frescobaldi_app/scorewiz/settings.py:166
 #: ../../frescobaldi_app/scorewiz/settings.py:245
 #: ../../frescobaldi_app/scorewiz/settings.py:339
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:246
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:276
 #: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:69
 #: ../../frescobaldi_app/widgets/schemeselector.py:195
 msgid "Default"
@@ -4579,11 +4581,11 @@ msgstr "Vedere anche {link}."
 
 #: ../../frescobaldi_app/preferences/lilypond.py:142
 msgid "LilyPond downloads are in progress. Stop them?"
-msgstr ""
+msgstr "Gli scaricamenti di LilyPond sono in corso. Fermarli?"
 
 #: ../../frescobaldi_app/preferences/lilypond.py:184
 msgid "Set as &Default"
-msgstr "Imposta come predefinita"
+msgstr "Imposta come &predefinita"
 
 #: ../../frescobaldi_app/preferences/lilypond.py:207
 msgid ""
@@ -4594,54 +4596,56 @@ msgid ""
 "use a custom build, install Frescobaldi using a distribution package or from "
 "source."
 msgstr ""
+"Hai installato Frescobaldi da Flathub con Flatpak. Dato che Flatpak isola le "
+"applicazioni dal resto del sistema, in questa configurazione non è possibile "
+"utilizzare binari LilyPond personalizzati. Lascia che Frescobaldi "
+"autoinstalli una certa versione di LilyPond, usando il menù “Aggiungi…” "
+"oppure, se desideri usare una versione personalizzara, installa Frescobaldi "
+"tramite il pacchetto di una distribuzione o da sorgente."
 
 #: ../../frescobaldi_app/preferences/lilypond.py:373
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Could not download LilyPond {version}"
-msgstr "Usa convert-ly da LilyPond {version}"
+msgstr "Impossibile scaricare LilyPond {version}"
 
 #: ../../frescobaldi_app/preferences/lilypond.py:377
 #, python-brace-format
 msgid "Downloading LilyPond {version}... {progress}%"
-msgstr ""
+msgstr "Scaricamento di LilyPond {version}... {progress}%"
 
 #: ../../frescobaldi_app/preferences/lilypond.py:388
 msgid "default"
 msgstr "predefinita"
 
 #: ../../frescobaldi_app/preferences/lilypond.py:409
-#, fuzzy
 msgid "Downloading LilyPond version list..."
-msgstr "LilyPond è in esecuzione per elencare i tipi di carattere..."
+msgstr "Scaricamento dell'elenco delle versioni di LilyPond..."
 
 #: ../../frescobaldi_app/preferences/lilypond.py:411
-#, fuzzy
 msgctxt "Button to register a custom LilyPond installation"
 msgid "Custom..."
-msgstr "Personalizzato"
+msgstr "Personalizzato..."
 
 #: ../../frescobaldi_app/preferences/lilypond.py:451
 #, python-brace-format
 msgctxt "latest stable LilyPond release"
 msgid "{major}.{minor}.{micro} (latest &stable)"
-msgstr ""
+msgstr "{major}.{minor}.{micro} (ultima &stabile)"
 
 #: ../../frescobaldi_app/preferences/lilypond.py:465
 #, python-brace-format
 msgctxt "latest unstable LilyPond release"
 msgid "{major}.{minor}.{micro} (latest &unstable)"
-msgstr ""
+msgstr "{major}.{minor}.{micro} (ultima &instabile)"
 
 #: ../../frescobaldi_app/preferences/lilypond.py:474
-#, fuzzy
 msgctxt "LilyPond versions other than latest stable/unstable"
 msgid "Other..."
-msgstr "Altro"
+msgstr "Altro..."
 
 #: ../../frescobaldi_app/preferences/lilypond.py:497
-#, fuzzy
 msgid "Could not download LilyPond version list"
-msgstr "Scegliere la versione di LilyPond desiderata."
+msgstr "Impossibile scaricare l'elenco delle versioni di LilyPond"
 
 #: ../../frescobaldi_app/preferences/lilypond.py:614
 msgid "Convert-ly:"
@@ -4719,15 +4723,12 @@ msgid "Embed Source Code files in publish mode"
 msgstr "Incorpora i file sorgenti in modalità pubblicazione"
 
 #: ../../frescobaldi_app/preferences/lilypond.py:684
-#, fuzzy
 msgid ""
 "If checked, the LilyPond source files will be embedded in the PDF\n"
 "when LilyPond is started in publish mode."
 msgstr ""
 "Se spuntato, i file sorgenti LilyPond saranno incorporati nel PDF\n"
-"quando LilyPond viene lanciato in modalità pubblicazione.\n"
-"Questa funzionalità è disponibile a partire dalla versione di LilyPond "
-"2.19.39."
+"quando LilyPond viene lanciato in modalità pubblicazione."
 
 #: ../../frescobaldi_app/preferences/lilypond.py:688
 msgid ""
@@ -5812,13 +5813,17 @@ msgstr "Con&figurazione assistita di un nuovo spartito..."
 msgid "From C&urrent Document..."
 msgstr "Dal documento c&orrente..."
 
-#: ../../frescobaldi_app/scorewiz/build.py:133
+#: ../../frescobaldi_app/scorewiz/build.py:135
 msgid "Music follows here."
 msgstr "Qui segue la musica."
 
-#: ../../frescobaldi_app/scorewiz/build.py:413
+#: ../../frescobaldi_app/scorewiz/build.py:420
 msgid "Remove default LilyPond tagline"
 msgstr "Elimina la tagline predefinita di LilyPond"
+
+#: ../../frescobaldi_app/scorewiz/build.py:443
+msgid "Add space for instrument names"
+msgstr "Aggiunge spazio per i nomi degli strumenti"
 
 #: ../../frescobaldi_app/scorewiz/dialog.py:81
 msgid "Score Setup Wizard"
@@ -6163,48 +6168,55 @@ msgstr "Versione:"
 msgid "The LilyPond version you will be using for this document."
 msgstr "La versione di LilyPond che sarà usata per questo documento."
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:67
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:68
 msgid "No settings available."
 msgstr "Nessuna configurazione disponibile."
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:75
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:76
 #, python-brace-format
 msgid "Part {self.__class__.__name__}"
-msgstr ""
+msgstr "Parte {self.__class__.__name__}"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:152
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:167
 msgid "Adjust how many separate voices you want on each staff."
 msgstr "Imposta il numero di voci indipendenti per ciascun rigo."
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:153
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:168
 msgid "This is primarily useful when you write polyphonic music like a fugue."
 msgstr ""
 "Questo è utile soprattutto nella scrittura di musica polifonica, come una "
 "fuga."
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:155
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:170
 msgid "Right hand:"
 msgstr "Mano destra:"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:156
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:171
 msgid "Left hand:"
 msgstr "Mano sinistra:"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:161
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:118
-#, fuzzy
-msgid "MIDI instrument:"
-msgstr "Strumento"
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:172
+msgid "Center dynamics between staffs"
+msgstr "Centra le dinamiche tra i righi"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:218
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:177
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:118
+msgid "MIDI instrument:"
+msgstr "Strumento MIDI:"
+
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:214
+msgid "Dynamics follow here."
+msgstr "Qui seguono le dinamiche."
+
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:248
 msgid "Chord style:"
 msgstr "Notazione degli accordi:"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:219
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:249
 msgid "Guitar fret diagrams"
 msgstr "Grafici degli accordi per chitarra"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:221
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:251
 msgid ""
 "Show predefined guitar fret diagrams below the chord names (LilyPond 2.12 "
 "and above)."
@@ -6212,23 +6224,23 @@ msgstr ""
 "Mosta i grafici predefiniti degli accordi per chitarra sotto il nome degli "
 "accordi (LilyPond 2.12 e superiori)."
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:235
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:265
 msgid "Chords follow here."
 msgstr "Qui seguono gli accordi."
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:247
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:277
 msgid "German"
 msgstr "Tedesca"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:248
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:278
 msgid "Semi-German"
 msgstr "Semi-tedesca"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:249
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:279
 msgid "Italian"
 msgstr "Italiana"
 
-#: ../../frescobaldi_app/scorewiz/parts/_base.py:250
+#: ../../frescobaldi_app/scorewiz/parts/_base.py:280
 msgid "French"
 msgstr "Francese"
 
@@ -6532,15 +6544,13 @@ msgid "Syn.Br."
 msgstr "Syn.Br."
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:332
-#, fuzzy
 msgid "Synth effects"
-msgstr "Synth strings"
+msgstr "Synth effects"
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:336
-#, fuzzy
 msgctxt "abbreviation for Synth effects"
 msgid "Syn.Fx."
-msgstr "Syn.Ld."
+msgstr "Syn.Fx."
 
 #: ../../frescobaldi_app/scorewiz/parts/keyboard.py:352
 msgid "Keyboard instruments"
@@ -6574,12 +6584,12 @@ msgid "Mar."
 msgstr "Mar."
 
 #: ../../frescobaldi_app/scorewiz/parts/percussion.py:82
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:446
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:435
 msgid "Upper staff:"
 msgstr "Rigo superiore:"
 
 #: ../../frescobaldi_app/scorewiz/parts/percussion.py:83
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:447
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:436
 msgid "Lower staff:"
 msgstr "Rigo inferiore:"
 
@@ -6607,22 +6617,21 @@ msgstr "Camp."
 
 #: ../../frescobaldi_app/scorewiz/parts/percussion.py:121
 msgid "Steelpan"
-msgstr ""
+msgstr "Steelpan"
 
 #: ../../frescobaldi_app/scorewiz/parts/percussion.py:125
-#, fuzzy
 msgctxt "abbreviation for Steelpan"
 msgid "Pan"
-msgstr "Pianoforte"
+msgstr "Pan"
 
 #: ../../frescobaldi_app/scorewiz/parts/percussion.py:135
 msgid "Dulcimer"
-msgstr ""
+msgstr "Dulcimer"
 
 #: ../../frescobaldi_app/scorewiz/parts/percussion.py:139
 msgctxt "abbreviation for Dulcimer"
 msgid "Dul."
-msgstr ""
+msgstr "Dul."
 
 #: ../../frescobaldi_app/scorewiz/parts/percussion.py:147
 msgid "Glockenspiel"
@@ -6660,7 +6669,7 @@ msgid "Dr."
 msgstr "Batt."
 
 #: ../../frescobaldi_app/scorewiz/parts/percussion.py:210
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:340
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:341
 msgid "Voices:"
 msgstr "Voci:"
 
@@ -6731,222 +6740,211 @@ msgstr ""
 msgid "Custom tuning..."
 msgstr "Accordatura personalizzata..."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:225
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:226
 msgid "Normal staff"
 msgstr "Rigo normale"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:226
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:227
 msgid "Tablature"
 msgstr "Intavolatura"
 
 #. L10N: Both a Normal and a Tablature staff
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:228
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:229
 msgid "Both"
 msgstr "Entrambi"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:235
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:236
 msgid "Mandolin"
 msgstr "Mandolino"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:239
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:240
 msgctxt "abbreviation for Mandolin"
 msgid "Mdl."
 msgstr "Mand."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:243
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:244
 msgid "Mandolin tuning"
 msgstr "Accordatura per mandolino"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:250
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:251
 msgid "Ukulele"
 msgstr "Ukulele"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:254
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:255
 msgctxt "abbreviation for Ukulele"
 msgid "Uk."
 msgstr "Uk."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:258
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:259
 msgid "Ukulele tuning"
 msgstr "Accordatura per ukulele"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:259
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:260
 msgid "Ukulele D-tuning"
 msgstr "Accordatura in Re per ukulele"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:260
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:261
 msgid "Tenor Ukulele tuning"
 msgstr "Accordatura per ukulele tenore"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:261
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:262
 msgid "Baritone Ukulele tuning"
 msgstr "Accordatura per ukulele baritono"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:268
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:269
 msgid "Banjo"
 msgstr "Banjo"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:272
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:273
 msgctxt "abbreviation for Banjo"
 msgid "Bj."
 msgstr "Banj."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:277
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:278
 msgid "Open G-tuning (aDGBD)"
 msgstr "Accordatura Open G (sol-RE-SOL-SI-RE)"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:278
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:279
 msgid "C-tuning (gCGBD)"
 msgstr "Accordatura in do (sol-DO-SOL-SI-RE)"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:279
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:280
 msgid "Modal tuning (gDGCD)"
 msgstr "Accordatura modale (sol-RE-SOL-DO-RE)"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:280
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:281
 msgid "Open D-tuning (aDF#AD)"
 msgstr "Accordatura Open D (la-RE-FA#-LA-RE)"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:281
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:282
 msgid "Open Dm-tuning (aDFAD)"
 msgstr "Accordatura Open Dm (la-RE-FA-LA-RE)"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:291
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:292
 msgid "Four strings (instead of five)"
 msgstr "Quattro corde (al posto di cinque)"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:310
-msgid "Classical guitar"
-msgstr "Chitarra classica"
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:311
+msgid "Guitar"
+msgstr "Chitarra"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:314
-msgctxt "abbreviation for Classical guitar"
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:315
+msgctxt "abbreviation for Guitar"
 msgid "Gt."
 msgstr "Chit."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:319
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:320
 msgid "Guitar tuning"
 msgstr "Accordatura per chitarra"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:320
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:321
 msgid "Guitar seven-string tuning"
 msgstr "Accordatura per chitarra a sette corde"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:321
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:322
 msgid "Guitar drop-D tuning"
 msgstr "Accordatura per chitarra con Mi basso abbassato a Re"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:322
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:323
 msgid "Guitar drop-C tuning"
 msgstr "Accordatura per chitarra con Mi basso abbassato a Do"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:323
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:324
 msgid "Open G-tuning"
 msgstr "Accordatura di Sol aperto"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:324
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:325
 msgid "Guitar open D tuning"
 msgstr "Accordatura per chitarra di Re aperto"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:325
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:326
 msgid "Guitar d-a-d-g-a-d tuning"
 msgstr "Accordatura DADGAD per chitarra"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:326
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:327
 msgid "Lute tuning"
 msgstr "Accordatura per liuto"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:327
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:328
 msgid "Guitar A-sus4 tuning"
 msgstr "Accordatura A-sus4 per chitarra"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:349
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:350
 msgid "Acoustic guitar"
 msgstr "Chitarra acustica"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:353
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:354
 msgctxt "abbreviation for Acoustic guitar"
 msgid "A.Gt."
 msgstr "Chit. ac."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:365
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:366
 msgid "Electric guitar"
 msgstr "Chitarra elettrica"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:369
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:370
 msgctxt "abbreviation for Electric guitar"
 msgid "E.Gt."
 msgstr "Chit. el."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:384
-msgid "Jazz guitar"
-msgstr "Chitarra jazz"
-
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:388
-msgctxt "abbreviation for Jazz guitar"
-msgid "J.Gt."
-msgstr "Chit. j."
-
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:396
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:385
 msgid "Acoustic bass"
 msgstr "Basso acustico"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:400
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:389
 msgctxt "abbreviation for Acoustic bass"
 msgid "A.Bs."
 msgstr "B. ac."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:406
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:395
 msgid "Bass tuning"
 msgstr "Accordatura per basso"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:407
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:396
 msgid "Four-string bass tuning"
 msgstr "Accordatura per basso a quattro corde"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:408
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:397
 msgid "Bass drop-D tuning"
 msgstr "Accordatura per basso con Mi basso abbassato a Re"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:409
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:398
 msgid "Five-string bass tuning"
 msgstr "Accordatura per basso a cinque corde"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:410
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:399
 msgid "Six-string bass tuning"
 msgstr "Accordatura per basso a sei corde"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:417
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:406
 msgid "Electric bass"
 msgstr "Basso elettrico"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:421
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:410
 msgctxt "abbreviation for Electric bass"
 msgid "E.Bs."
 msgstr "B. el."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:436
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:425
 msgid "Harp"
 msgstr "Arpa"
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:440
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:429
 msgctxt "abbreviation for Harp"
 msgid "Hp."
 msgstr "Arp."
 
-#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:463
+#: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:452
 msgid "Plucked strings"
 msgstr "Strumenti a pizzico"
 
 #: ../../frescobaldi_app/scorewiz/parts/special.py:43
-#, fuzzy
 msgid "Structure"
-msgstr "&Struttura"
+msgstr "Struttura"
 
 #: ../../frescobaldi_app/scorewiz/parts/special.py:51
-#, fuzzy
 msgid "Structure follows here."
-msgstr "Qui segue la musica."
+msgstr "Qui segue la struttura."
 
 #: ../../frescobaldi_app/scorewiz/parts/special.py:59
 #: ../../frescobaldi_app/scorewiz/parts/vocal.py:202
@@ -8204,9 +8202,8 @@ msgid "Git Checkout Error"
 msgstr "Errore nel checkout di Git"
 
 #: ../../frescobaldi_app/viewers/__init__.py:259
-#, fuzzy
 msgid "PDF Files"
-msgstr "Tutti i file"
+msgstr "File PDF"
 
 #: ../../frescobaldi_app/viewers/__init__.py:286
 msgid ""
@@ -8976,7 +8973,6 @@ msgid "Restore Defaults"
 msgstr "Ripristina valori predefiniti"
 
 #: ../../i18n/messages.py:155
-#, fuzzy
 msgctxt "QPlatformTheme"
 msgid "Close"
 msgstr "Chiudi"

@@ -8,10 +8,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Frescobaldi 3.2\n"
+"Project-Id-Version: Frescobaldi 3.3.0\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
 "POT-Creation-Date: 2023-06-17 20:04+0200\n"
-"PO-Revision-Date: 2023-02-16 23:26+0100\n"
+"PO-Revision-Date: 2023-12-20 23:41+0100\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italiano <>\n"
 "Language: it\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 42.0\n"
+"X-Generator: Gtranslator 45.3\n"
 
 #: ../../frescobaldi_app/userguide/404.md:1
 msgid "Not Found"
@@ -137,7 +137,6 @@ msgstr "Riformatta il codice:"
 
 #: ../../frescobaldi_app/userguide/abc_import.md:38
 #: ../../frescobaldi_app/userguide/midi_import.md:35
-#: ../../frescobaldi_app/userguide/musicxml_import.md:45
 msgid ""
 "the code is reformatted. (This is identical to running Tools -> Format.)"
 msgstr ""
@@ -151,7 +150,6 @@ msgstr "Togli le durate (rendile implicite per ciascuna riga):"
 
 #: ../../frescobaldi_app/userguide/abc_import.md:42
 #: ../../frescobaldi_app/userguide/midi_import.md:39
-#: ../../frescobaldi_app/userguide/musicxml_import.md:49
 msgid ""
 "repeated time duration on the same line are deleted. (This is identical to "
 "running Tools -> Rhythm -> Make implicit per line.)"
@@ -187,7 +185,6 @@ msgstr "Compila direttamente:"
 
 #: ../../frescobaldi_app/userguide/abc_import.md:52
 #: ../../frescobaldi_app/userguide/midi_import.md:49
-#: ../../frescobaldi_app/userguide/musicxml_import.md:59
 msgid ""
 "LilyPond runs directly. (This is identical to running LilyPond -> Engrave "
 "(preview).)"
@@ -469,22 +466,21 @@ msgstr ""
 "La maggior parte delle icone comprese nel programma sono create dal {tango}."
 
 #: ../../frescobaldi_app/userguide/credits.md:9
-#, fuzzy
 msgid "The following people contributed to {appname} (in alphabetical order):"
-msgstr "Le seguenti persone hanno contribuito a {appname}:"
+msgstr ""
+"Le seguenti persone hanno contribuito a {appname} (in ordine alfabetico):"
 
 #: ../../frescobaldi_app/userguide/credits.md:12
 msgid "Bug and compatibility fixes, miscellaneous"
-msgstr ""
+msgstr "Correzione di problemi e compatibilità, varie"
 
 #: ../../frescobaldi_app/userguide/credits.md:15
 msgid "Main author and core developer"
 msgstr "Autore e principale sviluppatore"
 
 #: ../../frescobaldi_app/userguide/credits.md:18
-#, fuzzy
 msgid "Encoding-related fixes and other improvements"
-msgstr "Molti miglioramenti nel codice e in nuove funzionalità"
+msgstr "Correzioni relative alla codifica e altri miglioramenti"
 
 #: ../../frescobaldi_app/userguide/credits.md:21
 msgid "Modal Transpose"
@@ -519,12 +515,11 @@ msgstr "Configurazione assistita di un nuovo spartito dal documento corrente"
 
 #: ../../frescobaldi_app/userguide/credits.md:36
 msgid "Windows installers"
-msgstr ""
+msgstr "Installer per Windows"
 
 #: ../../frescobaldi_app/userguide/credits.md:39
-#, fuzzy
 msgid "Homebrew formula for macOS"
-msgstr "Formula Homebrew per Mac OS X"
+msgstr "Formula Homebrew per macOS"
 
 #: ../../frescobaldi_app/userguide/credits.md:42
 msgid "various other improvements"
@@ -548,7 +543,7 @@ msgstr "Cattura MIDI"
 
 #: ../../frescobaldi_app/userguide/credits.md:57
 msgid "macOS installers (arm64)"
-msgstr ""
+msgstr "Installer macOS (arm64)"
 
 #: ../../frescobaldi_app/userguide/credits.md:60
 msgid "Finding lots of bugs"
@@ -3364,6 +3359,24 @@ msgstr ""
 "possibile far sì che Frescobaldi esegua automaticamente alcuni aggiustamenti "
 "al nuovo file."
 
+#: ../../frescobaldi_app/userguide/musicxml_import.md:45
+msgid "the code is reformatted. (This is identical to running {menu_format}.)"
+msgstr "il codice viene riformattato. (Equivale a eseguire {menu_format}.)"
+
+#: ../../frescobaldi_app/userguide/musicxml_import.md:49
+msgid ""
+"repeated time duration on the same line are deleted. (This is identical to "
+"running {menu_implicit}.)"
+msgstr ""
+"la stessa durata ripetuta sulla stessa linea viene eliminata. (Questo "
+"equivale a eseguire {menu_implicit}.)"
+
+#: ../../frescobaldi_app/userguide/musicxml_import.md:59
+msgid "LilyPond runs directly. (This is identical to running {menu_preview}.)"
+msgstr ""
+"LilyPond viene eseguito direttamente. (Questo equivale a eseguire "
+"{menu_preview}.)"
+
 #: ../../frescobaldi_app/userguide/nomusic.md:1
 msgid "After engraving a score, the Music View does not show the music"
 msgstr "Dopo la compilazione, l'anteprima spartito non mostra la musica."
@@ -3422,11 +3435,12 @@ msgstr "Struttura del documento"
 
 #: ../../frescobaldi_app/userguide/outline.md:3
 msgid ""
-"The Document Outline (menu {tools}) shows important lines from your document "
-"and enables you to quickly navigate to them."
+"The Document Outline shows important lines from your document and enables "
+"you to quickly navigate to them. Select {tools} to display."
 msgstr ""
-"La struttura (menu {tools}) mostra le righe importanti del documento e "
-"permette di navigare rapidamente tra di esse."
+"La Struttura del documento mostra le righe importanti del documento e "
+"permette di navigare rapidamente tra di esse. Selezionare {tools} per "
+"mostrarla."
 
 #: ../../frescobaldi_app/userguide/outline_configure.md:1
 msgid "Configuring the Outline View"
@@ -3953,12 +3967,11 @@ msgid "LilyPond Documentation"
 msgstr "Documentazione LilyPond"
 
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:3
-#, fuzzy
 msgid ""
 "Here you can add local paths or remote URLs pointing to LilyPond "
 "documentation."
 msgstr ""
-"Qui puoi aggiungere i percorsi locali o gli URL che puntano alla "
+"Qui puoi aggiungere i percorsi locali o gli URL remoti che puntano alla "
 "documentazione di LilyPond."
 
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:5
@@ -3966,6 +3979,8 @@ msgid ""
 "The URLs to the latest stable and development LilyPond manuals are already "
 "set by default for user convenience."
 msgstr ""
+"Gli URL ai manuali dell'ultima versione stabile e dell'ultima versione di "
+"sviluppo di LilyPond sono già impostati."
 
 #: ../../frescobaldi_app/userguide/prefs_lilydoc.md:8
 msgid "Local path"
@@ -4785,13 +4800,12 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:15
 msgid ""
-"Place the snippet in the menu {file_new_from_template}, grouped by the "
-"(optional) value. When triggered via the menu, the snippet is inserted into "
-"a new document."
+"Place the snippet in the menu {file_new}, grouped by the (optional) value. "
+"When triggered via the menu, the snippet is inserted into a new document."
 msgstr ""
-"Aggiunge il frammento al menu {file_new_from_template}, raggruppato secondo "
-"il valore (opzionale). Quando attivato tramite il menu, il frammento sarà "
-"inserito nel documento."
+"Aggiunge il frammento al menu {file_new}, raggruppato secondo il valore "
+"(opzionale). Quando attivato tramite il menu, il frammento sarà inserito in "
+"un nuovo documento."
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:20
 msgid "The mnemonic to type to select the snippet."
@@ -4875,12 +4889,11 @@ msgstr "Sposta il cursore qui dopo aver inserito il frammento."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/snippet_editor.md:68
-#, fuzzy
 msgid ""
 "Selects text from here to the position given using the `$CURSOR` variable."
 msgstr ""
-"Seleziona il testo da questo punto fino alla posizione definita con con la "
-"variabile <code>$CURSOR</code>"
+"Seleziona il testo da questo punto fino alla posizione definita con la "
+"variabile `$CURSOR`."
 
 #: ../../frescobaldi_app/userguide/snippet_editor.md:71
 msgid "The selected text if available. If not, the text cursor is moved here."
