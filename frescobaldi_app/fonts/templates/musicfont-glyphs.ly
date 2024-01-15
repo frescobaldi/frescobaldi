@@ -305,7 +305,7 @@ highlight = {
   } \relative c'' {
     \autoBeamOff
     \override Score.SpacingSpanner.spacing-increment = #2.75
-    \override DynamicLineSpanner #'staff-padding = #2.0
+    \override DynamicLineSpanner.staff-padding = #2.0
     e8\ffff
     e\fff
     e\ff
@@ -378,7 +378,7 @@ highlight = {
       e\upmordent
       e\turn
       e\reverseturn
-      \override BreathingSign #'text = \markup { \musicglyph #"scripts.rvarcomma" }
+      \override BreathingSign.text = \markup { \musicglyph #"scripts.rvarcomma" }
       \breathe
       \bar "" \break
       e8^\lheel
@@ -408,7 +408,7 @@ highlight = {
           e\marcato%^\nebenstimme
           e\tenuto%^\arnoldStrongbeat
           e\portato%^\endstimme
-          \override TrillSpanner #'direction = #DOWN
+          \override TrillSpanner.direction = #DOWN
           e\startTrillSpan
           e\stopTrillSpan
           %\useEmm Script
@@ -420,7 +420,7 @@ highlight = {
           e_\prallprall
           e_\lineprall
           %\once \useEmm BreathingSign
-          \override BreathingSign #'text = \markup { \musicglyph #"scripts.caesura.curved" }
+          \override BreathingSign.text = \markup { \musicglyph #"scripts.caesura.curved" }
           \breathe
           \bar "" \break
           e8_\downbow
@@ -441,7 +441,7 @@ highlight = {
           e_\turn
           e_\reverseturn
           %\once \useEmm BreathingSign
-          \override BreathingSign #'text = \markup { \musicglyph #"scripts.caesura.straight" }
+          \override BreathingSign.text = \markup { \musicglyph #"scripts.caesura.straight" }
           \breathe
           \bar "" \break
           e8_\lheel
@@ -462,7 +462,7 @@ highlight = {
           e:32 \sustainOff
           e:64
           \arpeggioArrowDown <g, c e g c>\arpeggio
-          \override BreathingSign #'text = \markup { \musicglyph #"scripts.tickmark" }
+          \override BreathingSign.text = \markup { \musicglyph #"scripts.tickmark" }
           \breathe
     } }
   }

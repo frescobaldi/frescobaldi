@@ -17,8 +17,8 @@
   system-count = #1
   \context {
     \Score
-    \override StaffSymbol #'width = #'4
-    \override StaffSymbol #'thickness = #1.2
+    \override StaffSymbol.width = #'4
+    \override StaffSymbol.thickness = #1.2
   }
   \context {
     \Staff

@@ -133,12 +133,12 @@ theWords = \lyricmode {
 
   \layout {
     % make only the first clef visible
-    \override Score.Clef #'break-visibility = #'#(#f #f #f)
+    \override Score.Clef.break-visibility = #'#(#f #f #f)
 
     % make only the first time signature visible
-    \override Score.KeySignature #'break-visibility = #'#(#f #f #f)
+    \override Score.KeySignature.break-visibility = #'#(#f #f #f)
 
     % allow single-staff system bars
-    \override Score.SystemStartBar #'collapse-height = #1
+    \override Score.SystemStartBar.collapse-height = #1
   }
 }

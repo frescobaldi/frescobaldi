@@ -3,7 +3,7 @@
 \layout {
   \context {
     \Voice
-    \override Glissando #'thickness = #1.5
+    \override Glissando.thickness = #1.5
   }
 }
 \makeGlissando #'dotted-line

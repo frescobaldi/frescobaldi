@@ -19,6 +19,6 @@
   \context {
     \Staff
     \remove "Time_signature_engraver"
-    \override StaffSymbol #'width = #4
+    \override StaffSymbol.width = #4
   }
 }

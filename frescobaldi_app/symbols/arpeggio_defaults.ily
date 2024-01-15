@@ -18,16 +18,16 @@
 \layout {
   \context {
     \Staff
-    \override StaffSymbol #'transparent = ##t
-    \override StaffSymbol #'width = #4
+    \override StaffSymbol.transparent = ##t
+    \override StaffSymbol.width = #4
     \remove "Clef_engraver"
     \remove "Time_signature_engraver"
   }
   \context {
     \Voice
-    \override NoteHead #'no-ledgers = ##t
-    \override NoteHead #'stencil = #empty-stencil
-    \override Stem #'stencil =#empty-stencil
+    \override NoteHead.no-ledgers = ##t
+    \override NoteHead.stencil = #empty-stencil
+    \override Stem.stencil =#empty-stencil
   }
 }
 

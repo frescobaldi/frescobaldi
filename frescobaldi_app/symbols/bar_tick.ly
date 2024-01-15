@@ -9,7 +9,7 @@
 \layout {
   \context {
     \Staff
-    \override StaffSymbol #'staff-space = #(/ 7 8)
+    \override StaffSymbol.staff-space = #(/ 7 8)
   }
 }
 { \makeBar "'" }

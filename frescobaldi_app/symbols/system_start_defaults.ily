@@ -18,11 +18,11 @@
     \Staff
     \remove "Clef_engraver"
     \remove "Time_signature_engraver"
-    \override StaffSymbol #'width = #14
+    \override StaffSymbol.width = #14
   }
   \context {
     \Score
-    \override StaffGrouper #'staff-staff-spacing = #'(
+    \override StaffGrouper.staff-staff-spacing = #'(
       (basic-distance . 8)
       (minimum-distance . 8)
       (padding . 0)

@@ -157,7 +157,7 @@ class ScoreProperties:
                     if builder.lyVersion >= (2, 11, 44):
                         ly.dom.Line(r"\numericTimeSignature", node)
                     else:
-                        ly.dom.Line(r"\override Staff.TimeSignature #'style = #'()", node)
+                        ly.dom.Line(r"\override Staff.TimeSignature.style = #'()", node)
                     num, beat = map(int, match.group(1, 2))
                     ly.dom.TimeSignature(num, beat, node).after = 1
 

@@ -20,15 +20,15 @@
     \Staff
     \remove "Clef_engraver"
     \remove "Time_signature_engraver"
-    \override StaffSymbol #'transparent = ##t
-    \override StaffSymbol #'width = #4
+    \override StaffSymbol.transparent = ##t
+    \override StaffSymbol.width = #4
   }
   \context {
     \Voice
-    \override NoteHead #'stencil = #empty-stencil
-    \override Stem #'stencil = #empty-stencil
-    \override Stem #'length = #0
-    \override Glissando #'bound-details = #
+    \override NoteHead.stencil = #empty-stencil
+    \override Stem.stencil = #empty-stencil
+    \override Stem.length = #0
+    \override Glissando.bound-details = #
   '((right
      (attach-dir . 0)
      (padding . 0)
@@ -46,7 +46,7 @@ makeGlissando = #
 (define-music-function (parser location style) (symbol?)
   #{
     \relative c'' {
-      \override Glissando #'style = $style
+      \override Glissando.style = $style
       b\glissando b
     }
   #})

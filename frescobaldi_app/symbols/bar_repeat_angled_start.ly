@@ -9,7 +9,7 @@
 \layout {
   \context {
     \Staff
-    \override StaffSymbol #'width = #5.5
+    \override StaffSymbol.width = #5.5
   }
 }
 { \makeBar "[|:" }

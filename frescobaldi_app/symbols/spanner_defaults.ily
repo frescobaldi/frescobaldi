@@ -17,7 +17,7 @@
     \Staff
     \remove "Clef_engraver"
     \remove "Time_signature_engraver"
-    \override StaffSymbol #'width = #4.4
-    \override StaffSymbol #'transparent = ##t
+    \override StaffSymbol.width = #4.4
+    \override StaffSymbol.transparent = ##t
   }
 }

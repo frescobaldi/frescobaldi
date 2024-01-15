@@ -9,7 +9,7 @@
 \layout {
   \context {
     \Staff
-    \override StaffSymbol #'width = #1.44
+    \override StaffSymbol.width = #1.44
   }
 }
 
