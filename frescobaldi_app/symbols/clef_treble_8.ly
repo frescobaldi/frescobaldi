@@ -4,8 +4,7 @@
 \layout {
   \context {
     \Staff
-    \override ClefModifier
-    #'extra-offset = #'(0.6 . 0.6)
+    \override ClefModifier.extra-offset = #'(0.6 . 0.6)
   }
 }
 
