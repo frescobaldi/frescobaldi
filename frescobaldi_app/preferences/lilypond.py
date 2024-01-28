@@ -56,8 +56,7 @@ def settings():
     s.beginGroup("lilypond_settings")
     return s
 
-
-@functools.cache
+@functools.lru_cache(maxsize=None) # can become @functools.cache in Python 3.9+
 def _network_manager():
     return QNetworkAccessManager()
 
