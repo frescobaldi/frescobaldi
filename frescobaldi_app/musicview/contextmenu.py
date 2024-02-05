@@ -58,12 +58,12 @@ def show(position, panel, link, cursor):
         @a.triggered.connect
         def open_in_browser():
             import helpers
-            helpers.openUrl(QUrl(link.url()))
+            helpers.openUrl(QUrl(link.url))
 
         a = m.addAction(icons.get("edit-copy"), _("Copy &Link"))
         @a.triggered.connect
         def copy_link():
-            QApplication.clipboard().setText(link.url())
+            QApplication.clipboard().setText(link.url)
 
     # no actions yet? insert Fit Width/Height
     if not m.actions():
