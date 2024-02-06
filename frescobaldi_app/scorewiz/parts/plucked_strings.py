@@ -201,6 +201,7 @@ class TablaturePart(_base.Part):
             if self.tabFormat:
                 tabstaff.getWith()['tablatureFormat'] = ly.dom.Scheme(self.tabFormat)
             self.setTunings(tabstaff)
+            builder.setMidiInstrument(tabstaff, self.midiInstrument)
             sim = ly.dom.Simr(tabstaff)
             if numVoices == 1:
                 ly.dom.Identifier(assignments[0].name, sim)
@@ -215,7 +216,6 @@ class TablaturePart(_base.Part):
             p = staff
         elif staffType == 1:
             # only a TabStaff
-            builder.setMidiInstrument(tabstaff, self.midiInstrument)
             p = tabstaff
         else:
             # both TabStaff and normal staff
