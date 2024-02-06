@@ -43,6 +43,8 @@ class TablaturePart(_base.Part):
     transposition = None
     tunings = ()    # may contain a list of tunings.
     tabFormat = ''  # can contain a tablatureFormat value.
+    soundingOctave = 0  # for writing instruments that transpose at the octave
+                        # without resorting to an octave clef; see build().
     midiInstruments = ()  # may contain a list of MIDI instruments.
 
     def createWidgets(self, layout):
@@ -165,6 +167,23 @@ class TablaturePart(_base.Part):
             seq = ly.dom.Seqr(staff)
             if self.clef:
                 ly.dom.Clef(self.clef, seq)
+            if self.soundingOctave:
+                # Guitar and bass guitar sound an octave lower than written.
+                # To avoid using an 8vb clef (a debated practice for the former
+                # and non-standard for the latter), we have to account for
+                # TabStaff, which expects music at concert pitch and does not
+                # support the \transposition command. The most obvious solution
+                # is to enter all plucked string parts at concert pitch, then
+                # transpose (only) the standard Staff as needed.
+                #
+                # First, we drop the sounding pitch with \transposition...
+                ly.dom.Pitch(self.soundingOctave, 0, 0, ly.dom.Transposition(seq))
+                # ...then we \transpose up both written and sounding pitches,
+                # the latter of which cancels out the previous \transposition.
+                stub = ly.dom.Command('transpose', seq)
+                ly.dom.Pitch(self.soundingOctave, 0, 0, stub)
+                ly.dom.Pitch(0, 0, 0, stub)
+                seq = ly.dom.Seqr(stub)
             mus = ly.dom.Simr(seq)
             for a in assignments[:-1]:
                 ly.dom.Identifier(a.name, mus)
@@ -389,8 +408,9 @@ class AcousticBass(TablaturePart):
         return _("abbreviation for Acoustic bass", "A.Bs.") #FIXME
 
     midiInstrument = 'acoustic bass'
-    clef = 'bass_8'
+    clef = 'bass'
     octave = -2
+    soundingOctave = -1
     tunings = (
         ('bass-tuning', lambda: _("Bass tuning")),
         ('bass-four-string-tuning', lambda: _("Four-string bass tuning")),
