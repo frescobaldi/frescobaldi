@@ -324,7 +324,7 @@ class Guitar(TablaturePart):
         return _("abbreviation for Guitar", "Gt.")
 
     midiInstrument = 'acoustic guitar (nylon)'
-    clef = "treble_8"
+    transposition = (-1, 0, 0)
     tunings = (
         ('guitar-tuning', lambda: _("Guitar tuning")),
         ('guitar-seven-string-tuning', lambda: _("Guitar seven-string tuning")),
