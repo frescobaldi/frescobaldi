@@ -117,11 +117,10 @@ class SingleVoicePart(Part):
             toct, tnote, talter = self.transposition
             # \transposition sets the sounding pitch for written c'
             ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), ly.dom.Transposition(seq))
-            if tnote or talter:
-                stub = ly.dom.Command('transpose', seq)
-                ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), stub)
-                ly.dom.Pitch(0, 0, 0, stub)
-                seq = ly.dom.Seqr(stub)
+            stub = ly.dom.Command('transpose', seq)
+            ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), stub)
+            ly.dom.Pitch(0, 0, 0, stub)
+            seq = ly.dom.Seqr(stub)
         ly.dom.Identifier(a.name, seq)
         data.nodes.append(staff)
 

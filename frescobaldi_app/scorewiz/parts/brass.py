@@ -168,8 +168,8 @@ class BassTuba(BrassPart):
 
     midiInstrument = 'tuba'
     clef = 'bass'
-    octave = -1
-    transposition = (-2, 0, 0)
+    octave = -2
+    transposition = (-1, 0, 0)
 
 
 register(

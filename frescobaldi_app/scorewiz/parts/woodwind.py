@@ -52,6 +52,7 @@ class Piccolo(WoodWindPart):
         return _("abbreviation for Piccolo", "Pic.")
 
     midiInstrument = 'piccolo'
+    octave = 2
     transposition = (1, 0, 0)
 
 
@@ -78,6 +79,7 @@ class BassFlute(WoodWindPart):
         return _("abbreviation for Bass flute", "Bfl.")
 
     midiInstrument = 'flute'
+    octave = 0
     transposition = (-1, 0, 0)
 
 
@@ -300,6 +302,7 @@ class SopraninoRecorder(WoodWindPart):
         return _("abbreviation for Sopranino recorder", "Si.rec.")
 
     midiInstrument = 'recorder'
+    octave = 2
     transposition = (1, 0, 0)
 
 class SopranoRecorder(WoodWindPart):
@@ -312,6 +315,7 @@ class SopranoRecorder(WoodWindPart):
         return _("abbreviation for Soprano recorder", "S.rec.")
 
     midiInstrument = 'recorder'
+    octave = 2
     transposition = (1, 0, 0)
 
 
@@ -349,9 +353,9 @@ class BassRecorder(WoodWindPart):
         return _("abbreviation for Bass recorder", "B.rec.")
 
     midiInstrument = 'recorder'
-    transposition = (1, 0, 0)
     clef = 'bass'
-    octave = -1
+    octave = 0
+    transposition = (1, 0, 0)
 
 
 class ContraBassRecorder(WoodWindPart):
@@ -379,7 +383,8 @@ class SubContraBassRecorder(WoodWindPart):
 
     midiInstrument = 'recorder'
     clef = 'bass'
-    octave = -1
+    octave = -2
+    transposition = (-1, 0, 0)
 
 
 

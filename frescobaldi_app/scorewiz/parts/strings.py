@@ -83,7 +83,7 @@ class Contrabass(StringPart):
 
     midiInstrument = 'contrabass'
     clef = 'bass'
-    octave = -1
+    octave = -2
     transposition = (-1, 0, 0)
 
 
