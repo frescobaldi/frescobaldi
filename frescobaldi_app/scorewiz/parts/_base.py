@@ -109,15 +109,18 @@ class SingleVoicePart(Part):
         if self.clef:
             ly.dom.Clef(self.clef, seq)
         if self.transposition is not None:
+            # Transpose music from concert to written pitch.
+            # Note that \transpose affects both printed and MIDI output,
+            # while \transposition affects only the latter, so we use
+            # \transposition to restore the correct sounding pitch after
+            # \transpose-ing. (Well, technically before, but it's commutative.)
             toct, tnote, talter = self.transposition
+            # \transposition sets the sounding pitch for written c'
+            ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), ly.dom.Transposition(seq))
             if tnote or talter:
-                # use the appropriate key for non-octave transpositions
                 stub = ly.dom.Command('transpose', seq)
-                # the sounding pitch from PartData.assignMusic()...
                 ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), stub)
-                # ...becomes our written middle C
                 ly.dom.Pitch(0, 0, 0, stub)
-                # place the music within our \transpose block
                 seq = ly.dom.Seqr(stub)
         ly.dom.Identifier(a.name, seq)
         data.nodes.append(staff)
