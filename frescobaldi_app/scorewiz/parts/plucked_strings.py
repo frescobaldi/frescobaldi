@@ -22,6 +22,8 @@ Plucked string part types.
 """
 
 
+import fractions
+
 from PyQt5.QtWidgets import (
     QCheckBox, QComboBox, QCompleter, QGridLayout, QHBoxLayout, QLabel,
     QLineEdit, QSpinBox,
@@ -165,6 +167,13 @@ class TablaturePart(_base.Part):
             seq = ly.dom.Seqr(staff)
             if self.clef:
                 ly.dom.Clef(self.clef, seq)
+            if self.transposition is not None:
+                toct, tnote, talter = self.transposition
+                ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), ly.dom.Transposition(seq))
+                stub = ly.dom.Command('transpose', seq)
+                ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), stub)
+                ly.dom.Pitch(0, 0, 0, stub)
+                seq = ly.dom.Seqr(stub)
             mus = ly.dom.Simr(seq)
             for a in assignments[:-1]:
                 ly.dom.Identifier(a.name, mus)
@@ -389,8 +398,9 @@ class AcousticBass(TablaturePart):
         return _("abbreviation for Acoustic bass", "A.Bs.") #FIXME
 
     midiInstrument = 'acoustic bass'
-    clef = 'bass_8'
+    clef = 'bass'
     octave = -2
+    transposition = (-1, 0, 0)
     tunings = (
         ('bass-tuning', lambda: _("Bass tuning")),
         ('bass-four-string-tuning', lambda: _("Four-string bass tuning")),
