@@ -128,6 +128,8 @@ class SingleVoicePart(Part):
 class PianoStaffPart(Part):
     """Base class for parts creating a piano staff."""
     midiInstruments = ()  # may contain a list of MIDI instruments.
+    octave = 1  # for the right hand part; left is 1 octave lower.
+    transposition = None
 
     def createWidgets(self, layout):
         self.label = QLabel(wordWrap=True)
@@ -193,6 +195,13 @@ class PianoStaffPart(Part):
         c = ly.dom.Seqr(staff)
         if clef:
             ly.dom.Clef(clef, c)
+        if self.transposition is not None:
+            toct, tnote, talter = self.transposition
+            ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), ly.dom.Transposition(c))
+            stub = ly.dom.Command('transpose', c)
+            ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), stub)
+            ly.dom.Pitch(0, 0, 0, stub)
+            c = ly.dom.Seqr(stub)
         if numVoices == 1:
             a = data.assignMusic(name, octave)
             ly.dom.Identifier(a.name, c)
@@ -222,12 +231,12 @@ class PianoStaffPart(Part):
         builder.setInstrumentNamesFromPart(p, self, data)
         s = ly.dom.Sim(p)
         # add two staves, with a respective number of voices.
-        self.buildStaff(data, builder, 'right', 1, self.upperVoices.value(), s)
+        self.buildStaff(data, builder, 'right', self.octave, self.upperVoices.value(), s)
         if (self.dynamicsStaff.isChecked()
             and self.upperVoices.value() and self.lowerVoices.value()):
             # both staffs have to be present to use this feature
             self.buildDynamicsStaff(data, s)
-        self.buildStaff(data, builder, 'left', 0, self.lowerVoices.value(), s, "bass")
+        self.buildStaff(data, builder, 'left', self.octave - 1, self.lowerVoices.value(), s, "bass")
         data.nodes.append(p)
 
 
