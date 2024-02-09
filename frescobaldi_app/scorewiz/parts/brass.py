@@ -40,6 +40,7 @@ class HornF(BrassPart):
         return _("abbreviation for Horn in F", "Hn.F.")
 
     midiInstrument = 'french horn'
+    octave = 0
     transposition = (-1, 3, 0)
 
 
@@ -99,6 +100,7 @@ class Mellophone(BrassPart):
         return _("abbreviation for Mellophone", "Mph.")
 
     midiInstrument = 'french horn'
+    octave = 0
     transposition = (-1, 3, 0)
 
 
@@ -154,6 +156,7 @@ class Tuba(BrassPart):
         return _("abbreviation for Tuba", "Tb.")
 
     midiInstrument = 'tuba'
+    octave = -1
     transposition = (-2, 6, -1)
 
 

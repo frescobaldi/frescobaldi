@@ -66,6 +66,7 @@ class AltoFlute(WoodWindPart):
         return _("abbreviation Alto flute", "Afl.")
 
     midiInstrument = 'flute'
+    octave = 0
     transposition = (-1, 4, 0)
 
 
@@ -105,6 +106,7 @@ class OboeDAmore(WoodWindPart):
         return _("abbreviation for Oboe d'amore", "Ob.d'am.")
 
     midiInstrument = 'oboe'
+    octave = 0
     transposition = (-1, 5, 0)
 
 
@@ -118,6 +120,7 @@ class EnglishHorn(WoodWindPart):
         return _("abbreviation for English horn", "Eng.h.")
 
     midiInstrument = 'english horn'
+    octave = 0
     transposition = (-1, 3, 0)
 
 
@@ -147,7 +150,7 @@ class ContraBassoon(WoodWindPart):
     midiInstrument = 'bassoon'
     transposition = (-1, 0, 0)
     clef = 'bass'
-    octave = -1
+    octave = -2
 
 
 class Clarinet(WoodWindPart):
@@ -186,6 +189,7 @@ class AClarinet(WoodWindPart):
         return _("abbreviation for A Clarinet", "Cl. in A")
 
     midiInstrument = 'clarinet'
+    octave = 0
     transposition = (-1, 5, 0)
 
 
@@ -199,6 +203,7 @@ class BassClarinet(WoodWindPart):
         return _("abbreviation for Bass clarinet", "BCl.")
 
     midiInstrument = 'clarinet'
+    octave = -1
     transposition = (-2, 6, -1)
 
 
@@ -250,6 +255,7 @@ class AltoSax(WoodWindPart):
         return _("abbreviation for Alto Sax", "ASx.")
 
     midiInstrument = 'alto sax'
+    octave = 0
     transposition = (-1, 2, -1)   # es
 
 
@@ -263,6 +269,7 @@ class TenorSax(WoodWindPart):
         return _("abbreviation for Tenor Sax", "TSx.")
 
     midiInstrument = 'tenor sax'
+    octave = 0
     transposition = (-2, 6, -1)   # bes,
 
 
@@ -276,6 +283,7 @@ class BaritoneSax(WoodWindPart):
         return _("abbreviation for Baritone Sax", "BSx.")
 
     midiInstrument = 'baritone sax'
+    octave = -1
     transposition = (-2, 2, -1)   # es,
 
 
@@ -289,6 +297,7 @@ class BassSax(WoodWindPart):
         return _("abbreviation for Bass Sax", "BsSx.")
 
     midiInstrument = 'baritone sax'
+    octave = -1
     transposition = (-3, 6, -1)   # bes,,
 
 
