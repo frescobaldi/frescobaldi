@@ -156,8 +156,8 @@ class Tuba(BrassPart):
         return _("abbreviation for Tuba", "Tb.")
 
     midiInstrument = 'tuba'
+    clef = 'bass'
     octave = -1
-    transposition = (-2, 6, -1)
 
 
 class BassTuba(BrassPart):
