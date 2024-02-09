@@ -282,6 +282,7 @@ class Banjo(TablaturePart):
         return _("abbreviation for Banjo", "Bj.")
 
     midiInstrument = 'banjo'
+    transposition = (-1, 0, 0)
     tabFormat = 'fret-number-tablature-format-banjo'
     tunings = (
         ('banjo-open-g-tuning', lambda: _("Open G-tuning (aDGBD)")),
