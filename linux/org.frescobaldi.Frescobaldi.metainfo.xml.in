@@ -3,6 +3,7 @@
   <id>org.frescobaldi.Frescobaldi</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
+  <developer_name>Frescobaldi project</developer_name>
   <name>Frescobaldi</name>
   <summary>LilyPond Music Editor</summary>
 
