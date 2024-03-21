@@ -348,8 +348,8 @@ if state[-1] != 'header':
 
 'no_barnumbers': T(_("No Barnumbers"),
 r"""-*- name: nb; python; menu: properties;
-text = r'\remove "Bar_number_engraver"'
-if state[-1] not in ('context', 'with'):
+text = r'\omit BarNumber'
+if state[-1] != 'context':
     text = '\\context {\n\\Score\n%s\n}' % text
     if state[-1] != 'layout':
         text = '\\layout {\n%s\n}' % text
@@ -358,11 +358,9 @@ if state[-1] not in ('context', 'with'):
 
 'midi_tempo': T(_("Midi Tempo"),
 r"""-*- name: mt; python;
-text = ['tempoWholesPerMinute = #(ly:make-moment ', CURSOR, '100 4)']
-if state[-1] not in ('context', 'with'):
-    text = ['\\context {\n\\Score\n'] + text + ['\n}']
-    if state[-1] != 'midi':
-        text = ['\\midi {\n'] + text + ['\n}']
+text = ['\\tempo 4 = ', CURSOR, '100']
+if state[-1] != 'midi':
+    text = ['\\midi {\n'] + text + ['\n}']
 """),
 
 
