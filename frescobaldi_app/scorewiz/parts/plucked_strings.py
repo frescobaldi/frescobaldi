@@ -22,6 +22,8 @@ Plucked string part types.
 """
 
 
+import fractions
+
 from PyQt5.QtWidgets import (
     QCheckBox, QComboBox, QCompleter, QGridLayout, QHBoxLayout, QLabel,
     QLineEdit, QSpinBox,
@@ -165,6 +167,13 @@ class TablaturePart(_base.Part):
             seq = ly.dom.Seqr(staff)
             if self.clef:
                 ly.dom.Clef(self.clef, seq)
+            if self.transposition is not None:
+                toct, tnote, talter = self.transposition
+                ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), ly.dom.Transposition(seq))
+                stub = ly.dom.Command('transpose', seq)
+                ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), stub)
+                ly.dom.Pitch(0, 0, 0, stub)
+                seq = ly.dom.Seqr(stub)
             mus = ly.dom.Simr(seq)
             for a in assignments[:-1]:
                 ly.dom.Identifier(a.name, mus)
@@ -182,6 +191,7 @@ class TablaturePart(_base.Part):
             if self.tabFormat:
                 tabstaff.getWith()['tablatureFormat'] = ly.dom.Scheme(self.tabFormat)
             self.setTunings(tabstaff)
+            builder.setMidiInstrument(tabstaff, self.midiInstrument)
             sim = ly.dom.Simr(tabstaff)
             if numVoices == 1:
                 ly.dom.Identifier(assignments[0].name, sim)
@@ -196,7 +206,6 @@ class TablaturePart(_base.Part):
             p = staff
         elif staffType == 1:
             # only a TabStaff
-            builder.setMidiInstrument(tabstaff, self.midiInstrument)
             p = tabstaff
         else:
             # both TabStaff and normal staff
@@ -273,6 +282,7 @@ class Banjo(TablaturePart):
         return _("abbreviation for Banjo", "Bj.")
 
     midiInstrument = 'banjo'
+    transposition = (-1, 0, 0)
     tabFormat = 'fret-number-tablature-format-banjo'
     tunings = (
         ('banjo-open-g-tuning', lambda: _("Open G-tuning (aDGBD)")),
@@ -315,7 +325,7 @@ class Guitar(TablaturePart):
         return _("abbreviation for Guitar", "Gt.")
 
     midiInstrument = 'acoustic guitar (nylon)'
-    clef = "treble_8"
+    transposition = (-1, 0, 0)
     tunings = (
         ('guitar-tuning', lambda: _("Guitar tuning")),
         ('guitar-seven-string-tuning', lambda: _("Guitar seven-string tuning")),
@@ -389,8 +399,9 @@ class AcousticBass(TablaturePart):
         return _("abbreviation for Acoustic bass", "A.Bs.") #FIXME
 
     midiInstrument = 'acoustic bass'
-    clef = 'bass_8'
+    clef = 'bass'
     octave = -2
+    transposition = (-1, 0, 0)
     tunings = (
         ('bass-tuning', lambda: _("Bass tuning")),
         ('bass-four-string-tuning', lambda: _("Four-string bass tuning")),
