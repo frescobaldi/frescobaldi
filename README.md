@@ -6,7 +6,8 @@ README for Frescobaldi
 Frescobaldi is unfortunately close to being unmaintained at present. Releases are extremely
 difficult to do due to deep packaging issues especially on macOS
 ([issues with the macOS label](https://github.com/frescobaldi/frescobaldi/labels/macOS))
-and Frescobaldi is still using PyQt5, which is now obsolete (#1407).
+and Frescobaldi is still using PyQt5, which is now obsolete
+([#1407](https://github.com/frescobaldi/frescobaldi/issues/1407)).
 Help to resolve these issues and continue the development of Frescobaldi is very welcome.
 
 
