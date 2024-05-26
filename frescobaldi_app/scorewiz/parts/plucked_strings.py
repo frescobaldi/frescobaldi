@@ -191,7 +191,11 @@ class TablaturePart(_base.Part):
             if self.tabFormat:
                 tabstaff.getWith()['tablatureFormat'] = ly.dom.Scheme(self.tabFormat)
             self.setTunings(tabstaff)
-            builder.setMidiInstrument(tabstaff, self.midiInstrument)
+            if self.midiInstruments:
+                builder.setMidiInstrument(tabstaff,
+                    self.midiInstrumentSelection.currentText())
+            else:
+                builder.setMidiInstrument(tabstaff, self.midiInstrument)
             sim = ly.dom.Simr(tabstaff)
             if numVoices == 1:
                 ly.dom.Identifier(assignments[0].name, sim)
