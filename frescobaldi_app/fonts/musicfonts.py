@@ -72,8 +72,6 @@ class MusicFontsWidget(QWidget):
         self.setLayout(layout)
 
         self.button_download = bd = QPushButton(self)
-        # TODO: This hasn't been implemented yet
-        bd.setEnabled(False)
         self.button_auto_install = bai = QPushButton(self)
         self.button_install = bi = QPushButton(self)
         self.button_remove = br = QPushButton(self)
@@ -127,10 +125,9 @@ class MusicFontsWidget(QWidget):
 
     def download_music_fonts(self):
         """Opens a dialog to download and install music fonts from Github."""
-        # TODO: implement
-        # from . import download
-        # ...
-        pass
+        # TODO: This is really preliminary,
+        # just to show the new github module
+        from . import download
 
     def install_button_clicked(self):
         mode = 'auto' if self.sender() == self.button_auto_install else 'dlg'
