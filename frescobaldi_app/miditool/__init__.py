@@ -22,9 +22,8 @@ The MIDI tool.
 """
 
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import QAction
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QAction, QKeySequence
 
 import actioncollection
 import actioncollectionmanager
@@ -81,12 +80,12 @@ class Actions(actioncollection.ActionCollection):
         self.midi_restart = QAction(parent)
 
         try:
-            self.midi_pause.setShortcut(QKeySequence(Qt.Key_MediaPause))
+            self.midi_pause.setShortcut(QKeySequence(Qt.Key.Key_MediaPause))
         except AttributeError:
-            pass # No Qt.Key_MediaPause in some PyQt5 versions
-        self.midi_play.setShortcut(QKeySequence(Qt.Key_MediaPlay))
-        self.midi_stop.setShortcut(QKeySequence(Qt.Key_MediaStop))
-        self.midi_restart.setShortcut(QKeySequence(Qt.Key_MediaPrevious))
+            pass # No Qt.Key.Key_MediaPause in some PyQt6 versions
+        self.midi_play.setShortcut(QKeySequence(Qt.Key.Key_MediaPlay))
+        self.midi_stop.setShortcut(QKeySequence(Qt.Key.Key_MediaStop))
+        self.midi_restart.setShortcut(QKeySequence(Qt.Key.Key_MediaPrevious))
 
         self.midi_pause.setIcon(icons.get('media-playback-pause'))
         self.midi_play.setIcon(icons.get('media-playback-start'))

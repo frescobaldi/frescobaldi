@@ -31,10 +31,11 @@ import shutil
 import sys
 import tempfile
 
-from PyQt5.QtCore import pyqtSignal, QSettings, Qt, QTimer, QUrl
-from PyQt5.QtNetwork import QNetworkAccessManager, QNetworkRequest
-from PyQt5.QtWidgets import (
-    QAbstractItemView, QAction, QCheckBox, QDialog, QDialogButtonBox,
+from PyQt6.QtCore import pyqtSignal, QSettings, Qt, QTimer, QUrl
+from PyQt6.QtNetwork import QNetworkAccessManager, QNetworkRequest
+from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import (
+    QAbstractItemView, QCheckBox, QDialog, QDialogButtonBox,
     QFileDialog, QGridLayout, QHBoxLayout, QLabel, QLineEdit, QListWidgetItem,
     QMenu, QMessageBox, QPushButton, QRadioButton, QTabWidget, QVBoxLayout,
     QWidget)
@@ -139,8 +140,8 @@ class Versions(preferences.Group):
             answer = QMessageBox.warning(
                 self, app.caption("Downloads pending"),
                 _("LilyPond downloads are in progress. Stop them?"),
-                QMessageBox.Ok | QMessageBox.Cancel)
-            if answer == QMessageBox.Cancel:
+                QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
+            if answer == QMessageBox.StandardButton.Cancel:
                 raise preferences.CancelClosingPreferences
             else:
                 # Stop unfinished downloads
@@ -533,7 +534,7 @@ class AddMenu(QMenu):
 class InfoDialog(QDialog):
     def __init__(self, parent, info):
         super().__init__(parent)
-        self.setWindowModality(Qt.WindowModal)
+        self.setWindowModality(Qt.WindowType.WindowModal)
 
         layout = QVBoxLayout()
         layout.setSpacing(10)

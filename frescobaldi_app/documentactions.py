@@ -22,9 +22,8 @@ Manages some actions and per-document preferences that are set in metainfo.
 """
 
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import QAction
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QAction, QKeySequence
 
 import actioncollection
 import actioncollectionmanager
@@ -234,8 +233,8 @@ class Actions(actioncollection.ActionCollection):
         self.edit_cut_assign.setIcon(icons.get('edit-cut'))
         self.edit_move_to_include_file.setIcon(icons.get('edit-cut'))
 
-        self.view_goto_file_or_definition.setShortcut(QKeySequence(Qt.ALT + Qt.Key_Return))
-        self.edit_cut_assign.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_X))
+        self.view_goto_file_or_definition.setShortcut(QKeySequence(Qt.Modifier.ALT + Qt.Key.Key_Return))
+        self.edit_cut_assign.setShortcut(QKeySequence(Qt.Modifier.SHIFT + Qt.Modifier.CTRL + Qt.Key.Key_X))
 
     def translateUI(self):
         self.edit_cut_assign.setText(_("Cut and Assign..."))

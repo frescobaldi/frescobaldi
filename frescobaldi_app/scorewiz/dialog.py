@@ -22,8 +22,8 @@ The Score Wizard dialog.
 """
 
 
-from PyQt5.QtCore import pyqtSignal, QSettings, QUrl
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import pyqtSignal, QSettings, QUrl
+from PyQt6.QtWidgets import (
     QDialog, QDialogButtonBox, QGroupBox, QTabWidget, QVBoxLayout, QWidget)
 
 import app

@@ -45,9 +45,8 @@ currently set shortcuts for an action using shortcuts().
 
 import weakref
 
-from PyQt5.QtCore import QSettings, Qt
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import QAction
+from PyQt6.QtCore import QSettings, Qt
+from PyQt6.QtGui import QAction, QKeySequence
 
 import app
 
@@ -197,7 +196,7 @@ class ActionCollection(ActionCollectionBase):
             try:
                 shortcuts = settings.value(name, [], QKeySequence)
             except TypeError:
-                # PyQt5 raises TypeError when an empty list was stored
+                # PyQt6 raises TypeError when an empty list was stored
                 shortcuts = []
             try:
                 self._actions[name].setShortcuts(shortcuts)
@@ -232,7 +231,7 @@ class ShortcutCollection(ActionCollectionBase):
     others = {}
 
     # shortcut context to use by default
-    shortcutContext = Qt.WindowShortcut
+    shortcutContext = Qt.ShortcutContext.WindowShortcut
 
     def __init__(self, widget):
         """Creates the ShortcutCollection.
@@ -265,7 +264,7 @@ class ShortcutCollection(ActionCollectionBase):
             try:
                 shortcuts = settings.value(name, [], QKeySequence)
             except TypeError:
-                # PyQt5 raises TypeError when an empty list was stored
+                # PyQt6 raises TypeError when an empty list was stored
                 shortcuts = []
             if not shortcuts:
                 if not self.removeAction(name):

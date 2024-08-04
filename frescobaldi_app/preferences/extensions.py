@@ -23,10 +23,10 @@ Extensions preferences.
 
 import re
 
-from PyQt5.QtCore import QSettings, Qt
-from PyQt5.QtGui import QFont, QStandardItem, QStandardItemModel
+from PyQt6.QtCore import QSettings, Qt
+from PyQt6.QtGui import QFont, QStandardItem, QStandardItemModel
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QAbstractItemView,
     QCheckBox,
     QHBoxLayout,
@@ -222,15 +222,15 @@ class Installed(preferences.Group):
             ]:
                 label_item = QStandardItem('{}:'.format(
                     self.config_labels[entry]))
-                label_item.setTextAlignment(Qt.AlignTop)
+                label_item.setTextAlignment(Qt.AlignmentFlag.AlignTop)
                 bold = QFont()
-                bold.setWeight(QFont.Bold)
+                bold.setWeight(QFont.Weight.Bold)
                 label_item.setFont(bold)
                 details = ext_infos.get(entry, "") if ext_infos else ""
                 if type(details) == list:
                     details = '\n'.join(details)
                 details_item = QStandardItem(details)
-                details_item.setTextAlignment(Qt.AlignTop)
+                details_item.setTextAlignment(Qt.AlignmentFlag.AlignTop)
                 if entry == 'api-version':
                     # Check for correct(ly formatted) api-version entry
                     # and highlight it in case of mismatch

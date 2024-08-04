@@ -27,10 +27,10 @@ try:
 except ImportError:
     import xml.etree.ElementTree as ET
 
-from PyQt5.QtGui import (
+from PyQt6.QtGui import (
     QTextFormat, QColor, QTextCharFormat, QFont, QFontDatabase,
     QKeySequence)
-from PyQt5.QtWidgets import QMessageBox
+from PyQt6.QtWidgets import QMessageBox
 
 import os
 import platform
@@ -220,7 +220,7 @@ def toBool(val):
 def eltToStyle(elt):
     fmt = QTextCharFormat()
     if elt.get('bold'):
-        fmt.setFontWeight(QFont.Bold if toBool(elt.get('bold')) else QFont.Normal)
+        fmt.setFontWeight(QFont.Weight.Bold if toBool(elt.get('bold')) else QFont.Weight.Normal)
     if elt.get('italic'):
         fmt.setFontItalic(toBool(elt.get('italic')))
     if elt.get('underline'):

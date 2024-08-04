@@ -22,9 +22,9 @@ A basic parenthesis/brace character matcher for a textedit widget.
 """
 
 
-from PyQt5.QtCore import QObject, QRegExp, Qt, QTimer
-from PyQt5.QtGui import QTextCharFormat, QTextCursor, QTextDocument
-from PyQt5.QtWidgets import QTextEdit
+from PyQt6.QtCore import QObject, QRegExp, Qt, QTimer
+from PyQt6.QtGui import QTextCharFormat, QTextCursor, QTextDocument
+from PyQt6.QtWidgets import QTextEdit
 
 
 class Matcher(QObject):
@@ -44,7 +44,7 @@ class Matcher(QObject):
 
     matchPairs = "{}()[]"
     format = QTextCharFormat()
-    format.setForeground(Qt.red)
+    format.setForeground(Qt.GlobalColor.red)
     time = 2000
 
     def __init__(self, edit):

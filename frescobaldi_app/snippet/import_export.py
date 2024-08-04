@@ -29,9 +29,9 @@ try:
 except ImportError:
     import xml.etree.ElementTree as ET
 
-from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import QMessageBox, QTreeWidget, QTreeWidgetItem
+from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtGui import QKeySequence
+from PyQt6.QtWidgets import QMessageBox, QTreeWidget, QTreeWidgetItem
 
 import app
 import appinfo
@@ -109,7 +109,7 @@ def load(filename, widget):
 
 
     dlg = widgets.dialog.Dialog(widget)
-    dlg.setWindowModality(Qt.WindowModal)
+    dlg.setWindowModality(Qt.WindowType.WindowModal)
     dlg.setWindowTitle(app.caption(_("dialog title", "Import Snippets")))
     tree = QTreeWidget(headerHidden=True, rootIsDecorated=False)
     dlg.setMainWidget(tree)

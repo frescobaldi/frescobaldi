@@ -22,7 +22,7 @@ Some special part types.
 """
 
 
-from PyQt5.QtWidgets import QCheckBox
+from PyQt6.QtWidgets import QCheckBox
 
 import ly.dom
 

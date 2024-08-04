@@ -24,8 +24,8 @@ In the dialog the options of musicxml2ly can be set.
 """
 
 
-from PyQt5.QtCore import QSettings, QSize
-from PyQt5.QtWidgets import (QCheckBox, QComboBox, QDialogButtonBox, QLabel)
+from PyQt6.QtCore import QSettings, QSize
+from PyQt6.QtWidgets import (QCheckBox, QComboBox, QDialogButtonBox, QLabel)
 
 import app
 import qutil

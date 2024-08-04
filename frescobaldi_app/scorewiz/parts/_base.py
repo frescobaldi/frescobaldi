@@ -25,7 +25,7 @@ Base types for parts.
 import collections
 import fractions
 
-from PyQt5.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QHBoxLayout,
+from PyQt6.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QHBoxLayout,
                              QLabel, QSpinBox)
 
 import listmodel

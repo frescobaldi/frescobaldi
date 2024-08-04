@@ -3,9 +3,8 @@ MIDI input dock
 """
 
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import QAction
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QAction, QKeySequence
 
 import actioncollection
 import actioncollectionmanager
@@ -53,7 +52,7 @@ class Actions(actioncollection.ActionCollection):
         self.capture_start.setIcon(icons.get('media-record'))
         self.capture_stop.setIcon(icons.get('process-stop'))
 
-        self.accidental_switch.setShortcut(QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_3))
+        self.accidental_switch.setShortcut(QKeySequence(Qt.Modifier.CTRL + Qt.Modifier.SHIFT + Qt.Key.Key_3))
 
     def translateUI(self):
         self.capture_start.setText(_("midi input", "Start capturing"))

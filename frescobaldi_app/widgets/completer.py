@@ -22,9 +22,9 @@ Completer providing completions in a Q(Plain)TextEdit.
 """
 
 
-from PyQt5.QtCore import QEvent, QModelIndex, Qt
-from PyQt5.QtGui import QKeySequence, QTextCursor
-from PyQt5.QtWidgets import QCompleter, QApplication
+from PyQt6.QtCore import QEvent, QModelIndex, Qt
+from PyQt6.QtGui import QKeySequence, QTextCursor
+from PyQt6.QtWidgets import QCompleter, QApplication
 
 
 class Completer(QCompleter):
@@ -83,14 +83,14 @@ class Completer(QCompleter):
                 return True
 
             def tab():
-                if modifier == Qt.AltModifier:
+                if modifier == Qt.KeyboardModifier.AltModifier:
                     # Don't block Alt-Tab for switching applications
                     self.popup().hide()
                     return False
                 if cur.hasSelection():
                     self.acceptPartialCompletion()
                     self.showCompletionPopup()
-                direction = -1 if modifier == Qt.ControlModifier else 1
+                direction = -1 if modifier == Qt.KeyboardModifier.ControlModifier else 1
                 self.gotoNextEntry(direction)
                 return False
 
@@ -100,12 +100,12 @@ class Completer(QCompleter):
 
             # map keys to handler functions
             handlers = {
-                Qt.Key_Return: enter,
-                Qt.Key_Enter: enter,
-                Qt.Key_Backspace: backspace,
-                Qt.Key_Tab: tab,
-                Qt.Key_Up: up,
-                Qt.Key_Down: down
+                Qt.Key.Key_Return: enter,
+                Qt.Key.Key_Enter: enter,
+                Qt.Key.Key_Backspace: backspace,
+                Qt.Key.Key_Tab: tab,
+                Qt.Key.Key_Up: up,
+                Qt.Key.Key_Down: down
             }
 
             handler = handlers.get(ev.key())
@@ -119,8 +119,8 @@ class Completer(QCompleter):
                 self.insertPartialCompletion(self.currentIndex())
                 return True
             elif ev.key() not in (
-                Qt.Key_PageUp, Qt.Key_PageDown,
-                Qt.Key_Shift, Qt.Key_Control, Qt.Key_Alt, Qt.Key_Meta):
+                Qt.Key.Key_PageUp, Qt.Key.Key_PageDown,
+                Qt.Key.Key_Shift, Qt.Key.Key_Control, Qt.Key.Key_Alt, Qt.Key.Key_Meta):
                 # hide on anything except navigation keys
                 self.popup().hide()
             return super().eventFilter(obj, ev)
@@ -140,7 +140,7 @@ class Completer(QCompleter):
         The 'visible' argument is True when the popup is currently visible.
 
         """
-        return ev.text()[-1:] > " " and ev.key() != Qt.Key_Delete
+        return ev.text()[-1:] > " " and ev.key() != Qt.Key.Key_Delete
 
     def textCursor(self):
         """Returns the current text cursor of the TextEdit."""

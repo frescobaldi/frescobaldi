@@ -22,7 +22,7 @@ Manages the progress bar in the status bar of ViewSpaces.
 """
 
 
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
 import app
 import job
@@ -40,7 +40,7 @@ class ProgressBar(plugin.ViewSpacePlugin):
         bar = self._bar = widgets.progressbar.TimedProgressBar(
             hideWhileIdle=True
         )
-        viewSpace.status.layout().addWidget(bar, 0, Qt.AlignCenter)
+        viewSpace.status.layout().addWidget(bar, 0, Qt.AlignmentFlag.AlignCenter)
         bar.hide()
         viewSpace.viewChanged.connect(self.viewChanged)
         app.jobStarted.connect(self.jobStarted)

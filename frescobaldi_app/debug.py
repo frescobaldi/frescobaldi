@@ -65,5 +65,5 @@ sys.displayhook = app.displayhook
 main(debug=True)
 
 # be friendly and import Qt stuff
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
+from PyQt6.QtCore import *
+from PyQt6.QtGui import *

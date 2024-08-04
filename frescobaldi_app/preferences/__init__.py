@@ -23,9 +23,9 @@ The Preferences Dialog.
 
 
 
-from PyQt5.QtCore import QSettings, QSize, Qt, pyqtSignal
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import QSettings, QSize, Qt, pyqtSignal
+from PyQt6.QtGui import QKeySequence
+from PyQt6.QtWidgets import (
     QDialog, QDialogButtonBox, QGroupBox, QHBoxLayout, QListWidget,
     QListWidgetItem, QScrollArea, QStackedWidget, QVBoxLayout, QWidget)
 
@@ -61,7 +61,7 @@ class PreferencesDialog(QDialog):
 
     def __init__(self, mainwindow):
         super().__init__(mainwindow)
-        self.setWindowModality(Qt.WindowModal)
+        self.setWindowModality(Qt.WindowType.WindowModal)
         if mainwindow:
             self.addAction(mainwindow.actionCollection.help_whatsthis)
         layout = QVBoxLayout()

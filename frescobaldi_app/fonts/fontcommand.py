@@ -19,10 +19,10 @@
 
 # Tab widget for the configuration of the font setting command
 
-from PyQt5.QtCore import (
+from PyQt6.QtCore import (
     QSettings,
 )
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QAbstractButton,
     QButtonGroup,
     QCheckBox,

@@ -23,7 +23,7 @@ A Manual manages a searchable index for a LilyPond manual.
 
 
 
-from PyQt5.QtCore import QObject, QUrl, pyqtSignal
+from PyQt6.QtCore import QObject, QUrl, pyqtSignal
 
 
 class Manual(QObject):

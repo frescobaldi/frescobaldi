@@ -39,12 +39,12 @@ sys.path.extend(importlib.util.find_spec('pygame').submodule_search_locations)
 
 includes = [
     'sip',
-    'PyQt5.QtCore',
-    'PyQt5.QtGui',
-    'PyQt5.QtWebKit',
-    'PyQt5.QtNetwork',
-    'PyQt5.QtSvg',
-    'PyQt5.QtXml',
+    'PyQt6.QtCore',
+    'PyQt6.QtGui',
+    'PyQt6.QtWebKit',
+    'PyQt6.QtNetwork',
+    'PyQt6.QtSvg',
+    'PyQt6.QtXml',
     'popplerqt5',
     'pypm',
 
@@ -105,7 +105,7 @@ f.Freeze()
 
 def copy_plugins(name):
     """Copies a folder from the Qt4 plugins directory."""
-    path = imp.find_module('PyQt5')[1]
+    path = imp.find_module('PyQt6')[1]
     folder = os.path.join(path, 'plugins', name)
     target = os.path.join(target_dir, name)
     shutil.rmtree(target, ignore_errors = True)

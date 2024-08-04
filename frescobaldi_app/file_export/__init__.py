@@ -24,9 +24,9 @@ Export to non-lilypond file types.
 
 import os
 
-from PyQt5.QtCore import Qt, QUrl, QSize
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import QAction, QFileDialog, QMessageBox
+from PyQt6.QtCore import Qt, QUrl, QSize
+from PyQt6.QtGui import QAction, QKeySequence
+from PyQt6.QtWidgets import QFileDialog, QMessageBox
 
 import app
 import icons

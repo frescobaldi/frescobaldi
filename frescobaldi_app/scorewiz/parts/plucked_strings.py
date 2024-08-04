@@ -22,7 +22,7 @@ Plucked string part types.
 """
 
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QCheckBox, QComboBox, QCompleter, QGridLayout, QHBoxLayout, QLabel,
     QLineEdit, QSpinBox,
 )

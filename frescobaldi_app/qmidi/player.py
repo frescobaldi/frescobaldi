@@ -18,13 +18,13 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-A MIDI player for PyQt5.
+A MIDI player for PyQt6.
 """
 
 
 
 
-from PyQt5.QtCore import pyqtSignal, Qt, QThread, QTimer
+from PyQt6.QtCore import pyqtSignal, Qt, QThread, QTimer
 
 import midifile.player
 

@@ -23,7 +23,7 @@ Provides a consistent but configurable infrastructure for toolbars.
 """
 
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QWidget,
     QToolBar,
     QHBoxLayout,

@@ -25,7 +25,7 @@ either for simply taking effect or to avoid possible instabilities.
 These include switching the Git branch or removing extensions.
 """
 
-from PyQt5.QtWidgets import QMessageBox
+from PyQt6.QtWidgets import QMessageBox
 
 import app
 
@@ -35,7 +35,7 @@ def suggest_restart(operation):
     is used to customize the message."""
 
     msgBox = QMessageBox()
-    msgBox.setIcon(QMessageBox.Warning)
+    msgBox.setIcon(QMessageBox.Icon.Warning)
     msgBox.setText(_("Restart Required"))
     msgBox.setInformativeText(_(
         "An operation requires a restart of Frescobaldi:\n\n"
@@ -45,6 +45,6 @@ def suggest_restart(operation):
         "Do you want to restart now?\n"
         "You can also save open files first and restart manually.".format(operation)
     ))
-    msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-    if msgBox.exec_() == QMessageBox.Ok:
+    msgBox.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
+    if msgBox.exec_() == QMessageBox.StandardButton.Ok:
         app.activeWindow().restart()

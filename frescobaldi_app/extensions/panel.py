@@ -60,7 +60,7 @@ class ExtensionPanel(panel.Panel):
             # error message and return an "empty" FailedExtensionWidget instead.
             import sys
             import traceback
-            from PyQt5.QtWidgets import QMessageBox
+            from PyQt6.QtWidgets import QMessageBox
             import appinfo
             from extensions.widget import FailedExtensionWidget
 
@@ -69,7 +69,7 @@ class ExtensionPanel(panel.Panel):
 
             msg_box = QMessageBox()
             msg_box.setWindowTitle(appinfo.appname)
-            msg_box.setIcon(QMessageBox.Critical)
+            msg_box.setIcon(QMessageBox.Icon.Critical)
             msg_box.setText(_("Extension Tool Panel failed to load"))
             info_text = _(
                 "The Tool Panel provided by the extension\n\n  {name}\n\n"

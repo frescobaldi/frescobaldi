@@ -22,9 +22,9 @@ A dialog to edit the keyboard shortcuts for an action.
 """
 
 
-from PyQt5.QtCore import Qt, QTimer
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtGui import QKeySequence
+from PyQt6.QtWidgets import (
     QDialog, QDialogButtonBox, QGridLayout, QHBoxLayout, QLabel, QRadioButton,
     QVBoxLayout)
 
@@ -82,7 +82,7 @@ class ShortcutEditDialog(QDialog):
         for num in range(4):
             l = QLabel(self)
             l.setStyleSheet("margin-left: 2em;")
-            l.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+            l.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
             b = KeySequenceWidget(self, num)
             b.keySequenceChanged.connect(self.slotKeySequenceChanged)
             l.setBuddy(b)
@@ -94,7 +94,7 @@ class ShortcutEditDialog(QDialog):
             lconflict.setStyleSheet("color : red;")
             self.conflictlabels.append(lconflict)
             lconflict.setVisible(False)
-            grid.addWidget(lconflict, num+5+num, 0, 1, 2, Qt.AlignHCenter)
+            grid.addWidget(lconflict, num+5+num, 0, 1, 2, Qt.AlignmentFlag.AlignHCenter)
 
         layout.addWidget(Separator(self))
 

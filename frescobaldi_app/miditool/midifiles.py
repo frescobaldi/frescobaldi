@@ -24,7 +24,7 @@ Handles MIDI files.
 
 import os
 
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
 import icons
 import plugin

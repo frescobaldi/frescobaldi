@@ -24,7 +24,7 @@ about a document's contents.
 
 
 
-from PyQt5.QtGui import (
+from PyQt6.QtGui import (
     QColor, QSyntaxHighlighter, QTextBlockUserData, QTextCharFormat,
     QTextCursor, QTextDocument)
 

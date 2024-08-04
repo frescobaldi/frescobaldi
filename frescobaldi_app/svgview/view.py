@@ -31,10 +31,10 @@ that runs inside the displayed SVG file.
 import os
 import sys
 
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QFile, QIODevice, QObject, QSettings, QUrl
-from PyQt5.QtGui import QTextCharFormat, QTextCursor
-from PyQt5.QtWebChannel import QWebChannel
-from PyQt5.QtWebEngineWidgets import QWebEngineView
+from PyQt6.QtCore import pyqtSignal, pyqtSlot, QFile, QIODevice, QObject, QSettings, QUrl
+from PyQt6.QtGui import QTextCharFormat, QTextCursor
+from PyQt6.QtWebChannel import QWebChannel
+from PyQt6.QtWebEngineWidgets import QWebEngineView
 
 import app
 import util

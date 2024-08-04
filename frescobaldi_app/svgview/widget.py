@@ -25,8 +25,8 @@ The SVG preview panel widget.
 import os
 import sys
 
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import (QComboBox, QHBoxLayout, QLabel, QPushButton,
+from PyQt6 import QtCore
+from PyQt6.QtWidgets import (QComboBox, QHBoxLayout, QLabel, QPushButton,
                              QSpinBox, QToolButton, QVBoxLayout, QWidget)
 
 import app

@@ -22,9 +22,8 @@ The log dockwindow.
 """
 
 
-from PyQt5.QtCore import QSettings, Qt
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import QAction
+from PyQt6.QtCore import QSettings, Qt
+from PyQt6.QtGui import QAction, QKeySequence
 
 import actioncollection
 import actioncollectionmanager

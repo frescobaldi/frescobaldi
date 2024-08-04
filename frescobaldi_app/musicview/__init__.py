@@ -39,11 +39,10 @@ import platform
 import sys
 import weakref
 
-from PyQt5.QtCore import QSettings, QTimer, Qt, pyqtSignal
-from PyQt5.QtGui import QColor, QKeySequence, QPalette
-from PyQt5.QtWidgets import (
-    QAction, QActionGroup, QApplication, QComboBox, QLabel, QSpinBox,
-    QWidgetAction)
+from PyQt6.QtCore import QSettings, QTimer, Qt, pyqtSignal
+from PyQt6.QtGui import QAction, QActionGroup, QColor, QKeySequence, QPalette
+from PyQt6.QtWidgets import (
+    QApplication, QComboBox, QLabel, QSpinBox, QWidgetAction)
 
 import app
 import actioncollection
@@ -160,8 +159,8 @@ class MusicViewPanel(panel.Panel):
             if (s.value("printing/directcups",
                        False if platform.system() == "Darwin" else True, bool)
                 and platform.system() == "Darwin"):
-                from PyQt5.QtCore import QUrl
-                from PyQt5.QtWidgets import QMessageBox
+                from PyQt6.QtCore import QUrl
+                from PyQt6.QtWidgets import QMessageBox
                 result =  QMessageBox.warning(self.mainwindow(),
                     _("Print Music"), _(
                     "As per your settings, you are about to print the file "
@@ -171,8 +170,8 @@ class MusicViewPanel(panel.Panel):
                     "You can disable it in Music Preferences.\n\n"
                     "Do you really want to print to CUPS?\n\n"
                     "(If you are unsure, the answer is likely no.)"),
-                    QMessageBox.Yes | QMessageBox.No)
-                if result == QMessageBox.No:
+                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+                if result == QMessageBox.StandardButton.No:
                     return
             self.widget().view.print()
 
@@ -256,10 +255,10 @@ class Actions(actioncollection.ActionCollection):
         self.music_copy_text.setIcon(icons.get('edit-copy'))
         self.music_clear.setIcon(icons.get('edit-clear'))
 
-        self.music_document_select.setShortcut(QKeySequence(Qt.SHIFT | Qt.CTRL | Qt.Key_O))
-        self.music_jump_to_cursor.setShortcut(QKeySequence(Qt.CTRL | Qt.Key_J))
-        self.music_copy_image.setShortcut(QKeySequence(Qt.SHIFT | Qt.CTRL | Qt.Key_C))
-        self.music_reload.setShortcut(QKeySequence(Qt.Key_F5))
+        self.music_document_select.setShortcut(QKeySequence(Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Key.Key_O))
+        self.music_jump_to_cursor.setShortcut(QKeySequence(Qt.Modifier.CTRL | Qt.Key.Key_J))
+        self.music_copy_image.setShortcut(QKeySequence(Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Key.Key_C))
+        self.music_reload.setShortcut(QKeySequence(Qt.Key.Key_F5))
 
     def translateUI(self):
         self.music_document_select.setText(_("Select Music View Document"))
@@ -396,7 +395,7 @@ class DocumentChooserAction(ComboBoxAction):
             self._currentIndex = index
             p = QApplication.palette()
             if not self._documents[index].updated:
-                color = qutil.mixcolor(QColor(Qt.red), p.color(QPalette.Base), 0.3)
+                color = qutil.mixcolor(QColor(Qt.GlobalColor.red), p.color(QPalette.Base), 0.3)
                 p.setColor(QPalette.Base, color)
             for w in self.createdWidgets():
                 w.setCurrentIndex(index)

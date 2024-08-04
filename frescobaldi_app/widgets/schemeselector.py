@@ -22,10 +22,11 @@ A widget that provides a scheme selector, with New and Remove buttons.
 """
 
 
-from PyQt5.QtCore import QDir, QSettings, pyqtSignal, Qt
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import QDir, QSettings, pyqtSignal, Qt
+from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import (
     QComboBox, QHBoxLayout, QInputDialog, QLabel, QPushButton, QWidget,
-    QAction, QMenu, QFileDialog)
+    QMenu, QFileDialog)
 
 import app
 import icons

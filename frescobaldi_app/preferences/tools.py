@@ -24,9 +24,9 @@ Per-tool preferences.
 
 import re
 
-from PyQt5.QtCore import QSettings, Qt
-from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import QSettings, Qt
+from PyQt6.QtGui import QFont
+from PyQt6.QtWidgets import (
     QAbstractItemView, QCheckBox, QDoubleSpinBox, QFontComboBox, QHBoxLayout,
     QLabel, QPushButton, QVBoxLayout, QWidget)
 

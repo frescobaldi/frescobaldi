@@ -24,9 +24,9 @@ Loading and defaults for the different textformats used for Syntax Highlighting.
 
 import platform
 
-from PyQt5.QtCore import QSettings
-from PyQt5.QtGui import QColor, QFont, QPalette, QTextCharFormat, QTextFormat
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtCore import QSettings
+from PyQt6.QtGui import QColor, QFont, QPalette, QTextCharFormat, QTextFormat
+from PyQt6.QtWidgets import QApplication
 
 import app
 import ly.colorize
@@ -220,7 +220,7 @@ class TextFormatData:
     def loadTextFormat(self, fmt, settings):
         """(Internal) Merge values from the QSettings instance into the QTextCharFormat."""
         if settings.contains('bold'):
-            fmt.setFontWeight(QFont.Bold if settings.value('bold', False, bool) else QFont.Normal)
+            fmt.setFontWeight(QFont.Weight.Bold if settings.value('bold', False, bool) else QFont.Weight.Normal)
         if settings.contains('italic'):
             fmt.setFontItalic(settings.value('italic', False, bool))
         if settings.contains('underline'):
@@ -243,9 +243,9 @@ def css2fmt(d, f=None):
     v = d.get('font-weight')
     if v:
         if v == 'bold':
-            f.setFontWeight(QFont.Bold)
+            f.setFontWeight(QFont.Weight.Bold)
         elif v == 'normal':
-            f.setFontWeight(QFont.Normal)
+            f.setFontWeight(QFont.Weight.Normal)
         elif v.isdigit():
             f.setFontWeight(int(v) / 10)
     v = d.get('color')

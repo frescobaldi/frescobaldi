@@ -27,8 +27,8 @@ All use the tools in ly.pitch.
 
 import re
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QMessageBox
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QMessageBox
 
 import app
 import icons
@@ -184,7 +184,7 @@ def getModeShifter(document, mainwindow):
     from . import dialog
     dlg = dialog.ModeShiftDialog(mainwindow)
     dlg.addAction(mainwindow.actionCollection.help_whatsthis)
-    dlg.setWindowModality(Qt.WindowModal)
+    dlg.setWindowModality(Qt.WindowType.WindowModal)
     dlg.setKeyValidator(validate)
     if dlg.exec_():
         key, scale = dlg.getMode()

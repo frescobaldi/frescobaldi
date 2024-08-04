@@ -21,9 +21,9 @@
 
 import os
 
-from PyQt5.QtCore import QEventLoop, QTimer, Qt
-from PyQt5.QtGui import QFont, QPixmap
-from PyQt5.QtWidgets import QApplication, QSplashScreen
+from PyQt6.QtCore import QEventLoop, QTimer, Qt
+from PyQt6.QtGui import QGuiApplication, QFont, QPixmap
+from PyQt6.QtWidgets import QApplication, QSplashScreen
 
 import app
 import appinfo
@@ -32,20 +32,22 @@ def show():
 
     message = f"{appinfo.appname}  {appinfo.version} "
     pixmap = QPixmap(os.path.join(__path__[0], 'splash.png'))
-    if QApplication.desktop().screenGeometry().height() < 640:
+    if QGuiApplication.primaryScreen().geometry().height() < 640:
         fontsize = 23
         pixmap = pixmap.scaledToHeight(240, Qt.SmoothTransformation)
     else:
         fontsize = 40
 
-    splash = QSplashScreen(pixmap, Qt.SplashScreen)
+    splash = QSplashScreen(pixmap, Qt.WindowType.SplashScreen)
 
     font = splash.font()
     font.setPixelSize(fontsize)
-    font.setWeight(QFont.Bold)
+    font.setWeight(QFont.Weight.Bold)
     splash.setFont(font)
 
-    splash.showMessage(message, Qt.AlignRight | Qt.AlignTop, Qt.white)
+    splash.showMessage(message,
+                       Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignTop,
+                       Qt.GlobalColor.white)
     splash.show()
     QApplication.processEvents()
 

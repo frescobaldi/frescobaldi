@@ -28,20 +28,20 @@ import sys
 from time import perf_counter
 from traceback import extract_tb
 
-from PyQt5.QtCore import (
+from PyQt6.QtCore import (
     QDir,
     QObject,
     QSettings,
     QSize,
     Qt
 )
-from PyQt5.QtGui import (
+from PyQt6.QtGui import (
     QFont,
     QIcon,
     QStandardItem,
     QStandardItemModel
 )
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QAbstractItemView,
     QDialog,
     QHeaderView,
@@ -382,7 +382,7 @@ class FailedModel(QStandardItemModel):
 
         # font for use in various Items
         bold = QFont()
-        bold.setWeight(QFont.Bold)
+        bold.setWeight(QFont.Weight.Bold)
 
         root = self.invisibleRootItem()
         infos = data['infos']
@@ -514,14 +514,14 @@ class FailedTree(QTreeView):
             # (with option to write an email to maintainer)
 
             import traceback
-            from PyQt5.QtWidgets import QMessageBox
+            from PyQt6.QtWidgets import QMessageBox
             import appinfo
             row = item.row()
             name_item = parent.child(row, 0)
             message_item = parent.child(row, 1)
             msg_box = QMessageBox()
             msg_box.setWindowTitle(_(appinfo.appname))
-            msg_box.setIcon(QMessageBox.Information)
+            msg_box.setIcon(QMessageBox.Icon.Information)
             extension_name = name_item.text()
             exception_info = name_item.exception_info
             msg_box.setText("{}\n\n{}".format(
@@ -846,7 +846,7 @@ class Extensions(QObject):
         """Show a warning message box if extension(s) could either not
         be loaded or produced errors while parsing the extension infos."""
 
-        from PyQt5.QtCore import QCoreApplication
+        from PyQt6.QtCore import QCoreApplication
         import appinfo
         import qutil
         import widgets.dialog
@@ -865,7 +865,7 @@ class Extensions(QObject):
             dlg, "extensions/error-dialog/size", QSize(600, 300))
         dlg.setGeometry(QStyle.alignedRect(
             Qt.RightToLeft,
-            Qt.AlignCenter,
+            Qt.AlignmentFlag.AlignCenter,
             dlg.size(),
             app.qApp.desktop().availableGeometry()))
         dlg.exec()

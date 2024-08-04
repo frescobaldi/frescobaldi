@@ -24,8 +24,8 @@ Normal ViMode.
 
 import re
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QTextCursor
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QTextCursor
 
 from . import handlerbase
 
@@ -53,12 +53,12 @@ class NormalMode(handlerbase.Handler):
 
     def handleKeyPress(self, ev):
         # is a number being entered?
-        if not self._command and Qt.Key_0 <= ev.key() <= Qt.Key_9:
+        if not self._command and Qt.Key.Key_0 <= ev.key() <= Qt.Key.Key_9:
             self._count *= 10
-            self._count += ev.key() - Qt.Key_0
+            self._count += ev.key() - Qt.Key.Key_0
             return True
         # backspace?
-        if ev.key() == Qt.Key_Backspace:
+        if ev.key() == Qt.Key.Key_Backspace:
             if self._command:
                 # remove last key typed
                 del self._command[-1]

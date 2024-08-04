@@ -22,7 +22,7 @@ A TreeWidget with some useful methods to manipulate items.
 """
 
 
-from PyQt5.QtWidgets import QTreeWidget, QTreeWidgetItem
+from PyQt6.QtWidgets import QTreeWidget, QTreeWidgetItem
 
 
 class TreeWidget(QTreeWidget):

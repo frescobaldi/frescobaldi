@@ -28,11 +28,11 @@ import os
 import platform
 import weakref
 
-from PyQt5.QtCore import (pyqtSignal, QByteArray, QDir, QMimeData, QSettings,
+from PyQt6.QtCore import (pyqtSignal, QByteArray, QDir, QMimeData, QSettings,
                           QSize, Qt, QUrl)
-from PyQt5.QtGui import (QKeySequence, QTextCursor, QTextDocument)
-from PyQt5.QtPrintSupport import (QAbstractPrintDialog, QPrintDialog, QPrinter)
-from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QMainWindow,
+from PyQt6.QtGui import (QAction, QKeySequence, QTextCursor, QTextDocument)
+from PyQt6.QtPrintSupport import (QAbstractPrintDialog, QPrintDialog, QPrinter)
+from PyQt6.QtWidgets import (QApplication, QFileDialog, QMainWindow,
                              QMenu, QMessageBox, QPlainTextEdit, QVBoxLayout,
                              QWhatsThis, QWidget, QInputDialog)
 
@@ -365,11 +365,11 @@ class MainWindow(QMainWindow):
             res = QMessageBox.warning(self, _("dialog title", "Close Document"),
                 _("The document \"{name}\" has been modified.\n"
                 "Do you want to save your changes or discard them?").format(name=doc.documentName()),
-                QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
-            if res == QMessageBox.Save:
+                QMessageBox.StandardButton.Save | QMessageBox.StandardButton.Discard | QMessageBox.StandardButton.Cancel)
+            if res == QMessageBox.StandardButton.Save:
                 allow_close = self.saveDocument(doc)
             else:
-                allow_close = res == QMessageBox.Discard
+                allow_close = res == QMessageBox.StandardButton.Discard
         return allow_close and engrave.engraver(self).queryCloseDocument(doc)
 
     def createPopupMenu(self):
@@ -996,7 +996,7 @@ class MainWindow(QMainWindow):
         dlg.setIntMaximum(line_count)
         dlg.setIntValue(current_line)
         dlg.setLabelText(_("Go to Line Number (1-{num}):").format(num=line_count))
-        dlg.setWindowFlags(Qt.Popup)
+        dlg.setWindowFlags(Qt.WindowType.Popup)
         dlg.move(pos)
         dlg_result = dlg.exec()
         if dlg_result:
@@ -1303,10 +1303,10 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_copy.setShortcuts(QKeySequence.Copy)
         self.edit_paste.setShortcuts(QKeySequence.Paste)
         self.edit_select_all.setShortcuts(QKeySequence.SelectAll)
-        self.edit_select_current_toplevel.setShortcut(QKeySequence(Qt.SHIFT+Qt.CTRL+Qt.Key_B))
-        self.edit_select_none.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_A))
-        self.edit_select_full_lines_up.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_Up))
-        self.edit_select_full_lines_down.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_Down))
+        self.edit_select_current_toplevel.setShortcut(QKeySequence(Qt.Modifier.SHIFT+Qt.Modifier.CTRL+Qt.Key.Key_B))
+        self.edit_select_none.setShortcut(QKeySequence(Qt.Modifier.SHIFT + Qt.Modifier.CTRL + Qt.Key.Key_A))
+        self.edit_select_full_lines_up.setShortcut(QKeySequence(Qt.Modifier.SHIFT + Qt.Modifier.CTRL + Qt.Key.Key_Up))
+        self.edit_select_full_lines_down.setShortcut(QKeySequence(Qt.Modifier.SHIFT + Qt.Modifier.CTRL + Qt.Key.Key_Down))
         self.edit_find.setShortcuts(QKeySequence.Find)
         self.edit_find_next.setShortcuts(QKeySequence.FindNext)
         self.edit_find_previous.setShortcuts(QKeySequence.FindPrevious)
@@ -1314,16 +1314,16 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_preferences.setShortcuts(QKeySequence.Preferences)
 
         if platform.system() == "Darwin":
-            self.view_next_document.setShortcut(Qt.META + Qt.Key_Tab)
-            self.view_previous_document.setShortcut(Qt.META + Qt.SHIFT + Qt.Key_Tab)
+            self.view_next_document.setShortcut(Qt.Modifier.META + Qt.Key.Key_Tab)
+            self.view_previous_document.setShortcut(Qt.Modifier.META + Qt.Modifier.SHIFT + Qt.Key.Key_Tab)
         else:
             self.view_next_document.setShortcuts(QKeySequence.Forward)
             self.view_previous_document.setShortcuts(QKeySequence.Back)
-        self.view_scroll_up.setShortcut(Qt.CTRL + Qt.Key_Up)
-        self.view_scroll_down.setShortcut(Qt.CTRL + Qt.Key_Down)
-        self.view_goto_line.setShortcut(Qt.CTRL + Qt.ALT + Qt.Key_G)
+        self.view_scroll_up.setShortcut(Qt.Modifier.CTRL + Qt.Key.Key_Up)
+        self.view_scroll_down.setShortcut(Qt.Modifier.CTRL + Qt.Key.Key_Down)
+        self.view_goto_line.setShortcut(Qt.Modifier.CTRL + Qt.Modifier.ALT + Qt.Key.Key_G)
 
-        self.window_fullscreen.setShortcuts([QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_F), QKeySequence(Qt.Key_F11)])
+        self.window_fullscreen.setShortcuts([QKeySequence(Qt.Modifier.CTRL + Qt.Modifier.SHIFT + Qt.Key.Key_F), QKeySequence(Qt.Key.Key_F11)])
 
         self.help_manual.setShortcuts(QKeySequence.HelpContents)
 

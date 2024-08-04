@@ -22,7 +22,7 @@ Checks for upgrades in the settings structure.
 """
 
 
-from PyQt5.QtCore import QSettings
+from PyQt6.QtCore import QSettings
 
 import app
 

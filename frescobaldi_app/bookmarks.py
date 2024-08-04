@@ -32,7 +32,7 @@ and 'error' (marking a line containing an error).
 import bisect
 import json
 
-from PyQt5.QtGui import QTextCursor
+from PyQt6.QtGui import QTextCursor
 
 import metainfo
 import signals
@@ -87,7 +87,7 @@ class Bookmarks(plugin.DocumentPlugin):
         index = bisect.bisect_left(nums, linenum)
         mark = QTextCursor(self.document().findBlockByNumber(linenum))
         try:
-            # only available in very recent PyQt5 versions
+            # only available in very recent PyQt6 versions
             mark.setKeepPositionOnInsert(True)
         except AttributeError:
             pass
@@ -122,7 +122,7 @@ class Bookmarks(plugin.DocumentPlugin):
         else:
             mark = QTextCursor(self.document().findBlockByNumber(linenum))
             try:
-                # only available in very recent PyQt5 versions
+                # only available in very recent PyQt6 versions
                 mark.setKeepPositionOnInsert(True)
             except AttributeError:
                 pass

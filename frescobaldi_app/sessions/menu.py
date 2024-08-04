@@ -22,7 +22,8 @@ Session menu.
 """
 
 
-from PyQt5.QtWidgets import QActionGroup, QMenu
+from PyQt6.QtGui import QActionGroup
+from PyQt6.QtWidgets import QMenu
 
 import app
 import qutil

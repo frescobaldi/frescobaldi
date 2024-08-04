@@ -22,7 +22,7 @@ Tools to edit durations of selected music.
 """
 
 
-from PyQt5.QtWidgets import QAction
+from PyQt6.QtGui import QAction
 
 import app
 import actioncollection

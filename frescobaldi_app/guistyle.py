@@ -23,8 +23,8 @@ Sets the user interface style.
 
 
 
-from PyQt5.QtCore import QSettings
-from PyQt5.QtWidgets import QStyleFactory
+from PyQt6.QtCore import QSettings
+from PyQt6.QtWidgets import QStyleFactory
 
 import app
 

@@ -22,9 +22,9 @@ ViMode implements a Vi-like mode for QPlainTextEdit.
 """
 
 
-from PyQt5.QtCore import QEvent, QObject, Qt
-from PyQt5.QtGui import QFont, QPalette
-from PyQt5.QtWidgets import QApplication, QTextEdit
+from PyQt6.QtCore import QEvent, QObject, Qt
+from PyQt6.QtGui import QFont, QPalette
+from PyQt6.QtWidgets import QApplication, QTextEdit
 
 # the Vi modes
 NORMAL = 0
@@ -137,7 +137,7 @@ class ViMode(QObject):
 
     def eventFilter(self, obj, ev):
         if (ev.type() in (QEvent.KeyPress, QEvent.KeyRelease) and
-            ev.key() in (Qt.Key_Shift, Qt.Key_Control, Qt.Key_Alt, Qt.Key_Meta)):
+            ev.key() in (Qt.Key.Key_Shift, Qt.Key.Key_Control, Qt.Key.Key_Alt, Qt.Key.Key_Meta)):
             return False
         if ev.type() == QEvent.KeyPress:
             return self.handler().handleKeyPress(ev) or False

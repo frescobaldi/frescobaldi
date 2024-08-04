@@ -24,7 +24,7 @@ Handles SVG files.
 
 import os
 
-from PyQt5.QtCore import Qt, QUrl
+from PyQt6.QtCore import Qt, QUrl
 
 import icons
 import plugin

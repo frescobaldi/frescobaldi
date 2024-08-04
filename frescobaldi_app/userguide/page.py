@@ -24,8 +24,8 @@ Page, a page from the Frescobaldi User Manual.
 
 import re
 
-from PyQt5.QtCore import QSettings
-from PyQt5.QtGui import QKeySequence
+from PyQt6.QtCore import QSettings
+from PyQt6.QtGui import QKeySequence
 
 import simplemarkdown
 

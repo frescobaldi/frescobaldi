@@ -27,7 +27,7 @@ Generate the include files' tooltips
 import os
 import re
 
-from PyQt5.QtCore import QUrl 
+from PyQt6.QtCore import QUrl 
 
 import documentinfo
 import browseriface

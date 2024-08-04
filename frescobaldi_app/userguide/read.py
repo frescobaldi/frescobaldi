@@ -93,7 +93,7 @@ class Parser(simplemarkdown.Parser):
         return s
 
     def translate(self, text): # overridden in md2pot.py
-        # Kept here because md2pot must be importable without PyQt5
+        # Kept here because md2pot must be importable without PyQt6
         import i18n
         import i18n.setup
 

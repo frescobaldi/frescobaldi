@@ -22,8 +22,9 @@ Tools to edit pitch of selected music.
 """
 
 
-from PyQt5.QtCore import QSettings
-from PyQt5.QtWidgets import QAction, QActionGroup, QMenu
+from PyQt6.QtCore import QSettings
+from PyQt6.QtGui import QAction, QActionGroup
+from PyQt6.QtWidgets import QMenu
 
 import app
 import actioncollection

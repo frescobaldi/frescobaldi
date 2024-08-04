@@ -25,8 +25,8 @@ A basic auto-indenter for a textedit widget.
 
 import contextlib
 
-from PyQt5.QtCore import QEvent, QObject, Qt
-from PyQt5.QtGui import QTextCursor
+from PyQt6.QtCore import QEvent, QObject, Qt
+from PyQt6.QtGui import QTextCursor
 
 
 class Indenter(QObject):
@@ -67,16 +67,16 @@ class Indenter(QObject):
     def eventFilter(self, edit, ev):
         """Handles Return, Tab and Backtab."""
         if ev.type() == QEvent.KeyPress:
-            modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
+            modifiers = int(ev.modifiers() & (Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Modifier.ALT | Qt.Modifier.META))
             if ev.text() == '\r' and modifiers == 0:
                 cursor = edit.textCursor()
                 self.newline(cursor)
                 edit.setTextCursor(cursor)
                 return True
-            elif ev.key() == Qt.Key_Tab and modifiers == 0:
+            elif ev.key() == Qt.Key.Key_Tab and modifiers == 0:
                 self.indent(edit.textCursor())
                 return True
-            elif ev.key() == Qt.Key_Backtab and modifiers & ~Qt.SHIFT == 0:
+            elif ev.key() == Qt.Key.Key_Backtab and modifiers & ~Qt.Modifier.SHIFT == 0:
                 self.dedent(edit.textCursor())
                 return True
         return False

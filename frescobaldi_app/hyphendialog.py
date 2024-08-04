@@ -27,8 +27,8 @@ import glob
 import locale
 import os
 
-from PyQt5.QtCore import QSettings, Qt
-from PyQt5.QtWidgets import QDialog, QDialogButtonBox, QLabel, QListWidget, QVBoxLayout
+from PyQt6.QtCore import QSettings, Qt
+from PyQt6.QtWidgets import QDialog, QDialogButtonBox, QLabel, QListWidget, QVBoxLayout
 
 import app
 import qutil
@@ -96,7 +96,7 @@ def findDicts():
 class HyphenDialog(QDialog):
     def __init__(self, mainwindow):
         super().__init__(mainwindow)
-        self.setWindowModality(Qt.WindowModal)
+        self.setWindowModality(Qt.WindowType.WindowModal)
         layout = QVBoxLayout()
         self.setLayout(layout)
         self.topLabel = QLabel()

@@ -25,9 +25,9 @@ Generic import dialog. Presuppose a child instance for the specific import.
 import os
 import platform
 
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
-from PyQt5.QtWidgets import (QCheckBox, QDialog, QDialogButtonBox,
+from PyQt6.QtWidgets import (QCheckBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QTabWidget, QTextEdit, QWidget)
 
 import app
@@ -63,7 +63,7 @@ class ToLyDialog(QDialog):
         self._job = None
 
         self.addAction(parent.actionCollection.help_whatsthis)
-        self.setWindowModality(Qt.WindowModal)
+        self.setWindowModality(Qt.WindowType.WindowModal)
         mainLayout = QGridLayout()
         self.setLayout(mainLayout)
 

@@ -44,9 +44,9 @@ information.
 
 import collections
 
-from PyQt5.QtCore import QEvent, QObject, QPoint, QRect, QSize, Qt, QTimer
-from PyQt5.QtGui import QPainter, QPalette
-from PyQt5.QtWidgets import QWidget
+from PyQt6.QtCore import QEvent, QObject, QPoint, QRect, QSize, Qt, QTimer
+from PyQt6.QtGui import QPainter, QPalette
+from PyQt6.QtWidgets import QWidget
 
 import cursortools
 
@@ -575,7 +575,7 @@ class FoldingArea(QWidget):
             block = next_block
 
     def mousePressEvent(self, ev):
-        if ev.buttons() == Qt.LeftButton:
+        if ev.buttons() == Qt.MouseButton.LeftButton:
             block = self.textEdit().cursorForPosition(QPoint(0, ev.y())).block()
             folder = self.folder()
             if folder.fold_level(block).start:

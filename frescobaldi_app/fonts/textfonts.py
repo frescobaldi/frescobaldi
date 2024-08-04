@@ -20,16 +20,15 @@
 import os
 import re
 
-from PyQt5.QtCore import (
+from PyQt6.QtCore import (
     QObject,
     QRegExp,
     QSettings,
     QSortFilterProxyModel,
     Qt,
 )
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QAbstractItemView,
-    QAction,
     QApplication,
     QLabel,
     QLineEdit,
@@ -38,7 +37,8 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
-from PyQt5.QtGui import (
+from PyQt6.QtGui import (
+    QAction,
     QFont,
     QFontDatabase,
     QStandardItem,

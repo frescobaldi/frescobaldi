@@ -14,12 +14,12 @@ TODO:
 """
 
 import re
-from PyQt5.QtGui import QTextCursor
+from PyQt6.QtGui import QTextCursor
 
 import time
 import weakref
 
-from PyQt5.QtCore import QObject, QSettings, QThread, pyqtSignal
+from PyQt6.QtCore import QObject, QSettings, QThread, pyqtSignal
 
 import midihub
 import midifile.event

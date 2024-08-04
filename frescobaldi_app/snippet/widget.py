@@ -22,10 +22,10 @@ The snippets widget.
 """
 
 
-from PyQt5.QtCore import QEvent, QItemSelectionModel, QModelIndex, Qt
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import (
-    QAction, QApplication, QCompleter, QFileDialog, QHBoxLayout, QLineEdit,
+from PyQt6.QtCore import QEvent, QItemSelectionModel, QModelIndex, Qt
+from PyQt6.QtGui import QAction, QKeySequence
+from PyQt6.QtWidgets import (
+    QApplication, QCompleter, QFileDialog, QHBoxLayout, QLineEdit,
     QMenu, QMessageBox, QPushButton, QSplitter, QTextBrowser, QToolButton,
     QTreeView, QVBoxLayout, QWidget)
 
@@ -82,13 +82,13 @@ class Widget(QWidget):
         def act(slot, icon=None):
             a = QAction(self, triggered=slot)
             self.addAction(a)
-            a.setShortcutContext(Qt.WidgetWithChildrenShortcut)
+            a.setShortcutContext(Qt.WindowType.WidgetWithChildrenShortcut)
             icon and a.setIcon(icons.get(icon))
             return a
 
         # hide if ESC pressed in lineedit
         a = act(self.slotEscapePressed)
-        a.setShortcut(QKeySequence(Qt.Key_Escape))
+        a.setShortcut(QKeySequence(Qt.Key.Key_Escape))
 
         # import action
         a = self.importAction = act(self.slotImport, 'document-open')
@@ -106,14 +106,14 @@ class Widget(QWidget):
 
         # add button
         a = self.addAction_ = act(self.slotAdd, 'list-add')
-        a.setShortcut(QKeySequence(Qt.Key_Insert))
+        a.setShortcut(QKeySequence(Qt.Key.Key_Insert))
         addButton.setDefaultAction(a)
         menu.addSeparator()
         menu.addAction(a)
 
         # edit button
         a = self.editAction = act(self.slotEdit, 'document-edit')
-        a.setShortcut(QKeySequence(Qt.Key_F2))
+        a.setShortcut(QKeySequence(Qt.Key.Key_F2))
         editButton.setDefaultAction(a)
         menu.addAction(a)
 
@@ -123,7 +123,7 @@ class Widget(QWidget):
 
         # delete action
         a = self.deleteAction = act(self.slotDelete, 'list-remove')
-        a.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_Delete))
+        a.setShortcut(QKeySequence(Qt.Modifier.CTRL + Qt.Key.Key_Delete))
         menu.addAction(a)
 
         # restore action
@@ -331,7 +331,7 @@ class Widget(QWidget):
         """Called when the user activates the Restore action."""
         from . import restore
         dlg = restore.RestoreDialog(self)
-        dlg.setWindowModality(Qt.WindowModal)
+        dlg.setWindowModality(Qt.WindowType.WindowModal)
         dlg.populate()
         dlg.show()
         dlg.finished.connect(dlg.deleteLater)

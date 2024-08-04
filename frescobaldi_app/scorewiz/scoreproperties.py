@@ -30,9 +30,9 @@ Properties of a score:
 import fractions
 import re
 
-from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtGui import QIntValidator
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtGui import QIntValidator
+from PyQt6.QtWidgets import (
     QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel, QLineEdit)
 
 import ly.dom

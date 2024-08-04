@@ -24,9 +24,9 @@ Actions to engrave the music in the documents.
 
 import os
 
-from PyQt5.QtCore import QSettings, Qt, QUrl
-from PyQt5.QtGui import QKeySequence, QTextCursor
-from PyQt5.QtWidgets import QAction, QApplication, QMessageBox
+from PyQt6.QtCore import QSettings, Qt, QUrl
+from PyQt6.QtGui import QAction, QKeySequence, QTextCursor
+from PyQt6.QtWidgets import QApplication, QMessageBox
 
 import app
 import actioncollection
@@ -136,7 +136,7 @@ class Engraver(plugin.MainWindowPlugin):
         j = self.runningJob()
         if j:
             j.abort()
-        elif QApplication.keyboardModifiers() & Qt.SHIFT:
+        elif QApplication.keyboardModifiers() & Qt.Modifier.SHIFT:
             self.engraveCustom()
         else:
             self.engravePreview()
@@ -161,7 +161,7 @@ class Engraver(plugin.MainWindowPlugin):
             from . import custom
             dlg = self._customDialog = custom.Dialog(self.mainwindow())
             dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
-            dlg.setWindowModality(Qt.WindowModal)
+            dlg.setWindowModality(Qt.WindowType.WindowModal)
         doc = self.document()
         dlg.setDocument(doc)
         if dlg.exec_():
@@ -235,13 +235,13 @@ class Engraver(plugin.MainWindowPlugin):
         j = job.manager.job(doc)
         if not j or not j.is_running() or job.attributes.get(j).hidden:
             return True
-        msgbox = QMessageBox(QMessageBox.Warning,
+        msgbox = QMessageBox(QMessageBox.Icon.Warning,
             _("Warning"),
             _("An engrave job is running for the document \"{name}\".\n"
               "Do you want to abort the running job?").format(name=doc.documentName()),
-            QMessageBox.Abort | QMessageBox.Cancel,
+            QMessageBox.StandardButton.Abort | QMessageBox.StandardButton.Cancel,
             self.mainwindow())
-        abort_button = msgbox.button(QMessageBox.Abort)
+        abort_button = msgbox.button(QMessageBox.StandardButton.Abort)
         signal = lambda: abort_button.click()
         j.done.connect(signal)
         msgbox.exec_()
@@ -383,10 +383,10 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_autocompile.setCheckable(True)
         self.engrave_open_lilypond_datadir = QAction(parent)
 
-        self.engrave_preview.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_M))
-        self.engrave_publish.setShortcut(QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_P))
-        self.engrave_custom.setShortcut(QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_M))
-        self.engrave_abort.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_Pause))
+        self.engrave_preview.setShortcut(QKeySequence(Qt.Modifier.CTRL + Qt.Key.Key_M))
+        self.engrave_publish.setShortcut(QKeySequence(Qt.Modifier.CTRL + Qt.Modifier.SHIFT + Qt.Key.Key_P))
+        self.engrave_custom.setShortcut(QKeySequence(Qt.Modifier.CTRL + Qt.Modifier.SHIFT + Qt.Key.Key_M))
+        self.engrave_abort.setShortcut(QKeySequence(Qt.Modifier.CTRL + Qt.Key.Key_Pause))
 
         self.engrave_sticky.setIcon(icons.get('pushpin'))
         self.engrave_preview.setIcon(icons.get('lilypond-run'))

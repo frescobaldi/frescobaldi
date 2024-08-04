@@ -26,8 +26,8 @@ An Object Editor
 
 import sys
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QKeySequence
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QKeySequence
 
 import panel
 

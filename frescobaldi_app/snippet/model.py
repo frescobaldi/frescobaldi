@@ -25,8 +25,8 @@ The model containing the snippets data.
 
 import bisect
 
-from PyQt5.QtCore import QAbstractItemModel, QModelIndex, Qt
-from PyQt5.QtGui import QKeySequence
+from PyQt6.QtCore import QAbstractItemModel, QModelIndex, Qt
+from PyQt6.QtGui import QKeySequence
 
 import app
 import actioncollection

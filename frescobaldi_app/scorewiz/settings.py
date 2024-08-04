@@ -22,8 +22,8 @@ The score settings widget.
 """
 
 
-from PyQt5.QtCore import QSettings, Qt
-from PyQt5.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QGroupBox,
+from PyQt6.QtCore import QSettings, Qt
+from PyQt6.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QGroupBox,
                              QHBoxLayout, QLabel, QVBoxLayout, QWidget,
                              QButtonGroup, QRadioButton)
 
@@ -168,11 +168,11 @@ class GeneralPreferences(QGroupBox):
         self.paperOrientation.setItemText(0, _("Regular"))
         self.paperOrientation.setItemText(1, _("Landscape"))
         self.paperOrientation.setItemText(2, _("Rotated"))
-        self.paperOrientation.setItemData(0, _("Regular portrait orientation"), Qt.ToolTipRole)
+        self.paperOrientation.setItemData(0, _("Regular portrait orientation"), Qt.WindowType.ToolTipRole)
         self.paperOrientation.setItemData(1, _(
             "Set paper orientation to landscape while keeping upright printing orientation."),
-            Qt.ToolTipRole)
-        self.paperOrientation.setItemData(2, _("Rotate print on regular paper."), Qt.ToolTipRole)
+            Qt.WindowType.ToolTipRole)
+        self.paperOrientation.setItemData(2, _("Rotate print on regular paper."), Qt.WindowType.ToolTipRole)
 
     def slotPaperChanged(self, index):
         self.paperOrientation.setEnabled(bool(index))

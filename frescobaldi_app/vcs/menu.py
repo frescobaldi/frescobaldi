@@ -23,8 +23,9 @@ Currently only list local branches, allowing one to switch to that branch.
 """
 
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QAction, QActionGroup, QMenu, QMessageBox
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QAction, QActionGroup
+from PyQt6.QtWidgets import QMenu, QMessageBox
 
 import app
 import mainwindow
@@ -45,7 +46,7 @@ class GitMenu(QMenu):
         self.setTitle(_('menu title', '&Git'))
 
     def populate(self):
-        app.qApp.setOverrideCursor(Qt.WaitCursor)
+        app.qApp.setOverrideCursor(Qt.CursorShape.WaitCursor)
         self.clear()
         mainwindow = self.parentWidget()
         for a in GitBranchGroup.instance(mainwindow).actions():
@@ -129,7 +130,7 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
                 _("Successful checkout of branch:") + f"\n{new_branch}")
         except GitError as giterror:
             msgBox = QMessageBox()
-            msgBox.setIcon(QMessageBox.Critical)
+            msgBox.setIcon(QMessageBox.Icon.Critical)
             msgBox.setText(_("Git Checkout Error"))
             msgBox.setInformativeText(str(giterror))
             msgBox.exec_()

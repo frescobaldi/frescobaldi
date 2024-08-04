@@ -34,8 +34,8 @@ TODO:
 """
 
 
-from PyQt5.QtCore import Qt, QUrl
-from PyQt5.QtWidgets import QMenu
+from PyQt6.QtCore import Qt, QUrl
+from PyQt6.QtWidgets import QMenu
 
 import app
 import document
@@ -59,7 +59,7 @@ class SnippetMenuBase(QMenu):
 
     def repopulate(self):
         """Clears the menu and populates it with snippet actions."""
-        # PyQt5's aboutToHide is buggy on macOS and prevents actions
+        # PyQt6's aboutToHide is buggy on macOS and prevents actions
         # from being triggered; instead of clearing the menu in aboutToHide
         # we do it just before repopulating it
         self.clearMenu()

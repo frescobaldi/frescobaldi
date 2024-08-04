@@ -21,9 +21,9 @@
 A line number area to be used in a QPlainTextEdit.
 """
 
-from PyQt5.QtCore import QEvent, QPoint, QRectF, QSize, Qt
-from PyQt5.QtGui import QFontMetrics, QMouseEvent, QPainter
-from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt6.QtCore import QEvent, QPoint, QRectF, QSize, Qt
+from PyQt6.QtGui import QFontMetrics, QMouseEvent, QPainter
+from PyQt6.QtWidgets import QApplication, QWidget
 
 
 class LineNumberArea(QWidget):
@@ -82,14 +82,14 @@ class LineNumberArea(QWidget):
             if block.isVisible() and geom.bottom() > ev.rect().top() + 1:
                 rect.moveTop(geom.top())
                 text = format(block.blockNumber() + 1, 'd')
-                painter.drawText(rect, Qt.AlignRight, text)
+                painter.drawText(rect, Qt.AlignmentFlag.AlignRight, text)
             block = block.next()
 
     def event(self, ev):
         if self._textedit:
             if ((ev.type() in (QEvent.MouseButtonPress, QEvent.MouseButtonRelease)
-                 and ev.button() == Qt.LeftButton)
-                or (ev.type() == QEvent.MouseMove and ev.buttons() & Qt.LeftButton)):
+                 and ev.button() == Qt.MouseButton.LeftButton)
+                or (ev.type() == QEvent.MouseMove and ev.buttons() & Qt.MouseButton.LeftButton)):
                 new = QMouseEvent(ev.type(), QPoint(0, ev.y()),
                     ev.button(), ev.buttons(), ev.modifiers())
                 return QApplication.sendEvent(self._textedit.viewport(), new)

@@ -24,7 +24,7 @@ Maintains an overview of the structure of a Document.
 
 import re
 
-from PyQt5.QtCore import QSettings
+from PyQt6.QtCore import QSettings
 
 import app
 import plugin

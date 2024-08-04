@@ -24,10 +24,10 @@ Keyboard shortcuts settings page.
 
 import itertools
 
-from PyQt5.QtCore import QSettings, Qt
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import (
-    QAction, QLineEdit, QMessageBox, QPushButton, QTreeWidget, QTreeWidgetItem,
+from PyQt6.QtCore import QSettings, Qt
+from PyQt6.QtGui import QAction, QKeySequence
+from PyQt6.QtWidgets import (
+    QLineEdit, QMessageBox, QPushButton, QTreeWidget, QTreeWidgetItem,
     QVBoxLayout)
 
 import app
@@ -332,7 +332,7 @@ class ShortcutItem(QTreeWidgetItem):
                 try:
                     shortcuts = s.value(key, [], QKeySequence)
                 except TypeError:
-                    # PyQt5 raises TypeError when an empty list was stored
+                    # PyQt6 raises TypeError when an empty list was stored
                     shortcuts = []
                 self._shortcuts[scheme] = (shortcuts, False)
             else:

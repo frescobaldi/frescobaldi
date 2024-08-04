@@ -26,9 +26,9 @@ import collections
 import os
 import weakref
 
-from PyQt5.QtCore import pyqtSignal, QMargins, QPoint, QRect, Qt, QTimer, QUrl
-from PyQt5.QtGui import QCursor, QTextCharFormat
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import pyqtSignal, QMargins, QPoint, QRect, Qt, QTimer, QUrl
+from PyQt6.QtGui import QCursor, QTextCharFormat
+from PyQt6.QtWidgets import (
     QToolTip, QVBoxLayout, QHBoxLayout, QWidget, QToolBar)
 
 try:
@@ -205,11 +205,11 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         Otherwise, call the helpers module to open the destination.
 
         """
-        if ev.button() == Qt.RightButton:
+        if ev.button() == Qt.MouseButton.RightButton:
             return
         cursor = self._links.cursor(link, True)
         if cursor:
-            if ev.modifiers() & Qt.ShiftModifier:
+            if ev.modifiers() & Qt.KeyboardModifier.ShiftModifier:
                 import editinplace
                 editinplace.edit(self, cursor, ev.globalPos())
             else:

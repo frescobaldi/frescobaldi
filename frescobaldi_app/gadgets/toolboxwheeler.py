@@ -22,7 +22,7 @@ Pages through a QToolBox using the mouse wheel, by default with the
 CTRL modifier.
 """
 
-from PyQt5.QtCore import QEvent, QObject, Qt
+from PyQt6.QtCore import QEvent, QObject, Qt
 
 
 class ToolBoxWheeler(QObject):
@@ -34,7 +34,7 @@ class ToolBoxWheeler(QObject):
         toolbox.installEventFilter(self)
 
     def eventFilter(self, toolbox, ev):
-        if ev.type() == QEvent.Wheel and ev.modifiers() & Qt.CTRL:
+        if ev.type() == QEvent.Wheel and ev.modifiers() & Qt.Modifier.CTRL:
             self.wheelEvent(toolbox, ev)
             return True
         return False

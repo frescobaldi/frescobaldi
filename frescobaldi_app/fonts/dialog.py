@@ -22,12 +22,12 @@
 Show a dialog with available text and music fonts.
 """
 
-from PyQt5.QtCore import (
+from PyQt6.QtCore import (
     QByteArray,
     QSettings,
     Qt
 )
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QApplication,
     QDialog,
     QDialogButtonBox,
@@ -76,7 +76,7 @@ class FontsDialog(QDialog):
         lilypond_info=None,
         show_music=True
     ):
-        QApplication.setOverrideCursor(Qt.WaitCursor)
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
         super().__init__(
             parent,
         )
@@ -107,7 +107,7 @@ class FontsDialog(QDialog):
 
         # Basic dialog attributes
         self.setAttribute(Qt.WA_DeleteOnClose)
-        self.setWindowModality(Qt.WindowModal)
+        self.setWindowModality(Qt.WindowType.WindowModal)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -221,7 +221,7 @@ class FontsDialog(QDialog):
 
     def copy_result(self):
         """Copies the font command (as shown) to the clipboard."""
-        from PyQt5.QtGui import QGuiApplication
+        from PyQt6.QtGui import QGuiApplication
         cmd = self.font_cmd()
         if cmd[-1] != '\n':
             cmd = cmd + '\n'

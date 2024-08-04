@@ -24,8 +24,8 @@ The tab bar with the documents.
 
 import platform
 
-from PyQt5.QtCore import QSettings, Qt, QUrl, pyqtSignal
-from PyQt5.QtWidgets import QMenu, QTabBar
+from PyQt6.QtCore import QSettings, Qt, QUrl, pyqtSignal
+from PyQt6.QtWidgets import QMenu, QTabBar
 
 import app
 import icons

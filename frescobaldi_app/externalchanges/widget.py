@@ -24,8 +24,8 @@ The window displayed when a Document is modified by an external program.
 
 import os
 
-from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtWidgets import (QCheckBox, QGridLayout, QMessageBox, QPushButton,
+from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtWidgets import (QCheckBox, QGridLayout, QMessageBox, QPushButton,
                              QTextBrowser, QTreeWidget, QTreeWidgetItem)
 
 import app

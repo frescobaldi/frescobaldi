@@ -23,7 +23,7 @@ using ly.music, stores this data and creates and inserts an override command.
 """
 
 
-from PyQt5 import QtGui
+from PyQt6 import QtGui
 
 import documentinfo
 import lydocument

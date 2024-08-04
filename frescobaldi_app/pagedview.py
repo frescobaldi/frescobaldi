@@ -28,9 +28,9 @@ import itertools
 import os
 import platform
 
-from PyQt5.QtCore import pyqtSignal, QMargins, QSettings, Qt
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
+from PyQt6.QtCore import pyqtSignal, QMargins, QSettings, Qt
+from PyQt6.QtWidgets import QMessageBox
+from PyQt6.QtPrintSupport import QPrinter, QPrintDialog
 
 try:
     import popplerqt5

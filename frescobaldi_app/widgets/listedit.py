@@ -22,8 +22,8 @@ Widgets to edit a list of items in a flexible way.
 """
 
 
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtWidgets import (
     QFileDialog, QGridLayout, QListWidget, QListWidgetItem, QPushButton,
     QWidget)
 

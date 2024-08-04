@@ -22,10 +22,10 @@ Fonts and Colors preferences page.
 """
 
 
-from PyQt5.QtCore import pyqtSignal, QSettings, QSize, Qt
-from PyQt5.QtGui import (QBrush, QColor, QFont, QPalette, QTextCharFormat,
+from PyQt6.QtCore import pyqtSignal, QSettings, QSize, Qt
+from PyQt6.QtGui import (QBrush, QColor, QFont, QPalette, QTextCharFormat,
                          QTextFormat)
-from PyQt5.QtWidgets import (QApplication, QCheckBox, QDoubleSpinBox,
+from PyQt6.QtWidgets import (QApplication, QCheckBox, QDoubleSpinBox,
                              QFontComboBox, QGridLayout, QGroupBox,
                              QHBoxLayout, QLabel, QMessageBox, QStackedWidget,
                              QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
@@ -344,7 +344,7 @@ class CustomAttributes(QGroupBox):
 
         self.toplabel = QLabel()
         self.toplabel.setEnabled(False)
-        self.toplabel.setAlignment(Qt.AlignCenter)
+        self.toplabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
         grid.addWidget(self.toplabel, 0, 0, 1, 3)
 
         self.textColor = ColorButton()
@@ -413,7 +413,7 @@ class CustomAttributes(QGroupBox):
             value = lambda checkbox: checkbox.isChecked()
         res = value(self.bold)
         if res is not None:
-            f.setFontWeight(QFont.Bold if res else QFont.Normal)
+            f.setFontWeight(QFont.Weight.Bold if res else QFont.Weight.Normal)
         res = value(self.italic)
         if res is not None:
             f.setFontItalic(res)
@@ -433,7 +433,7 @@ class CustomAttributes(QGroupBox):
         block = self.blockSignals(True)
         absent = Qt.PartiallyChecked if self._tristate else Qt.Unchecked
         if f.hasProperty(QTextFormat.FontWeight):
-            self.bold.setChecked(f.fontWeight() >= QFont.Bold)
+            self.bold.setChecked(f.fontWeight() >= QFont.Weight.Bold)
         else:
             self.bold.setCheckState(absent)
         if f.hasProperty(QTextFormat.FontItalic):

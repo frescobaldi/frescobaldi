@@ -26,8 +26,8 @@ import os
 import re
 import sys
 
-from PyQt5.QtCore import QSettings, QUrl
-from PyQt5.QtGui import QTextCursor
+from PyQt6.QtCore import QSettings, QUrl
+from PyQt6.QtGui import QTextCursor
 
 import app
 import bookmarks

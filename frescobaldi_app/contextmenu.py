@@ -25,8 +25,8 @@ This module is imported when a contextmenu event occurs in the View (view.py).
 """
 
 
-from PyQt5.QtCore import QTimer, QUrl
-from PyQt5.QtWidgets import QAction
+from PyQt6.QtCore import QTimer, QUrl
+from PyQt6.QtGui import QAction
 
 import app
 import icons

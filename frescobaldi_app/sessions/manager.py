@@ -22,7 +22,7 @@ Per-MainWindow session manager
 """
 
 
-from PyQt5.QtWidgets import QAction, QActionGroup
+from PyQt6.QtGui import QAction, QActionGroup
 
 import actioncollection
 import actioncollectionmanager

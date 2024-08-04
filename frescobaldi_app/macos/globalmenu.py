@@ -30,8 +30,9 @@ from the MainWindow.
 import sys
 import os
 
-from PyQt5.QtCore import QUrl
-from PyQt5.QtWidgets import QAction, QFileDialog, QMenu, QMenuBar
+from PyQt6.QtCore import QUrl
+from PyQt6.QtGui import QAction
+from PyQt6.QtWidgets import QFileDialog, QMenu, QMenuBar
 
 import app
 import util

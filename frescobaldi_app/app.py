@@ -29,13 +29,13 @@ import platform
 import importlib.util
 import weakref
 
-from PyQt5.QtCore import QObject, QSettings, Qt, QThread
-from PyQt5.QtWidgets import QApplication, QMenuBar
+from PyQt6.QtCore import QObject, QSettings, Qt, QThread
+from PyQt6.QtWidgets import QApplication, QMenuBar
 
 ### needed for QWebEngine
 ### it wants those two things be done before constructing QApplication()
-if importlib.util.find_spec('PyQt5.QtWebEngineWidgets'):
-    import PyQt5.QtWebEngineWidgets
+if importlib.util.find_spec('PyQt6.QtWebEngineWidgets'):
+    import PyQt6.QtWebEngineWidgets
     QApplication.setAttribute(Qt.AA_ShareOpenGLContexts, True)
 ### end needed for QWebEngine
 
