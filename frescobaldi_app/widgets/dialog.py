@@ -25,8 +25,8 @@ A basic Dialog class.
 import functools
 import operator
 
-from PyQt6.QtCore import QRegExp, QSize, Qt
-from PyQt6.QtGui import QIcon, QPixmap, QRegExpValidator
+from PyQt6.QtCore import QRegularExpression, QSize, Qt
+from PyQt6.QtGui import QIcon, QPixmap, QRegularExpressionValidator
 from PyQt6.QtWidgets import (
     QDialog, QDialogButtonBox, QGridLayout, QLabel, QLineEdit, QStyle,
     QWidget)
@@ -343,8 +343,8 @@ class TextDialog(Dialog):
         """
         validator = function = None
         if regexp is not None:
-            rx = QRegExp(regexp)
-            validator = QRegExpValidator(rx, self.lineEdit())
+            rx = QRegularExpression(regexp)
+            validator = QRegularExpressionValidator(rx, self.lineEdit())
             function = rx.exactMatch
         self.lineEdit().setValidator(validator)
         self.setValidateFunction(function)

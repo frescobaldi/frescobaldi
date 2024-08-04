@@ -22,7 +22,7 @@ import re
 
 from PyQt6.QtCore import (
     QObject,
-    QRegExp,
+    QRegularExpression,
     QSettings,
     QSortFilterProxyModel,
     Qt,
@@ -100,7 +100,9 @@ class TextFontsWidget(QWidget):
         s = QSettings()
         s.beginGroup('document-fonts-dialog')
         self.tree_view.setColumnWidth(0, int(s.value('col-width', 200)))
-        self.filter = QRegExp('', Qt.CaseInsensitive)
+        self.filter = QRegularExpression('')
+        self.filter.setPatternOptions(
+            QRegularExpression.PatternOption.CaseInsensitiveOption)
 
     def saveSettings(self):
         # Text font tab

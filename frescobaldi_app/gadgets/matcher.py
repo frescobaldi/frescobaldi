@@ -22,7 +22,7 @@ A basic parenthesis/brace character matcher for a textedit widget.
 """
 
 
-from PyQt6.QtCore import QObject, QRegExp, Qt, QTimer
+from PyQt6.QtCore import QObject, QRegularExpression, Qt, QTimer
 from PyQt6.QtGui import QTextCharFormat, QTextCursor, QTextDocument
 from PyQt6.QtWidgets import QTextEdit
 
@@ -96,7 +96,9 @@ class Matcher(QObject):
             new.movePosition(QTextCursor.Right)
 
         # search, also nesting
-        rx = QRegExp(QRegExp.escape(c) + '|' + QRegExp.escape(match))
+        rx = QRegularExpression(QRegularExpression.escape(c)
+                                + '|'
+                                + QRegularExpression.escape(match))
         nest = 0
         while nest >= 0:
             new = cursor.document().find(rx, new, flags)
