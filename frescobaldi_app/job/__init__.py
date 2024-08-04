@@ -286,7 +286,7 @@ class Job:
         (Call this method after the process has finished.)
 
         """
-        return self.error == QProcess.FailedToStart
+        return self.error == QProcess.ProcessError.FailedToStart
 
     def set_process(self, process):
         """Sets a QProcess instance and connects the signals."""
@@ -294,7 +294,7 @@ class Job:
         if process.parent() is None:
             process.setParent(QCoreApplication.instance())
         process.finished.connect(self._finished)
-        process.error.connect(self._error)
+        process.errorOccurred.connect(self._error)
         process.readyReadStandardError.connect(self._readstderr)
         process.readyReadStandardOutput.connect(self._readstdout)
 
@@ -332,13 +332,13 @@ class Job:
     def _finished(self, exitCode, exitStatus):
         """(internal) Called when the process has finished."""
         self.finish_message(exitCode, exitStatus)
-        success = exitCode == 0 and exitStatus == QProcess.NormalExit
+        success = exitCode == 0 and exitStatus == QProcess.ExitStatus.NormalExit
         self._bye(success)
 
     def _error(self, error):
         """(internal) Called when an error occurs."""
         self.error_message(error)
-        if self._process.state() == QProcess.NotRunning:
+        if self._process.state() == QProcess.ProcessState.NotRunning:
             self._bye(False)
 
     def _bye(self, success):
@@ -382,16 +382,16 @@ class Job:
     def error_message(self, error):
         """Called when there is an error (by _error()).
 
-        Outputs a message describing the given QProcess.Error.
+        Outputs a message describing the given QProcess.ProcessError.
 
         """
-        if error == QProcess.FailedToStart:
+        if error == QProcess.ProcessError.FailedToStart:
             self.message(_(
                 "Could not start {program}.\n"
                 "Please check path and permissions.").format(program = self.command[0]), FAILURE)
-        elif error == QProcess.ReadError:
+        elif error == QProcess.ProcessError.ReadError:
             self.message(_("Could not read from the process."), FAILURE)
-        elif self._process.state() == QProcess.NotRunning:
+        elif self._process.state() == QProcess.ProcessState.NotRunning:
             self.message(_("An unknown error occurred."), FAILURE)
 
     def finish_message(self, exitCode, exitStatus):
