@@ -60,7 +60,7 @@ class ViewStatusBar(QWidget):
         layout.addWidget(self.infoLabel, 1)
 
     def event(self, ev):
-        if ev.type() == QEvent.MouseButtonPress:
+        if ev.type() == QEvent.Type.MouseButtonPress:
             if ev.button() == Qt.MouseButton.RightButton:
                 self.showContextMenu(ev.globalPos())
             else:
@@ -183,7 +183,7 @@ class ViewSpace(QWidget):
         view.document().urlChanged.disconnect(self.updateDocumentName)
 
     def eventFilter(self, view, ev):
-        if ev.type() == QEvent.FocusIn:
+        if ev.type() == QEvent.Type.FocusIn:
             self.setActiveViewSpace()
         return False
 

@@ -127,7 +127,7 @@ class KeySequenceButton(QPushButton):
     def event(self, ev):
         if self._isrecording:
             # prevent Qt from special casing Tab and Backtab
-            if ev.type() == QEvent.KeyPress:
+            if ev.type() == QEvent.Type.KeyPress:
                 self.keyPressEvent(ev)
                 return True
         return super().event(ev)

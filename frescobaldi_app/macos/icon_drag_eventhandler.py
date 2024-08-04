@@ -38,7 +38,7 @@ handler = None
 class IconDragEventHandler(QObject):
     """Event handler to handle window icon events on macOS."""
     def eventFilter(self, mainwin, ev):
-        if ev.type() != QEvent.IconDrag:
+        if ev.type() != QEvent.Type.IconDrag:
             return False
         if not mainwin.isActiveWindow():
             return False

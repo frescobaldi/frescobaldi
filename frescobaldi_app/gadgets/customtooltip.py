@@ -85,18 +85,18 @@ def show(widget, pos=None, timeout=10000):
 
 
 _hideevents = {
-    QEvent.KeyPress,
-    QEvent.KeyRelease,
-    QEvent.Leave,
-    QEvent.WindowActivate,
-    QEvent.WindowDeactivate,
-    QEvent.MouseButtonPress,
-    QEvent.MouseButtonRelease,
-    QEvent.MouseButtonDblClick,
-    QEvent.FocusIn,
-    QEvent.FocusOut,
-    QEvent.Wheel,
-    QEvent.MouseMove,
+    QEvent.Type.KeyPress,
+    QEvent.Type.KeyRelease,
+    QEvent.Type.Leave,
+    QEvent.Type.WindowActivate,
+    QEvent.Type.WindowDeactivate,
+    QEvent.Type.MouseButtonPress,
+    QEvent.Type.MouseButtonRelease,
+    QEvent.Type.MouseButtonDblClick,
+    QEvent.Type.FocusIn,
+    QEvent.Type.FocusOut,
+    QEvent.Type.Wheel,
+    QEvent.Type.MouseMove,
 }
 
 class EventHandler(QObject):

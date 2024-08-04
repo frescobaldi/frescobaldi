@@ -87,13 +87,13 @@ class LineNumberArea(QWidget):
 
     def event(self, ev):
         if self._textedit:
-            if ((ev.type() in (QEvent.MouseButtonPress, QEvent.MouseButtonRelease)
+            if ((ev.type() in (QEvent.Type.MouseButtonPress, QEvent.Type.MouseButtonRelease)
                  and ev.button() == Qt.MouseButton.LeftButton)
-                or (ev.type() == QEvent.MouseMove and ev.buttons() & Qt.MouseButton.LeftButton)):
+                or (ev.type() == QEvent.Type.MouseMove and ev.buttons() & Qt.MouseButton.LeftButton)):
                 new = QMouseEvent(ev.type(), QPoint(0, ev.y()),
                     ev.button(), ev.buttons(), ev.modifiers())
                 return QApplication.sendEvent(self._textedit.viewport(), new)
-            elif ev.type() == QEvent.Wheel:
+            elif ev.type() == QEvent.Type.Wheel:
                 return QApplication.sendEvent(self._textedit.viewport(), ev)
         return super().event(ev)
 

@@ -54,7 +54,7 @@ def openUrl(url):
 
 class FileOpenEventHandler(QObject):
     def eventFilter(self, obj, ev):
-        if ev.type() == QEvent.FileOpen:
+        if ev.type() == QEvent.Type.FileOpen:
             openUrl(ev.url())
             return True
         return False

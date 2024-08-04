@@ -178,9 +178,9 @@ class BoundaryHandler(QObject):
 
     def eventFilter(self, obj, ev):
         """Intercept key events from a Q(Plain)TextEdit and handle them."""
-        if ev.type() == QEvent.KeyPress:
+        if ev.type() == QEvent.Type.KeyPress:
             return self.keyPressEvent(obj, ev)
-        elif ev.type() == QEvent.MouseButtonDblClick:
+        elif ev.type() == QEvent.Type.MouseButtonDblClick:
             edit = self.get_textedit(obj)
             return self.mouseDoubleClickEvent(edit, ev)
         return False

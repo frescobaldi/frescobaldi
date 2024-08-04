@@ -47,7 +47,7 @@ class Completer(QCompleter):
         self.activated[QModelIndex].connect(self.insertCompletion)
 
     def eventFilter(self, obj, ev):
-        if ev.type() != QEvent.KeyPress:
+        if ev.type() != QEvent.Type.KeyPress:
             return super().eventFilter(obj, ev)
         # we can't test for self.popup() as that will recursively call
         # eventFilter during instantiation.
