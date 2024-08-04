@@ -200,7 +200,7 @@ class Completer(QCompleter):
     def insertCompletion(self, index):
         """Inserts the completion at the given index.
 
-        The default implementation reads the model data under the Qt.EditRole,
+        The default implementation reads the model data under the Qt.ItemDataRole.EditRole,
         and inserts that with the (already entered) completionPrefix removed.
 
         """
@@ -209,7 +209,7 @@ class Completer(QCompleter):
         cursor.setPosition(cursor.selectionEnd())
         prefix_len = len(self.completionPrefix())
         cursor.setPosition(cursor.position() - prefix_len - sel_len, cursor.KeepAnchor)
-        cursor.insertText(self.completionModel().data(index, Qt.EditRole))
+        cursor.insertText(self.completionModel().data(index, Qt.ItemDataRole.EditRole))
 
     def insertPartialCompletion(self, index):
         r"""Called when a tab key is pressed. Here index in current index item selected

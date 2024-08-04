@@ -60,7 +60,7 @@ class Player(QThread, midifile.player.Player):
 
     def run(self):
         self._timer = QTimer(singleShot=True, timerType=Qt.PreciseTimer)
-        self._timer.timeout.connect(self.timer_timeout, Qt.DirectConnection)
+        self._timer.timeout.connect(self.timer_timeout, Qt.ConnectionType.DirectConnection)
         self.timer_start_playing()
         self.stateChanged.emit(True)
         if self.exec_():

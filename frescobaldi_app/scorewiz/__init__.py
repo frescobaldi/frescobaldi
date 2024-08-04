@@ -61,11 +61,11 @@ class Actions(actioncollection.ActionCollection):
         self.scorewiz = QAction(parent)
         self.scorewiz.setIcon(icons.get("tools-score-wizard"))
         self.scorewiz.setShortcut(QKeySequence("Ctrl+Shift+N"))
-        self.scorewiz.setMenuRole(QAction.NoRole)
+        self.scorewiz.setMenuRole(QAction.MenuRole.NoRole)
 
         self.scorewizFromCurrent = QAction(parent)
         self.scorewizFromCurrent.setIcon(icons.get("tools-score-wizard"))
-        self.scorewizFromCurrent.setMenuRole(QAction.NoRole)
+        self.scorewizFromCurrent.setMenuRole(QAction.MenuRole.NoRole)
 
     def translateUI(self):
         self.scorewiz.setText(_("Score &Wizard..."))

@@ -94,7 +94,7 @@ class ImageViewer(QScrollArea):
         pixmap = QPixmap.fromImage(image)
         drag.setPixmap(pixmap)
         drag.setHotSpot(pixmap.rect().center())
-        drag.exec_(Qt.CopyAction)
+        drag.exec_(Qt.DropAction.CopyAction)
 
 
 class ImageWidget(QWidget):

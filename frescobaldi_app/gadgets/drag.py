@@ -34,11 +34,11 @@ class ComboDrag(QObject):
     current item.
 
     By default, drags a filename got from the current index under the
-    Qt.EditRole. Change the role by changing the 'role' instance attribute.
+    Qt.ItemDataRole.EditRole. Change the role by changing the 'role' instance attribute.
 
     """
     column = 0
-    role = Qt.EditRole
+    role = Qt.ItemDataRole.EditRole
 
     def __init__(self, combobox):
         super().__init__(combobox)
@@ -67,8 +67,8 @@ class ComboDrag(QObject):
     def startDrag(self, combobox):
         index = combobox.model().index(combobox.currentIndex(), self.column)
         filename = combobox.model().data(index, self.role)
-        icon = combobox.model().data(index, Qt.DecorationRole)
-        dragFile(combobox, filename, icon, Qt.CopyAction)
+        icon = combobox.model().data(index, Qt.ItemDataRole.DecorationRole)
+        dragFile(combobox, filename, icon, Qt.DropAction.CopyAction)
 
 
 class Dragger(QObject):
@@ -112,7 +112,7 @@ class FileDragger(Dragger):
             dragFile(widget, filename)
 
 
-def dragFile(widget, filename, icon=None, dropactions=Qt.CopyAction):
+def dragFile(widget, filename, icon=None, dropactions=Qt.DropAction.CopyAction):
     """Starts dragging the given local file from the widget."""
     if icon is None or icon.isNull():
         icon = QFileIconProvider().icon(QFileInfo(filename))

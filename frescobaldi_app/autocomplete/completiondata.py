@@ -267,6 +267,6 @@ language_names = listmodel.ListModel(sorted(ly.pitch.pitchInfo))
 
 def font_names():
     model = listmodel.ListModel(sorted(QFontDatabase().families()))
-    model.setRoleFunction(Qt.FontRole, QFont)
+    model.setRoleFunction(Qt.ItemDataRole.FontRole, QFont)
     return model
 

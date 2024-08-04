@@ -427,10 +427,10 @@ class ViewActions(actioncollection.ActionCollection):
         self.window_previous_view.setIcon(icons.get('go-previous-view'))
 
         # shortcuts
-        self.window_close_view.setShortcut(Qt.Modifier.CTRL + Qt.Modifier.SHIFT + Qt.Key.Key_W)
-        self.window_next_view.setShortcuts(QKeySequence.NextChild)
+        self.window_close_view.setShortcut(QKeySequence(Qt.Modifier.CTRL | Qt.Modifier.SHIFT | Qt.Key.Key_W))
+        self.window_next_view.setShortcuts(QKeySequence.StandardKey.NextChild)
         qutil.removeShortcut(self.window_next_view, "Ctrl+,")
-        self.window_previous_view.setShortcuts(QKeySequence.PreviousChild)
+        self.window_previous_view.setShortcuts(QKeySequence.StandardKey.PreviousChild)
         qutil.removeShortcut(self.window_previous_view, "Ctrl+.")
 
     def translateUI(self):

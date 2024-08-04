@@ -52,8 +52,8 @@ class SnippetModel(QAbstractItemModel):
         app.languageChanged.connect(self.slotLanguageChanged)
 
     # methods needed to be a well-behaved model
-    def headerData(self, section, orientation, role=Qt.DisplayRole):
-        if role == Qt.DisplayRole and orientation == Qt.Horizontal:
+    def headerData(self, section, orientation, role=Qt.ItemDataRole.DisplayRole):
+        if role == Qt.ItemDataRole.DisplayRole and orientation == Qt.Horizontal:
             if section == 0:
                 return _("Name")
             elif section == 1:
@@ -73,16 +73,16 @@ class SnippetModel(QAbstractItemModel):
     def rowCount(self, parent=QModelIndex()):
         return len(self._names) if not parent.isValid() else 0
 
-    def data(self, index, role=Qt.DisplayRole):
+    def data(self, index, role=Qt.ItemDataRole.DisplayRole):
         name = self.name(index)
-        if role == Qt.DisplayRole:
+        if role == Qt.ItemDataRole.DisplayRole:
             if index.column() == 0:
                 return snippets.get(name).variables.get('name')
             elif index.column() == 1:
                 return snippets.title(name)
             else:
                 return shortcut(name)
-        elif role == Qt.DecorationRole and index.column() == 1:
+        elif role == Qt.ItemDataRole.DecorationRole and index.column() == 1:
             return snippets.icon(name)
 
     # slots

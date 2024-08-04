@@ -367,7 +367,7 @@ class DocumentChooserAction(ComboBoxAction):
         # make model for the docs
         m = self._model = listmodel.ListModel([d.filename() for d in docs],
             display = os.path.basename, icon = icons.file_type)
-        m.setRoleFunction(Qt.UserRole, lambda f: f)
+        m.setRoleFunction(Qt.ItemDataRole.UserRole, lambda f: f)
         for w in self.createdWidgets():
             w.setModel(m)
 
@@ -419,7 +419,7 @@ class DocumentChooser(QComboBox):
         self.lineEdit().setReadOnly(True)
         self.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         app.translateUI(self)
-        gadgets.drag.ComboDrag(self).role = Qt.UserRole
+        gadgets.drag.ComboDrag(self).role = Qt.ItemDataRole.UserRole
 
     def translateUI(self):
         self.setToolTip(_("Choose the PDF document to display."))

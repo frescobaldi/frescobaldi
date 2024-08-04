@@ -60,7 +60,7 @@ class SvgFiles(plugin.DocumentPlugin):
             self.update()
         m = listmodel.ListModel(self._files,
             display = os.path.basename, icon = icons.file_type)
-        m.setRoleFunction(Qt.UserRole, lambda f: f)
+        m.setRoleFunction(Qt.ItemDataRole.UserRole, lambda f: f)
         return m
 
     def url(self, index):

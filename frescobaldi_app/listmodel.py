@@ -62,13 +62,13 @@ class ListModel(QAbstractListModel):
         if edit is None:
             edit = display
         if display:
-            self._roles[Qt.DisplayRole] = display
+            self._roles[Qt.ItemDataRole.DisplayRole] = display
         if edit:
-            self._roles[Qt.EditRole] = edit
+            self._roles[Qt.ItemDataRole.EditRole] = edit
         if tooltip:
             self._roles[Qt.WindowType.ToolTipRole] = tooltip
         if icon:
-            self._roles[Qt.DecorationRole] = icon
+            self._roles[Qt.ItemDataRole.DecorationRole] = icon
 
     def setRoleFunction(self, role, function):
         """Sets a function that returns a value for a Qt.ItemDataRole.
