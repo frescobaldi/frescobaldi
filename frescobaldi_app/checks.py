@@ -79,17 +79,6 @@ if v < r:
 but requires at least version {r[0]}.{r[1]}.")
 
 
-# Check popplerqt5 availability
-import importlib
-# when Python version requirement > 3.4 we can use importlib.find_spec() -- WB
-if importlib.util.find_spec('popplerqt5') is None:
-    error("The 'popplerqt5' module can't be found.",
-        "Frescobaldi can't find the 'popplerqt5' module. This module is "
-        "required for the display of PDF documents. The module is in the "
-        "python-poppler-qt5 package which needs to be installed.\n\n"
-        "Frescobaldi can run, but cannot display PDF documents.", True)
-
-
 # Check qpageview availability
 if importlib.util.find_spec('qpageview') is None:
     error("The 'qpageview' module can't be found.",
