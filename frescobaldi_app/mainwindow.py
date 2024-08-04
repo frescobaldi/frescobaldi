@@ -1307,10 +1307,10 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_copy.setShortcuts(QKeySequence.Copy)
         self.edit_paste.setShortcuts(QKeySequence.Paste)
         self.edit_select_all.setShortcuts(QKeySequence.SelectAll)
-        self.edit_select_current_toplevel.setShortcut(QKeySequence(Qt.Modifier.SHIFT+Qt.Modifier.CTRL+Qt.Key.Key_B))
-        self.edit_select_none.setShortcut(QKeySequence(Qt.Modifier.SHIFT + Qt.Modifier.CTRL + Qt.Key.Key_A))
-        self.edit_select_full_lines_up.setShortcut(QKeySequence(Qt.Modifier.SHIFT + Qt.Modifier.CTRL + Qt.Key.Key_Up))
-        self.edit_select_full_lines_down.setShortcut(QKeySequence(Qt.Modifier.SHIFT + Qt.Modifier.CTRL + Qt.Key.Key_Down))
+        self.edit_select_current_toplevel.setShortcut(QKeySequence(Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Key.Key_B))
+        self.edit_select_none.setShortcut(QKeySequence(Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Key.Key_A))
+        self.edit_select_full_lines_up.setShortcut(QKeySequence(Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Key.Key_Up))
+        self.edit_select_full_lines_down.setShortcut(QKeySequence(Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Key.Key_Down))
         self.edit_find.setShortcuts(QKeySequence.Find)
         self.edit_find_next.setShortcuts(QKeySequence.FindNext)
         self.edit_find_previous.setShortcuts(QKeySequence.FindPrevious)
@@ -1318,16 +1318,16 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_preferences.setShortcuts(QKeySequence.Preferences)
 
         if platform.system() == "Darwin":
-            self.view_next_document.setShortcut(Qt.Modifier.META + Qt.Key.Key_Tab)
-            self.view_previous_document.setShortcut(Qt.Modifier.META + Qt.Modifier.SHIFT + Qt.Key.Key_Tab)
+            self.view_next_document.setShortcut(Qt.Modifier.META | Qt.Key.Key_Tab)
+            self.view_previous_document.setShortcut(Qt.Modifier.META | Qt.Modifier.SHIFT | Qt.Key.Key_Tab)
         else:
             self.view_next_document.setShortcuts(QKeySequence.Forward)
             self.view_previous_document.setShortcuts(QKeySequence.Back)
-        self.view_scroll_up.setShortcut(Qt.Modifier.CTRL + Qt.Key.Key_Up)
-        self.view_scroll_down.setShortcut(Qt.Modifier.CTRL + Qt.Key.Key_Down)
-        self.view_goto_line.setShortcut(Qt.Modifier.CTRL + Qt.Modifier.ALT + Qt.Key.Key_G)
+        self.view_scroll_up.setShortcut(Qt.Modifier.CTRL | Qt.Key.Key_Up)
+        self.view_scroll_down.setShortcut(Qt.Modifier.CTRL | Qt.Key.Key_Down)
+        self.view_goto_line.setShortcut(Qt.Modifier.CTRL | Qt.Modifier.ALT | Qt.Key.Key_G)
 
-        self.window_fullscreen.setShortcuts([QKeySequence(Qt.Modifier.CTRL + Qt.Modifier.SHIFT + Qt.Key.Key_F), QKeySequence(Qt.Key.Key_F11)])
+        self.window_fullscreen.setShortcuts([QKeySequence(Qt.Modifier.CTRL | Qt.Modifier.SHIFT | Qt.Key.Key_F), QKeySequence(Qt.Key.Key_F11)])
 
         self.help_manual.setShortcuts(QKeySequence.HelpContents)
 

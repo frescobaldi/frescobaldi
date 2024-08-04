@@ -120,7 +120,7 @@ class Actions(actioncollection.ActionCollection):
         self.lyrics_dehyphenate = QAction(parent)
         self.lyrics_copy_dehyphenated = QAction(parent)
 
-        self.lyrics_hyphenate.setShortcut(QKeySequence(Qt.Modifier.CTRL + Qt.Key.Key_L))
+        self.lyrics_hyphenate.setShortcut(QKeySequence(Qt.Modifier.CTRL | Qt.Key.Key_L))
 
     def translateUI(self):
         self.lyrics_hyphenate.setText(_("&Hyphenate Lyrics Text..."))

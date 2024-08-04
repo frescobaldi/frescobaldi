@@ -233,8 +233,8 @@ class Actions(actioncollection.ActionCollection):
         self.edit_cut_assign.setIcon(icons.get('edit-cut'))
         self.edit_move_to_include_file.setIcon(icons.get('edit-cut'))
 
-        self.view_goto_file_or_definition.setShortcut(QKeySequence(Qt.Modifier.ALT + Qt.Key.Key_Return))
-        self.edit_cut_assign.setShortcut(QKeySequence(Qt.Modifier.SHIFT + Qt.Modifier.CTRL + Qt.Key.Key_X))
+        self.view_goto_file_or_definition.setShortcut(QKeySequence(Qt.Modifier.ALT | Qt.Key.Key_Return))
+        self.edit_cut_assign.setShortcut(QKeySequence(Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Key.Key_X))
 
     def translateUI(self):
         self.edit_cut_assign.setText(_("Cut and Assign..."))
