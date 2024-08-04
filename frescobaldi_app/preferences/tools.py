@@ -289,6 +289,10 @@ class Outline(preferences.Group):
             s.setValue("outline_patterns", self.patternList.value())
         else:
             s.remove("outline_patterns")
+        if self.patternListComments.value() != documentstructure.default_outline_patterns_comments:
+            s.setValue("outline_patterns_comments", self.patternListComments.value())
+        else:
+            s.remove("outline_patterns_comments")
 
 
 class OutlinePatterns(widgets.listedit.ListEdit):
