@@ -112,7 +112,7 @@ class Log(QTextBrowser):
         and underlined, to make parts of the output (e.g. filenames) look clickable.
 
         """
-        textColor = QApplication.palette().color(QPalette.WindowText)
+        textColor = QApplication.palette().color(QPalette.ColorRole.WindowText)
         successColor = qutil.addcolor(textColor, 0, 128, 0) # more green
         failureColor = qutil.addcolor(textColor, 128, 0, 0) # more red
         linkColor    = qutil.addcolor(textColor, 0, 0, 128) # more blue

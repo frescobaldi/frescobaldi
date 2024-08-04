@@ -77,7 +77,7 @@ def getText(
     if complete:
         c = QCompleter(complete, dlg.lineEdit())
         dlg.lineEdit().setCompleter(c)
-    if dlg.exec_():
+    if dlg.exec():
         return dlg.text()
 
 
@@ -99,7 +99,7 @@ def getColor(
         options |= QColorDialog.DontUseNativeDialog
     dlg.setOptions(options)
     dlg.setWindowTitle(title or app.caption(_("Select Color")))
-    if dlg.exec_():
+    if dlg.exec():
         _savedColor = dlg.selectedColor()
         return _savedColor
 

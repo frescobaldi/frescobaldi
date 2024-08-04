@@ -126,8 +126,8 @@ class ViMode(QObject):
     def drawCursor(self, cursor):
         """Draws the cursor position as the selection of the specified cursor."""
         es = QTextEdit.ExtraSelection()
-        es.format.setBackground(self.textEdit().palette().color(QPalette.Text))
-        es.format.setForeground(self.textEdit().palette().color(QPalette.Base))
+        es.format.setBackground(self.textEdit().palette().color(QPalette.ColorRole.Text))
+        es.format.setForeground(self.textEdit().palette().color(QPalette.ColorRole.Base))
         es.cursor = cursor
         self.textEdit().setExtraSelections([es])
 
@@ -157,5 +157,5 @@ and here yet another
 """)
     e.show()
     v = ViMode(e)
-    a.exec_()
+    a.exec()
 

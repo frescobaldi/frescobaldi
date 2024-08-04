@@ -133,6 +133,6 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
             msgBox.setIcon(QMessageBox.Icon.Critical)
             msgBox.setText(_("Git Checkout Error"))
             msgBox.setInformativeText(str(giterror))
-            msgBox.exec_()
+            msgBox.exec()
             action.setChecked(False)
             self._acts[vcs.app_repo.current_branch()].setChecked(True)

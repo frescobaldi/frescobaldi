@@ -217,10 +217,10 @@ class FontsColors(preferences.Page):
 
         # update base colors for whole treewidget
         p = QApplication.palette()
-        p.setColor(QPalette.Base, data.baseColors['background'])
-        p.setColor(QPalette.Text, data.baseColors['text'])
-        p.setColor(QPalette.Highlight, data.baseColors['selectionbackground'])
-        p.setColor(QPalette.HighlightedText, data.baseColors['selectiontext'])
+        p.setColor(QPalette.ColorRole.Base, data.baseColors['background'])
+        p.setColor(QPalette.ColorRole.Text, data.baseColors['text'])
+        p.setColor(QPalette.ColorRole.Highlight, data.baseColors['selectionbackground'])
+        p.setColor(QPalette.ColorRole.HighlightedText, data.baseColors['selectiontext'])
         self.tree.setPalette(p)
 
         def setItemTextFormat(item, f):

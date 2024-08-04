@@ -230,7 +230,7 @@ install Frescobaldi using a distribution package or from source."""))
         # a fresh item as created by the "Add" button in createItem() above.
         was_default = (item in self.items()
                        and item.state.info.command == self.parentWidget()._defaultCommand)
-        if dlg.exec_():
+        if dlg.exec():
             item.state.info = dlg.newInfo()
             if was_default:
                 self.parentWidget()._defaultCommand = item.state.info.command

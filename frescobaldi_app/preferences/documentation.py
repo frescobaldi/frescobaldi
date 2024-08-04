@@ -164,7 +164,7 @@ class LilyDocPathsList(widgets.listedit.ListEdit):
         urlreq.setPath(item.text())
         urlreq.setMinimumWidth(320)
         urlreq.lineEdit.setFocus()
-        if dlg.exec_():
+        if dlg.exec():
             item.setText(urlreq.path())
             return True
         return False

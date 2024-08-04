@@ -169,7 +169,7 @@ class UrlRequester(QWidget):
             title = _("Select a file")
         dlg.setWindowTitle(app.caption(title))
         dlg.selectFile(self.path())
-        result = dlg.exec_()
+        result = dlg.exec()
         self._browse_clicked = False
         if result:
             new = dlg.selectedFiles()[0]

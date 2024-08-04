@@ -142,7 +142,7 @@ class ScoreWizardDialog(QDialog):
         import musicpreview
         dlg = musicpreview.MusicPreviewDialog(self)
         dlg.preview(builder.text(doc), _("Score Preview"))
-        dlg.exec_()
+        dlg.exec()
         dlg.cleanup()
 
     def readScore(self):

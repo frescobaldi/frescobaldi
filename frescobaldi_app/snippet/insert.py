@@ -251,7 +251,7 @@ def handle_exception(name, view):
     dlg.button(QMessageBox.StandardButton.Ok).setText(_("Edit Snippet"))
     dlg.setDefaultButton(QMessageBox.StandardButton.Cancel)
     dlg.setEscapeButton(QMessageBox.StandardButton.Cancel)
-    if dlg.exec_() != QMessageBox.StandardButton.Ok:
+    if dlg.exec() != QMessageBox.StandardButton.Ok:
         return
 
     # determine line number

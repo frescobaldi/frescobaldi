@@ -95,11 +95,11 @@ class HeaderWidget(QWidget):
         qutil.addAccelerators([self.labels[name] for name, desc in headers()], used)
 
     def setPreviewTexts(self):
-        textColor = defaultColor = self.htmlView.palette().color(QPalette.Text)
+        textColor = defaultColor = self.htmlView.palette().color(QPalette.ColorRole.Text)
         # If anything is entered, make the default color somewhat lighter
         for name, desc in headers():
             if self.edits[name].text().strip():
-                baseColor = self.htmlView.palette().color(QPalette.Base)
+                baseColor = self.htmlView.palette().color(QPalette.ColorRole.Base)
                 defaultColor = qutil.mixcolor(textColor, baseColor, 0.6)
                 break
         textCssColor = textColor.name()
@@ -122,7 +122,7 @@ class HeaderWidget(QWidget):
 
     def readSettings(self):
         p = self.htmlView.palette()
-        p.setColor(QPalette.Base, textformats.formatData('editor').baseColors['paper'])
+        p.setColor(QPalette.ColorRole.Base, textformats.formatData('editor').baseColors['paper'])
         self.htmlView.setPalette(p)
 
     def slotAnchorClicked(self, url):

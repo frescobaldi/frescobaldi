@@ -188,7 +188,7 @@ class View(QPlainTextEdit):
 
     def event(self, ev):
         """Reimplemented to avoid typing the line separator."""
-        if ev.type() == QEvent.Type.KeyPress and ev.matches(QKeySequence.InsertLineSeparator):
+        if ev.type() == QEvent.Type.KeyPress and ev.matches(QKeySequence.StandardKey.InsertLineSeparator):
             return False
         return super().event(ev)
 

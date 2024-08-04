@@ -83,7 +83,7 @@ class MusicView(QWidget):
         #self.view.setShowUrlTips(False)
         self.view.linkHelpRequested.connect(self.slotLinkHelpRequested)
 
-        self.view.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.view.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.view.customContextMenuRequested.connect(self.showContextMenu)
 
         # react if cursor of current text document moves

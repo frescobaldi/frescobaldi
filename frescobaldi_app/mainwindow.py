@@ -30,7 +30,8 @@ import weakref
 
 from PyQt6.QtCore import (pyqtSignal, QByteArray, QDir, QMimeData, QSettings,
                           QSize, Qt, QUrl)
-from PyQt6.QtGui import (QAction, QKeySequence, QTextCursor, QTextDocument)
+from PyQt6.QtGui import (QAction, QGuiApplication, QKeySequence, QTextCursor,
+                         QTextDocument)
 from PyQt6.QtPrintSupport import (QAbstractPrintDialog, QPrintDialog, QPrinter)
 from PyQt6.QtWidgets import (QApplication, QFileDialog, QMainWindow,
                              QMenu, QMessageBox, QPlainTextEdit, QVBoxLayout,
@@ -263,7 +264,7 @@ class MainWindow(QMainWindow):
     def updateActions(self):
         view = self.currentView()
         action = self.actionCollection.view_wrap_lines
-        action.setChecked(view.lineWrapMode() == QPlainTextEdit.WidgetWidth)
+        action.setChecked(view.lineWrapMode() == QPlainTextEdit.LineWrapMode.WidgetWidth)
 
     def updateFileActions(self):
         doc = self.currentDocument()
@@ -390,7 +391,7 @@ class MainWindow(QMainWindow):
         """ Read a few settings from the application global config. """
         settings = QSettings()
         settings.beginGroup('mainwindow')
-        defaultSize = QApplication.desktop().screen().size() * 2 / 3
+        defaultSize = QGuiApplication.primaryScreen().geometry().size() * 2 / 3
         self.resize(settings.value("size", defaultSize, QSize))
         self.restoreState(settings.value('state', QByteArray(), QByteArray))
         self.tabBar.setVisible(settings.value('tabbar', True, bool))
@@ -842,7 +843,7 @@ class MainWindow(QMainWindow):
         if cursor.hasSelection():
             options |= QAbstractPrintDialog.PrintSelection
         dlg.setOptions(options)
-        if dlg.exec_():
+        if dlg.exec():
             if dlg.printRange() != QAbstractPrintDialog.Selection:
                 cursor.clearSelection()
             number_lines = QSettings().value("source_export/number_lines", False, bool)
@@ -951,7 +952,7 @@ class MainWindow(QMainWindow):
     def showPreferences(self):
         import preferences
         dlg = preferences.PreferencesDialog(self)
-        dlg.exec_()
+        dlg.exec()
         dlg.deleteLater()
 
     def toggleFullScreen(self, enabled):
@@ -972,7 +973,7 @@ class MainWindow(QMainWindow):
 
     def toggleWrapLines(self, enable):
         """Called when the user toggles View->Line Wrap"""
-        wrap = QPlainTextEdit.WidgetWidth if enable else QPlainTextEdit.NoWrap
+        wrap = QPlainTextEdit.LineWrapMode.WidgetWidth if enable else QPlainTextEdit.LineWrapMode.NoWrap
         self.currentView().setLineWrapMode(wrap)
 
     def scrollUp(self):
@@ -1041,7 +1042,7 @@ class MainWindow(QMainWindow):
     def showAbout(self):
         """Shows about dialog."""
         import about
-        about.AboutDialog(self).exec_()
+        about.AboutDialog(self).exec()
 
     def reportBug(self):
         """Opens browser composer to report a bug or request a feature via a GitHub issue."""

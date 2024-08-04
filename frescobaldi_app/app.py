@@ -152,7 +152,7 @@ def oninit(func):
 
 def run():
     """Enter the Qt event loop."""
-    result = qApp.exec_()
+    result = qApp.exec()
     aboutToQuit()
     return result
 

@@ -202,7 +202,7 @@ def load(filename, widget):
         ).format(filename=os.path.basename(filename)))
 
     qutil.saveDialogSize(dlg, "snippettool/import/size", QSize(400, 300))
-    if not dlg.exec_() or not items:
+    if not dlg.exec() or not items:
         return
     ac = model.collection()
     m = model.model()

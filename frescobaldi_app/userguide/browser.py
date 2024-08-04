@@ -119,7 +119,7 @@ class Window(QMainWindow):
         if self.browser.textCursor().hasSelection():
             options |= QAbstractPrintDialog.PrintSelection
         dlg.setOptions(options)
-        if dlg.exec_():
+        if dlg.exec():
             self.browser.print_(printer)
 
 

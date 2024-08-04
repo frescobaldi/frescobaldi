@@ -184,10 +184,10 @@ class TextFormatData:
     def palette(self):
         """Return a basic palette with text, background, selection and selection background filled in."""
         p = QApplication.palette()
-        p.setColor(QPalette.Text, self.baseColors['text'])
-        p.setColor(QPalette.Base, self.baseColors['background'])
-        p.setColor(QPalette.HighlightedText, self.baseColors['selectiontext'])
-        p.setColor(QPalette.Highlight, self.baseColors['selectionbackground'])
+        p.setColor(QPalette.ColorRole.Text, self.baseColors['text'])
+        p.setColor(QPalette.ColorRole.Base, self.baseColors['background'])
+        p.setColor(QPalette.ColorRole.HighlightedText, self.baseColors['selectiontext'])
+        p.setColor(QPalette.ColorRole.Highlight, self.baseColors['selectionbackground'])
         return p
 
     def saveTextFormat(self, fmt, settings):
@@ -296,17 +296,17 @@ baseColors = (
 )
 
 baseColorDefaults = dict(
-    text =                lambda: QApplication.palette().color(QPalette.Text),
-    background =          lambda: QApplication.palette().color(QPalette.Base),
-    selectiontext =       lambda: QApplication.palette().color(QPalette.HighlightedText),
-    selectionbackground = lambda: QApplication.palette().color(QPalette.Highlight),
+    text =                lambda: QApplication.palette().color(QPalette.ColorRole.Text),
+    background =          lambda: QApplication.palette().color(QPalette.ColorRole.Base),
+    selectiontext =       lambda: QApplication.palette().color(QPalette.ColorRole.HighlightedText),
+    selectionbackground = lambda: QApplication.palette().color(QPalette.ColorRole.Highlight),
     current =             lambda: QColor(255, 252, 149),
     mark =                lambda: QColor(192, 192, 255),
     error =               lambda: QColor(255, 192, 192),
     search =              lambda: QColor(192, 255, 192),
     match =               lambda: QColor(0, 192, 255),
     paper =               lambda: QColor(255, 253, 240),
-    musichighlight =      lambda: QApplication.palette().color(QPalette.Highlight),
+    musichighlight =      lambda: QApplication.palette().color(QPalette.ColorRole.Highlight),
 )
 
 defaultStyles = (

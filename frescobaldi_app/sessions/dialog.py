@@ -348,7 +348,7 @@ class SessionEditor(QDialog):
             self.name.setFocus()
             self.defaults()
         self.setWindowTitle(app.caption(caption))
-        if self.exec_():
+        if self.exec():
             # name changed?
             name = self.name.text()
             if self._originalName and name != self._originalName:
@@ -390,7 +390,7 @@ class SessionEditor(QDialog):
                   "Do you want to overwrite it?").format(name=name),
                 QMessageBox.StandardButton.Discard | QMessageBox.StandardButton.Cancel, self)
             box.button(QMessageBox.StandardButton.Discard).setText(_("Overwrite"))
-            result = box.exec_()
+            result = box.exec()
             if result != QMessageBox.StandardButton.Discard:
                 return False
 

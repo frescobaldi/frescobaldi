@@ -188,22 +188,22 @@ class BoundaryHandler(QObject):
     def keyPressEvent(self, obj, ev):
         """Handles the Word-related key events for the Q(Plain)TextEdit."""
         c = obj.textCursor()
-        if ev == QKeySequence.DeleteEndOfWord:
+        if ev == QKeySequence.StandardKey.DeleteEndOfWord:
             self.move(c, QTextCursor.NextWord, QTextCursor.KeepAnchor)
             c.removeSelectedText()
-        elif ev == QKeySequence.DeleteStartOfWord:
+        elif ev == QKeySequence.StandardKey.DeleteStartOfWord:
             self.move(c, QTextCursor.PreviousWord, QTextCursor.KeepAnchor)
             c.removeSelectedText()
-        elif ev == QKeySequence.MoveToNextWord:
+        elif ev == QKeySequence.StandardKey.MoveToNextWord:
             self.move(c, QTextCursor.NextWord)
             obj.setTextCursor(c)
-        elif ev == QKeySequence.MoveToPreviousWord:
+        elif ev == QKeySequence.StandardKey.MoveToPreviousWord:
             self.move(c, QTextCursor.PreviousWord)
             obj.setTextCursor(c)
-        elif ev == QKeySequence.SelectNextWord:
+        elif ev == QKeySequence.StandardKey.SelectNextWord:
             self.move(c, QTextCursor.NextWord, QTextCursor.KeepAnchor)
             obj.setTextCursor(c)
-        elif ev == QKeySequence.SelectPreviousWord:
+        elif ev == QKeySequence.StandardKey.SelectPreviousWord:
             self.move(c, QTextCursor.PreviousWord, QTextCursor.KeepAnchor)
             obj.setTextCursor(c)
         else:

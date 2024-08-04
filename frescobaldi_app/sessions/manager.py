@@ -75,7 +75,7 @@ class SessionManager(plugin.MainWindowPlugin):
 
     def manageSessions(self):
         from . import dialog
-        dialog.SessionManagerDialog(self.mainwindow()).exec_()
+        dialog.SessionManagerDialog(self.mainwindow()).exec()
 
     def noSession(self):
         if sessions.currentSession():

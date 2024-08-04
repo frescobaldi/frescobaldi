@@ -238,7 +238,7 @@ class Browser(QWidget):
         printer = self._printer = QPrinter()
         dlg = QPrintDialog(printer, self)
         dlg.setWindowTitle(app.caption(_("Print")))
-        if dlg.exec_():
+        if dlg.exec():
             self.webview.page().print(printer, self.slotPrintingDone)
 
     def slotPrintingDone(self, success):
@@ -265,7 +265,7 @@ class Browser(QWidget):
             a = menu.addAction(icons.get("internet-web-browser"), _("Open Current Page in Web Browser"))
             a.triggered.connect((lambda url: lambda: self.slotNewWindow(url))(self.webview.url()))
         if menu.actions():
-            menu.exec_(self.webview.mapToGlobal(pos))
+            menu.exec(self.webview.mapToGlobal(pos))
 
     def slotNewWindow(self, url):
         helpers.openUrl(url)
@@ -282,8 +282,8 @@ class SearchEntry(QLineEdit):
                 webview.setFocus()
                 webview.page().findText(None)
         elif any(ev.matches(key) for key in (
-            QKeySequence.MoveToNextLine, QKeySequence.MoveToPreviousLine,
-            QKeySequence.MoveToNextPage, QKeySequence.MoveToPreviousPage,
+            QKeySequence.StandardKey.MoveToNextLine, QKeySequence.StandardKey.MoveToPreviousLine,
+            QKeySequence.StandardKey.MoveToNextPage, QKeySequence.StandardKey.MoveToPreviousPage,
                 )):
             webview = self.parentWidget().parentWidget().webview
             webview.keyPressEvent(ev)

@@ -79,7 +79,7 @@ class ExceptionDialog(QDialog):
         b.rejected.connect(self.reject)
         self.resize(600,300)
         app.translateUI(self)
-        self.exec_()
+        self.exec()
 
     def translateUI(self):
         if self._ext_maintainer:

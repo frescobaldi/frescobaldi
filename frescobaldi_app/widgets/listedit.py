@@ -193,7 +193,7 @@ class FilePathEdit(ListEdit):
         directory = item.text()
         dlg = self.fileDialog()
         dlg.selectFile(directory)
-        if dlg.exec_():
+        if dlg.exec():
             item.setText(dlg.selectedFiles()[0])
             return True
         return False

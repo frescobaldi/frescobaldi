@@ -87,8 +87,8 @@ class KeyPressHandler(QObject):
         False when the event was not handled and should be handled normally.
 
         """
-        home = ev.matches(QKeySequence.MoveToStartOfLine)
-        s_home = ev.matches(QKeySequence.SelectStartOfLine)
+        home = ev.matches(QKeySequence.StandardKey.MoveToStartOfLine)
+        s_home = ev.matches(QKeySequence.StandardKey.SelectStartOfLine)
         if home or s_home:
             # go to first non-space character if not already there
             cursor = edit.textCursor()
@@ -109,9 +109,9 @@ class KeyPressHandler(QObject):
         False when the event was not handled and should be handled normally.
 
         """
-        if ev.matches(QKeySequence.MoveToNextChar) or ev.matches(QKeySequence.SelectNextChar):
+        if ev.matches(QKeySequence.StandardKey.MoveToNextChar) or ev.matches(QKeySequence.StandardKey.SelectNextChar):
             return edit.textCursor().atBlockEnd()
-        elif ev.matches(QKeySequence.MoveToPreviousChar) or ev.matches(QKeySequence.SelectPreviousChar):
+        elif ev.matches(QKeySequence.StandardKey.MoveToPreviousChar) or ev.matches(QKeySequence.StandardKey.SelectPreviousChar):
             return edit.textCursor().atBlockStart()
 
     def handleVertical(self, edit, ev):
@@ -124,28 +124,28 @@ class KeyPressHandler(QObject):
         """
         cursor = edit.textCursor()
         pos = cursor.position()
-        if ev.matches(QKeySequence.MoveToPreviousLine) or ev.matches(QKeySequence.MoveToPreviousPage):
+        if ev.matches(QKeySequence.StandardKey.MoveToPreviousLine) or ev.matches(QKeySequence.StandardKey.MoveToPreviousPage):
             cursor.movePosition(QTextCursor.Up)
             if cursor.position() == pos:    # no move
                 cursor.movePosition(QTextCursor.Start)
                 edit.setTextCursor(cursor)
                 return True
             return False
-        elif ev.matches(QKeySequence.SelectPreviousLine) or ev.matches(QKeySequence.SelectPreviousPage):
+        elif ev.matches(QKeySequence.StandardKey.SelectPreviousLine) or ev.matches(QKeySequence.StandardKey.SelectPreviousPage):
             cursor.movePosition(QTextCursor.Up, QTextCursor.KeepAnchor)
             if cursor.position() == pos:    # no move
                 cursor.movePosition(QTextCursor.Start, QTextCursor.KeepAnchor)
                 edit.setTextCursor(cursor)
                 return True
             return False
-        elif ev.matches(QKeySequence.MoveToNextLine) or ev.matches(QKeySequence.MoveToNextPage):
+        elif ev.matches(QKeySequence.StandardKey.MoveToNextLine) or ev.matches(QKeySequence.StandardKey.MoveToNextPage):
             cursor.movePosition(QTextCursor.Down)
             if cursor.position() == pos:    # no move
                 cursor.movePosition(QTextCursor.End)
                 edit.setTextCursor(cursor)
                 return True
             return False
-        elif ev.matches(QKeySequence.SelectNextLine) or ev.matches(QKeySequence.SelectNextPage):
+        elif ev.matches(QKeySequence.StandardKey.SelectNextLine) or ev.matches(QKeySequence.StandardKey.SelectNextPage):
             cursor.movePosition(QTextCursor.Down, QTextCursor.KeepAnchor)
             if cursor.position() == pos:    # no move
                 cursor.movePosition(QTextCursor.End, QTextCursor.KeepAnchor)

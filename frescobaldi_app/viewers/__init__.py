@@ -604,7 +604,7 @@ class ViewdocChooserAction(ComboBoxAction):
 class ViewdocChooser(QComboBox):
     def __init__(self, parent):
         super().__init__(parent)
-        self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         self.setEditable(False)
         self.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         app.translateUI(self)

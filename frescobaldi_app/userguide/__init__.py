@@ -46,7 +46,7 @@ def addButton(box, name):
     """
     from PyQt6.QtGui import QKeySequence
     from PyQt6.QtWidgets import QDialogButtonBox
-    box.addButton(QDialogButtonBox.Help).setShortcut(QKeySequence.HelpContents)
+    box.addButton(QDialogButtonBox.Help).setShortcut(QKeySequence.StandardKey.HelpContents)
     box.helpRequested.connect(lambda: show(name))
 
 def openWhatsThis(widget, enabled=True):

@@ -46,5 +46,5 @@ def suggest_restart(operation):
         "You can also save open files first and restart manually.".format(operation)
     ))
     msgBox.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
-    if msgBox.exec_() == QMessageBox.StandardButton.Ok:
+    if msgBox.exec() == QMessageBox.StandardButton.Ok:
         app.activeWindow().restart()

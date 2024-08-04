@@ -95,7 +95,7 @@ class PreferencesDialog(QDialog):
         b.button(QDialogButtonBox.Apply).clicked.connect(self.trySaveSettings)
         b.button(QDialogButtonBox.Reset).clicked.connect(self.loadSettings)
         b.button(QDialogButtonBox.Help).clicked.connect(self.showHelp)
-        b.button(QDialogButtonBox.Help).setShortcut(QKeySequence.HelpContents)
+        b.button(QDialogButtonBox.Help).setShortcut(QKeySequence.StandardKey.HelpContents)
         b.button(QDialogButtonBox.Apply).setEnabled(False)
 
         # fill the pagelist

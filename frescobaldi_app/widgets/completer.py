@@ -43,7 +43,7 @@ class Completer(QCompleter):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.setCaseSensitivity(Qt.CaseInsensitive)
+        self.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         self.activated[QModelIndex].connect(self.insertCompletion)
 
     def eventFilter(self, obj, ev):

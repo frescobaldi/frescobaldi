@@ -34,7 +34,7 @@ class WebEngineDummy(QWidget):
     def __init__(self, dockwidget):
         super().__init__(dockwidget)
         self._msg = QLabel(openExternalLinks = True)
-        self._msg.setTextFormat(Qt.RichText)
+        self._msg.setTextFormat(Qt.TextFormat.RichText)
         self._msg.setWordWrap(True)
         # take into account docbrowser.HelpBrowser.activate()
         self.webview = self._msg

@@ -395,8 +395,8 @@ class DocumentChooserAction(ComboBoxAction):
             self._currentIndex = index
             p = QApplication.palette()
             if not self._documents[index].updated:
-                color = qutil.mixcolor(QColor(Qt.GlobalColor.red), p.color(QPalette.Base), 0.3)
-                p.setColor(QPalette.Base, color)
+                color = qutil.mixcolor(QColor(Qt.GlobalColor.red), p.color(QPalette.ColorRole.Base), 0.3)
+                p.setColor(QPalette.ColorRole.Base, color)
             for w in self.createdWidgets():
                 w.setCurrentIndex(index)
                 w.setPalette(p)
@@ -414,7 +414,7 @@ class DocumentChooserAction(ComboBoxAction):
 class DocumentChooser(QComboBox):
     def __init__(self, parent):
         super().__init__(parent)
-        self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        self.setSizeAdjustPolicy(QComboBox.SizeAdjustPolicy.AdjustToContents)
         self.setEditable(True)
         self.lineEdit().setReadOnly(True)
         self.setFocusPolicy(Qt.FocusPolicy.NoFocus)

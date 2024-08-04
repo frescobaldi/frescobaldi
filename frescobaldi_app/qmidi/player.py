@@ -63,7 +63,7 @@ class Player(QThread, midifile.player.Player):
         self._timer.timeout.connect(self.timer_timeout, Qt.ConnectionType.DirectConnection)
         self.timer_start_playing()
         self.stateChanged.emit(True)
-        if self.exec_():
+        if self.exec():
             self.timer_stop_playing()
         self._timer = None
         self.stateChanged.emit(False)

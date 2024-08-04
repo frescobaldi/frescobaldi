@@ -61,7 +61,7 @@ class View(QPlainTextEdit):
         # to enable mouseMoveEvent to display tooltip
         super().setMouseTracking(True)
         self.setDocument(document)
-        self.setLineWrapMode(QPlainTextEdit.NoWrap)
+        self.setLineWrapMode(QPlainTextEdit.LineWrapMode.NoWrap)
         self.setCursorWidth(2)
         # restore saved cursor position (defaulting to 0)
         document.loaded.connect(self.restoreCursor)
@@ -74,7 +74,7 @@ class View(QPlainTextEdit):
         self.readSettings() # will also call updateCursor
         # line wrap preference is only read on init
         wrap = QSettings().value("view_preferences/wrap_lines", False, bool)
-        self.setLineWrapMode(QPlainTextEdit.WidgetWidth if wrap else QPlainTextEdit.NoWrap)
+        self.setLineWrapMode(QPlainTextEdit.LineWrapMode.WidgetWidth if wrap else QPlainTextEdit.LineWrapMode.NoWrap)
         self.installEventFilter(cursorkeys.handler)
         self.toolTipInfo = []
         self.block_at_mouse = None
@@ -94,16 +94,16 @@ class View(QPlainTextEdit):
         - handle Tab and Backtab to change the indent
 
         """
-        if (ev.type() == QEvent.ShortcutOverride
-              and (ev.matches(QKeySequence.Undo) or ev.matches(QKeySequence.Redo))):
+        if (ev.type() == QEvent.Type.ShortcutOverride
+              and (ev.matches(QKeySequence.StandardKey.Undo) or ev.matches(QKeySequence.StandardKey.Redo))):
             # QPlainTextEdit accepts ShortcutOverride for Undo and Redo, which
             # override the shortcut and causes a KeyPress to be broadcast
             # instead of a Shortcut, preventing it from reaching our QActions
             # and making it handled by the QPlainTextEdit instead.
             return False
 
-        if ev.type() == QEvent.KeyPress:
-            if ev.matches(QKeySequence.InsertLineSeparator):
+        if ev.type() == QEvent.Type.KeyPress:
+            if ev.matches(QKeySequence.StandardKey.InsertLineSeparator):
                 return False
 
             cursor = self.textCursor()
@@ -252,8 +252,8 @@ class View(QPlainTextEdit):
     def setTabWidth(self):
         """(Internal) Read the tab-width variable and the font settings to set the tabStopWidth."""
         tabwidth = QSettings().value("indent/tab_width", 8, int)
-        tabwidth = self.fontMetrics().width(" ") * variables.get(self.document(), 'tab-width', tabwidth)
-        self.setTabStopWidth(tabwidth)
+        tabwidth = self.fontMetrics().horizontalAdvance(" ") * variables.get(self.document(), 'tab-width', tabwidth)
+        self.setTabStopDistance(tabwidth)
 
     def contextMenuEvent(self, ev):
         """Called when the user requests the context menu."""
@@ -271,7 +271,7 @@ class View(QPlainTextEdit):
         menu = contextmenu.contextmenu(self)
         menu.popup(pos)
         menu.setFocus() # so we get a FocusOut event and the grey cursor gets painted
-        menu.exec_()
+        menu.exec()
         menu.deleteLater()
 
     def mousePressEvent(self, ev):

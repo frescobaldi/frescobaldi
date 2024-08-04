@@ -225,7 +225,7 @@ def waitForSignal(signal, message="", timeout=0):
         QTimer.singleShot(timeout, dlg.cancel)
     stop = lambda: loop.quit()
     signal.connect(stop)
-    loop.exec_()
+    loop.exec()
     signal.disconnect(stop)
     dlg.hide()
     dlg.deleteLater()
