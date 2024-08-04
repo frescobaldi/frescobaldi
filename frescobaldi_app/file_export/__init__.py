@@ -92,7 +92,7 @@ class FileExport(plugin.MainWindowPlugin):
         if not wavfile:
             return False # cancelled
         dlg = AudioExportDialog(mainwin, caption)
-        dlg.setAttribute(Qt.WA_DeleteOnClose) # we use it only once
+        dlg.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose) # we use it only once
         dlg.midi2wav(midifile, wavfile)
         dlg.show()
 

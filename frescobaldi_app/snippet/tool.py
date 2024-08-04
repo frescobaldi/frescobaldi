@@ -48,7 +48,7 @@ class SnippetTool(panel.Panel):
         ac.copy_to_snippet.triggered.connect(self.copyToSnippet)
         ac.templates_manage.triggered.connect(self.manageTemplates)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
-        mainwindow.addDockWidget(Qt.BottomDockWidgetArea, self)
+        mainwindow.addDockWidget(Qt.DockWidgetArea.BottomDockWidgetArea, self)
         mainwindow.selectionStateChanged.connect(self.updateActions)
         self.updateActions()
 

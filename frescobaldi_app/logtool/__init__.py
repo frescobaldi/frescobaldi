@@ -41,7 +41,7 @@ class LogTool(panel.Panel):
         ac.log_next_error.triggered.connect(self.slotNextError)
         ac.log_previous_error.triggered.connect(self.slotPreviousError)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
-        mainwindow.addDockWidget(Qt.BottomDockWidgetArea, self)
+        mainwindow.addDockWidget(Qt.DockWidgetArea.BottomDockWidgetArea, self)
         app.jobStarted.connect(self.slotJobStarted)
         app.jobFinished.connect(self.slotJobFinished)
 

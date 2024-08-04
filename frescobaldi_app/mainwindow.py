@@ -92,20 +92,24 @@ class MainWindow(QMainWindow):
 
         """
         QMainWindow.__init__(self)
-        self.setAttribute(Qt.WA_DeleteOnClose)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
 
         # Add option to nest docks (useful on large screens)
         self.setDockOptions(
-            QMainWindow.AllowNestedDocks |
-            QMainWindow.AnimatedDocks |
-             QMainWindow.AllowTabbedDocks
+            QMainWindow.DockOption.AllowNestedDocks |
+            QMainWindow.DockOption.AnimatedDocks |
+            QMainWindow.DockOption.AllowTabbedDocks
         )
 
         # this could be made configurable
-        self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
-        self.setCorner(Qt.BottomLeftCorner, Qt.LeftDockWidgetArea)
-        self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
-        self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
+        self.setCorner(Qt.Corner.TopLeftCorner,
+            Qt.DockWidgetArea.LeftDockWidgetArea)
+        self.setCorner(Qt.Corner.BottomLeftCorner,
+            Qt.DockWidgetArea.LeftDockWidgetArea)
+        self.setCorner(Qt.Corner.TopRightCorner,
+            Qt.DockWidgetArea.RightDockWidgetArea)
+        self.setCorner(Qt.Corner.BottomRightCorner,
+            Qt.DockWidgetArea.RightDockWidgetArea)
 
         self._currentDocument = None
         self._currentView = lambda: None

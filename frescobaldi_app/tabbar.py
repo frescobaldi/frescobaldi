@@ -44,11 +44,11 @@ class TabBar(QTabBar):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.setFocusPolicy(Qt.NoFocus)
+        self.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self.setMovable(True)      # TODO: make configurable
         self.setExpanding(False)
         self.setUsesScrollButtons(True)
-        self.setElideMode(Qt.ElideNone)
+        self.setElideMode(Qt.TextElideMode.ElideNone)
 
         mainwin = self.window()
         self.docs = []

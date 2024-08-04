@@ -43,7 +43,7 @@ class Window(QMainWindow):
     """The help browser window."""
     def __init__(self):
         super().__init__()
-        self.setAttribute(Qt.WA_QuitOnClose, False)
+        self.setAttribute(Qt.WidgetAttribute.WA_QuitOnClose, False)
 
         self.browser = Browser(self)
         self.setCentralWidget(self.browser)

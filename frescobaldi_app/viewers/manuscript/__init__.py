@@ -35,7 +35,7 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
     def __init__(self, mainwindow):
         super().__init__(mainwindow)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+A"))
-        mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
+        mainwindow.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self)
 
     def translateUI(self):
         self.setWindowTitle(_("Manuscript"))

@@ -48,12 +48,12 @@ from PyQt6.QtWidgets import QApplication
 
 
 _move_operations = (
-    QTextCursor.StartOfWord,
-    QTextCursor.PreviousWord,
-    QTextCursor.WordLeft,
-    QTextCursor.EndOfWord,
-    QTextCursor.NextWord,
-    QTextCursor.WordRight,
+    QTextCursor.MoveOperation.StartOfWord,
+    QTextCursor.MoveOperation.PreviousWord,
+    QTextCursor.MoveOperation.WordLeft,
+    QTextCursor.MoveOperation.EndOfWord,
+    QTextCursor.MoveOperation.NextWord,
+    QTextCursor.MoveOperation.WordRight,
 )
 
 
@@ -82,7 +82,7 @@ class BoundaryHandler(QObject):
         right = operator.itemgetter(1)
         return [right(b) for b in self.boundaries(block)]
 
-    def move(self, cursor, operation, mode=QTextCursor.MoveAnchor, n=1):
+    def move(self, cursor, operation, mode=QTextCursor.MoveMode.MoveAnchor, n=1):
         """Reimplements Word-related cursor operations:
 
         StartOfWord

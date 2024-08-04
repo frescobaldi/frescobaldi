@@ -49,7 +49,7 @@ class HeaderWidget(QWidget):
         t.setOpenExternalLinks(False)
         t.setSearchPaths(__path__)
         t.setTextInteractionFlags(Qt.LinksAccessibleByMouse)
-        t.setFocusPolicy(Qt.NoFocus)
+        t.setFocusPolicy(Qt.FocusPolicy.NoFocus)
 
         # ensure that the full HTML example page is displayed
         t.setContentsMargins(2, 2, 2, 2)

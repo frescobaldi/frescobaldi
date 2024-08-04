@@ -33,7 +33,7 @@ class OutlinePanel(panel.Panel):
         super().__init__(mainwindow)
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+O"))
-        mainwindow.addDockWidget(Qt.LeftDockWidgetArea, self)
+        mainwindow.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self)
 
     def translateUI(self):
         self.setWindowTitle(_("Outline"))

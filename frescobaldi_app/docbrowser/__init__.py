@@ -38,7 +38,7 @@ class HelpBrowser(panel.Panel):
         super().__init__(mainwindow)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+D"))
         self.hide()
-        mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
+        mainwindow.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self)
         ac = self.actionCollection = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.help_lilypond_doc.triggered.connect(self.activate)

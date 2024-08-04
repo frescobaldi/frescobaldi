@@ -86,7 +86,7 @@ class MusicViewPanel(panel.Panel):
     def __init__(self, mainwindow):
         super().__init__(mainwindow)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+M"))
-        mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
+        mainwindow.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self)
 
         ac = self.actionCollection = Actions(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
@@ -417,7 +417,7 @@ class DocumentChooser(QComboBox):
         self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
         self.setEditable(True)
         self.lineEdit().setReadOnly(True)
-        self.setFocusPolicy(Qt.NoFocus)
+        self.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         app.translateUI(self)
         gadgets.drag.ComboDrag(self).role = Qt.UserRole
 

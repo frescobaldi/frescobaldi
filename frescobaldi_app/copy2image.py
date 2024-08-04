@@ -133,8 +133,8 @@ class Dialog(QDialog):
         self.copyfile.clicked.connect(self.copyFileToClipboard)
         self.dragdata.pressed.connect(self.dragData)
         self.dragfile.pressed.connect(self.dragFile)
-        self.dragdata.setFocusPolicy(Qt.NoFocus)
-        self.dragfile.setFocusPolicy(Qt.NoFocus)
+        self.dragdata.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+        self.dragfile.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self.saveButton.clicked.connect(self.saveAs)
         qutil.saveDialogSize(self, "copy_image/dialog/size", QSize(480, 320))
 

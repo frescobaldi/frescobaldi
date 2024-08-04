@@ -606,7 +606,7 @@ class ViewdocChooser(QComboBox):
         super().__init__(parent)
         self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
         self.setEditable(False)
-        self.setFocusPolicy(Qt.NoFocus)
+        self.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         app.translateUI(self)
         gadgets.drag.ComboDrag(self).role = Qt.UserRole
 

@@ -42,7 +42,7 @@ class SvgViewPanel(panel.Panel):
         super().__init__(mainwindow)
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+G"))
-        mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
+        mainwindow.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self)
 
         ac = self.actionCollection = Actions(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
