@@ -59,7 +59,7 @@ class Dialog(toly_dialog.ToLyDialog):
     def translateUI(self):
         self.useAbsCheck.setText(_("Pitches in absolute mode"))
 
-        self.buttons.button(QDialogButtonBox.Ok).setText(_("Run midi2ly"))
+        self.buttons.button(QDialogButtonBox.StandardButton.Ok).setText(_("Run midi2ly"))
 
         super().translateUI()
 

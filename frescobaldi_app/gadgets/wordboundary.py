@@ -96,7 +96,7 @@ class BoundaryHandler(QObject):
         """
         block = cursor.block()
         pos = cursor.position() - block.position()
-        if operation == QTextCursor.StartOfWord:
+        if operation == QTextCursor.MoveOperation.StartOfWord:
             if pos:
                 for start, end in reversed(self.boundaries(block)):
                     if start < pos:
@@ -105,7 +105,7 @@ class BoundaryHandler(QObject):
                         cursor.setPosition(block.position() + start, mode)
                         return True
             return False
-        elif operation == QTextCursor.EndOfWord:
+        elif operation == QTextCursor.MoveOperation.EndOfWord:
             for start, end in self.boundaries(block):
                 if end > pos:
                     if start > pos:
@@ -113,7 +113,7 @@ class BoundaryHandler(QObject):
                     cursor.setPosition(block.position() + end, mode)
                     return True
             return False
-        elif operation in (QTextCursor.PreviousWord, QTextCursor.WordLeft):
+        elif operation in (QTextCursor.MoveOperation.PreviousWord, QTextCursor.MoveOperation.WordLeft):
             boundaries = list(itertools.takewhile(lambda b: b<pos, self.left_boundaries(block)))
             while True:
                 if len(boundaries) >= n:
@@ -125,7 +125,7 @@ class BoundaryHandler(QObject):
                     cursor.setPosition(0, mode)
                     return False
                 boundaries = self.left_boundaries(block)
-        elif operation in (QTextCursor.NextWord, QTextCursor.WordRight):
+        elif operation in (QTextCursor.MoveOperation.NextWord, QTextCursor.MoveOperation.WordRight):
             boundaries = list(itertools.dropwhile(lambda b: b<=pos, self.left_boundaries(block)))
             while True:
                 if len(boundaries) >= n:
@@ -134,7 +134,7 @@ class BoundaryHandler(QObject):
                 n -= len(boundaries)
                 block = block.next()
                 if not block.isValid():
-                    cursor.movePosition(QTextCursor.End, mode)
+                    cursor.movePosition(QTextCursor.MoveOperation.End, mode)
                     return False
                 boundaries = self.left_boundaries(block)
         else:
@@ -146,9 +146,9 @@ class BoundaryHandler(QObject):
         Other selection types are delegated to the QTextCursor itself.
 
         """
-        if selection == QTextCursor.WordUnderCursor:
-            self.move(cursor, QTextCursor.StartOfWord)
-            self.move(cursor, QTextCursor.EndOfWord, QTextCursor.KeepAnchor)
+        if selection == QTextCursor.SelectionType.WordUnderCursor:
+            self.move(cursor, QTextCursor.MoveOperation.StartOfWord)
+            self.move(cursor, QTextCursor.MoveOperation.EndOfWord, QTextCursor.MoveMode.KeepAnchor)
         else:
             cursor.select(selection)
 
@@ -189,22 +189,22 @@ class BoundaryHandler(QObject):
         """Handles the Word-related key events for the Q(Plain)TextEdit."""
         c = obj.textCursor()
         if ev == QKeySequence.StandardKey.DeleteEndOfWord:
-            self.move(c, QTextCursor.NextWord, QTextCursor.KeepAnchor)
+            self.move(c, QTextCursor.MoveOperation.NextWord, QTextCursor.MoveMode.KeepAnchor)
             c.removeSelectedText()
         elif ev == QKeySequence.StandardKey.DeleteStartOfWord:
-            self.move(c, QTextCursor.PreviousWord, QTextCursor.KeepAnchor)
+            self.move(c, QTextCursor.MoveOperation.PreviousWord, QTextCursor.MoveMode.KeepAnchor)
             c.removeSelectedText()
         elif ev == QKeySequence.StandardKey.MoveToNextWord:
-            self.move(c, QTextCursor.NextWord)
+            self.move(c, QTextCursor.MoveOperation.NextWord)
             obj.setTextCursor(c)
         elif ev == QKeySequence.StandardKey.MoveToPreviousWord:
-            self.move(c, QTextCursor.PreviousWord)
+            self.move(c, QTextCursor.MoveOperation.PreviousWord)
             obj.setTextCursor(c)
         elif ev == QKeySequence.StandardKey.SelectNextWord:
-            self.move(c, QTextCursor.NextWord, QTextCursor.KeepAnchor)
+            self.move(c, QTextCursor.MoveOperation.NextWord, QTextCursor.MoveMode.KeepAnchor)
             obj.setTextCursor(c)
         elif ev == QKeySequence.StandardKey.SelectPreviousWord:
-            self.move(c, QTextCursor.PreviousWord, QTextCursor.KeepAnchor)
+            self.move(c, QTextCursor.MoveOperation.PreviousWord, QTextCursor.MoveMode.KeepAnchor)
             obj.setTextCursor(c)
         else:
             return False
@@ -217,7 +217,7 @@ class BoundaryHandler(QObject):
             obj.mouseDoubleClickEvent(ev)  # otherwise triple click and drag won't work
             obj.blockSignals(block)
             c = obj.cursorForPosition(ev.pos())
-            self.select(c, QTextCursor.WordUnderCursor)
+            self.select(c, QTextCursor.SelectionType.WordUnderCursor)
             obj.setTextCursor(c)
             return True
         return False

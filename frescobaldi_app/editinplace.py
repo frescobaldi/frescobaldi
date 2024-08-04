@@ -109,7 +109,7 @@ class Dialog(widgets.dialog.Dialog):
         cursorpos = c.position() - c.block().position()
         cursortools.strip_indent(c)
         indentpos = c.position() - c.block().position()
-        c.movePosition(QTextCursor.EndOfBlock, QTextCursor.KeepAnchor)
+        c.movePosition(QTextCursor.MoveOperation.EndOfBlock, QTextCursor.MoveMode.KeepAnchor)
         self.view.setPlainText(c.selection().toPlainText())
 
         self.highlighter.setInitialState(tokeniter.state(cursortools.block(cursor)))
@@ -145,7 +145,7 @@ class Dialog(widgets.dialog.Dialog):
         start = cursor.selectionStart()
         # use cursordiff; don't destroy point and click positions
         cursordiff.insert_text(cursor, self.view.toPlainText())
-        cursor.setPosition(start, QTextCursor.KeepAnchor)
+        cursor.setPosition(start, QTextCursor.MoveMode.KeepAnchor)
         with cursortools.compress_undo(cursor, True):
             # re-indent the inserted line(s)
             indent.re_indent(cursor)

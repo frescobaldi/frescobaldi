@@ -65,8 +65,8 @@ class Cursor(ly.document.Cursor):
     def cursor(self):
         """Return a QTextCursor with the same selection."""
         c = QTextCursor(self.document.document)
-        c.movePosition(QTextCursor.End) if self.end is None else c.setPosition(self.end)
-        c.setPosition(self.start, QTextCursor.KeepAnchor)
+        c.movePosition(QTextCursor.MoveOperation.End) if self.end is None else c.setPosition(self.end)
+        c.setPosition(self.start, QTextCursor.MoveMode.KeepAnchor)
         return c
 
 
@@ -186,8 +186,8 @@ class Document(ly.document.DocumentBase):
         c.joinPreviousEditBlock() if self.combine_undo else c.beginEditBlock()
         try:
             for start, end, text in self._changes_list:
-                c.movePosition(QTextCursor.End) if end is None else c.setPosition(end)
-                c.setPosition(start, QTextCursor.KeepAnchor)
+                c.movePosition(QTextCursor.MoveOperation.End) if end is None else c.setPosition(end)
+                c.setPosition(start, QTextCursor.MoveMode.KeepAnchor)
                 c.insertText(text)
         finally:
             c.endEditBlock()
@@ -226,7 +226,7 @@ class Runner(ly.document.Runner):
             end = len(self.token())
         c = QTextCursor(self.document.document)
         c.setPosition(self.position() + start)
-        c.setPosition(self.position() + end, QTextCursor.KeepAnchor)
+        c.setPosition(self.position() + end, QTextCursor.MoveMode.KeepAnchor)
         return c
 
 
@@ -246,7 +246,7 @@ class Source(ly.document.Source):
         c = QTextCursor(self.document.document)
         pos = self.position(token)
         c.setPosition(pos + start)
-        c.setPosition(pos + end, QTextCursor.KeepAnchor)
+        c.setPosition(pos + end, QTextCursor.MoveMode.KeepAnchor)
         return c
 
 

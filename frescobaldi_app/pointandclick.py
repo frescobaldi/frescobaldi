@@ -303,6 +303,6 @@ def positions(cursor):
             elif isinstance(token, ly.lex.MatchStart) and token.matchname == name:
                 nest += 1
 
-    cur.setPosition(end, QTextCursor.KeepAnchor)
+    cur.setPosition(end, QTextCursor.MoveMode.KeepAnchor)
     return cursors
 

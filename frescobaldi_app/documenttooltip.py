@@ -51,10 +51,10 @@ def pixmap(cursor, num_lines=6, scale=0.8):
     block = cursor.document().findBlock(cursor.selectionStart())
     c2 = QTextCursor(block)
     if cursor.hasSelection():
-        c2.setPosition(cursor.selectionEnd(), QTextCursor.KeepAnchor)
-        c2.movePosition(QTextCursor.EndOfBlock, QTextCursor.KeepAnchor)
+        c2.setPosition(cursor.selectionEnd(), QTextCursor.MoveMode.KeepAnchor)
+        c2.movePosition(QTextCursor.MoveOperation.EndOfBlock, QTextCursor.MoveMode.KeepAnchor)
     else:
-        c2.movePosition(QTextCursor.NextBlock, QTextCursor.KeepAnchor, num_lines)
+        c2.movePosition(QTextCursor.MoveOperation.NextBlock, QTextCursor.MoveMode.KeepAnchor, num_lines)
 
     data = textformats.formatData('editor')
     doc = QTextDocument()

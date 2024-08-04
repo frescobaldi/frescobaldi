@@ -76,10 +76,10 @@ class ViewStatusBar(QWidget):
 
         a = QAction(icons.get('view-split-top-bottom'), _("Split &Horizontally"), menu)
         menu.addAction(a)
-        a.triggered.connect(lambda: manager.splitViewSpace(viewspace, Qt.Vertical))
+        a.triggered.connect(lambda: manager.splitViewSpace(viewspace, Qt.Orientation.Vertical))
         a = QAction(icons.get('view-split-left-right'), _("Split &Vertically"), menu)
         menu.addAction(a)
-        a.triggered.connect(lambda: manager.splitViewSpace(viewspace, Qt.Horizontal))
+        a.triggered.connect(lambda: manager.splitViewSpace(viewspace, Qt.Orientation.Horizontal))
         menu.addSeparator()
         a = QAction(icons.get('view-close'), _("&Close View"), menu)
         a.triggered.connect(lambda: manager.closeViewSpace(viewspace))
@@ -294,10 +294,10 @@ class ViewManager(QSplitter):
         ac.window_previous_view.triggered.connect(self.previousViewSpace)
 
     def splitCurrentVertical(self):
-        self.splitViewSpace(self.activeViewSpace(), Qt.Vertical)
+        self.splitViewSpace(self.activeViewSpace(), Qt.Orientation.Vertical)
 
     def splitCurrentHorizontal(self):
-        self.splitViewSpace(self.activeViewSpace(), Qt.Horizontal)
+        self.splitViewSpace(self.activeViewSpace(), Qt.Orientation.Horizontal)
 
     def closeCurrent(self):
         self.closeViewSpace(self.activeViewSpace())
@@ -318,8 +318,8 @@ class ViewManager(QSplitter):
     def splitViewSpace(self, viewspace, orientation):
         """Split the given view.
 
-        If orientation == Qt.Horizontal, adds a new view to the right.
-        If orientation == Qt.Vertical, adds a new view to the bottom.
+        If orientation == Qt.Orientation.Horizontal, adds a new view to the right.
+        If orientation == Qt.Orientation.Vertical, adds a new view to the bottom.
 
         """
         active = viewspace is self.activeViewSpace()

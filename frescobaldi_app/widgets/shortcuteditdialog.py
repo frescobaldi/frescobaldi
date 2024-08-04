@@ -99,7 +99,7 @@ class ShortcutEditDialog(QDialog):
         layout.addWidget(Separator(self))
 
         b = QDialogButtonBox(self)
-        b.setStandardButtons(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        b.setStandardButtons(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
         layout.addWidget(b)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)

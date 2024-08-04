@@ -89,10 +89,10 @@ class Edit(QDialog):
         b = QDialogButtonBox(accepted=self.accept, rejected=self.reject)
         layout.addWidget(b)
 
-        buttons = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
+        buttons = QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel
         if name and name in builtin.builtin_snippets:
-            b.setStandardButtons(buttons | QDialogButtonBox.RestoreDefaults)
-            b.button(QDialogButtonBox.RestoreDefaults).clicked.connect(self.slotDefaults)
+            b.setStandardButtons(buttons | QDialogButtonBox.StandardButton.RestoreDefaults)
+            b.button(QDialogButtonBox.StandardButton.RestoreDefaults).clicked.connect(self.slotDefaults)
         else:
             b.setStandardButtons(buttons)
         userguide.addButton(b, "snippet_editor")

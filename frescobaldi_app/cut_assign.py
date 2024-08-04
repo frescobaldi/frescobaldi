@@ -95,7 +95,7 @@ def cut_assign(cursor):
         pos = insert.selectionStart()
         insert.insertText(text)
     if metainfo.info(cursor.document()).auto_indent:
-        insert.setPosition(pos, QTextCursor.KeepAnchor)
+        insert.setPosition(pos, QTextCursor.MoveMode.KeepAnchor)
         with cursortools.compress_undo(insert, True):
             indent.re_indent(insert)
 

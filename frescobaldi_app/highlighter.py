@@ -212,10 +212,10 @@ def html_copy(cursor, scheme='editor', number_lines=False):
         # cut out not selected text
         start, end = cursor.selectionStart(), cursor.selectionEnd()
         cur1 = QTextCursor(doc)
-        cur1.setPosition(start, QTextCursor.KeepAnchor)
+        cur1.setPosition(start, QTextCursor.MoveMode.KeepAnchor)
         cur2 = QTextCursor(doc)
         cur2.setPosition(end)
-        cur2.movePosition(QTextCursor.End, QTextCursor.KeepAnchor)
+        cur2.movePosition(QTextCursor.MoveOperation.End, QTextCursor.MoveMode.KeepAnchor)
         cur2.removeSelectedText()
         cur1.removeSelectedText()
     if number_lines:
@@ -260,6 +260,6 @@ def highlight(doc, mapping=None, state=None):
             f = mapping[token]
             if f:
                 cursor.setPosition(block.position() + token.pos)
-                cursor.setPosition(block.position() + token.end, QTextCursor.KeepAnchor)
+                cursor.setPosition(block.position() + token.end, QTextCursor.MoveMode.KeepAnchor)
                 cursor.setCharFormat(f)
         block = block.next()

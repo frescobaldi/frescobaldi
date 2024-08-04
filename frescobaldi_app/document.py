@@ -128,7 +128,7 @@ class AbstractDocument(QTextDocument):
         text = self.load_data(u, encoding or self._encoding)
         if keepUndo:
             c = QTextCursor(self)
-            c.select(QTextCursor.Document)
+            c.select(QTextCursor.SelectionType.Document)
             c.insertText(text)
         else:
             self.setPlainText(text)
@@ -304,11 +304,11 @@ class EditorDocument(AbstractDocument):
                 qchar_offset = len(line_text[:column - 1].encode('utf_16_le')) // 2
                 cursor.setPosition(block.position() + qchar_offset)
                 # Escape to in front of what might be the middle of a composed glyph.
-                cursor.movePosition(QTextCursor.NextCharacter)
-                cursor.movePosition(QTextCursor.PreviousCharacter)
+                cursor.movePosition(QTextCursor.MoveOperation.NextCharacter)
+                cursor.movePosition(QTextCursor.MoveOperation.PreviousCharacter)
             else:
                 cursor.setPosition(block.position())
-                cursor.movePosition(QTextCursor.EndOfBlock)
+                cursor.movePosition(QTextCursor.MoveOperation.EndOfBlock)
         else:
-            cursor.movePosition(QTextCursor.End)
+            cursor.movePosition(QTextCursor.MoveOperation.End)
         return cursor

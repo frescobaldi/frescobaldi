@@ -158,7 +158,7 @@ class Completer(QCompleter):
         cursor = self.textCursor()
         if cursor.hasSelection():
             cursor.setPosition(cursor.selectionEnd())
-        cursor.movePosition(QTextCursor.StartOfWord, QTextCursor.KeepAnchor)
+        cursor.movePosition(QTextCursor.MoveOperation.StartOfWord, QTextCursor.MoveMode.KeepAnchor)
         return cursor
 
     def showCompletionPopup(self, forced=True):

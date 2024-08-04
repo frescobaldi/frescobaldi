@@ -65,14 +65,14 @@ def insert(name, view):
     # re-indent if not explicitly suppressed by a 'indent: no' variable
     if last != block and 'no' not in variables.get('indent', ''):
         c = QTextCursor(last)
-        c.setPosition(block.position(), QTextCursor.KeepAnchor)
+        c.setPosition(block.position(), QTextCursor.MoveMode.KeepAnchor)
         with cursortools.compress_undo(c, True):
             indent.re_indent(c, True)
 
     if not new and 'keep' in selection:
         end = cursor.position()
         cursor.setPosition(pos)
-        cursor.setPosition(end, QTextCursor.KeepAnchor)
+        cursor.setPosition(end, QTextCursor.MoveMode.KeepAnchor)
     view.setTextCursor(new or cursor)
 
 
@@ -133,7 +133,7 @@ def insert_snippet(text, cursor, variables):
         if a != -1:
             new.setPosition(a)
         if c != -1:
-            new.setPosition(c, QTextCursor.KeepAnchor if a != -1 else QTextCursor.MoveAnchor)
+            new.setPosition(c, QTextCursor.MoveMode.KeepAnchor if a != -1 else QTextCursor.MoveMode.MoveAnchor)
         return new
 
 
@@ -184,7 +184,7 @@ def insert_python(text, cursor, name, view):
                 if a != -1:
                     new.setPosition(a)
                 if c != -1:
-                    new.setPosition(c, QTextCursor.KeepAnchor if a != -1 else QTextCursor.MoveAnchor)
+                    new.setPosition(c, QTextCursor.MoveMode.KeepAnchor if a != -1 else QTextCursor.MoveMode.MoveAnchor)
                 return new
         else:
             cursor.insertText(namespace['text'])

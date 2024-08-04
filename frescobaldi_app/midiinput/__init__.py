@@ -126,7 +126,7 @@ class MidiIn:
 
                     cursor.beginEditBlock()
                     cursor.setPosition(start)
-                    cursor.setPosition(end, QTextCursor.KeepAnchor)
+                    cursor.setPosition(end, QTextCursor.MoveMode.KeepAnchor)
                     cursor.insertText(text)
                     cursor.endEditBlock()
 

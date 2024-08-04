@@ -52,12 +52,12 @@ class ScoreWizardDialog(QDialog):
         self.tabs = QTabWidget()
         b = self.dialogButtons = QDialogButtonBox()
         b.setStandardButtons(
-            QDialogButtonBox.Reset
-            | QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+            QDialogButtonBox.StandardButton.Reset
+            | QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
         userguide.addButton(b, "scorewiz")
-        b.button(QDialogButtonBox.Reset).clicked.connect(self.reset)
+        b.button(QDialogButtonBox.StandardButton.Reset).clicked.connect(self.reset)
         self.previewButton = b.addButton('', QDialogButtonBox.ActionRole)
         self.previewButton.clicked.connect(self.showPreview)
         layout.addWidget(self.tabs)
@@ -81,8 +81,8 @@ class ScoreWizardDialog(QDialog):
         self.setWindowTitle(app.caption(_("Score Setup Wizard")))
         for i in range(self.tabs.count()):
             self.tabs.setTabText(i, self.tabs.widget(i).title())
-        self.dialogButtons.button(QDialogButtonBox.Reset).setText(_("Clear"))
-        self.dialogButtons.button(QDialogButtonBox.Reset).setToolTip(_(
+        self.dialogButtons.button(QDialogButtonBox.StandardButton.Reset).setText(_("Clear"))
+        self.dialogButtons.button(QDialogButtonBox.StandardButton.Reset).setToolTip(_(
             "Clears the current page of the Score Wizard."))
         self.previewButton.setText(_("Preview"))
 

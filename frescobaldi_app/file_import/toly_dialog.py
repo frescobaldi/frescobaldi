@@ -97,7 +97,7 @@ class ToLyDialog(QDialog):
         self.runEngraverCheck.setObjectName("engrave-directly")
 
         self.buttons = QDialogButtonBox(
-            QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+            QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
         userguide.addButton(self.buttons, self._userg)
 
         row = 0

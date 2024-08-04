@@ -104,7 +104,7 @@ class Dialog(toly_dialog.ToLyDialog):
         self.langLabel.setText(_("Language for pitch names"))
         self.langCombo.setItemText(0, _("Default"))
 
-        self.buttons.button(QDialogButtonBox.Ok).setText(_("Run musicxml2ly"))
+        self.buttons.button(QDialogButtonBox.StandardButton.Ok).setText(_("Run musicxml2ly"))
 
         super().translateUI()
 

@@ -214,10 +214,10 @@ class View(QPlainTextEdit):
         if numlines > 0:
             c = QTextCursor(cursor)
             c.setPosition(cursor.selectionEnd())
-            c.movePosition(QTextCursor.Down, QTextCursor.MoveAnchor, numlines)
+            c.movePosition(QTextCursor.MoveOperation.Down, QTextCursor.MoveMode.MoveAnchor, numlines)
             self.setTextCursor(c)
             c.setPosition(cursor.selectionStart())
-            c.movePosition(QTextCursor.Up, QTextCursor.MoveAnchor, numlines)
+            c.movePosition(QTextCursor.MoveOperation.Up, QTextCursor.MoveMode.MoveAnchor, numlines)
             self.setTextCursor(c)
         self.setTextCursor(cursor)
 

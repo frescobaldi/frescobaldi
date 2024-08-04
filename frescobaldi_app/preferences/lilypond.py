@@ -602,7 +602,7 @@ class InfoDialog(QDialog):
         b = self.buttons = QDialogButtonBox(self)
         layout.addWidget(b)
 
-        b.setStandardButtons(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        b.setStandardButtons(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
         userguide.addButton(b, "prefs_lilypond")

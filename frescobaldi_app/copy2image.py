@@ -83,8 +83,8 @@ class Dialog(QDialog):
         self.copyfile = QPushButton(icons.get('edit-copy'), None, None)
         self.dragdata = QPushButton(icons.get("image-x-generic"), None, None)
         self.copydata = QPushButton(icons.get('edit-copy'), None, None)
-        self.buttons = QDialogButtonBox(QDialogButtonBox.Close)
-        self.saveButton = self.buttons.addButton('', QDialogButtonBox.ApplyRole)
+        self.buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Close)
+        self.saveButton = self.buttons.addButton('', QDialogButtonBox.StandardButton.ApplyRole)
         self.saveButton.setIcon(icons.get('document-save'))
 
         layout = QVBoxLayout()

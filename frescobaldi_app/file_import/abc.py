@@ -61,7 +61,7 @@ class Dialog(toly_dialog.ToLyDialog):
     def translateUI(self):
         self.nobeamCheck.setText(_("Import beaming"))
 
-        self.buttons.button(QDialogButtonBox.Ok).setText(_("Run abc2ly"))
+        self.buttons.button(QDialogButtonBox.StandardButton.Ok).setText(_("Run abc2ly"))
 
         super().translateUI()
 
