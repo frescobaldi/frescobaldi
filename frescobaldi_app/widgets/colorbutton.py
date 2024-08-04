@@ -74,12 +74,12 @@ class ColorButton(QPushButton):
         style = self.style()
         opt = QStyleOptionButton()
         self.initStyleOption(opt)
-        r = style.subElementRect(QStyle.SE_PushButtonContents, opt, self)
-        shift = style.pixelMetric(QStyle.PM_ButtonMargin, opt, self) // 2
+        r = style.subElementRect(QStyle.SubElement.SE_PushButtonContents, opt, self)
+        shift = style.pixelMetric(QStyle.PixelMetric.PM_ButtonMargin, opt, self) // 2
         r.adjust(shift, shift, -shift, -shift)
         if self.isChecked() or self.isDown():
-            dx = style.pixelMetric(QStyle.PM_ButtonShiftHorizontal, opt, self)
-            dy = style.pixelMetric(QStyle.PM_ButtonShiftVertical, opt, self)
+            dx = style.pixelMetric(QStyle.PixelMetric.PM_ButtonShiftHorizontal, opt, self)
+            dy = style.pixelMetric(QStyle.PixelMetric.PM_ButtonShiftVertical, opt, self)
             r.translate(dx, dy)
         p = QPainter(self)
         if not self.isEnabled():

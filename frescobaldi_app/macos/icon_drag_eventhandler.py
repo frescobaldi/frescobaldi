@@ -63,7 +63,7 @@ class IconDragEventHandler(QObject):
         data = QMimeData()
         data.setUrls([url])
         drag.setMimeData(data)
-        pixmap = mainwin.style().standardPixmap(QStyle.SP_FileIcon, 0, mainwin)
+        pixmap = mainwin.style().standardPixmap(QStyle.StandardPixmap.SP_FileIcon, 0, mainwin)
         hotspot = QPoint(pixmap.width() - 5, 5)
         drag.setPixmap(pixmap)
         drag.setHotSpot(hotspot)

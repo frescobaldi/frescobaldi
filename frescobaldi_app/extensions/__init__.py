@@ -90,7 +90,7 @@ class Extension(QObject):
     # the left dock area, but this can also be specified by
     # overriding the corresponding class variable.
     _panel_widget_class = None
-    _panel_dock_area = Qt.LeftDockWidgetArea
+    _panel_dock_area = Qt.DockWidgetArea.LeftDockWidgetArea
 
     # Can be defined in subclasses to provide a configuration widget.
     # If this is present it will be shown in the Preferences page.

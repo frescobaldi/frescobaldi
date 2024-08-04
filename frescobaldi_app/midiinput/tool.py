@@ -23,7 +23,7 @@ class MidiInputTool(panel.Panel):
         ac.capture_stop.triggered.connect(self.slotStopCapturing)
         ac.accidental_switch.triggered.connect(self.slotAccidentalSwitch)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
-        mainwindow.addDockWidget(Qt.BottomDockWidgetArea, self)
+        mainwindow.addDockWidget(Qt.DockWidgetArea.BottomDockWidgetArea, self)
 
     def translateUI(self):
         self.setWindowTitle(_("MIDI Input"))

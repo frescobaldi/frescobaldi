@@ -35,10 +35,10 @@ import panel
 class QuickInsertPanel(panel.Panel):
     def __init__(self, mainwindow):
         super().__init__(mainwindow)
-        self.setAllowedAreas(Qt.LeftDockWidgetArea | Qt.RightDockWidgetArea)
+        self.setAllowedAreas(Qt.DockWidgetArea.LeftDockWidgetArea | Qt.DockWidgetArea.RightDockWidgetArea)
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+I"))
-        mainwindow.addDockWidget(Qt.LeftDockWidgetArea, self)
+        mainwindow.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self)
         self.actionCollection = QuickInsertActions(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(self.actionCollection)
 

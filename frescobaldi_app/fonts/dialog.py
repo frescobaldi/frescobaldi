@@ -106,7 +106,7 @@ class FontsDialog(QDialog):
         self.show_music = show_music
 
         # Basic dialog attributes
-        self.setAttribute(Qt.WA_DeleteOnClose)
+        self.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
         self.setWindowModality(Qt.WindowType.WindowModal)
 
         layout = QVBoxLayout()

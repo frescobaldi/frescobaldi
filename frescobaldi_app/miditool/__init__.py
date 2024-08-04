@@ -44,7 +44,7 @@ class MidiTool(panel.Panel):
         ac.midi_stop.triggered.connect(self.slotStop)
         ac.midi_restart.triggered.connect(self.slotRestart)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
-        mainwindow.addDockWidget(Qt.TopDockWidgetArea, self)
+        mainwindow.addDockWidget(Qt.DockWidgetArea.TopDockWidgetArea, self)
 
     def translateUI(self):
         self.setWindowTitle(_("MIDI"))

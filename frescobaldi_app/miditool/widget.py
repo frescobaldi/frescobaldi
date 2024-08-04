@@ -45,7 +45,7 @@ class Widget(QWidget):
         self._fileSelector = QComboBox(editable=True, insertPolicy=QComboBox.NoInsert)
         gadgets.drag.ComboDrag(self._fileSelector).role = Qt.UserRole
         self._fileSelector.lineEdit().setReadOnly(True)
-        self._fileSelector.lineEdit().setFocusPolicy(Qt.NoFocus)
+        self._fileSelector.lineEdit().setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self._stopButton = QToolButton()
         self._playButton = QToolButton()
         self._timeSlider = QSlider(Qt.Horizontal, tracking=False,

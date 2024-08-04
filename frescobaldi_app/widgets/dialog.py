@@ -38,31 +38,31 @@ __all__ = ['Dialog', 'TextDialog']
 
 
 standardicons = {
-    'info': QStyle.SP_MessageBoxInformation,
-    'warning': QStyle.SP_MessageBoxWarning,
-    'critical': QStyle.SP_MessageBoxCritical,
-    'question': QStyle.SP_MessageBoxQuestion,
+    'info': QStyle.StandardPixmap.SP_MessageBoxInformation,
+    'warning': QStyle.StandardPixmap.SP_MessageBoxWarning,
+    'critical': QStyle.StandardPixmap.SP_MessageBoxCritical,
+    'question': QStyle.StandardPixmap.SP_MessageBoxQuestion,
 }
 
 standardbuttons = {
-    'ok': QDialogButtonBox.Ok,
-    'open': QDialogButtonBox.Open,
-    'save': QDialogButtonBox.Save,
-    'cancel': QDialogButtonBox.Cancel,
-    'close': QDialogButtonBox.Close,
-    'discard': QDialogButtonBox.Discard,
-    'apply': QDialogButtonBox.Apply,
-    'reset': QDialogButtonBox.Reset,
-    'restoredefaults': QDialogButtonBox.RestoreDefaults,
-    'help': QDialogButtonBox.Help,
-    'saveall': QDialogButtonBox.SaveAll,
-    'yes': QDialogButtonBox.Yes,
-    'yestoall': QDialogButtonBox.YesToAll,
-    'no': QDialogButtonBox.No,
-    'notoall': QDialogButtonBox.NoToAll,
-    'abort': QDialogButtonBox.Abort,
-    'retry': QDialogButtonBox.Retry,
-    'ignore': QDialogButtonBox.Ignore,
+    'ok': QDialogButtonBox.StandardButton.Ok,
+    'open': QDialogButtonBox.StandardButton.Open,
+    'save': QDialogButtonBox.StandardButton.Save,
+    'cancel': QDialogButtonBox.StandardButton.Cancel,
+    'close': QDialogButtonBox.StandardButton.Close,
+    'discard': QDialogButtonBox.StandardButton.Discard,
+    'apply': QDialogButtonBox.StandardButton.Apply,
+    'reset': QDialogButtonBox.StandardButton.Reset,
+    'restoredefaults': QDialogButtonBox.StandardButton.RestoreDefaults,
+    'help': QDialogButtonBox.StandardButton.Help,
+    'saveall': QDialogButtonBox.StandardButton.SaveAll,
+    'yes': QDialogButtonBox.StandardButton.Yes,
+    'yestoall': QDialogButtonBox.StandardButton.YesToAll,
+    'no': QDialogButtonBox.StandardButton.No,
+    'notoall': QDialogButtonBox.StandardButton.NoToAll,
+    'abort': QDialogButtonBox.StandardButton.Abort,
+    'retry': QDialogButtonBox.StandardButton.Retry,
+    'ignore': QDialogButtonBox.StandardButton.Ignore,
 }
 
 
@@ -83,7 +83,7 @@ class Dialog(QDialog):
                  iconSize = QSize(64, 64),
                  pixmap = None,
                  separator = True,
-                 buttonOrientation = Qt.Horizontal,
+                 buttonOrientation = Qt.Orientation.Horizontal,
                  buttons = ('ok', 'cancel'),
                  help = None,
                  **kwargs):
@@ -97,7 +97,8 @@ class Dialog(QDialog):
         - icon or pixmap: shown in the left area
         - iconSize: size of the icon in the left (QSize, default: 64x64)
         - separator: draw a separator line or not (default: True)
-        - buttonOrientation: Qt.Horizontal (default) or Qt.Vertical
+        - buttonOrientation: Qt.Orientation.Horizontal (default)
+          or Qt.Orientation.Vertical
         - buttons: which buttons to use (default: Ok, Cancel)
         - help: function to call when a help button is clicked.
 
@@ -140,9 +141,9 @@ class Dialog(QDialog):
     def setButtonOrientation(self, orientation):
         """Sets the button orientation.
 
-        Qt.Horizontal (default) puts the buttons at the bottom of the dialog
-        in a horizontal row, Qt.Vertical puts the buttons at the right in a
-        vertical column.
+        Qt.Orientation.Horizontal (default) puts the buttons at the bottom
+        of the dialog in a horizontal row. Qt.Orientation.Vertical puts
+        the buttons at the right in a vertical column.
 
         """
         if orientation != self._buttonOrientation:
@@ -282,7 +283,7 @@ class Dialog(QDialog):
         self._pixmapLabel.setVisible(not self._pixmap.isNull())
         layout.addWidget(self._messageLabel, 0, col)
         layout.addWidget(self._mainWidget, 1, col)
-        if self._buttonOrientation == Qt.Horizontal:
+        if self._buttonOrientation == Qt.Orientation.Horizontal:
             if self._separator:
                 layout.addWidget(self._separatorWidget, 2, 0, 1, col+1)
             layout.addWidget(self._buttonBox, 3, 0, 1, col+1)
