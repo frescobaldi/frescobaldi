@@ -72,7 +72,7 @@ class Actions(actioncollection.ActionCollection):
     def createActions(self, parent):
         self.autocomplete = QAction(parent, checkable=True)
         self.popup_completions = QAction(parent)
-        self.popup_completions.setShortcut(QKeySequence(Qt.Modifier.CTRL + Qt.Key.Key_Space))
+        self.popup_completions.setShortcut(QKeySequence(Qt.Modifier.CTRL | Qt.Key.Key_Space))
 
     def translateUI(self):
         self.autocomplete.setText(_("Automatic &Completion"))

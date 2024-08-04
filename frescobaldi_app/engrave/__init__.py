@@ -383,10 +383,10 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_autocompile.setCheckable(True)
         self.engrave_open_lilypond_datadir = QAction(parent)
 
-        self.engrave_preview.setShortcut(QKeySequence(Qt.Modifier.CTRL + Qt.Key.Key_M))
-        self.engrave_publish.setShortcut(QKeySequence(Qt.Modifier.CTRL + Qt.Modifier.SHIFT + Qt.Key.Key_P))
-        self.engrave_custom.setShortcut(QKeySequence(Qt.Modifier.CTRL + Qt.Modifier.SHIFT + Qt.Key.Key_M))
-        self.engrave_abort.setShortcut(QKeySequence(Qt.Modifier.CTRL + Qt.Key.Key_Pause))
+        self.engrave_preview.setShortcut(QKeySequence(Qt.Modifier.CTRL | Qt.Key.Key_M))
+        self.engrave_publish.setShortcut(QKeySequence(Qt.Modifier.CTRL | Qt.Modifier.SHIFT | Qt.Key.Key_P))
+        self.engrave_custom.setShortcut(QKeySequence(Qt.Modifier.CTRL | Qt.Modifier.SHIFT | Qt.Key.Key_M))
+        self.engrave_abort.setShortcut(QKeySequence(Qt.Modifier.CTRL | Qt.Key.Key_Pause))
 
         self.engrave_sticky.setIcon(icons.get('pushpin'))
         self.engrave_preview.setIcon(icons.get('lilypond-run'))

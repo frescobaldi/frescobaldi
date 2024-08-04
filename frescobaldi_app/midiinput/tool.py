@@ -52,7 +52,7 @@ class Actions(actioncollection.ActionCollection):
         self.capture_start.setIcon(icons.get('media-record'))
         self.capture_stop.setIcon(icons.get('process-stop'))
 
-        self.accidental_switch.setShortcut(QKeySequence(Qt.Modifier.CTRL + Qt.Modifier.SHIFT + Qt.Key.Key_3))
+        self.accidental_switch.setShortcut(QKeySequence(Qt.Modifier.CTRL | Qt.Modifier.SHIFT | Qt.Key.Key_3))
 
     def translateUI(self):
         self.capture_start.setText(_("midi input", "Start capturing"))
