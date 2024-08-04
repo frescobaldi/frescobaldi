@@ -57,12 +57,12 @@ class Widget(QWidget):
 
         # size policy of combo
         p = self.blockCombo.sizePolicy()
-        p.setHorizontalPolicy(QSizePolicy.Ignored)
+        p.setHorizontalPolicy(QSizePolicy.Policy.Ignored)
         self.blockCombo.setSizePolicy(p)
 
         # size policy of combo popup
         p = self.blockCombo.view().sizePolicy()
-        p.setHorizontalPolicy(QSizePolicy.MinimumExpanding)
+        p.setHorizontalPolicy(QSizePolicy.Policy.MinimumExpanding)
         self.blockCombo.view().setSizePolicy(p)
 
         model = listmodel.ListModel(_blocks,

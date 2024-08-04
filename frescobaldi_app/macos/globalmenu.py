@@ -211,7 +211,7 @@ def edit_preferences():
     # the current shortcuts.
     w = mainwindow()
     w.newDocument()
-    preferences.PreferencesDialog(w).exec_()
+    preferences.PreferencesDialog(w).exec()
 
 def slot_session_action(action):
     name = action.objectName()
@@ -222,4 +222,4 @@ def slot_session_action(action):
 
 def help_about():
     import about
-    about.AboutDialog(None).exec_()
+    about.AboutDialog(None).exec()

@@ -45,7 +45,7 @@ class ViewHighlighter(plugin.Plugin, gadgets.arbitraryhighlighter.ArbitraryHighl
         # no need to call the plugin __init__ method
         gadgets.arbitraryhighlighter.ArbitraryHighlighter.__init__(self, view)
         self._cursorFormat = QTextCharFormat()
-        self._cursorFormat.setProperty(QTextFormat.FullWidthSelection, True)
+        self._cursorFormat.setProperty(QTextFormat.Property.FullWidthSelection, True)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         bookmarks.bookmarks(view.document()).marksChanged.connect(self.updateMarkedLines)
@@ -59,7 +59,7 @@ class ViewHighlighter(plugin.Plugin, gadgets.arbitraryhighlighter.ArbitraryHighl
             self.highlight(type, marks, -1)
 
     def eventFilter(self, view, ev):
-        if ev.type() in (QEvent.FocusIn, QEvent.FocusOut):
+        if ev.type() in (QEvent.Type.FocusIn, QEvent.Type.FocusOut):
             self.updateCursor(view)
         return False
 
@@ -102,5 +102,5 @@ class ViewHighlighter(plugin.Plugin, gadgets.arbitraryhighlighter.ArbitraryHighl
         f = QTextCharFormat()
         f.setBackground(self._baseColors[name])
         if name in ('current', 'mark', 'error'):
-            f.setProperty(QTextFormat.FullWidthSelection, True)
+            f.setProperty(QTextFormat.Property.FullWidthSelection, True)
         return f

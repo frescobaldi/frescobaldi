@@ -82,7 +82,7 @@ def save(mainwindow):
     dlg.lineEdit().setCompleter(c)
     dlg.runCheck().setChecked(template_run)
 
-    result = dlg.exec_()
+    result = dlg.exec()
     dlg.deleteLater()
     if not result:
         return # cancelled

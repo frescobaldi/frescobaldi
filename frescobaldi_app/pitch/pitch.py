@@ -186,7 +186,7 @@ def getModeShifter(document, mainwindow):
     dlg.addAction(mainwindow.actionCollection.help_whatsthis)
     dlg.setWindowModality(Qt.WindowType.WindowModal)
     dlg.setKeyValidator(validate)
-    if dlg.exec_():
+    if dlg.exec():
         key, scale = dlg.getMode()
         key = readpitches(key)[0]
         dlg.saveSettings()

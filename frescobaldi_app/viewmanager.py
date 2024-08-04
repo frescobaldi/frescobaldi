@@ -86,7 +86,7 @@ class ViewStatusBar(QWidget):
         a.setEnabled(manager.canCloseViewSpace())
         menu.addAction(a)
 
-        menu.exec_(pos)
+        menu.exec(pos)
 
 
 class ViewSpace(QWidget):

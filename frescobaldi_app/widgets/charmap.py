@@ -121,18 +121,18 @@ class CharMap(QWidget):
         cols = range(rect.left() // s, rect.right() // s + 1)
 
         painter = QPainter(self)
-        painter.setPen(QPen(self.palette().color(QPalette.Window)))
+        painter.setPen(QPen(self.palette().color(QPalette.ColorRole.Window)))
         painter.setFont(self._font)
         metrics = QFontMetrics(self._font)
 
         # draw characters on white tiles
-        tile = self.palette().color(QPalette.Base)
-        selected_tile = self.palette().color(QPalette.Highlight)
+        tile = self.palette().color(QPalette.ColorRole.Base)
+        selected_tile = self.palette().color(QPalette.ColorRole.Highlight)
         selected_tile.setAlpha(96)
-        selected_box = self.palette().color(QPalette.Highlight)
+        selected_box = self.palette().color(QPalette.ColorRole.Highlight)
 
         text_pen = QPen(self.palette().text().color())
-        disabled_pen = QPen(self.palette().color(QPalette.Disabled, QPalette.Text))
+        disabled_pen = QPen(self.palette().color(QPalette.ColorGroup.Disabled, QPalette.ColorRole.Text))
         selection_pen = QPen(selected_box)
         for row in rows:
             for col in cols:
@@ -149,7 +149,7 @@ class CharMap(QWidget):
                     painter.fillRect(col * s + 1, row * s + 1, s - 2, s - 2, tile)
                 painter.setPen(text_pen if printable else disabled_pen)
                 t = chr(char)
-                x = col * s + s // 2 - metrics.width(t) // 2
+                x = col * s + s // 2 - metrics.horizontalAdvance(t) // 2
                 y = row * s + 4 + metrics.ascent()
                 painter.drawText(x, y, t)
             else:

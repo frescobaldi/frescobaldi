@@ -89,5 +89,5 @@ def show(position, panel, link, cursor):
 
     # show it!
     if m.actions():
-        m.exec_(position)
+        m.exec(position)
     m.deleteLater()

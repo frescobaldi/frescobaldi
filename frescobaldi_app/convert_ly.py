@@ -55,7 +55,7 @@ def convert(mainwindow):
     dlg.setModal(True)
     dlg.show()
     dlg.run()
-    if dlg.exec_():
+    if dlg.exec():
         c = mainwindow.textCursor()
         c.select(c.Document)
         text = dlg.convertedText()

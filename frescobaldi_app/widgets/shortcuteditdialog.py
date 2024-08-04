@@ -173,7 +173,7 @@ class ShortcutEditDialog(QDialog):
         else:
             ds = _("no keyboard shortcut", "none")
         self.buttonDefault.setText(_("Use &default shortcut ({name})").format(name=ds))
-        return self.exec_()
+        return self.exec()
 
     def done(self, result):
         if result:

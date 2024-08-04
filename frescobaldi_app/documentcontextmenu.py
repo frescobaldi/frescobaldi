@@ -77,9 +77,9 @@ class DocumentContextMenu(QMenu):
     def mainwindow(self):
         return self.parentWidget()
 
-    def exec_(self, document, pos):
+    def exec(self, document, pos):
         self._doc = weakref.ref(document)
-        super().exec_(pos)
+        super().exec(pos)
 
     def menu_document(self):
         return documentmenu.DocumentMenu(self.mainwindow())

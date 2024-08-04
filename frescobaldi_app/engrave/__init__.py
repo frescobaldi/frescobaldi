@@ -164,7 +164,7 @@ class Engraver(plugin.MainWindowPlugin):
             dlg.setWindowModality(Qt.WindowType.WindowModal)
         doc = self.document()
         dlg.setDocument(doc)
-        if dlg.exec_():
+        if dlg.exec():
             self.saveDocumentIfDesired()
             self.runJob(dlg.getJob(doc), doc)
 
@@ -244,7 +244,7 @@ class Engraver(plugin.MainWindowPlugin):
         abort_button = msgbox.button(QMessageBox.StandardButton.Abort)
         signal = lambda: abort_button.click()
         j.done.connect(signal)
-        msgbox.exec_()
+        msgbox.exec()
         j.done.disconnect(signal)
         return msgbox.clickedButton() == abort_button
 

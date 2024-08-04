@@ -114,7 +114,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self._main_layout.addWidget(self.view)
         self.view.setViewMode(qpageview.FitWidth)
 
-        self.view.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.view.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.view.customContextMenuRequested.connect(self.showContextMenu)
 
     def createContextMenu(self):
@@ -177,7 +177,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             dlg.setToolTip(_(
                 "Answering 'No' will give you a chance to restore the "
                 "file without having to re-add it."))
-            if dlg.exec_():
+            if dlg.exec():
                 mds = self.actionCollection.viewer_document_select
                 mds.removeViewdoc(doc)
             else:

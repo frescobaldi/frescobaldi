@@ -76,7 +76,7 @@ class Fonts(plugin.MainWindowPlugin):
                 dlg, "document-fonts-dialog/dialog-size",
                 QSize(1024, 700)
             )
-            dlg.exec_()
+            dlg.exec()
             if dlg.result:
                 # is populated when the user has clicked "Use"
                 cmd = (
@@ -89,7 +89,7 @@ class Fonts(plugin.MainWindowPlugin):
             # Show the old "Set Document Fonts" dialog
             from . import oldfontsdialog
             dlg = oldfontsdialog.DocumentFontsDialog(self.mainwindow())
-            if dlg.exec_():
+            if dlg.exec():
                 cmd = dlg.document_font_code()
                 # NOTE: How to translate this to the dialog context?
                 # if state[-1] != "paper":

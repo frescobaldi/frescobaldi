@@ -217,7 +217,7 @@ class AbstractViewerContextMenu(QObject):
 
         # show it!
         if self._menu.actions():
-            self._menu.exec_(position)
+            self._menu.exec(position)
         # TODO: Can this really be removed?
         # it had to be commented out because in the documents submenu
         # there popped up issues with deleted objects (the menu was already

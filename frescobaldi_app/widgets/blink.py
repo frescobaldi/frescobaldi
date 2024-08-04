@@ -50,7 +50,7 @@ class Blinker(QWidget):
         b = cls(window)
         p = widget.palette()
         if color:
-            p.setColor(QPalette.Highlight, color)
+            p.setColor(QPalette.ColorRole.Highlight, color)
         b.setPalette(p)
         b.start(rect)
         b.finished.connect(b.deleteLater)
@@ -99,7 +99,7 @@ class Blinker(QWidget):
         The color is taken from the Highlight palette value.
 
         """
-        color = self.palette().color(QPalette.Highlight)
+        color = self.palette().color(QPalette.ColorRole.Highlight)
         for delta, alpha in self.animateAlpha():
             color.setAlpha(alpha)
             yield delta, color

@@ -109,7 +109,7 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
 
         # scrollbar visibility
         scrollbars = QSettings().value("musicview/show_scrollbars", True, bool)
-        policy = Qt.ScrollBarAsNeeded if scrollbars else Qt.ScrollBarAlwaysOff
+        policy = Qt.ScrollBarPolicy.ScrollBarAsNeeded if scrollbars else Qt.ScrollBarPolicy.ScrollBarAlwaysOff
         oldpolicy = self.horizontalScrollBarPolicy()
         self.setHorizontalScrollBarPolicy(policy)
         self.setVerticalScrollBarPolicy(policy)
@@ -189,7 +189,7 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
                 title = app.caption(_("Print"))
             dlg.setWindowTitle(title)
             dlg.setMinMax(1, self.pageCount())
-            if not dlg.exec_():
+            if not dlg.exec():
                 return  # cancelled
         s = QSettings()
         printer.setResolution(s.value("printing/dpi", 300, int))

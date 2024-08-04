@@ -155,7 +155,7 @@ class Widget(QTreeWidget):
             # a single document is right-clicked
             import documentcontextmenu
             menu = documentcontextmenu.DocumentContextMenu(mainwindow)
-            menu.exec_(doc, ev.globalPos())
+            menu.exec(doc, ev.globalPos())
             menu.deleteLater()
             return
 
@@ -194,5 +194,5 @@ class Widget(QTreeWidget):
                 if not mainwindow.closeDocument(d):
                     break
 
-        menu.exec_(ev.globalPos())
+        menu.exec(ev.globalPos())
         menu.deleteLater()

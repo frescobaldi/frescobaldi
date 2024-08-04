@@ -185,7 +185,7 @@ QTabBar::tab:only-one {
     def contextMenuEvent(self, ev):
         index = self.tabAt(ev.pos())
         if index >= 0:
-            self.contextMenu().exec_(self.docs[index], ev.globalPos())
+            self.contextMenu().exec(self.docs[index], ev.globalPos())
 
     def contextMenu(self):
         try:

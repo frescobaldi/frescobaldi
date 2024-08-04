@@ -170,7 +170,7 @@ class TextFontsWidget(QWidget):
             ac.family = f_key
             ac.triggered.connect(self.set_text_font)
             cm.addAction(actions[family])
-        cm.exec_(self.tree_view.mapToGlobal(point))
+        cm.exec(self.tree_view.mapToGlobal(point))
         cm.deleteLater()
 
     def tree_model(self):

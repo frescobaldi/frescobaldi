@@ -197,7 +197,7 @@ class FileImport(plugin.MainWindowPlugin):
     def run_import(self):
         """Generic execution of all import dialogs."""
         conf_dlg = self._import_dialog
-        if conf_dlg.exec_():
+        if conf_dlg.exec():
             self._import_job = j = conf_dlg.job()
             dlg = job.dialog.Dialog(self.mainwindow(), auto_accept=True)
             dlg.accepted.connect(self.import_done)

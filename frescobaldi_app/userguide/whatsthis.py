@@ -30,7 +30,7 @@ from . import show
 
 class WhatsThisHandler(QObject):
     def eventFilter(self, obj, ev):
-        if ev.type() == QEvent.WhatsThisClicked:
+        if ev.type() == QEvent.Type.WhatsThisClicked:
             show(ev.href())
         return False
 

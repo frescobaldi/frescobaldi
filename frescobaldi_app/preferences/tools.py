@@ -303,7 +303,7 @@ class OutlinePatterns(widgets.listedit.ListEdit):
         userguide.addButton(dlg.buttonBox(), "outline_configure")
         dlg.setValidateFunction(is_regex)
         dlg.setText(item.text())
-        if dlg.exec_():
+        if dlg.exec():
             item.setText(dlg.text())
             return True
         return False

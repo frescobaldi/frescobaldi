@@ -489,7 +489,7 @@ class FoldingArea(QWidget):
             if indicator:
                 square = QRect(0, 0, 8, 8)
                 square.moveCenter(rect.center() - QPoint(1, 1))
-                p.fillRect(square, self.w.palette().color(QPalette.Base))
+                p.fillRect(square, self.w.palette().color(QPalette.ColorRole.Base))
                 p.drawRect(square)
                 x = rect.center().x()
                 y = rect.center().y()

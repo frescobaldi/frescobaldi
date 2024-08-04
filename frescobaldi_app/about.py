@@ -42,7 +42,7 @@ class AboutDialog(QDialog):
 
     """
     def __init__(self, mainwindow):
-        """Creates the about dialog. You can simply exec_() it."""
+        """Creates the about dialog. You can simply exec() it."""
         super().__init__(mainwindow)
 
         self.setWindowTitle(_("About {appname}").format(appname = appinfo.appname))

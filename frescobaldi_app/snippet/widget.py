@@ -400,10 +400,10 @@ class SearchLineEdit(QLineEdit):
 
     def event(self, ev):
         if ev.type() == QEvent.KeyPress and any(ev.matches(key) for key in (
-            QKeySequence.MoveToNextLine, QKeySequence.SelectNextLine,
-            QKeySequence.MoveToPreviousLine, QKeySequence.SelectPreviousLine,
-            QKeySequence.MoveToNextPage, QKeySequence.SelectNextPage,
-            QKeySequence.MoveToPreviousPage, QKeySequence.SelectPreviousPage)):
+            QKeySequence.StandardKey.MoveToNextLine, QKeySequence.StandardKey.SelectNextLine,
+            QKeySequence.StandardKey.MoveToPreviousLine, QKeySequence.StandardKey.SelectPreviousLine,
+            QKeySequence.StandardKey.MoveToNextPage, QKeySequence.StandardKey.SelectNextPage,
+            QKeySequence.StandardKey.MoveToPreviousPage, QKeySequence.StandardKey.SelectPreviousPage)):
             QApplication.sendEvent(self.parent().treeView, ev)
             return True
         return super().event(ev)

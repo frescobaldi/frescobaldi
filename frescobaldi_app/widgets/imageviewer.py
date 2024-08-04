@@ -43,7 +43,7 @@ class ImageViewer(QScrollArea):
         super().__init__(parent, alignment=Qt.AlignmentFlag.AlignCenter)
         self._actualsize = True
         self._image = QImage()
-        self.setBackgroundRole(QPalette.Dark)
+        self.setBackgroundRole(QPalette.ColorRole.Dark)
         self.setWidget(ImageWidget(self))
 
     def setActualSize(self, enabled=True):
@@ -94,14 +94,14 @@ class ImageViewer(QScrollArea):
         pixmap = QPixmap.fromImage(image)
         drag.setPixmap(pixmap)
         drag.setHotSpot(pixmap.rect().center())
-        drag.exec_(Qt.DropAction.CopyAction)
+        drag.exec(Qt.DropAction.CopyAction)
 
 
 class ImageWidget(QWidget):
     def __init__(self, viewer):
         super().__init__()
         self.viewer = viewer
-        self.setBackgroundRole(QPalette.Dark)
+        self.setBackgroundRole(QPalette.ColorRole.Dark)
         self.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
         self._mode = None
         self._startpos = None

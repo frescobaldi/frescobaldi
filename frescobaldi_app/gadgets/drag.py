@@ -121,6 +121,6 @@ def dragFile(widget, filename, icon=None, dropactions=Qt.DropAction.CopyAction):
     data.setUrls([QUrl.fromLocalFile(filename)])
     drag.setMimeData(data)
     drag.setPixmap(icon.pixmap(32))
-    drag.exec_(dropactions)
+    drag.exec(dropactions)
 
 

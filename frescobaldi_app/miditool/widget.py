@@ -42,16 +42,16 @@ class Widget(QWidget):
     def __init__(self, dockwidget):
         super().__init__(dockwidget)
         self._document = None
-        self._fileSelector = QComboBox(editable=True, insertPolicy=QComboBox.NoInsert)
+        self._fileSelector = QComboBox(editable=True, insertPolicy=QComboBox.InsertPolicy.NoInsert)
         gadgets.drag.ComboDrag(self._fileSelector).role = Qt.ItemDataRole.UserRole
         self._fileSelector.lineEdit().setReadOnly(True)
         self._fileSelector.lineEdit().setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self._stopButton = QToolButton()
         self._playButton = QToolButton()
-        self._timeSlider = QSlider(Qt.Horizontal, tracking=False,
+        self._timeSlider = QSlider(Qt.Orientation.Horizontal, tracking=False,
             singleStep=500, pageStep=5000, invertedControls=True)
         self._display = Display()
-        self._tempoFactor = QSlider(Qt.Vertical, minimum=-50, maximum=50,
+        self._tempoFactor = QSlider(Qt.Orientation.Vertical, minimum=-50, maximum=50,
             singleStep=1, pageStep=5)
 
         grid = QGridLayout(spacing=0)
@@ -66,12 +66,12 @@ class Widget(QWidget):
 
         # size policy of combo
         p = self._fileSelector.sizePolicy()
-        p.setHorizontalPolicy(QSizePolicy.Ignored)
+        p.setHorizontalPolicy(QSizePolicy.Policy.Ignored)
         self._fileSelector.setSizePolicy(p)
 
         # size policy of combo popup
         p = self._fileSelector.view().sizePolicy()
-        p.setHorizontalPolicy(QSizePolicy.MinimumExpanding)
+        p.setHorizontalPolicy(QSizePolicy.Policy.MinimumExpanding)
         self._fileSelector.view().setSizePolicy(p)
 
         self._player = player.Player()
@@ -275,7 +275,7 @@ class Display(QLabel):
     """Maintains values in the LCD display."""
     def __init__(self):
         QLabel.__init__(self, wordWrap=True)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.Ignored, QSizePolicy.Preferred))
+        self.setSizePolicy(QSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Preferred))
         self.setStyleSheet(css.lcd_screen)
         self._tempoTimer = QTimer(interval=1500, singleShot=True,
             timeout=self.setTempo)
