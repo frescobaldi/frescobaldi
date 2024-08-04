@@ -23,7 +23,7 @@ Manages the actions that manipulate the bookmarks (see also bookmarks.py).
 
 
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QAction
+from PyQt6.QtGui import QAction, QKeySequence
 
 import actioncollection
 import actioncollectionmanager
@@ -100,9 +100,9 @@ class Actions(actioncollection.ActionCollection):
         self.view_next_mark = QAction(parent)
         self.view_previous_mark = QAction(parent)
 
-        self.view_bookmark.setShortcut(Qt.Modifier.CTRL + Qt.Key.Key_B)
-        self.view_next_mark.setShortcut(Qt.Modifier.ALT + Qt.Key.Key_PageDown)
-        self.view_previous_mark.setShortcut(Qt.Modifier.ALT + Qt.Key.Key_PageUp)
+        self.view_bookmark.setShortcut(QKeySequence(Qt.Modifier.CTRL | Qt.Key.Key_B))
+        self.view_next_mark.setShortcut(QKeySequence(Qt.Modifier.ALT | Qt.Key.Key_PageDown))
+        self.view_previous_mark.setShortcut(QKeySequence(Qt.Modifier.ALT | Qt.Key.Key_PageUp))
 
         self.view_bookmark.setIcon(icons.get('bookmark-new'))
         self.view_clear_all_marks.setIcon(icons.get('edit-clear'))
