@@ -26,8 +26,8 @@ import collections
 import itertools
 import re
 
-from PyQt6.QtCore import QRegExp, Qt
-from PyQt6.QtGui import QRegExpValidator
+from PyQt6.QtCore import QRegularExpression, Qt
+from PyQt6.QtGui import QRegularExpressionValidator
 from PyQt6.QtWidgets import (
     QCheckBox, QComboBox, QGroupBox, QHBoxLayout, QLabel, QSpinBox, QVBoxLayout)
 
@@ -276,8 +276,11 @@ class Choir(VocalPart):
         self.voicing = QComboBox(editable=True)
         self.voicingLabel.setBuddy(self.voicing)
         self.voicing.setCompleter(None)
-        self.voicing.setValidator(QRegExpValidator(
-            QRegExp("[SATB]+(-[SATB]+)*", Qt.CaseInsensitive), self.voicing))
+        self.validator = QRegularExpression("[SATB]+(-[SATB]+)*")
+        self.validator.setPatternOptions(
+            QRegularExpression.PatternOption.CaseInsensitiveOption)
+        self.voicing.setValidator(
+            QRegularExpressionValidator(self.validator, self.voicing))
         self.voicing.addItems((
             'SA-TB', 'S-A-T-B',
             'SA', 'S-A', 'SS-A', 'S-S-A',

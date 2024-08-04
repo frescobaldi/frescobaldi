@@ -55,7 +55,7 @@ def getText(
     help: help page or name
     validate: a function that accepts text and returns whether it is valid.
     regexp: a regular expression string. If given it provides an alternate
-        validation method using a QRegExpValidator.
+        validation method using a QRegularExpressionValidator.
     wordWrap: whether to word-wrap the message text (default: True).
     complete: a string list or QAbstractItemModel to provide completions.
 
