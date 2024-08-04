@@ -68,7 +68,7 @@ class LinePainter(QObject):
 
     """
     def eventFilter(self, obj, ev):
-        if ev.type() == QEvent.Paint:
+        if ev.type() == QEvent.Type.Paint:
             return self.paintEvent(obj, ev)
         return False
 

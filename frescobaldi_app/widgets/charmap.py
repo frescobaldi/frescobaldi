@@ -194,7 +194,7 @@ class CharMap(QWidget):
         return -1
 
     def event(self, ev):
-        if ev.type() == QEvent.ToolTip:
+        if ev.type() == QEvent.Type.ToolTip:
             if self._showToolTips:
                 c = self.charcodeAt(ev.pos())
                 if c:
@@ -204,11 +204,11 @@ class CharMap(QWidget):
                         QToolTip.showText(ev.globalPos(), text, self, rect)
                         ev.accept()
                         return True
-        elif ev.type() == QEvent.QueryWhatsThis:
+        elif ev.type() == QEvent.Type.QueryWhatsThis:
             if self._showWhatsThis:
                 ev.accept()
                 return True
-        elif ev.type() == QEvent.WhatsThis:
+        elif ev.type() == QEvent.Type.WhatsThis:
             ev.accept()
             if self._showWhatsThis:
                 c = self.charcodeAt(ev.pos())

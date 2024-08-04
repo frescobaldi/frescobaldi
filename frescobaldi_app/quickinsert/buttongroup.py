@@ -172,7 +172,7 @@ class Button(QToolButton):
             return key
 
     def event(self, ev):
-        if ev.type() == QEvent.ToolTip:
+        if ev.type() == QEvent.Type.ToolTip:
             text = self.defaultAction().text()
             key = self.key()
             if key:

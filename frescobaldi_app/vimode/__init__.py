@@ -136,10 +136,10 @@ class ViMode(QObject):
         self.textEdit().setExtraSelections([])
 
     def eventFilter(self, obj, ev):
-        if (ev.type() in (QEvent.KeyPress, QEvent.KeyRelease) and
+        if (ev.type() in (QEvent.Type.KeyPress, QEvent.Type.KeyRelease) and
             ev.key() in (Qt.Key.Key_Shift, Qt.Key.Key_Control, Qt.Key.Key_Alt, Qt.Key.Key_Meta)):
             return False
-        if ev.type() == QEvent.KeyPress:
+        if ev.type() == QEvent.Type.KeyPress:
             return self.handler().handleKeyPress(ev) or False
         return False
 

@@ -34,7 +34,7 @@ class ToolBoxWheeler(QObject):
         toolbox.installEventFilter(self)
 
     def eventFilter(self, toolbox, ev):
-        if ev.type() == QEvent.Wheel and ev.modifiers() & Qt.Modifier.CTRL:
+        if ev.type() == QEvent.Type.Wheel and ev.modifiers() & Qt.Modifier.CTRL:
             self.wheelEvent(toolbox, ev)
             return True
         return False

@@ -180,7 +180,7 @@ class Widget(QTreeWidget):
 
     def event(self, ev):
         """Reimplemented to show custom tool tips."""
-        if ev.type() == QEvent.ToolTip:
+        if ev.type() == QEvent.Type.ToolTip:
             i = self.indexAt(ev.pos() - self.viewport().pos())
             item = self.itemFromIndex(i)
             if item:

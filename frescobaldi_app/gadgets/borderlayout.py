@@ -108,11 +108,11 @@ class BorderLayout(QObject):
         """Reimplemented to handle resizes and avoid resize loops."""
         if self._resizing:
             return False
-        elif ev.type() == QEvent.Resize and obj is self.scrollarea().viewport():
+        elif ev.type() == QEvent.Type.Resize and obj is self.scrollarea().viewport():
             self.updateGeometry()
-        elif ev.type() in (QEvent.Resize, QEvent.ShowToParent, QEvent.HideToParent):
+        elif ev.type() in (QEvent.Type.Resize, QEvent.Type.ShowToParent, QEvent.Type.HideToParent):
             self.updateGeometry()
-        elif ev.type() in (QEvent.ParentChange, QEvent.DeferredDelete) and obj is not self.scrollarea().viewport():
+        elif ev.type() in (QEvent.Type.ParentChange, QEvent.Type.DeferredDelete) and obj is not self.scrollarea().viewport():
             for l in self._widgets:
                 if obj in l:
                     l.remove(obj)

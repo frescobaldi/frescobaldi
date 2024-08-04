@@ -46,13 +46,13 @@ class ComboDrag(QObject):
         combobox.installEventFilter(self)
 
     def eventFilter(self, combobox, ev):
-        if ev.type() == QEvent.MouseButtonPress and ev.button() == Qt.MouseButton.LeftButton:
+        if ev.type() == QEvent.Type.MouseButtonPress and ev.button() == Qt.MouseButton.LeftButton:
             self._dragpos = ev.pos()
             return not combobox.isEditable()
-        elif (ev.type() == QEvent.MouseMove and ev.buttons() & Qt.MouseButton.LeftButton
+        elif (ev.type() == QEvent.Type.MouseMove and ev.buttons() & Qt.MouseButton.LeftButton
               and combobox.count() >0):
             return self.mouseMoved(combobox, ev.pos()) or False
-        elif (ev.type() == QEvent.MouseButtonRelease
+        elif (ev.type() == QEvent.Type.MouseButtonRelease
             and ev.button() == Qt.MouseButton.LeftButton and not combobox.isEditable()):
             combobox.mousePressEvent(ev)
         return False
@@ -84,10 +84,10 @@ class Dragger(QObject):
             parent.installEventFilter(self)
 
     def eventFilter(self, widget, ev):
-        if ev.type() == QEvent.MouseButtonPress and ev.button() == Qt.MouseButton.LeftButton:
+        if ev.type() == QEvent.Type.MouseButtonPress and ev.button() == Qt.MouseButton.LeftButton:
             self._dragpos = ev.pos()
             return True
-        elif ev.type() == QEvent.MouseMove and ev.buttons() & Qt.MouseButton.LeftButton:
+        elif ev.type() == QEvent.Type.MouseMove and ev.buttons() & Qt.MouseButton.LeftButton:
             return self.mouseMoved(widget, ev.pos()) or False
         return False
 

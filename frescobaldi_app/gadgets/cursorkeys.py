@@ -56,7 +56,7 @@ class KeyPressHandler(QObject):
 
     def eventFilter(self, obj, ev):
         """Reimplemented to dispatch keypress events to the handle() method."""
-        if ev.type() == QEvent.KeyPress:
+        if ev.type() == QEvent.Type.KeyPress:
             return self.handle(obj, ev)
         return False
 
