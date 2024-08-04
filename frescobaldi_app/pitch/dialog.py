@@ -80,7 +80,7 @@ class ModeShiftDialog(QDialog):
         self.modeLabel = QLabel()
 
         self.buttons = QDialogButtonBox(
-            QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+            QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
         userguide.addButton(self.buttons, "mode_shift")
 
         for m in sorted(modes.keys()):
@@ -106,8 +106,8 @@ class ModeShiftDialog(QDialog):
         self.setWindowTitle(app.caption(_("Mode Shift")))
         self.keyLabel.setText(_("Key:"))
         self.modeLabel.setText(_("Mode:"))
-        self.buttons.button(QDialogButtonBox.Ok).setText(_("shift pitches"))
-        self.buttons.button(QDialogButtonBox.Ok).setEnabled(False)
+        self.buttons.button(QDialogButtonBox.StandardButton.Ok).setText(_("shift pitches"))
+        self.buttons.button(QDialogButtonBox.StandardButton.Ok).setEnabled(False)
 
     def setKeyValidator(self, validate):
         """Set function that validates the key input."""
@@ -124,9 +124,9 @@ class ModeShiftDialog(QDialog):
         """Read the key input and check if it's acceptable."""
         if self.keyInput.hasAcceptableInput():
             self.readSettings()
-            self.buttons.button(QDialogButtonBox.Ok).setEnabled(True)
+            self.buttons.button(QDialogButtonBox.StandardButton.Ok).setEnabled(True)
         else:
-            self.buttons.button(QDialogButtonBox.Ok).setEnabled(False)
+            self.buttons.button(QDialogButtonBox.StandardButton.Ok).setEnabled(False)
 
     def getMode(self):
         """Returns the chosen mode."""

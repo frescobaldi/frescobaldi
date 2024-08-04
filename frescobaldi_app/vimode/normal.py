@@ -45,10 +45,10 @@ class NormalMode(handlerbase.Handler):
         cursor = self.textCursor()
         if cursor.hasSelection() and cursor.position() > cursor.anchor():
             cursor.clearSelection()
-            cursor.movePosition(QTextCursor.PreviousCharacter, QTextCursor.KeepAnchor)
+            cursor.movePosition(QTextCursor.MoveOperation.PreviousCharacter, QTextCursor.MoveMode.KeepAnchor)
         else:
             cursor.clearSelection()
-            cursor.movePosition(QTextCursor.NextCharacter, QTextCursor.KeepAnchor)
+            cursor.movePosition(QTextCursor.MoveOperation.NextCharacter, QTextCursor.MoveMode.KeepAnchor)
         self.vimode.drawCursor(cursor)
 
     def handleKeyPress(self, ev):
@@ -99,12 +99,12 @@ class NormalMode(handlerbase.Handler):
     @command(['h', '<left>'])
     def move_left(self, cursor):
         if cursor.position() > cursor.block().position():
-            cursor.movePosition(QTextCursor.PreviousCharacter)
+            cursor.movePosition(QTextCursor.MoveOperation.PreviousCharacter)
 
     @command(['l', '<right>'])
     def move_right(self, cursor):
         if cursor.position() < cursor.block().position() + cursor.block().length() - 2:
-            cursor.movePosition(QTextCursor.NextCharacter)
+            cursor.movePosition(QTextCursor.MoveOperation.NextCharacter)
 
     @command('i', set_cursor=False)
     def insert_mode(self, cursor):

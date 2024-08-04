@@ -108,7 +108,7 @@ class HyphenDialog(QDialog):
 
         self.buttons = b = QDialogButtonBox()
         layout.addWidget(b)
-        b.setStandardButtons(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        b.setStandardButtons(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
         userguide.addButton(b, "lyrics")
         b.rejected.connect(self.reject)
         b.accepted.connect(self.accept)

@@ -153,7 +153,7 @@ class LogWidget(log.Log):
         es = QTextEdit.ExtraSelection()
         es.cursor = QTextCursor(self.document())
         es.cursor.setPosition(pos)
-        es.cursor.setPosition(anchor, QTextCursor.KeepAnchor)
+        es.cursor.setPosition(anchor, QTextCursor.MoveMode.KeepAnchor)
         bg = qutil.mixcolor(self.palette().highlight().color(), self.palette().base().color(), 0.4)
         es.format.setBackground(bg)
         es.format.setProperty(QTextFormat.FullWidthSelection, True)

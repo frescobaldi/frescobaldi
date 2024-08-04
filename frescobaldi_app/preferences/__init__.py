@@ -81,22 +81,22 @@ class PreferencesDialog(QDialog):
 
         b = self.buttons = QDialogButtonBox(self)
         b.setStandardButtons(
-            QDialogButtonBox.Ok
-            | QDialogButtonBox.Cancel
-            | QDialogButtonBox.Apply
-            | QDialogButtonBox.Reset
-            | QDialogButtonBox.Help)
+            QDialogButtonBox.StandardButton.Ok
+            | QDialogButtonBox.StandardButton.Cancel
+            | QDialogButtonBox.StandardButton.Apply
+            | QDialogButtonBox.StandardButton.Reset
+            | QDialogButtonBox.StandardButton.Help)
         layout.addWidget(b)
         b.accepted.connect(self.maybeAccept)
         b.rejected.connect(self.reject)
         # saveSettings() may raise CancelClosingPreferences. This is primarily
         # for use when it makes sense for the "Ok" button, but may occur in "Apply",
         # so we need to catch it.
-        b.button(QDialogButtonBox.Apply).clicked.connect(self.trySaveSettings)
-        b.button(QDialogButtonBox.Reset).clicked.connect(self.loadSettings)
-        b.button(QDialogButtonBox.Help).clicked.connect(self.showHelp)
-        b.button(QDialogButtonBox.Help).setShortcut(QKeySequence.StandardKey.HelpContents)
-        b.button(QDialogButtonBox.Apply).setEnabled(False)
+        b.button(QDialogButtonBox.StandardButton.Apply).clicked.connect(self.trySaveSettings)
+        b.button(QDialogButtonBox.StandardButton.Reset).clicked.connect(self.loadSettings)
+        b.button(QDialogButtonBox.StandardButton.Help).clicked.connect(self.showHelp)
+        b.button(QDialogButtonBox.StandardButton.Help).setShortcut(QKeySequence.StandardKey.HelpContents)
+        b.button(QDialogButtonBox.StandardButton.Apply).setEnabled(False)
 
         # fill the pagelist
         self.pagelist.setIconSize(QSize(32, 32))
@@ -123,7 +123,7 @@ class PreferencesDialog(QDialog):
             return True
 
     def maybeAccept(self):
-        if (not self.buttons.button(QDialogButtonBox.Apply).isEnabled()
+        if (not self.buttons.button(QDialogButtonBox.StandardButton.Apply).isEnabled()
               or self.trySaveSettings()):
             self.accept()
 
@@ -146,7 +146,7 @@ class PreferencesDialog(QDialog):
         for page in self.pages():
             page.loadSettings()
             page.hasChanges = False
-        self.buttons.button(QDialogButtonBox.Apply).setEnabled(False)
+        self.buttons.button(QDialogButtonBox.StandardButton.Apply).setEnabled(False)
 
     def saveSettings(self):
         """Saves the settings and applies them."""
@@ -154,7 +154,7 @@ class PreferencesDialog(QDialog):
             if page.hasChanges:
                 page.saveSettings() # this may raise CancelClosingPreferences
                 page.hasChanges = False
-        self.buttons.button(QDialogButtonBox.Apply).setEnabled(False)
+        self.buttons.button(QDialogButtonBox.StandardButton.Apply).setEnabled(False)
 
         # emit the signal
         app.settingsChanged()
@@ -164,7 +164,7 @@ class PreferencesDialog(QDialog):
 
     def changed(self):
         """Call this to enable the Apply button."""
-        self.buttons.button(QDialogButtonBox.Apply).setEnabled(True)
+        self.buttons.button(QDialogButtonBox.StandardButton.Apply).setEnabled(True)
 
 
 class PrefsItemBase(QListWidgetItem):

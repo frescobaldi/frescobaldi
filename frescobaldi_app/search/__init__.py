@@ -312,7 +312,7 @@ class Search(plugin.MainWindowPlugin, QWidget):
                 for m in matches:
                     c = QTextCursor(document)
                     c.setPosition(start + m.end())
-                    c.setPosition(start + m.start(), QTextCursor.KeepAnchor)
+                    c.setPosition(start + m.start(), QTextCursor.MoveMode.KeepAnchor)
                     self._positions.append(c)
         self.countLabel.setText(format(len(self._positions)))
         enabled = len(self._positions) > 0
@@ -409,7 +409,7 @@ class Search(plugin.MainWindowPlugin, QWidget):
         if ok:
             pos = cursor.position()
             cursor.insertText(replace)
-            cursor.setPosition(pos, QTextCursor.KeepAnchor)
+            cursor.setPosition(pos, QTextCursor.MoveMode.KeepAnchor)
         return ok
 
     def slotReplace(self):

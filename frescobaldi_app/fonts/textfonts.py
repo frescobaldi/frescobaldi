@@ -293,8 +293,8 @@ class FontTreeModel(QStandardItemModel):
     def reset(self):
         self.clear()
         self.setColumnCount(2)
-        self.setHeaderData(0, Qt.Horizontal, _("Font"))
-        self.setHeaderData(1, Qt.Horizontal, _("Sample"))
+        self.setHeaderData(0, Qt.Orientation.Horizontal, _("Font"))
+        self.setHeaderData(1, Qt.Orientation.Horizontal, _("Sample"))
 
 
 class MiscTreeModel(QStandardItemModel):

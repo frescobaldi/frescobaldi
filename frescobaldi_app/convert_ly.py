@@ -94,12 +94,12 @@ class Dialog(QDialog):
         self.tabw.addTab(self.uni_diff, '')
 
         self.buttons = QDialogButtonBox(
-            QDialogButtonBox.Reset | QDialogButtonBox.Save |
-            QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        self.buttons.button(QDialogButtonBox.Ok).clicked    .connect(self.accept)
+            QDialogButtonBox.StandardButton.Reset | QDialogButtonBox.StandardButton.Save |
+            QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
+        self.buttons.button(QDialogButtonBox.StandardButton.Ok).clicked    .connect(self.accept)
         self.buttons.rejected.connect(self.reject)
-        self.buttons.button(QDialogButtonBox.Reset).clicked.connect(self.run)
-        self.buttons.button(QDialogButtonBox.Save).clicked.connect(self.saveFile)
+        self.buttons.button(QDialogButtonBox.StandardButton.Reset).clicked.connect(self.run)
+        self.buttons.button(QDialogButtonBox.StandardButton.Save).clicked.connect(self.saveFile)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -136,8 +136,8 @@ class Dialog(QDialog):
         self.tabw.setTabText(0, _("&Messages"))
         self.tabw.setTabText(1, _("&Changes"))
         self.tabw.setTabText(2, _("&Diff"))
-        self.buttons.button(QDialogButtonBox.Reset).setText(_("Run Again"))
-        self.buttons.button(QDialogButtonBox.Save).setText(_("Save as file"))
+        self.buttons.button(QDialogButtonBox.StandardButton.Reset).setText(_("Run Again"))
+        self.buttons.button(QDialogButtonBox.StandardButton.Save).setText(_("Save as file"))
         self.setCaption()
 
     def saveCopyCheckSetting(self):
@@ -170,7 +170,7 @@ class Dialog(QDialog):
 
     def setConvertedText(self, text=''):
         self._convertedtext = text
-        self.buttons.button(QDialogButtonBox.Ok).setEnabled(bool(text))
+        self.buttons.button(QDialogButtonBox.StandardButton.Ok).setEnabled(bool(text))
         if text:
             self.diff.setHtml(htmldiff.htmldiff(
                 self._text, text,

@@ -183,11 +183,11 @@ class FileImport(plugin.MainWindowPlugin):
             import reformat
             reformat.reformat(cursor)
         if settings[1]:
-            cursor.select(QTextCursor.Document)
+            cursor.select(QTextCursor.SelectionType.Document)
             from rhythm import rhythm
             rhythm.rhythm_implicit_per_line(cursor)
         if settings[2]:
-            cursor.select(QTextCursor.Document)
+            cursor.select(QTextCursor.SelectionType.Document)
             from rhythm import rhythm
             rhythm.rhythm_remove_fraction_scaling(cursor)
         if settings[3]:

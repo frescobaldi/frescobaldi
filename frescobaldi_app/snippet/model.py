@@ -53,7 +53,7 @@ class SnippetModel(QAbstractItemModel):
 
     # methods needed to be a well-behaved model
     def headerData(self, section, orientation, role=Qt.ItemDataRole.DisplayRole):
-        if role == Qt.ItemDataRole.DisplayRole and orientation == Qt.Horizontal:
+        if role == Qt.ItemDataRole.DisplayRole and orientation == Qt.Orientation.Horizontal:
             if section == 0:
                 return _("Name")
             elif section == 1:
@@ -92,7 +92,7 @@ class SnippetModel(QAbstractItemModel):
 
     def slotLanguageChanged(self):
         """Called when the user changes the language."""
-        self.headerDataChanged.emit(Qt.Horizontal, 0, 2)
+        self.headerDataChanged.emit(Qt.Orientation.Horizontal, 0, 2)
 
     def load(self):
         self.beginResetModel()

@@ -71,7 +71,7 @@ class MusicView(preferences.Group):
         layout.addWidget(self.arthurBackend, 1, 0, 1, 4)
 
         self.magnifierSizeLabel = QLabel()
-        self.magnifierSizeSlider = QSlider(Qt.Horizontal, valueChanged=self.changed)
+        self.magnifierSizeSlider = QSlider(Qt.Orientation.Horizontal, valueChanged=self.changed)
         self.magnifierSizeSlider.setSingleStep(50)
         self.magnifierSizeSlider.setRange(pagedview.Magnifier.MIN_SIZE, pagedview.Magnifier.MAX_SIZE)
         self.magnifierSizeSpinBox = QSpinBox()
@@ -83,7 +83,7 @@ class MusicView(preferences.Group):
         layout.addWidget(self.magnifierSizeSpinBox, 2, 3)
 
         self.magnifierScaleLabel = QLabel()
-        self.magnifierScaleSlider = QSlider(Qt.Horizontal, valueChanged=self.changed)
+        self.magnifierScaleSlider = QSlider(Qt.Orientation.Horizontal, valueChanged=self.changed)
         self.magnifierScaleSlider.setSingleStep(50)
         self.magnifierScaleSlider.setRange(50, 800)
         self.magnifierScaleSpinBox = QSpinBox()

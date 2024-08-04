@@ -62,7 +62,7 @@ class Widget(QWidget):
         menu = QMenu(self.menuButton)
         self.menuButton.setMenu(menu)
 
-        splitter = QSplitter(Qt.Vertical)
+        splitter = QSplitter(Qt.Orientation.Vertical)
         top = QHBoxLayout()
         layout.addLayout(top)
         splitter.addWidget(self.treeView)

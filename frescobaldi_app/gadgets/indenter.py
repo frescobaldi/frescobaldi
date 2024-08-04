@@ -108,7 +108,7 @@ class Indenter(QObject):
                 start = max(0, end - self.indentWidth)
                 if start < end:
                     cursor.setPosition(block.position() + start)
-                    cursor.setPosition(block.position() + end, QTextCursor.KeepAnchor)
+                    cursor.setPosition(block.position() + end, QTextCursor.MoveMode.KeepAnchor)
                     cursor.removeSelectedText()
 
 

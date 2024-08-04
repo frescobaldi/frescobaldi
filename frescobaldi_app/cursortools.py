@@ -139,10 +139,10 @@ def keep_selection(cursor, edit=None):
     finally:
         if pos == start:
             cursor.setPosition(cur2.position())
-            cursor.setPosition(start, QTextCursor.KeepAnchor)
+            cursor.setPosition(start, QTextCursor.MoveMode.KeepAnchor)
         else:
             cursor.setPosition(start)
-            cursor.setPosition(cur2.position(), QTextCursor.KeepAnchor)
+            cursor.setPosition(cur2.position(), QTextCursor.MoveMode.KeepAnchor)
         if edit:
             edit.setTextCursor(cursor)
 
@@ -166,7 +166,7 @@ def strip_selection(cursor, chars=None):
     if cursor.position() < cursor.anchor():
         s, e = e, s
     cursor.setPosition(s)
-    cursor.setPosition(e, QTextCursor.KeepAnchor)
+    cursor.setPosition(e, QTextCursor.MoveMode.KeepAnchor)
 
 
 def strip_indent(cursor):
@@ -182,7 +182,7 @@ def insert_select(cursor, text):
     cursor.insertText(text)
     new = cursor.position()
     cursor.setPosition(pos)
-    cursor.setPosition(new, QTextCursor.KeepAnchor)
+    cursor.setPosition(new, QTextCursor.MoveMode.KeepAnchor)
 
 
 def isblank(block):

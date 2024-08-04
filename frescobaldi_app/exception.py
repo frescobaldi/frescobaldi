@@ -62,7 +62,7 @@ class ExceptionDialog(QDialog):
         textview = QTextBrowser()
         layout.addWidget(textview)
         textview.setText(self._tbfull)
-        textview.moveCursor(QTextCursor.End)
+        textview.moveCursor(QTextCursor.MoveOperation.End)
 
         layout.addWidget(widgets.Separator())
 
@@ -71,8 +71,8 @@ class ExceptionDialog(QDialog):
         self.infoLabel.setOpenExternalLinks(True)
         layout.addWidget(self.infoLabel)
 
-        b = self.buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        b.button(QDialogButtonBox.Ok).setIcon(icons.get("tools-report-bug"))
+        b = self.buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
+        b.button(QDialogButtonBox.StandardButton.Ok).setIcon(icons.get("tools-report-bug"))
         layout.addWidget(b)
 
         b.accepted.connect(self.accept)
@@ -100,7 +100,7 @@ class ExceptionDialog(QDialog):
         self.setWindowTitle(app.caption(title))
         self.errorLabel.setText(text)
         self.infoLabel.setText(info)
-        self.buttons.button(QDialogButtonBox.Ok).setText(_("Send Bug Report..."))
+        self.buttons.button(QDialogButtonBox.StandardButton.Ok).setText(_("Send Bug Report..."))
 
     def done(self, result):
         if result:

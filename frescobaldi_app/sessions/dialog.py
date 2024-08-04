@@ -64,7 +64,7 @@ class SessionManagerDialog(QDialog):
 
         self.buttons = b = QDialogButtonBox(self)
         layout.addWidget(b)
-        b.setStandardButtons(QDialogButtonBox.Close)
+        b.setStandardButtons(QDialogButtonBox.StandardButton.Close)
         b.rejected.connect(self.accept)
         userguide.addButton(b, "sessions")
         self.sessions.load()
@@ -250,7 +250,7 @@ class SessionEditor(QDialog):
         layout.addWidget(widgets.Separator())
         self.buttons = b = QDialogButtonBox(self)
         layout.addWidget(b)
-        b.setStandardButtons(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        b.setStandardButtons(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
         userguide.addButton(b, "sessions")

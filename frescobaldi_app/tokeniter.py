@@ -91,7 +91,7 @@ def cursor(block, token, start=0, end=None):
         end = len(token)
     cursor = QTextCursor(block)
     cursor.setPosition(block.position() + token.pos + start)
-    cursor.setPosition(block.position() + token.pos + end, QTextCursor.KeepAnchor)
+    cursor.setPosition(block.position() + token.pos + end, QTextCursor.MoveMode.KeepAnchor)
     return cursor
 
 

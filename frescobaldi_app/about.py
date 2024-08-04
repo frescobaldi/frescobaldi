@@ -56,7 +56,7 @@ class AboutDialog(QDialog):
         tabw.addTab(Credits(self), _("Credits"))
         tabw.addTab(Version(self), _("Version"))
 
-        button = QDialogButtonBox(QDialogButtonBox.Ok)
+        button = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok)
         button.setCenterButtons(True)
         button.accepted.connect(self.accept)
         layout.addWidget(button)

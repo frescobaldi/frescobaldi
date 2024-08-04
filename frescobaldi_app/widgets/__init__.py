@@ -35,21 +35,21 @@ class Separator(QFrame):
         QFrame.__init__(self, *args, **kwargs)
         self.setLineWidth(1)
         self.setMidLineWidth(0)
-        self.setOrientation(Qt.Horizontal)
+        self.setOrientation(Qt.Orientation.Horizontal)
 
     def setOrientation(self, orientation):
-        if orientation == Qt.Vertical:
-            self.setFrameShape(QFrame.VLine)
-            self.setFrameShadow(QFrame.Sunken)
+        if orientation == Qt.Orientation.Vertical:
+            self.setFrameShape(QFrame.Shape.VLine)
+            self.setFrameShadow(QFrame.Shadow.Sunken)
             self.setMinimumSize(2, 0)
         else:
-            self.setFrameShape(QFrame.HLine)
-            self.setFrameShadow(QFrame.Sunken)
+            self.setFrameShape(QFrame.Shape.HLine)
+            self.setFrameShadow(QFrame.Shadow.Sunken)
             self.setMinimumSize(0, 2)
         self.updateGeometry()
 
     def orientation(self):
-        return Qt.Vertical if self.frameStyle() & QFrame.VLine == QFrame.VLine else Qt.Horizontal
+        return Qt.Orientation.Vertical if self.frameStyle() & QFrame.Shape.VLine == QFrame.Shape.VLine else Qt.Orientation.Horizontal
 
 
 class ClearButton(QToolButton):

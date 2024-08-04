@@ -1010,28 +1010,28 @@ class MainWindow(QMainWindow):
                 cur = QTextCursor(self.currentDocument().findBlockByNumber(line - 1))
                 line_text = cur.block().text()
                 indent = len(line_text) - len(line_text.lstrip(' \t'))
-                cur.movePosition(QTextCursor.NextCharacter, QTextCursor.MoveAnchor, indent)
+                cur.movePosition(QTextCursor.MoveOperation.NextCharacter, QTextCursor.MoveMode.MoveAnchor, indent)
                 view.setTextCursor(cur)
                 view.centerCursor()
 
     def selectFullLinesUp(self):
         """Select lines upwards, selecting full lines."""
-        self.selectFullLines(QTextCursor.Up)
+        self.selectFullLines(QTextCursor.MoveOperation.Up)
 
     def selectFullLinesDown(self):
         """Select lines downwards, selecting full lines."""
-        self.selectFullLines(QTextCursor.Down)
+        self.selectFullLines(QTextCursor.MoveOperation.Down)
 
     def selectFullLines(self, direction):
-        """Select full lines in the direction QTextCursor.Up or Down."""
+        """Select full lines in the direction QTextCursor.MoveOperation.Up or Down."""
         view = self.currentView()
         cur = view.textCursor()
         position = cur.position()
         cur.setPosition(cur.anchor())
-        cur.movePosition(QTextCursor.StartOfLine)
-        cur.setPosition(position, QTextCursor.KeepAnchor)
-        cur.movePosition(direction, QTextCursor.KeepAnchor)
-        cur.movePosition(QTextCursor.StartOfLine, QTextCursor.KeepAnchor)
+        cur.movePosition(QTextCursor.MoveOperation.StartOfLine)
+        cur.setPosition(position, QTextCursor.MoveMode.KeepAnchor)
+        cur.movePosition(direction, QTextCursor.MoveMode.KeepAnchor)
+        cur.movePosition(QTextCursor.MoveOperation.StartOfLine, QTextCursor.MoveMode.KeepAnchor)
         view.setTextCursor(cur)
 
     def showManual(self):

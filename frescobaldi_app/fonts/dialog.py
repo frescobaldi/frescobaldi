@@ -114,7 +114,7 @@ class FontsDialog(QDialog):
 
         # Create a QSplitter as main widget
         self.splitter = QSplitter()
-        self.splitter.setOrientation(Qt.Horizontal)
+        self.splitter.setOrientation(Qt.Orientation.Horizontal)
         layout.addWidget(self.splitter)
 
         # Left side layout
@@ -151,10 +151,10 @@ class FontsDialog(QDialog):
         # Bottom area: button box
         self._button_box = bb = QDialogButtonBox()
         layout.addWidget(bb)
-        self.restore_button = bb.addButton(QDialogButtonBox.RestoreDefaults)
-        self.copy_button = bb.addButton(QDialogButtonBox.Save)
-        self.insert_button = bb.addButton(QDialogButtonBox.Ok)
-        self.close_button = bb.addButton(QDialogButtonBox.Close)
+        self.restore_button = bb.addButton(QDialogButtonBox.StandardButton.RestoreDefaults)
+        self.copy_button = bb.addButton(QDialogButtonBox.StandardButton.Save)
+        self.insert_button = bb.addButton(QDialogButtonBox.StandardButton.Ok)
+        self.close_button = bb.addButton(QDialogButtonBox.StandardButton.Close)
         # Add and connect help button
         userguide.addButton(self._button_box, "documentfonts")
 

@@ -93,7 +93,7 @@ class Matcher(QObject):
             # look forward
             match = self.matchPairs[i+1]
             flags = QTextDocument.FindFlags()
-            new.movePosition(QTextCursor.Right)
+            new.movePosition(QTextCursor.MoveOperation.Right)
 
         # search, also nesting
         rx = QRegularExpression(QRegularExpression.escape(c)
@@ -106,7 +106,7 @@ class Matcher(QObject):
                 self.clear()
                 return
             nest += 1 if new.selectedText() == c else -1
-        cursor.movePosition(QTextCursor.Right, QTextCursor.KeepAnchor)
+        cursor.movePosition(QTextCursor.MoveOperation.Right, QTextCursor.MoveMode.KeepAnchor)
         self.highlight([cursor, new])
 
     def highlight(self, cursors):

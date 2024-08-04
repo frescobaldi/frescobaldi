@@ -74,8 +74,8 @@ class Dialog(QDialog):
         self.commandLine = QTextEdit(acceptRichText=False)
 
         self.buttons = QDialogButtonBox(
-            QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        self.buttons.button(QDialogButtonBox.Ok).setIcon(icons.get("lilypond-run"))
+            QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
+        self.buttons.button(QDialogButtonBox.StandardButton.Ok).setIcon(icons.get("lilypond-run"))
         userguide.addButton(self.buttons, "engrave_custom")
 
         self.resolutionCombo.addItems(['100', '200', '300', '600', '1200'])
@@ -138,12 +138,12 @@ class Dialog(QDialog):
         self.embedSourceCodeCheck.setText(_("Embed Source Code"))
         self.englishCheck.setText(_("Run LilyPond with English messages"))
         self.commandLineLabel.setText(_("Additional Command Line Options:"))
-        self.buttons.button(QDialogButtonBox.Ok).setText(_("Run LilyPond"))
+        self.buttons.button(QDialogButtonBox.StandardButton.Ok).setText(_("Run LilyPond"))
         self.outputCombo.update()
 
     def slotJobFinished(self, doc):
         if doc == self._document:
-            self.buttons.button(QDialogButtonBox.Ok).setEnabled(True)
+            self.buttons.button(QDialogButtonBox.StandardButton.Ok).setEnabled(True)
             self._document = None
 
     def setDocument(self, doc):
@@ -152,7 +152,7 @@ class Dialog(QDialog):
             self.lilyChooser.setLilyPondInfo(j.lilypond_info)
         if j and j.is_running() and not job.attributes.get(j).hidden:
             self._document = doc
-            self.buttons.button(QDialogButtonBox.Ok).setEnabled(False)
+            self.buttons.button(QDialogButtonBox.StandardButton.Ok).setEnabled(False)
 
     def updateFormatControls(self):
         """Reads the widgets and builds a command line."""
