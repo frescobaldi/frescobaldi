@@ -59,7 +59,7 @@ class Apps(preferences.Group):
         for row, (name, title) in enumerate(self.items(), 1):
             self.labels[name] = l = QLabel()
             self.entries[name] = e = widgets.urlrequester.UrlRequester()
-            e.setFileMode(QFileDialog.ExistingFile)
+            e.setFileMode(QFileDialog.FileMode.ExistingFile)
             e.changed.connect(page.changed)
             layout.addWidget(l, row, 0)
             layout.addWidget(e, row, 1)

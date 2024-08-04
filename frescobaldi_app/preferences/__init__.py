@@ -23,7 +23,7 @@ The Preferences Dialog.
 
 
 
-from PyQt6.QtCore import QSettings, QSize, Qt, pyqtSignal
+from PyQt6.QtCore import QMargins, QSettings, QSize, Qt, pyqtSignal
 from PyQt6.QtGui import QKeySequence
 from PyQt6.QtWidgets import (
     QDialog, QDialogButtonBox, QGroupBox, QHBoxLayout, QListWidget,
@@ -61,7 +61,7 @@ class PreferencesDialog(QDialog):
 
     def __init__(self, mainwindow):
         super().__init__(mainwindow)
-        self.setWindowModality(Qt.WindowType.WindowModal)
+        self.setWindowModality(Qt.WindowModality.WindowModal)
         if mainwindow:
             self.addAction(mainwindow.actionCollection.help_whatsthis)
         layout = QVBoxLayout()
@@ -343,9 +343,9 @@ class ScrolledPage(Page):
     """
     def __init__(self, dialog):
         super().__init__(dialog)
-        layout = QVBoxLayout(margin=0, spacing=0)
+        layout = QVBoxLayout(contentsMargins=QMargins(0, 0, 0, 0), spacing=0)
         self.setLayout(layout)
-        scrollarea = QScrollArea(frameWidth=0, frameShape=QScrollArea.NoFrame)
+        scrollarea = QScrollArea(frameWidth=0, frameShape=QScrollArea.Shape.NoFrame)
         layout.addWidget(scrollarea)
         self.scrolledWidget = QWidget(scrollarea)
         scrollarea.setWidget(self.scrolledWidget)
