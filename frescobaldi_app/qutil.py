@@ -26,9 +26,9 @@ import contextlib
 import re
 import weakref
 
-from PyQt5.QtCore import QEventLoop, QSettings, QSize, QTimer, Qt
-from PyQt5.QtGui import QColor, QKeySequence
-from PyQt5.QtWidgets import QAction, QApplication, QProgressDialog
+from PyQt6.QtCore import QEventLoop, QSettings, QSize, QTimer, Qt
+from PyQt6.QtGui import QAction, QColor, QKeySequence
+from PyQt6.QtWidgets import QApplication, QProgressDialog
 
 import appinfo
 
@@ -104,7 +104,7 @@ def addAccelerators(actions, used=[]):
         if isinstance(action, QAction) and not action.shortcut().isEmpty():
             # if the action has a shortcut with A-Z or 0-9, match that character
             shortcut = action.shortcut()[action.shortcut().count()-1]
-            key = shortcut & ~Qt.ALT & ~Qt.SHIFT & ~Qt.CTRL & ~Qt.META
+            key = shortcut & ~Qt.Modifier.ALT & ~Qt.Modifier.SHIFT & ~Qt.Modifier.CTRL & ~Qt.Modifier.META
             if 48 < key < 58 or 64 < key < 91 or 96 < key < 123:
                 yield 0, re.finditer(fr'\b{key:c}', text, re.I)
         yield 1, re.finditer(r'\b\w', text)
@@ -189,10 +189,10 @@ def mixcolor(color1, color2, mix):
 
 
 @contextlib.contextmanager
-def busyCursor(cursor=Qt.WaitCursor, processEvents=True):
+def busyCursor(cursor=Qt.CursorShape.WaitCursor, processEvents=True):
     """Performs the contained code using a busy cursor.
 
-    The default cursor used is Qt.WaitCursor.
+    The default cursor used is Qt.CursorShape.WaitCursor.
     If processEvents is True (the default), QApplication.processEvents()
     will be called once before the contained code is executed.
 

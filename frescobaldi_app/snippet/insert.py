@@ -24,9 +24,9 @@ Insert snippets into a Document.
 
 import sys
 
-from PyQt5.QtCore import QSettings
-from PyQt5.QtGui import QTextCursor
-from PyQt5.QtWidgets import QMessageBox
+from PyQt6.QtCore import QSettings
+from PyQt6.QtGui import QTextCursor
+from PyQt6.QtWidgets import QMessageBox
 
 import cursortools
 import tokeniter
@@ -246,12 +246,12 @@ def handle_exception(name, view):
         del tb[0]
     msg = ''.join(traceback.format_list(tb) +
                     traceback.format_exception_only(exc_type, exc_value))
-    dlg = QMessageBox(QMessageBox.Critical, _("Snippet error"), msg,
-        QMessageBox.Ok | QMessageBox.Cancel)
-    dlg.button(QMessageBox.Ok).setText(_("Edit Snippet"))
-    dlg.setDefaultButton(QMessageBox.Cancel)
-    dlg.setEscapeButton(QMessageBox.Cancel)
-    if dlg.exec_() != QMessageBox.Ok:
+    dlg = QMessageBox(QMessageBox.Icon.Critical, _("Snippet error"), msg,
+        QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
+    dlg.button(QMessageBox.StandardButton.Ok).setText(_("Edit Snippet"))
+    dlg.setDefaultButton(QMessageBox.StandardButton.Cancel)
+    dlg.setEscapeButton(QMessageBox.StandardButton.Cancel)
+    if dlg.exec_() != QMessageBox.StandardButton.Ok:
         return
 
     # determine line number

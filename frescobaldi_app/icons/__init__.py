@@ -24,9 +24,9 @@ Icons.
 
 import os
 
-from PyQt5.QtCore import QDir, QFile, QFileInfo, QSettings, QSize
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QFileIconProvider
+from PyQt6.QtCore import QDir, QFile, QFileInfo, QSettings, QSize
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QFileIconProvider
 
 import app
 

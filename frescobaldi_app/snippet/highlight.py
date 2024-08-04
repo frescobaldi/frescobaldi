@@ -25,7 +25,7 @@ Highlighter for the snippet editor and view.
 import builtins
 import keyword
 
-from PyQt5.QtGui import QSyntaxHighlighter
+from PyQt6.QtGui import QSyntaxHighlighter
 
 import app
 import textformats

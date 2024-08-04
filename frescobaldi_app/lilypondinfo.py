@@ -30,8 +30,8 @@ import platform
 import re
 import shutil
 
-from PyQt5.QtCore import QEventLoop, QSettings, QStandardPaths, QTimer
-from PyQt5.QtWidgets import QProgressDialog
+from PyQt6.QtCore import QEventLoop, QSettings, QStandardPaths, QTimer
+from PyQt6.QtWidgets import QProgressDialog
 
 import app
 import cachedproperty
@@ -46,7 +46,7 @@ if platform.system() == "Darwin":
 _infos = None   # this can hold a list of configured LilyPondInfo instances
 
 LILYPOND_AUTOINSTALL_DIR = (
-    os.path.join(QStandardPaths.writableLocation(QStandardPaths.DataLocation),
+    os.path.join(QStandardPaths.writableLocation(QStandardPaths.StandardLocation.AppLocalDataLocation),
                  "lilypond-binaries")
 )
 # According to the Qt documentation, the location may need to be created.

@@ -26,8 +26,8 @@ In the dialog the options of abc2ly can be set.
 
 import os
 
-from PyQt5.QtCore import QSettings, QSize
-from PyQt5.QtWidgets import (QCheckBox, QComboBox, QDialogButtonBox, QLabel)
+from PyQt6.QtCore import QSettings, QSize
+from PyQt6.QtWidgets import (QCheckBox, QComboBox, QDialogButtonBox, QLabel)
 
 import app
 import util

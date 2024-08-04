@@ -21,8 +21,8 @@
 Base ExtensionWidget for extensions
 """
 
-from PyQt5.QtCore import Qt, QObject
-from PyQt5.QtWidgets import QLabel, QVBoxLayout, QWidget
+from PyQt6.QtCore import Qt, QObject
+from PyQt6.QtWidgets import QLabel, QVBoxLayout, QWidget
 
 import app
 
@@ -35,7 +35,7 @@ class FailedExtensionWidget(QWidget):
     def __init__(self, parent):
         super().__init__(parent)
         self.label = QLabel()
-        self.label.setAlignment(Qt.AlignHCenter)
+        self.label.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         layout = QVBoxLayout()
         layout.addStretch()
         layout.addWidget(self.label)

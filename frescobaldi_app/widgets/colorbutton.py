@@ -22,9 +22,9 @@ A button to select a color.
 """
 
 
-from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtGui import QColor, QPainter
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6.QtGui import QColor, QPainter
+from PyQt6.QtWidgets import (
     QColorDialog, QPushButton, QStyle, QStyleOptionButton,
     qDrawShadeRect)
 
@@ -61,7 +61,7 @@ class ColorButton(QPushButton):
 
     def openDialog(self):
         """Called when clicked, opens a dialog to change the color."""
-        color = self._color if self._color.isValid() else QColor(Qt.white)
+        color = self._color if self._color.isValid() else QColor(Qt.GlobalColor.white)
         color = QColorDialog.getColor(color, self)
         if color.isValid():
             self.setColor(color)

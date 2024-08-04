@@ -24,8 +24,8 @@ Frescobaldi main menu.
 
 import builtins
 
-from PyQt5.QtCore import QSettings
-from PyQt5.QtWidgets import QMenu
+from PyQt6.QtCore import QSettings
+from PyQt6.QtWidgets import QMenu
 
 import app
 import icons

@@ -28,7 +28,7 @@ import os
 import re
 import weakref
 
-from PyQt5.QtCore import QSettings, QUrl
+from PyQt6.QtCore import QSettings, QUrl
 
 import document
 import qsettings

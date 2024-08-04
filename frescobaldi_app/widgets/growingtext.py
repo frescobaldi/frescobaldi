@@ -29,8 +29,8 @@ You should set maximumHeight to restrict its vertical size.
 # someone might find it useful at some point.
 # (Might be used from extensions, for example).
 
-from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtWidgets import QPlainTextEdit, QStyle, QTextEdit
+from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtWidgets import QPlainTextEdit, QStyle, QTextEdit
 
 
 __all__ = ["GrowingPlainTextEdit", "GrowingTextEdit"]

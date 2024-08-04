@@ -28,10 +28,10 @@ multiple views.
 import contextlib
 import weakref
 
-from PyQt5.QtCore import QEvent, Qt, pyqtSignal
-from PyQt5.QtGui import QKeySequence, QPixmap
-from PyQt5.QtWidgets import (
-    QAction, QHBoxLayout, QLabel, QMenu, QProgressBar, QSplitter,
+from PyQt6.QtCore import QEvent, Qt, pyqtSignal
+from PyQt6.QtGui import QAction, QKeySequence, QPixmap
+from PyQt6.QtWidgets import (
+    QHBoxLayout, QLabel, QMenu, QProgressBar, QSplitter,
     QStackedWidget, QVBoxLayout, QWidget)
 
 import actioncollection
@@ -61,7 +61,7 @@ class ViewStatusBar(QWidget):
 
     def event(self, ev):
         if ev.type() == QEvent.MouseButtonPress:
-            if ev.button() == Qt.RightButton:
+            if ev.button() == Qt.MouseButton.RightButton:
                 self.showContextMenu(ev.globalPos())
             else:
                 self.parent().activeView().setFocus()
@@ -427,7 +427,7 @@ class ViewActions(actioncollection.ActionCollection):
         self.window_previous_view.setIcon(icons.get('go-previous-view'))
 
         # shortcuts
-        self.window_close_view.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_W)
+        self.window_close_view.setShortcut(Qt.Modifier.CTRL + Qt.Modifier.SHIFT + Qt.Key.Key_W)
         self.window_next_view.setShortcuts(QKeySequence.NextChild)
         qutil.removeShortcut(self.window_next_view, "Ctrl+,")
         self.window_previous_view.setShortcuts(QKeySequence.PreviousChild)

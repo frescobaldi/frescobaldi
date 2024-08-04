@@ -192,7 +192,7 @@ dir_commands = {
 }
 def force_directions(cursor, direction):
     """Force the directions to be all the same, neutral, up or down."""
-    from PyQt5.QtGui import QTextCursor
+    from PyQt6.QtGui import QTextCursor
     import re
     reg = re.compile('(.*)(Up|Down|Neutral)')
     c = lydocument.cursor(cursor)

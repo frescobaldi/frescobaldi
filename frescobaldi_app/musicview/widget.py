@@ -27,9 +27,9 @@ import collections
 import itertools
 import os
 
-from PyQt5.QtCore import pyqtSignal, QMargins, QPoint, QRect, QSettings, Qt, QUrl
-from PyQt5.QtGui import QCursor, QTextCharFormat
-from PyQt5.QtWidgets import QToolTip, QVBoxLayout, QWidget
+from PyQt6.QtCore import pyqtSignal, QMargins, QPoint, QRect, QSettings, Qt, QUrl
+from PyQt6.QtGui import QCursor, QTextCharFormat
+from PyQt6.QtWidgets import QToolTip, QVBoxLayout, QWidget
 
 try:
     import popplerqt5
@@ -131,11 +131,11 @@ class MusicView(QWidget):
         Otherwise, call the helpers module to open the destination.
 
         """
-        if ev.button() == Qt.RightButton:
+        if ev.button() == Qt.MouseButton.RightButton:
             return
         cursor = self._links.cursor(link, True)
         if cursor:
-            if ev.modifiers() & Qt.ShiftModifier:
+            if ev.modifiers() & Qt.KeyboardModifier.ShiftModifier:
                 import editinplace
                 editinplace.edit(self, cursor, ev.globalPos())
             else:

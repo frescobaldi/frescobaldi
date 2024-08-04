@@ -48,13 +48,13 @@ def app_version():
 
 @_catch_unknown
 def pyqt_version():
-    import PyQt5.QtCore
-    return PyQt5.QtCore.PYQT_VERSION_STR
+    import PyQt6.QtCore
+    return PyQt6.QtCore.PYQT_VERSION_STR
 
 @_catch_unknown
 def qt_version():
-    import PyQt5.QtCore
-    return PyQt5.QtCore.QT_VERSION_STR
+    import PyQt6.QtCore
+    return PyQt6.QtCore.QT_VERSION_STR
 
 @_catch_unknown
 def python_version():

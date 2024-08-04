@@ -24,8 +24,8 @@ Cut selected text and assign it to a LilyPond variable.
 
 import os.path
 
-from PyQt5.QtGui import QTextCursor
-from PyQt5.QtWidgets import QFileDialog, QMessageBox
+from PyQt6.QtGui import QTextCursor
+from PyQt6.QtWidgets import QFileDialog, QMessageBox
 
 import app
 import util

@@ -29,7 +29,7 @@ if needed.
 
 
 
-from PyQt5.QtCore import QSettings, QTimer
+from PyQt6.QtCore import QSettings, QTimer
 
 
 def enabled():

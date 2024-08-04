@@ -25,8 +25,8 @@ Manages the Panels (Tools).
 import sys
 import collections
 
-from PyQt5.QtCore import QSettings
-from PyQt5.QtWidgets import QMenu
+from PyQt6.QtCore import QSettings
+from PyQt6.QtWidgets import QMenu
 
 import actioncollection
 import actioncollectionmanager

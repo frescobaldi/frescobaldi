@@ -27,7 +27,7 @@ try:
 except NameError:
     string_types = str
 
-from PyQt5.QtCore import QSettings
+from PyQt6.QtCore import QSettings
 
 import appinfo
 

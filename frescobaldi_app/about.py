@@ -22,8 +22,8 @@ About dialog.
 """
 
 
-from PyQt5.QtCore import QSettings, QSize, Qt, QUrl
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import QSettings, QSize, Qt, QUrl
+from PyQt6.QtWidgets import (
     QDialog, QDialogButtonBox, QLabel, QLayout, QTabWidget, QTextBrowser,
     QVBoxLayout, QWidget)
 
@@ -75,7 +75,7 @@ class About(QWidget):
         pic = QLabel()
         pic.setPixmap(icons.get("org.frescobaldi.Frescobaldi").pixmap(size))
         pic.setFixedSize(size)
-        layout.addWidget(pic, 0, Qt.AlignHCenter)
+        layout.addWidget(pic, 0, Qt.AlignmentFlag.AlignHCenter)
 
         text = QLabel()
         text.setText(html())

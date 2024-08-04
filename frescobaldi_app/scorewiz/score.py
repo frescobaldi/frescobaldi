@@ -22,8 +22,8 @@ The Parts widget.
 """
 
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import (
     QGroupBox, QHBoxLayout, QLabel, QPushButton, QSplitter, QStackedWidget,
     QToolButton, QTreeView, QVBoxLayout, QWidget)
 

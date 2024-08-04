@@ -30,16 +30,16 @@ from enum import Enum
 from shutil import copyfile
 from pathlib import Path
 
-from PyQt5.QtCore import (
+from PyQt6.QtCore import (
     QObject,
     QSettings,
     Qt
 )
-from PyQt5.QtGui import (
+from PyQt6.QtGui import (
     QStandardItem,
     QStandardItemModel,
 )
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QAbstractItemView,
     QFileDialog,
     QHBoxLayout,
@@ -215,7 +215,7 @@ class MusicFontsWidget(QWidget):
                 + "files and can therefore not be removed directly.")
             detailed_text = f"{e}"
         if text:
-            from PyQt5.QtWidgets import QMessageBox
+            from PyQt6.QtWidgets import QMessageBox
             msg_box = QMessageBox()
             msg_box.setText(text)
             msg_box.setInformativeText(informative_text)

@@ -21,7 +21,7 @@
 A Dialog to run an external command and simply show the log.
 """
 
-from PyQt5.QtCore import Qt, QSize
+from PyQt6.QtCore import Qt, QSize
 
 import log
 import qutil
@@ -38,7 +38,7 @@ class Dialog(widgets.dialog.Dialog):
             parent,
             buttons=('cancel', 'ok',)
         )
-        self.setWindowModality(Qt.WindowModal)
+        self.setWindowModality(Qt.WindowType.WindowModal)
         self.setIconSize(32)
         self.auto_accept = auto_accept
         self.log = log.Log(self)

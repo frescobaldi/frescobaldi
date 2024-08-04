@@ -27,8 +27,8 @@ system.
 
 import locale
 
-from PyQt5.QtCore import QLocale, QSettings, QTimer
-from PyQt5.QtWidgets import QMessageBox
+from PyQt6.QtCore import QLocale, QSettings, QTimer
+from PyQt6.QtWidgets import QMessageBox
 
 import app
 

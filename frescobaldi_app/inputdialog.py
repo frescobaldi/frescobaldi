@@ -22,9 +22,9 @@ Simple dialogs to ask input from the user.
 """
 
 
-from PyQt5.QtCore import QSettings, Qt
-from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import QCompleter, QColorDialog, QWidget
+from PyQt6.QtCore import QSettings, Qt
+from PyQt6.QtGui import QColor
+from PyQt6.QtWidgets import QCompleter, QColorDialog, QWidget
 
 import app
 import widgets.dialog
@@ -67,7 +67,7 @@ def getText(
     dlg.messageLabel().setWordWrap(wordWrap)
     if help is not None:
         userguide.addButton(dlg.buttonBox(), help)
-        dlg.setWindowModality(Qt.WindowModal)
+        dlg.setWindowModality(Qt.WindowType.WindowModal)
     else:
         dlg.setWindowModality(Qt.ApplicationModal)
     if regexp:
@@ -103,6 +103,6 @@ def getColor(
         _savedColor = dlg.selectedColor()
         return _savedColor
 
-_savedColor = QColor(Qt.white)
+_savedColor = QColor(Qt.GlobalColor.white)
 
 

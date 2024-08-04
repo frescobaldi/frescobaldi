@@ -36,12 +36,12 @@ import appinfo
 def error(title, message, can_continue=False):
     """Display an error, and exit if can_continue is False.
 
-    Displays a message box if PyQt5 is available, otherwise write the error to
+    Displays a message box if PyQt6 is available, otherwise write the error to
     stderr.
 
     """
     try:
-        from PyQt5.QtWidgets import QApplication, QMessageBox
+        from PyQt6.QtWidgets import QApplication, QMessageBox
     except ImportError:
         write = sys.stderr.write
         write(title + '\n')
@@ -54,19 +54,19 @@ def error(title, message, can_continue=False):
     else:
         app = QApplication([])
         box = QMessageBox()
-        box.setIcon(QMessageBox.Critical)
+        box.setIcon(QMessageBox.Icon.Critical)
         box.setWindowTitle("Frescobaldi")
         box.setText(title)
         box.setInformativeText(message)
         if can_continue:
-            box.setStandardButtons(QMessageBox.Abort|QMessageBox.Ignore)
-            box.button(QMessageBox.Ignore).setText("Continue")
+            box.setStandardButtons(QMessageBox.StandardButton.Abort|QMessageBox.StandardButton.Ignore)
+            box.button(QMessageBox.StandardButton.Ignore).setText("Continue")
         else:
-            box.setStandardButtons(QMessageBox.Abort)
-        box.button(QMessageBox.Abort).setText("Quit")
+            box.setStandardButtons(QMessageBox.StandardButton.Abort)
+        box.button(QMessageBox.StandardButton.Abort).setText("Quit")
         result = box.exec()
         app.quit()
-        if not can_continue or result == QMessageBox.Abort:
+        if not can_continue or result == QMessageBox.StandardButton.Abort:
             sys.exit(1)
 
 

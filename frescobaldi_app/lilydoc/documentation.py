@@ -25,8 +25,8 @@ Manage access to LilyPond documentation.
 import os
 import re
 
-from PyQt5.QtCore import pyqtSignal, QObject, QUrl
-from PyQt5.QtNetwork import QNetworkRequest
+from PyQt6.QtCore import pyqtSignal, QObject, QUrl
+from PyQt6.QtNetwork import QNetworkRequest
 
 from . import network
 

@@ -22,9 +22,9 @@ Displays any widget as a tooltip.
 """
 
 
-from PyQt5.QtCore import QEvent, QObject, QTimer, Qt
-from PyQt5.QtGui import QCursor
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtCore import QEvent, QObject, QTimer, Qt
+from PyQt6.QtGui import QCursor
+from PyQt6.QtWidgets import QApplication
 
 
 __all__ = ['hide', 'show']
@@ -75,8 +75,8 @@ def show(widget, pos=None, timeout=10000):
     if x < screen.x():
         x = screen.x()
     widget.move(x, y)
-    if widget.windowFlags() & Qt.ToolTip != Qt.ToolTip:
-        widget.setWindowFlags(Qt.ToolTip)
+    if widget.windowFlags() & Qt.WindowType.ToolTip != Qt.WindowType.ToolTip:
+        widget.setWindowFlags(Qt.WindowType.ToolTip)
         widget.ensurePolished()
 
     widget.show()

@@ -24,10 +24,10 @@ A Log shows the output of a Job.
 
 import contextlib
 
-from PyQt5.QtCore import QSettings
-from PyQt5.QtGui import (QFont, QPalette, QTextCharFormat, QTextCursor,
+from PyQt6.QtCore import QSettings
+from PyQt6.QtGui import (QFont, QPalette, QTextCharFormat, QTextCursor,
                          QTextFormat)
-from PyQt5.QtWidgets import QApplication, QTextBrowser
+from PyQt6.QtWidgets import QApplication, QTextBrowser
 
 import job
 import qutil
@@ -135,7 +135,7 @@ class Log(QTextBrowser):
         link.setFontUnderline(True)
 
         status = QTextCharFormat(output)
-        status.setFontWeight(QFont.Bold)
+        status.setFontWeight(QFont.Weight.Bold)
 
         neutral = QTextCharFormat(status)
 

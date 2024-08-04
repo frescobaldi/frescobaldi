@@ -25,7 +25,7 @@ Used by the tabbar and the doclist tool.
 
 import weakref
 
-from PyQt5.QtWidgets import QMenu
+from PyQt6.QtWidgets import QMenu
 
 import app
 import icons

@@ -25,9 +25,9 @@ Stuff dealing with the QSessionManager.
 import os
 import sys
 
-from PyQt5.QtCore import QObject, QSettings, Qt, QUrl
-from PyQt5.QtGui import QSessionManager
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtCore import QObject, QSettings, Qt, QUrl
+from PyQt6.QtGui import QSessionManager
+from PyQt6.QtWidgets import QApplication
 
 import appinfo
 import app
@@ -125,5 +125,5 @@ def restoreSession(key):
 
 @app.oninit
 def _setup():
-    # the new-style way of connecting fails on PyQt5 4.8.x...
+    # the new-style way of connecting fails on PyQt6 4.8.x...
     app.qApp.commitDataRequest.connect(commitData)

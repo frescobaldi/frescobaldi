@@ -27,9 +27,9 @@ When a character is clicked, a signal is emitted.
 
 import unicodedata
 
-from PyQt5.QtCore import pyqtSignal, QEvent, QRect, QSize, Qt
-from PyQt5.QtGui import QFont, QFontMetrics, QPainter, QPalette, QPen
-from PyQt5.QtWidgets import QToolTip, QWhatsThis, QWidget
+from PyQt6.QtCore import pyqtSignal, QEvent, QRect, QSize, Qt
+from PyQt6.QtGui import QFont, QFontMetrics, QPainter, QPalette, QPen
+from PyQt6.QtWidgets import QToolTip, QWhatsThis, QWidget
 
 
 class CharMap(QWidget):
@@ -174,7 +174,7 @@ class CharMap(QWidget):
         charcode = self.charcodeAt(ev.pos())
         if charcode != -1 and self.isprint(charcode):
             self.select(charcode)
-            if ev.button() != Qt.RightButton:
+            if ev.button() != Qt.MouseButton.RightButton:
                 self.characterClicked.emit(chr(charcode))
 
     def charcodeRect(self, charcode):

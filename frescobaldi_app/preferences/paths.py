@@ -22,8 +22,8 @@ Paths preferences page
 """
 
 
-from PyQt5.QtCore import QSettings
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import QSettings
+from PyQt6.QtWidgets import (
     QCheckBox,
     QHBoxLayout,
     QLabel,

@@ -24,7 +24,7 @@ Functions are used to present the data from an item for a role.
 There are some predefined functions to use in this module.
 """
 
-from PyQt5.QtCore import QAbstractListModel, Qt
+from PyQt6.QtCore import QAbstractListModel, Qt
 
 
 def display(item):
@@ -66,7 +66,7 @@ class ListModel(QAbstractListModel):
         if edit:
             self._roles[Qt.EditRole] = edit
         if tooltip:
-            self._roles[Qt.ToolTipRole] = tooltip
+            self._roles[Qt.WindowType.ToolTipRole] = tooltip
         if icon:
             self._roles[Qt.DecorationRole] = icon
 

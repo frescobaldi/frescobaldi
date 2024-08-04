@@ -22,8 +22,8 @@ QProgressBar subclasses.
 """
 
 
-from PyQt5.QtCore import QTimeLine, QTimer
-from PyQt5.QtWidgets import QProgressBar
+from PyQt6.QtCore import QTimeLine, QTimer
+from PyQt6.QtWidgets import QProgressBar
 
 class TimedProgressBar(QProgressBar):
     """A QProgressBar showing a certain time elapse."""

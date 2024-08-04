@@ -25,8 +25,8 @@ Currently this makes only sense on macOS.
 """
 
 
-from PyQt5.QtCore import QEvent, QObject
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtCore import QEvent, QObject
+from PyQt6.QtWidgets import QApplication
 
 import app
 

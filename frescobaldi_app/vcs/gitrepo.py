@@ -58,7 +58,7 @@ class Repo(AbstractVCSRepo):
         Frescobaldi is used as default
         """
         dir = os.path.normpath(os.path.join(sys.path[0], '..')) if dir is None else dir
-        from PyQt5.QtCore import QSettings
+        from PyQt6.QtCore import QSettings
         s = QSettings()
         s.beginGroup("helper_applications")
         git_cmd = s.value("git", "git", str)

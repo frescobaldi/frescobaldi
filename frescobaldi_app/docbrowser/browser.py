@@ -24,11 +24,11 @@ The browser widget for the help browser.
 
 import os
 
-from PyQt5.QtCore import QSettings, Qt, QUrl
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
-from PyQt5.QtWebEngineWidgets import QWebEnginePage, QWebEngineView, QWebEngineSettings
-from PyQt5.QtWidgets import QComboBox, QLineEdit, QMenu, QToolBar, QVBoxLayout, QWidget
+from PyQt6.QtCore import QSettings, Qt, QUrl
+from PyQt6.QtGui import QKeySequence
+from PyQt6.QtPrintSupport import QPrintDialog, QPrinter
+from PyQt6.QtWebEngineWidgets import QWebEnginePage, QWebEngineView, QWebEngineSettings
+from PyQt6.QtWidgets import QComboBox, QLineEdit, QMenu, QToolBar, QVBoxLayout, QWidget
 
 import app
 import icons
@@ -274,7 +274,7 @@ class Browser(QWidget):
 class SearchEntry(QLineEdit):
     """A line edit that clears itself when ESC is pressed."""
     def keyPressEvent(self, ev):
-        if ev.key() == Qt.Key_Escape:
+        if ev.key() == Qt.Key.Key_Escape:
             if self.text():
                 self.clear()
             else:

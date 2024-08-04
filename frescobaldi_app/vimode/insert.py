@@ -22,7 +22,7 @@ Insert ViMode.
 """
 
 
-from PyQt5.QtCore import Qt
+from PyQt6.QtCore import Qt
 
 from . import handlerbase
 
@@ -35,7 +35,7 @@ class InsertMode(handlerbase.Handler):
         m.clearCursor()
 
     def handleKeyPress(self, ev):
-        if ev.key() == Qt.Key_Escape and ev.modifiers() == Qt.NoModifier:
+        if ev.key() == Qt.Key.Key_Escape and ev.modifiers() == Qt.KeyboardModifier.NoModifier:
             self.setNormalMode()
             return True
 

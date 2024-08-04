@@ -295,7 +295,7 @@ class MethodListener(ListenerBase):
         try:
             func = meth.__func__
         except AttributeError:
-            # c++ methods from PyQt5 object sometimes do not have the __func__ attribute
+            # c++ methods from PyQt6 object sometimes do not have the __func__ attribute
             func = getattr(meth.__self__.__class__, meth.__name__)
         super().__init__(func, obj)
 

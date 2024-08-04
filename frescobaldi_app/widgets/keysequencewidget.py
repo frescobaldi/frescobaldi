@@ -25,9 +25,9 @@ Loosely based on kkeysequencewidget.cpp from KDE :-)
 """
 
 
-from PyQt5.QtCore import QEvent, QSize, Qt, QTimer, pyqtSignal
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import QEvent, QSize, Qt, QTimer, pyqtSignal
+from PyQt6.QtGui import QKeySequence
+from PyQt6.QtWidgets import (
     QApplication, QHBoxLayout, QPushButton, QToolButton, QWidget)
 
 import app
@@ -137,30 +137,30 @@ class KeySequenceButton(QPushButton):
             return super().keyPressEvent(ev)
         if ev.isAutoRepeat():
             return
-        modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
+        modifiers = int(ev.modifiers() & (Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Modifier.ALT | Qt.Modifier.META))
         ev.accept()
 
         key = ev.key()
         # check if key is a modifier or a character key without modifier (and if that is allowed)
         if (
             # don't append the key if the key is -1 (garbage) or a modifier ...
-            key not in (-1, Qt.Key_AltGr, Qt.Key_Shift, Qt.Key_Control,
-                            Qt.Key_Alt, Qt.Key_Meta, Qt.Key_Menu)
+            key not in (-1, Qt.Key.Key_AltGr, Qt.Key.Key_Shift, Qt.Key.Key_Control,
+                            Qt.Key.Key_Alt, Qt.Key.Key_Meta, Qt.Key.Key_Menu)
             # or if this is the first key and without modifier and modifierless keys are not allowed
             and (self._modifierlessAllowed
                  or self._recseq.count() > 0
-                 or modifiers & ~Qt.SHIFT
+                 or modifiers & ~Qt.Modifier.SHIFT
                  or not ev.text()
-                 or (modifiers & Qt.SHIFT
-                     and key in (Qt.Key_Return, Qt.Key_Space, Qt.Key_Tab, Qt.Key_Backtab,
-                                 Qt.Key_Backspace, Qt.Key_Delete, Qt.Key_Escape)))):
+                 or (modifiers & Qt.Modifier.SHIFT
+                     and key in (Qt.Key.Key_Return, Qt.Key.Key_Space, Qt.Key.Key_Tab, Qt.Key.Key_Backtab,
+                                 Qt.Key.Key_Backspace, Qt.Key.Key_Delete, Qt.Key.Key_Escape)))):
             # change Shift+Backtab into Shift+Tab
-            if key == Qt.Key_Backtab and modifiers & Qt.SHIFT:
-                key = Qt.Key_Tab | modifiers
+            if key == Qt.Key.Key_Backtab and modifiers & Qt.Modifier.SHIFT:
+                key = Qt.Key.Key_Tab | modifiers
             # remove the Shift modifier if it doesn't make sense
-#            elif (Qt.Key_Exclam <= key <= Qt.Key_At
-#                  or Qt.Key_Z < key <= 0x0ff):
-#                key = key | (modifiers & ~Qt.SHIFT)
+#            elif (Qt.Key.Key_Exclam <= key <= Qt.Key.Key_At
+#                  or Qt.Key.Key_Z < key <= 0x0ff):
+#                key = key | (modifiers & ~Qt.Modifier.SHIFT)
             else:
                 key = key | modifiers
 
@@ -177,7 +177,7 @@ class KeySequenceButton(QPushButton):
     def keyReleaseEvent(self, ev):
         if not self._isrecording:
             return super().keyReleaseEvent(ev)
-        modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
+        modifiers = int(ev.modifiers() & (Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Modifier.ALT | Qt.Modifier.META))
         ev.accept()
 
         self._modifiers = modifiers
@@ -201,7 +201,7 @@ class KeySequenceButton(QPushButton):
         self.setStyleSheet("text-align: left;")
         self._isrecording = True
         self._recseq = QKeySequence()
-        self._modifiers = int(QApplication.keyboardModifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
+        self._modifiers = int(QApplication.keyboardModifiers() & (Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Modifier.ALT | Qt.Modifier.META))
         self.grabKeyboard()
         self.updateDisplay()
 

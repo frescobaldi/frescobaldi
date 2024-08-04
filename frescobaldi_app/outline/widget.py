@@ -22,9 +22,9 @@ The document outline tool widget.
 """
 
 
-from PyQt5.QtCore import QEvent, QTimer
-from PyQt5.QtGui import QBrush, QFont, QTextCursor
-from PyQt5.QtWidgets import QTreeWidget, QTreeWidgetItem
+from PyQt6.QtCore import QEvent, QTimer
+from PyQt6.QtGui import QBrush, QFont, QTextCursor
+from PyQt6.QtWidgets import QTreeWidget, QTreeWidgetItem
 
 import app
 import qutil
@@ -114,7 +114,7 @@ class Widget(QTreeWidget):
                     if text:
                         if name.startswith('title'):
                             font = item.font(0)
-                            font.setWeight(QFont.Bold)
+                            font.setWeight(QFont.Weight.Bold)
                             item.setFont(0, font)
                             break
                         elif name.startswith('alert'):

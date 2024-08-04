@@ -25,12 +25,12 @@ be determined by running `lilypond -dshow-available-fonts`.
 """
 
 
-from PyQt5.QtCore import (
+from PyQt6.QtCore import (
     QObject,
     QSettings,
     QSize
 )
-from PyQt5.QtWidgets import QAction
+from PyQt6.QtGui import QAction
 
 import actioncollection
 import actioncollectionmanager

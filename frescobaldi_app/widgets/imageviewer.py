@@ -22,9 +22,9 @@ A simple scrollarea that can display an image.
 """
 
 
-from PyQt5.QtCore import pyqtSignal, QMimeData, QSize, QRect, Qt
-from PyQt5.QtGui import QColor, QDrag, QImage, QPainter, QPalette, QPixmap
-from PyQt5.QtWidgets import QApplication, QScrollArea, QSizePolicy, QWidget
+from PyQt6.QtCore import pyqtSignal, QMimeData, QSize, QRect, Qt
+from PyQt6.QtGui import QColor, QDrag, QImage, QPainter, QPalette, QPixmap
+from PyQt6.QtWidgets import QApplication, QScrollArea, QSizePolicy, QWidget
 
 
 __all__ = ['ImageViewer']
@@ -40,7 +40,7 @@ class ImageViewer(QScrollArea):
     actualSizeChanged = pyqtSignal(bool)
 
     def __init__(self, parent=None):
-        super().__init__(parent, alignment=Qt.AlignCenter)
+        super().__init__(parent, alignment=Qt.AlignmentFlag.AlignCenter)
         self._actualsize = True
         self._image = QImage()
         self.setBackgroundRole(QPalette.Dark)
@@ -120,8 +120,8 @@ class ImageWidget(QWidget):
             painter.drawPixmap(r, self.viewer.pixmap(s))
 
     def mousePressEvent(self, ev):
-        if ev.button() == Qt.LeftButton:
-            if ev.modifiers() & Qt.ControlModifier:
+        if ev.button() == Qt.MouseButton.LeftButton:
+            if ev.modifiers() & Qt.KeyboardModifier.ControlModifier:
                 self._mode = MOVE
             else:
                 self._mode = DRAG
@@ -140,7 +140,7 @@ class ImageWidget(QWidget):
 
     def mouseReleaseEvent(self, ev):
         mode, self._mode = self._mode, None
-        if (ev.button() == Qt.LeftButton and
+        if (ev.button() == Qt.MouseButton.LeftButton and
                 mode == DRAG and ev.globalPos() == self._startpos):
             self.viewer.setActualSize(not self.viewer.actualSize())
 

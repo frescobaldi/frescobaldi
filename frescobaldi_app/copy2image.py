@@ -26,9 +26,9 @@ import collections
 import os
 import tempfile
 
-from PyQt5.QtCore import QEvent, QSettings, QSize, Qt
-from PyQt5.QtGui import QBitmap, QColor, QDoubleValidator, QImage, QRegion
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import QEvent, QSettings, QSize, Qt
+from PyQt6.QtGui import QBitmap, QColor, QDoubleValidator, QImage, QRegion
+from PyQt6.QtWidgets import (
     QApplication, QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFileDialog,
     QGridLayout, QHBoxLayout, QLabel, QMessageBox, QPushButton, QVBoxLayout)
 
@@ -74,7 +74,7 @@ class Dialog(QDialog):
 
         self.colorCheck = QCheckBox(checked=False)
         self.colorButton = widgets.colorbutton.ColorButton()
-        self.colorButton.setColor(QColor(Qt.white))
+        self.colorButton.setColor(QColor(Qt.GlobalColor.white))
         self.grayscale = QCheckBox(checked=False)
         self.crop = QCheckBox()
         self.antialias = QCheckBox(checked=True)
@@ -194,7 +194,7 @@ class Dialog(QDialog):
                 break
         self.dpiCombo.setEditText(s.value("dpi", "100", str))
         color = s.value("papercolor", QColor(), QColor)
-        self.colorButton.setColor(color if color.isValid() else Qt.white)
+        self.colorButton.setColor(color if color.isValid() else Qt.GlobalColor.white)
         self.colorCheck.setChecked(color.isValid())
         self.grayscale.setChecked(s.value("grayscale", False, bool))
         self.crop.setChecked(s.value("autocrop", False, bool))
@@ -283,7 +283,7 @@ class Dialog(QDialog):
 
         # run the export job in a background thread
         self.runJob(e.document, self.exportDone)
-        self.setCursor(Qt.WaitCursor)
+        self.setCursor(Qt.CursorShape.WaitCursor)
 
     def exportDone(self, document):
         self.unsetCursor()

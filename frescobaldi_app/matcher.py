@@ -24,7 +24,7 @@ Highlights matching tokens such as { and }, << and >> etc.
 
 import weakref
 
-from PyQt5.QtWidgets import QAction
+from PyQt6.QtGui import QAction
 
 import app
 import plugin
@@ -45,7 +45,7 @@ class AbstractMatcher:
         self.updateSettings()
 
     def updateSettings(self):
-        from PyQt5.QtCore import QSettings
+        from PyQt6.QtCore import QSettings
         s = QSettings()
         s.beginGroup("editor_highlighting")
         self._match_duration = s.value("match", 1, int) * 1000

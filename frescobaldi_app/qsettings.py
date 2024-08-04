@@ -22,7 +22,7 @@ Generic helper functions regarding QSettings
 """
 
 
-from PyQt5.QtCore import QUrl
+from PyQt6.QtCore import QUrl
 
 
 def get_string_list(settings, key):

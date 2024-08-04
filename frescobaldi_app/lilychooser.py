@@ -22,7 +22,7 @@ A chooser combobox to choose a LilyPond instance.
 """
 
 
-from PyQt5.QtWidgets import QComboBox
+from PyQt6.QtWidgets import QComboBox
 
 import app
 import lilypondinfo

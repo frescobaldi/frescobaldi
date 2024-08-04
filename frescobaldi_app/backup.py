@@ -25,7 +25,7 @@ Backup files before overwriting
 import os
 import shutil
 
-from PyQt5.QtCore import QSettings
+from PyQt6.QtCore import QSettings
 
 
 def backup(filename):

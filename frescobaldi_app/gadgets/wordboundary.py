@@ -42,9 +42,9 @@ import operator
 import re
 import time
 
-from PyQt5.QtCore import QEvent, QObject, Qt
-from PyQt5.QtGui import QKeySequence, QTextCursor
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtCore import QEvent, QObject, Qt
+from PyQt6.QtGui import QKeySequence, QTextCursor
+from PyQt6.QtWidgets import QApplication
 
 
 _move_operations = (
@@ -212,7 +212,7 @@ class BoundaryHandler(QObject):
 
     def mouseDoubleClickEvent(self, obj, ev):
         """Handles the double-click even to select a word."""
-        if ev.button() == Qt.LeftButton:
+        if ev.button() == Qt.MouseButton.LeftButton:
             block = obj.blockSignals(True) # prevent selectionChanged etc emitted twice
             obj.mouseDoubleClickEvent(ev)  # otherwise triple click and drag won't work
             obj.blockSignals(block)

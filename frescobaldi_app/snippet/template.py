@@ -26,8 +26,8 @@ import app
 import documentinfo
 import widgets.dialog
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import (
     QCheckBox, QCompleter, QVBoxLayout, QMessageBox, QWidget)
 
 from . import model
@@ -95,7 +95,7 @@ def save(mainwindow):
             _("Overwrite Template?"),
             _("A template named \"{name}\" already exists.\n\n"
               "Do you want to overwrite it?").format(name=title),
-            QMessageBox.Yes | QMessageBox.Cancel) != QMessageBox.Yes:
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.Cancel) != QMessageBox.StandardButton.Yes:
             return
         name = titles[title]
     else:

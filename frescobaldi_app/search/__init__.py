@@ -26,10 +26,10 @@ import bisect
 import re
 import weakref
 
-from PyQt5.QtCore import QEvent, Qt
-from PyQt5.QtGui import QKeySequence, QPalette, QTextCursor
-from PyQt5.QtWidgets import (
-    QAction, QApplication, QCheckBox, QGridLayout, QLabel, QLineEdit,
+from PyQt6.QtCore import QEvent, Qt
+from PyQt6.QtGui import QAction, QKeySequence, QPalette, QTextCursor
+from PyQt6.QtWidgets import (
+    QApplication, QCheckBox, QGridLayout, QLabel, QLineEdit,
     QPushButton, QStyle, QToolButton, QWidget)
 
 import app
@@ -74,11 +74,11 @@ class Search(plugin.MainWindowPlugin, QWidget):
         self.nextButton.setIcon(icons.get('go-next'))
         self.caseCheck = QCheckBox(checked=True, focusPolicy=Qt.NoFocus)
         self.regexCheck = QCheckBox(focusPolicy=Qt.NoFocus)
-        self.countLabel = QLabel(alignment=Qt.AlignRight | Qt.AlignVCenter)
+        self.countLabel = QLabel(alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
         self.countLabel.setMinimumWidth(QApplication.fontMetrics().width("9999"))
         self.closeButton = QToolButton(autoRaise=True, focusPolicy=Qt.NoFocus)
         self.hideAction = QAction(self, triggered=self.slotHide)
-        self.hideAction.setShortcut(QKeySequence(Qt.Key_Escape))
+        self.hideAction.setShortcut(QKeySequence(Qt.Key.Key_Escape))
         self.hideAction.setIcon(self.style().standardIcon(QStyle.SP_DialogCloseButton))
         self.closeButton.setDefaultAction(self.hideAction)
 
@@ -362,13 +362,13 @@ class Search(plugin.MainWindowPlugin, QWidget):
             ev.accept()
             return True
         elif ev.type() == QEvent.KeyPress:
-            modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
-            if ev.key() == Qt.Key_Tab and modifiers == 0:
+            modifiers = int(ev.modifiers() & (Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Modifier.ALT | Qt.Modifier.META))
+            if ev.key() == Qt.Key.Key_Tab and modifiers == 0:
                 # prevent Tab from reaching the View widget
                 self.window().focusNextChild()
                 ev.accept()
                 return True
-            elif ev.key() == Qt.Key_Backtab and modifiers & ~Qt.SHIFT == 0:
+            elif ev.key() == Qt.Key.Key_Backtab and modifiers & ~Qt.Modifier.SHIFT == 0:
                 # prevent Tab from reaching the View widget
                 self.window().focusPreviousChild()
                 ev.accept()
@@ -379,14 +379,14 @@ class Search(plugin.MainWindowPlugin, QWidget):
         """Catches Up and Down to jump between search results."""
         # if in search mode, Up and Down jump between search results
         if not self._replace and self._positions and self.searchEntry.text() and not ev.modifiers():
-            if ev.key() == Qt.Key_Up:
+            if ev.key() == Qt.Key.Key_Up:
                 self.findPrevious()
                 return
-            elif ev.key() ==  Qt.Key_Down:
+            elif ev.key() ==  Qt.Key.Key_Down:
                 self.findNext()
                 return
         # use enter or return for search next
-        if ev.key() in (Qt.Key_Enter, Qt.Key_Return):
+        if ev.key() in (Qt.Key.Key_Enter, Qt.Key.Key_Return):
             self.findNext()
             return
         super().keyPressEvent(ev)

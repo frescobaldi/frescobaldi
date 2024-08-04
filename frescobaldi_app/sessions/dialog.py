@@ -25,8 +25,8 @@ Session dialog for named session stuff.
 import os
 import json
 
-from PyQt5.QtCore import Qt, QSettings, QUrl
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import Qt, QSettings, QUrl
+from PyQt6.QtWidgets import (
     QAbstractItemView, QCheckBox, QDialog, QDialogButtonBox, QFileDialog,
     QGridLayout, QGroupBox, QLabel, QListWidgetItem, QLineEdit, QMessageBox,
     QPushButton, QVBoxLayout)
@@ -42,7 +42,7 @@ import userguide
 class SessionManagerDialog(QDialog):
     def __init__(self, mainwindow):
         super().__init__(mainwindow)
-        self.setWindowModality(Qt.WindowModal)
+        self.setWindowModality(Qt.WindowType.WindowModal)
         layout = QVBoxLayout()
         self.setLayout(layout)
 
@@ -202,7 +202,7 @@ class SessionList(widgets.listedit.ListEdit):
 class SessionEditor(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowModality(Qt.WindowModal)
+        self.setWindowModality(Qt.WindowType.WindowModal)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -385,13 +385,13 @@ class SessionEditor(QDialog):
 
         elif self._originalName != name and name in sessions.sessionNames():
             self.name.setFocus()
-            box = QMessageBox(QMessageBox.Warning, app.caption(_("Warning")),
+            box = QMessageBox(QMessageBox.Icon.Warning, app.caption(_("Warning")),
                 _("Another session with the name {name} already exists.\n\n"
                   "Do you want to overwrite it?").format(name=name),
-                QMessageBox.Discard | QMessageBox.Cancel, self)
-            box.button(QMessageBox.Discard).setText(_("Overwrite"))
+                QMessageBox.StandardButton.Discard | QMessageBox.StandardButton.Cancel, self)
+            box.button(QMessageBox.StandardButton.Discard).setText(_("Overwrite"))
             result = box.exec_()
-            if result != QMessageBox.Discard:
+            if result != QMessageBox.StandardButton.Discard:
                 return False
 
         return True

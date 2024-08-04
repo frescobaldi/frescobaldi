@@ -22,9 +22,8 @@ Auto-completes entered text.
 """
 
 
-from PyQt5.QtCore import QSettings, Qt
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import QAction
+from PyQt6.QtCore import QSettings, Qt
+from PyQt6.QtGui import QAction, QKeySequence
 
 import app
 import actioncollection
@@ -73,7 +72,7 @@ class Actions(actioncollection.ActionCollection):
     def createActions(self, parent):
         self.autocomplete = QAction(parent, checkable=True)
         self.popup_completions = QAction(parent)
-        self.popup_completions.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_Space))
+        self.popup_completions.setShortcut(QKeySequence(Qt.Modifier.CTRL + Qt.Key.Key_Space))
 
     def translateUI(self):
         self.autocomplete.setText(_("Automatic &Completion"))

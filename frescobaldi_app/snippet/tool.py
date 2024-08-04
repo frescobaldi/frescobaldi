@@ -24,9 +24,8 @@ The snippets dockwindow.
 
 import weakref
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import QAction
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QAction, QKeySequence
 
 import actioncollection
 import actioncollectionmanager

@@ -25,9 +25,9 @@ A basic Dialog class.
 import functools
 import operator
 
-from PyQt5.QtCore import QRegExp, QSize, Qt
-from PyQt5.QtGui import QIcon, QPixmap, QRegExpValidator
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import QRegExp, QSize, Qt
+from PyQt6.QtGui import QIcon, QPixmap, QRegExpValidator
+from PyQt6.QtWidgets import (
     QDialog, QDialogButtonBox, QGridLayout, QLabel, QLineEdit, QStyle,
     QWidget)
 

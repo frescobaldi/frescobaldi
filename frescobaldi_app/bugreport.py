@@ -21,7 +21,7 @@
 Function for helping the user to report bugs.
 """
 
-from PyQt5.QtCore import QUrl, QUrlQuery
+from PyQt6.QtCore import QUrl, QUrlQuery
 
 import helpers
 import appinfo

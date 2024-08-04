@@ -24,10 +24,10 @@ The help browser window.
 
 import os
 
-from PyQt5.QtCore import QSettings, QSize, Qt, QUrl
-from PyQt5.QtGui import QTextDocument
-from PyQt5.QtWidgets import QMainWindow, QTextBrowser
-from PyQt5.QtPrintSupport import QAbstractPrintDialog, QPrintDialog, QPrinter
+from PyQt6.QtCore import QSettings, QSize, Qt, QUrl
+from PyQt6.QtGui import QTextDocument
+from PyQt6.QtWidgets import QMainWindow, QTextBrowser
+from PyQt6.QtPrintSupport import QAbstractPrintDialog, QPrintDialog, QPrinter
 
 import app
 import helpers
@@ -145,7 +145,7 @@ class Browser(QTextBrowser):
         return super().loadResource(type, url)
 
     def keyPressEvent(self, ev):
-        if ev.key() == Qt.Key_Escape and int(ev.modifiers()) == 0:
+        if ev.key() == Qt.Key.Key_Escape and int(ev.modifiers()) == 0:
             self.window().close()
         super().keyPressEvent(ev)
 

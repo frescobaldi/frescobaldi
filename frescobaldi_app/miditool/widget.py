@@ -22,8 +22,8 @@ The MIDI tool widget.
 """
 
 
-from PyQt5.QtCore import Qt, QTimer, QSettings
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import Qt, QTimer, QSettings
+from PyQt6.QtWidgets import (
     QWidget, QComboBox, QToolButton, QSlider, QGridLayout, QSizePolicy, QLabel)
 
 import app

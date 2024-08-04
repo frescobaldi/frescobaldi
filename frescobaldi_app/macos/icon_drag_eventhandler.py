@@ -25,9 +25,9 @@ Currently this makes only sense on macOS.
 """
 
 
-from PyQt5.QtCore import QEvent, QMimeData, QObject, QPoint, Qt
-from PyQt5.QtWidgets import QApplication, QStyle
-from PyQt5.QtGui import QDrag
+from PyQt6.QtCore import QEvent, QMimeData, QObject, QPoint, Qt
+from PyQt6.QtWidgets import QApplication, QStyle
+from PyQt6.QtGui import QDrag
 
 import app
 
@@ -44,9 +44,9 @@ class IconDragEventHandler(QObject):
             return False
         ev.accept()
         modifiers = QApplication.keyboardModifiers()
-        if modifiers == Qt.NoModifier:
+        if modifiers == Qt.KeyboardModifier.NoModifier:
             self.startDrag(mainwin, ev)
-        elif modifiers == Qt.ControlModifier:
+        elif modifiers == Qt.KeyboardModifier.ControlModifier:
             self.commandClick(mainwin, ev)
         else:
             ev.ignore()

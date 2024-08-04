@@ -25,7 +25,7 @@ Constructs a printcommand to print a PDF file.
 import itertools
 import os
 
-from PyQt5.QtPrintSupport import QPrinter
+from PyQt6.QtPrintSupport import QPrinter
 
 
 lpr_commands = (

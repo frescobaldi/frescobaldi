@@ -25,10 +25,10 @@ The dialog for editing a snippet
 
 import re
 
-from PyQt5.QtCore import QItemSelectionModel, QSize
-from PyQt5.QtGui import QIcon, QKeySequence, QTextCharFormat
-from PyQt5.QtWidgets import (
-    QAction, QDialog, QDialogButtonBox, QGridLayout, QLabel, QLineEdit,
+from PyQt6.QtCore import QItemSelectionModel, QSize
+from PyQt6.QtGui import QAction, QIcon, QKeySequence, QTextCharFormat
+from PyQt6.QtWidgets import (
+    QDialog, QDialogButtonBox, QGridLayout, QLabel, QLineEdit,
     QMessageBox, QPushButton, QTextEdit, QVBoxLayout)
 
 import actioncollectionmanager
@@ -97,7 +97,7 @@ class Edit(QDialog):
             b.setStandardButtons(buttons)
         userguide.addButton(b, "snippet_editor")
 
-        # PyQt5.10 en sip4.14.5 delete the Highlighter, even though it is
+        # PyQt6.10 en sip4.14.5 delete the Highlighter, even though it is
         # constructed with a parent, that's why we save it in an unused attribute.
         self._highlighter = highlight.Highlighter(self.text.document())
         Matcher(self.text)
@@ -142,10 +142,10 @@ class Edit(QDialog):
             res = QMessageBox.warning(self, self.windowTitle(),
                 _("The snippet has been modified.\n"
                   "Do you want to save your changes or discard them?"),
-                QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
-            if res == QMessageBox.Cancel:
+                QMessageBox.StandardButton.Save | QMessageBox.StandardButton.Discard | QMessageBox.StandardButton.Cancel)
+            if res == QMessageBox.StandardButton.Cancel:
                 return
-            elif res != QMessageBox.Discard:
+            elif res != QMessageBox.StandardButton.Discard:
                 self.saveSnippet()
         super().done(result)
 

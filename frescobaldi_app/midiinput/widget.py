@@ -5,8 +5,8 @@ MIDI input controls
 
 import weakref
 
-from PyQt5.QtCore import QSettings, Qt
-from PyQt5.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QGroupBox,
+from PyQt6.QtCore import QSettings, Qt
+from PyQt6.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QGroupBox,
                              QHBoxLayout, QLabel, QRadioButton, QToolButton,
                              QVBoxLayout, QWidget)
 
@@ -65,7 +65,7 @@ class Widget(QWidget):
 
         ac = self.parentWidget().actionCollection
         self._capture = QToolButton()
-        self._capture.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
+        self._capture.setToolButtonStyle(Qt.WindowType.ToolButtonTextBesideIcon)
         self._capture.setDefaultAction(ac.capture_start)
         self.addAction(ac.accidental_switch)
 

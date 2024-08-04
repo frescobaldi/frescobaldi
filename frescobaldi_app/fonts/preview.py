@@ -27,11 +27,11 @@ import os
 import re
 import tempfile
 
-from PyQt5.QtCore import (
+from PyQt6.QtCore import (
     QSettings,
     Qt
 )
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QComboBox,
     QFileDialog,
     QHBoxLayout,
@@ -135,9 +135,9 @@ class FontsPreviewWidget(QWidget):
             "Use current document as music font sample.\n"
             + "NOTE: This is not robust if the document contains "
             + "a \\paper {...} block."
-        ), Qt.ToolTipRole)
+        ), Qt.WindowType.ToolTipRole)
         i = self.cb_samples.findData("<CUSTOM>")
-        self.cb_samples.setItemData(i, csu.toolTip(), Qt.ToolTipRole)
+        self.cb_samples.setItemData(i, csu.toolTip(), Qt.WindowType.ToolTipRole)
 
     def loadSettings(self):
         s = QSettings()
@@ -168,7 +168,7 @@ class FontsPreviewWidget(QWidget):
 
         def add_entry(entry):
             cb.addItem(entry['label'], entry['file'])
-            cb.setItemData(cb.count() - 1, entry['tooltip'], Qt.ToolTipRole)
+            cb.setItemData(cb.count() - 1, entry['tooltip'], Qt.WindowType.ToolTipRole)
 
         add_entry({
             'label': _('Bach (Piano)'),

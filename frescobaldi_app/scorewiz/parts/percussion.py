@@ -22,7 +22,7 @@ Percussion part types.
 """
 
 
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel, QSpinBox)
 
 import listmodel

@@ -26,9 +26,8 @@ Provides buttons to go back or forward.
 """
 
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import QAction
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QAction, QKeySequence
 
 import app
 import actioncollection
@@ -128,8 +127,8 @@ class Actions(actioncollection.ActionCollection):
         self.go_back.setIcon(icons.get('go-previous'))
         self.go_forward.setIcon(icons.get('go-next'))
 
-        self.go_back.setShortcut(QKeySequence(Qt.ALT + Qt.Key_Backspace))
-        self.go_forward.setShortcut(QKeySequence(Qt.ALT + Qt.Key_End))
+        self.go_back.setShortcut(QKeySequence(Qt.Modifier.ALT + Qt.Key.Key_Backspace))
+        self.go_forward.setShortcut(QKeySequence(Qt.Modifier.ALT + Qt.Key.Key_End))
 
     def translateUI(self):
         self.go_back.setText(_("Go to previous position"))

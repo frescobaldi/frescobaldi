@@ -25,8 +25,8 @@ Custom engraving dialog.
 import os
 import collections
 
-from PyQt5.QtCore import QSettings, QSize, Qt
-from PyQt5.QtWidgets import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
+from PyQt6.QtCore import QSettings, QSize, Qt
+from PyQt6.QtWidgets import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QSpinBox, QTextEdit)
 
 import ly.xml
@@ -88,7 +88,7 @@ class Dialog(QDialog):
         layout.addWidget(self.outputCombo, 1, 1, 1, 3)
         layout.addWidget(self.resolutionLabel, 2, 0)
         layout.addWidget(self.resolutionCombo, 2, 1)
-        layout.addWidget(self.antialiasLabel, 2, 2, Qt.AlignRight)
+        layout.addWidget(self.antialiasLabel, 2, 2, Qt.AlignmentFlag.AlignRight)
         layout.addWidget(self.antialiasSpin, 2, 3)
         layout.addWidget(self.modeLabel, 3, 0)
         layout.addWidget(self.modeCombo, 3, 1, 1, 3)
@@ -222,7 +222,7 @@ class Dialog(QDialog):
         return j
 
     def keyPressEvent(self, ev):
-        if ev.key() == Qt.Key_Return and ev.modifiers() == Qt.ControlModifier:
+        if ev.key() == Qt.Key.Key_Return and ev.modifiers() == Qt.KeyboardModifier.ControlModifier:
             self.accept()
         else:
             super().keyPressEvent(ev)

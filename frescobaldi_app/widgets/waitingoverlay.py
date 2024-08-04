@@ -28,16 +28,16 @@ centered over the parent widget.
 # Modified after
 # https://wiki.python.org/moin/PyQt/A%20full%20widget%20waiting%20indicator
 
-from PyQt5.QtCore import (
+from PyQt6.QtCore import (
     Qt,
 )
-from PyQt5.QtGui import (
+from PyQt6.QtGui import (
     QBrush,
     QColor,
     QPainter,
     QPen
 )
-from PyQt5.QtWidgets import (
+from PyQt6.QtWidgets import (
     QWidget
 )
 

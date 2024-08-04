@@ -36,10 +36,10 @@ import os
 import platform
 import weakref
 
-from PyQt5.QtCore import QSettings, QTimer, Qt, pyqtSignal
-from PyQt5.QtGui import QColor, QKeySequence, QPalette
-from PyQt5.QtWidgets import (
-    QAction, QActionGroup, QApplication, QComboBox, QFileDialog, QLabel,
+from PyQt6.QtCore import QSettings, QTimer, Qt, pyqtSignal
+from PyQt6.QtGui import QAction, QActionGroup, QColor, QKeySequence, QPalette
+from PyQt6.QtWidgets import (
+    QApplication, QComboBox, QFileDialog, QLabel,
     QMessageBox, QSpinBox, QToolBar, QWidgetAction)
 
 import app
@@ -189,8 +189,8 @@ class AbstractViewPanel(panel.Panel):
             if (s.value("printing/directcups",
                        False if platform.system() == "Darwin" else True, bool)
                 and platform.system() == "Darwin"):
-                from PyQt5.QtCore import QUrl
-                from PyQt5.QtWidgets import QMessageBox
+                from PyQt6.QtCore import QUrl
+                from PyQt6.QtWidgets import QMessageBox
                 result =  QMessageBox.warning(self.mainwindow(),
                     _("Print Music"), _(
                     "As per your settings, you are about to print the file "
@@ -200,8 +200,8 @@ class AbstractViewPanel(panel.Panel):
                     "You can disable it in Music Preferences.\n\n"
                     "Do you really want to print to CUPS?\n\n"
                     "(If you are unsure, the answer is likely no.)"),
-                    QMessageBox.Yes | QMessageBox.No)
-                if result == QMessageBox.No:
+                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
+                if result == QMessageBox.StandardButton.No:
                     return
             self.widget().view.print()
 

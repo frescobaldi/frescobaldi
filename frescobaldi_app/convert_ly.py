@@ -28,9 +28,9 @@ import os
 import platform
 import sys
 
-from PyQt5.QtCore import QSettings, QSize
-from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import (
+from PyQt6.QtCore import QSettings, QSize
+from PyQt6.QtGui import QFont
+from PyQt6.QtWidgets import (
     QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFileDialog, QHBoxLayout,
     QGridLayout, QLabel, QLineEdit, QTabWidget, QTextBrowser, QVBoxLayout)
 

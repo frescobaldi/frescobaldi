@@ -25,10 +25,10 @@ The default black color will be adjusted to the default Text color.
 
 import os
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon, QIconEngine, QImage, QPainter, QPixmap
-from PyQt5.QtWidgets import QApplication, QStyleOption
-from PyQt5.QtSvg import QSvgRenderer
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon, QIconEngine, QImage, QPainter, QPixmap
+from PyQt6.QtWidgets import QApplication, QStyleOption
+from PyQt6.QtSvg import QSvgRenderer
 
 __all__ = ["icon"]
 
@@ -60,7 +60,7 @@ def pixmap(name, size, mode, state):
     try:
         return _pixmaps[key]
     except KeyError:
-        i = QImage(size, QImage.Format_ARGB32_Premultiplied)
+        i = QImage(size, QImage.Format.Format_ARGB32_Premultiplied)
         i.fill(0)
         painter = QPainter(i)
         # render SVG symbol

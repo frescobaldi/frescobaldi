@@ -23,9 +23,9 @@ The Header (titles) widget.
 
 import html
 
-from PyQt5.QtCore import QSize, Qt, QUrl
-from PyQt5.QtGui import QPalette
-from PyQt5.QtWidgets import (QGridLayout, QHBoxLayout, QLabel, QLineEdit,
+from PyQt6.QtCore import QSize, Qt, QUrl
+from PyQt6.QtGui import QPalette
+from PyQt6.QtWidgets import (QGridLayout, QHBoxLayout, QLabel, QLineEdit,
                              QTextBrowser, QWidget)
 
 import app

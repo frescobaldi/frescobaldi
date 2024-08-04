@@ -25,10 +25,10 @@ An Object Editor widget.
 
 import sys
 
-from PyQt5 import QtCore
-from PyQt5.QtCore import QSettings
-from PyQt5.QtGui import QTextCursor
-from PyQt5.QtWidgets import (
+from PyQt6 import QtCore
+from PyQt6.QtCore import QSettings
+from PyQt6.QtGui import QTextCursor
+from PyQt6.QtWidgets import (
     QDoubleSpinBox, QLabel, QPushButton, QVBoxLayout, QWidget)
 
 import app
