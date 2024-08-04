@@ -192,27 +192,27 @@ class TextFormatData:
 
     def saveTextFormat(self, fmt, settings):
         """(Internal) Store one QTextCharFormat in the QSettings instance."""
-        if fmt.hasProperty(QTextFormat.FontWeight):
+        if fmt.hasProperty(QTextFormat.Property.FontWeight):
             settings.setValue('bold', fmt.fontWeight() >= 70)
         else:
             settings.remove('bold')
-        if fmt.hasProperty(QTextFormat.FontItalic):
+        if fmt.hasProperty(QTextFormat.Property.FontItalic):
             settings.setValue('italic', fmt.fontItalic())
         else:
             settings.remove('italic')
-        if fmt.hasProperty(QTextFormat.TextUnderlineStyle):
+        if fmt.hasProperty(QTextFormat.Property.TextUnderlineStyle):
             settings.setValue('underline', fmt.fontUnderline())
         else:
             settings.remove('underline')
-        if fmt.hasProperty(QTextFormat.ForegroundBrush):
+        if fmt.hasProperty(QTextFormat.Property.ForegroundBrush):
             settings.setValue('textColor', fmt.foreground().color().name())
         else:
             settings.remove('textColor')
-        if fmt.hasProperty(QTextFormat.BackgroundBrush):
+        if fmt.hasProperty(QTextFormat.Property.BackgroundBrush):
             settings.setValue('backgroundColor', fmt.background().color().name())
         else:
             settings.remove('backgroundColor')
-        if fmt.hasProperty(QTextFormat.TextUnderlineColor):
+        if fmt.hasProperty(QTextFormat.Property.TextUnderlineColor):
             settings.setValue('underlineColor', fmt.underlineColor().name())
         else:
             settings.remove('underlineColor')
@@ -266,17 +266,17 @@ def fmt2css(f, d=None):
     """Convert a QTextCharFormat to a css dictionary."""
     if d is None:
         d = {}
-    if f.hasProperty(QTextFormat.FontWeight):
+    if f.hasProperty(QTextFormat.Property.FontWeight):
         d['font-weight'] = 'bold' if f.fontWeight() >= 70 else 'normal'
-    if f.hasProperty(QTextFormat.FontItalic):
+    if f.hasProperty(QTextFormat.Property.FontItalic):
         d['font-style'] = 'italic' if f.fontItalic() else 'normal'
-    if f.hasProperty(QTextFormat.TextUnderlineStyle):
+    if f.hasProperty(QTextFormat.Property.TextUnderlineStyle):
         d['text-decoration'] = 'underline' if f.fontUnderline() else 'none'
-    if f.hasProperty(QTextFormat.ForegroundBrush):
+    if f.hasProperty(QTextFormat.Property.ForegroundBrush):
         d['color'] = f.foreground().color().name()
-    if f.hasProperty(QTextFormat.BackgroundBrush):
+    if f.hasProperty(QTextFormat.Property.BackgroundBrush):
         d['background'] = f.background().color().name()
-    if f.hasProperty(QTextFormat.TextUnderlineColor):
+    if f.hasProperty(QTextFormat.Property.TextUnderlineColor):
         d['text-decoration-color'] = f.underlineColor().name()
     return d
 

@@ -49,7 +49,7 @@ class UrlRequester(QWidget):
     def __init__(
         self,
         parent=None,
-        fileMode=QFileDialog.Directory,
+        fileMode=QFileDialog.FileMode.Directory,
         mustExist=False
     ):
         super().__init__(parent)
@@ -131,7 +131,7 @@ class UrlRequester(QWidget):
 
     def setFileMode(self, mode):
         """Sets the mode for the dialog, is a QFileDialog.FileMode value."""
-        if mode == QFileDialog.Directory:
+        if mode == QFileDialog.FileMode.Directory:
             self.button.setIcon(icons.get('folder-open'))
         else:
             self.button.setIcon(icons.get('document-open'))
@@ -163,7 +163,7 @@ class UrlRequester(QWidget):
         dlg.setFileMode(self._fileMode)
         if self._dialogTitle:
             title = self._dialogTitle
-        elif self.fileMode() == QFileDialog.Directory:
+        elif self.fileMode() == QFileDialog.FileMode.Directory:
             title = _("Select a directory")
         else:
             title = _("Select a file")
