@@ -43,7 +43,7 @@ class Widget(QWidget):
         super().__init__(dockwidget)
         self._document = None
         self._fileSelector = QComboBox(editable=True, insertPolicy=QComboBox.NoInsert)
-        gadgets.drag.ComboDrag(self._fileSelector).role = Qt.UserRole
+        gadgets.drag.ComboDrag(self._fileSelector).role = Qt.ItemDataRole.UserRole
         self._fileSelector.lineEdit().setReadOnly(True)
         self._fileSelector.lineEdit().setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self._stopButton = QToolButton()

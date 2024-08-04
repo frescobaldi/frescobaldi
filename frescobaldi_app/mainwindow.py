@@ -1061,8 +1061,8 @@ class MainWindow(QMainWindow):
         m.triggered.connect(self.slotRecentFilesAction)
 
         # connections
-        ac.file_quit.triggered.connect(self.quit, Qt.QueuedConnection)
-        ac.file_restart.triggered.connect(self.restart, Qt.QueuedConnection)
+        ac.file_quit.triggered.connect(self.quit, Qt.ConnectionType.QueuedConnection)
+        ac.file_restart.triggered.connect(self.restart, Qt.ConnectionType.QueuedConnection)
         ac.file_new.triggered.connect(self.newDocument)
         ac.file_open.triggered.connect(self.openDocument)
         ac.file_insert_file.triggered.connect(self.insertFromFile)
@@ -1294,54 +1294,54 @@ class ActionCollection(actioncollection.ActionCollection):
         self.help_about.setIcon(icons.get('help-about'))
 
         # shortcuts
-        self.file_new.setShortcuts(QKeySequence.New)
-        self.file_open.setShortcuts(QKeySequence.Open)
-        self.file_save.setShortcuts(QKeySequence.Save)
-        self.file_save_as.setShortcuts(QKeySequence.SaveAs)
-        self.file_close.setShortcuts(QKeySequence.Close)
-        self.file_quit.setShortcuts(QKeySequence.Quit)
+        self.file_new.setShortcuts(QKeySequence.StandardKey.New)
+        self.file_open.setShortcuts(QKeySequence.StandardKey.Open)
+        self.file_save.setShortcuts(QKeySequence.StandardKey.Save)
+        self.file_save_as.setShortcuts(QKeySequence.StandardKey.SaveAs)
+        self.file_close.setShortcuts(QKeySequence.StandardKey.Close)
+        self.file_quit.setShortcuts(QKeySequence.StandardKey.Quit)
 
-        self.edit_undo.setShortcuts(QKeySequence.Undo)
-        self.edit_redo.setShortcuts(QKeySequence.Redo)
-        self.edit_cut.setShortcuts(QKeySequence.Cut)
-        self.edit_copy.setShortcuts(QKeySequence.Copy)
-        self.edit_paste.setShortcuts(QKeySequence.Paste)
-        self.edit_select_all.setShortcuts(QKeySequence.SelectAll)
+        self.edit_undo.setShortcuts(QKeySequence.StandardKey.Undo)
+        self.edit_redo.setShortcuts(QKeySequence.StandardKey.Redo)
+        self.edit_cut.setShortcuts(QKeySequence.StandardKey.Cut)
+        self.edit_copy.setShortcuts(QKeySequence.StandardKey.Copy)
+        self.edit_paste.setShortcuts(QKeySequence.StandardKey.Paste)
+        self.edit_select_all.setShortcuts(QKeySequence.StandardKey.SelectAll)
         self.edit_select_current_toplevel.setShortcut(QKeySequence(Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Key.Key_B))
         self.edit_select_none.setShortcut(QKeySequence(Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Key.Key_A))
         self.edit_select_full_lines_up.setShortcut(QKeySequence(Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Key.Key_Up))
         self.edit_select_full_lines_down.setShortcut(QKeySequence(Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Key.Key_Down))
-        self.edit_find.setShortcuts(QKeySequence.Find)
-        self.edit_find_next.setShortcuts(QKeySequence.FindNext)
-        self.edit_find_previous.setShortcuts(QKeySequence.FindPrevious)
-        self.edit_replace.setShortcuts(QKeySequence.Replace)
-        self.edit_preferences.setShortcuts(QKeySequence.Preferences)
+        self.edit_find.setShortcuts(QKeySequence.StandardKey.Find)
+        self.edit_find_next.setShortcuts(QKeySequence.StandardKey.FindNext)
+        self.edit_find_previous.setShortcuts(QKeySequence.StandardKey.FindPrevious)
+        self.edit_replace.setShortcuts(QKeySequence.StandardKey.Replace)
+        self.edit_preferences.setShortcuts(QKeySequence.StandardKey.Preferences)
 
         if platform.system() == "Darwin":
-            self.view_next_document.setShortcut(Qt.Modifier.META | Qt.Key.Key_Tab)
-            self.view_previous_document.setShortcut(Qt.Modifier.META | Qt.Modifier.SHIFT | Qt.Key.Key_Tab)
+            self.view_next_document.setShortcut(QKeySequence(Qt.Modifier.META | Qt.Key.Key_Tab))
+            self.view_previous_document.setShortcut(QKeySequence(Qt.Modifier.META | Qt.Modifier.SHIFT | Qt.Key.Key_Tab))
         else:
-            self.view_next_document.setShortcuts(QKeySequence.Forward)
-            self.view_previous_document.setShortcuts(QKeySequence.Back)
-        self.view_scroll_up.setShortcut(Qt.Modifier.CTRL | Qt.Key.Key_Up)
-        self.view_scroll_down.setShortcut(Qt.Modifier.CTRL | Qt.Key.Key_Down)
-        self.view_goto_line.setShortcut(Qt.Modifier.CTRL | Qt.Modifier.ALT | Qt.Key.Key_G)
+            self.view_next_document.setShortcuts(QKeySequence.StandardKey.Forward)
+            self.view_previous_document.setShortcuts(QKeySequence.StandardKey.Back)
+        self.view_scroll_up.setShortcut(QKeySequence(Qt.Modifier.CTRL | Qt.Key.Key_Up))
+        self.view_scroll_down.setShortcut(QKeySequence(Qt.Modifier.CTRL | Qt.Key.Key_Down))
+        self.view_goto_line.setShortcut(QKeySequence(Qt.Modifier.CTRL | Qt.Modifier.ALT | Qt.Key.Key_G))
 
         self.window_fullscreen.setShortcuts([QKeySequence(Qt.Modifier.CTRL | Qt.Modifier.SHIFT | Qt.Key.Key_F), QKeySequence(Qt.Key.Key_F11)])
 
-        self.help_manual.setShortcuts(QKeySequence.HelpContents)
+        self.help_manual.setShortcuts(QKeySequence.StandardKey.HelpContents)
 
         # macOS-specific roles?
         if platform.system() == "Darwin":
             import macos
             if macos.use_osx_menu_roles():
-                self.file_quit.setMenuRole(QAction.QuitRole)
-                self.edit_preferences.setMenuRole(QAction.PreferencesRole)
-                self.help_about.setMenuRole(QAction.AboutRole)
+                self.file_quit.setMenuRole(QAction.MenuRole.QuitRole)
+                self.edit_preferences.setMenuRole(QAction.MenuRole.PreferencesRole)
+                self.help_about.setMenuRole(QAction.MenuRole.AboutRole)
             else:
-                self.file_quit.setMenuRole(QAction.NoRole)
-                self.edit_preferences.setMenuRole(QAction.NoRole)
-                self.help_about.setMenuRole(QAction.NoRole)
+                self.file_quit.setMenuRole(QAction.MenuRole.NoRole)
+                self.edit_preferences.setMenuRole(QAction.MenuRole.NoRole)
+                self.help_about.setMenuRole(QAction.MenuRole.NoRole)
 
     def translateUI(self):
         self.file_new.setText(_("action: new document", "&New Document"))

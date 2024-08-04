@@ -74,7 +74,7 @@ def menu_file(parent):
     m.addSeparator()
     m.addMenu(menu_file_import(m))
     m.addSeparator()
-    role = QAction.QuitRole if use_osx_menu_roles() else QAction.NoRole
+    role = QAction.MenuRole.QuitRole if use_osx_menu_roles() else QAction.MenuRole.NoRole
     m.addAction(icons.get('application-exit'), _("&Quit"), app.qApp.quit).setMenuRole(role)
     return m
 
@@ -120,7 +120,7 @@ def menu_file_import(parent):
 def menu_edit(parent):
     m = QMenu(parent)
     m.setTitle(_("menu title", "&Edit"))
-    role = QAction.PreferencesRole if use_osx_menu_roles() else QAction.NoRole
+    role = QAction.MenuRole.PreferencesRole if use_osx_menu_roles() else QAction.MenuRole.NoRole
     m.addAction(icons.get('preferences-system'), _("Pr&eferences..."), edit_preferences).setMenuRole(role)
     return m
 
@@ -144,7 +144,7 @@ def menu_sessions(parent):
 def menu_help(parent):
     m = QMenu(parent)
     m.setTitle(_('menu title', '&Help'))
-    role = QAction.AboutRole if use_osx_menu_roles() else QAction.NoRole
+    role = QAction.MenuRole.AboutRole if use_osx_menu_roles() else QAction.MenuRole.NoRole
     m.addAction(icons.get('help-about'), _("&About {appname}...").format(appname=appinfo.appname), help_about).setMenuRole(role)
     return m
 

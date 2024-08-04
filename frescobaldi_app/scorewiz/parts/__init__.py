@@ -98,11 +98,11 @@ class Model(QAbstractItemModel):
         return 0
 
     def data(self, index, role):
-        if role == Qt.DisplayRole:
+        if role == Qt.ItemDataRole.DisplayRole:
             if index.internalPointer() is None:
                 return categories[index.row()].title()
             return index.internalPointer().items[index.row()].title()
-        elif role == Qt.DecorationRole:
+        elif role == Qt.ItemDataRole.DecorationRole:
             if index.internalPointer() is None:
                 return categories[index.row()].icon
 

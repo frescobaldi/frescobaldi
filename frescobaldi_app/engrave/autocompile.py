@@ -115,7 +115,7 @@ class AutoCompiler(plugin.MainWindowPlugin):
 
 class AutoCompileManager(plugin.DocumentPlugin):
     def __init__(self, document):
-        document.contentsChanged.connect(self.slotDocumentContentsChanged, Qt.QueuedConnection)
+        document.contentsChanged.connect(self.slotDocumentContentsChanged, Qt.ConnectionType.QueuedConnection)
         document.saving.connect(self.slotDocumentSaving)
         document.loaded.connect(self.initialize)
         job.manager.manager(document).started.connect(self.slotJobStarted)

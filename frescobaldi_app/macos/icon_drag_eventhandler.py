@@ -67,7 +67,7 @@ class IconDragEventHandler(QObject):
         hotspot = QPoint(pixmap.width() - 5, 5)
         drag.setPixmap(pixmap)
         drag.setHotSpot(hotspot)
-        drag.start(Qt.LinkAction | Qt.CopyAction)
+        drag.start(Qt.DropAction.LinkAction | Qt.DropAction.CopyAction)
 
     def commandClick(self, mainwin, ev):
         """Called on Command-click the window icon (macOS)."""
