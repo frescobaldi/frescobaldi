@@ -290,7 +290,8 @@ def getRenderer(rendertype):
             r = qpageview.poppler.PopplerRenderer()
             r.renderBackend, r.printRenderBackend = getPopplerBackends()
         else:
-            return None
+            import qpageview.pdf
+            r = qpageview.pdf.PdfRenderer()
     elif rendertype == "svg":
         import qpageview.svg
         r = qpageview.svg.SvgRenderer()
