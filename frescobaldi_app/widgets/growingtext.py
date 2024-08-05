@@ -46,8 +46,8 @@ class _GrowingTextEditBase:
 
     def updateVerticalSize(self):
         # can vertical or horizontal scrollbars appear?
-        vcan = self.verticalScrollBarPolicy() == Qt.ScrollBarAsNeeded
-        hcan = self.horizontalScrollBarPolicy() == Qt.ScrollBarAsNeeded
+        vcan = self.verticalScrollBarPolicy() == Qt.ScrollBarPolicy.ScrollBarAsNeeded
+        hcan = self.horizontalScrollBarPolicy() == Qt.ScrollBarPolicy.ScrollBarAsNeeded
 
         # width a scrollbar takes off the viewport size
         framewidth = 0

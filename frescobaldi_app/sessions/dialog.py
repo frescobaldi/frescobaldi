@@ -234,7 +234,7 @@ class SessionEditor(QDialog):
         self.replPaths.toggled.connect(self.toggleReplace)
 
         self.include = widgets.listedit.FilePathEdit()
-        self.include.listBox.setDragDropMode(QAbstractItemView.InternalMove)
+        self.include.listBox.setDragDropMode(QAbstractItemView.DragDropMode.InternalMove)
         ipLayout.addWidget(self.include)
 
         grid.addWidget(ip, 3, 1)

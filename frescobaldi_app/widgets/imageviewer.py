@@ -88,7 +88,7 @@ class ImageViewer(QScrollArea):
             image = image.scaled(QSize(256, 256), Qt.KeepAspectRatio, Qt.SmoothTransformation)
         p = QPainter()
         p.begin(image)
-        p.setCompositionMode(QPainter.CompositionMode_DestinationIn)
+        p.setCompositionMode(QPainter.CompositionMode.CompositionMode_DestinationIn)
         p.fillRect(image.rect(), QColor(0, 0, 0, 160))
         p.end()
         pixmap = QPixmap.fromImage(image)

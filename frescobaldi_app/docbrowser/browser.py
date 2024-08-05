@@ -51,7 +51,7 @@ class Browser(QWidget):
         self.toolbar = tb = QToolBar()
         self.webview = QWebEngineView(self, contextMenuPolicy=Qt.CustomContextMenu)
         self.webview.setPage(WebEnginePage(self.webview))
-        self.chooser = QComboBox(sizeAdjustPolicy=QComboBox.AdjustToContents)
+        self.chooser = QComboBox(sizeAdjustPolicy=QComboBox.SizeAdjustPolicy.AdjustToContents)
         self.search = SearchEntry(maximumWidth=200, clearButtonEnabled=True)
 
         layout.addWidget(self.toolbar)

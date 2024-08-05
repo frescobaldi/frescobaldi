@@ -141,8 +141,8 @@ class Installed(preferences.Group):
         self._selected_extension = ''
         self.tree.setModel(QStandardItemModel())
         self.tree.model().setColumnCount(2)
-        self.tree.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.tree.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tree.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.tree.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.tree.setHeaderHidden(True)
         self.tree.header().setSectionResizeMode(
             0, QHeaderView.ResizeToContents)

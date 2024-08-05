@@ -47,7 +47,7 @@ class SvgView(QWidget):
         self.view = view.View(self)
 
         self.pageLabel = QLabel()
-        self.pageCombo = QComboBox(sizeAdjustPolicy=QComboBox.AdjustToContents)
+        self.pageCombo = QComboBox(sizeAdjustPolicy=QComboBox.SizeAdjustPolicy.AdjustToContents)
 
         layout = QVBoxLayout(spacing=0)
         layout.setContentsMargins(0, 0, 0, 0)

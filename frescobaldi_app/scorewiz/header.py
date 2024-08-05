@@ -48,13 +48,13 @@ class HeaderWidget(QWidget):
         t.setOpenLinks(False)
         t.setOpenExternalLinks(False)
         t.setSearchPaths(__path__)
-        t.setTextInteractionFlags(Qt.LinksAccessibleByMouse)
+        t.setTextInteractionFlags(Qt.TextInteractionFlag.LinksAccessibleByMouse)
         t.setFocusPolicy(Qt.FocusPolicy.NoFocus)
 
         # ensure that the full HTML example page is displayed
         t.setContentsMargins(2, 2, 2, 2)
-        t.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        t.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        t.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        t.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         t.setMinimumSize(QSize(350, 350))
         layout.addWidget(t)
 
@@ -77,7 +77,7 @@ class HeaderWidget(QWidget):
             self.labels[name] = l
             self.edits[name] = e
             completionmodel.complete(e, "scorewiz/completion/header/"+name)
-            e.completer().setCaseSensitivity(Qt.CaseInsensitive)
+            e.completer().setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
             e.textChanged.connect(self.setPreviewTexts)
 
         app.settingsChanged.connect(self.readSettings)

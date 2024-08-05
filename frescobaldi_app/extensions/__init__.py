@@ -496,8 +496,8 @@ class FailedTree(QTreeView):
         super().__init__(parent)
         #TODO: Set the height of the QTreeView to 4-6 rows
         #https://stackoverflow.com/questions/53591159/set-the-height-of-a-qtreeview-to-height-of-n-rows
-        self.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.setHeaderHidden(True)
         self.setModel(self._model)
         self.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)

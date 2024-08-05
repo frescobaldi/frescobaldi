@@ -52,7 +52,7 @@ def pixmap(name, size, mode, state):
     The state argument is ignored for now.
 
     """
-    if mode == QIcon.Selected:
+    if mode == QIcon.Mode.Selected:
         color = QApplication.palette().highlightedText().color()
     else:
         color = QApplication.palette().text().color()
@@ -66,7 +66,7 @@ def pixmap(name, size, mode, state):
         # render SVG symbol
         QSvgRenderer(os.path.join(__path__[0], name + ".svg")).render(painter)
         # recolor to text color
-        painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
+        painter.setCompositionMode(QPainter.CompositionMode.CompositionMode_SourceIn)
         painter.fillRect(i.rect(), color)
         painter.end()
         # let style alter the drawing based on mode, and create QPixmap

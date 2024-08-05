@@ -247,7 +247,7 @@ class ScoreProperties:
         self.tempoLabel = QLabel()
         self.tempo = QLineEdit(clearButtonEnabled=True)
         completionmodel.complete(self.tempo, "scorewiz/completion/scoreproperties/tempo")
-        self.tempo.completer().setCaseSensitivity(Qt.CaseInsensitive)
+        self.tempo.completer().setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         self.tempoLabel.setBuddy(self.tempo)
 
     def layoutTempoWidget(self, layout):

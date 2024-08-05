@@ -38,7 +38,7 @@ class Dialog(widgets.dialog.Dialog):
             parent,
             buttons=('close',),
         )
-        self.setWindowModality(Qt.NonModal)
+        self.setWindowModality(Qt.WindowModality.NonModal)
         self.log = log.Log(self)
         self.setMainWidget(self.log)
 
