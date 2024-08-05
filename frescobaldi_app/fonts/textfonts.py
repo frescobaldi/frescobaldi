@@ -68,7 +68,7 @@ class TextFontsWidget(QWidget):
         self.status_label = QLabel(wordWrap=True)
         self.tree_view = tv = QTreeView()
         self.filter_edit = QLineEdit(clearButtonEnabled=True)
-        tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        tv.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         tv.setContextMenuPolicy(Qt.CustomContextMenu)
         tv.customContextMenuRequested.connect(self.show_context_menu)
 
@@ -188,7 +188,7 @@ class MiscFontsInfoWidget(QWidget):
     def __init__(self, available_fonts, parent=None):
         super().__init__(parent)
         self.tree_view = tv = QTreeView(self)
-        tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        tv.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         tv.setHeaderHidden(True)
         self.status_label = QLabel(self)
         layout = QVBoxLayout(self)

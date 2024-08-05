@@ -53,7 +53,7 @@ def window():
 class ChangedDocumentsListDialog(widgets.dialog.Dialog):
     def __init__(self):
         super().__init__(buttons=('close',))
-        self.setWindowModality(Qt.NonModal)
+        self.setWindowModality(Qt.WindowModality.NonModal)
         self.setAttribute(Qt.WidgetAttribute.WA_QuitOnClose, False)
 
         layout = QGridLayout(margin=0)
@@ -293,7 +293,7 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
             "Document: {url}\n"
             "Difference between the current document and the file on disk:").format(
                 url=filename))
-        dlg.setWindowModality(Qt.NonModal)
+        dlg.setWindowModality(Qt.WindowModality.NonModal)
         dlg.setAttribute(Qt.WidgetAttribute.WA_QuitOnClose, False)
         dlg.setAttribute(Qt.WidgetAttribute.WA_DeleteOnClose)
         qutil.saveDialogSize(dlg, "externalchanges/diff/dialog/size", QSize(600, 300))

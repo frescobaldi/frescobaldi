@@ -59,10 +59,10 @@ class MidiPorts(preferences.Group):
         self._portsMessage = QLabel(wordWrap=True)
         self._playerLabel = QLabel()
         self._playerPort = QComboBox(editable=True,
-            editTextChanged=self.changed, insertPolicy=QComboBox.NoInsert)
+            editTextChanged=self.changed, insertPolicy=QComboBox.InsertPolicy.NoInsert)
         self._inputLabel = QLabel()
         self._inputPort = QComboBox(editable=True,
-            editTextChanged=self.changed, insertPolicy=QComboBox.NoInsert)
+            editTextChanged=self.changed, insertPolicy=QComboBox.InsertPolicy.NoInsert)
 
         self._reloadMidi = QPushButton(icon=icons.get('view-refresh'))
         self._reloadMidi.clicked.connect(self.refreshMidiPorts)

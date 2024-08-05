@@ -58,7 +58,7 @@ class ScoreWizardDialog(QDialog):
         b.rejected.connect(self.reject)
         userguide.addButton(b, "scorewiz")
         b.button(QDialogButtonBox.StandardButton.Reset).clicked.connect(self.reset)
-        self.previewButton = b.addButton('', QDialogButtonBox.ActionRole)
+        self.previewButton = b.addButton('', QDialogButtonBox.ButtonRole.ActionRole)
         self.previewButton.clicked.connect(self.showPreview)
         layout.addWidget(self.tabs)
         layout.addWidget(b)

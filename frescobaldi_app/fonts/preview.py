@@ -135,9 +135,9 @@ class FontsPreviewWidget(QWidget):
             "Use current document as music font sample.\n"
             + "NOTE: This is not robust if the document contains "
             + "a \\paper {...} block."
-        ), Qt.WindowType.ToolTipRole)
+        ), Qt.WindowType.ToolTip)
         i = self.cb_samples.findData("<CUSTOM>")
-        self.cb_samples.setItemData(i, csu.toolTip(), Qt.WindowType.ToolTipRole)
+        self.cb_samples.setItemData(i, csu.toolTip(), Qt.WindowType.ToolTip)
 
     def loadSettings(self):
         s = QSettings()
@@ -168,7 +168,7 @@ class FontsPreviewWidget(QWidget):
 
         def add_entry(entry):
             cb.addItem(entry['label'], entry['file'])
-            cb.setItemData(cb.count() - 1, entry['tooltip'], Qt.WindowType.ToolTipRole)
+            cb.setItemData(cb.count() - 1, entry['tooltip'], Qt.WindowType.ToolTip)
 
         add_entry({
             'label': _('Bach (Piano)'),

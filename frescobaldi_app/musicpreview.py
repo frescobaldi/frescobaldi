@@ -217,7 +217,7 @@ class MusicPreviewDialog(QDialog):
         layout.addWidget(b)
         b.addButton(QDialogButtonBox.StandardButton.Close)
         b.rejected.connect(self.accept)
-        self._printButton = b.addButton('', QDialogButtonBox.ActionRole)
+        self._printButton = b.addButton('', QDialogButtonBox.ButtonRole.ActionRole)
         self._printButton.setIcon(icons.get("document-print"))
         self._printButton.clicked.connect(self._widget.print_)
         self._printButton.hide()

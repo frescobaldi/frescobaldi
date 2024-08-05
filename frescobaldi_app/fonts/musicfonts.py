@@ -96,9 +96,9 @@ class MusicFontsWidget(QWidget):
             self.install_music_fonts('auto')
 
         self.tree_view = tv = QTreeView(self)
-        tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        tv.setSelectionMode(QAbstractItemView.SingleSelection)
-        tv.setSelectionBehavior(QAbstractItemView.SelectRows)
+        tv.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        tv.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
+        tv.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         tv.setModel(self.music_fonts.item_model())
         tv.selectionModel().selectionChanged.connect(
             self.music_fonts_selection_changed

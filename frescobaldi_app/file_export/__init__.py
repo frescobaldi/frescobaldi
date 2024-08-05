@@ -103,7 +103,7 @@ class AudioExportDialog(externalcommand.ExternalCommandDialog):
 
     def __init__(self, parent, caption):
         super().__init__(parent)
-        self.setWindowModality(Qt.NonModal)
+        self.setWindowModality(Qt.WindowModality.NonModal)
         self.setWindowTitle(caption)
         qutil.saveDialogSize(self, "audio_export/dialog/size", QSize(640, 400))
 

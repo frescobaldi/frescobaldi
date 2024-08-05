@@ -60,7 +60,7 @@ class AboutDialog(QDialog):
         button.setCenterButtons(True)
         button.accepted.connect(self.accept)
         layout.addWidget(button)
-        layout.setSizeConstraint(QLayout.SetFixedSize)
+        layout.setSizeConstraint(QLayout.SizeConstraint.SetFixedSize)
 
 
 class About(QWidget):

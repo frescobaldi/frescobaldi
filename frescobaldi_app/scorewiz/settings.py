@@ -168,11 +168,11 @@ class GeneralPreferences(QGroupBox):
         self.paperOrientation.setItemText(0, _("Regular"))
         self.paperOrientation.setItemText(1, _("Landscape"))
         self.paperOrientation.setItemText(2, _("Rotated"))
-        self.paperOrientation.setItemData(0, _("Regular portrait orientation"), Qt.WindowType.ToolTipRole)
+        self.paperOrientation.setItemData(0, _("Regular portrait orientation"), Qt.WindowType.ToolTip)
         self.paperOrientation.setItemData(1, _(
             "Set paper orientation to landscape while keeping upright printing orientation."),
-            Qt.WindowType.ToolTipRole)
-        self.paperOrientation.setItemData(2, _("Rotate print on regular paper."), Qt.WindowType.ToolTipRole)
+            Qt.WindowType.ToolTip)
+        self.paperOrientation.setItemData(2, _("Rotate print on regular paper."), Qt.WindowType.ToolTip)
 
     def slotPaperChanged(self, index):
         self.paperOrientation.setEnabled(bool(index))

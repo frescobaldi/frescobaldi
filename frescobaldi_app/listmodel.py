@@ -66,7 +66,7 @@ class ListModel(QAbstractListModel):
         if edit:
             self._roles[Qt.ItemDataRole.EditRole] = edit
         if tooltip:
-            self._roles[Qt.WindowType.ToolTipRole] = tooltip
+            self._roles[Qt.WindowType.ToolTip] = tooltip
         if icon:
             self._roles[Qt.ItemDataRole.DecorationRole] = icon
 

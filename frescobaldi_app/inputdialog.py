@@ -69,7 +69,7 @@ def getText(
         userguide.addButton(dlg.buttonBox(), help)
         dlg.setWindowModality(Qt.WindowType.WindowModal)
     else:
-        dlg.setWindowModality(Qt.ApplicationModal)
+        dlg.setWindowModality(Qt.WindowModality.ApplicationModal)
     if regexp:
         dlg.setValidateRegExp(regexp)
     elif validate:
