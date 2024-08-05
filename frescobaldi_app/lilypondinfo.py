@@ -196,7 +196,6 @@ class LilyPondInfo:
                     path = glob.glob(os.path.join(
                         os.environ.get('ProgramW6432', 'C:\\Program Files'),
                         'LilyPond*', 'usr', 'bin'))
-            print("path =", path)
         elif platform.system() == "Darwin":
             # also on macOS, LilyPond is not automatically added to the PATH
             path = [
