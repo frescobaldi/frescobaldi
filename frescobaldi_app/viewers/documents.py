@@ -27,9 +27,9 @@ import os
 from PyQt6.QtCore import QSettings
 
 try:
-    import popplerqt5
+    import popplerqt6
 except ImportError:
-    popplerqt5 = None
+    popplerqt6 = None
 
 import app
 import plugin

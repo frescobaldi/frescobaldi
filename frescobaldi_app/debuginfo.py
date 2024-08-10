@@ -85,13 +85,13 @@ def qpageview_version():
 
 @_catch_unknown
 def poppler_version():
-    import popplerqt5
-    return '.'.join(format(n) for n in popplerqt5.poppler_version())
+    import popplerqt6
+    return '.'.join(format(n) for n in popplerqt6.poppler_version())
 
 @_catch_unknown
 def python_poppler_version():
-    import popplerqt5
-    return '.'.join(format(n) for n in popplerqt5.version())
+    import popplerqt6
+    return '.'.join(format(n) for n in popplerqt6.version())
 
 if platform.system() == "Darwin":
     @_catch_unknown

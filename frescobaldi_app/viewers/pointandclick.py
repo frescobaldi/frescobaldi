@@ -45,12 +45,12 @@ def links(document):
     except KeyError:
         l = _cache[document] = Links()
         with l:
-            import popplerqt5
+            import popplerqt6
             with qpageview.locking.lock(document):
                 for num in range(document.numPages()):
                     page = document.page(num)
                     for link in page.links():
-                        if isinstance(link, popplerqt5.Poppler.LinkBrowse):
+                        if isinstance(link, popplerqt6.Poppler.LinkBrowse):
                             t = textedit.link(link.url())
                             if t:
                                 filename = util.normpath(t.filename)
