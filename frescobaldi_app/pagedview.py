@@ -33,9 +33,9 @@ from PyQt6.QtWidgets import QMessageBox
 from PyQt6.QtPrintSupport import QPrinter, QPrintDialog
 
 try:
-    import popplerqt5
+    import popplerqt6
 except ImportError:
-    popplerqt5 = None
+    popplerqt6 = None
 
 import app
 import icons
@@ -140,7 +140,7 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
                 rp.paperColor = paperColor
 
         # render backend preference
-        if renderers and popplerqt5:
+        if renderers and popplerqt6:
             import qpageview.poppler
             renderBackend, printRenderBackend = getPopplerBackends()
             for r in renderers:
@@ -264,13 +264,13 @@ class ViewActions(qpageview.viewactions.ViewActions):
 def getPopplerBackends():
     """Return a two-tuple (renderBackend, printRenderBackend) from the prefs."""
     if QSettings().value("musicview/arthurbackend", False, bool):
-        renderBackend = popplerqt5.Poppler.Document.ArthurBackend
+        renderBackend = popplerqt6.Poppler.Document.ArthurBackend
     else:
-        renderBackend = popplerqt5.Poppler.Document.SplashBackend
+        renderBackend = popplerqt6.Poppler.Document.SplashBackend
     if QSettings().value("printing/arthurbackend_print", True, bool):
-        printRenderBackend = popplerqt5.Poppler.Document.ArthurBackend
+        printRenderBackend = popplerqt6.Poppler.Document.ArthurBackend
     else:
-        printRenderBackend = popplerqt5.Poppler.Document.SplashBackend
+        printRenderBackend = popplerqt6.Poppler.Document.SplashBackend
     return renderBackend, printRenderBackend
 
 
@@ -285,7 +285,7 @@ def getRenderer(rendertype):
 
     """
     if rendertype == "pdf":
-        if popplerqt5:
+        if popplerqt6:
             import qpageview.poppler
             r = qpageview.poppler.PopplerRenderer()
             r.renderBackend, r.printRenderBackend = getPopplerBackends()

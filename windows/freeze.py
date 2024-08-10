@@ -45,7 +45,7 @@ includes = [
     'PyQt6.QtNetwork',
     'PyQt6.QtSvg',
     'PyQt6.QtXml',
-    'popplerqt5',
+    'popplerqt6',
     'pypm',
 
     'argparse',

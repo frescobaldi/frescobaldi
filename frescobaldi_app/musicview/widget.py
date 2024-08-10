@@ -32,7 +32,7 @@ from PyQt6.QtGui import QCursor, QTextCharFormat
 from PyQt6.QtWidgets import QToolTip, QVBoxLayout, QWidget
 
 try:
-    import popplerqt5
+    import popplerqt6
 except ImportError:
     pass
 
@@ -150,7 +150,7 @@ class MusicView(QWidget):
                 mainwindow.currentView().setFocus()
         elif link.url and not link.url.startswith('textedit:'):
             helpers.openUrl(QUrl(link.url))
-        elif (hasattr(link, "linkobj") and isinstance(link.linkobj, popplerqt5.Poppler.LinkGoto)
+        elif (hasattr(link, "linkobj") and isinstance(link.linkobj, popplerqt6.Poppler.LinkGoto)
               and not link.linkobj.isExternal()):
             self.view.setCurrentPageNumber(link.linkobj.destination().pageNumber())
 
@@ -193,7 +193,7 @@ class MusicView(QWidget):
                     text = f"{os.path.basename(l.filename)} ({l.line}:{l.column})"
                 else:
                     text = link.url
-        elif hasattr(link, "linkobj") and isinstance(link.linkobj, popplerqt5.Poppler.LinkGoto):
+        elif hasattr(link, "linkobj") and isinstance(link.linkobj, popplerqt6.Poppler.LinkGoto):
             text = _("Page {num}").format(num=link.linkobj.destination().pageNumber())
             if link.linkobj.isExternal():
                 text = link.linkobj.fileName() + "\n" + text

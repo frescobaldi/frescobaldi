@@ -20,8 +20,8 @@
 """
 The PDF preview panel.
 
-This file loads even if popplerqt5 is absent, although the PDF preview
-panel only shows a message about missing the popplerqt5 module.
+This file loads even if popplerqt6 is absent, although the PDF preview
+panel only shows a message about missing the popplerqt6 module.
 
 The widget module contains the real widget, the documents module a simple
 abstraction and caching of Poppler documents with their filename,
