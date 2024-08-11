@@ -121,7 +121,7 @@ class Blinker(QWidget):
         pen = QPen(color)
         pen.setWidth(self.lineWidth)
         painter.setPen(pen)
-        painter.setRenderHint(QPainter.PaintEngineFeature.Antialiasing, True)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
         painter.drawRoundedRect(rect, self.radius, self.radius)
 
 
