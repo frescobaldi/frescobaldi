@@ -161,7 +161,7 @@ class Engraver(plugin.MainWindowPlugin):
             from . import custom
             dlg = self._customDialog = custom.Dialog(self.mainwindow())
             dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
-            dlg.setWindowModality(Qt.WindowType.WindowModal)
+            dlg.setWindowModality(Qt.WindowModality.WindowModal)
         doc = self.document()
         dlg.setDocument(doc)
         if dlg.exec():

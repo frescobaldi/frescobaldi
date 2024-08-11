@@ -67,7 +67,7 @@ def getText(
     dlg.messageLabel().setWordWrap(wordWrap)
     if help is not None:
         userguide.addButton(dlg.buttonBox(), help)
-        dlg.setWindowModality(Qt.WindowType.WindowModal)
+        dlg.setWindowModality(Qt.WindowModality.WindowModal)
     else:
         dlg.setWindowModality(Qt.WindowModality.ApplicationModal)
     if regexp:

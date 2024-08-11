@@ -63,7 +63,7 @@ class ToLyDialog(QDialog):
         self._job = None
 
         self.addAction(parent.actionCollection.help_whatsthis)
-        self.setWindowModality(Qt.WindowType.WindowModal)
+        self.setWindowModality(Qt.WindowModality.WindowModal)
         mainLayout = QGridLayout()
         self.setLayout(mainLayout)
 

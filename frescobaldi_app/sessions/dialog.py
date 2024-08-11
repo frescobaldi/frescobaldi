@@ -42,7 +42,7 @@ import userguide
 class SessionManagerDialog(QDialog):
     def __init__(self, mainwindow):
         super().__init__(mainwindow)
-        self.setWindowModality(Qt.WindowType.WindowModal)
+        self.setWindowModality(Qt.WindowModality.WindowModal)
         layout = QVBoxLayout()
         self.setLayout(layout)
 
@@ -202,7 +202,7 @@ class SessionList(widgets.listedit.ListEdit):
 class SessionEditor(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowModality(Qt.WindowType.WindowModal)
+        self.setWindowModality(Qt.WindowModality.WindowModal)
 
         layout = QVBoxLayout()
         self.setLayout(layout)

@@ -96,7 +96,7 @@ def findDicts():
 class HyphenDialog(QDialog):
     def __init__(self, mainwindow):
         super().__init__(mainwindow)
-        self.setWindowModality(Qt.WindowType.WindowModal)
+        self.setWindowModality(Qt.WindowModality.WindowModal)
         layout = QVBoxLayout()
         self.setLayout(layout)
         self.topLabel = QLabel()
