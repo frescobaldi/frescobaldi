@@ -25,11 +25,6 @@ import itertools
 
 from PyQt6.QtCore import QSettings
 
-try:
-    import popplerqt6
-except ImportError:
-    popplerqt6 = None
-
 import app
 import plugin
 import resultfiles
