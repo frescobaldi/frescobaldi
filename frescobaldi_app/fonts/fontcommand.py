@@ -87,7 +87,8 @@ class FontCommandWidget(QScrollArea):
 
         # Left column holding the options
         self.option_widget = QWidget()
-        opt_layout = QVBoxLayout(margin=0)
+        opt_layout = QVBoxLayout()
+        opt_layout.setContentsMargins(0, 0, 0, 0)
         self.option_widget.setLayout(opt_layout)
         col_layout.addWidget(self.option_widget)
 

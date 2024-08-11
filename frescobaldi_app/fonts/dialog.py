@@ -119,7 +119,9 @@ class FontsDialog(QDialog):
 
         # Left side layout
         self.left_column = QWidget()
-        left_layout = QVBoxLayout(margin=0, spacing=0)
+        left_layout = QVBoxLayout()
+        left_layout.setContentsMargins(0, 0, 0, 0)
+        left_layout.setSpacing(0)
         self.left_column.setLayout(left_layout)
         self.splitter.addWidget(self.left_column)
 

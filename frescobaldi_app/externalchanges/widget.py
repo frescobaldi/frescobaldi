@@ -56,7 +56,8 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         self.setWindowModality(Qt.WindowModality.NonModal)
         self.setAttribute(Qt.WidgetAttribute.WA_QuitOnClose, False)
 
-        layout = QGridLayout(margin=0)
+        layout = QGridLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
         self.mainWidget().setLayout(layout)
         self.tree = QTreeWidget(headerHidden=True, rootIsDecorated=False,
                                 columnCount=2, itemsExpandable=False)

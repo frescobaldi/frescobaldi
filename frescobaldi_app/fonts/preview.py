@@ -74,7 +74,8 @@ class FontsPreviewWidget(QWidget):
         # Create the cache directory for default samples
         os.makedirs(self.persistent_cache_dir, 0o700, exist_ok=True)
 
-        layout = QVBoxLayout(margin=0)
+        layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
 
         # Label with text "Example:"
@@ -97,7 +98,8 @@ class FontsPreviewWidget(QWidget):
         self.cb_samples.addItem(_("Current Document"), "<CURRENT>")
 
         # Add sample source widgets to layout
-        bl = QHBoxLayout(margin=0)
+        bl = QHBoxLayout()
+        bl.setContentsMargins(0, 0, 0, 0)
         bl.addWidget(self.lb_sample)
         bl.addWidget(self.cb_samples)
         bl.addWidget(self.custom_sample_url)
