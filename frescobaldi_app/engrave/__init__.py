@@ -136,7 +136,7 @@ class Engraver(plugin.MainWindowPlugin):
         j = self.runningJob()
         if j:
             j.abort()
-        elif QApplication.keyboardModifiers() & Qt.Modifier.SHIFT:
+        elif QApplication.keyboardModifiers() & Qt.KeyboardModifier.ShiftModifier:
             self.engraveCustom()
         else:
             self.engravePreview()
