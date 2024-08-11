@@ -208,7 +208,7 @@ class Completer(QCompleter):
         sel_len = cursor.selectionEnd() - cursor.selectionStart() if cursor.hasSelection() else 0
         cursor.setPosition(cursor.selectionEnd())
         prefix_len = len(self.completionPrefix())
-        cursor.setPosition(cursor.position() - prefix_len - sel_len, cursor.KeepAnchor)
+        cursor.setPosition(cursor.position() - prefix_len - sel_len, QTextCursor.MoveMode.KeepAnchor)
         cursor.insertText(self.completionModel().data(index, Qt.ItemDataRole.EditRole))
 
     def insertPartialCompletion(self, index):
@@ -253,7 +253,7 @@ class Completer(QCompleter):
                 pos = cur.position()
                 cur.insertText(string)
                 cur.setPosition(pos)
-                cur.setPosition(pos + len(string), cur.KeepAnchor)
+                cur.setPosition(pos + len(string), QTextCursor.MoveMode.KeepAnchor)
                 self.widget().setTextCursor(cur)
                 self.showCompletionPopup()
 
