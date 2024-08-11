@@ -169,7 +169,7 @@ class ShortcutEditDialog(QDialog):
                 self.buttonNone.setChecked(True)
 
         if default:
-            ds = "; ".join(key.toString(QKeySequence.NativeText) for key in default)
+            ds = "; ".join(key.toString(QKeySequence.SequenceFormat.NativeText) for key in default)
         else:
             ds = _("no keyboard shortcut", "none")
         self.buttonDefault.setText(_("Use &default shortcut ({name})").format(name=ds))

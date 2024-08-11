@@ -46,9 +46,9 @@ class RestoreDialog(widgets.dialog.Dialog):
         self.setMainWidget(self.tree)
 
         self.deletedItem = QTreeWidgetItem(self.tree)
-        self.deletedItem.setFlags(Qt.ItemIsUserCheckable)
+        self.deletedItem.setFlags(Qt.ItemFlag.ItemIsUserCheckable)
         self.changedItem = QTreeWidgetItem(self.tree)
-        self.changedItem.setFlags(Qt.ItemIsUserCheckable)
+        self.changedItem.setFlags(Qt.ItemFlag.ItemIsUserCheckable)
         self.tree.itemChanged.connect(self.slotItemChanged)
 
         app.translateUI(self)
@@ -71,10 +71,10 @@ class RestoreDialog(widgets.dialog.Dialog):
         """Puts the deleted/changed snippets in the tree."""
         self.deletedItem.takeChildren()
         self.deletedItem.setExpanded(True)
-        self.deletedItem.setCheckState(0, Qt.Unchecked)
+        self.deletedItem.setCheckState(0, Qt.CheckState.Unchecked)
         self.changedItem.takeChildren()
         self.changedItem.setExpanded(True)
-        self.changedItem.setCheckState(0, Qt.Unchecked)
+        self.changedItem.setCheckState(0, Qt.CheckState.Unchecked)
 
         builtins = list(builtin.builtin_snippets)
         builtins.sort(key = snippets.title)
@@ -91,8 +91,8 @@ class RestoreDialog(widgets.dialog.Dialog):
 
             item = QTreeWidgetItem(parent)
             item.name = name
-            item.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
-            item.setCheckState(0, Qt.Unchecked)
+            item.setFlags(Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
+            item.setCheckState(0, Qt.CheckState.Unchecked)
             item.setText(0, snippets.title(name))
 
         self.deletedItem.setDisabled(self.deletedItem.childCount() == 0)
@@ -110,7 +110,7 @@ class RestoreDialog(widgets.dialog.Dialog):
         for parent in (self.deletedItem, self.changedItem):
             for i in range(parent.childCount()):
                 child = parent.child(i)
-                if child.checkState(0) == Qt.Checked:
+                if child.checkState(0) == Qt.CheckState.Checked:
                     yield child.name
 
     def updateSnippets(self):

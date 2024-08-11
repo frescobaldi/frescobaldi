@@ -839,16 +839,16 @@ class MainWindow(QMainWindow):
             printer.setCopyCount(1)
         dlg = QPrintDialog(printer, self)
         dlg.setWindowTitle(app.caption(_("dialog title", "Print Source")))
-        options = QAbstractPrintDialog.PrintToFile | QAbstractPrintDialog.PrintShowPageSize
+        options = QAbstractPrintDialog.PrintDialogOption.PrintToFile | QAbstractPrintDialog.PrintDialogOption.PrintShowPageSize
         if cursor.hasSelection():
-            options |= QAbstractPrintDialog.PrintSelection
+            options |= QAbstractPrintDialog.PrintDialogOption.PrintSelection
         dlg.setOptions(options)
         if dlg.exec():
-            if dlg.printRange() != QAbstractPrintDialog.Selection:
+            if dlg.printRange() != QAbstractPrintDialog.PrintRange.Selection:
                 cursor.clearSelection()
             number_lines = QSettings().value("source_export/number_lines", False, bool)
             doc = highlighter.html_copy(cursor, 'printer', number_lines)
-            doc.setMetaInformation(QTextDocument.DocumentTitle, self.currentDocument().url().toString())
+            doc.setMetaInformation(QTextDocument.MetaInformation.DocumentTitle, self.currentDocument().url().toString())
             font = doc.defaultFont()
             font.setPointSizeF(font.pointSizeF() * 0.8)
             doc.setDefaultFont(font)
@@ -996,7 +996,7 @@ class MainWindow(QMainWindow):
         pos = view.viewport().mapToGlobal(loc_pos)
 
         dlg = QInputDialog(self)
-        dlg.setInputMode(QInputDialog.IntInput)
+        dlg.setInputMode(QInputDialog.InputMode.IntInput)
         dlg.setIntMinimum(1)
         dlg.setIntMaximum(line_count)
         dlg.setIntValue(current_line)

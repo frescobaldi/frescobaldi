@@ -52,7 +52,7 @@ class Widget(QWidget):
         layout.setSpacing(0)
 
         self.searchEntry = SearchLineEdit()
-        self.treeView = QTreeView(contextMenuPolicy=Qt.CustomContextMenu)
+        self.treeView = QTreeView(contextMenuPolicy=Qt.ContextMenuPolicy.CustomContextMenu)
         self.textView = QTextBrowser()
 
         applyButton = QToolButton(autoRaise=True)
@@ -181,7 +181,7 @@ class Widget(QWidget):
             self.searchEntry.setPlaceholderText(_("Search..."))
         except AttributeError:
             pass # not in Qt 4.6
-        shortcut = lambda a: a.shortcut().toString(QKeySequence.NativeText)
+        shortcut = lambda a: a.shortcut().toString(QKeySequence.SequenceFormat.NativeText)
         self.menuButton.setText(_("&Menu"))
         self.addAction_.setText(_("&Add..."))
         self.addAction_.setToolTip(
@@ -368,7 +368,7 @@ class Widget(QWidget):
             elif text and nameid == text:
                 index = self.treeView.model().createIndex(row, 0)
                 self.treeView.selectionModel().setCurrentIndex(
-                    index, QItemSelectionModel.SelectCurrent | QItemSelectionModel.Rows)
+                    index, QItemSelectionModel.SelectCurrent | QItemSelectionModel.SelectionFlag.Rows)
                 hide = False
             elif nameid.lower().startswith(ltext):
                 hide = False

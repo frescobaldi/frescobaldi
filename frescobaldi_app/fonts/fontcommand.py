@@ -78,7 +78,7 @@ class FontCommandWidget(QScrollArea):
         mainWidget = QWidget()
         self.setWidgetResizable(True)
         self.setWidget(mainWidget)
-        self.setFrameShape(QScrollArea.NoFrame)
+        self.setFrameShape(QScrollArea.Shape.NoFrame)
         layout = QVBoxLayout()
         mainWidget.setLayout(layout)
         col_layout = QHBoxLayout()

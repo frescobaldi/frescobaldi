@@ -864,7 +864,7 @@ class Extensions(QObject):
         qutil.saveDialogSize(
             dlg, "extensions/error-dialog/size", QSize(600, 300))
         dlg.setGeometry(QStyle.alignedRect(
-            Qt.RightToLeft,
+            Qt.LayoutDirection.RightToLeft,
             Qt.AlignmentFlag.AlignCenter,
             dlg.size(),
             app.qApp.desktop().availableGeometry()))

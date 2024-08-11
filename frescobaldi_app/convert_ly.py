@@ -83,8 +83,8 @@ class Dialog(QDialog):
         self.toVersion = QLineEdit()
         self.lilyChooser = lilychooser.LilyChooser(toolcommand='convert-ly')
         self.messages = QTextBrowser()
-        self.diff = QTextBrowser(lineWrapMode=QTextBrowser.NoWrap)
-        self.uni_diff = QTextBrowser(lineWrapMode=QTextBrowser.NoWrap)
+        self.diff = QTextBrowser(lineWrapMode=QTextBrowser.LineWrapMode.NoWrap)
+        self.uni_diff = QTextBrowser(lineWrapMode=QTextBrowser.LineWrapMode.NoWrap)
         self.copyCheck = QCheckBox(checked=
             QSettings().value('convert_ly/copy_messages', True, bool))
         self.tabw = QTabWidget()

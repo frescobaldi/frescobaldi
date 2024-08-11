@@ -171,7 +171,7 @@ class View(QPlainTextEdit):
     def __init__(self, document):
         super().__init__()
         self.setDocument(document)
-        self.setLineWrapMode(QPlainTextEdit.NoWrap)
+        self.setLineWrapMode(QPlainTextEdit.LineWrapMode.NoWrap)
         self.setCursorWidth(2)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()

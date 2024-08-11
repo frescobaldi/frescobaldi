@@ -156,7 +156,7 @@ class LogWidget(log.Log):
         es.cursor.setPosition(anchor, QTextCursor.MoveMode.KeepAnchor)
         bg = qutil.mixcolor(self.palette().highlight().color(), self.palette().base().color(), 0.4)
         es.format.setBackground(bg)
-        es.format.setProperty(QTextFormat.FullWidthSelection, True)
+        es.format.setProperty(QTextFormat.Property.FullWidthSelection, True)
         self.setExtraSelections([es])
         # scroll log to the message
         cursor = QTextCursor(self.document())

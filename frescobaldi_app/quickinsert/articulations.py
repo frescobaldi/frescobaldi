@@ -64,7 +64,7 @@ class Articulations(tool.Tool):
         self.shorthands.setChecked(True)
         self.removemenu = QToolButton(self,
             autoRaise=True,
-            popupMode=QToolButton.InstantPopup,
+            popupMode=QToolButton.ToolButtonPopupMode.InstantPopup,
             icon=icons.get('edit-clear'))
 
         mainwindow = panel.parent().mainwindow()

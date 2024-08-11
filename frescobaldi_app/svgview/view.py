@@ -114,7 +114,7 @@ class View(QWebEngineView):
         except AttributeError:
             js = []
             qwebchannel_js = QFile(':/qtwebchannel/qwebchannel.js')
-            qwebchannel_js.open(QIODevice.ReadOnly)
+            qwebchannel_js.open(QIODevice.AccessMode.ReadOnly)
             js.append(bytes(qwebchannel_js.readAll()).decode('utf-8'))
             js.append("new QWebChannel(qt.webChannelTransport, function (channel) {\n"
                       " window.pyLinks = channel.objects.pyLinks;\n"

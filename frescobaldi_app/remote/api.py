@@ -45,7 +45,7 @@ class Remote:
         self.write(b'bye\n')
         self.socket.waitForBytesWritten()
         self.socket.disconnectFromServer()
-        if self.socket.state() == QLocalSocket.ConnectedState:
+        if self.socket.state() == QLocalSocket.LocalSocketState.ConnectedState:
             self.socket.waitForDisconnected(5000)
 
     def write(self, data):
@@ -92,7 +92,7 @@ class Incoming:
             end = pos + 1
             pos = self.data.find(b'\n', end)
         del self.data[:end]
-        if self.socket.state() == QLocalSocket.UnconnectedState:
+        if self.socket.state() == QLocalSocket.LocalSocketState.UnconnectedState:
             self.close()
 
     def command(self, command):

@@ -123,9 +123,9 @@ def load(filename, widget):
     updated = QTreeWidgetItem(tree, [_("Updated Snippets")])
     unchanged = QTreeWidgetItem(tree, [_("Unchanged Snippets")])
 
-    new.setFlags(Qt.ItemIsEnabled)
-    updated.setFlags(Qt.ItemIsEnabled)
-    unchanged.setFlags(Qt.ItemIsEnabled)
+    new.setFlags(Qt.ItemFlag.ItemIsEnabled)
+    updated.setFlags(Qt.ItemFlag.ItemIsEnabled)
+    unchanged.setFlags(Qt.ItemFlag.ItemIsEnabled)
 
     new.setExpanded(True)
     updated.setExpanded(True)
@@ -153,8 +153,8 @@ def load(filename, widget):
         if not name or name not in allnames:
             new.addChild(item)
             items.append(item)
-            item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
-            item.setCheckState(0, Qt.Checked)
+            item.setFlags(Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable)
+            item.setCheckState(0, Qt.CheckState.Checked)
         elif name:
             if (item.body != snippets.text(name)
                 or title != snippets.title(name)
@@ -162,18 +162,18 @@ def load(filename, widget):
                     [s.toString() for s in model.shortcuts(name) or ()])):
                 updated.addChild(item)
                 items.append(item)
-                item.setFlags(Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
-                item.setCheckState(0, Qt.Checked)
+                item.setFlags(Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable)
+                item.setCheckState(0, Qt.CheckState.Checked)
             else:
                 unchanged.addChild(item)
-                item.setFlags(Qt.ItemIsEnabled)
+                item.setFlags(Qt.ItemFlag.ItemIsEnabled)
     # count:
     for i in new, updated, unchanged:
         i.setText(0, i.text(0) + f" ({i.childCount()})")
     for i in new, updated:
         if i.childCount():
-            i.setFlags(Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
-            i.setCheckState(0, Qt.Checked)
+            i.setFlags(Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable)
+            i.setCheckState(0, Qt.CheckState.Checked)
 
     def changed(item):
         if item in (new, updated):
@@ -186,8 +186,8 @@ def load(filename, widget):
     importShortcuts = QTreeWidgetItem([_("Import Keyboard Shortcuts")])
     if items:
         tree.addTopLevelItem(importShortcuts)
-        importShortcuts.setFlags(Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
-        importShortcuts.setCheckState(0, Qt.Checked)
+        importShortcuts.setFlags(Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsUserCheckable)
+        importShortcuts.setCheckState(0, Qt.CheckState.Checked)
         dlg.setMessage(_("Choose which snippets you want to import:"))
     else:
         dlg.setMessage(_("There are no new or updated snippets in the file."))
@@ -208,7 +208,7 @@ def load(filename, widget):
     m = model.model()
     with qutil.busyCursor():
         for i in items:
-            if i.checkState(0) == Qt.Checked:
+            if i.checkState(0) == Qt.CheckState.Checked:
                 index = m.saveSnippet(i.name, i.body, i.title)
                 if i.shortcuts and importShortcuts.checkState(0):
                     shortcuts = list(map(QKeySequence.fromString, i.shortcuts))

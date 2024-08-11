@@ -89,7 +89,7 @@ def printCommand(cmd, printer, filename):
     command.append(printer.docName() or os.path.basename(filename))
 
     # page range
-    if printer.printRange() == QPrinter.PageRange:
+    if printer.printRange() == QPrinter.PrintRange.PageRange:
         pageRange = f"{printer.fromPage()}-{printer.toPage()}"
         if cmd == "lp":
             command.append('-P')
@@ -121,17 +121,17 @@ def cups_options(p):
         o['collate'] = 'true'
 
     # page ranges
-    if p.printRange() == QPrinter.PageRange:
+    if p.printRange() == QPrinter.PrintRange.PageRange:
         o['page-ranges'] = f"{p.fromPage()}-{p.toPage()}"
 
     # duplex mode
-    if p.duplex() == QPrinter.DuplexLongSide:
+    if p.duplex() == QPrinter.DuplexMode.DuplexLongSide:
         o['sides'] = 'two-sided-long-edge'
-    elif p.duplex() == QPrinter.DuplexShortSide:
+    elif p.duplex() == QPrinter.DuplexMode.DuplexShortSide:
         o['sides'] = 'two-sided-short-edge'
 
     # grayscale
-    if p.colorMode() == QPrinter.GrayScale:
+    if p.colorMode() == QPrinter.ColorMode.GrayScale:
         o['print-color-mode'] = 'monochrome'
 
     return o

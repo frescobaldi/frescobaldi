@@ -185,7 +185,7 @@ class FilePathEdit(ListEdit):
             return self._filedialog
         except AttributeError:
             self._filedialog = d = QFileDialog(self)
-            d.setFileMode(QFileDialog.Directory)
+            d.setFileMode(QFileDialog.FileMode.Directory)
             return d
 
     def openEditor(self, item):
@@ -200,11 +200,11 @@ class FilePathEdit(ListEdit):
 
     def setFileMode(self, mode):
         modes = {
-            'directory': QFileDialog.Directory,
-            QFileDialog.Directory: QFileDialog.Directory,
-            'file': QFileDialog.ExistingFile,
-            QFileDialog.ExistingFile: QFileDialog.ExistingFile,
-            'anyfile': QFileDialog.AnyFile,
-            QFileDialog.AnyFile: QFileDialog.AnyFile
+            'directory': QFileDialog.FileMode.Directory,
+            QFileDialog.FileMode.Directory: QFileDialog.FileMode.Directory,
+            'file': QFileDialog.FileMode.ExistingFile,
+            QFileDialog.FileMode.ExistingFile: QFileDialog.FileMode.ExistingFile,
+            'anyfile': QFileDialog.FileMode.AnyFile,
+            QFileDialog.FileMode.AnyFile: QFileDialog.FileMode.AnyFile
         }
         self.fileDialog().setFileMode(modes[mode])

@@ -74,7 +74,7 @@ class ImageViewer(QScrollArea):
         if self._pixmapsize == size:
             return self._pixmap
         self._pixmap = QPixmap.fromImage(
-            self._image.scaled(size, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+            self._image.scaled(size, Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
         self._pixmapsize = size
         return self._pixmap
 
@@ -85,7 +85,7 @@ class ImageViewer(QScrollArea):
         drag = QDrag(self)
         drag.setMimeData(data)
         if max(image.width(), image.height()) > 256:
-            image = image.scaled(QSize(256, 256), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            image = image.scaled(QSize(256, 256), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)
         p = QPainter()
         p.begin(image)
         p.setCompositionMode(QPainter.CompositionMode.CompositionMode_DestinationIn)
@@ -102,7 +102,7 @@ class ImageWidget(QWidget):
         super().__init__()
         self.viewer = viewer
         self.setBackgroundRole(QPalette.ColorRole.Dark)
-        self.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
+        self.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
         self._mode = None
         self._startpos = None
 
@@ -113,7 +113,7 @@ class ImageWidget(QWidget):
             painter.drawImage(ev.rect(), image, ev.rect())
         else:
             s = image.size()
-            s.scale(self.size(), Qt.KeepAspectRatio)
+            s.scale(self.size(), Qt.AspectRatioMode.KeepAspectRatio)
             r = QRect()
             r.setSize(s)
             r.moveCenter(self.rect().center())

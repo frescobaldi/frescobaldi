@@ -186,7 +186,7 @@ class Edit(QDialog):
             self.text.toPlainText(), self.titleEntry.text())
         # set snippet current in the editor that called us
         self.parent().treeView.selectionModel().setCurrentIndex(
-            index, QItemSelectionModel.Clear | QItemSelectionModel.SelectCurrent | QItemSelectionModel.Rows)
+            index, QItemSelectionModel.SelectionFlag.Clear | QItemSelectionModel.SelectCurrent | QItemSelectionModel.SelectionFlag.Rows)
         #remove the shortcuts conflicts
         self.actionManager().removeShortcuts(self.shortcuts())
         self.parent().treeView.update()
@@ -223,7 +223,7 @@ class ShortcutButton(QPushButton):
         if not self._shortcuts:
             self.setText(_("None"))
         else:
-            key = self._shortcuts[0].toString(QKeySequence.NativeText)
+            key = self._shortcuts[0].toString(QKeySequence.SequenceFormat.NativeText)
             if len(self._shortcuts) > 1:
                 key += "..."
             self.setText(key.replace('&', '&&'))

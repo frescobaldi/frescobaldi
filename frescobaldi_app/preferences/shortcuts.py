@@ -95,7 +95,7 @@ class Shortcuts(preferences.Page):
                 elif a in left:
                     left.remove(a)
                     menuitem.addChild(ShortcutItem(a, *allactions[a]))
-            menuitem.setFlags(Qt.ItemIsEnabled) # disable selection
+            menuitem.setFlags(Qt.ItemFlag.ItemIsEnabled) # disable selection
 
         def build_menu_item(action):
             """Return a QTreeWidgetItem with children for all the actions in the submenu."""
@@ -126,7 +126,7 @@ class Shortcuts(preferences.Page):
             for a in titlegroups[title]:
                 item.addChild(ShortcutItem(a, *allactions[a]))
             self.tree.addTopLevelItem(item)
-            item.setFlags(Qt.ItemIsEnabled) # disable selection
+            item.setFlags(Qt.ItemFlag.ItemIsEnabled) # disable selection
 
         # show other actions that were not in the menus
         item = QTreeWidgetItem([_("Other commands:")])
@@ -135,7 +135,7 @@ class Shortcuts(preferences.Page):
                 item.addChild(ShortcutItem(a, *allactions[a]))
         if item.childCount():
             self.tree.addTopLevelItem(item)
-            item.setFlags(Qt.ItemIsEnabled) # disable selection
+            item.setFlags(Qt.ItemFlag.ItemIsEnabled) # disable selection
 
         self.tree.expandAll()
 
@@ -356,7 +356,7 @@ class ShortcutItem(QTreeWidgetItem):
         text = ''
         shortcuts, default = self._shortcuts[scheme]
         if shortcuts:
-            text = shortcuts[0].toString(QKeySequence.NativeText)
+            text = shortcuts[0].toString(QKeySequence.SequenceFormat.NativeText)
             if len(shortcuts) > 1:
                 text += "..."
             if default:
@@ -374,7 +374,7 @@ class ShortcutItem(QTreeWidgetItem):
         if text in self.text(0).lower():
             return True
         for shortcut in self.shortcuts(scheme):
-            if text in shortcut.toString(QKeySequence.NativeText).lower():
+            if text in shortcut.toString(QKeySequence.SequenceFormat.NativeText).lower():
                 return True
         return False
 

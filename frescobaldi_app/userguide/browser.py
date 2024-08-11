@@ -113,11 +113,11 @@ class Window(QMainWindow):
         printer = QPrinter()
         dlg = QPrintDialog(printer, self)
         dlg.setWindowTitle(app.caption(_("Print")))
-        options = (QAbstractPrintDialog.PrintToFile
-                   | QAbstractPrintDialog.PrintShowPageSize
-                   | QAbstractPrintDialog.PrintPageRange)
+        options = (QAbstractPrintDialog.PrintDialogOption.PrintToFile
+                   | QAbstractPrintDialog.PrintDialogOption.PrintShowPageSize
+                   | QAbstractPrintDialog.PrintDialogOption.PrintPageRange)
         if self.browser.textCursor().hasSelection():
-            options |= QAbstractPrintDialog.PrintSelection
+            options |= QAbstractPrintDialog.PrintDialogOption.PrintSelection
         dlg.setOptions(options)
         if dlg.exec():
             self.browser.print_(printer)
@@ -138,9 +138,9 @@ class Browser(QTextBrowser):
             helpers.openUrl(url)
 
     def loadResource(self, type, url):
-        if type == QTextDocument.HtmlResource:
+        if type == QTextDocument.ResourceType.HtmlResource:
             return util.Formatter().html(url.path())
-        elif type == QTextDocument.ImageResource:
+        elif type == QTextDocument.ResourceType.ImageResource:
             url = QUrl.fromLocalFile(os.path.join(__path__[0], url.path()))
         return super().loadResource(type, url)
 

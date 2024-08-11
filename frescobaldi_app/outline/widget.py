@@ -122,7 +122,7 @@ class Widget(QTreeWidget):
                             color = qutil.addcolor(color, 128, 0, 0)
                             item.setForeground(0, QBrush(color))
                             font = item.font(0)
-                            font.setStyle(QFont.StyleItalic)
+                            font.setStyle(QFont.Style.StyleItalic)
                             item.setFont(0, font)
                         elif name.startswith('text'):
                             break

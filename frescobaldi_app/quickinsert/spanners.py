@@ -45,7 +45,7 @@ class Spanners(tool.Tool):
         super().__init__(panel)
         self.removemenu = QToolButton(self,
             autoRaise=True,
-            popupMode=QToolButton.InstantPopup,
+            popupMode=QToolButton.ToolButtonPopupMode.InstantPopup,
             icon=icons.get('edit-clear'))
 
         mainwindow = panel.parent().mainwindow()
