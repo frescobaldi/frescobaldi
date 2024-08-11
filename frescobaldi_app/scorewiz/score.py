@@ -163,12 +163,12 @@ class PartItem(widgets.treewidget.TreeWidgetItem):
         app.translateUI(self)
 
         flags = (
-            Qt.ItemIsSelectable |
-            Qt.ItemIsDragEnabled |
-            Qt.ItemIsEnabled
+            Qt.ItemFlag.ItemIsSelectable |
+            Qt.ItemFlag.ItemIsDragEnabled |
+            Qt.ItemFlag.ItemIsEnabled
         )
         if issubclass(part, parts._base.Container):
-            flags |= Qt.ItemIsDropEnabled
+            flags |= Qt.ItemFlag.ItemIsDropEnabled
         self.setFlags(flags)
 
     def translateUI(self):

@@ -61,7 +61,7 @@ class Documentation(QObject):
             self._versionString = ''
         else:
             # HTTP redirect?
-            url = self._reply.attribute(QNetworkRequest.RedirectionTargetAttribute)
+            url = self._reply.attribute(QNetworkRequest.Attribute.RedirectionTargetAttribute)
             if url is not None:
                 if url.path().endswith('/VERSION'):
                     self._request(self._reply.url().resolved(url))

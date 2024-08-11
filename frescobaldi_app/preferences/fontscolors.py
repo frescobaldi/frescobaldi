@@ -225,11 +225,11 @@ class FontsColors(preferences.Page):
 
         def setItemTextFormat(item, f):
             font = QFont(data.font)
-            if f.hasProperty(QTextFormat.ForegroundBrush):
+            if f.hasProperty(QTextFormat.Property.ForegroundBrush):
                 item.setForeground(0, f.foreground().color())
             else:
                 item.setForeground(0, data.baseColors['text'])
-            if f.hasProperty(QTextFormat.BackgroundBrush):
+            if f.hasProperty(QTextFormat.Property.BackgroundBrush):
                 item.setBackground(0, f.background().color())
             else:
                 item.setBackground(0, QBrush())
@@ -431,29 +431,29 @@ class CustomAttributes(QGroupBox):
     def setTextFormat(self, f):
         """Sets our widget to the QTextCharFormat settings."""
         block = self.blockSignals(True)
-        absent = Qt.PartiallyChecked if self._tristate else Qt.Unchecked
-        if f.hasProperty(QTextFormat.FontWeight):
+        absent = Qt.CheckState.PartiallyChecked if self._tristate else Qt.CheckState.Unchecked
+        if f.hasProperty(QTextFormat.Property.FontWeight):
             self.bold.setChecked(f.fontWeight() >= QFont.Weight.Bold)
         else:
             self.bold.setCheckState(absent)
-        if f.hasProperty(QTextFormat.FontItalic):
+        if f.hasProperty(QTextFormat.Property.FontItalic):
             self.italic.setChecked(f.fontItalic())
         else:
             self.italic.setCheckState(absent)
-        if f.hasProperty(QTextFormat.TextUnderlineStyle):
+        if f.hasProperty(QTextFormat.Property.TextUnderlineStyle):
             self.underline.setChecked(f.fontUnderline())
         else:
             self.underline.setCheckState(absent)
 
-        if f.hasProperty(QTextFormat.ForegroundBrush):
+        if f.hasProperty(QTextFormat.Property.ForegroundBrush):
             self.textColor.setColor(f.foreground().color())
         else:
             self.textColor.setColor(QColor())
-        if f.hasProperty(QTextFormat.BackgroundBrush):
+        if f.hasProperty(QTextFormat.Property.BackgroundBrush):
             self.backgroundColor.setColor(f.background().color())
         else:
             self.backgroundColor.setColor(QColor())
-        if f.hasProperty(QTextFormat.TextUnderlineColor):
+        if f.hasProperty(QTextFormat.Property.TextUnderlineColor):
             self.underlineColor.setColor(f.underlineColor())
         else:
             self.underlineColor.setColor(QColor())

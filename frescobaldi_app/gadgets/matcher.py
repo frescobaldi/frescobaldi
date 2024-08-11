@@ -88,7 +88,7 @@ class Matcher(QObject):
         if i & 1:
             # look backward
             match = self.matchPairs[i-1]
-            flags = QTextDocument.FindBackward
+            flags = QTextDocument.FindFlag.FindBackward
         else:
             # look forward
             match = self.matchPairs[i+1]

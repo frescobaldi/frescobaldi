@@ -214,7 +214,7 @@ class Resolver:
         import actioncollectionmanager
         action = actioncollectionmanager.action(collection_name, action_name)
         seq = action.shortcut()
-        key = seq.toString(QKeySequence.NativeText) or _("(no key defined)")
+        key = seq.toString(QKeySequence.SequenceFormat.NativeText) or _("(no key defined)")
         return f'<span class="shortcut">{simplemarkdown.html_escape(key)}</span>'
 
     def handle_menu(self, text):

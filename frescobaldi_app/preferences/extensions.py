@@ -173,14 +173,14 @@ class Installed(preferences.Group):
         inactive = s.value("inactive", [], list)
         for ext in self.name_items.keys():
             self.name_items[ext].setCheckState(
-                Qt.Checked if ext not in inactive else Qt.Unchecked)
+                Qt.CheckState.Checked if ext not in inactive else Qt.CheckState.Unchecked)
         self.tree.model().dataChanged.connect(self.page().changed)
 
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("extension-settings/installed")
         inactive = [ext for ext in self.name_items.keys()
-            if self.name_items[ext].checkState() == Qt.Unchecked]
+            if self.name_items[ext].checkState() == Qt.CheckState.Unchecked]
         s.setValue("inactive", inactive)
 
     def populate(self):

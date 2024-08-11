@@ -69,7 +69,7 @@ class TextFontsWidget(QWidget):
         self.tree_view = tv = QTreeView()
         self.filter_edit = QLineEdit(clearButtonEnabled=True)
         tv.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
-        tv.setContextMenuPolicy(Qt.CustomContextMenu)
+        tv.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         tv.customContextMenuRequested.connect(self.show_context_menu)
 
         layout = QVBoxLayout(self)

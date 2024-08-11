@@ -49,7 +49,7 @@ class Browser(QWidget):
         self.setLayout(layout)
 
         self.toolbar = tb = QToolBar()
-        self.webview = QWebEngineView(self, contextMenuPolicy=Qt.CustomContextMenu)
+        self.webview = QWebEngineView(self, contextMenuPolicy=Qt.ContextMenuPolicy.CustomContextMenu)
         self.webview.setPage(WebEnginePage(self.webview))
         self.chooser = QComboBox(sizeAdjustPolicy=QComboBox.SizeAdjustPolicy.AdjustToContents)
         self.search = SearchEntry(maximumWidth=200, clearButtonEnabled=True)
@@ -99,11 +99,11 @@ class Browser(QWidget):
         ws = self.webview.page().settings()
         family = s.value("fontfamily", self.font().family(), str)
         size = s.value("fontsize", 16, int)
-        ws.setFontFamily(QWebEngineSettings.StandardFont, family)
-        ws.setFontSize(QWebEngineSettings.DefaultFontSize, size)
+        ws.setFontFamily(QWebEngineSettings.FontFamily.StandardFont, family)
+        ws.setFontSize(QWebEngineSettings.FontSize.DefaultFontSize, size)
         fixed = textformats.formatData('editor').font
-        ws.setFontFamily(QWebEngineSettings.FixedFont, fixed.family())
-        ws.setFontSize(QWebEngineSettings.DefaultFixedFontSize, int(fixed.pointSizeF() * 96 / 72))
+        ws.setFontFamily(QWebEngineSettings.FontFamily.FixedFont, fixed.family())
+        ws.setFontSize(QWebEngineSettings.FontSize.DefaultFixedFontSize, int(fixed.pointSizeF() * 96 / 72))
         self.webview.page().profile().setHttpAcceptLanguage(','.join(lilydoc.network.langs()))
 
     def keyPressEvent(self, ev):
@@ -248,7 +248,7 @@ class Browser(QWidget):
         d = self.webview.page().contextMenuData()
         menu = QMenu()
         if d.linkUrl().isValid():
-            a = self.webview.pageAction(QWebEnginePage.CopyLinkToClipboard)
+            a = self.webview.pageAction(QWebEnginePage.WebAction.CopyLinkToClipboard)
             a.setIcon(icons.get("edit-copy"))
             a.setText(_("Copy &Link"))
             menu.addAction(a)
@@ -257,7 +257,7 @@ class Browser(QWidget):
             a.triggered.connect((lambda url: lambda: self.slotNewWindow(url))(d.linkUrl()))
         else:
             if d.selectedText():
-                a = self.webview.pageAction(QWebEnginePage.Copy)
+                a = self.webview.pageAction(QWebEnginePage.WebAction.Copy)
                 a.setIcon(icons.get("edit-copy"))
                 a.setText(_("&Copy"))
                 menu.addAction(a)

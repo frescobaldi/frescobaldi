@@ -60,7 +60,7 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         self.mainWidget().setLayout(layout)
         self.tree = QTreeWidget(headerHidden=True, rootIsDecorated=False,
                                 columnCount=2, itemsExpandable=False)
-        self.tree.setSelectionMode(QTreeWidget.ExtendedSelection)
+        self.tree.setSelectionMode(QTreeWidget.SelectionMode.ExtendedSelection)
 
         self.buttonReload = QPushButton()
         self.buttonReloadAll = QPushButton()
@@ -146,7 +146,7 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
             diritem.setText(0, util.homify(dirname))
             self.tree.addTopLevelItem(diritem)
             diritem.setExpanded(True)
-            diritem.setFlags(Qt.ItemIsEnabled)
+            diritem.setFlags(Qt.ItemFlag.ItemIsEnabled)
             diritem.setIcon(0, icons.get('folder-open'))
             for filename, document in sorted(dirs[dirname],
                                               key=lambda item: util.naturalsort(item[0])):
@@ -285,7 +285,7 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
             currenttext, disktext,
             _("Current Document"), _("Document on Disk"), numlines=5)
         dlg = widgets.dialog.Dialog(self, buttons=('close',))
-        view = QTextBrowser(lineWrapMode=QTextBrowser.NoWrap)
+        view = QTextBrowser(lineWrapMode=QTextBrowser.LineWrapMode.NoWrap)
         view.setHtml(html)
         dlg.setMainWidget(view)
         dlg.setWindowTitle(app.caption("Differences"))

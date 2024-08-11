@@ -297,7 +297,7 @@ class SessionEditor(QDialog):
         if self.replPaths.isChecked():
             items = self.include.items()
             for i in items:
-                if not (i.flags() & Qt.ItemIsEnabled): #is not enabled
+                if not (i.flags() & Qt.ItemFlag.ItemIsEnabled): #is not enabled
                     self.include.listBox.takeItem(self.include.listBox.row(i))
             self.revt.setEnabled(True)
         else:
@@ -314,7 +314,7 @@ class SessionEditor(QDialog):
         """Remove all active paths."""
         items = self.include.items()
         for i in items:
-            if i.flags() & Qt.ItemIsEnabled:
+            if i.flags() & Qt.ItemFlag.ItemIsEnabled:
                 self.include.listBox.takeItem(self.include.listBox.row(i))
 
     def save(self, name):
@@ -323,7 +323,7 @@ class SessionEditor(QDialog):
         settings.setValue("basedir", self.basedir.path())
         settings.setValue("set-paths", self.inclPaths.isChecked())
         settings.setValue("repl-paths", self.replPaths.isChecked())
-        path = [i.text() for i in self.include.items() if i.flags() & Qt.ItemIsEnabled]
+        path = [i.text() for i in self.include.items() if i.flags() & Qt.ItemFlag.ItemIsEnabled]
         settings.setValue("include-path", path)
         # more settings here
 

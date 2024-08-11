@@ -110,15 +110,15 @@ class KeySequenceButton(QPushButton):
 
     def updateDisplay(self):
         if self._isrecording:
-            s = self._recseq.toString(QKeySequence.NativeText).replace('&', '&&')
+            s = self._recseq.toString(QKeySequence.SequenceFormat.NativeText).replace('&', '&&')
             if self._modifiers:
                 if s: s += ","
-                s += QKeySequence(self._modifiers).toString(QKeySequence.NativeText)
+                s += QKeySequence(self._modifiers).toString(QKeySequence.SequenceFormat.NativeText)
             elif self._recseq.isEmpty():
                 s = _("Input")
             s += " ..."
         else:
-            s = self._seq.toString(QKeySequence.NativeText).replace('&', '&&')
+            s = self._seq.toString(QKeySequence.SequenceFormat.NativeText).replace('&', '&&')
         self.setText(s)
 
     def isRecording(self):

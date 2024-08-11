@@ -173,7 +173,7 @@ def shortcut(name):
     """Returns a shortcut text for the named snippets, if any, else None."""
     s = shortcuts(name)
     if s:
-        text = s[0].toString(QKeySequence.NativeText)
+        text = s[0].toString(QKeySequence.SequenceFormat.NativeText)
         if len(s) > 1:
             text += "..."
         return text

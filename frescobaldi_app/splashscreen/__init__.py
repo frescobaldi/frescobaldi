@@ -34,7 +34,7 @@ def show():
     pixmap = QPixmap(os.path.join(__path__[0], 'splash.png'))
     if QGuiApplication.primaryScreen().geometry().height() < 640:
         fontsize = 23
-        pixmap = pixmap.scaledToHeight(240, Qt.SmoothTransformation)
+        pixmap = pixmap.scaledToHeight(240, Qt.TransformationMode.SmoothTransformation)
     else:
         fontsize = 40
 

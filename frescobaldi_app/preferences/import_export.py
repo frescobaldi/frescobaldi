@@ -197,17 +197,17 @@ def importShortcut(filename, widget, schemeWidget):
 
 def styleToElt(fmt, name):
     elt = ET.Element(name)
-    if fmt.hasProperty(QTextFormat.FontWeight):
+    if fmt.hasProperty(QTextFormat.Property.FontWeight):
         elt.set('bold', str(fmt.fontWeight() >= 70))
-    if fmt.hasProperty(QTextFormat.FontItalic):
+    if fmt.hasProperty(QTextFormat.Property.FontItalic):
         elt.set('italic', str(fmt.fontItalic()))
-    if fmt.hasProperty(QTextFormat.TextUnderlineStyle):
+    if fmt.hasProperty(QTextFormat.Property.TextUnderlineStyle):
         elt.set('underline', str(fmt.fontUnderline()))
-    if fmt.hasProperty(QTextFormat.ForegroundBrush):
+    if fmt.hasProperty(QTextFormat.Property.ForegroundBrush):
         elt.set('textColor', fmt.foreground().color().name())
-    if fmt.hasProperty(QTextFormat.BackgroundBrush):
+    if fmt.hasProperty(QTextFormat.Property.BackgroundBrush):
         elt.set('backgroundColor', fmt.background().color().name())
-    if fmt.hasProperty(QTextFormat.TextUnderlineColor):
+    if fmt.hasProperty(QTextFormat.Property.TextUnderlineColor):
         elt.set('underlineColor', fmt.underlineColor().name())
 
     return elt if elt.attrib else None

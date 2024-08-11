@@ -73,11 +73,11 @@ class Overlay(QWidget):
 
         painter = QPainter()
         painter.begin(self)
-        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setRenderHint(QPainter.PaintEngineFeature.Antialiasing)
         painter.fillRect(
             event.rect(), QColor(255, 255, 255, self._transparency)
         )
-        painter.setPen(QPen(Qt.NoPen))
+        painter.setPen(QPen(Qt.PenStyle.NoPen))
         painter.translate(self.rect().center())
 
         for i in range(6):

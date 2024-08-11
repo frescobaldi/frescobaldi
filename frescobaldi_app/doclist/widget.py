@@ -39,7 +39,7 @@ class Widget(QTreeWidget):
     def __init__(self, tool):
         super().__init__(tool, headerHidden=True)
         self.setRootIsDecorated(False)
-        self.setSelectionMode(QTreeWidget.ExtendedSelection)
+        self.setSelectionMode(QTreeWidget.SelectionMode.ExtendedSelection)
         app.documentCreated.connect(self.addDocument)
         app.documentClosed.connect(self.removeDocument)
         app.documentLoaded.connect(self.setDocumentStatus)
@@ -101,7 +101,7 @@ class Widget(QTreeWidget):
         if self._group:
             self.groupDocument(doc)
         else:
-            self.sortItems(0, Qt.AscendingOrder)
+            self.sortItems(0, Qt.SortOrder.AscendingOrder)
 
     def groupDocument(self, doc):
         """Called, if grouping is enabled, to group the document."""
@@ -113,9 +113,9 @@ class Widget(QTreeWidget):
             new_parent._path = p
             new_parent.setText(0, p or _("Untitled"))
             new_parent.setIcon(0, icons.get("folder-open"))
-            new_parent.setFlags(Qt.ItemIsEnabled)
+            new_parent.setFlags(Qt.ItemFlag.ItemIsEnabled)
             new_parent.setExpanded(True)
-            self.sortItems(0, Qt.AscendingOrder)
+            self.sortItems(0, Qt.SortOrder.AscendingOrder)
         old_parent = i.parent()
         if old_parent == new_parent:
             return
@@ -127,7 +127,7 @@ class Widget(QTreeWidget):
         else:
             self.takeTopLevelItem(self.indexOfTopLevelItem(i))
         new_parent.addChild(i)
-        new_parent.sortChildren(0, Qt.AscendingOrder)
+        new_parent.sortChildren(0, Qt.SortOrder.AscendingOrder)
 
     def document(self, item):
         """Returns the document for item."""

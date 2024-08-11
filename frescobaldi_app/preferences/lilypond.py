@@ -565,7 +565,7 @@ class InfoDialog(QDialog):
         self.haveCommandEdit = not info.isAutoManaged
         if self.haveCommandEdit:
             self.lilypond = widgets.urlrequester.UrlRequester()
-            self.lilypond.setFileMode(QFileDialog.ExistingFile)
+            self.lilypond.setFileMode(QFileDialog.FileMode.ExistingFile)
             self.lilypond.setPath(info.command)
             self.lilypond.lineEdit.setFocus()
             self.lilypondLabel = l = QLabel()

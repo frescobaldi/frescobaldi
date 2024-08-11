@@ -106,9 +106,9 @@ class HtmlReplyBase(QNetworkReply):
 
     def outputReady(self):
         self._offset = 0
-        self.setHeader(QNetworkRequest.ContentTypeHeader, f"text/html; charset={self._encoding}")
-        self.setHeader(QNetworkRequest.ContentLengthHeader, len(self._content))
-        self.open(QNetworkReply.ReadOnly | QNetworkReply.Unbuffered)
+        self.setHeader(QNetworkRequest.KnownHeaders.ContentTypeHeader, f"text/html; charset={self._encoding}")
+        self.setHeader(QNetworkRequest.KnownHeaders.ContentLengthHeader, len(self._content))
+        self.open(QNetworkReply.OpenModeFlag.ReadOnly | QNetworkReply.OpenModeFlag.Unbuffered)
 
     def emitSignals(self):
         self.readyRead.emit()

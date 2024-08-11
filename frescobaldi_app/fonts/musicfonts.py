@@ -146,7 +146,7 @@ class MusicFontsWidget(QWidget):
             repo = fonts.music_fonts_repo()
         else:
             dlg = QFileDialog(self)
-            dlg.setFileMode(QFileDialog.Directory)
+            dlg.setFileMode(QFileDialog.FileMode.Directory)
             if not dlg.exec():
                 return
             repo = MusicFontRepo(dlg.selectedFiles()[0])
@@ -586,13 +586,13 @@ class MusicFontsModel(QStandardItemModel):
                 if len(sizes) == 8:
                     size_result.setCheckState(False)
                 else:
-                    size_result.setCheckState(Qt.PartiallyChecked)
+                    size_result.setCheckState(Qt.CheckState.PartiallyChecked)
                     size_result.setText(_("Missing:") + " {}".format(
                         ", ".join(sizes)))
             else:
-                size_result.setCheckState(Qt.Checked)
+                size_result.setCheckState(Qt.CheckState.Checked)
 
-            has_brace = Qt.Checked if font.has_brace(type) else Qt.Unchecked
+            has_brace = Qt.CheckState.Checked if font.has_brace(type) else Qt.CheckState.Unchecked
             brace_result = QStandardItem()
             brace_result.setCheckState(has_brace)
             return [size_result, brace_result]

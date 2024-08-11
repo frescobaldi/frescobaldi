@@ -45,8 +45,8 @@ class SourceViewer(QDialog):
         self.textbrowser = QTextBrowser()
         layout.addWidget(self.textbrowser)
 
-        self.urlLabel.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        self.textbrowser.setLineWrapMode(QTextBrowser.NoWrap)
+        self.urlLabel.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        self.textbrowser.setLineWrapMode(QTextBrowser.LineWrapMode.NoWrap)
 
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()

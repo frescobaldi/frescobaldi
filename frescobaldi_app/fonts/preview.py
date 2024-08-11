@@ -85,7 +85,7 @@ class FontsPreviewWidget(QWidget):
 
         # Select custom file
         self.custom_sample_url = widgets.urlrequester.UrlRequester(
-            fileMode=QFileDialog.ExistingFile,
+            fileMode=QFileDialog.FileMode.ExistingFile,
             mustExist=True
         )
 

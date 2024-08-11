@@ -68,7 +68,7 @@ class ExtensionSettings(QObject):
 
     def _load_settings(self):
         """Load settings from disk, is done once upon creation."""
-        s = QSettings(self.settings_file(), QSettings.IniFormat)
+        s = QSettings(self.settings_file(), QSettings.Format.IniFormat)
         for key in self._defaults:
             default = self._defaults[key]
             self._data[key] = s.value(key, default, type(default))
@@ -90,7 +90,7 @@ class ExtensionSettings(QObject):
             if value == old_value:
                 return
             self._data[key] = value
-            QSettings(self.settings_file(), QSettings.IniFormat).setValue(key, value)
+            QSettings(self.settings_file(), QSettings.Format.IniFormat).setValue(key, value)
             self.extension().settings_changed(key, old_value, value)
         except ValueError:
             # type conversion failed
