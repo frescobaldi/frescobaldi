@@ -47,7 +47,8 @@ class TemplateDialog(widgets.dialog.TextDialog):
         self.setMainWidget(w)
         c = self._runCheck = QCheckBox(
             _("Run LilyPond when creating a new document from this template"))
-        layout = QVBoxLayout(margin=0)
+        layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
         w.setLayout(layout)
         layout.addWidget(e)
         layout.addWidget(c)
