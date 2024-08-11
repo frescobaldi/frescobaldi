@@ -45,16 +45,14 @@ def links(document):
     except KeyError:
         l = _cache[document] = Links()
         with l:
-            import popplerqt6
             with qpageview.locking.lock(document):
-                for num in range(document.numPages()):
-                    page = document.page(num)
+                for num, page in enumerate(document.pages()):
                     for link in page.links():
-                        if isinstance(link, popplerqt6.Poppler.LinkBrowse):
-                            t = textedit.link(link.url())
-                            if t:
-                                filename = util.normpath(t.filename)
-                                l.add_link(filename, t.line, t.column, (num, link.linkArea()))
+                        t = textedit.link(link.url)
+                        if t:
+                            filename = util.normpath(t.filename)
+                            area = QRectF(*link.area)
+                            l.add_link(filename, t.line, t.column, (num, area))
         return l
 
 
