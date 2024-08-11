@@ -258,7 +258,7 @@ class View(QPlainTextEdit):
     def contextMenuEvent(self, ev):
         """Called when the user requests the context menu."""
         cursor = self.textCursor()
-        if ev.reason() == QContextMenuEvent.DeviceType.Mouse:
+        if ev.reason() == QContextMenuEvent.Reason.Mouse:
             # if clicked inside the selection, retain it, otherwise de-select
             # and move the cursor to the clicked position
             pos = self.mapToGlobal(ev.pos())
