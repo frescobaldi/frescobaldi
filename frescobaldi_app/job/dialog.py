@@ -38,7 +38,7 @@ class Dialog(widgets.dialog.Dialog):
             parent,
             buttons=('cancel', 'ok',)
         )
-        self.setWindowModality(Qt.WindowType.WindowModal)
+        self.setWindowModality(Qt.WindowModality.WindowModal)
         self.setIconSize(32)
         self.auto_accept = auto_accept
         self.log = log.Log(self)

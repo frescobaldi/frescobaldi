@@ -331,7 +331,7 @@ class Widget(QWidget):
         """Called when the user activates the Restore action."""
         from . import restore
         dlg = restore.RestoreDialog(self)
-        dlg.setWindowModality(Qt.WindowType.WindowModal)
+        dlg.setWindowModality(Qt.WindowModality.WindowModal)
         dlg.populate()
         dlg.show()
         dlg.finished.connect(dlg.deleteLater)

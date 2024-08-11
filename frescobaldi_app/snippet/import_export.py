@@ -109,7 +109,7 @@ def load(filename, widget):
 
 
     dlg = widgets.dialog.Dialog(widget)
-    dlg.setWindowModality(Qt.WindowType.WindowModal)
+    dlg.setWindowModality(Qt.WindowModality.WindowModal)
     dlg.setWindowTitle(app.caption(_("dialog title", "Import Snippets")))
     tree = QTreeWidget(headerHidden=True, rootIsDecorated=False)
     dlg.setMainWidget(tree)

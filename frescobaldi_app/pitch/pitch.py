@@ -184,7 +184,7 @@ def getModeShifter(document, mainwindow):
     from . import dialog
     dlg = dialog.ModeShiftDialog(mainwindow)
     dlg.addAction(mainwindow.actionCollection.help_whatsthis)
-    dlg.setWindowModality(Qt.WindowType.WindowModal)
+    dlg.setWindowModality(Qt.WindowModality.WindowModal)
     dlg.setKeyValidator(validate)
     if dlg.exec():
         key, scale = dlg.getMode()

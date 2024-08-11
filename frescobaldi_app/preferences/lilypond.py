@@ -534,7 +534,7 @@ class AddMenu(QMenu):
 class InfoDialog(QDialog):
     def __init__(self, parent, info):
         super().__init__(parent)
-        self.setWindowModality(Qt.WindowType.WindowModal)
+        self.setWindowModality(Qt.WindowModality.WindowModal)
 
         layout = QVBoxLayout()
         layout.setSpacing(10)
