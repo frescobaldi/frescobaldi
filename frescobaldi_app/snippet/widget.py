@@ -82,7 +82,7 @@ class Widget(QWidget):
         def act(slot, icon=None):
             a = QAction(self, triggered=slot)
             self.addAction(a)
-            a.setShortcutContext(Qt.WindowType.WidgetWithChildrenShortcut)
+            a.setShortcutContext(Qt.ShortcutContext.WidgetWithChildrenShortcut)
             icon and a.setIcon(icons.get(icon))
             return a
 
@@ -123,7 +123,7 @@ class Widget(QWidget):
 
         # delete action
         a = self.deleteAction = act(self.slotDelete, 'list-remove')
-        a.setShortcut(QKeySequence(Qt.Modifier.CTRL + Qt.Key.Key_Delete))
+        a.setShortcut(QKeySequence(Qt.Modifier.CTRL | Qt.Key.Key_Delete))
         menu.addAction(a)
 
         # restore action
@@ -399,7 +399,7 @@ class SearchLineEdit(QLineEdit):
         super().__init__(*args, clearButtonEnabled=True)
 
     def event(self, ev):
-        if ev.type() == QEvent.KeyPress and any(ev.matches(key) for key in (
+        if ev.type() == QEvent.Type.KeyPress and any(ev.matches(key) for key in (
             QKeySequence.StandardKey.MoveToNextLine, QKeySequence.StandardKey.SelectNextLine,
             QKeySequence.StandardKey.MoveToPreviousLine, QKeySequence.StandardKey.SelectPreviousLine,
             QKeySequence.StandardKey.MoveToNextPage, QKeySequence.StandardKey.SelectNextPage,

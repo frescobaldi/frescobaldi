@@ -104,7 +104,11 @@ def addAccelerators(actions, used=[]):
         if isinstance(action, QAction) and not action.shortcut().isEmpty():
             # if the action has a shortcut with A-Z or 0-9, match that character
             shortcut = action.shortcut()[action.shortcut().count()-1]
-            key = shortcut & ~Qt.Modifier.ALT & ~Qt.Modifier.SHIFT & ~Qt.Modifier.CTRL & ~Qt.Modifier.META
+            key = (shortcut.toCombined()
+                   & ~Qt.Modifier.ALT.value
+                   & ~Qt.Modifier.SHIFT.value
+                   & ~Qt.Modifier.CTRL.value
+                   & ~Qt.Modifier.META.value)
             if 48 < key < 58 or 64 < key < 91 or 96 < key < 123:
                 yield 0, re.finditer(fr'\b{key:c}', text, re.I)
         yield 1, re.finditer(r'\b\w', text)
