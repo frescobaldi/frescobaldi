@@ -31,11 +31,6 @@ from PyQt6.QtCore import pyqtSignal, QMargins, QPoint, QRect, QSettings, Qt, QUr
 from PyQt6.QtGui import QCursor, QTextCharFormat
 from PyQt6.QtWidgets import QToolTip, QVBoxLayout, QWidget
 
-try:
-    import popplerqt6
-except ImportError:
-    pass
-
 import qpageview
 import qpageview.layout
 import qpageview.highlight
@@ -55,7 +50,7 @@ from . import pointandclick
 
 
 class MusicView(QWidget):
-    """Widget containing the qpopplerview.View."""
+    """Widget containing the qpageview.View."""
     def __init__(self, dockwidget):
         """Creates the Music View for the dockwidget."""
         super().__init__(dockwidget)
@@ -100,9 +95,7 @@ class MusicView(QWidget):
         """Open a qpageview.Document instance."""
         self._links = None
         self._highlightRange = None
-        document = doc.document()
-        if document:
-            self._links = pointandclick.links(document)
+        self._links = pointandclick.links(doc)
         self.view.setDocument(doc)
 
     def clear(self):
@@ -150,9 +143,8 @@ class MusicView(QWidget):
                 mainwindow.currentView().setFocus()
         elif link.url and not link.url.startswith('textedit:'):
             helpers.openUrl(QUrl(link.url))
-        elif (hasattr(link, "linkobj") and isinstance(link.linkobj, popplerqt6.Poppler.LinkGoto)
-              and not link.linkobj.isExternal()):
-            self.view.setCurrentPageNumber(link.linkobj.destination().pageNumber())
+        elif link.targetPage != -1 and not link.isExternal:
+            self.view.setCurrentPageNumber(link.targetPage)
 
     def slotLinkHovered(self, page, link):
         """Called when the mouse hovers a link.
@@ -193,10 +185,10 @@ class MusicView(QWidget):
                     text = f"{os.path.basename(l.filename)} ({l.line}:{l.column})"
                 else:
                     text = link.url
-        elif hasattr(link, "linkobj") and isinstance(link.linkobj, popplerqt6.Poppler.LinkGoto):
-            text = _("Page {num}").format(num=link.linkobj.destination().pageNumber())
-            if link.linkobj.isExternal():
-                text = link.linkobj.fileName() + "\n" + text
+        elif link.targetPage != -1:
+            text = _("Page {num}").format(num=link.targetPage)
+            if link.isExternal:
+                text = link.fileName + "\n" + text
         else:
             return
         QToolTip.showText(pos, text, self.view, page.linkRect(link))
