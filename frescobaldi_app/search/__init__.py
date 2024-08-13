@@ -75,7 +75,7 @@ class Search(plugin.MainWindowPlugin, QWidget):
         self.caseCheck = QCheckBox(checked=True, focusPolicy=Qt.FocusPolicy.NoFocus)
         self.regexCheck = QCheckBox(focusPolicy=Qt.FocusPolicy.NoFocus)
         self.countLabel = QLabel(alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
-        self.countLabel.setMinimumWidth(QApplication.fontMetrics().width("9999"))
+        self.countLabel.setMinimumWidth(self.countLabel.fontMetrics().horizontalAdvance("9999"))
         self.closeButton = QToolButton(autoRaise=True, focusPolicy=Qt.FocusPolicy.NoFocus)
         self.hideAction = QAction(self, triggered=self.slotHide)
         self.hideAction.setShortcut(QKeySequence(Qt.Key.Key_Escape))
