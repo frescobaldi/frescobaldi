@@ -357,11 +357,11 @@ class Search(plugin.MainWindowPlugin, QWidget):
 
     def event(self, ev):
         """Reimplemented to catch F1 for help and Tab so it does not reach the View."""
-        if ev.type() == QEvent.ShortcutOverride and ev.matches(QKeySequence.StandardKey.HelpContents):
+        if ev.type() == QEvent.Type.ShortcutOverride and ev.matches(QKeySequence.StandardKey.HelpContents):
             userguide.show("search_replace")
             ev.accept()
             return True
-        elif ev.type() == QEvent.KeyPress:
+        elif ev.type() == QEvent.Type.KeyPress:
             modifiers = int(ev.modifiers() & (Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Modifier.ALT | Qt.Modifier.META))
             if ev.key() == Qt.Key.Key_Tab and modifiers == 0:
                 # prevent Tab from reaching the View widget
