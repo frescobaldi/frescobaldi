@@ -343,9 +343,15 @@ class TextDialog(Dialog):
         """
         validator = function = None
         if regexp is not None:
+            # We don't need QRegularExpression.anchoredPattern() here because
+            # QRegularExpressionValidator always attempts an exact match
             rx = QRegularExpression(regexp)
             validator = QRegularExpressionValidator(rx, self.lineEdit())
-            function = rx.exactMatch
+            def doValidateRegExp(subject):
+                pos = 0
+                return (bool(subject)
+                    and validator.validate(subject, pos) != QRegularExpressionValidator.State.Invalid)
+            function = doValidateRegExp
         self.lineEdit().setValidator(validator)
         self.setValidateFunction(function)
 
