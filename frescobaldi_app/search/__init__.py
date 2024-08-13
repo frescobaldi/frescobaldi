@@ -362,13 +362,16 @@ class Search(plugin.MainWindowPlugin, QWidget):
             ev.accept()
             return True
         elif ev.type() == QEvent.Type.KeyPress:
-            modifiers = int(ev.modifiers() & (Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Modifier.ALT | Qt.Modifier.META))
+            # This is written this way because Qt.KeyboardModifier,
+            # Qt.Modifier, and their corresponding int values are not
+            # interchangeable in PyQt6, even though they are in C++.
+            modifiers = ev.modifiers().value & (Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Modifier.ALT | Qt.Modifier.META).value
             if ev.key() == Qt.Key.Key_Tab and modifiers == 0:
                 # prevent Tab from reaching the View widget
                 self.window().focusNextChild()
                 ev.accept()
                 return True
-            elif ev.key() == Qt.Key.Key_Backtab and modifiers & ~Qt.Modifier.SHIFT == 0:
+            elif ev.key() == Qt.Key.Key_Backtab and modifiers & ~Qt.Modifier.SHIFT.value == 0:
                 # prevent Tab from reaching the View widget
                 self.window().focusPreviousChild()
                 ev.accept()
