@@ -230,8 +230,7 @@ class Dialog(QDialog):
         """
         if isinstance(buttons, (set, tuple, list)):
             buttons = functools.reduce(operator.or_,
-                map(standardbuttons.get, buttons),
-                QDialogButtonBox.StandardButtons())
+                map(standardbuttons.get, buttons))
         self._buttonBox.setStandardButtons(buttons)
 
     def button(self, button):
