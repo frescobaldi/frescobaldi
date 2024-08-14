@@ -29,7 +29,8 @@ The following people contributed to {appname} (in alphabetical order):
 : Kinetic Scrolling for the Music View
 
 !Benjamin Johnson:
-: !_(Score Wizard improvements)_,
+: !_(Port to PyQt6)_,
+  _(Score Wizard improvements)_,
   _(Score Wizard From Current Document)_
 
 !Jörg Hoffmann:
