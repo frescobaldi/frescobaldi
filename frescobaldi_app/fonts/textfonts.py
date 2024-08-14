@@ -358,8 +358,10 @@ class TextFonts(QObject):
         self._log = []
         self._tree_model.reset()
         self._misc_model.reset()
-        # needs to be reset for the LilyPond-dependent fonts
-        self.font_db = QFontDatabase()
+        # all the functions we need are static members in Qt6
+        self.font_db = QFontDatabase
+        ## needs to be reset for the LilyPond-dependent fonts
+        #self.font_db = QFontDatabase()
 
         self._is_loaded = False
 

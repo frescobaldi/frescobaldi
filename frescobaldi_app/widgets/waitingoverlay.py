@@ -73,7 +73,7 @@ class Overlay(QWidget):
 
         painter = QPainter()
         painter.begin(self)
-        painter.setRenderHint(QPainter.PaintEngineFeature.Antialiasing)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         painter.fillRect(
             event.rect(), QColor(255, 255, 255, self._transparency)
         )
