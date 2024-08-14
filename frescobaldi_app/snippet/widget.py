@@ -368,7 +368,7 @@ class Widget(QWidget):
             elif text and nameid == text:
                 index = self.treeView.model().createIndex(row, 0)
                 self.treeView.selectionModel().setCurrentIndex(
-                    index, QItemSelectionModel.SelectCurrent | QItemSelectionModel.SelectionFlag.Rows)
+                    index, QItemSelectionModel.SelectionFlag.SelectCurrent | QItemSelectionModel.SelectionFlag.Rows)
                 hide = False
             elif nameid.lower().startswith(ltext):
                 hide = False

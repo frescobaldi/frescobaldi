@@ -83,7 +83,7 @@ class Widget(QTreeWidget):
             del self._paths[parent._path]
 
     def selectDocument(self, doc):
-        self.setCurrentItem(self._items[doc], 0, QItemSelectionModel.ClearAndSelect)
+        self.setCurrentItem(self._items[doc], 0, QItemSelectionModel.SelectionFlag.ClearAndSelect)
 
     def setDocumentStatus(self, doc):
         try:

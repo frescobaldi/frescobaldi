@@ -186,7 +186,7 @@ class Edit(QDialog):
             self.text.toPlainText(), self.titleEntry.text())
         # set snippet current in the editor that called us
         self.parent().treeView.selectionModel().setCurrentIndex(
-            index, QItemSelectionModel.SelectionFlag.Clear | QItemSelectionModel.SelectCurrent | QItemSelectionModel.SelectionFlag.Rows)
+            index, QItemSelectionModel.SelectionFlag.Clear | QItemSelectionModel.SelectionFlag.SelectCurrent | QItemSelectionModel.SelectionFlag.Rows)
         #remove the shortcuts conflicts
         self.actionManager().removeShortcuts(self.shortcuts())
         self.parent().treeView.update()
