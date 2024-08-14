@@ -147,7 +147,7 @@ class Dialog(QDialog):
         font = textformats.formatData('editor').font
         self.diff.setFont(font)
         diffFont = QFont("Monospace")
-        diffFont.setStyleHint(QFont.TypeWriter)
+        diffFont.setStyleHint(QFont.StyleHint.TypeWriter)
         self.uni_diff.setFont(diffFont)
 
     def slotLilyPondVersionChanged(self):
