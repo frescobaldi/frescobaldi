@@ -145,7 +145,7 @@ class Installed(preferences.Group):
         self.tree.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.tree.setHeaderHidden(True)
         self.tree.header().setSectionResizeMode(
-            0, QHeaderView.ResizeToContents)
+            0, QHeaderView.ResizeMode.ResizeToContents)
         self.tree.selectionModel().selectionChanged.connect(
             self.selection_changed)
         self.populate()
