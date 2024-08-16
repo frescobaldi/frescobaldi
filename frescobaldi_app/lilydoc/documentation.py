@@ -26,7 +26,7 @@ import os
 import re
 
 from PyQt6.QtCore import pyqtSignal, QObject, QUrl
-from PyQt6.QtNetwork import QNetworkRequest
+from PyQt6.QtNetwork import QNetworkReply, QNetworkRequest
 
 from . import network
 
@@ -57,7 +57,7 @@ class Documentation(QObject):
 
     def _handleReply(self):
         self._reply.deleteLater()
-        if self._reply.error():
+        if self._reply.error() != QNetworkReply.NetworkError.NoError:
             self._versionString = ''
         else:
             # HTTP redirect?
