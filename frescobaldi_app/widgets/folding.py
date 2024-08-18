@@ -576,7 +576,7 @@ class FoldingArea(QWidget):
 
     def mousePressEvent(self, ev):
         if ev.buttons() == Qt.MouseButton.LeftButton:
-            block = self.textEdit().cursorForPosition(QPoint(0, ev.y())).block()
+            block = self.textEdit().cursorForPosition(QPoint(0, ev.position().toPoint().y())).block()
             folder = self.folder()
             if folder.fold_level(block).start:
                 if block.next().isValid() and not block.next().isVisible():
