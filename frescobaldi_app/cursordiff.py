@@ -60,7 +60,7 @@ def insert_text(cursor, text):
     with cursortools.compress_undo(cursor):
         for pos, end, text in edits:
             cursor.setPosition(pos)
-            cursor.setPosition(end, cursor.KeepAnchor)
+            cursor.setPosition(end, cursor.MoveMode.KeepAnchor)
             cursor.insertText(text)
     cursor.setPosition(new_pos)
 
