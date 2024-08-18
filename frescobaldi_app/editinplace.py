@@ -183,8 +183,8 @@ class View(QPlainTextEdit):
         self.setPalette(data.palette())
 
     def sizeHint(self):
-        metrics = self.fontMetrics()
-        return QSize(80 * metrics.width(" "),3 * metrics.height())
+        rect = self.fontMetrics().boundingRect(" ")
+        return QSize(80 * rect.width(), 3 * rect.height())
 
     def event(self, ev):
         """Reimplemented to avoid typing the line separator."""
