@@ -57,7 +57,7 @@ class LineNumberArea(QWidget):
     def updateWidth(self):
         fm = QFontMetrics(self._textedit.font())
         text = format(self._textedit.blockCount(), 'd')
-        self._width = fm.width(text) + 3
+        self._width = fm.boundingRect(text).width() + 3
         self.adjustSize()
 
     def slotUpdateRequest(self, rect, dy):
