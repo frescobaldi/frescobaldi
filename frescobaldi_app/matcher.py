@@ -115,7 +115,7 @@ class Matcher(AbstractMatcher, plugin.MainWindowPlugin):
             else:
                 anchor, pos = cursors[0].selectionEnd(), cursors[1].selectionStart()
             cursor.setPosition(anchor)
-            cursor.setPosition(pos, cursor.KeepAnchor)
+            cursor.setPosition(pos, cursor.MoveMode.KeepAnchor)
         else:
             cursor.setPosition(cursors[1].selectionStart())
         self.view().setTextCursor(cursor)
