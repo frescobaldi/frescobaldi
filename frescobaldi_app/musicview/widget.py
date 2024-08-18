@@ -130,7 +130,7 @@ class MusicView(QWidget):
         if cursor:
             if ev.modifiers() & Qt.KeyboardModifier.ShiftModifier:
                 import editinplace
-                editinplace.edit(self, cursor, ev.globalPos())
+                editinplace.edit(self, cursor, ev.globalPosition().toPoint())
             else:
                 import browseriface
                 mainwindow = self.parent().mainwindow()
