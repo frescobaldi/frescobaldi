@@ -500,7 +500,7 @@ class FailedTree(QTreeView):
         self.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.setHeaderHidden(True)
         self.setModel(self._model)
-        self.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        self.header().setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
         self.doubleClicked.connect(self.tree_double_clicked)
 
     def tree_double_clicked(self, index):
@@ -867,7 +867,7 @@ class Extensions(QObject):
             Qt.LayoutDirection.RightToLeft,
             Qt.AlignmentFlag.AlignCenter,
             dlg.size(),
-            app.qApp.desktop().availableGeometry()))
+            app.qApp.primaryScreen().availableGeometry()))
         dlg.exec()
 
     def reset_inactive(self, inactive):
