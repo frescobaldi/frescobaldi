@@ -28,6 +28,8 @@ import os
 import sys
 import weakref
 
+from PyQt6.QtCore import QRectF
+
 import qpageview.locking
 
 import util
