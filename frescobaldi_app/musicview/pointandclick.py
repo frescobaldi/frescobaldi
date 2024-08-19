@@ -34,7 +34,7 @@ import util
 import textedit
 import pointandclick
 
-from PyQt6.QtCore import QRectF
+from PyQt6.QtCore import QPointF, QRectF
 
 
 # cache point and click handlers for poppler documents
@@ -53,7 +53,7 @@ def links(document):
                         t = textedit.link(link.url)
                         if t:
                             filename = util.normpath(t.filename)
-                            area = QRectF(*link.area)
+                            area = QRectF(QPointF(*link.area[0:2]), QPointF(*link.area[2:4]))
                             l.add_link(filename, t.line, t.column, (num, area))
         return l
 
