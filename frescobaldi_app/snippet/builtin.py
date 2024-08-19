@@ -43,6 +43,8 @@ $CURSOR
 'removelines': T(_("Delete Line(s)"),
 r"""-*- python;
 
+from PyQt6.QtGui import QTextCursor
+
 import cursortools
 
 def main():
@@ -50,9 +52,9 @@ def main():
     while end.position() + end.length() < cursor.selectionEnd():
         end = end.next()
     cursor.setPosition(start.position())
-    cursor.setPosition(end.position(), cursor.MoveMode.KeepAnchor)
-    cursor.movePosition(cursor.MoveOperation.EndOfBlock, cursor.MoveMode.KeepAnchor)
-    cursor.movePosition(cursor.MoveOperation.NextBlock, cursor.MoveMode.KeepAnchor)
+    cursor.setPosition(end.position(), QTextCursor.MoveMode.KeepAnchor)
+    cursor.movePosition(QTextCursor.MoveOperation.EndOfBlock, QTextCursor.MoveMode.KeepAnchor)
+    cursor.movePosition(QTextCursor.MoveOperation.NextBlock, QTextCursor.MoveMode.KeepAnchor)
     cursor.removeSelectedText()
 
 """),
@@ -105,12 +107,14 @@ def main():
 'next_blank_line_select': T(_("Select until Next Blank Line"),
 r"""-*- python; indent: no;
 
+from PyQt6.QtGui import QTextCursor
+
 import cursortools
 
 def main():
     block = cursortools.next_blank(cursor.block())
     if block:
-        cursor.setPosition(block.position() + block.length() - 1, cursor.MoveMode.KeepAnchor)
+        cursor.setPosition(block.position() + block.length() - 1, QTextCursor.MoveMode.KeepAnchor)
         return cursor
 
 """),
@@ -119,12 +123,14 @@ def main():
 'previous_blank_line_select': T(_("Select until Previous Blank Line"),
 r"""-*- python; indent: no;
 
+from PyQt6.QtGui import QTextCursor
+
 import cursortools
 
 def main():
     block = cursortools.previous_blank(cursor.block())
     if block:
-        cursor.setPosition(block.position() + block.length() - 1, cursor.MoveMode.KeepAnchor)
+        cursor.setPosition(block.position() + block.length() - 1, QTextCursor.MoveMode.KeepAnchor)
         return cursor
 
 """),
@@ -387,14 +393,17 @@ else:
 
 'double': T(_("Double selection or current line"),
 r"""-*- python; indent: no;
+
+from PyQt6.QtGui import QTextCursor
+
 def main():
     if not cursor.hasSelection():
         while not cursor.block().text() or cursor.block().text().isspace():
-            if not cursor.movePosition(cursor.MoveOperation.PreviousBlock):
+            if not cursor.movePosition(QTextCursor.MoveOperation.PreviousBlock):
                 break
-        cursor.movePosition(cursor.MoveOperation.StartOfBlock)
-        if not cursor.movePosition(cursor.MoveOperation.NextBlock, cursor.MoveMode.KeepAnchor):
-            cursor.movePosition(cursor.MoveOperation.EndOfBlock, cursor.MoveMode.KeepAnchor)
+        cursor.movePosition(QTextCursor.MoveOperation.StartOfBlock)
+        if not cursor.movePosition(QTextCursor.MoveOperation.NextBlock, QTextCursor.MoveMode.KeepAnchor):
+            cursor.movePosition(QTextCursor.MoveOperation.EndOfBlock, QTextCursor.MoveMode.KeepAnchor)
             t = '\n' + cursor.selection().toPlainText() + '\n'
         else:
             t = cursor.selection().toPlainText()
@@ -404,7 +413,7 @@ def main():
     cursor.clearSelection()
     cursor.insertText(t)
     if t.endswith('\n'):
-        cursor.movePosition(cursor.MoveOperation.Left)
+        cursor.movePosition(QTextCursor.MoveOperation.Left)
     return cursor
 """),
 

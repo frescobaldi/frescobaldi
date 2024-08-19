@@ -24,7 +24,7 @@ Highlights matching tokens such as { and }, << and >> etc.
 
 import weakref
 
-from PyQt6.QtGui import QAction
+from PyQt6.QtGui import QAction, QTextCursor
 
 import app
 import plugin
@@ -115,7 +115,7 @@ class Matcher(AbstractMatcher, plugin.MainWindowPlugin):
             else:
                 anchor, pos = cursors[0].selectionEnd(), cursors[1].selectionStart()
             cursor.setPosition(anchor)
-            cursor.setPosition(pos, cursor.MoveMode.KeepAnchor)
+            cursor.setPosition(pos, QTextCursor.MoveMode.KeepAnchor)
         else:
             cursor.setPosition(cursors[1].selectionStart())
         self.view().setTextCursor(cursor)
