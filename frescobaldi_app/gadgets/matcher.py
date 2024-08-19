@@ -92,7 +92,7 @@ class Matcher(QObject):
         else:
             # look forward
             match = self.matchPairs[i+1]
-            flags = QTextDocument.FindFlags()
+            flags = QTextDocument.FindFlag(0)
             new.movePosition(QTextCursor.MoveOperation.Right)
 
         # search, also nesting
