@@ -67,7 +67,7 @@ class Indenter(QObject):
     def eventFilter(self, edit, ev):
         """Handles Return, Tab and Backtab."""
         if ev.type() == QEvent.Type.KeyPress:
-            modifiers = int(ev.modifiers() & (Qt.Modifier.SHIFT | Qt.Modifier.CTRL | Qt.Modifier.ALT | Qt.Modifier.META))
+            modifiers = (ev.modifiers() & (Qt.KeyboardModifier.ShiftModifier | Qt.KeyboardModifier.ControlModifier | Qt.KeyboardModifier.AltModifier | Qt.KeyboardModifier.MetaModifier)).value
             if ev.text() == '\r' and modifiers == 0:
                 cursor = edit.textCursor()
                 self.newline(cursor)
@@ -76,7 +76,7 @@ class Indenter(QObject):
             elif ev.key() == Qt.Key.Key_Tab and modifiers == 0:
                 self.indent(edit.textCursor())
                 return True
-            elif ev.key() == Qt.Key.Key_Backtab and modifiers & ~Qt.Modifier.SHIFT == 0:
+            elif ev.key() == Qt.Key.Key_Backtab and modifiers & (~Qt.Modifier.SHIFT).value == 0:
                 self.dedent(edit.textCursor())
                 return True
         return False
