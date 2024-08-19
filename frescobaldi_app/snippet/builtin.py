@@ -50,9 +50,9 @@ def main():
     while end.position() + end.length() < cursor.selectionEnd():
         end = end.next()
     cursor.setPosition(start.position())
-    cursor.setPosition(end.position(), cursor.KeepAnchor)
-    cursor.movePosition(cursor.EndOfBlock, cursor.KeepAnchor)
-    cursor.movePosition(cursor.NextBlock, cursor.KeepAnchor)
+    cursor.setPosition(end.position(), cursor.MoveMode.KeepAnchor)
+    cursor.movePosition(cursor.MoveOperation.EndOfBlock, cursor.MoveMode.KeepAnchor)
+    cursor.movePosition(cursor.MoveOperation.NextBlock, cursor.MoveMode.KeepAnchor)
     cursor.removeSelectedText()
 
 """),
@@ -110,7 +110,7 @@ import cursortools
 def main():
     block = cursortools.next_blank(cursor.block())
     if block:
-        cursor.setPosition(block.position() + block.length() - 1, cursor.KeepAnchor)
+        cursor.setPosition(block.position() + block.length() - 1, cursor.MoveMode.KeepAnchor)
         return cursor
 
 """),
@@ -124,7 +124,7 @@ import cursortools
 def main():
     block = cursortools.previous_blank(cursor.block())
     if block:
-        cursor.setPosition(block.position() + block.length() - 1, cursor.KeepAnchor)
+        cursor.setPosition(block.position() + block.length() - 1, cursor.MoveMode.KeepAnchor)
         return cursor
 
 """),
@@ -390,11 +390,11 @@ r"""-*- python; indent: no;
 def main():
     if not cursor.hasSelection():
         while not cursor.block().text() or cursor.block().text().isspace():
-            if not cursor.movePosition(cursor.PreviousBlock):
+            if not cursor.movePosition(cursor.MoveOperation.PreviousBlock):
                 break
-        cursor.movePosition(cursor.StartOfBlock)
-        if not cursor.movePosition(cursor.NextBlock, cursor.KeepAnchor):
-            cursor.movePosition(cursor.EndOfBlock, cursor.KeepAnchor)
+        cursor.movePosition(cursor.MoveOperation.StartOfBlock)
+        if not cursor.movePosition(cursor.MoveOperation.NextBlock, cursor.MoveMode.KeepAnchor):
+            cursor.movePosition(cursor.MoveOperation.EndOfBlock, cursor.MoveMode.KeepAnchor)
             t = '\n' + cursor.selection().toPlainText() + '\n'
         else:
             t = cursor.selection().toPlainText()
@@ -404,7 +404,7 @@ def main():
     cursor.clearSelection()
     cursor.insertText(t)
     if t.endswith('\n'):
-        cursor.movePosition(cursor.Left)
+        cursor.movePosition(cursor.MoveOperation.Left)
     return cursor
 """),
 
@@ -492,7 +492,7 @@ def main():
                 text = text.rstrip()[:-2]
         else:
             if not text:
-                cursor.select(cursor.BlockUnderCursor)
+                cursor.select(cursor.SelectionType.BlockUnderCursor)
                 text = cursor.selection().toPlainText()
             text = re.compile(r'^(\s*)%+ ?', re.M).sub(r'\1', text)
         return text
