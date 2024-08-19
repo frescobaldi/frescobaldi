@@ -22,6 +22,9 @@ Simple dialogs to ask input from the user.
 """
 
 
+import functools
+import operator
+
 from PyQt6.QtCore import QSettings, Qt
 from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import QCompleter, QColorDialog, QWidget
@@ -92,12 +95,13 @@ def getColor(
     if color is None:
         color = _savedColor
     dlg = QColorDialog(color, parent)
-    options = QColorDialog.ColorDialogOptions()
+    options = []
     if alpha:
-        options |= QColorDialog.ColorDialogOption.ShowAlphaChannel
+        options.append(QColorDialog.ColorDialogOption.ShowAlphaChannel)
     if not QSettings().value("native_dialogs/colordialog", True, bool):
-        options |= QColorDialog.ColorDialogOption.DontUseNativeDialog
-    dlg.setOptions(options)
+        options.append(QColorDialog.ColorDialogOption.DontUseNativeDialog)
+    if len(options) > 0:
+        dlg.setOptions(functools.reduce(operator.or_, options))
     dlg.setWindowTitle(title or app.caption(_("Select Color")))
     if dlg.exec():
         _savedColor = dlg.selectedColor()
