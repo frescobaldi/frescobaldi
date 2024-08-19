@@ -60,6 +60,10 @@ The following people contributed to {appname} (in alphabetical order):
 !Mario Moles:
 : Finding lots of bugs
 
+!Jakub Pavlík:
+: !_(Bug fixes)_,
+   _(major help with PyQt6)_
+
 !Pavel Roskin:
 : !_(Many code and feature improvements)_,
    _(work on proper Python 3 support)_
