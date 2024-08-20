@@ -19,15 +19,31 @@ def widget(qtbot):
 
 def test_initial_state(widget):
     assert widget.shortcut().isEmpty()
-    # TODO text
+    assert not widget.button.isRecording()
+    assert widget.button.text() == ''
+
+def test_start_recording(widget, qtbot):
+    qtbot.mouseClick(widget.button, Qt.MouseButton.LeftButton)
+    assert widget.button.isRecording()
+
+def test_query_stops_recording(widget, qtbot):
+    qtbot.mouseClick(widget.button, Qt.MouseButton.LeftButton)
+    assert widget.button.isRecording()
+
+    # caveat: accessing shortcut() is not an idempotent query,
+    #   it modifies the widget's state
+    widget.shortcut()
+    assert not widget.button.isRecording()
+
+# TODO: describe "natural" causes of recording stop
 
 def test_simple_sequence(widget, qtbot):
     qtbot.mouseClick(widget.button, Qt.MouseButton.LeftButton)
     assert widget.button.text() == 'Input ...'
 
     qtbot.keyClick(widget.button, 'A', modifier=Qt.KeyboardModifier.ControlModifier)
+    assert widget.button.text() == 'Ctrl+A ...'
     assert not widget.shortcut().isEmpty()
-    assert widget.button.text() == 'Ctrl+A'
     assert widget.shortcut() == QKeySequence(Qt.CTRL + Qt.Key_A)
 
 def test_two_modifiers(widget, qtbot):
@@ -49,11 +65,8 @@ def test_letter_only(widget, qtbot):
     qtbot.mouseClick(widget.button, Qt.MouseButton.LeftButton)
 
     qtbot.keyClick(widget.button, 'A')
-
-    # TODO: this query affects button text!!!
+    assert widget.button.text() == 'Input ...'
     assert widget.shortcut().isEmpty()
-
-    assert widget.button.text() == ''
 
 def test_modifier_only(widget, qtbot):
     qtbot.mouseClick(widget.button, Qt.MouseButton.LeftButton)
