@@ -26,6 +26,8 @@ The completer for the snippet editing dialog.
 import keyword
 import re
 
+from PyQt6.QtGui import QTextCursor
+
 import app
 import listmodel
 import textformats
@@ -84,7 +86,7 @@ class Completer(widgets.completer.Completer):
             words.update(('cursor', 'state', 'text'))
         if words:
             self.setModel(listmodel.ListModel(sorted(words)))
-            cursor.movePosition(cursor.StartOfWord, cursor.KeepAnchor)
+            cursor.movePosition(QTextCursor.MoveOperation.StartOfWord, QTextCursor.MoveMode.KeepAnchor)
             self._pos = cursor.position()
             return cursor
 
