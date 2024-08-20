@@ -2,8 +2,8 @@
 
 import pytest
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QKeySequence
+from PyQt6.QtCore import Qt, QKeyCombination
+from PyQt6.QtGui import QKeySequence
 
 import i18n
 i18n.install('en') # global function _() is required by the widget module
@@ -24,7 +24,7 @@ def test_initial_state(widget):
     assert widget.button.text() == ''
 
 def test_set_shortcut(widget):
-    widget.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_A))
+    widget.setShortcut(QKeySequence(QKeyCombination(Qt.KeyboardModifier.ControlModifier, Qt.Key.Key_A)))
     assert not widget.shortcut().isEmpty()
     assert widget.button.text() == 'Ctrl+A'
 
@@ -49,7 +49,7 @@ def test_simple_sequence(widget, qtbot):
     assert widget.button.text() == 'Ctrl+A ...'
     assert widget.button.isRecording()
     assert not widget.shortcut().isEmpty()
-    assert widget.shortcut() == QKeySequence(Qt.CTRL + Qt.Key_A)
+    assert widget.shortcut() == QKeySequence(QKeyCombination(Qt.KeyboardModifier.ControlModifier, Qt.Key.Key_A))
 
 def test_two_modifiers(widget, qtbot):
     qtbot.mouseClick(widget.button, Qt.MouseButton.LeftButton)
@@ -77,7 +77,7 @@ def test_recording_stops(widget, qtbot):
     assert widget.button.text() == 'Ctrl+A'
 
 def test_clear_button(widget, qtbot):
-    widget.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_A))
+    widget.setShortcut(QKeySequence(Qt.Key.Key_Control + Qt.Key.Key_A))
 
     qtbot.mouseClick(widget.clearButton, Qt.MouseButton.LeftButton)
     assert widget.shortcut().isEmpty()
