@@ -29,7 +29,7 @@ import platform
 import sys
 
 from PyQt6.QtCore import QSettings, QSize
-from PyQt6.QtGui import QFont
+from PyQt6.QtGui import QFont, QTextCursor
 from PyQt6.QtWidgets import (
     QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFileDialog, QHBoxLayout,
     QGridLayout, QLabel, QLineEdit, QTabWidget, QTextBrowser, QVBoxLayout)
@@ -57,7 +57,7 @@ def convert(mainwindow):
     dlg.run()
     if dlg.exec():
         c = mainwindow.textCursor()
-        c.select(c.Document)
+        c.select(QTextCursor.SelectionType.Document)
         text = dlg.convertedText()
         if dlg.copyCheck.isChecked():
             msgs = textwrap.fill(dlg.messages.toPlainText())
