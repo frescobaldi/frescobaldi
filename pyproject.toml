@@ -9,13 +9,7 @@ authors = [{name = "Wilbert Berendsen", email = "info@frescobaldi.org"}]
 maintainers = [{name = "Wilbert Berendsen", email = "info@frescobaldi.org"}]
 license = {text = "GPL"}
 requires-python = ">=3.8"
-dependencies = [
-    "pyqt5 >= 5.9",
-    "python-ly >= 0.9.5",
-    # TODO: minimum version for these two?
-    "python-poppler-qt5",
-    "qpageview",
-]
+dependencies = ["pyqt6", "qpageview"]
 dynamic = ["version"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
