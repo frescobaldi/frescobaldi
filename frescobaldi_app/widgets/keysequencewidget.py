@@ -25,7 +25,7 @@ Loosely based on kkeysequencewidget.cpp from KDE :-)
 """
 
 
-from PyQt6.QtCore import QEvent, QSize, Qt, QTimer, pyqtSignal
+from PyQt6.QtCore import QKeyCombination, QEvent, QSize, Qt, QTimer, pyqtSignal
 from PyQt6.QtGui import QKeySequence
 from PyQt6.QtWidgets import (
     QApplication, QHBoxLayout, QPushButton, QToolButton, QWidget)
@@ -88,6 +88,8 @@ class KeySequenceWidget(QWidget):
 
 class KeySequenceButton(QPushButton):
 
+    ADMITTED_MODIFIERS = Qt.KeyboardModifier.ShiftModifier | Qt.KeyboardModifier.ControlModifier | Qt.KeyboardModifier.AltModifier | Qt.KeyboardModifier.MetaModifier
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setIcon(icons.get("configure"))
@@ -113,7 +115,7 @@ class KeySequenceButton(QPushButton):
             s = self._recseq.toString(QKeySequence.SequenceFormat.NativeText).replace('&', '&&')
             if self._modifiers:
                 if s: s += ","
-                s += QKeySequence(self._modifiers).toString(QKeySequence.SequenceFormat.NativeText)
+                s += QKeySequence(self._modifiers.value).toString(QKeySequence.SequenceFormat.NativeText)
             elif self._recseq.isEmpty():
                 s = _("Input")
             s += " ..."
@@ -137,36 +139,37 @@ class KeySequenceButton(QPushButton):
             return super().keyPressEvent(ev)
         if ev.isAutoRepeat():
             return
-        modifiers = self._intModifiers(ev.modifiers())
+        modifiers = ev.modifiers() & self.ADMITTED_MODIFIERS
         ev.accept()
 
-        key = ev.key()
+        key = Qt.Key(ev.key())
         # check if key is a modifier or a character key without modifier (and if that is allowed)
         if (
             # don't append the key if the key is -1 (garbage) or a modifier ...
-            key not in (-1, Qt.Key.Key_AltGr, Qt.Key.Key_Shift, Qt.Key.Key_Control,
+            key.value != -1 and
+            key not in (Qt.Key.Key_AltGr, Qt.Key.Key_Shift, Qt.Key.Key_Control,
                             Qt.Key.Key_Alt, Qt.Key.Key_Meta, Qt.Key.Key_Menu)
             # or if this is the first key and without modifier and modifierless keys are not allowed
             and (self._modifierlessAllowed
                  or self._recseq.count() > 0
-                 or modifiers & ~Qt.Modifier.SHIFT.value
+                 or modifiers & ~Qt.KeyboardModifier.ShiftModifier
                  or not ev.text()
-                 or (modifiers & Qt.Modifier.SHIFT.value
+                 or (modifiers & Qt.KeyboardModifier.ShiftModifier
                      and key in (Qt.Key.Key_Return, Qt.Key.Key_Space, Qt.Key.Key_Tab, Qt.Key.Key_Backtab,
                                  Qt.Key.Key_Backspace, Qt.Key.Key_Delete, Qt.Key.Key_Escape)))):
             # change Shift+Backtab into Shift+Tab
-            if key == Qt.Key.Key_Backtab and modifiers & Qt.Modifier.SHIFT.value:
-                key = Qt.Key.Key_Tab.value | modifiers
+            if key == Qt.Key.Key_Backtab and modifiers & Qt.KeyboardModifier.ShiftModifier:
+                key = QKeyCombination(modifiers, Qt.Key.Key_Tab)
             # remove the Shift modifier if it doesn't make sense
 #            elif (Qt.Key.Key_Exclam <= key <= Qt.Key.Key_At
 #                  or Qt.Key.Key_Z < key <= 0x0ff):
 #                key = key | (modifiers & ~Qt.Modifier.SHIFT)
             else:
-                key = key | modifiers
+                key = QKeyCombination(modifiers, key)
 
             # append max. 4 keystrokes
             if self._recseq.count() < 4:
-                l = [i.toCombined() for i in self._recseq]
+                l = list(self._recseq)
                 l.append(key)
                 self._recseq = QKeySequence(*l)
 
@@ -177,7 +180,7 @@ class KeySequenceButton(QPushButton):
     def keyReleaseEvent(self, ev):
         if not self._isrecording:
             return super().keyReleaseEvent(ev)
-        modifiers = self._intModifiers(ev.modifiers())
+        modifiers = ev.modifiers() & self.ADMITTED_MODIFIERS
         ev.accept()
 
         self._modifiers = modifiers
@@ -201,7 +204,7 @@ class KeySequenceButton(QPushButton):
         self.setStyleSheet("text-align: left;")
         self._isrecording = True
         self._recseq = QKeySequence()
-        self._modifiers = self._intModifiers(QApplication.keyboardModifiers())
+        self._modifiers = QApplication.keyboardModifiers() & self.ADMITTED_MODIFIERS
         self.grabKeyboard()
         self.updateDisplay()
 
@@ -219,8 +222,5 @@ class KeySequenceButton(QPushButton):
         self._isrecording = False
         self.releaseKeyboard()
         self.updateDisplay()
-
-    def _intModifiers(self, modifiers):
-        return (modifiers & (Qt.KeyboardModifier.ShiftModifier | Qt.KeyboardModifier.ControlModifier | Qt.KeyboardModifier.AltModifier | Qt.KeyboardModifier.MetaModifier)).value
 
 
