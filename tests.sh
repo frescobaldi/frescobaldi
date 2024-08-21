@@ -1,3 +1,3 @@
 #!/bin/bash
 
-PYTHONPATH=frescobaldi_app/ pytest
+PYTHONPATH=frescobaldi_app/ pytest "$@"
