@@ -220,7 +220,7 @@ class Shortcuts(preferences.Page):
                 a = i.action(scheme)
                 if i != item and a.shortcuts():
                     for s1 in a.shortcuts():
-                        if s1.matches(shortcut) or shortcut.matches(s1):
+                        if actioncollectionmanager.isShortcutConflict(s1, shortcut):
                             return qutil.removeAccelerator(a.text())
         return None
 
@@ -240,14 +240,14 @@ class Shortcuts(preferences.Page):
             for i in self.items():
                 if i is not item:
                     for s1, s2 in itertools.product(i.shortcuts(scheme), shortcuts):
-                        if s1.matches(s2) or s2.matches(s1):
+                        if actioncollectionmanager.isShortcutConflict(s1, s2):
                             conflicting.append(i)
             if conflicting:
                 for i in conflicting:
                     l = i.shortcuts(scheme)
                     for s1 in list(l): # copy
                         for s2 in shortcuts:
-                            if s1.matches(s2) or s2.matches(s1):
+                            if actioncollectionmanager.isShortcutConflict(s1, s2):
                                 l.remove(s1)
                     i.setShortcuts(l, scheme)
 

@@ -100,7 +100,7 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
         if shortcut:
             for data in self.iterShortcuts(skip):
                 s1 = data[0]
-                if self.isShortcutConflict(s1, shortcut):
+                if isShortcutConflict(s1, shortcut):
                     return qutil.removeAccelerator(data[-1].text())
         return None
 
@@ -109,10 +109,10 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
         for data in self.iterShortcuts():
             s1, collection, name = data[:3]
             for s2 in shortcuts:
-                if self.isShortcutConflict(s1, s2):
+                if isShortcutConflict(s1, s2):
                     collShortcuts = collection.shortcuts(name)
                     collShortcuts.remove(s1)
                     collection.setShortcuts(name, collShortcuts)
 
-    def isShortcutConflict(self, s1, s2):
-        return s1.matches(s2) != QKeySequence.SequenceMatch.NoMatch or s2.matches(s1) != QKeySequence.SequenceMatch.NoMatch
+def isShortcutConflict(s1, s2):
+    return s1.matches(s2) != QKeySequence.SequenceMatch.NoMatch or s2.matches(s1) != QKeySequence.SequenceMatch.NoMatch
