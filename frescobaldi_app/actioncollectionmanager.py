@@ -28,6 +28,8 @@ actions conflict with other actions.
 
 import weakref
 
+from PyQt6.QtGui import QKeySequence
+
 import actioncollection
 import plugin
 import qutil
@@ -98,7 +100,7 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
         if shortcut:
             for data in self.iterShortcuts(skip):
                 s1 = data[0]
-                if s1.matches(shortcut) or shortcut.matches(s1):
+                if self.isShortcutConflict(s1, shortcut):
                     return qutil.removeAccelerator(data[-1].text())
         return None
 
@@ -107,8 +109,10 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
         for data in self.iterShortcuts():
             s1, collection, name = data[:3]
             for s2 in shortcuts:
-                if s2.matches(s1) or s1.matches(s2):
+                if self.isShortcutConflict(s1, s2):
                     collShortcuts = collection.shortcuts(name)
                     collShortcuts.remove(s1)
                     collection.setShortcuts(name, collShortcuts)
 
+    def isShortcutConflict(self, s1, s2):
+        return s1.matches(s2) != QKeySequence.SequenceMatch.NoMatch or s2.matches(s1) != QKeySequence.SequenceMatch.NoMatch
