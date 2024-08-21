@@ -66,6 +66,17 @@ def test_two_letters(widget, qtbot):
     # this is unexpected
     assert widget.button.shortcut().isEmpty()
 
+@pytest.mark.parametrize('ignored_modifier', [
+    Qt.KeyboardModifier.KeypadModifier,
+    Qt.KeyboardModifier.GroupSwitchModifier,
+])
+def test_ignored_modifier(ignored_modifier, widget, qtbot):
+    """Only a subset of modifiers is supported for keyboard shortcuts"""
+    qtbot.mouseClick(widget.button, Qt.MouseButton.LeftButton)
+
+    qtbot.keyClick(widget.button, 'A', modifier = Qt.KeyboardModifier.ControlModifier | ignored_modifier)
+    assert widget.button.text() == 'Ctrl+A ...'
+
 def test_recording_stops(widget, qtbot):
     """How/When recording stops naturally"""
     qtbot.mouseClick(widget.button, Qt.MouseButton.LeftButton)
@@ -109,4 +120,9 @@ def test_max_keystrokes(widget, qtbot):
     assert widget.button.text() == 'Ctrl+Alt+Shift+A, Ctrl+Alt+Shift+B, Ctrl+Alt+Shift+C, Ctrl+Alt+Shift+D ...'
     assert not widget.shortcut().isEmpty()
 
-# TODO describe handling of Tab and Return
+def test_shift_backtab(widget, qtbot):
+    """Special handling of a particular combination"""
+    qtbot.mouseClick(widget.button, Qt.MouseButton.LeftButton)
+
+    qtbot.keyClick(widget.button, Qt.Key_Backtab, modifier = Qt.KeyboardModifier.ShiftModifier)
+    assert widget.shortcut() == QKeySequence(Qt.SHIFT + Qt.Key_Tab)
