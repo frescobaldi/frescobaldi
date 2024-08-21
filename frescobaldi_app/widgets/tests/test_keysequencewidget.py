@@ -124,5 +124,5 @@ def test_shift_backtab(widget, qtbot):
     """Special handling of a particular combination"""
     qtbot.mouseClick(widget.button, Qt.MouseButton.LeftButton)
 
-    qtbot.keyClick(widget.button, Qt.Key_Backtab, modifier = Qt.KeyboardModifier.ShiftModifier)
-    assert widget.shortcut() == QKeySequence(Qt.SHIFT + Qt.Key_Tab)
+    qtbot.keyClick(widget.button, Qt.Key.Key_Backtab, modifier = Qt.KeyboardModifier.ShiftModifier)
+    assert widget.shortcut() == QKeySequence(QKeyCombination(Qt.KeyboardModifier.ShiftModifier, Qt.Key.Key_Tab))
