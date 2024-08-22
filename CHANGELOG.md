@@ -8,6 +8,9 @@ All notable changes to the Frescobaldi project are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- Ported to PyQt6 (requires Qt >=6.6). (#1780)
 
 
 ## [3.3.0] - 2023-03-26
