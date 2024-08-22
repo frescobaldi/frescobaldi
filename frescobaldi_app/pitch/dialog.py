@@ -161,8 +161,8 @@ class KeyValidator(QValidator):
     def validate(self, text, pos):
         if text:
             if self._func(text):
-                return (QValidator.Acceptable, text, pos)
+                return (QValidator.State.Acceptable, text, pos)
             elif len(text) > 3:
-                return (QValidator.Spec.Invalid, text, pos)
-        return (QValidator.Intermediate, text, pos)
+                return (QValidator.State.Invalid, text, pos)
+        return (QValidator.State.Intermediate, text, pos)
 
