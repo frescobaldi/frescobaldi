@@ -84,7 +84,7 @@ class Dialog(QDialog):
         self.dragdata = QPushButton(icons.get("image-x-generic"), None, None)
         self.copydata = QPushButton(icons.get('edit-copy'), None, None)
         self.buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Close)
-        self.saveButton = self.buttons.addButton('', QDialogButtonBox.StandardButton.ApplyRole)
+        self.saveButton = self.buttons.addButton('', QDialogButtonBox.ButtonRole.ApplyRole)
         self.saveButton.setIcon(icons.get('document-save'))
 
         layout = QVBoxLayout()
