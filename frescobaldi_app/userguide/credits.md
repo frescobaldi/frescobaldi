@@ -29,9 +29,9 @@ The following people contributed to {appname} (in alphabetical order):
 : Kinetic Scrolling for the Music View
 
 !Benjamin Johnson:
-: !_(Port to PyQt6)_,
-  _(Score Wizard improvements)_,
-  _(Score Wizard From Current Document)_
+: !_(Qt 6 port)_,
+   _(Score Wizard improvements)_,
+   _(Score Wizard From Current Document)_
 
 !Jörg Hoffmann:
 : Windows installers
@@ -61,8 +61,8 @@ The following people contributed to {appname} (in alphabetical order):
 : Finding lots of bugs
 
 !Jakub Pavlík:
-: !_(Bug fixes)_,
-   _(major help with PyQt6)_
+: !_(Qt 6 port testing and improvements)_,
+   _(many bug fixes)_
 
 !Pavel Roskin:
 : !_(Many code and feature improvements)_,
