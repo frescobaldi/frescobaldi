@@ -404,14 +404,13 @@ class Job:
         Outputs a message on completion of the process.
 
         """
-        if exitStatus == QProcess.ExitStatus.NormalExit:
-            if exitCode:
-                self.message(_("Exited with return code {code}.").format(code=exitCode), FAILURE)
-            else:
-                time = self.elapsed2str(self.elapsed_time())
-                self.message(_("Completed successfully in {time}.").format(time=time), SUCCESS)
-        else:
+        if exitCode:
+            self.message(_("Exited with return code {code}.").format(code=exitCode), FAILURE)
+        elif exitStatus:
             self.message(_("Exited with exit status {status}.").format(status=exitStatus), FAILURE)
+        else:
+            time = self.elapsed2str(self.elapsed_time())
+            self.message(_("Completed successfully in {time}.").format(time=time), SUCCESS)
 
     @staticmethod
     def elapsed2str(seconds):
