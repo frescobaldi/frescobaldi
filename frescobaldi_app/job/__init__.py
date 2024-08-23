@@ -111,6 +111,7 @@ class Job:
         self.error = None
         self._title = ""
         self._priority = priority
+        self._has_started = False
         self._aborted = False
         self._process = None
         self._history = []
@@ -293,6 +294,7 @@ class Job:
         self._process = process
         if process.parent() is None:
             process.setParent(QCoreApplication.instance())
+        process.started.connect(self._started)
         process.finished.connect(self._finished)
         process.errorOccurred.connect(self._error)
         process.readyReadStandardError.connect(self._readstderr)
@@ -329,6 +331,9 @@ class Job:
         """Return the standard error of the process as unicode text."""
         return "".join([line[0] for line in self.history(STDERR)])
 
+    def _started(self):
+        self._has_started = True
+
     def _finished(self, exitCode, exitStatus):
         """(internal) Called when the process has finished."""
         self.finish_message(exitCode, exitStatus)
@@ -338,7 +343,8 @@ class Job:
     def _error(self, error):
         """(internal) Called when an error occurs."""
         self.error_message(error)
-        if self._process.state() == QProcess.ProcessState.NotRunning:
+        if not self._has_started:
+            # the 'finished' signal won't be emitted, end the job here
             self._bye(False)
 
     def _bye(self, success):
@@ -391,8 +397,6 @@ class Job:
                 "Please check path and permissions.").format(program = self.command[0]), FAILURE)
         elif error == QProcess.ProcessError.ReadError:
             self.message(_("Could not read from the process."), FAILURE)
-        elif self._process.state() == QProcess.ProcessState.NotRunning:
-            self.message(_("An unknown error occurred."), FAILURE)
 
     def finish_message(self, exitCode, exitStatus):
         """Called when the process finishes (by _finished()).
