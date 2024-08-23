@@ -406,7 +406,7 @@ class Job:
         """
         if exitCode:
             self.message(_("Exited with return code {code}.").format(code=exitCode), FAILURE)
-        elif exitStatus:
+        elif exitStatus != QProcess.ExitStatus.NormalExit:
             self.message(_("Exited with exit status {status}.").format(status=exitStatus), FAILURE)
         else:
             time = self.elapsed2str(self.elapsed_time())
