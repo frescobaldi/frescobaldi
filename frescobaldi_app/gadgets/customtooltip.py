@@ -63,7 +63,7 @@ def show(widget, pos=None, timeout=10000):
         QApplication.instance().installEventFilter(_handler)
 
     # where to display the tooltip
-    screen = QApplication.desktop().availableGeometry(pos)
+    screen = QApplication.primaryScreen().availableGeometry()
     x = pos.x() + 2
     y = pos.y() + 20
     if x + widget.width() > screen.x() + screen.width():
