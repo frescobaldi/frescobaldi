@@ -21,7 +21,7 @@
 A line number area to be used in a QPlainTextEdit.
 """
 
-from PyQt6.QtCore import QEvent, QPoint, QRectF, QSize, Qt
+from PyQt6.QtCore import QEvent, QPointF, QRectF, QSize, Qt
 from PyQt6.QtGui import QFontMetrics, QMouseEvent, QPainter
 from PyQt6.QtWidgets import QApplication, QWidget
 
@@ -90,7 +90,7 @@ class LineNumberArea(QWidget):
             if ((ev.type() in (QEvent.Type.MouseButtonPress, QEvent.Type.MouseButtonRelease)
                  and ev.button() == Qt.MouseButton.LeftButton)
                 or (ev.type() == QEvent.Type.MouseMove and ev.buttons() & Qt.MouseButton.LeftButton)):
-                new = QMouseEvent(ev.type(), QPoint(0, ev.y()),
+                new = QMouseEvent(ev.type(), QPointF(0, ev.position().y()),
                     ev.button(), ev.buttons(), ev.modifiers())
                 return QApplication.sendEvent(self._textedit.viewport(), new)
             elif ev.type() == QEvent.Type.Wheel:
