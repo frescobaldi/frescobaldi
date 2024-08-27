@@ -43,6 +43,7 @@ from PyQt6.QtGui import (
 )
 from PyQt6.QtWidgets import (
     QAbstractItemView,
+    QApplication,
     QDialog,
     QHeaderView,
     QMenu,
@@ -867,7 +868,7 @@ class Extensions(QObject):
             Qt.LayoutDirection.RightToLeft,
             Qt.AlignmentFlag.AlignCenter,
             dlg.size(),
-            app.qApp.primaryScreen().availableGeometry()))
+            QApplication.primaryScreen().availableGeometry()))
         dlg.exec()
 
     def reset_inactive(self, inactive):

@@ -246,7 +246,7 @@ class Browser(QWidget):
         del self._printer
 
     def slotShowContextMenu(self, pos):
-        d = self.webview.page().contextMenuData()
+        d = self.webview.lastContextMenuRequest()
         menu = QMenu()
         if d.linkUrl().isValid():
             a = self.webview.pageAction(QWebEnginePage.WebAction.CopyLinkToClipboard)
