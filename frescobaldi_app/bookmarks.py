@@ -86,11 +86,7 @@ class Bookmarks(plugin.DocumentPlugin):
             return
         index = bisect.bisect_left(nums, linenum)
         mark = QTextCursor(self.document().findBlockByNumber(linenum))
-        try:
-            # only available in very recent PyQt6 versions
-            mark.setKeepPositionOnInsert(True)
-        except AttributeError:
-            pass
+        mark.setKeepPositionOnInsert(True)
         self._marks[type].insert(index, mark)
         self.marksChanged()
 
@@ -121,11 +117,7 @@ class Bookmarks(plugin.DocumentPlugin):
                 index = bisect.bisect_left(nums, linenum)
         else:
             mark = QTextCursor(self.document().findBlockByNumber(linenum))
-            try:
-                # only available in very recent PyQt6 versions
-                mark.setKeepPositionOnInsert(True)
-            except AttributeError:
-                pass
+            mark.setKeepPositionOnInsert(True)
             self._marks[type].insert(index, mark)
         self.marksChanged()
 
