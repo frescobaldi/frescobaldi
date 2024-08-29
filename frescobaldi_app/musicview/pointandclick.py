@@ -42,10 +42,14 @@ _cache = weakref.WeakKeyDictionary()
 
 
 def links(document):
+    # the backend (QPdf/poppler) object is replaced on every load
+    # of the pdf, which makes it a suitable cache key
+    key = document.document()
+
     try:
-        return _cache[document]
+        return _cache[key]
     except KeyError:
-        l = _cache[document] = Links()
+        l = _cache[key] = Links()
         with l:
             with qpageview.locking.lock(document):
                 for num, page in enumerate(document.pages()):
