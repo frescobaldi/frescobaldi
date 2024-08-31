@@ -65,10 +65,13 @@ class Repo(AbstractVCSRepo):
         git_cmd = git_cmd if git_cmd else "git"
         cmd = [git_cmd, cmd]
         cmd.extend(args)
-        pr = subprocess.Popen(cmd, cwd=dir,
-                              stdout=subprocess.PIPE,
-                              stderr=subprocess.PIPE,
-                              universal_newlines=True)
+        try:
+            pr = subprocess.Popen(cmd, cwd=dir,
+                                  stdout=subprocess.PIPE,
+                                  stderr=subprocess.PIPE,
+                                  universal_newlines=True)
+        except FileNotFoundError as e:
+            raise GitError(str(e))
         (out, error) = pr.communicate()
         if error:
             raise GitError(error)
