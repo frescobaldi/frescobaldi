@@ -21,11 +21,9 @@
 The Quick Insert panel spanners Tool.
 """
 
-
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QHBoxLayout, QToolButton
 
-import app
 import icons
 import cursortools
 import tokeniter
@@ -34,6 +32,7 @@ import documentactions
 import symbols
 import ly.document
 import ly.rhythm
+from ly.lex.lilypond import Note, ChordStart, Rest, Skip, Duration
 
 from . import tool
 from . import buttongroup
@@ -41,12 +40,13 @@ from . import buttongroup
 
 class Spanners(tool.Tool):
     """Dynamics tool in the quick insert panel toolbox."""
+
     def __init__(self, panel):
         super().__init__(panel)
         self.removemenu = QToolButton(self,
-            autoRaise=True,
-            popupMode=QToolButton.InstantPopup,
-            icon=icons.get('edit-clear'))
+                                      autoRaise=True,
+                                      popupMode=QToolButton.InstantPopup,
+                                      icon=icons.get('edit-clear'))
 
         mainwindow = panel.parent().mainwindow()
         mainwindow.selectionStateChanged.connect(self.removemenu.setEnabled)
@@ -91,7 +91,7 @@ class ArpeggioGroup(buttongroup.ButtonGroup):
             yield name, symbols.icon(name), None
 
     def actionTexts(self):
-        """Should yield name, text for very action."""
+        """Should yield name, text for every action."""
         yield 'arpeggio_normal', _("Arpeggio")
         yield 'arpeggio_arrow_up', _("Arpeggio with Up Arrow")
         yield 'arpeggio_arrow_down', _("Arpeggio with Down Arrow")
@@ -122,7 +122,7 @@ class ArpeggioGroup(buttongroup.ButtonGroup):
                 c.insertText('\\arpeggio')
                 if name != lastused:
                     cursortools.strip_indent(c)
-                    indent = c.block().text()[:c.position()-c.block().position()]
+                    indent = c.block().text()[:c.position() - c.block().position()]
                     c.insertText(name + '\n' + indent)
                 # just pick the first place
                 return
@@ -177,7 +177,9 @@ class SpannerGroup(buttongroup.ButtonGroup):
         yield 'spanner_melisma', _("Melisma")
 
     def actionTriggered(self, name):
-        d = ['_', '', '^'][self.direction()+1]
+        position_finder = spanner_positions
+
+        d = ['_', '', '^'][self.direction() + 1]
         if name == "spanner_slur":
             spanner = d + '(', ')'
         elif name == "spanner_phrasingslur":
@@ -188,10 +190,12 @@ class SpannerGroup(buttongroup.ButtonGroup):
             spanner = '\\startTrillSpan', '\\stopTrillSpan'
         elif name == "spanner_melisma":
             spanner = '\\melisma', '\\melismaEnd'
+            position_finder = melisma_positions
 
         cursor = self.mainwindow().textCursor()
+
         with cursortools.compress_undo(cursor):
-            for s, c in zip(spanner, spanner_positions(cursor)):
+            for s, c in zip(spanner, position_finder(cursor)):
                 c.insertText(s)
 
 
@@ -212,7 +216,7 @@ class GraceGroup(buttongroup.ButtonGroup):
         yield 'grace_after', _("After grace")
 
     def actionTriggered(self, name):
-        d = ['_', '', '^'][self.direction()+1]
+        d = ['_', '', '^'][self.direction() + 1]
         single = ''
         if name == "grace_grace":
             inner = ''
@@ -272,7 +276,6 @@ def spanner_positions(cursor):
 
     At the first cursor a starting spanner item can be inserted, at the
     second an ending item.
-
     """
     c = lydocument.cursor(cursor)
     if cursor.hasSelection():
@@ -283,6 +286,7 @@ def spanner_positions(cursor):
         partial = ly.document.OUTSIDE
 
     items = list(ly.rhythm.music_items(c, partial=partial))
+
     if cursor.hasSelection():
         del items[1:-1]
     else:
@@ -296,6 +300,107 @@ def spanner_positions(cursor):
     return positions
 
 
+def melisma_positions(cursor: QTextCursor) -> list:
+    """ Return the correct positions of the melisma commands, after all spanners already attached to the note """
+
+    def search_spanners_symbols(item1, item2, spanners) -> int:
+        """Find the spanners in the list lying between two music items.
+        :param item1: First item
+        :param item2: Second item
+        :param spanners: A list of spanners to be examined
+        :return: The position in the document of the last spanner attached to the first item, or None if nothing is found
+        """
+
+        last = None
+        for span in spanners:
+            if span[1] < item2.pos and span[0] >= item1.end:
+                last = span[1]
+        return last
+
+    crs = lydocument.cursor(cursor)
+    if cursor.hasSelection():
+        partial = ly.document.INSIDE
+    else:
+        # just select until the end of the current line
+        crs.select_end_of_block()
+        partial = ly.document.OUTSIDE
+
+    items = list(ly.rhythm.music_items(crs, partial=partial))
+
+    # only one item at the end of a block
+    if len(items) == 1:
+        return []
+
+    if cursor.hasSelection():
+        # get the music item next to the selection end (used to search for spanner symbols after the selection)
+        tk = next_music_token(crs.document, items[-1].end)
+        items.append(tk or _item(crs.end))
+        crs.select_end_of_block()  # need for search all spanners outside the selection
+    else:
+        del items[3:]  # leave at most 3 items
+        if len(items) < 3:
+            items.append(_item(crs.end))
+
+    # get all spanners from start up to last item
+    positions = get_spanners_in_range(crs.document, items[0].end, items[-1].pos)
+
+    a = search_spanners_symbols(items[0], items[1], positions) or items[0].end  # spanners between item0 and item1
+    b = search_spanners_symbols(items[-2], items[-1], positions) or items[-2].end  # spanners between the last two items
+
+    positions = []
+    for i in [a, b]:
+        c = QTextCursor(cursor.document())
+        c.setPosition(i)
+        positions.append(c)
+    return positions
+
+
+def _item(pos: int, end=None):
+    """Shorthand to get an empty music-item carrying positional information"""
+    return ly.rhythm.music_item(None, None, None, None, pos, end or pos)
+
+
+def next_music_token(doc, pos):
+    """
+    Return a music_item with its positions in the document next to the index. It identifies only the
+    start of a music item (Note, Rest, Skip, Chord), without collect all subsequent tokens (durations,
+    closing chords...)
+    :param doc: a lilypond document
+    :param pos: int indicating a position in the document
+    :return: (token.pos, token.end)
+    """
+    cursor = ly.document.Cursor(doc, pos)
+    source = ly.document.Source(cursor, True, ly.document.INSIDE, True)
+
+    for token in source:
+        if token.pos >= pos:
+            if isinstance(token, Note) or isinstance(token, Rest) \
+                    or isinstance(token, Skip) or isinstance(token, ChordStart) \
+                    or isinstance(token, Duration):  # isolated durations with implied pitch
+                return _item(token.pos, token.end)
+
+
+def get_spanners_in_range(doc, pos, max_offset=1e5) -> list:
+    """ Find all spanner symbols from pos to max_offset (or the end of the document) """
+    from ly.lex.lilypond import BeamStart, BeamEnd, SlurStart, SlurEnd, PhrasingSlurStart, PhrasingSlurEnd, Command
+    cursor = ly.document.Cursor(doc, pos)
+    source = ly.document.Source(cursor, True, ly.document.INSIDE, True)
+
+    positions = []
+    for token in source:
+        if token.pos >= max_offset:
+            break
+        if isinstance(token, Command):
+            if token.startswith('\\startTrillSpan') or token.startswith('\\stopTrillSpan'):
+                positions.append((token.pos, token.end))
+        elif isinstance(token, BeamStart) \
+                or isinstance(token, BeamEnd) \
+                or isinstance(token, SlurStart) \
+                or isinstance(token, SlurEnd) \
+                or isinstance(token, PhrasingSlurStart) \
+                or isinstance(token, PhrasingSlurEnd):
+            positions.append((token.pos, token.end))
+    return positions
 
 
 _arpeggioTypes = {
@@ -311,5 +416,5 @@ _glissandoStyles = {
     'glissando_dashed': 'dashed-line',
     'glissando_dotted': 'dotted-line',
     'glissando_zigzag': 'zigzag',
-    'glissando_trill':  'trill',
+    'glissando_trill': 'trill',
 }
