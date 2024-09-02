@@ -852,7 +852,7 @@ class MainWindow(QMainWindow):
             font = doc.defaultFont()
             font.setPointSizeF(font.pointSizeF() * 0.8)
             doc.setDefaultFont(font)
-            doc.print_(printer)
+            doc.print(printer)
 
     def exportColoredHtml(self):
         doc = self.currentDocument()
