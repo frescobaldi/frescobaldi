@@ -67,13 +67,7 @@ def printCommand(cmd, printer, filename):
 
     # copies
     numCopies = 1
-    try:
-        numCopies = printer.copyCount()
-    except AttributeError: # only in Qt >= 4.7
-        try:
-            numCopies = printer.actualNumCopies()
-        except AttributeError: # only in Qt >= 4.6
-            numCopies = printer.numCopies()
+    numCopies = printer.copyCount()
 
     if cmd == "lp":
         command.append('-n')
