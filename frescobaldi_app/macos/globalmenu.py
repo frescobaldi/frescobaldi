@@ -185,8 +185,7 @@ def slot_file_new_from_template_action(action):
     view = win.currentView()
     view.setFocus()
     insert.insert(name, view)
-    d.setUndoRedoEnabled(False)
-    d.setUndoRedoEnabled(True) # d.clearUndoRedoStacks() only in Qt >= 4.7
+    d.clearUndoRedoStacks()
     d.setModified(False)
     if 'template-run' in snippets.get(name).variables:
         import engrave
