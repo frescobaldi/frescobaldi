@@ -161,8 +161,7 @@ class TemplateMenu(SnippetMenuBase):
         d = app.openUrl(QUrl())
         self.mainwindow().setCurrentDocument(d)
         super().applySnippet(name)
-        d.setUndoRedoEnabled(False)
-        d.setUndoRedoEnabled(True) # d.clearUndoRedoStacks() only in Qt >= 4.7
+        d.clearUndoRedoStacks()
         d.setModified(False)
         from . import snippets
         if 'template-run' in snippets.get(name).variables:
