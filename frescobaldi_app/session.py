@@ -125,5 +125,4 @@ def restoreSession(key):
 
 @app.oninit
 def _setup():
-    # the new-style way of connecting fails on PyQt6 4.8.x...
     app.qApp.commitDataRequest.connect(commitData)

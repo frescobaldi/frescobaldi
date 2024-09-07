@@ -525,8 +525,7 @@ class MainWindow(QMainWindow):
             from snippet import snippets, insert
             if snippets.text(template):
                 insert.insert(template, self.currentView())
-                d.setUndoRedoEnabled(False)
-                d.setUndoRedoEnabled(True) # d.clearUndoRedoStacks() only in Qt >= 4.7
+                d.clearUndoRedoStacks()
                 d.setModified(False)
         elif ndoc == "version":
             import lilypondinfo
