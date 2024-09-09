@@ -296,6 +296,6 @@ class WebEnginePage(QWebEnginePage):
     """QWebEnginePage that shows LY files using the source viewer."""
     def acceptNavigationRequest(self, url, type, isMainFrame):
         if url.path().endswith(('.ily', '.lyi', '.ly')):
-            self.view().parent().sourceViewer().showReply(lilydoc.network.get(url))
+            self.parent().parent().sourceViewer().showReply(lilydoc.network.get(url))
             return False
         return super().acceptNavigationRequest(url, type, isMainFrame)
