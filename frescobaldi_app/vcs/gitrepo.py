@@ -65,6 +65,8 @@ class Repo(AbstractVCSRepo):
         git_cmd = git_cmd if git_cmd else "git"
         cmd = [git_cmd, cmd]
         cmd.extend(args)
+        # This check prevents a crash when Git is installed but not present
+        # on $PATH (for example, when using Git from MSYS2 on Windows)
         try:
             pr = subprocess.Popen(cmd, cwd=dir,
                                   stdout=subprocess.PIPE,
