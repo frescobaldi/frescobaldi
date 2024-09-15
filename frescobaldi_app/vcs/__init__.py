@@ -37,8 +37,6 @@ _vcs_modules = {
     'git': "vcs.gitrepo"
 }
 
-_app_is_git_controlled = False  # until proven otherwise
-
 def is_available(tool):
     """Returns True if the requested VCS software is available on the system.
 
