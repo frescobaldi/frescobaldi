@@ -290,7 +290,7 @@ class SessionEditor(QDialog):
         genPaths = self.fetchGenPaths()
         for p in genPaths:
             i = QListWidgetItem(p, self.include.listBox)
-            i.setFlags(Qt.NoItemFlags)
+            i.setFlags(Qt.ItemFlag.NoItemFlags)
 
     def toggleReplace(self):
         """Called when user changes setting for replace of global paths."""
