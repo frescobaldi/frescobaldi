@@ -56,6 +56,7 @@ class StaffGroup(_base.Container):
             (lambda: _("Square"), 'system_start_square'),
             ), self.systemStart, display=listmodel.translate_index(0),
             icon=lambda item: symbols.icon(item[1])))
+        self.systemStart.setCurrentIndex(1) # bracket
         self.systemStart.setIconSize(QSize(64, 64))
         self.connectBarLines = QCheckBox(checked=True)
 
