@@ -242,11 +242,11 @@ class TubaBb(Tuba):
 class BassTuba(BrassPart):
     @staticmethod
     def title(_=_base.translate):
-        return _("Bass Tuba")
+        return _("Bass tuba")
 
     @staticmethod
     def short(_=_base.translate):
-        return _("abbreviation for Bass Tuba", "B.Tb.")
+        return _("abbreviation for Bass tuba", "B.Tb.")
 
     midiInstrument = 'tuba'
     clef = 'bass'

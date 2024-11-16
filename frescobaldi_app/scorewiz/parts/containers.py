@@ -38,7 +38,7 @@ from . import register
 class StaffGroup(_base.Container):
     @staticmethod
     def title(_=_base.translate):
-        return _("Staff Group")
+        return _("Staff group")
 
     def accepts(self):
         return (StaffGroup, _base.Part)
@@ -67,7 +67,7 @@ class StaffGroup(_base.Container):
 
     def translateWidgets(self):
         self.systemStartLabel.setText(_("Type:"))
-        self.connectBarLines.setText(_("Connect Barlines"))
+        self.connectBarLines.setText(_("Connect barlines"))
         self.connectBarLines.setToolTip(_("If checked, barlines are connected between the staves."))
         self.systemStart.model().update()
 
@@ -147,7 +147,7 @@ class Score(_base.Group, scoreproperties.ScoreProperties):
 class BookPart(_base.Group):
     @staticmethod
     def title(_=_base.translate):
-        return _("Book Part")
+        return _("Book part")
 
     def accepts(self):
         return (Score, StaffGroup, _base.Part)
@@ -187,7 +187,7 @@ class Book(_base.Group):
             "<p>If you choose \"Suffix\" the entered name will be appended "
             "to the document's file name; if you choose \"Filename\", just "
             "the entered name will be used.</p>"))
-        self.bookOutputLabel.setText(_("Output Filename:"))
+        self.bookOutputLabel.setText(_("Output filename:"))
         self.bookOutputFileName.setText(_("Filename"))
         self.bookOutputSuffix.setText(_("Suffix"))
 
