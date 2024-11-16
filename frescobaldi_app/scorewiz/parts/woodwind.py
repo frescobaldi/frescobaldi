@@ -77,7 +77,7 @@ class BassFlute(WoodWindPart):
 
     @staticmethod
     def short(_=_base.translate):
-        return _("abbreviation for Bass flute", "Bfl.")
+        return _("abbreviation for Bass flute", "B.Fl.")
 
     midiInstrument = 'flute'
     octave = 0
@@ -103,7 +103,7 @@ class OboeDAmore(WoodWindPart):
 
     @staticmethod
     def short(_=_base.translate):
-        return _("abbreviation for Oboe d'amore", "Ob.d'am.")
+        return _("abbreviation for Oboe d'amore", "Ob.D'am.")
 
     midiInstrument = 'oboe'
     octave = 0
@@ -117,7 +117,7 @@ class EnglishHorn(WoodWindPart):
 
     @staticmethod
     def short(_=_base.translate):
-        return _("abbreviation for English horn", "Eng.h.")
+        return _("abbreviation for English horn", "Eng.H.")
 
     midiInstrument = 'english horn'
     octave = 0
