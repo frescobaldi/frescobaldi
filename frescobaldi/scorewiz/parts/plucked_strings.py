@@ -165,6 +165,8 @@ class TablaturePart(_base.Part):
             seq = ly.dom.Seqr(staff)
             if self.clef:
                 ly.dom.Clef(self.clef, seq)
+            if self.transposition is not None:
+                seq = self._writeTransposed(seq)
             mus = ly.dom.Simr(seq)
             for a in assignments[:-1]:
                 ly.dom.Identifier(a.name, mus)
