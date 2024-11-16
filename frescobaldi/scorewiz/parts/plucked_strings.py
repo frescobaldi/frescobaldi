@@ -318,7 +318,7 @@ class Guitar(TablaturePart):
         return _("abbreviation for Guitar", "Gt.")
 
     midiInstrument = 'acoustic guitar (nylon)'
-    clef = "treble_8"
+    transposition = (-1, 0, 0)
     tunings = (
         ('guitar-tuning', lambda: _("Guitar tuning")),
         ('guitar-seven-string-tuning', lambda: _("Guitar seven-string tuning")),
@@ -392,8 +392,9 @@ class AcousticBass(TablaturePart):
         return _("abbreviation for Acoustic bass", "A.Bs.") #FIXME
 
     midiInstrument = 'acoustic bass'
-    clef = 'bass_8'
+    clef = 'bass'
     octave = -2
+    transposition = (-1, 0, 0)
     tunings = (
         ('bass-tuning', lambda: _("Bass tuning")),
         ('bass-four-string-tuning', lambda: _("Four-string bass tuning")),
