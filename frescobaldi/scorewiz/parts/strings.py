@@ -90,11 +90,11 @@ class Contrabass(StringPart):
 class BassoContinuo(Cello):
     @staticmethod
     def title(_=_base.translate):
-        return _("Basso Continuo")
+        return _("Basso continuo")
 
     @staticmethod
     def short(_=_base.translate):
-        return _("abbreviation for Basso Continuo", "B.c.")
+        return _("abbreviation for Basso continuo", "B.C.")
 
     def build(self, data, builder):
         super().build(data, builder)
