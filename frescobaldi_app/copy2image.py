@@ -63,9 +63,6 @@ class Dialog(QDialog):
         self._exporter = None
         self.runJob = qpageview.backgroundjob.SingleRun()
         self.imageViewer = qpageview.imageview.ImageView()
-        self.typeLabel = QLabel()
-        self.typeCombo = QComboBox()
-        self.typeCombo.addItems([''] * len(self.exportTypes()))
         self.dpiLabel = QLabel()
         self.dpiCombo = QComboBox(insertPolicy=QComboBox.InsertPolicy.NoInsert, editable=True)
         self.dpiCombo.lineEdit().setCompleter(None)
@@ -95,10 +92,8 @@ class Dialog(QDialog):
 
         controls = QGridLayout()
         hlayout.addLayout(controls)
-        controls.addWidget(self.typeLabel, 0, 0)
-        controls.addWidget(self.typeCombo, 0, 1)
-        controls.addWidget(self.dpiLabel, 1, 0)
-        controls.addWidget(self.dpiCombo, 1, 1)
+        controls.addWidget(self.dpiLabel, 0, 0)
+        controls.addWidget(self.dpiCombo, 0, 1)
         colorLayout = QHBoxLayout()
         colorLayout.setContentsMargins(0, 0, 0, 0)
         colorLayout.addWidget(self.colorCheck)
@@ -121,7 +116,6 @@ class Dialog(QDialog):
         app.translateUI(self)
         self.readSettings()
         self.finished.connect(self.writeSettings)
-        self.typeCombo.currentIndexChanged.connect(self.updateExport)
         self.dpiCombo.editTextChanged.connect(self.updateExport)
         self.colorCheck.toggled.connect(self.updateExport)
         self.colorButton.colorChanged.connect(self.updateExport)
@@ -141,9 +135,6 @@ class Dialog(QDialog):
 
     def translateUI(self):
         self.setCaption()
-        self.typeLabel.setText(_("Type:"))
-        for n, t in enumerate(self.exportTypes()):
-            self.typeCombo.setItemText(n, t[1])
         self.dpiLabel.setText(_("DPI:"))
         self.colorCheck.setText(_("Background:"))
         self.colorButton.setToolTip(_("Paper Color"))
@@ -179,7 +170,7 @@ class Dialog(QDialog):
         Called from translateUI() and from updateExport().
 
         """
-        filetype = self.exportTypes()[self.typeCombo.currentIndex()][1]
+        filetype = _("PNG")
         self.dragdata.setToolTip(_("Drag the {png} image data.").format(png=filetype))
         self.dragfile.setToolTip(_("Drag the image as a {png} file.").format(png=filetype))
         self.copydata.setToolTip(_("Copy the {png} image data to Clipboard.").format(png=filetype))
@@ -188,11 +179,6 @@ class Dialog(QDialog):
     def readSettings(self):
         s = QSettings()
         s.beginGroup('copy_image')
-        exportType = s.value("type", "svg", str)
-        for n, t in enumerate(self.exportTypes()):
-            if t[0] == exportType:
-                self.typeCombo.setCurrentIndex(n)
-                break
         self.dpiCombo.setEditText(s.value("dpi", "100", str))
         color = s.value("papercolor", QColor(), QColor)
         self.colorButton.setColor(color if color.isValid() else Qt.GlobalColor.white)
@@ -205,7 +191,6 @@ class Dialog(QDialog):
     def writeSettings(self):
         s = QSettings()
         s.beginGroup('copy_image')
-        s.setValue("type", self.exportTypes()[self.typeCombo.currentIndex()][0])
         s.setValue("dpi", self.dpiCombo.currentText())
         color = self.colorButton.color() if self.colorCheck.isChecked() else QColor()
         s.setValue("papercolor", color)
@@ -213,16 +198,6 @@ class Dialog(QDialog):
         s.setValue("autocrop", self.crop.isChecked())
         s.setValue("antialias", self.antialias.isChecked())
         s.setValue("scaleup", self.scaleup.isChecked())
-
-    def exportTypes(self):
-        """Return the list of types that can be exported and their names."""
-        return [
-            ('svg', _("SVG"), qpageview.export.SvgExporter),
-            ('pdf', _("PDF"), qpageview.export.PdfExporter),
-            ('eps', _("EPS"), qpageview.export.EpsExporter),
-            ('png', _("PNG"), qpageview.export.ImageExporter),
-            ('jpg', _("JPG"), qpageview.export.ImageExporter),
-        ]
 
     def setCaption(self):
         if self._filename:
@@ -243,11 +218,8 @@ class Dialog(QDialog):
         self.updateExport()
 
     def updateExport(self):
-        exportType, name, cls = self.exportTypes()[self.typeCombo.currentIndex()]
-        e = self._exporter = cls(self._page, self._rect)
+        e = self._exporter = qpageview.export.ImageExporter(self._page, self._rect)
         e.filename = self._filename
-        if exportType == "jpg":
-            e.defaultExt = ".jpg"
 
         # update the enabled state of buttons
         self.dpiCombo.setEnabled(e.supportsResolution)
