@@ -14,27 +14,27 @@ The following people contributed to {appname} (in alphabetical order):
 !Wilbert Berendsen:
 : Main author and core developer
 
+!Peter Bjuhr:
+: !_(Quick Insert buttons for grace notes)_,
+   _(MusicXML, MIDI and ABC im- and export)_,
+   _(Manuscript Viewer)_
+
 !@mr-bronson:
 : Encoding-related fixes and other improvements
 
 !Christopher Bryan:
 : !_(Modal Transpose)_
 
-!Peter Bjuhr:
-: !_(Quick Insert buttons for grace notes)_,
-   _(MusicXML, MIDI and ABC im- and export)_,
-   _(Manuscript Viewer)_
-
 !Richard Cognot:
 : Kinetic Scrolling for the Music View
+
+!Jörg Hoffmann:
+: Windows installers
 
 !Benjamin Johnson:
 : !_(Qt 6 port)_,
    _(Score Wizard improvements)_,
    _(Score Wizard From Current Document)_
-
-!Jörg Hoffmann:
-: Windows installers
 
 !Marnen Laibow-Koser:
 : Homebrew formula for macOS
