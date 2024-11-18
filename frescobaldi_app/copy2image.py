@@ -179,7 +179,8 @@ class Dialog(QDialog):
     def readSettings(self):
         s = QSettings()
         s.beginGroup('copy_image')
-        self.dpiCombo.setEditText(s.value("dpi", "100", str))
+        # 300 dpi is standard print resolution
+        self.dpiCombo.setEditText(s.value("dpi", "300", str))
         color = s.value("papercolor", QColor(), QColor)
         self.colorButton.setColor(color if color.isValid() else Qt.GlobalColor.white)
         self.colorCheck.setChecked(color.isValid())
@@ -232,7 +233,7 @@ class Dialog(QDialog):
 
         # update the preferences of the exporter
         if e.supportsResolution:
-            e.resolution = float(self.dpiCombo.currentText() or '100')
+            e.resolution = float(self.dpiCombo.currentText() or '300')
         if e.supportsPaperColor and self.colorCheck.isChecked():
             e.paperColor = self.colorButton.color()
         if e.supportsGrayscale:
