@@ -2,8 +2,6 @@
 
 {appname} is written in {python} and uses the {qt} toolkit.
 
-The Music View is powered by the {poppler} library by {authors} and others.
-
 Most of the bundled icons are created by {tango}.
 
 The following people contributed to {appname} (in alphabetical order):
