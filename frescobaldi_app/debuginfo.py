@@ -130,8 +130,9 @@ def version_info_named():
     yield "Qt", qt_version()
     yield "PyQt", pyqt_version()
     yield "qpageview", qpageview_version()
-    yield "poppler", poppler_version()
-    yield "python-poppler-qt", python_poppler_version()
+    ## not used since the switch to PyQt6
+    #yield "poppler", poppler_version()
+    #yield "python-poppler-qt", python_poppler_version()
     yield "OS", operating_system()
     if platform.system() == 'Darwin':
         yield "installation kind", mac_installation_kind()
