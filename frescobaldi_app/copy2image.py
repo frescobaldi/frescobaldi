@@ -285,9 +285,10 @@ class Dialog(QDialog):
         self.dragfile.setDown(False)
 
     def saveAs(self):
+        typeFilter = _("PNG Image (*.png)")
         filename = self._exporter.suggestedFilename()
         filename = QFileDialog.getSaveFileName(self,
-            _("Save Image As"), filename)[0]
+            _("Save Image As"), filename, filter=typeFilter)[0]
         if filename:
             try:
                 self._exporter.save(filename)
