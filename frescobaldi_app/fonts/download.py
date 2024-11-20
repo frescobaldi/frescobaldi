@@ -22,18 +22,6 @@
 Download music fonts from the openlilylib-resources Github repository
 """
 
-CATALOGUE_URL = (
-    "https://raw.githubusercontent.com/openlilylib-resources/"
-    "lilypond-notation-fonts/master/catalogue.json"
-)
-
-# import urllib.request
-# import json
-# try:
-#     response = urllib.request.urlopen(CATALOGUE_URL)
-#     data = repsonse.read()
-#     catalogue = json.loads(data.decode('utf-8'))
-# ...
 
 # TODO:
 # - only works when there's a music font repository set
@@ -47,3 +35,37 @@ CATALOGUE_URL = (
 #   and when that's successful copy/overwrite to the local repository
 # - install any newly downloaded font (in *this* case not skipping
 #   but overwriting existing fonts)
+
+def list_available_fonts():
+    from github import (
+        repo
+    )
+    print("Downloading font list from")
+    print("openlilylib-resources/lilypond-notation-fonts")
+    try:
+        remote = repo.Repo('openlilylib-resources/lilypond-notation-fonts')
+        raw_catalogue = remote.fetch('catalogue.json')
+        import json
+        catalogue = json.loads(raw_catalogue)
+        names = [k for k in catalogue.keys()]
+        names.sort()
+        for name in names:
+            f = catalogue[name]
+            print('- {}: version {}'.format(f['display-name'], f['version']))
+        print("Done, 1")
+        import download
+        target_file = os.path.join(os.getenv('HOME'), 'catalogue.json')
+        try:
+            remote.download_file('catalogue.json', target_file)
+        except download.FileExistsException as fe:
+            print(fe)
+            print("Download anyway ...")
+            remote.download_file('catalogue.json', target_file, overwrite=True)
+            print("... done")
+
+    except Exception as e:
+        print("There has been a problem:")
+        print(e.__class__)
+        print(e)
+
+list_available_fonts()
