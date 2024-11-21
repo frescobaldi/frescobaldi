@@ -170,11 +170,10 @@ class Dialog(QDialog):
         Called from translateUI() and from updateExport().
 
         """
-        filetype = _("PNG")
-        self.dragdata.setToolTip(_("Drag the {png} image data.").format(png=filetype))
-        self.dragfile.setToolTip(_("Drag the image as a {png} file.").format(png=filetype))
-        self.copydata.setToolTip(_("Copy the {png} image data to Clipboard.").format(png=filetype))
-        self.copyfile.setToolTip(_("Copy the {png} file to Clipboard.").format(png=filetype))
+        self.dragdata.setToolTip(_("Drag the image to embed in a document."))
+        self.dragfile.setToolTip(_("Drag the image as a PNG file."))
+        self.copydata.setToolTip(_("Copy the image to the clipboard."))
+        self.copyfile.setToolTip(_("Copy the image to the clipboard as a PNG file."))
 
     def readSettings(self):
         s = QSettings()
