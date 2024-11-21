@@ -393,6 +393,17 @@ class LilyPondInfo:
                 version = self.versionString(),
                 command = self.displaycommand())
 
+    @CachedProperty.cachedproperty(depends=version)
+    def lilydoc_url(self):
+        """Return the URL of this LilyPond version's online documentation."""
+        # see also appinfo.lilydoc_stable and appinfo.lilydoc_development
+        version = self.version()
+        if len(version) >= 2:
+            return "http://lilypond.org/doc/v{major}.{minor}".format(
+                major=version[0], minor=version[1])
+        else:
+            return "http://lilypond.org/doc"
+
     def ly_tool(self, name):
         """Get the configured command for the ly tool (e.g. midi2ly).
 
