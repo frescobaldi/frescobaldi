@@ -155,13 +155,15 @@ class Builder:
         generalPreferences = dialog.settings.widget().generalPreferences
         lilyPondPreferences = dialog.settings.widget().lilyPondPreferences
         instrumentNames = dialog.settings.widget().instrumentNames
+        midiOutput = dialog.settings.widget().midiOutput
 
         # attributes the Part and Container types may read and we need later as well
         self.header = list(dialog.header.widget().headers())
         self.headerDict = dict(self.header)
         self.lyVersionString = lilyPondPreferences.version.currentText().strip()
         self.lyVersion = tuple(map(int, re.findall('\\d+', self.lyVersionString)))
-        self.midi = generalPreferences.midi.isChecked()
+        self.midi = midiOutput.isChecked()
+        self.separateMidi = midiOutput.separateScore.isChecked()
         self.pitchLanguage = dialog.pitchLanguage()
         self.suppressTagLine = generalPreferences.tagl.isChecked()
         self.removeBarNumbers = generalPreferences.barnum.isChecked()
@@ -220,11 +222,28 @@ class Builder:
         else:
             groups = globalGroup.groups
 
+        if self.midi and self.separateMidi:
+            # collect MIDI parts here when placing them in a separate \score
+            self.midiParts = []
+
         self.blocks = []
         for group in groups:
             block = BlockData()
             self.makeBlock(group, block.scores, block)
             self.blocks.append(block)
+
+        if self.midi and self.separateMidi and self.midiParts:
+            # create a separate \score for MIDI output
+            ly.dom.BlankLine(block.scores)
+            score = ly.dom.Score(block.scores)
+            midi = ly.dom.Midi(score)
+            if len(self.midiParts) == 1:
+                score.insert(0, self.midiParts[0])
+            else:
+                music = ly.dom.Seq()
+                for part in self.midiParts:
+                    music.append(part)
+                score.insert(0, music)
 
     def makeBlock(self, group, node, block):
         """Recursively populates the Block with data from the group.
@@ -255,9 +274,9 @@ class Builder:
                 self.globalUsed = True
 
             # add parts here, always in \score { }
-            score = node if isinstance(node,ly.dom.Score) else ly.dom.Score(node)
+            score = node if isinstance(node, ly.dom.Score) else ly.dom.Score(node)
             ly.dom.Layout(score)
-            if self.midi:
+            if self.midi and not self.separateMidi:
                 midi = ly.dom.Midi(score)
                 # set MIDI tempo if necessary
                 if not self.showMetronomeMark:
@@ -319,6 +338,10 @@ class Builder:
 
             parents = [p for p in partData if not p.isChild]
             makeRecursive(parents, music)
+            if self.midi and self.separateMidi:
+                if not self.showMetronomeMark:
+                    self.midiParts.append(scoreProperties.lySimpleMidiTempo(None))
+                self.midiParts.append(music.copy())
 
             # add the prefix to the assignments if necessary
             if self.usePrefix:
