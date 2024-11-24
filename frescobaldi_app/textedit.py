@@ -25,8 +25,9 @@ Parse textedit:// urls.
 import re
 import sys
 import collections
+import urllib.parse
 
-__all__ = ['link', 'percent_decode']
+__all__ = ['link']
 
 
 textedit_match = re.compile(r"^textedit://(.*?):(\d+):(\d+)(?::\d+)$").match
@@ -60,22 +61,4 @@ def readurl(match):
 def readfilename(match):
     """Return the filename from the match object resulting from textedit_match."""
     fname = match.group(1)
-    lat1 = fname.encode('latin1')
-    try:
-        lat1 = percent_decode(lat1)
-    except ValueError:
-        pass
-    try:
-        fname = lat1.decode(sys.getfilesystemencoding())
-    except UnicodeError:
-        pass
-    return fname
-
-def percent_decode(s):
-    """Percent-decodes all %HH sequences in the specified bytes string."""
-    l = s.split(b'%')
-    res = bytearray(l[0])
-    for i in l[1:]:
-        res.append(int(i[:2], 16))
-        res.extend(i[2:])
-    return res
+    return urllib.parse.unquote(fname)
