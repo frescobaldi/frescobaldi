@@ -75,6 +75,7 @@ class MusicPosition(plugin.ViewSpacePlugin):
         view = self._view()
         if view:
             mpt = MusicPositionThread(view, self._label)
+            mpt.finished.connect(mpt.deleteLater)
             mpt.start()
 
 
