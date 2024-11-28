@@ -22,7 +22,7 @@ Shows the time position of the text cursor in the music.
 """
 
 
-from PyQt6.QtCore import QTimer
+from PyQt6.QtCore import QThread, QTimer
 from PyQt6.QtWidgets import QLabel
 
 import weakref
@@ -73,6 +73,20 @@ class MusicPosition(plugin.ViewSpacePlugin):
     def slotTimeout(self):
         """Called when one of the timers fires."""
         view = self._view()
+        if view:
+            mpt = MusicPositionThread(view, self._label)
+            mpt.start()
+
+
+class MusicPositionThread(QThread):
+    """Thread to update the music position in the background."""
+    def __init__(self, view, label):
+        super().__init__(view)
+        self._view = view
+        self._label = label
+
+    def run(self):
+        view = self._view
         if view:
             d = view.document()
             c = view.textCursor()
