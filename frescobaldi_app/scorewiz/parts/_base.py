@@ -79,18 +79,22 @@ class Base:
 class Part(Base):
     """Base class for Parts (that can't contain other parts)."""
 
-    def _writeTransposed(self, seq):
-        """Alter the written pitch of transposing parts."""
+    def _transposeStaff(self, seq):
+        """Add transposition commands to a \\new Staff block."""
         toct, tnote, talter = self.transposition
-        # \transposition, which only affects MIDI output, sets the sounding
-        # pitch for written c'. We use it to cancel out the change in sounding
-        # pitch from \transpose, which affects both notation and MIDI output.
+        # Transpose MIDI output from written c' to the sounding pitch
         ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2),
                      ly.dom.Transposition(seq))
-        stub = ly.dom.Command('transpose', seq)
-        ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), stub)
-        ly.dom.Pitch(0, 0, 0, stub)
-        return ly.dom.Seqr(stub)
+        if (hasattr(self, 'transpositionMode')
+            and self.transpositionMode == 'written'):
+            return seq
+        else:
+            # Transpose both notation and MIDI output from the sounding pitch
+            # to written c' (canceling out the \transposition for MIDI)
+            stub = ly.dom.Command('transpose', seq)
+            ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), stub)
+            ly.dom.Pitch(0, 0, 0, stub)
+            return ly.dom.Seqr(stub)
 
 
 
@@ -122,7 +126,7 @@ class SingleVoicePart(Part):
         if self.clef:
             ly.dom.Clef(self.clef, seq)
         if self.transposition is not None:
-            seq = self._writeTransposed(seq)
+            seq = self._transposeStaff(seq)
         ly.dom.Identifier(a.name, seq)
         data.nodes.append(staff)
 
@@ -198,7 +202,7 @@ class PianoStaffPart(Part):
         if clef:
             ly.dom.Clef(clef, c)
         if self.transposition is not None:
-            c = self._writeTransposed(c)
+            c = self._transposeStaff(c)
         if numVoices == 1:
             a = data.assignMusic(name, octave)
             ly.dom.Identifier(a.name, c)

@@ -75,7 +75,9 @@ class ScoreProperties:
         All widgets must be present.
 
         """
-        self.lyKeySignature(node, builder)
+        # When entering at written pitch, the key signature is set per-part
+        if not (hasattr(self, 'transpositionMode') and self.transpositionMode == 'written'):
+            self.lyKeySignature(node, builder)
         self.lyTimeSignature(node, builder)
         self.lyPickup(node, builder)
         self.lyTempo(node, builder)
@@ -405,5 +407,10 @@ modes = (
     ('mixolydian',  lambda: _("Mixolydian")),
     ('aeolian',     lambda: _("Aeolian")),
     ('locrian',     lambda: _("Locrian")),
+)
+
+transpositionModes = (
+    ('written',     lambda: _("Written pitch")),
+    ('sounding',    lambda: _("Sounding pitch")),
 )
 

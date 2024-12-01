@@ -45,12 +45,14 @@ class SettingsWidget(QWidget):
         self.generalPreferences = GeneralPreferences(self)
         self.lilyPondPreferences = LilyPondPreferences(self)
         self.instrumentNames = InstrumentNames(self)
+        self.transpositionPreferences = TranspositionPreferences(self)
         self.midiOutput = MidiOutput(self)
 
         grid.addWidget(self.scoreProperties, 0, 0)
         grid.addWidget(self.generalPreferences, 0, 1)
-        grid.addWidget(self.lilyPondPreferences, 1, 0, 2, 1)
+        grid.addWidget(self.lilyPondPreferences, 1, 0)
         grid.addWidget(self.instrumentNames, 1, 1)
+        grid.addWidget(self.transpositionPreferences, 2, 0)
         grid.addWidget(self.midiOutput, 2, 1)
 
     def clear(self):
@@ -388,6 +390,47 @@ class LilyPondPreferences(QGroupBox):
 
     def saveSettings(self):
         QSettings().setValue('scorewiz/lilypond/pitch_language', self.window().pitchLanguage())
+
+
+class TranspositionPreferences(QGroupBox):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        grid = QGridLayout()
+        self.setLayout(grid)
+
+        self.transpositionModeLabel = QLabel()
+        self.transpositionMode = QComboBox()
+        self.transpositionModeLabel.setBuddy(self.transpositionMode)
+
+        self.transpositionMode.setModel(listmodel.ListModel(
+            [label for (value, label) in scoreproperties.transpositionModes],
+            self.transpositionMode, display=listmodel.translate))
+
+        grid.addWidget(self.transpositionModeLabel, 0, 0)
+        grid.addWidget(self.transpositionMode, 0, 1)
+
+        app.translateUI(self)
+
+        self.loadSettings()
+        self.window().finished.connect(self.saveSettings)
+
+    def translateUI(self):
+        self.setTitle(_("Transposing instruments"))
+        self.transpositionModeLabel.setText(_("Enter music at:"))
+
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup('scorewiz/transposition')
+        allow = [value for (value, label) in scoreproperties.transpositionModes]
+        tm = s.value('transpositionMode', '', str)
+        self.transpositionMode.setCurrentIndex(allow.index(tm) if tm in allow else 1)
+
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup('scorewiz/transposition')
+        allow = [value for (value, label) in scoreproperties.transpositionModes]
+        s.setValue('transpositionMode', allow[self.transpositionMode.currentIndex()])
 
 
 paperSizes = ['', 'a3', 'a4', 'a5', 'a6', 'a7', 'legal', 'letter', '11x17']

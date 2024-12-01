@@ -23,6 +23,7 @@ Builds the LilyPond score from the settings in the Score Wizard.
 
 
 import collections
+import fractions
 import re
 
 import ly.dom
@@ -30,6 +31,7 @@ import i18n
 import lasptyqu
 
 from . import parts
+from .scoreproperties import keys, modes, transpositionModes
 
 
 class PartNode:
@@ -121,11 +123,29 @@ class PartData:
 
     def assignMusic(self, name=None, octave=0, transposition=None):
         """Creates a ly.dom.Assignment with a \\relative music stub."""
+        useWrittenPitch = (hasattr(self, 'transpositionMode')
+                           and self.transpositionMode == 'written'
+                           and hasattr(self, 'scoreProperties'))
         a = self.assign(name)
         stub = ly.dom.Relative(a)
+        if transposition and useWrittenPitch:
+            toct, tnote, talter = transposition
+            #talter = fractions.Fraction(talter, 2) # we don't really need it
+            # adjust the initial octave as needed
+            if abs(tnote) >= 5:
+                toct += 1   # correction for more distant keys
+            octave -= toct
         ly.dom.Pitch(octave, 0, 0, stub)
         s = ly.dom.Seq(stub)
         ly.dom.Identifier(self.globalName, s).after = 1
+        if useWrittenPitch:
+            # add an appropriately-transposed key signature
+            note, alter = keys[self.scoreProperties.keyNote.currentIndex()]
+            alter = fractions.Fraction(alter, 2)
+            mode = modes[self.scoreProperties.keyMode.currentIndex()][0]
+            if transposition:
+                note -= tnote
+            ly.dom.KeySignature(note, alter, mode, s).after = 1
         ly.dom.LineComment(_("Music follows here."), s)
         ly.dom.BlankLine(s)
         return a
@@ -155,6 +175,7 @@ class Builder:
         generalPreferences = dialog.settings.widget().generalPreferences
         lilyPondPreferences = dialog.settings.widget().lilyPondPreferences
         instrumentNames = dialog.settings.widget().instrumentNames
+        transpositionPreferences = dialog.settings.widget().transpositionPreferences
         midiOutput = dialog.settings.widget().midiOutput
 
         # attributes the Part and Container types may read and we need later as well
@@ -181,6 +202,7 @@ class Builder:
             self.showInstrumentNames = False
         # for calculating the indentation of the first system
         self.longestInstrumentNameLength = 0
+        self.transpositionMode = transpositionModes[transpositionPreferences.transpositionMode.currentIndex()][0]
 
         # translator for instrument names
         self._ = _
@@ -191,6 +213,7 @@ class Builder:
 
         # global score preferences
         self.scoreProperties = scoreProperties
+        self.scoreProperties.transpositionMode = self.transpositionMode
         self.globalSection = scoreProperties.globalSection(self)
 
         # printer that converts the ly.dom tree to text
@@ -253,6 +276,7 @@ class Builder:
 
         """
         if group.part:
+            group.part.transpositionMode = self.transpositionMode
             node = group.part.makeNode(node)
         if group.parts:
             # prefix for this block, used if necessary
@@ -292,6 +316,7 @@ class Builder:
             class _PartData(PartData): pass
             _PartData.globalName = globalName
             _PartData.scoreProperties = scoreProperties
+            _PartData.transpositionMode = self.transpositionMode
 
             # make the parts
             partData = self.makeParts(group.parts, _PartData)
@@ -381,6 +406,7 @@ class Builder:
 
         # now build all the parts
         for group in allparts(parts):
+            group.part.transpositionMode = self.transpositionMode
             group.part.build(data[group], self)
 
         # check for name collisions in assignment identifiers
