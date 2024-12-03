@@ -22,7 +22,7 @@ Shows the time position of the text cursor in the music.
 """
 
 
-from PyQt6.QtCore import QThread, QTimer
+from PyQt6.QtCore import QObject, QThread, QTimer
 from PyQt6.QtWidgets import QLabel
 
 import weakref
@@ -43,6 +43,17 @@ class MusicPosition(plugin.ViewSpacePlugin):
         view = space.activeView()
         if view:
             self.slotViewChanged(view)
+        # Updating this can be a slow operation if we need to rebuild the
+        # ly.music tree, so we do the heavy lifting in a separate thread
+        self._workerThread = QThread()
+        self._workerThread.finished.connect(self._workerThread.deleteLater)
+        self._worker = MusicPositionWorker(self)
+        self._worker.moveToThread(self._workerThread)
+        self._workerThread.start()
+
+    def __del__(self):
+        self._workerThread.quit()
+        self._workerThread.wait()
 
     def slotViewChanged(self, view):
         old = self._view()
@@ -71,23 +82,19 @@ class MusicPosition(plugin.ViewSpacePlugin):
             self._timer.start(100)
 
     def slotTimeout(self):
-        """Called when one of the timers fires."""
-        view = self._view()
-        if view:
-            mpt = MusicPositionThread(view, self._label)
-            mpt.finished.connect(mpt.deleteLater)
-            mpt.start()
+        # Doing this is safer than connecting directly to the worker's slot
+        QTimer.singleShot(0, self._worker.slotTimeout)
 
 
-class MusicPositionThread(QThread):
-    """Thread to update the music position in the background."""
-    def __init__(self, view, label):
-        super().__init__(view)
-        self._view = view
-        self._label = label
+class MusicPositionWorker(QObject):
+    """Worker to update the music position in a background thread."""
+    def __init__(self, plugin):
+        super().__init__()  # no parent
+        self._plugin = plugin
 
-    def run(self):
-        view = self._view
+    def slotTimeout(self):
+        """Called when one of the timers in the main thread fires."""
+        view = self._plugin._view()
         if view:
             d = view.document()
             c = view.textCursor()
@@ -103,8 +110,9 @@ class MusicPositionThread(QThread):
                 pos = m.time_position(c.position())
                 text = _("Pos: {pos}").format(
                     pos=ly.duration.format_fraction(pos)) if pos is not None else ''
-            self._label.setText(text)
-            self._label.setVisible(bool(text))
+            label = self._plugin._label
+            label.setText(text)
+            label.setVisible(bool(text))
 
 
 app.viewSpaceCreated.connect(MusicPosition.instance)
