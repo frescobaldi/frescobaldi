@@ -45,11 +45,15 @@ class SettingsWidget(QWidget):
         self.generalPreferences = GeneralPreferences(self)
         self.lilyPondPreferences = LilyPondPreferences(self)
         self.instrumentNames = InstrumentNames(self)
+        self.transpositionPreferences = TranspositionPreferences(self)
+        self.midiOutput = MidiOutput(self)
 
         grid.addWidget(self.scoreProperties, 0, 0)
         grid.addWidget(self.generalPreferences, 0, 1)
         grid.addWidget(self.lilyPondPreferences, 1, 0)
         grid.addWidget(self.instrumentNames, 1, 1)
+        grid.addWidget(self.transpositionPreferences, 2, 0)
+        grid.addWidget(self.midiOutput, 2, 1)
 
     def clear(self):
         self.scoreProperties.tempo.clear()
@@ -104,7 +108,6 @@ class GeneralPreferences(QGroupBox):
         self.tagl = QCheckBox()
         self.barnum = QCheckBox()
         self.neutdir = QCheckBox()
-        self.midi = QCheckBox()
         self.metro = QCheckBox()
 
         # paper size
@@ -123,12 +126,11 @@ class GeneralPreferences(QGroupBox):
         layout.addWidget(self.tagl, 2, 0, 1, 2)
         layout.addWidget(self.barnum, 3, 0, 1, 2)
         layout.addWidget(self.neutdir, 4, 0, 1, 2)
-        layout.addWidget(self.midi, 5, 0, 1, 2)
-        layout.addWidget(self.metro, 6, 0, 1, 2)
-        layout.addWidget(self.paperSizeLabel, 7, 0)
-        layout.addWidget(self.paper, 7, 1)
-        layout.addWidget(self.paperOrientationLabel, 8, 0)
-        layout.addWidget(self.paperOrientation, 8, 1)
+        layout.addWidget(self.metro, 5, 0, 1, 2)
+        layout.addWidget(self.paperSizeLabel, 6, 0)
+        layout.addWidget(self.paper, 6, 1)
+        layout.addWidget(self.paperOrientationLabel, 7, 0)
+        layout.addWidget(self.paperOrientation, 7, 1)
 
         app.translateUI(self)
 
@@ -154,9 +156,6 @@ class GeneralPreferences(QGroupBox):
         self.neutdir.setToolTip(_(
             "Use a logical direction (up or down) for stems on the middle "
             "line of a staff."))
-        self.midi.setText(_("Create MIDI output"))
-        self.midi.setToolTip(_(
-            "Create a MIDI file in addition to the PDF file."))
         self.metro.setText(_("Show metronome mark"))
         self.metro.setToolTip(_(
             "If checked, show the metronome mark at the beginning of the "
@@ -189,7 +188,6 @@ class GeneralPreferences(QGroupBox):
         self.tagl.setChecked(s.value('remove_tagline', False, bool))
         self.barnum.setChecked(s.value('remove_barnumbers', False, bool))
         self.neutdir.setChecked(s.value('smart_neutral_direction', False, bool))
-        self.midi.setChecked(s.value('midi', True, bool))
         self.metro.setChecked(s.value('metronome_mark', False, bool))
         psize = s.value('paper_size', '', str)
         enable = bool(psize and psize in paperSizes)
@@ -206,10 +204,46 @@ class GeneralPreferences(QGroupBox):
         s.setValue('remove_tagline', self.tagl.isChecked())
         s.setValue('remove_barnumbers', self.barnum.isChecked())
         s.setValue('smart_neutral_direction', self.neutdir.isChecked())
-        s.setValue('midi', self.midi.isChecked())
         s.setValue('metronome_mark', self.metro.isChecked())
         s.setValue('paper_size', paperSizes[self.paper.currentIndex()])
         s.setValue('paper_rotation', self.paperOrientation.currentIndex())
+
+
+class MidiOutput(QGroupBox):
+    def __init__(self, parent):
+        super().__init__(parent, checkable=True, checked=True)
+
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+
+        self.separateScore = QCheckBox()
+        layout.addWidget(self.separateScore)
+
+        app.translateUI(self)
+
+        self.loadSettings()
+        self.window().finished.connect(self.saveSettings)
+
+    def translateUI(self):
+        self.setTitle(_("Create MIDI output"))
+        self.setToolTip(_(
+            "Create a MIDI file in addition to the PDF file."))
+
+        self.separateScore.setText(_("Place in a separate \\score block"))
+        self.separateScore.setToolTip(_(
+            "Create a separate \\score block for MIDI output."))
+
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup('scorewiz/preferences')    # for backwards compatibility
+        self.setChecked(s.value('midi', True, bool))
+        self.separateScore.setChecked(s.value('separateMidi', False, bool))
+
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup('scorewiz/preferences')    # for backwards compatibility
+        s.setValue('midi', self.isChecked())
+        s.setValue('separateMidi', self.separateScore.isChecked())
 
 
 class InstrumentNames(QGroupBox):
@@ -356,6 +390,47 @@ class LilyPondPreferences(QGroupBox):
 
     def saveSettings(self):
         QSettings().setValue('scorewiz/lilypond/pitch_language', self.window().pitchLanguage())
+
+
+class TranspositionPreferences(QGroupBox):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+        grid = QGridLayout()
+        self.setLayout(grid)
+
+        self.transpositionModeLabel = QLabel()
+        self.transpositionMode = QComboBox()
+        self.transpositionModeLabel.setBuddy(self.transpositionMode)
+
+        self.transpositionMode.setModel(listmodel.ListModel(
+            [label for (value, label) in scoreproperties.transpositionModes],
+            self.transpositionMode, display=listmodel.translate))
+
+        grid.addWidget(self.transpositionModeLabel, 0, 0)
+        grid.addWidget(self.transpositionMode, 0, 1)
+
+        app.translateUI(self)
+
+        self.loadSettings()
+        self.window().finished.connect(self.saveSettings)
+
+    def translateUI(self):
+        self.setTitle(_("Transposing instruments"))
+        self.transpositionModeLabel.setText(_("Enter music at:"))
+
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup('scorewiz/transposition')
+        allow = [value for (value, label) in scoreproperties.transpositionModes]
+        tm = s.value('transpositionMode', '', str)
+        self.transpositionMode.setCurrentIndex(allow.index(tm) if tm in allow else 1)
+
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup('scorewiz/transposition')
+        allow = [value for (value, label) in scoreproperties.transpositionModes]
+        s.setValue('transpositionMode', allow[self.transpositionMode.currentIndex()])
 
 
 paperSizes = ['', 'a3', 'a4', 'a5', 'a6', 'a7', 'legal', 'letter', '11x17']

@@ -31,6 +31,7 @@ import i18n
 import lasptyqu
 
 from . import parts
+from .scoreproperties import keys, modes, transpositionModes
 
 
 class PartNode:
@@ -122,16 +123,29 @@ class PartData:
 
     def assignMusic(self, name=None, octave=0, transposition=None):
         """Creates a ly.dom.Assignment with a \\relative music stub."""
+        useWrittenPitch = (hasattr(self, 'transpositionMode')
+                           and self.transpositionMode == 'written'
+                           and hasattr(self, 'scoreProperties'))
         a = self.assign(name)
         stub = ly.dom.Relative(a)
+        if transposition and useWrittenPitch:
+            toct, tnote, talter = transposition
+            #talter = fractions.Fraction(talter, 2) # we don't really need it
+            # adjust the initial octave as needed
+            if abs(tnote) >= 5:
+                toct += 1   # correction for more distant keys
+            octave -= toct
         ly.dom.Pitch(octave, 0, 0, stub)
         s = ly.dom.Seq(stub)
         ly.dom.Identifier(self.globalName, s).after = 1
-        if transposition is not None:
-            toct, tnote, talter = transposition
-            # this corrects the sounding pitch for MIDI after
-            # the written pitch is transposed by SingleVoicePart.build()
-            ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), ly.dom.Transposition(s))
+        if useWrittenPitch:
+            # add an appropriately-transposed key signature
+            note, alter = keys[self.scoreProperties.keyNote.currentIndex()]
+            alter = fractions.Fraction(alter, 2)
+            mode = modes[self.scoreProperties.keyMode.currentIndex()][0]
+            if transposition:
+                note -= tnote
+            ly.dom.KeySignature(note, alter, mode, s).after = 1
         ly.dom.LineComment(_("Music follows here."), s)
         ly.dom.BlankLine(s)
         return a
@@ -161,13 +175,16 @@ class Builder:
         generalPreferences = dialog.settings.widget().generalPreferences
         lilyPondPreferences = dialog.settings.widget().lilyPondPreferences
         instrumentNames = dialog.settings.widget().instrumentNames
+        transpositionPreferences = dialog.settings.widget().transpositionPreferences
+        midiOutput = dialog.settings.widget().midiOutput
 
         # attributes the Part and Container types may read and we need later as well
         self.header = list(dialog.header.widget().headers())
         self.headerDict = dict(self.header)
         self.lyVersionString = lilyPondPreferences.version.currentText().strip()
         self.lyVersion = tuple(map(int, re.findall('\\d+', self.lyVersionString)))
-        self.midi = generalPreferences.midi.isChecked()
+        self.midi = midiOutput.isChecked()
+        self.separateMidi = midiOutput.separateScore.isChecked()
         self.pitchLanguage = dialog.pitchLanguage()
         self.suppressTagLine = generalPreferences.tagl.isChecked()
         self.removeBarNumbers = generalPreferences.barnum.isChecked()
@@ -185,6 +202,7 @@ class Builder:
             self.showInstrumentNames = False
         # for calculating the indentation of the first system
         self.longestInstrumentNameLength = 0
+        self.transpositionMode = transpositionModes[transpositionPreferences.transpositionMode.currentIndex()][0]
 
         # translator for instrument names
         self._ = _
@@ -195,6 +213,7 @@ class Builder:
 
         # global score preferences
         self.scoreProperties = scoreProperties
+        self.scoreProperties.transpositionMode = self.transpositionMode
         self.globalSection = scoreProperties.globalSection(self)
 
         # printer that converts the ly.dom tree to text
@@ -226,11 +245,28 @@ class Builder:
         else:
             groups = globalGroup.groups
 
+        if self.midi and self.separateMidi:
+            # collect MIDI parts here when placing them in a separate \score
+            self.midiParts = []
+
         self.blocks = []
         for group in groups:
             block = BlockData()
             self.makeBlock(group, block.scores, block)
             self.blocks.append(block)
+
+        if self.midi and self.separateMidi and self.midiParts:
+            # create a separate \score for MIDI output
+            ly.dom.BlankLine(block.scores)
+            score = ly.dom.Score(block.scores)
+            midi = ly.dom.Midi(score)
+            if len(self.midiParts) == 1:
+                score.insert(0, self.midiParts[0])
+            else:
+                music = ly.dom.Seq()
+                for part in self.midiParts:
+                    music.append(part)
+                score.insert(0, music)
 
     def makeBlock(self, group, node, block):
         """Recursively populates the Block with data from the group.
@@ -240,6 +276,7 @@ class Builder:
 
         """
         if group.part:
+            group.part.transpositionMode = self.transpositionMode
             node = group.part.makeNode(node)
         if group.parts:
             # prefix for this block, used if necessary
@@ -261,9 +298,9 @@ class Builder:
                 self.globalUsed = True
 
             # add parts here, always in \score { }
-            score = node if isinstance(node,ly.dom.Score) else ly.dom.Score(node)
+            score = node if isinstance(node, ly.dom.Score) else ly.dom.Score(node)
             ly.dom.Layout(score)
-            if self.midi:
+            if self.midi and not self.separateMidi:
                 midi = ly.dom.Midi(score)
                 # set MIDI tempo if necessary
                 if not self.showMetronomeMark:
@@ -279,6 +316,7 @@ class Builder:
             class _PartData(PartData): pass
             _PartData.globalName = globalName
             _PartData.scoreProperties = scoreProperties
+            _PartData.transpositionMode = self.transpositionMode
 
             # make the parts
             partData = self.makeParts(group.parts, _PartData)
@@ -325,6 +363,10 @@ class Builder:
 
             parents = [p for p in partData if not p.isChild]
             makeRecursive(parents, music)
+            if self.midi and self.separateMidi:
+                if not self.showMetronomeMark:
+                    self.midiParts.append(scoreProperties.lySimpleMidiTempo(None))
+                self.midiParts.append(music.copy())
 
             # add the prefix to the assignments if necessary
             if self.usePrefix:
@@ -364,6 +406,7 @@ class Builder:
 
         # now build all the parts
         for group in allparts(parts):
+            group.part.transpositionMode = self.transpositionMode
             group.part.build(data[group], self)
 
         # check for name collisions in assignment identifiers
