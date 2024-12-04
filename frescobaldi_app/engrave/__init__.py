@@ -248,14 +248,51 @@ class Engraver(plugin.MainWindowPlugin):
         j.done.disconnect(signal)
         return msgbox.clickedButton() == abort_button
 
+    def _vetDocument(self, document):
+        """Warns before engraving non-.ly files.  Returns True if the job should be run."""
+        if document.documentName().lower().endswith(".ly"):
+            return True
+        elif document.url() == QUrl():
+            return True  # Engrave files that have never been saved.
+        elif hasattr(document, "_engraveAnyway") and document._engraveAnyway:
+            return True
+        else:
+            if document.documentName().lower().endswith(".ily"):
+                informative_text = _("Files with the extension .ily are typically used as include files.  "
+                                   "If you'd rather engrave an .ly file that uses this include, "
+                                   "open it and set it to Always Engrave.")
+            else:
+                informative_text = _("LilyPond files should have the extension .ly or .ily.")
+            msgbox = QMessageBox(QMessageBox.Question,
+                _("Please confirm"),
+                "<b>" + _("Are you sure you wish to engrave this file?") + "</b>"
+                "<p>" + informative_text + "</p>",
+                QMessageBox.Yes | QMessageBox.Cancel,
+                self.mainwindow())
+            yes_button = msgbox.button(QMessageBox.Yes)
+            yes_button.setText(_("&Engrave"))
+            msgbox.setDefaultButton(QMessageBox.Cancel)
+            chkbox = QCheckBox(_("&Don't ask again while this file remains open."))
+            msgbox.addButton(chkbox, QMessageBox.ActionRole)
+            chkbox.blockSignals(True)
+            result = msgbox.exec()
+            if result == QMessageBox.Yes:
+                if chkbox.isChecked():
+                    document._engraveAnyway = True
+                    def revert_on_url_change():
+                        document._engraveAnyway = False
+                    document.urlChanged.connect(revert_on_url_change)
+                return True
+
     def runJob(self, j, document):
         """Runs the engraving job on behalf of document."""
-        job.attributes.get(j).mainwindow = self.mainwindow()
-        # cancel running job, that would be an autocompile job
-        rjob = job.manager.job(document)
-        if rjob and rjob.is_running():
-            rjob.abort()
-        job.manager.manager(document).start_job(j)
+        if self._vetDocument(document):
+            job.attributes.get(j).mainwindow = self.mainwindow()
+            # cancel running job, that would be an autocompile job
+            rjob = job.manager.job(document)
+            if rjob and rjob.is_running():
+                rjob.abort()
+            job.manager.manager(document).start_job(j)
 
     def stickyToggled(self):
         """Called when the user toggles the 'Sticky' action."""
