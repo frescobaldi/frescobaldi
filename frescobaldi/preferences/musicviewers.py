@@ -67,9 +67,6 @@ class MusicView(preferences.Group):
         self.showShadow = QCheckBox(toggled=self.changed)
         layout.addWidget(self.showShadow, 0, 3)
 
-        self.arthurBackend = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.arthurBackend, 1, 0, 1, 4)
-
         self.magnifierSizeLabel = QLabel()
         self.magnifierSizeSlider = QSlider(Qt.Orientation.Horizontal, valueChanged=self.changed)
         self.magnifierSizeSlider.setSingleStep(50)
@@ -78,9 +75,9 @@ class MusicView(preferences.Group):
         self.magnifierSizeSpinBox.setRange(pagedview.Magnifier.MIN_SIZE, pagedview.Magnifier.MAX_SIZE)
         self.magnifierSizeSpinBox.valueChanged.connect(self.magnifierSizeSlider.setValue)
         self.magnifierSizeSlider.valueChanged.connect(self.magnifierSizeSpinBox.setValue)
-        layout.addWidget(self.magnifierSizeLabel, 2, 0)
-        layout.addWidget(self.magnifierSizeSlider, 2, 1, 1, 2)
-        layout.addWidget(self.magnifierSizeSpinBox, 2, 3)
+        layout.addWidget(self.magnifierSizeLabel, 1, 0)
+        layout.addWidget(self.magnifierSizeSlider, 1, 1, 1, 2)
+        layout.addWidget(self.magnifierSizeSpinBox, 1, 3)
 
         self.magnifierScaleLabel = QLabel()
         self.magnifierScaleSlider = QSlider(Qt.Orientation.Horizontal, valueChanged=self.changed)
@@ -90,9 +87,9 @@ class MusicView(preferences.Group):
         self.magnifierScaleSpinBox.setRange(50, 800)
         self.magnifierScaleSpinBox.valueChanged.connect(self.magnifierScaleSlider.setValue)
         self.magnifierScaleSlider.valueChanged.connect(self.magnifierScaleSpinBox.setValue)
-        layout.addWidget(self.magnifierScaleLabel, 3, 0)
-        layout.addWidget(self.magnifierScaleSlider, 3, 1, 1, 2)
-        layout.addWidget(self.magnifierScaleSpinBox, 3, 3)
+        layout.addWidget(self.magnifierScaleLabel, 2, 0)
+        layout.addWidget(self.magnifierScaleSlider, 2, 1, 1, 2)
+        layout.addWidget(self.magnifierScaleSpinBox, 2, 3)
 
         app.translateUI(self)
 
@@ -106,11 +103,6 @@ class MusicView(preferences.Group):
         self.showShadow.setText(_("Shadow"))
         self.showShadow.setToolTip(_(
             "If checked, Frescobaldi draws a shadow around the pages."))
-        self.arthurBackend.setText(_("Use vector based backend (Arthur) for rendering PDF documents on screen (experimental!)"))
-        self.arthurBackend.setToolTip(_(
-            "If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
-            "library for PDF rendering on screen. The Arthur backend is faster\n"
-            "than the default Splash backend, but more experimental."))
         self.setTitle(_("Display of Music"))
         self.magnifierSizeLabel.setText(_("Magnifier Size:"))
         self.magnifierSizeLabel.setToolTip(_(
@@ -133,8 +125,6 @@ class MusicView(preferences.Group):
         self.enableStrictPaging.setChecked(strictPaging)
         shadow = s.value("shadow", True, bool)
         self.showShadow.setChecked(shadow)
-        useArthur = s.value("arthurbackend", False, bool)
-        self.arthurBackend.setChecked(useArthur)
         self.magnifierSizeSlider.setValue(s.value("magnifier/size", 350, int))
         self.magnifierScaleSlider.setValue(round(s.value("magnifier/scalef", 3.0, float) * 100))
 
@@ -145,7 +135,6 @@ class MusicView(preferences.Group):
         s.setValue("show_scrollbars", self.showScrollbars.isChecked())
         s.setValue("strict_paging", self.enableStrictPaging.isChecked())
         s.setValue("shadow", self.showShadow.isChecked())
-        s.setValue("arthurbackend", self.arthurBackend.isChecked())
         s.setValue("magnifier/size", self.magnifierSizeSlider.value())
         s.setValue("magnifier/scalef", self.magnifierScaleSlider.value() / 100.0)
 
@@ -156,53 +145,27 @@ class Printing(preferences.Group):
 
         layout = QGridLayout()
         self.setLayout(layout)
-        self.printArthurBackend = QCheckBox(toggled=self.changed)
-        self.useCups = QCheckBox(toggled=self.changed)
         self.resolutionLabel = QLabel()
         self.resolution = QComboBox(editable=True, editTextChanged=page.changed)
         self.resolution.addItems("300 600 1200".split())
         self.resolution.lineEdit().setInputMask("9000")
 
-        layout.addWidget(self.printArthurBackend, 0, 0, 1, 2)
-        layout.addWidget(self.useCups, 1, 0, 1, 2)
-        layout.addWidget(self.resolutionLabel, 2, 0)
-        layout.addWidget(self.resolution, 2, 1)
+        layout.addWidget(self.resolutionLabel, 0, 0)
+        layout.addWidget(self.resolution, 0, 1)
 
         app.translateUI(self)
 
-        if not qpageview.cupsprinter.handle():
-            self.useCups.setEnabled(False)
-
     def translateUI(self):
         self.setTitle(_("Printing of Music"))
-        self.printArthurBackend.setText(_("Use vector based backend (Arthur) for printing PDF documents"))
-        self.printArthurBackend.setToolTip(_(
-            "If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
-            "library for printing PDF documents. A big advantage of the Arthur backend\n"
-            "is that it is vector-based, in contrast to the default Splash backend,\n"
-            "which is raster-based. But Arthur is more experimental."))
-        self.useCups.setText(_("Print PDF documents directly to CUPS if available."))
-        self.useCups.setToolTip(_(
-            "If checked, Frescobaldi tries to print a PDF document directly using\n"
-            "the CUPS server, if available."))
         self.resolutionLabel.setText(_("Resolution:"))
         self.resolution.setToolTip(_(
             "Set the resolution if Frescobaldi prints using raster images."))
 
     def loadSettings(self):
         s = QSettings()
-        useArthurPrint = s.value("printing/arthurbackend_print", True, bool)
-        self.printArthurBackend.setChecked(useArthurPrint)
-        # see comment in pagedview and warning messages in musicview/__init__
-        # and viewers/__init__ for the rationale for the default value
-        self.useCups.setChecked(s.value("printing/directcups",
-                False if platform.system() == "Darwin" else True,
-                bool))
         with qutil.signalsBlocked(self.resolution):
             self.resolution.setEditText(format(s.value("printing/dpi", 300, int)))
 
     def saveSettings(self):
         s = QSettings()
-        s.setValue("printing/arthurbackend_print", self.printArthurBackend.isChecked())
-        s.setValue("printing/directcups", self.useCups.isChecked())
         s.setValue("printing/dpi", int(self.resolution.currentText()))

@@ -37,7 +37,7 @@ import textedit
 import pointandclick
 
 
-# cache point and click handlers for poppler documents
+# cache point and click handlers for PDF documents
 _cache = weakref.WeakKeyDictionary()
 
 
@@ -59,7 +59,7 @@ def links(document):
 
 
 class Links(pointandclick.Links):
-    """Stores all the links of a Poppler document sorted by URL and text position.
+    """Stores all the links of a PDF document sorted by URL and text position.
 
     Only textedit:// urls are stored.
 

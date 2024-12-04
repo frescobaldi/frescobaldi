@@ -20,12 +20,9 @@
 """
 The PDF preview panel.
 
-This file loads even if popplerqt6 is absent, although the PDF preview
-panel only shows a message about missing the popplerqt6 module.
-
 The widget module contains the real widget, the documents module a simple
-abstraction and caching of Poppler documents with their filename,
-and the printing module contains code to print a Poppler document, either
+abstraction and caching of PDF documents with their filenames,
+and the printing module contains code to print a PDF document, either
 via a PostScript rendering or by printing raster images to a QPrinter.
 
 All the point & click stuff is handled in the pointandclick module.
@@ -154,25 +151,6 @@ class MusicViewPanel(panel.Panel):
     @activate
     def printMusic(self):
         if self.widget().view.pageCount():
-            # warn about printing directly with cups on Mac
-            s = QSettings()
-            if (s.value("printing/directcups",
-                       False if platform.system() == "Darwin" else True, bool)
-                and platform.system() == "Darwin"):
-                from PyQt6.QtCore import QUrl
-                from PyQt6.QtWidgets import QMessageBox
-                result =  QMessageBox.warning(self.mainwindow(),
-                    _("Print Music"), _(
-                    "As per your settings, you are about to print the file "
-                    "directly to CUPS.\n"
-                    "This is discouraged on macOS, since in this case the "
-                    "settings of the system print window are ignored.\n"
-                    "You can disable it in Music Preferences.\n\n"
-                    "Do you really want to print to CUPS?\n\n"
-                    "(If you are unsure, the answer is likely no.)"),
-                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
-                if result == QMessageBox.StandardButton.No:
-                    return
             self.widget().view.print()
 
     @activate

@@ -18,7 +18,11 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Abstract base class for a Poppler based viewer widget.
+Abstract base class for a PDF viewer widget.
+
+This widget originally used Poppler as the rendering backend.
+While this is no longer necessarily the case since switching to
+PyQt6, the class name is kept for backwards compatibility.
 """
 
 
@@ -59,7 +63,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
     zoomChanged = pyqtSignal(int, float) # mode, scale
 
     def __init__(self, panel):
-        """Creates the Poppler View for the panel."""
+        """Creates the PDF View for the panel."""
         super().__init__(panel)
         self.actionCollection = panel.actionCollection
         self.createProtectedFields()
