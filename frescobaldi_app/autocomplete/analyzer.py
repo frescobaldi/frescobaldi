@@ -238,6 +238,16 @@ class Analyzer:
             self.column = self.lastpos
         return completiondata.midi_instruments
 
+    def string_tuning(self):
+        """Complete stringTunings = #... """
+        try:
+            i = self.tokens.index('stringTunings', -7, -1)
+        except ValueError:
+            return
+        if self.last != '#':
+           self.column = self.lastpos
+        return completiondata.string_tunings
+
     def font_name(self):
         """Complete #'font-name = #"..."""
         try:
@@ -573,6 +583,7 @@ class Analyzer:
         lp.ParseWith: (
             markup_top,
             engraver,
+            string_tuning,
             context_variable_set,
             with_,
         ),
