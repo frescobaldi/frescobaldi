@@ -61,6 +61,8 @@ class Xylophone(PitchedPercussionPart):
         return _("abbreviation for Xylophone", "Xyl.")
 
     midiInstrument = 'xylophone'
+    octave = 2
+    transposition = (1, 0, 0)
 
 
 class Marimba(_base.PianoStaffPart):
@@ -151,6 +153,8 @@ class Glockenspiel(PitchedPercussionPart):
         return _("abbreviation for Glockenspiel", "Gls.")
 
     midiInstrument = 'glockenspiel'
+    octave = 3
+    transposition = (2, 0, 0)
 
 
 class Carillon(_base.PianoStaffPart):

@@ -144,6 +144,8 @@ class Celesta(KeyboardPart):
         return _("abbreviation for Celesta", "Cel.")
 
     midiInstrument = 'celesta'
+    octave = 2
+    transposition = (1, 0, 0)
 
 
 class SynthPart(KeyboardPart):
