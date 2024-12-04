@@ -83,16 +83,6 @@ def qpageview_version():
     import qpageview
     return qpageview.version_string
 
-@_catch_unknown
-def poppler_version():
-    import popplerqt6
-    return '.'.join(format(n) for n in popplerqt6.poppler_version())
-
-@_catch_unknown
-def python_poppler_version():
-    import popplerqt6
-    return '.'.join(format(n) for n in popplerqt6.version())
-
 if platform.system() == "Darwin":
     @_catch_unknown
     def mac_installation_kind():
@@ -130,9 +120,6 @@ def version_info_named():
     yield "Qt", qt_version()
     yield "PyQt", pyqt_version()
     yield "qpageview", qpageview_version()
-    ## not used since the switch to PyQt6
-    #yield "poppler", poppler_version()
-    #yield "python-poppler-qt", python_poppler_version()
     yield "OS", operating_system()
     if platform.system() == 'Darwin':
         yield "installation kind", mac_installation_kind()
