@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 3.3.0\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
 "POT-Creation-Date: 2023-10-26 16:31+0200\n"
-"PO-Revision-Date: 2024-11-28 00:00+0000\n"
+"PO-Revision-Date: 2025-01-03 00:00+0000\n"
 "Last-Translator: Grzegorz Pruchniakowski <grzegorz.pruchniakowski@gmail.com>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "Language: pl\n"
@@ -421,6 +421,16 @@ msgid ""
 "the actual file on disk, e.g. to an e-mail message.\n"
 "</p>"
 msgstr ""
+"<p>\n"
+"Kliknięcie przełącza wyświetlanie między rozmiarem 100% a rozmiarem okna. "
+"Przeciągnij, aby skopiować obraz do innej aplikacji. Przeciągnij z klawiszem "
+"Ctrl (lub {command}), aby przewinąć duży obraz.\n"
+"</p>\n"
+"<p>\n"
+"Możesz również przeciągnąć małą ikonę obrazka w prawym dolnym rogu, co "
+"spowoduje przeciągnięcie rzeczywistego pliku na dysku, np. do wiadomości "
+"e-mail.\n"
+"</p>"
 
 #: ../../frescobaldi_app/copy2image.py:182
 #, python-brace-format
@@ -735,6 +745,12 @@ msgid ""
 "also send them to the <a "
 "href=\"https://groups.google.com/g/frescobaldi\">Frescobaldi user group</a>."
 msgstr ""
+"Bylibyśmy bardzo wdzięczni, gdybyś użył(a) poniższego przycisku, aby "
+"otworzyć nowy problem na GitHubie, platformie programistycznej używanej "
+"przez projekt Frescobaldi, aby poinformować o nim deweloperów. Jeśli masz "
+"ogólne pytania, możesz je również wysłać do <a "
+"href=\"https://groups.google.com/g/frescobaldi\">grupy użytkowników "
+"Frescobaldi</a>."
 
 #: ../../frescobaldi_app/exception.py:103
 msgid "Send Bug Report..."
@@ -1434,6 +1450,12 @@ msgid ""
 "page.<br>For more information on alternative ways of running Frescobaldi, "
 "see the <a href=\"{wiki}\">relevant Wiki page</a> on GitHub."
 msgstr ""
+"Moduł PyQtWebEngine został celowo wykluczony z pakietu aplikacji. Obecnie "
+"jego uwzględnienie skutkuje błędną aplikacją.<br><br>Aby uzyskać więcej "
+"szczegółów, zobacz <a href=\"{issue}\">problem #1244</a> na stronie "
+"Frescobaldi na GitHubie.<br>Aby uzyskać więcej informacji na temat "
+"alternatywnych sposobów uruchamiania Frescobaldi, zobacz <a "
+"href=\"{wiki}\">odpowiednią stronę Wiki</a> na GitHubie."
 
 #: ../../frescobaldi_app/autocomplete/__init__.py:79
 msgid "Automatic &Completion"
@@ -2124,7 +2146,7 @@ msgstr "Uruchom abc2ly"
 #: ../../frescobaldi_app/file_import/midi.py:60
 #: ../../frescobaldi_app/file_import/musicxml.py:101
 msgid "Pitches in absolute mode"
-msgstr "Wysokości w trybie absolutnym"
+msgstr "Wysokości w trybie bezwzględnym"
 
 #: ../../frescobaldi_app/file_import/midi.py:62
 msgid "Run midi2ly"
@@ -2279,6 +2301,9 @@ msgid ""
 "NOTE: This requires openLilyLib (oll-core)\n"
 "and the 'notation-fonts' openLilyLib package."
 msgstr ""
+"Określ czcionki za pomocą ustawienia za pomocą openLilyLib.\n"
+"Uwaga: Wymaga to openLilyLib (oll-core) i pakietu openLilyLib "
+"'notation-fonts'."
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:244
 #: ../../frescobaldi_app/fonts/fontcommand.py:251
@@ -2301,6 +2326,9 @@ msgid ""
 "This is a reminder only and can not be unchecked because the openLilyLib "
 "approach necessarily sets the music font."
 msgstr ""
+"Określ czcionkę nutową.\n"
+"To tylko przypomnienie i nie można tego odznaczyć, ponieważ podejście "
+"openLilyLib koniecznie ustawia czcionkę nutową."
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:258
 msgid "Load openLilyLib"
@@ -2430,6 +2458,10 @@ msgid ""
 "that are linked into a LilyPond installation. The font being removed "
 "includes real files and can therefore not be removed directly."
 msgstr ""
+"Aby uniknąć trwałych uszkodzeń, Frescobaldi obsługuje tylko usuwanie "
+"czcionek nutowych, które są połączone z instalacją LilyPond. Usuwana "
+"czcionka obejmuje rzeczywiste pliki i dlatego nie można jej usunąć "
+"bezpośrednio."
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:537
 #: ../../frescobaldi_app/fonts/musicfonts.py:546
@@ -3003,13 +3035,15 @@ msgstr ""
 
 #: ../../frescobaldi_app/midiinput/widget.py:211
 msgid "Relative mode"
-msgstr "Tryb relatywny"
+msgstr "Tryb względny"
 
 #: ../../frescobaldi_app/midiinput/widget.py:213
 msgid ""
 "Enter octaves of notes relative to the last note. See \"What's This\" for "
 "more information."
 msgstr ""
+"Wpisz oktawy nut w stosunku do ostatniej nuty. Zobacz \"Co to jest\", aby "
+"uzyskać więcej informacji."
 
 #: ../../frescobaldi_app/midiinput/widget.py:216
 msgid ""
@@ -3266,27 +3300,27 @@ msgstr ""
 
 #: ../../frescobaldi_app/pitch/__init__.py:165
 msgid "Convert Relative to &Absolute"
-msgstr "Konwertuj rel&atywne do absolutnych"
+msgstr "Konwertuj względne do &bezwzględnych"
 
 #: ../../frescobaldi_app/pitch/__init__.py:167
 msgid ""
 "Converts the notes in the document or selection from relative to absolute "
 "pitch."
 msgstr ""
-"Konwertuje nuty w dokumencie lub zaznaczeniu z wysokości relatywnych do "
-"absolutnych."
+"Konwertuje nuty w dokumencie lub zaznaczeniu z wysokości względnych do "
+"bezwzględnych."
 
 #: ../../frescobaldi_app/pitch/__init__.py:169
 msgid "Convert Absolute to &Relative"
-msgstr "Konwe&rtuj absolutne do relatywnych"
+msgstr "Konwe&rtuj bezwzględne do względnych"
 
 #: ../../frescobaldi_app/pitch/__init__.py:171
 msgid ""
 "Converts the notes in the document or selection from absolute to relative "
 "pitch."
 msgstr ""
-"Konwertuje nuty w dokumencie lub zaznaczeniu z wysokości absolutnych do "
-"relatywnych."
+"Konwertuje nuty w dokumencie lub zaznaczeniu z wysokości bezwzględnych do "
+"względnych."
 
 #: ../../frescobaldi_app/pitch/__init__.py:173
 msgid "&Transpose..."
@@ -3327,7 +3361,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/pitch/__init__.py:186
 msgid "First pitch in \\relative {...} is absolute"
-msgstr "Pierwsza wysokość w \\relative {...} jest absolutna"
+msgstr "Pierwsza wysokość w \\relative {...} jest bezwzględna"
 
 #: ../../frescobaldi_app/pitch/__init__.py:188
 msgid ""
@@ -3345,6 +3379,9 @@ msgid ""
 "If checked, when converting absolute music to relative, a startpitch\n"
 "is added. Otherwise, no starting pitch is written."
 msgstr ""
+"Jeśli zaznaczone, podczas konwersji muzyki bezwzględnej do względnej, "
+"dodawana jest wysokość początkowa. W przeciwnym razie nie jest zapisywana "
+"żadna wysokość początkowa."
 
 #: ../../frescobaldi_app/pitch/dialog.py:106
 msgid "Mode Shift"
@@ -3408,7 +3445,7 @@ msgid ""
 "Please enter two absolute pitches, separated by a space, using the pitch "
 "name language \"{language}\"."
 msgstr ""
-"Wpisz dwie absolutne wysokości oddzielone spacją, posługując się nazwami z "
+"Wpisz dwie bezwzględne wysokości oddzielone spacją, posługując się nazwami z "
 "języka \"{language}\"."
 
 #: ../../frescobaldi_app/pitch/pitch.py:155
@@ -3640,10 +3677,13 @@ msgid ""
 "character on the line. When the cursor is on that spot, pressing Home moves "
 "the cursor to the beginning of the line."
 msgstr ""
+"Jeśli włączone, naciśnięcie Start umieści kursor przy pierwszym znaku "
+"niebędącym odstępem w wierszu. Gdy kursor znajduje się w tym miejscu, "
+"naciśnięcie Start przenosi kursor na początek wiersza."
 
 #: ../../frescobaldi_app/preferences/editor.py:252
 msgid "Smart Up/PageUp and Down/PageDown keys"
-msgstr "Inteligentne klawisze W górę/PageUp i W dół/PageDown"
+msgstr "Inteligentne klawisze Góra/PageUp i Dół/PageDown"
 
 #: ../../frescobaldi_app/preferences/editor.py:254
 msgid ""
@@ -3651,6 +3691,10 @@ msgid ""
 "the beginning of the document, and pressing Down or PageDown in the last "
 "line will move the cursor to the end of the document."
 msgstr ""
+"Jeśli włączone, naciśnięcie przycisku Góra lub PageUp w pierwszym wierszu "
+"spowoduje przeniesienie kursora na początek dokumentu, a naciśnięcie "
+"przycisku Dół lub PageDown w ostatnim wierszu spowoduje przeniesienie "
+"kursora na koniec dokumentu."
 
 #: ../../frescobaldi_app/preferences/editor.py:258
 msgid "Horizontal arrow keys keep cursor in current line"
@@ -3681,23 +3725,29 @@ msgstr ""
 
 #: ../../frescobaldi_app/preferences/editor.py:329
 msgid "Use inline style when copying colored HTML"
-msgstr ""
+msgstr "Użyj stylu inline podczas kopiowania kolorowego HTML"
 
 #: ../../frescobaldi_app/preferences/editor.py:331
 msgid ""
 "If enabled, inline style attributes are used when copying colored HTML to "
 "the clipboard. Otherwise, a CSS stylesheet is embedded."
 msgstr ""
+"Jeśli włączone, atrybuty stylu inline są używane podczas kopiowania "
+"kolorowego HTML do schowka. W przeciwnym razie, osadzony jest arkusz stylów "
+"CSS."
 
 #: ../../frescobaldi_app/preferences/editor.py:335
 msgid "Use inline style when exporting colored HTML"
-msgstr ""
+msgstr "Użyj stylu inline podczas eksportowania kolorowego HTML"
 
 #: ../../frescobaldi_app/preferences/editor.py:337
 msgid ""
 "If enabled, inline style attributes are used when exporting colored HTML to "
 "a file. Otherwise, a CSS stylesheet is embedded."
 msgstr ""
+"Jeśli włączone, atrybuty stylu inline są używane podczas eksportowania "
+"kolorowego HTML do pliku. W przeciwnym razie, osadzony jest arkusz stylów "
+"CSS."
 
 #: ../../frescobaldi_app/preferences/editor.py:340
 msgid "Copy HTML as plain text"
@@ -4486,6 +4536,12 @@ msgid ""
 "to use a custom build, install Frescobaldi using a distribution package or "
 "from source."
 msgstr ""
+"Zainstalowałeś/aś Frescobaldi z Flathub przy użyciu Flatpak. Ponieważ "
+"Flatpak izoluje aplikacje od reszty systemu, nie można używać "
+"niestandardowych plików binarnych LilyPond w tej konfiguracji. Pozwól "
+"Frescobaldi automatycznie zainstalować daną wersję LilyPond, używając menu "
+"\"Dodaj...\", lub jeśli chcesz użyć niestandardowej kompilacji, zainstaluj "
+"Frescobaldi przy użyciu pakietu dystrybucyjnego lub ze źródła."
 
 #: ../../frescobaldi_app/preferences/lilypond.py:373
 #, python-brace-format
@@ -4657,6 +4713,9 @@ msgid ""
 "please check if PortMIDI is installed on your system and that a MIDI "
 "synthesizer is available or connected."
 msgstr ""
+"Uwaga: W Twoim systemie nie ma dostępnych portów wyjściowych MIDI. Aby użyć "
+"MIDI, sprawdź, czy PortMIDI jest zainstalowany w Twoim systemie i czy "
+"syntezator MIDI jest dostępny lub podłączony."
 
 #: ../../frescobaldi_app/preferences/midi.py:88
 msgid "Player output:"
@@ -4677,6 +4736,12 @@ msgid ""
 "<p>Click the button to refresh the list, e.g. when you connect a MIDI device "
 "or start a software synthesizer.</p>"
 msgstr ""
+"<p>To menu rozwijane zawiera listę dostępnych portów wyjściowych MIDI w "
+"Twoim systemie. Możesz wybrać jeden lub po prostu wpisać część nazwy. W "
+"takim przypadku używana jest pierwsza dostępna nazwa portu, która zaczyna "
+"się od określonych znaków.</p>\n"
+"<p>Kliknij przycisk, aby odświeżyć listę, np. gdy podłączasz urządzenie MIDI "
+"lub uruchamiasz syntezator programowy.</p>"
 
 #: ../../frescobaldi_app/preferences/midi.py:102
 msgid "Input port:"
@@ -4687,6 +4752,8 @@ msgid ""
 "The MIDI port to get input from to write notes  See \"What's This\" for more "
 "information."
 msgstr ""
+"Port MIDI służący do odbierania danych wejściowych w celu zapisywania nut. "
+"Zobacz \"Co to jest\", aby uzyskać więcej informacji."
 
 #: ../../frescobaldi_app/preferences/midi.py:107
 msgid ""
@@ -4696,6 +4763,12 @@ msgid ""
 "<p>Click the button to refresh the list, e.g. when you connect a MIDI device "
 "or start a software synthesizer.</p>"
 msgstr ""
+"<p>To menu rozwijane zawiera listę dostępnych portów wejściowych MIDI w "
+"Twoim systemie. Możesz wybrać jeden lub po prostu wpisać część nazwy. W "
+"takim przypadku używana jest pierwsza dostępna nazwa portu, która zaczyna "
+"się od określonych znaków.</p>\n"
+"<p>Kliknij przycisk, aby odświeżyć listę, np. gdy podłączasz urządzenie MIDI "
+"lub uruchamiasz syntezator programowy.</p>"
 
 #: ../../frescobaldi_app/preferences/midi.py:116
 msgid "Refresh MIDI ports"
@@ -4723,6 +4796,14 @@ msgid ""
 "instruments are reset to the default piano (instrument 0). In that case, "
 "playing the file from the beginning sets up the instruments again.</p>\n"
 msgstr ""
+"<p>Jeśli zaznaczone, Frescobaldi zamknie porty wyjściowe MIDI, które nie są "
+"używane przez minutę.</p>\n"
+"<p>Może to zwolnić zasoby systemowe, których może używać syntezator MIDI, "
+"oszczędzając w ten sposób baterię.</p>\n"
+"<p>Efektem ubocznym jest to, że jeśli wstrzymasz plik MIDI na długi czas, "
+"instrumenty zostaną zresetowane do domyślnego fortepianu (instrument 0). W "
+"takim przypadku odtworzenie pliku od początku ponownie skonfiguruje "
+"instrumenty.</p>\n"
 
 #: ../../frescobaldi_app/preferences/midi.py:184
 msgid "Polling time for input:"
@@ -4773,6 +4854,8 @@ msgid ""
 "Use vector based backend (Arthur) for rendering PDF documents on screen "
 "(experimental!)"
 msgstr ""
+"Użyj backendu opartego na wektorach (Arthur) do renderowania dokumentów PDF "
+"na ekranie (eksperymentalne!)"
 
 #: ../../frescobaldi_app/preferences/musicviewers.py:111
 msgid ""
@@ -4818,6 +4901,7 @@ msgstr "Drukuj partyturę"
 #: ../../frescobaldi_app/preferences/musicviewers.py:178
 msgid "Use vector based backend (Arthur) for printing PDF documents"
 msgstr ""
+"Użyj backendu opartego na wektorach (Arthur) do drukowania dokumentów PDF"
 
 #: ../../frescobaldi_app/preferences/musicviewers.py:180
 msgid ""
@@ -4922,11 +5006,12 @@ msgstr "Pokaż dziennik przy rozpoczęciu zadania"
 
 #: ../../frescobaldi_app/preferences/tools.py:92
 msgid "Display plain log output"
-msgstr ""
+msgstr "Wyświetl zwykłe wyjście dziennika"
 
 #: ../../frescobaldi_app/preferences/tools.py:94
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
+"Jeśli zaznaczone, Frescobaldi nie skróci nazw plików w wyjściu dziennika."
 
 #: ../../frescobaldi_app/preferences/tools.py:95
 msgid "Hide automatic engraving jobs"
@@ -4953,6 +5038,8 @@ msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
 msgstr ""
+"Jeśli zaznaczone, Frescobaldi nie otworzy dokumentów PDF, które nie\n"
+"są aktualne (czyli których plik źródłowy został później zmodyfikowany)."
 
 #: ../../frescobaldi_app/preferences/tools.py:142
 msgid "Remember View settings per-document"
@@ -4964,6 +5051,9 @@ msgid ""
 "own layout setting, zoom factor, etc. If unchecked, the View will\n"
 "not change its settings when a different document is displayed."
 msgstr ""
+"Jeśli zaznaczone, każdy dokument w Widoku partytury będzie pamiętał własne\n"
+"ustawienia układu, współczynnik powiększenia itd. Jeśli odzaznaczone, Widok\n"
+"nie zmieni swoich ustawień, gdy wyświetlany jest inny dokument."
 
 #: ../../frescobaldi_app/preferences/tools.py:217
 msgid "Group documents by directory"
@@ -6592,11 +6682,11 @@ msgstr "B."
 
 #: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:277
 msgid "Open G-tuning (aDGBD)"
-msgstr "Strój G (aDGBD)"
+msgstr "Strój G (aDGHD)"
 
 #: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:278
 msgid "C-tuning (gCGBD)"
-msgstr "Strój C (gCGBD)"
+msgstr "Strój C (gCGHD)"
 
 #: ../../frescobaldi_app/scorewiz/parts/plucked_strings.py:279
 msgid "Modal tuning (gDGCD)"
@@ -7516,7 +7606,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/snippet/builtin.py:263
 msgid "Relative Music"
-msgstr "Relatywny zapis muzyki"
+msgstr "Względny zapis muzyki"
 
 #: ../../frescobaldi_app/snippet/builtin.py:280
 msgid "Upper case selection"
@@ -9105,12 +9195,12 @@ msgstr "Meta"
 #: ../../i18n/messages.py:228
 msgctxt "QShortcut"
 msgid "Music"
-msgstr ""
+msgstr "Partytura"
 
 #: ../../i18n/messages.py:229
 msgctxt "QShortcut"
 msgid "News"
-msgstr ""
+msgstr "Newsy"
 
 #: ../../i18n/messages.py:230
 msgctxt "QShortcut"
@@ -9300,7 +9390,7 @@ msgstr "Czas"
 #: ../../i18n/messages.py:267
 msgctxt "QShortcut"
 msgid "Toggle Media Play/Pause"
-msgstr "Przełącz Odtwarzaj/Wstrzymaj"
+msgstr "Przełącz odtwarzaj/wstrzymaj"
 
 #: ../../i18n/messages.py:268
 msgctxt "QShortcut"
