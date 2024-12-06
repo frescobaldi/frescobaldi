@@ -37,9 +37,6 @@ def update(version):
     if version < 1:
         moveSettingsToNewRoot()
 
-    if version < 2:
-        moveArthurbackendPrint()
-
     if version < 3:
         renameUseshebang()
 
@@ -66,15 +63,6 @@ def moveSettingsToNewRoot():
             for k in keys:
                 s.setValue(k, o.value(k))
             o.clear()
-
-def moveArthurbackendPrint():
-    k = "arthurbackend_print"
-    oldk = "musicview/" + k
-    newk = "printing/" + k
-    s = QSettings()
-    if s.contains(oldk):
-        s.setValue(newk, s.value(oldk))
-        s.remove(oldk)
 
 def renameUseshebang():
     s = QSettings()
