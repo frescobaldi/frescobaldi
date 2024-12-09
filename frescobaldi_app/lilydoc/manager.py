@@ -31,6 +31,7 @@ import appinfo
 import util
 import signals
 import qsettings
+import lilypondinfo
 
 from . import documentation
 
@@ -132,6 +133,13 @@ def urls():
     for p in user_paths:
         user_prefixes.append(p) if os.path.isdir(p) else remote.append(p)
     remote.sort(key=util.naturalsort)
+
+    # prefer remote docs for the user's default LilyPond version
+    installed = lilypondinfo.preferred()
+    if installed.version():
+        remote_url = installed.lilydoc_url()
+        if not remote_url in remote:
+            remote.insert(0, remote_url)
 
     # now find all instances of LilyPond documentation in the local paths
     def paths(path):
