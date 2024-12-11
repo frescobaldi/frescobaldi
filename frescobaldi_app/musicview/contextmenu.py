@@ -35,7 +35,7 @@ def show(position, panel, link, cursor):
 
     position: The global position to pop up
     panel: The music view panel, giving access to mainwindow and view widget
-    link: a popplerqt6 LinkBrowse instance or None
+    link: a qpageview Link instance or None
     cursor: a QTextCursor instance or None
 
     """
