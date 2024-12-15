@@ -38,15 +38,19 @@ class Completer(widgets.completer.Completer):
         self.popup().setMinimumWidth(100)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
+        self.setWorker(CompleterWorker.create())
 
     def readSettings(self):
         self.popup().setFont(textformats.formatData('editor').font)
         self.popup().setPalette(textformats.formatData('editor').palette())
 
-    def completionCursor(self):
-        cursor = self.textCursor()
+
+class CompleterWorker(widgets.completer.CompleterWorker):
+    """Worker to build a completion model in a background thread."""
+    def run(self):
+        cursor = self.cursor()
         # trick: if we are still visible we don't have to analyze the text again
-        if not (self.popup().isVisible() and self._pos < cursor.position()):
+        if not (self.popupVisible() and self._pos < cursor.position()):
             analyzer = self.analyzer()
             pos, model = analyzer.completions(cursor)
             if not model:
@@ -55,10 +59,7 @@ class Completer(widgets.completer.Completer):
             if self.model() != model:
                 self.setModel(model)
         cursor.setPosition(self._pos, QTextCursor.MoveMode.KeepAnchor)
-        return cursor
 
     def analyzer(self):
         from . import analyzer
         return analyzer.Analyzer()
-
-
