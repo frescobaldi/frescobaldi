@@ -28,7 +28,7 @@ import os
 import re
 import weakref
 
-from PyQt6.QtCore import QSettings, QUrl
+from PyQt6.QtCore import QMutex, QSettings, QUrl
 
 import document
 import qsettings
@@ -121,6 +121,7 @@ def defaultfilename(doc):
 class DocumentInfo(plugin.DocumentPlugin):
     """Computes and caches various information about a Document."""
     def __init__(self, doc):
+        self._mutex = QMutex()  # protects access to _lydocinfo and _music
         if doc.__class__ == document.EditorDocument:
             doc.contentsChanged.connect(self._reset)
             doc.closed.connect(self._reset)
@@ -133,19 +134,27 @@ class DocumentInfo(plugin.DocumentPlugin):
 
     def lydocinfo(self):
         """Return the lydocinfo instance for our document."""
-        if self._lydocinfo is None:
-            doc = lydocument.Document(self.document())
-            v = variables.manager(self.document()).variables()
-            self._lydocinfo = lydocinfo.DocInfo(doc, v)
+        self._mutex.lock()
+        try:
+            if self._lydocinfo is None:
+                doc = lydocument.Document(self.document())
+                v = variables.manager(self.document()).variables()
+                self._lydocinfo = lydocinfo.DocInfo(doc, v)
+        finally:
+            self._mutex.unlock()
         return self._lydocinfo
 
     def music(self):
         """Return the music.Document instance for our document."""
-        if self._music is None:
-            import music
-            doc = lydocument.Document(self.document())
-            self._music = music.Document(doc)
-        self._music.include_path = self.includepath()
+        self._mutex.lock()
+        try:
+            if self._music is None:
+                import music
+                doc = lydocument.Document(self.document())
+                self._music = music.Document(doc)
+            self._music.include_path = self.includepath()
+        finally:
+            self._mutex.unlock()
         return self._music
 
     def mode(self, guess=True):

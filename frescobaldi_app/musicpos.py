@@ -22,7 +22,7 @@ Shows the time position of the text cursor in the music.
 """
 
 
-from PyQt6.QtCore import QTimer
+from PyQt6.QtCore import QTimer, pyqtSignal
 from PyQt6.QtWidgets import QLabel
 
 import weakref
@@ -30,10 +30,13 @@ import weakref
 import app
 import plugin
 import cursortools
+import worker
 
 
 class MusicPosition(plugin.ViewSpacePlugin):
     def __init__(self, space):
+        self._worker = MusicPositionWorker.create()
+        self._worker.textChanged.connect(self.slotDisplayText)
         self._timer = QTimer(singleShot=True, timeout=self.slotTimeout)
         self._waittimer = QTimer(singleShot=True, timeout=self.slotTimeout)
         self._label = QLabel()
@@ -74,8 +77,38 @@ class MusicPosition(plugin.ViewSpacePlugin):
         """Called when one of the timers fires."""
         view = self._view()
         if view:
-            d = view.document()
-            c = view.textCursor()
+            self._worker.prepare(view.document(), view.textCursor())
+            QTimer.singleShot(0, self._worker.slotWork)
+
+    def slotDisplayText(self, text):
+        """Called from the worker to display the updated music position."""
+        self._label.setText(text)
+        self._label.setVisible(bool(text))
+
+
+class MusicPositionWorker(worker.Worker):
+    """Worker to update the music position in a background thread.
+
+    If the document has changed, calculating this requires rebuilding
+    its ly.music tree (a slow operation). Running it in the background
+    thus reduces lag when editing larger files.
+
+    """
+    def prepare(self, document, textCursor):
+        """Set the document and text cursor atomically."""
+        try:
+            self.mutex().lock()
+            self._document = document
+            self._textCursor = textCursor
+        finally:
+            self.mutex().unlock()
+
+    def slotWork(self):
+        """Called from the main thread to recalculate the music position."""
+        try:
+            self.mutex().lock()
+            d = self._document
+            c = self._textCursor
             import documentinfo
             m = documentinfo.music(d)
             import ly.duration
@@ -88,8 +121,14 @@ class MusicPosition(plugin.ViewSpacePlugin):
                 pos = m.time_position(c.position())
                 text = _("Pos: {pos}").format(
                     pos=ly.duration.format_fraction(pos)) if pos is not None else ''
-            self._label.setText(text)
-            self._label.setVisible(bool(text))
+            self.textChanged.emit(text)
+        except AttributeError:
+            return  # no document or cursor available
+        finally:
+            self.mutex().unlock()
+
+    # argument: text
+    textChanged = pyqtSignal(str)
 
 
 app.viewSpaceCreated.connect(MusicPosition.instance)
