@@ -20,53 +20,118 @@
 """
 Simple API for creating worker objects.
 
-A Worker is used to run slow operations in a background thread, which
-is normally app.worker_thread(). Subclass Worker to implement your logic,
-then call your subclass's create() method to instantiate it.
+Workers are used to run slow operations in a background thread.
+To create one, subclass Worker and implement your logic in its
+work() method. Upon successful completion, emit the resultReady
+signal to pass the results back to your initial thread.
+
+This API was primarily intended to offload repeated operations
+like updating the music position that would cause lag if run in
+the main thread. Some specific design features to be aware of:
+
+  * There is a single instance of each worker type, which is
+    accessed through its instance() class method.
+
+  * All workers live in the same thread, app.worker_thread(),
+    which persists until the application exits. This reduces
+    overhead compared to starting a new thread for each worker.
+
+  * A worker is started by calling its start() class method.
+    Mixing the worker and controller roles like this is
+    conceptually messy but allows for simpler code, especially
+    when a worker is created in a class like plugin.Plugin
+    that is not derived from QObject.
 
 """
 
-from PyQt6.QtCore import QObject, QMutex
+from PyQt6.QtCore import Qt, QObject, pyqtSignal
+
+import weakref
 
 import app
+
+
+_instances = weakref.WeakKeyDictionary()
+_controllers = weakref.WeakKeyDictionary()
 
 
 class Worker(QObject):
     """Base class for worker objects.
 
-    Subclass this to define slots to perform work and signals to
-    communicate with its controller.
+    Subclass this and implement your logic in its work() method.
 
-    Create workers using your subclass's create() class method.
+    Use the instance() class method to get/create a Worker instance.
 
     """
-    def __init__(self):
-        super().__init__()
-        self._mutex = None
+    def work(self, data):
+        """Override this in your subclass to perform work.
 
-    def mutex(self):
-        """Return a QMutex for this Worker.
-
-        Use this if you need to exchange data with the Worker from
-        another thread but can't use signal/slot parameters, for example
-        because you're triggering it from a QTimer.
-
-        The QMutex is created the first time this method is called.
+        Emit the resultReady signal upon successful completion to
+        pass the results back to the main thread.
 
         """
-        if self._mutex is None:
-            self._mutex = QMutex()
-        return self._mutex
+        pass
 
     @classmethod
-    def create(cls):
-        """Create a worker object.
+    def instance(cls):
+        """Returns the instance of this worker type.
 
-        The worker is moved to the global worker thread and scheduled
-        for deletion when that thread exits.
+        If it did not already exist, the worker is created, moved to
+        the global worker thread, and scheduled for deletion when that
+        thread exits.
 
         """
-        worker = cls()
-        worker.moveToThread(app.worker_thread())
-        app.worker_thread().finished.connect(worker.deleteLater)
+        try:
+            worker = _instances[cls]
+        except KeyError:
+            worker = _instances[cls] = cls()
+            worker.moveToThread(app.worker_thread())
+            app.worker_thread().finished.connect(worker.deleteLater)
         return worker
+
+    @classmethod
+    def start(cls, data):
+        """Starts performing work."""
+        # The controller, which lives in the calling thread, signals
+        # to the worker to start in its own thread.
+        _Controller.instance(cls.instance()).start(data)
+
+    # argument: result
+    resultReady = pyqtSignal('PyQt_PyObject')
+
+
+class _Controller(QObject):
+    """Controller used to start a worker.
+
+    Each worker has a single associated controller instance. The
+    controller lives in the main thread and signals the worker when
+    it's time to perform work in its own thread.
+
+    Use the instance() class method to get/create the Controller
+    instance for a given worker.
+
+    """
+    def __init__(self, worker):
+        super().__init__()
+        self._started.connect(worker.work,
+                              Qt.ConnectionType.QueuedConnection)
+
+    def start(self, data):
+        """Start the worker."""
+        self._started.emit(data)
+
+    @classmethod
+    def instance(cls, worker):
+        """Returns the Controller instance for a worker.
+
+        The controller is created if it did not exist.
+
+        """
+        try:
+            controller = _controllers[worker]
+        except KeyError:
+            controller = _controllers[worker] = cls(worker)
+        return controller
+
+    # argument: data
+    _started = pyqtSignal('PyQt_PyObject')
