@@ -30,10 +30,13 @@ import weakref
 import app
 import plugin
 import cursortools
+import worker
 
 
 class MusicPosition(plugin.ViewSpacePlugin):
     def __init__(self, space):
+        self._worker = MusicPositionWorker.instance()
+        self._worker.resultReady.connect(self.slotDisplayText)
         self._timer = QTimer(singleShot=True, timeout=self.slotTimeout)
         self._waittimer = QTimer(singleShot=True, timeout=self.slotTimeout)
         self._label = QLabel()
@@ -74,22 +77,37 @@ class MusicPosition(plugin.ViewSpacePlugin):
         """Called when one of the timers fires."""
         view = self._view()
         if view:
-            d = view.document()
-            c = view.textCursor()
-            import documentinfo
-            m = documentinfo.music(d)
-            import ly.duration
-            if c.hasSelection():
-                cursortools.strip_selection(c)
-                length = m.time_length(c.selectionStart(), c.selectionEnd())
-                text = _("Length: {length}").format(
-                    length=ly.duration.format_fraction(length)) if length is not None else ''
-            else:
-                pos = m.time_position(c.position())
-                text = _("Pos: {pos}").format(
-                    pos=ly.duration.format_fraction(pos)) if pos is not None else ''
-            self._label.setText(text)
-            self._label.setVisible(bool(text))
+            self._worker.start((view.document(), view.textCursor()))
+
+    def slotDisplayText(self, text):
+        """Called from the worker to display the updated music position."""
+        self._label.setText(text)
+        self._label.setVisible(bool(text))
+
+
+class MusicPositionWorker(worker.Worker):
+    """Worker to update the music position in a background thread.
+
+    If the document has changed, calculating this requires rebuilding
+    its ly.music tree (a slow operation). Running it in the background
+    thus reduces lag when editing larger files.
+
+    """
+    def work(self, data):
+        d, c = data # document and textCursor, respectively
+        import documentinfo
+        m = documentinfo.music(d)
+        import ly.duration
+        if c.hasSelection():
+            cursortools.strip_selection(c)
+            length = m.time_length(c.selectionStart(), c.selectionEnd())
+            text = _("Length: {length}").format(
+                length=ly.duration.format_fraction(length)) if length is not None else ''
+        else:
+            pos = m.time_position(c.position())
+            text = _("Pos: {pos}").format(
+                pos=ly.duration.format_fraction(pos)) if pos is not None else ''
+        self.resultReady.emit(text)
 
 
 app.viewSpaceCreated.connect(MusicPosition.instance)
