@@ -26,8 +26,6 @@ from PyQt6.QtCore import QEvent, QModelIndex, Qt
 from PyQt6.QtGui import QKeySequence, QTextCursor
 from PyQt6.QtWidgets import QCompleter, QApplication
 
-import worker
-
 
 class Completer(QCompleter):
     """A QCompleter providing completions in a Q(Plain)TextEdit.
@@ -35,9 +33,9 @@ class Completer(QCompleter):
     Use setWidget() to assign the completer to a text edit.
 
     You can reimplement completionCursor() to make your own, other than simple
-    string-based completions. Alternatively, you can subclass CompleterWorker
-    and assign an instance using setWorker() to build the completion model in
-    a background thread.
+    string-based completions. Alternatively, you can create a worker.Worker
+    to build the completion model in a background thread and assign it to this
+    completer using setWorker().
 
     Call showCompletionPopup() to force the popup to show.
 
@@ -159,8 +157,8 @@ class Completer(QCompleter):
 
         This method may also alter the completion model.
 
-        If you assign a CompletionWorker using setWorker(), you should do
-        whatever you would do here in its run() method instead.
+        If you're using a worker to build your completion model, you should
+        do whatever you would do here in its work() method instead.
 
         """
         cursor = self.textCursor()
