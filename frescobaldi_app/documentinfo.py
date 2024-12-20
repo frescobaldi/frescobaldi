@@ -27,6 +27,7 @@ import functools
 import os
 import re
 import weakref
+import locking
 
 from PyQt6.QtCore import QSettings, QUrl
 
@@ -118,7 +119,7 @@ def defaultfilename(doc):
     return filename + ext
 
 
-class DocumentInfo(plugin.DocumentPlugin):
+class DocumentInfo(locking.LockMixin, plugin.DocumentPlugin):
     """Computes and caches various information about a Document."""
     def __init__(self, doc):
         if doc.__class__ == document.EditorDocument:
@@ -128,24 +129,27 @@ class DocumentInfo(plugin.DocumentPlugin):
 
     def _reset(self):
         """Called when the document is changed."""
-        self._lydocinfo = None
-        self._music = None
+        with self.lock():
+            self._lydocinfo = None
+            self._music = None
 
     def lydocinfo(self):
         """Return the lydocinfo instance for our document."""
-        if self._lydocinfo is None:
-            doc = lydocument.Document(self.document())
-            v = variables.manager(self.document()).variables()
-            self._lydocinfo = lydocinfo.DocInfo(doc, v)
+        with self.lock():
+            if self._lydocinfo is None:
+                doc = lydocument.Document(self.document())
+                v = variables.manager(self.document()).variables()
+                self._lydocinfo = lydocinfo.DocInfo(doc, v)
         return self._lydocinfo
 
     def music(self):
         """Return the music.Document instance for our document."""
-        if self._music is None:
-            import music
-            doc = lydocument.Document(self.document())
-            self._music = music.Document(doc)
-        self._music.include_path = self.includepath()
+        with self.lock():
+            if self._music is None:
+                import music
+                doc = lydocument.Document(self.document())
+                self._music = music.Document(doc)
+            self._music.include_path = self.includepath()
         return self._music
 
     def mode(self, guess=True):
@@ -244,7 +248,6 @@ class DocumentInfo(plugin.DocumentPlugin):
         if version and QSettings().value("lilypond_settings/autoversion", False, bool):
             return lilypondinfo.suitable(version)
         return lilypondinfo.preferred()
-
 
     def child_urls(self):
         """Return a tuple of urls included by the Document.
