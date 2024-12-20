@@ -188,7 +188,8 @@ class Completer(QCompleter):
         self.autoCompleteLength characters selected.
 
         """
-        self._data.cursor = self.completionCursor()
+        # Copy the cursor so workers can manipulate it freely
+        self._data.cursor = QTextCursor(self.completionCursor())
         self._data.model = self.model()
         self._data.forced = forced
         self._data.popupVisible = self.popup().isVisible()
