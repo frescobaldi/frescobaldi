@@ -35,6 +35,12 @@ class Completer(QCompleter):
     You can reimplement completionCursor() to make your own, other than simple
     string-based completions.
 
+    To build a completion model in a background thread, create a nested
+    class called Worker that subclasses worker.Worker. Its work() method
+    should call self.resultReady.emit(data) upon successful completion.
+    (In other words, the results should be the same data that was passed
+    to the work() method originally.)
+
     Call showCompletionPopup() to force the popup to show.
 
     """
@@ -45,6 +51,12 @@ class Completer(QCompleter):
         super().__init__(*args, **kwargs)
         self.setCaseSensitivity(Qt.CaseSensitivity.CaseInsensitive)
         self.activated[QModelIndex].connect(self.insertCompletion)
+        try:
+            self._worker = self.Worker.instance()
+        except AttributeError:
+            self._worker = None
+        # We reuse this so a worker can store additional state in it
+        self._data = self.WorkerData()
 
     def eventFilter(self, obj, ev):
         if ev.type() != QEvent.Type.KeyPress:
@@ -154,6 +166,9 @@ class Completer(QCompleter):
 
         This method may also alter the completion model.
 
+        If you're using a worker to build your completion model, you should
+        do whatever you would do here in its work() method instead.
+
         """
         cursor = self.textCursor()
         if cursor.hasSelection():
@@ -173,12 +188,25 @@ class Completer(QCompleter):
         self.autoCompleteLength characters selected.
 
         """
-        cursor = self.completionCursor()
+        self._data.cursor = self.completionCursor()
+        self._data.model = self.model()
+        self._data.forced = forced
+        self._data.popupVisible = self.popup().isVisible()
+        if self._worker:
+            self._worker.start(self._data, self._showCompletionPopup)
+        else:
+            self._showCompletionPopup(self._data)
+
+    def _showCompletionPopup(self, data):
+        cursor = data.cursor
         if not cursor:
             self.popup().hide()
             return
+        if self.model() != data.model:
+            # update our model if a worker replaced it
+            self.setModel(data.model)
         text = cursor.selectedText()
-        if forced or (self.autoComplete and len(text) >= self.autoCompleteLength):
+        if data.forced or (self.autoComplete and len(text) >= self.autoCompleteLength):
             self.setCompletionPrefix(text)
             # hide if there is only one completion left
             if (not self.setCurrentRow(1) and self.setCurrentRow(0)
@@ -270,3 +298,10 @@ class Completer(QCompleter):
         self.setCurrentRow((self.currentIndex().row() + direction) %
                            self.completionCount())
         self.popup().setCurrentIndex(self.currentIndex())
+
+    class WorkerData:
+        """Data shared with this Completer's worker.Worker (if it has one)."""
+        cursor = None
+        model = None
+        forced = False
+        popupVisible = False
