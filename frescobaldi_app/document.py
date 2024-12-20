@@ -43,6 +43,7 @@ import app
 import util
 import variables
 import signals
+import locking
 
 
 class AbstractDocument(QTextDocument):
@@ -222,7 +223,55 @@ class AbstractDocument(QTextDocument):
             return os.path.basename(self._url.path())
 
 
-class Document(AbstractDocument):
+class LockingDocument(locking.LockMixin, AbstractDocument):
+    """Thread-safe version of AbstractDocument.
+
+    Access to the document's contents is protected by a lock.
+    If you need repeated access to the document you should lock it
+    from outside using locking.lock(), but this provides a failsafe
+    for the most common methods when that isn't practical.
+
+    """
+    # QTextDocument methods
+    def clear(self):
+        with self.lock():
+            super().clear()
+
+    def clone(self, parent=None):
+        with self.lock():
+            return super().clone(parent)
+
+    def setPlainText(self, text):
+        with self.lock():
+            super().setPlainText(text)
+
+    def toHtml(self):
+        with self.lock():
+            return super().toHtml()
+
+    def toMarkdown(self, features=QTextDocument.MarkdownFeature.MarkdownDialectGitHub):
+        with self.lock():
+            return super().toMarkdown(features)
+
+    def toPlainText(self):
+        with self.lock():
+            return super().toPlainText()
+
+    def toRawText(self):
+        with self.lock():
+            return super().toRawText()
+
+    # AbstractDocument methods
+    def encoding(self):
+        with self.lock():
+            return super().encoding()
+
+    def setEncoding(self, encoding):
+        with self.lock():
+            super().setEncoding(encoding)
+
+
+class Document(LockingDocument):
     """A Frescobaldi document to be used anywhere except the main editor
     viewspace (also non-GUI jobs/operations)."""
 
@@ -231,7 +280,7 @@ class Document(AbstractDocument):
         self._save(url, filename)
 
 
-class EditorDocument(AbstractDocument):
+class EditorDocument(LockingDocument):
     """A Frescobaldi document for use in the main editor view.
     Basically this is an AbstractDocument with signals added."""
 
