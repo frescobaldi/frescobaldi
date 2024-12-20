@@ -30,6 +30,7 @@ import app
 import textformats
 import widgets.completer
 import worker
+import locking
 
 
 class Completer(widgets.completer.Completer):
@@ -51,18 +52,20 @@ class Completer(widgets.completer.Completer):
     class Worker(worker.Worker):
         """Worker to build a completion model in a background thread."""
         def work(self, data):
-            cursor = data.cursor
-            # trick: if we are still visible we don't have to analyze the text again
-            if not (data.popupVisible and data._pos < cursor.position()):
-                analyzer = self.analyzer()
-                pos, model = analyzer.completions(cursor)
-                if not model:
-                    return
-                data._pos = cursor.block().position() + pos
-                if data.model != model:
-                    data.model = model
-            cursor.setPosition(data._pos, QTextCursor.MoveMode.KeepAnchor)
-            self.resultReady.emit(data)
+            with locking.lock(data.cursor.document()):
+                cursor = data.cursor
+                # trick: if we are still visible we don't have to analyze the
+                # text again
+                if not (data.popupVisible and data._pos < cursor.position()):
+                    analyzer = self.analyzer()
+                    pos, model = analyzer.completions(cursor)
+                    if not model:
+                        return
+                    data._pos = cursor.block().position() + pos
+                    if data.model != model:
+                        data.model = model
+                cursor.setPosition(data._pos, QTextCursor.MoveMode.KeepAnchor)
+                self.resultReady.emit(data)
 
         def analyzer(self):
             from . import analyzer
