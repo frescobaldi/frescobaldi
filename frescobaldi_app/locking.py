@@ -1,5 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
+# Copyright (c) 2010 - 2019 by Wilbert Berendsen
 # Copyright (c) 2024 by Benjamin Johnson
 #
 # This program is free software; you can redistribute it and/or
@@ -20,6 +21,8 @@
 """
 Manages locking access across threads.
 """
+
+import weakref
 
 from PyQt6.QtCore import QObject, QMutex
 
@@ -83,6 +86,26 @@ class RLock(QObject):
         return self._count > 0
 
 
+_locks = weakref.WeakKeyDictionary()
+_lock = RLock()
+
+def lock(item):
+    """Return an RLock instance for the given item.
+
+    Use the return value as a context manager like so:
+
+        with lock(document):
+            ...your logic goes here...
+
+    """
+    with _lock:
+        try:
+            res = _locks[item]
+        except KeyError:
+            res = _locks[item] = RLock()
+        return res
+
+
 class LockMixin:
     """Mixin to add locking support to any class.
 
@@ -97,18 +120,11 @@ class LockMixin:
     def lock(self):
         """Returns a locking.RLock instance for this object.
 
-        Use the return value as a context manager in methods that
-        need to be thread-safe, like so:
+        This is a shortcut to writing:
 
-            def someProperty(self):
-                with self.lock():
-                    ...your logic goes here...
-
-        The lock is created the first time this method is called.
+            import locking
+            with locking.lock(self):
+                ...your logic goes here...
 
         """
-        try:
-            return self._lock
-        except AttributeError:
-            self._lock = RLock()
-            return self._lock
+        return lock(self)
