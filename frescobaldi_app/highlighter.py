@@ -40,6 +40,7 @@ import metainfo
 import plugin
 import variables
 import documentinfo
+import locking
 
 
 metainfo.define('highlighting', True)
@@ -136,6 +137,10 @@ class Highlighter(plugin.Plugin, QSyntaxHighlighter):
 
     def highlightBlock(self, text):
         """Called by Qt when the highlighting of the current line needs updating."""
+        with locking.lock(self.document()):
+            self._highlightBlock(text)
+
+    def _highlightBlock(self, text):
         # find the state of the previous line
         prev = self.previousBlockState()
         state = self._fridge.thaw(prev)
