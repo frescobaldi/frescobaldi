@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
   <id>org.frescobaldi.Frescobaldi</id>
+  <name>Frescobaldi</name>
+  <summary>Write LilyPond music sheets</summary>
+  <icon type="stock">org.frescobaldi.Frescobaldi</icon>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
-  <developer_name>Frescobaldi project</developer_name>
-  <name>Frescobaldi</name>
-  <summary>LilyPond Music Editor</summary>
+  <developer id="org.frescobaldi">
+    <name>Frescobaldi project</name>
+  </developer>
 
   <description>
     <p>
@@ -35,33 +38,36 @@
   </description>
 
   <screenshots>
+  <!-- The screenshots of panels (such as the Snippets editor or the Edit in place panel) won't pass
+  the Flathub quality guidelines validation. We can screenshot only windows.
+  https://discourse.flathub.org/t/quality-guidelines-help-with-screenshots/7414
+  -->
     <screenshot type="default">
       <caption>Text editor and music view</caption>
-      <image>https://user-images.githubusercontent.com/1644647/69150986-10d89880-0ada-11ea-8e40-ed3f7a1ea00b.png</image>
-    </screenshot>
-    <screenshot>
-      <caption>Change the input without leaving the music view</caption>
-      <image>https://user-images.githubusercontent.com/1644647/69151435-efc47780-0ada-11ea-917b-580abf4e8a99.png</image>
+      <image>https://raw.githubusercontent.com/frescobaldi/frescobaldi/master/linux/screenshots/main.png</image>
     </screenshot>
     <screenshot>
       <caption>Zoom with the magnifier glass</caption>
-      <image>https://user-images.githubusercontent.com/1644647/69188369-b280d980-0b1c-11ea-8f0e-e20b0f9f463d.png</image>
+      <image>https://raw.githubusercontent.com/frescobaldi/frescobaldi/master/linux/screenshots/magnifier-glass.png</image>
     </screenshot>
     <screenshot>
       <caption>Syntax highlighting and automatic completion</caption>
-      <image>https://user-images.githubusercontent.com/1644647/69151460-f7841c00-0ada-11ea-9577-1d2d358770ef.png</image>
-    </screenshot>
-    <screenshot>
-      <caption>Snippet manager and editor</caption>
-      <image>https://user-images.githubusercontent.com/1644647/69151482-023eb100-0adb-11ea-9221-191052d5c92d.png</image>
+      <image>https://raw.githubusercontent.com/frescobaldi/frescobaldi/master/linux/screenshots/syntax.png</image>
     </screenshot>
     <screenshot>
       <caption>Score Wizard to quickly setup a music score</caption>
-      <image>https://user-images.githubusercontent.com/1644647/69151502-08cd2880-0adb-11ea-9c17-92886ef0a846.png</image>
+      <image>https://raw.githubusercontent.com/frescobaldi/frescobaldi/master/linux/screenshots/wizard.png</image>
     </screenshot>
   </screenshots>
 
-  <url type="homepage">http://frescobaldi.org/</url>
+  <branding>
+    <color type="primary" scheme_preference="light">#22aaff</color>
+    <color type="primary" scheme_preference="dark">#222571</color>
+  </branding>
+
+  <url type="homepage">https://frescobaldi.org/</url>
+  <url type="bugtracker">https://github.com/frescobaldi/frescobaldi/issues</url>
+  <url type="contact">https://groups.google.com/g/frescobaldi</url>
 
   <launchable type="desktop-id">org.frescobaldi.Frescobaldi.desktop</launchable>
 
