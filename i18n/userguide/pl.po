@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 3.3.0\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
 "POT-Creation-Date: 2023-06-17 20:04+0200\n"
-"PO-Revision-Date: 2024-11-28 00:00+0000\n"
+"PO-Revision-Date: 2025-01-03 00:00+0000\n"
 "Last-Translator: Grzegorz Pruchniakowski <grzegorz.pruchniakowski@gmail.com>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "Language: pl\n"
@@ -474,7 +474,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/credits.md:67
 msgid "Relative mode for MIDI capturing"
-msgstr "Tryb relatywny dla przechwytywania MIDI"
+msgstr "Tryb względny dla przechwytywania MIDI"
 
 #: ../../frescobaldi_app/userguide/credits.md:70
 msgid "{appname} is translated into the following languages:"
@@ -2260,7 +2260,7 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/midi_import.md:16
 #: ../../frescobaldi_app/userguide/musicxml_import.md:20
 msgid "Pitches in absolute mode"
-msgstr "Wysokości w trybie absolutnym"
+msgstr "Wysokości w trybie bezwzględnym"
 
 #: ../../frescobaldi_app/userguide/midi_import.md:18
 msgid ""
@@ -2661,7 +2661,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/pitch.md:10
 msgid "Convert relative music to absolute"
-msgstr "Konwertuj relatywne do absolutnych"
+msgstr "Konwertuj względne do bezwzględnych"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/pitch.md:11
@@ -2672,7 +2672,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/pitch.md:14
 msgid "Convert absolute music to relative"
-msgstr "Konwertuj absolutne do relatywnych"
+msgstr "Konwertuj bezwzględne do względnych"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/pitch.md:15
