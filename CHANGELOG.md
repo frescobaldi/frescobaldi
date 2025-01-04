@@ -6,11 +6,25 @@ defined at the bottom of this file.
 
 All notable changes to the Frescobaldi project are documented in this file.
 
-## [Unreleased]
+## [4.0.0] - 2025-01-20
 
 ### Changed
 
-- Ported to PyQt6 (requires Qt >=6.6). (#1780)
+- Ported to PyQt6 (requires Qt >=6.6) (#1780).
+- Moved to current Python packaging tools (#1597, #1638).
+- Use standard gettext module (#1620).
+- Updated translations: French, German, Italian and Polish.
+
+### Added
+
+- Automatic installation of LilyPond (#1655).
+- Score Wizard improvements (#1690).
+- Korean translation (#1623).
+
+### Fixed
+
+- Docking/undocking panels on Wayland (Linux) is working again thanks to the Qt6 port.
+- Several minor bug fixes.
 
 
 ## [3.3.0] - 2023-03-26
@@ -1603,7 +1617,8 @@ README-translations.
 
 * Initial release.
 
-[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v3.3.0...master
+[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.0...master
+[4.0.0]: https://github.com/frescobaldi/frescobaldi/compare/v3.3.0...v4.0.0
 [3.3.0]: https://github.com/frescobaldi/frescobaldi/compare/v3.2...v3.3.0
 [3.2]: https://github.com/frescobaldi/frescobaldi/compare/v3.1.3...v3.2
 [3.1.3]: https://github.com/frescobaldi/frescobaldi/compare/v3.1.2...v3.1.3
