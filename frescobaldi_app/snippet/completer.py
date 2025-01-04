@@ -52,7 +52,7 @@ class Completer(widgets.completer.Completer):
         cursor = self.textCursor()
 
         if self.popup().isVisible() and self._pos < cursor.position():
-            cursor.setPosition(self._pos, cursor.KeepAnchor)
+            cursor.setPosition(self._pos, QTextCursor.MoveMode.KeepAnchor)
             return cursor
 
         # alter the model
