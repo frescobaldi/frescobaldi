@@ -147,7 +147,7 @@ All notable changes to the Frescobaldi project are documented in this file.
 
 - The userguide now has its own PO files in i18n/userguide, and the
 Frescobaldi application itself has the PO files in i18n/frescobaldi, see
-README-translations.
+[TRANSLATIONS.md](TRANSLATIONS.md).
 
 
 ## [3.1.1] - 2020-01-04
@@ -165,7 +165,7 @@ README-translations.
 
 - Frescobaldi now requires Python3.3+
 - Userguide now has its own PO files. PO files for userguide and Frescobaldi
-  both are in 'i18n/xx_CC' directories, see README-translations
+  both are in 'i18n/xx_CC' directories, see [TRANSLATIONS.md](TRANSLATIONS.md).
 
 ### Added
 

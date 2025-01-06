@@ -1,19 +1,9 @@
 README for Frescobaldi
 ======================
 
-## Note about maintenance
-
-Frescobaldi is unfortunately close to being unmaintained at present. Releases are extremely
-difficult to do due to deep packaging issues especially on macOS
-([issues with the macOS label](https://github.com/frescobaldi/frescobaldi/labels/macOS))
-and Frescobaldi is still using PyQt5, which is now obsolete
-([#1407](https://github.com/frescobaldi/frescobaldi/issues/1407)).
-Help to resolve these issues and continue the development of Frescobaldi is very welcome.
-
-
 ## About Frescobaldi
 
-Homepage: http://www.frescobaldi.org/
+Homepage: http://www.frescobaldi.org/ \
 Main author: Wilbert Berendsen
 
 Frescobaldi is a LilyPond sheet music text editor. It aims to be powerful, yet
@@ -37,7 +27,7 @@ Features:
 - Modern user interface with configurable colors, fonts and keyboard shortcuts
 - Translated into: Dutch, English, French, German, Italian, Swedish, Czech,
   Russian, Spanish, Galician, Turkish, Polish, Brazilian, Ukrainian,
-  Traditional Chinese, Simplified Chinese and Japanese.
+  Traditional Chinese, Simplified Chinese, Japanese and Korean.
 
 Music functions:
 
