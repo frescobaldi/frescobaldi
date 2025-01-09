@@ -1,8 +1,8 @@
-README for developers
-=====================
+CONTRIBUTING
+============
 
 The Frescobaldi LilyPond sheet music editor is written in Python and uses
-Qt for its user interface, via the PyQt bindings (Python3 and Qt5).
+Qt for its user interface, via the PyQt bindings.
 
 'frescobaldi_app' is not a real package: on startup, the absolute
 'frescobaldi_app' directory is added to sys.path and its own __path__ is
@@ -23,14 +23,12 @@ This ensures the application starts up and also installs some handlers that
 print debugging information on certain events. And it imports the most used
 modules.
 
-Currently Python 3.2 and newer is supported.
-
 
 How Frescobaldi is organized
 ============================
 
-There can be one or more mainwindow.MainWindow instances and one or more
-document.Document instances (when the last Document is closed, another one is
+There can be one or more `mainwindow.MainWindow` instances and one or more
+`document.Document` instances (when the last Document is closed, another one is
 always constructed). The app module keeps references to those and contains the
 Signals emitted when something changes.
 
@@ -167,9 +165,9 @@ when the new functionality has been tested thoroughly. Change existing files
 as less as possible. Preferably add new files and packages.
 
 User Interface strings that are meant to be translated should be wrapped in
-_("Message Text") constructs. See also README-translations for vital information
-about how to use the translation mechanism and how to use variables inside
-messages.
+_("Message Text") constructs. See also [TRANSLATIONS.md](TRANSLATIONS.md) for
+vital information about how to use the translation mechanism and how to use
+variables inside messages.
 
 Objects that are longer-lived should be able to retranslate their GUIs. This can
 be done by adding a method named translateUI(self), in which you set the texts
@@ -190,53 +188,6 @@ Guidelines for writing GUI texts
 * Avoid hard line breaks (<br>) in any texts: use short paragraphs instead
 * Use named format fields: not "page {0} of {1}" but "page {num} of {total}"
 * Don't change existing strings just for cosmetics, it breaks translations
-
-
-Testing and developing under Windows
-====================================
-
-Linux is the recommended developing platform, but it might be necessary to test
-specific functionality or behaviour under Windows. It can be difficult to get
-all the dependencies right, especially the right combination of poppler, pyqt4
-and sip.
-
-There is an easy way to get setup under Windows and be able to do quite a lot
-of testing and development, you don't even need to install Python at all.
-
-1. install a recent version of Frescobaldi into C:/Program Files/Frescobaldi,
-   using the Frescobaldi.Setup.exe installer
-
-2. install Git Bash for Windows from http://msysgit.github.com/
-
-3. open up the Git Bash command prompt (now you're in a powerful UNIX shell!)
-
-4. make a directory to do Frescobaldi development in:
-
-   mkdir dev
-   cd dev
-
-5. download the frescobaldi source code from GitHub:
-
-   git clone https://github.com/frescobaldi/frescobaldi.git
-
-6. go to the frescobaldi directory and copy all the files from the installed
-   version, except for the frescobaldi_app directory:
-
-   cd frescobaldi
-
-   cp /c/Program\ Files/Frescobaldi/*.pyd .
-   cp /c/Program\ Files/Frescobaldi/frescobaldi.exe .
-   cp /c/Program\ Files/Frescobaldi/*.dll .
-   cp /c/Program\ Files/Frescobaldi/library.zip .
-   cp -r /c/Program\ Files/Frescobaldi/iconengines .
-   cp -r /c/Program\ Files/Frescobaldi/imageformats .
-
-7. Now you can modify files in frescobaldi_app and run and test Frescobaldi:
-
-   ./frescobaldi.exe
-
-8. Make commits of your changes and either push them to a fork of yours of
-   frescobaldi on GitHub or send them via e-mail.
 
 
 New release checklist

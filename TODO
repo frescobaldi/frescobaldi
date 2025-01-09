@@ -1,13 +1,3 @@
-
-
-
-        Contents of this TODO file:
-
-        - Frescobaldi paradigm
-        - TODO and “urgent” wishes
-        - Other ideas/wishes
-
-
 Frescobaldi paradigm
 ====================
 
@@ -20,7 +10,7 @@ straightforward application to use.  Which means:
 - Predictable behaviour
 - Coding: separation of concerns, messages, modularity, encapsulation
 
-See also README-development.
+See also CONTRIBUTING.md.
 
 
 TODO and “urgent” wishes
@@ -30,22 +20,11 @@ TODO and “urgent” wishes
 
 - Parsing autocompletion/highlighting data must not block the GUI
 
-- wizard to download and unpack LilyPond documentation and/or LilyPond itself
-
-- Midi input and import. Probably using a basic sequencer, allowing changes,
-  corrections and quantizing touchups before putting the LilyPond representation
-  in the editor.
-  * mamoch is working on Midi input like the 1.x rumor did.
-
 - check or even auto-insert bar checks
 
 - editing via Music View or SVG view:
-  * relevant context menu on right-clicking object
   * drag an object to e.g. create an \override #'extra-offset command
   * drag an object to reattach it to a different anchor
-
-- Table of Contents support in qpopplerview
-  stub: qpopplerview/toc.py
 
 
 Other ideas/wishes
