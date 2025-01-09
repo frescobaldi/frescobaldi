@@ -297,7 +297,7 @@ class Outline(preferences.Group):
 
 class OutlinePatterns(widgets.listedit.ListEdit):
     def openEditor(self, item):
-        dlg = widgets.dialog.TextDialog(None,
+        dlg = widgets.dialog.TextDialog(self,
             _("Enter a regular expression to match:"),
             app.caption("Outline"))
         userguide.addButton(dlg.buttonBox(), "outline_configure")
