@@ -35,7 +35,7 @@ manuscript viewer:
 
 However, when that score should be recompiled with LilyPond the manuscript viewer
 won't automatically update, but this can be done manually through the context
-menu
+menu.
 
 If a manuscript contains external hyperlinks they can be clicked on and will
 open in an external viewer/browser. This may be practical for keeping lists of

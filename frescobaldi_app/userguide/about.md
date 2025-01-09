@@ -5,7 +5,7 @@ Frescobaldi is named after
 Girolamo Frescobaldi (1583-1643)],
 an Italian organist and composer.
 
-Frescobaldi's homepage is at [http://www.frescobaldi.org/]
+Frescobaldi's homepage is at [https://www.frescobaldi.org/]
 and there is a mailinglist at [frescobaldi@googlegroups.com]
 ([http://groups.google.com/group/frescobaldi more info]).
 

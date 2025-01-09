@@ -15,9 +15,9 @@ Now, in the text view, enter some LilyPond code, like this:
 }
 ```
 
-Then click the Lily toolbar button or press {key_engrave}. LilyPond will 
-start to processes your file and the PDF will be displayed in the Music View 
-on the right. If LilyPond encounters any errors or warnings they will be 
+Then click the Engrave button (LilyPond icon) on the toolbar or press {key_engrave}.
+LilyPond will start to process your file and the PDF will be displayed in the Music
+View on the right. If LilyPond encounters any errors or warnings they will be
 displayed in the LilyPond Log at the bottom of the screen.
 
 {image_getting_started}
@@ -38,7 +38,7 @@ The Music View has many possibilities:
   the Music View; press {key_jump} to explicitly center and highlight a note or
   other objects in the Music View.
 
-* Shift-drag a selection and then press {key_copy_image} or {menu_copy_image}
+* Right-click a selection with the mouse and then press {key_copy_image} or {menu_copy_image}
   to copy the selected music as a raster image to the clipboard, a file or
   another application.
 

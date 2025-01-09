@@ -1,8 +1,8 @@
 === Lyrics ===
-    
+ 
 Frescobaldi can automatically place hyphens '{hyphen}' inside texts to make
 those texts usable as lyrics.
-It can use hyphenation dictionaries of OpenOffice.org, Scribus, etc.
+It can use hyphenation dictionaries of LibreOffice, Scribus, etc.
 
 To use this feature you must first select the text you want to hyphenate. Then
 press {key_hyphen} or choose {menu_hyphen}.

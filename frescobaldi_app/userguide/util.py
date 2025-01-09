@@ -1,4 +1,4 @@
-# This file is part of the Frescobaldi project, http://www.frescobaldi.org/
+# This file is part of the Frescobaldi project, https://www.frescobaldi.org/
 #
 # Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #

@@ -1,4 +1,4 @@
-=== The Music View ===
+=== Music View ===
 
 The Music View displays the PDF document created by LilyPond.
 
@@ -22,8 +22,8 @@ You can also adjust the view:
 * Hold Control or Command and left-click to display a magnifier glass
 * Configure the background color under {settings_preview_background}
 
-You can copy music right from the PDF view to a raster image: Hold Shift and 
-drag a rectangular selection (or use the right mouse button) and then press 
+You can copy music right from the PDF view to a raster image: use the right
+mouse button to drag a rectangular selection, then press
 {key_music_copy_image} or select {menu_music_copy_image} to copy the 
 selected music as a raster image to the clipboard, a file or another 
 application.
