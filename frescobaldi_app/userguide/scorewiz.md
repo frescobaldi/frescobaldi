@@ -4,7 +4,8 @@ The Score Setup Wizard ({key}) in {menu} is designed
 to quickly setup a LilyPond music score.
 
 In the first tab, *Titles and Headers*, you can enter titling
-information.
+information. The text you type is immediately displayed in
+the preview on the left.
 
 In the second tab, *Parts*, you can compose your score out of many
 available part types.

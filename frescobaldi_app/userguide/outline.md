@@ -2,7 +2,7 @@
 
 The Document Outline shows important lines from your document
 and enables you to quickly navigate to them. Select {tools}
-to display.
+to display it.
 
 #SEEALSO
 outline_configure

@@ -58,7 +58,7 @@ If you don't want to translate a paragraph (e.g. because is it a list of names,
 or a technical description that should not be translated), you should start
 the paragraph with an exclamation sign "!".
 
-If you *do* want to translated *some parts* of an untranslated paragraph, you
+If you *do* want to translate *some parts* of an untranslated paragraph, you
 should wrap that part(s) in "_(" and ")_". E.g.:
 
     !`-dno-point-and-click`: _(No point and click)_
@@ -93,12 +93,12 @@ e.g. when using:
     See {link}.
 
     #VARS
-    link url http://www.frescobaldi.org/
+    link url https://www.frescobaldi.org/
     
 "See {link}." will be transformed like:
     
     _("See {link}.").format(
-        link='<a href="http://www.frescobaldi.org/">www.frescobaldi.org</a>')
+        link='<a href="https://www.frescobaldi.org/">www.frescobaldi.org</a>')
 
 These are the available types:
 

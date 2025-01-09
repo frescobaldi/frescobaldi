@@ -35,7 +35,7 @@ In regular expression search mode, some characters have a special meaning:
   character, a digit, a generic word-like character.
 
 A full discussion on regular expressions can be found in the
-[http://docs.python.org/library/re.html#regular-expression-syntax
+[https://docs.python.org/3/library/re.html#regular-expression-syntax
 Python documentation].
 
 #VARS

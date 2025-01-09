@@ -14,7 +14,7 @@ If there is an ambiguous partial match it is automatically added and selected:
 
 Hitting the TAB key will accept the partial completion and select the next
 item in the dropdown box with suggestions. Holding down the Ctrl key causes
-the dropdown elements to by cycled backwards.
+the dropdown elements to be cycled backwards.
 
 {image_auto_complete_three_b}
 
