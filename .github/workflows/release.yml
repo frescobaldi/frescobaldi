@@ -5,10 +5,9 @@ on: push
 jobs:
   build:
     name: Build Windows installer
-    # FIXME: commented now because I want to test it in the PR 
-    #if: startsWith(github.ref, 'refs/tags/')  # run only on tag pushes
+    if: startsWith(github.ref, 'refs/tags/')  # run only on tag pushes (releases)
     runs-on: windows-latest
-    
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python
@@ -28,4 +27,4 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         path: build/nsis/
-
+        name: windows-installer
