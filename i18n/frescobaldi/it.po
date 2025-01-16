@@ -11,15 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frescobaldi 4.0.0\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2025-01-05 23:00+0100\n"
-"PO-Revision-Date: 2025-01-05 23:13+0100\n"
+"POT-Creation-Date: 2025-01-16 12:33+0100\n"
+"PO-Revision-Date: 2025-01-16 12:37+0100\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
-"Language-Team: Italian <>\n"
+"Language-Team: Italian\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gtranslator 47.1\n"
 
 #: ../../frescobaldi_app/__main__.py:63 ../../frescobaldi_app/about.py:109
@@ -9625,6 +9625,41 @@ msgstr "Seleziona tutto"
 msgctxt "QWhatsThisAction"
 msgid "What's This?"
 msgstr "Che cos'è?"
+
+#: ../../i18n/messages.py:295
+msgctxt "QWidgetTextControl"
+msgid "&Copy"
+msgstr "&Copia"
+
+#: ../../i18n/messages.py:296
+msgctxt "QWidgetTextControl"
+msgid "Cu&t"
+msgstr "&Taglia"
+
+#: ../../i18n/messages.py:297
+msgctxt "QWidgetTextControl"
+msgid "Delete"
+msgstr "Elimina"
+
+#: ../../i18n/messages.py:298
+msgctxt "QWidgetTextControl"
+msgid "&Paste"
+msgstr "&Incolla"
+
+#: ../../i18n/messages.py:299
+msgctxt "QWidgetTextControl"
+msgid "&Redo"
+msgstr "&Ripeti"
+
+#: ../../i18n/messages.py:300
+msgctxt "QWidgetTextControl"
+msgid "Select All"
+msgstr "Seleziona tutto"
+
+#: ../../i18n/messages.py:301
+msgctxt "QWidgetTextControl"
+msgid "&Undo"
+msgstr "&Annulla"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.desktop.in:3
 #: ../../linux/org.frescobaldi.Frescobaldi.desktop.in:4
