@@ -20,7 +20,8 @@
 """
 Translation of some parts of Qt (like dialog buttons) via our PO files.
 
-The strings that are needed are in the qtmessages.py file in this directory.
+The strings that are needed are in the i18n/messages.py file in the
+project root directory.
 
 """
 
