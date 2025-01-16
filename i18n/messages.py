@@ -291,3 +291,11 @@ _('QTextControl', 'Delete')
 _('QTextControl', 'Select All')
 
 _("QWhatsThisAction", "What's This?")
+
+_('QWidgetTextControl', '&Copy')
+_('QWidgetTextControl', 'Cu&t')
+_('QWidgetTextControl', 'Delete')
+_('QWidgetTextControl', '&Paste')
+_('QWidgetTextControl', '&Redo')
+_('QWidgetTextControl', 'Select All')
+_('QWidgetTextControl', '&Undo')
