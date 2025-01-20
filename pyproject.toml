@@ -62,11 +62,11 @@ Homepage = "https://frescobaldi.org"
 Repository = "https://github.com/frescobaldi/frescobaldi"
 
 [project.scripts]
-frescobaldi = "frescobaldi_app.__main__:main"
+frescobaldi = "frescobaldi.__main__:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["frescobaldi_app*"]
+include = ["frescobaldi*"]
 
 [tool.setuptools.dynamic.version]
-attr = "frescobaldi_app.appinfo.version"
+attr = "frescobaldi.appinfo.version"

@@ -124,7 +124,7 @@ using
 
 ```
 cd frescobaldi
-desktop-file-install --dir ~/.local/share/applications/ --set-icon $PWD/frescobaldi_app/icons/org.frescobaldi.Frescobaldi.svg  linux/org.frescobaldi.Frescobaldi.desktop
+desktop-file-install --dir ~/.local/share/applications/ --set-icon $PWD/frescobaldi/icons/org.frescobaldi.Frescobaldi.svg  linux/org.frescobaldi.Frescobaldi.desktop
 update-desktop-database ~/.local/share/
 cd ..
 ```
@@ -208,11 +208,11 @@ containing those files. This makes the filesystem less cluttered, and copyright
 files simpler.
 
 Icons:
-You can remove the frescobaldi_app/icons/Tango directory, and make Frescobaldi
+You can remove the frescobaldi/icons/Tango directory, and make Frescobaldi
 depend on the tango-icon-theme package instead.
 
 Hyphenation dictionaries:
-You can remove the hyph_*.dic files from frescobaldi_app/hyphdicts, and make
+You can remove the hyph_*.dic files from frescobaldi/hyphdicts, and make
 Frescobaldi depend on a package that installs hyphenation dictionaries in
-/usr/share/hyphen/ (or another dictionary listed by default in frescobaldi_app/
+/usr/share/hyphen/ (or another dictionary listed by default in frescobaldi/
 hyphendialog.py). Do not remove the hyphdicts directory entirely.

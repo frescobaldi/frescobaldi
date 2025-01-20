@@ -4,9 +4,9 @@ CONTRIBUTING
 The Frescobaldi LilyPond sheet music editor is written in Python and uses
 Qt for its user interface, via the PyQt bindings.
 
-'frescobaldi_app' is not a real package: on startup, the absolute
-'frescobaldi_app' directory is added to sys.path and its own __path__ is
-cleared so all modules and packages inside frescobaldi_app are
+'frescobaldi' is not a real package: on startup, the absolute
+'frescobaldi' directory is added to sys.path and its own __path__ is
+cleared so all modules and packages inside frescobaldi are
 available as toplevel modules and packages.
 
 
@@ -17,7 +17,7 @@ To test features or to experiment, you can run Frescobaldi in an interactive
 Python shell. It is recommended to open a shell (e.g. by simply running python
 without arguments, or by using Dreampie or IPython) and then enter:
 
-from frescobaldi_app.debug import *
+from frescobaldi.debug import *
 
 This ensures the application starts up and also installs some handlers that
 print debugging information on certain events. And it imports the most used
@@ -53,8 +53,8 @@ Some important modules:
 
 main:           Entry point
 appinfo:        Information about the application, such as the version
-toplevel:       Adds the path of frescobaldi_app to sys.path, clears __path__
-                so all modules inside frescobaldi_app can be imported as
+toplevel:       Adds the path of frescobaldi to sys.path, clears __path__
+                so all modules inside frescobaldi can be imported as
                 toplevel modules and packages
 app:            Central hub with global signals, also keeping references to
                 mainwindow and document instances
@@ -195,6 +195,6 @@ New release checklist
 
 Checklist before making a new release:
 
-- Bump the version in `frescobaldi_app/appinfo.py`.
+- Bump the version in `frescobaldi/appinfo.py`.
 - Add the release date in `CHANGELOG.md` and `linux/org.frescobaldi.Frescobaldi.metainfo.xml.in`.
-- Update the list of contributors in `frescobaldi_app/userguide/credits.md`.
+- Update the list of contributors in `frescobaldi/userguide/credits.md`.
