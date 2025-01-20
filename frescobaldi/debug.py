@@ -1,7 +1,7 @@
 # This module helps with debugging Frescobaldi.
 #
 # Start a Python shell
-# Enter: from frescobaldi_app.debug import *
+# Enter: from frescobaldi.debug import *
 # This runs Frescobaldi, installs some nice __repr__() methods, connects some
 # signals to debug-print functions, and imports the most important modules such
 # as app.
@@ -10,7 +10,7 @@
 
 import sys
 
-from frescobaldi_app.__main__ import main
+from frescobaldi.__main__ import main
 
 from . import toplevel
 toplevel.install()

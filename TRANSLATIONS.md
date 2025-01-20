@@ -46,7 +46,7 @@ The generated MO file contains the translations from both the application
 and the userguide. It will be checked for wrong variable names in translated
 messages.
 
-MO files are placed in the 'frescobaldi_app/i18n/' directory, so they
+MO files are placed in the 'frescobaldi/i18n/' directory, so they
 are packaged and installed along with Frescobaldi.
 
 

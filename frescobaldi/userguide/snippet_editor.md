@@ -75,6 +75,6 @@ replaced with a single one. The following variables are recognized:
 snippet_python
 
 #VARS
-directory md `frescobaldi_app/symbols`
+directory md `frescobaldi/symbols`
 link help snippet_python
 file_new menu file -> New

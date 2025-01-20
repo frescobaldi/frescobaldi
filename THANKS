@@ -7,6 +7,6 @@ develop Frescobaldi with.
 
 And thanks to the LilyPond developers for creating an amazing music engraver!
 
-See frescobaldi_app/userguide/credits.md for the full list of contributors.
+See frescobaldi/userguide/credits.md for the full list of contributors.
 
 See also https://github.com/frescobaldi/frescobaldi/graphs/contributors

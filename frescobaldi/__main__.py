@@ -29,8 +29,8 @@ if not sys.warnoptions:
     import warnings
     warnings.simplefilter("default")
 
-from frescobaldi_app import toplevel
-toplevel.install()              # Add the path to frescobaldi_app to sys.path
+from frescobaldi import toplevel
+toplevel.install()              # Add the path to frescobaldi to sys.path
 
 import checks                   # check whether Frescobaldi really can run
 
@@ -134,7 +134,7 @@ def check_ly():
     If python-ly is not available or too old, we display a critical message
     and exit.  In the future we will probably remove this function.
     In a good software distribution this should never happen, but it can happen
-    when a user leaves the old stale 'ly' package in the frescobaldi_app
+    when a user leaves the old stale 'ly' package in the frescobaldi
     directory, or has not installed python-ly at all.
 
     Because that yields unexpected behaviour and error messages, we better
@@ -156,7 +156,7 @@ def check_ly():
         "The python-ly package is not available or too old.\n"
         "At least version {version} is required to run Frescobaldi.\n\n"
         "If you did install python-ly correctly, please remove the old\n"
-        "ly package from the frescobaldi_app directory, or completely\n"
+        "ly package from the frescobaldi directory, or completely\n"
         "remove and then reinstall Frescobaldi."
     ).format(version=".".join(format(d) for d in appinfo.required_python_ly_version)))
     sys.exit(1)
