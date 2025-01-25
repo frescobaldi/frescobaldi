@@ -322,7 +322,7 @@ class Guitar(TablaturePart):
         return _("abbreviation for Guitar", "Gt.")
 
     midiInstrument = 'acoustic guitar (nylon)'
-    transposition = (-1, 0, 0)
+    transposition = (-1, 0, 0)  # but see build() below
     tunings = (
         ('guitar-tuning', lambda: _("Guitar tuning")),
         ('guitar-seven-string-tuning', lambda: _("Guitar seven-string tuning")),
@@ -360,6 +360,9 @@ class Guitar(TablaturePart):
         if self.octaveClef.isChecked():
             self.clef = "treble_8"
             self.transposition = None
+        else:
+            self.clef = None
+            self.transposition = (-1, 0, 0)
         super().build(data, builder)
 
 
