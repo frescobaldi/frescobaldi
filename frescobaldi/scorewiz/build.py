@@ -338,6 +338,11 @@ class Builder:
             parents = [p for p in partData if not p.isChild]
             makeRecursive(parents, music)
             if self.midi and self.separateMidi:
+                # We intentionally duplicate the list of parts rather than
+                # placing it in an assignment because the point of having
+                # separate \score blocks is that they can be edited separately.
+                # For example, a part can be muted by commenting out its line
+                # in the MIDI score while leaving it visible in print.
                 self.midiParts.append(music.copy())
 
             # add the prefix to the assignments if necessary
