@@ -342,13 +342,25 @@ class Guitar(TablaturePart):
         box.addWidget(self.voicesLabel)
         box.addWidget(self.voices)
         layout.addLayout(box)
+        self.octaveClef = QCheckBox()
+        layout.addWidget(self.octaveClef)
 
     def translateWidgets(self):
         super().translateWidgets()
         self.voicesLabel.setText(_("Voices:"))
+        self.octaveClef.setText(_("Include octave indication"))
+        self.octaveClef.setToolTip(_(
+            "Use an octave (treble_8) clef to make transposition explicit "
+            "as preferred by some style guides."))
 
     def voiceCount(self):
         return self.voices.value()
+
+    def build(self, data, builder):
+        if self.octaveClef.isChecked():
+            self.clef = "treble_8"
+            self.transposition = None
+        super().build(data, builder)
 
 
 class AcousticGuitar(Guitar):
