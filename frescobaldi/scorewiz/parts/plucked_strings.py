@@ -155,8 +155,7 @@ class TablaturePart(_base.Part):
             order = 1, 2, 3, 4
             voices = [ly.util.mkid(data.name(), "voice") + ly.util.int2text(i) for i in order]
 
-        assignments = [data.assignMusic(name, self.octave, self.transposition)
-                       for name in voices]
+        assignments = [data.assignMusic(name, self.octave) for name in voices]
 
         staffType = self.staffType.currentIndex()
         if staffType in (0, 2):

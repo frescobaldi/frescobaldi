@@ -119,7 +119,7 @@ class PartData:
         self.assignments.append(a)
         return a
 
-    def assignMusic(self, name=None, octave=0, transposition=None):
+    def assignMusic(self, name=None, octave=0):
         """Creates a ly.dom.Assignment with a \\relative music stub."""
         a = self.assign(name)
         stub = ly.dom.Relative(a)

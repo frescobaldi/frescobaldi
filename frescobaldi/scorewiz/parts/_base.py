@@ -113,7 +113,7 @@ class SingleVoicePart(Part):
     transposition = None # or a three tuple (octave, note, alteration)
 
     def build(self, data, builder):
-        a = data.assignMusic(None, self.octave, self.transposition)
+        a = data.assignMusic(None, self.octave)
         staff = ly.dom.Staff()
         builder.setInstrumentNamesFromPart(staff, self, data)
         if self.midiInstrument:
