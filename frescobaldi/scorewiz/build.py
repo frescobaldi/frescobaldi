@@ -237,6 +237,9 @@ class Builder:
             ly.dom.BlankLine(block.scores)
             score = ly.dom.Score(block.scores)
             midi = ly.dom.Midi(score)
+            # set MIDI tempo if necessary
+            if not self.showMetronomeMark:
+                self.setMidiTempo(midi)
             if len(self.midiParts) == 1:
                 score.insert(0, self.midiParts[0])
             else:
@@ -280,11 +283,7 @@ class Builder:
                 midi = ly.dom.Midi(score)
                 # set MIDI tempo if necessary
                 if not self.showMetronomeMark:
-                    if self.lyVersion >= (2, 16, 0):
-                        scoreProperties.lySimpleMidiTempo(midi)
-                        midi[0].after = 1
-                    else:
-                        scoreProperties.lyMidiTempo(ly.dom.Context('Score', midi))
+                    self.setMidiTempo(midi)
             music = ly.dom.Simr()
             score.insert(0, music)
 
@@ -339,8 +338,6 @@ class Builder:
             parents = [p for p in partData if not p.isChild]
             makeRecursive(parents, music)
             if self.midi and self.separateMidi:
-                if not self.showMetronomeMark:
-                    self.midiParts.append(scoreProperties.lySimpleMidiTempo(None))
                 self.midiParts.append(music.copy())
 
             # add the prefix to the assignments if necessary
@@ -510,6 +507,14 @@ class Builder:
         """Sets the MIDI instrument for the node, if the user wants MIDI output."""
         if self.midi:
             node.getWith()['midiInstrument'] = midiInstrument
+
+    def setMidiTempo(self, node):
+        """Sets the MIDI tempo when the metronome mark is hidden."""
+        if self.lyVersion >= (2, 16, 0):
+            self.scoreProperties.lySimpleMidiTempo(node)
+            node[0].after = 1
+        else:
+            self.scoreProperties.lyMidiTempo(ly.dom.Context('Score', node))
 
     def setInstrumentNames(self, staff, longName, shortName):
         """Sets the instrument names to the staff (or group).
