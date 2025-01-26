@@ -21,7 +21,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("language", help="language to update")
 language = parser.parse_args().language
 
-frescobaldi_app = "frescobaldi_app/"
+frescobaldi_app = "frescobaldi/"
 sys.path[0:0] = [frescobaldi_app, "i18n/"]
 
 import appinfo
