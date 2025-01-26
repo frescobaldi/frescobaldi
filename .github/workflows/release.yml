@@ -1,0 +1,105 @@
+name: Frescobaldi release
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+# Cancel active CI runs for a PR before starting another run
+concurrency:
+  group: ${{ github.workflow}}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  FORCE_COLOR: "1"
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  ci:
+    name: Package Frescobaldi
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ["Windows", "macOS"]
+        include:
+          - target: "Windows"
+            output-format: "app"
+            runs-on: "windows-latest"
+
+          - target: "macOS"
+            output-format: "app"
+            runs-on: "macos-latest"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install Windows dependencies
+        if: matrix.target == 'Windows'
+        shell: pwsh
+        run: |
+          iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+          scoop install main/gettext
+
+      - name: Install macOS dependencies
+        if: matrix.target == 'macOS'
+        run: |
+          brew install gettext
+
+      - name: Install python dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install briefcase tox
+
+      - name: Build Frescobaldi translations on Windows
+        if: matrix.target == 'Windows'
+        run: |
+          export PATH=/c/Users/runneradmin/scoop/shims:$PATH
+          tox -e mo-generate
+
+      - name: Build Frescobaldi translations on macOS
+        if: matrix.target == 'macOS'
+        run: tox -e mo-generate
+
+      - name: Build Frescobaldi
+        run: |
+          ${{ matrix.briefcase-build-prefix }} \
+          briefcase build \
+            ${{ matrix.platform || matrix.target }} \
+            ${{ matrix.output-format }} \
+            --test --no-input --log \
+            ${{ matrix.briefcase-args }} \
+            ${{ matrix.briefcase-build-args }}
+
+      - name: Package Frescobaldi
+        run: |
+          ${{ matrix.briefcase-package-prefix }} \
+          briefcase package \
+            ${{ matrix.platform || matrix.target }} \
+            ${{ matrix.output-format }} \
+            --update --adhoc-sign --no-input --log \
+            ${{ matrix.briefcase-args }} \
+            ${{ matrix.briefcase-package-args }}
+
+      - name: Upload Frescobaldi
+        uses: actions/upload-artifact@v4
+        with:
+          name: Frescobaldi-${{ matrix.target }}
+          path: dist
+          if-no-files-found: error
+
+      - name: Upload Log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Log-Failure-${{ matrix.target }}
+          path: logs/*

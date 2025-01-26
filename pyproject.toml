@@ -70,3 +70,42 @@ include = ["frescobaldi*"]
 
 [tool.setuptools.dynamic.version]
 attr = "frescobaldi.appinfo.version"
+
+[tool.briefcase]
+project_name = "Frescobaldi"
+bundle = "org.frescobaldi"
+version = "4.0.0"
+requires = [
+    "PyQt6==6.8.0",
+    "PyQt6-Qt6==6.8.1",
+    "PyQt6-sip==13.9.1",
+    "PyQt6-WebEngine==6.8.0",
+    "PyQt6-WebEngine-Qt6==6.8.1",
+    "python-ly==0.9.9",
+    "qpageview==1.0.0",
+    "pygame==2.6.1"
+]
+
+[tool.briefcase.app.frescobaldi]
+formal_name = "Frescobaldi"
+description = "Write LilyPond music sheets"
+sources = ['frescobaldi']
+
+[tool.briefcase.app.frescobaldi.document_type.ly]
+description = "LilyPond files"
+extension = "ly"
+icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
+url = "https://lilypond.org/"
+
+[tool.briefcase.app.frescobaldi.document_type.ily]
+description = "LilyPond included files"
+extension = "ily"
+icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
+url = "https://lilypond.org/"
+
+[tool.briefcase.app.frescobaldi.macOS]
+icon = "macos/icons/frescobaldi"
+
+[tool.briefcase.app.frescobaldi.windows]
+icon = "frescobaldi/icons/frescobaldi"
+use_full_install_path = false
