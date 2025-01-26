@@ -3,7 +3,6 @@
   <id>org.frescobaldi.Frescobaldi</id>
   <name>Frescobaldi</name>
   <summary>Write LilyPond music sheets</summary>
-  <icon type="stock">org.frescobaldi.Frescobaldi</icon>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <developer id="org.frescobaldi">
