@@ -23,7 +23,6 @@ Base types for parts.
 
 
 import collections
-import fractions
 
 from PyQt6.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QHBoxLayout,
                              QLabel, QSpinBox)
@@ -79,20 +78,6 @@ class Base:
 class Part(Base):
     """Base class for Parts (that can't contain other parts)."""
 
-    def _transposeStaff(self, seq):
-        """Add transposition commands to a \\new Staff block."""
-        toct, tnote, talter = self.transposition
-        # Transpose MIDI output from written c' to the sounding pitch
-        ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2),
-                     ly.dom.Transposition(seq))
-        # Transpose both notation and MIDI output from the sounding pitch
-        # to written c' (canceling out the previous \transposition for MIDI)
-        stub = ly.dom.Command('transpose', seq)
-        ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), stub)
-        ly.dom.Pitch(0, 0, 0, stub)
-        return ly.dom.Seqr(stub)
-
-
 
 class Container(Base):
     """Base class for "part" types that can contain others, like a Staff Group or Score, Book etc."""
@@ -122,7 +107,7 @@ class SingleVoicePart(Part):
         if self.clef:
             ly.dom.Clef(self.clef, seq)
         if self.transposition is not None:
-            seq = self._transposeStaff(seq)
+            seq = builder.setStaffTransposition(seq, self.transposition)
         ly.dom.Identifier(a.name, seq)
         data.nodes.append(staff)
 
@@ -198,7 +183,7 @@ class PianoStaffPart(Part):
         if clef:
             ly.dom.Clef(clef, c)
         if self.transposition is not None:
-            c = self._transposeStaff(c)
+            c = builder.setStaffTransposition(c, self.transposition)
         if numVoices == 1:
             a = data.assignMusic(name, octave)
             ly.dom.Identifier(a.name, c)

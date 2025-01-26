@@ -24,6 +24,7 @@ Builds the LilyPond score from the settings in the Score Wizard.
 
 import collections
 import re
+import fractions
 
 import ly.dom
 import i18n
@@ -568,6 +569,19 @@ class Builder:
         # save this to calculate the 'indent' value in document()
         if self.showInstrumentNames:
             self.longestInstrumentNameLength = max(self.longestInstrumentNameLength, len(longName))
+
+    def setStaffTransposition(self, node, transposition):
+        """Sets the transposition of a staff for a transposing instrument."""
+        toct, tnote, talter = transposition
+        # Transpose MIDI output from written c' to the sounding pitch
+        ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2),
+                     ly.dom.Transposition(node))
+        # Transpose both notation and MIDI output from the sounding pitch
+        # to written c' (canceling out the previous \transposition for MIDI)
+        stub = ly.dom.Command('transpose', node)
+        ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), stub)
+        ly.dom.Pitch(0, 0, 0, stub)
+        return ly.dom.Seqr(stub)
 
 
 def assignparts(group):
