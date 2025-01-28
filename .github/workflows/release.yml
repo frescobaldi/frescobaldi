@@ -13,10 +13,6 @@ concurrency:
 env:
   FORCE_COLOR: "1"
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
   ci:
     name: Package Frescobaldi
@@ -44,14 +40,14 @@ jobs:
           python-version: "3.12"
 
       - name: Install Windows dependencies
-        if: matrix.os == 'windows-latest'
+        if: matrix.target == 'Windows'
+        shell: pwsh
         run: |
-          Install-Package Gettext.Tools -Force -Verbosity detailed;
-          echo $env:PATH;
-          Get-Item Env:PATH
+          iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+          scoop install main/gettext
 
       - name: Install macOS dependencies
-        if: matrix.os == 'macos-latest'
+        if: matrix.target == 'macOS'
         run: |
           brew install gettext
 
