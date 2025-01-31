@@ -13,6 +13,10 @@ concurrency:
 env:
   FORCE_COLOR: "1"
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   ci:
     name: Package Frescobaldi
@@ -56,9 +60,15 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install briefcase tox
 
-      - name: Build Frescobaldi translation (mo) files
+      - name: Build Frescobaldi translations on Windows
+        if: matrix.target == 'Windows'
         run: |
+          export PATH=/c/Users/runneradmin/scoop/shims:$PATH
           tox -e mo-generate
+
+      - name: Build Frescobaldi translations on macOS
+        if: matrix.target == 'macOS'
+        run: tox -e mo-generate
 
       - name: Build Frescobaldi
         run: |
