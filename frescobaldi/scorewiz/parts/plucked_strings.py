@@ -155,8 +155,7 @@ class TablaturePart(_base.Part):
             order = 1, 2, 3, 4
             voices = [ly.util.mkid(data.name(), "voice") + ly.util.int2text(i) for i in order]
 
-        assignments = [data.assignMusic(name, self.octave, self.transposition)
-                       for name in voices]
+        assignments = [data.assignMusic(name, self.octave) for name in voices]
 
         staffType = self.staffType.currentIndex()
         if staffType in (0, 2):
@@ -165,6 +164,8 @@ class TablaturePart(_base.Part):
             seq = ly.dom.Seqr(staff)
             if self.clef:
                 ly.dom.Clef(self.clef, seq)
+            if self.transposition is not None:
+                seq = builder.setStaffTransposition(seq, self.transposition)
             mus = ly.dom.Simr(seq)
             for a in assignments[:-1]:
                 ly.dom.Identifier(a.name, mus)
@@ -182,6 +183,11 @@ class TablaturePart(_base.Part):
             if self.tabFormat:
                 tabstaff.getWith()['tablatureFormat'] = ly.dom.Scheme(self.tabFormat)
             self.setTunings(tabstaff)
+            if self.midiInstruments:
+                builder.setMidiInstrument(tabstaff,
+                    self.midiInstrumentSelection.currentText())
+            else:
+                builder.setMidiInstrument(tabstaff, self.midiInstrument)
             sim = ly.dom.Simr(tabstaff)
             if numVoices == 1:
                 ly.dom.Identifier(assignments[0].name, sim)
@@ -196,7 +202,6 @@ class TablaturePart(_base.Part):
             p = staff
         elif staffType == 1:
             # only a TabStaff
-            builder.setMidiInstrument(tabstaff, self.midiInstrument)
             p = tabstaff
         else:
             # both TabStaff and normal staff
@@ -273,6 +278,7 @@ class Banjo(TablaturePart):
         return _("abbreviation for Banjo", "Bj.")
 
     midiInstrument = 'banjo'
+    transposition = (-1, 0, 0)
     tabFormat = 'fret-number-tablature-format-banjo'
     tunings = (
         ('banjo-open-g-tuning', lambda: _("Open G-tuning (aDGBD)")),
@@ -315,7 +321,7 @@ class Guitar(TablaturePart):
         return _("abbreviation for Guitar", "Gt.")
 
     midiInstrument = 'acoustic guitar (nylon)'
-    clef = "treble_8"
+    transposition = (-1, 0, 0)  # but see build() below
     tunings = (
         ('guitar-tuning', lambda: _("Guitar tuning")),
         ('guitar-seven-string-tuning', lambda: _("Guitar seven-string tuning")),
@@ -335,13 +341,28 @@ class Guitar(TablaturePart):
         box.addWidget(self.voicesLabel)
         box.addWidget(self.voices)
         layout.addLayout(box)
+        self.octaveClef = QCheckBox()
+        layout.addWidget(self.octaveClef)
 
     def translateWidgets(self):
         super().translateWidgets()
         self.voicesLabel.setText(_("Voices:"))
+        self.octaveClef.setText(_("Include octave indication"))
+        self.octaveClef.setToolTip(_(
+            "Use an octave (treble_8) clef to make transposition explicit "
+            "as preferred by some style guides."))
 
     def voiceCount(self):
         return self.voices.value()
+
+    def build(self, data, builder):
+        if self.octaveClef.isChecked():
+            self.clef = "treble_8"
+            self.transposition = None
+        else:
+            self.clef = None
+            self.transposition = (-1, 0, 0)
+        super().build(data, builder)
 
 
 class AcousticGuitar(Guitar):
@@ -389,8 +410,9 @@ class AcousticBass(TablaturePart):
         return _("abbreviation for Acoustic bass", "A.Bs.") #FIXME
 
     midiInstrument = 'acoustic bass'
-    clef = 'bass_8'
+    clef = 'bass'
     octave = -2
+    transposition = (-1, 0, 0)
     tunings = (
         ('bass-tuning', lambda: _("Bass tuning")),
         ('bass-four-string-tuning', lambda: _("Four-string bass tuning")),
