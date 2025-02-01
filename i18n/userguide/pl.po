@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the Frescobaldi package.
 #
 # Piotr Komorowski, <piotr-komorowski@wp.pl>, 2009-2012
-# Grzegorz Pruchniakowski, <grzegorz.pruchniakowski@gmail.com>, 2024
+# Grzegorz Pruchniakowski, <grzegorz.pruchniakowski@gmail.com>, 2024-2025
 msgid ""
 msgstr ""
-"Project-Id-Version: frescobaldi 3.3.0\n"
+"Project-Id-Version: Frescobaldi 4.0.0\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
 "POT-Creation-Date: 2023-06-17 20:04+0200\n"
-"PO-Revision-Date: 2025-01-03 00:00+0000\n"
+"PO-Revision-Date: 2025-02-12 00:00+0000\n"
 "Last-Translator: Grzegorz Pruchniakowski <grzegorz.pruchniakowski@gmail.com>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "Language: pl\n"
@@ -43,6 +43,8 @@ msgid ""
 "Using {menu_import}, you can import an ABC file using the command line tool "
 "`abc2ly` from the LilyPond package."
 msgstr ""
+"Za pomocą {menu_import} możesz zaimportować plik ABC, używając narzędzia "
+"wiersza poleceń `abc2ly` z pakietu LilyPond."
 
 #: ../../frescobaldi_app/userguide/abc_import.md:6
 msgid ""
@@ -65,16 +67,18 @@ msgid ""
 "Your settings in both tabs are remembered until the next time you use this "
 "dialog."
 msgstr ""
+"Twoje ustawienia w obu zakładkach są zapamiętane do następnego razu, gdy "
+"użyjesz tego okna dialogowego."
 
 #: ../../frescobaldi_app/userguide/abc_import.md:16
 msgid "The abc2ly tab"
-msgstr ""
+msgstr "Zakładka abc2ly"
 
 #: ../../frescobaldi_app/userguide/abc_import.md:18
 #: ../../frescobaldi_app/userguide/midi_import.md:14
 #: ../../frescobaldi_app/userguide/musicxml_import.md:14
 msgid "In this tab you have the following options:"
-msgstr ""
+msgstr "W tej zakładce masz następujące opcje:"
 
 #: ../../frescobaldi_app/userguide/abc_import.md:20
 #: ../../frescobaldi_app/userguide/musicxml_import.md:19
@@ -83,13 +87,13 @@ msgstr "Importuj belkowanie"
 
 #: ../../frescobaldi_app/userguide/abc_import.md:22
 msgid "This option can be used to retain the beaming from the ABC notation."
-msgstr ""
+msgstr "Tę opcję można użyć do zachowania belkowania z notacji ABC."
 
 #: ../../frescobaldi_app/userguide/abc_import.md:24
 #: ../../frescobaldi_app/userguide/midi_import.md:21
 #: ../../frescobaldi_app/userguide/musicxml_import.md:31
 msgid "You can also change the LilyPond version to use."
-msgstr ""
+msgstr "Możesz również zmienić wersję LilyPond."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/abc_import.md:26
@@ -105,7 +109,7 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/midi_import.md:29
 #: ../../frescobaldi_app/userguide/musicxml_import.md:39
 msgid "The *after import* tab"
-msgstr ""
+msgstr "Zakładka *po imporcie*"
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/abc_import.md:34
@@ -118,7 +122,7 @@ msgstr ""
 #: ../../frescobaldi_app/userguide/midi_import.md:34
 #: ../../frescobaldi_app/userguide/musicxml_import.md:44
 msgid "Reformat source:"
-msgstr ""
+msgstr "Źródło sformatowe:"
 
 #: ../../frescobaldi_app/userguide/abc_import.md:38
 #: ../../frescobaldi_app/userguide/midi_import.md:35
@@ -126,6 +130,7 @@ msgstr ""
 msgid ""
 "the code is reformatted. (This is identical to running Tools -> Format.)"
 msgstr ""
+"kod jest sformatowany. (Jest to tożsame z uruchomieniem Narzędzia -> Format.)"
 
 #: ../../frescobaldi_app/userguide/abc_import.md:41
 #: ../../frescobaldi_app/userguide/midi_import.md:38
@@ -170,6 +175,8 @@ msgid ""
 "LilyPond runs directly. (This is identical to running LilyPond -> Engrave "
 "(preview).)"
 msgstr ""
+"Lilypond działa bezpośrednio. (Jest to tożsame z uruchomieniem LilyPond -> "
+"Rysuj (podgląd).)"
 
 #: ../../frescobaldi_app/userguide/about.md:1
 msgid "About Frescobaldi"
@@ -3771,17 +3778,19 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/snippet_python.md:9
 msgid "Other variables that may be referenced:"
-msgstr ""
+msgstr "Inne zmienne, do których można się odwoływać:"
 
 #: ../../frescobaldi_app/userguide/snippet_python.md:12
 msgid "A list of strings describing the type of text the cursor is at."
-msgstr ""
+msgstr "Lista ciągów opisujących typ tekstu, w którym znajduje się kursor."
 
 #: ../../frescobaldi_app/userguide/snippet_python.md:15
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
 msgstr ""
+"Bieżący QTextCursor, dający dostęp do dokumentu. Nie zmieniaj dokumentu "
+"przez kursor."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/snippet_python.md:19
@@ -3868,15 +3877,15 @@ msgstr ""
 
 #: ../../frescobaldi_app/userguide/transpose.md:10
 msgid "E.g. when transposing a minor third upwards, you would enter:"
-msgstr ""
+msgstr "Np. podczas transponowania o tercję małą w górę, wpiszesz:"
 
 #: ../../frescobaldi_app/userguide/transpose.md:16
 msgid "To transpose down a major second, you can enter:"
-msgstr ""
+msgstr "Aby transponować w dół o sekundę wielką, możesz wpisać:"
 
 #: ../../frescobaldi_app/userguide/transpose.md:22
 msgid "or:"
-msgstr ""
+msgstr "lub:"
 
 #: ../../frescobaldi_app/userguide/transpose.md:28
 msgid ""
@@ -3904,7 +3913,7 @@ msgstr ""
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/var_output.md:1
 msgid "The `output` document variable"
-msgstr ""
+msgstr "Zmienna dokumentu `output`"
 
 #: ../../frescobaldi_app/userguide/var_output.md:3
 msgid ""
@@ -3918,10 +3927,12 @@ msgid ""
 "If a name ends with a directory separator, output files are looked for in "
 "the specified directory."
 msgstr ""
+"Jeśli nazwa kończy się separatorem katalogu, w określonym katalogu poszukuje "
+"plików wyjściowych."
 
 #: ../../frescobaldi_app/userguide/var_output.md:10
 msgid "All names are relative to the document's filename."
-msgstr ""
+msgstr "Wszystkie nazwy są zależne od nazwy pliku dokumentu."
 
 #. NOTE: markdown formatting
 #: ../../frescobaldi_app/userguide/var_output.md:27

@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the Frescobaldi package.
 #
 # Piotr Komorowski, <piotr-komorowski@wp.pl>, 2009-2012
-# Grzegorz Pruchniakowski, <grzegorz.pruchniakowski@gmail.com>, 2024
+# Grzegorz Pruchniakowski, <grzegorz.pruchniakowski@gmail.com>, 2024-2025
 msgid ""
 msgstr ""
-"Project-Id-Version: frescobaldi 3.3.0\n"
+"Project-Id-Version: Frescobaldi 4.0.0\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
 "POT-Creation-Date: 2023-10-26 16:31+0200\n"
-"PO-Revision-Date: 2025-01-03 00:00+0000\n"
+"PO-Revision-Date: 2025-02-12 00:00+0000\n"
 "Last-Translator: Grzegorz Pruchniakowski <grzegorz.pruchniakowski@gmail.com>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "Language: pl\n"
@@ -2051,7 +2051,7 @@ msgstr "Eksportuj bieżący dokument jako MusicXML."
 
 #: ../../frescobaldi_app/file_export/__init__.py:139
 msgid "Export Audio..."
-msgstr "Eksportuj dźwięk..."
+msgstr "Eksportuj nagranie..."
 
 #: ../../frescobaldi_app/file_export/__init__.py:140
 msgid "Export to different audio formats."
@@ -2166,7 +2166,7 @@ msgstr "Importuj pozycje pauz"
 
 #: ../../frescobaldi_app/file_import/musicxml.py:99
 msgid "Import page layout"
-msgstr "Importuj układ strony"
+msgstr "Importuj układ stron"
 
 #: ../../frescobaldi_app/file_import/musicxml.py:102
 msgid "Comment out midi block"
@@ -2301,7 +2301,7 @@ msgid ""
 "NOTE: This requires openLilyLib (oll-core)\n"
 "and the 'notation-fonts' openLilyLib package."
 msgstr ""
-"Określ czcionki za pomocą ustawienia za pomocą openLilyLib.\n"
+"Określ czcionki za pomocą ustawienia, używając openLilyLib.\n"
 "Uwaga: Wymaga to openLilyLib (oll-core) i pakietu openLilyLib "
 "'notation-fonts'."
 
@@ -3295,8 +3295,8 @@ msgid ""
 "Change the LilyPond language used for pitch names in this document or in the "
 "selection."
 msgstr ""
-"Zmień języku używany przez LilyPond dla nazw wysokości dla tego dokumentu "
-"lub w zaznaczeniu."
+"Zmień język używany przez LilyPond dla nazw wysokości w tym dokumencie lub w "
+"zaznaczeniu."
 
 #: ../../frescobaldi_app/pitch/__init__.py:165
 msgid "Convert Relative to &Absolute"
@@ -3733,7 +3733,7 @@ msgid ""
 "the clipboard. Otherwise, a CSS stylesheet is embedded."
 msgstr ""
 "Jeśli włączone, atrybuty stylu inline są używane podczas kopiowania "
-"kolorowego HTML do schowka. W przeciwnym razie, osadzony jest arkusz stylów "
+"kolorowego HTML do schowka. W przeciwnym razie osadzony jest arkusz stylów "
 "CSS."
 
 #: ../../frescobaldi_app/preferences/editor.py:335
@@ -3746,8 +3746,7 @@ msgid ""
 "a file. Otherwise, a CSS stylesheet is embedded."
 msgstr ""
 "Jeśli włączone, atrybuty stylu inline są używane podczas eksportowania "
-"kolorowego HTML do pliku. W przeciwnym razie, osadzony jest arkusz stylów "
-"CSS."
+"kolorowego HTML do pliku. W przeciwnym razie osadzony jest arkusz stylów CSS."
 
 #: ../../frescobaldi_app/preferences/editor.py:340
 msgid "Copy HTML as plain text"
@@ -4783,8 +4782,8 @@ msgid ""
 "Closes unused MIDI ports after one minute. See \"What's This\" for more "
 "information."
 msgstr ""
-"Zamyka nieużywane porty MIDI po upływie jednej minuty. Zobacz \"Co to "
-"jest\", aby uzyskać więcej informacji."
+"Zamyka nieużywane porty MIDI po upływie 1 minuty. Zobacz \"Co to jest\", aby "
+"uzyskać więcej informacji."
 
 #: ../../frescobaldi_app/preferences/midi.py:176
 msgid ""
@@ -4797,7 +4796,7 @@ msgid ""
 "playing the file from the beginning sets up the instruments again.</p>\n"
 msgstr ""
 "<p>Jeśli zaznaczone, Frescobaldi zamknie porty wyjściowe MIDI, które nie są "
-"używane przez minutę.</p>\n"
+"używane przez 1 minutę.</p>\n"
 "<p>Może to zwolnić zasoby systemowe, których może używać syntezator MIDI, "
 "oszczędzając w ten sposób baterię.</p>\n"
 "<p>Efektem ubocznym jest to, że jeśli wstrzymasz plik MIDI na długi czas, "
@@ -9531,8 +9530,8 @@ msgid ""
 "Frescobaldi is an advanced text editor to edit LilyPond sheet music files. "
 "It aims to be powerful, yet lightweight and easy to use."
 msgstr ""
-"Frescobaldi jest zaawansowanym edytor tekstu do edycji plików nutowych "
-"LilyPond. Ma być wydajny, a jednocześnie łatwy w użyciu."
+"Frescobaldi jest zaawansowanym edytorem tekstu do edycji plików nutowych "
+"LilyPond. Ma być wydajny, a jednocześnie łatwy w użytkowaniu."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:14
 msgid "Features:"
