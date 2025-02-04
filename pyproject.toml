@@ -90,6 +90,10 @@ requires = [
 formal_name = "Frescobaldi"
 description = "Write LilyPond music sheets"
 sources = ['frescobaldi']
+icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
+
+[tool.briefcase.app.frescobaldi.windows]
+use_full_install_path = false
 
 [tool.briefcase.app.frescobaldi.document_type.ly]
 description = "LilyPond files"
@@ -102,10 +106,3 @@ description = "LilyPond included files"
 extension = "ily"
 icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
 url = "https://lilypond.org/"
-
-[tool.briefcase.app.frescobaldi.macOS]
-icon = "macos/icons/frescobaldi"
-
-[tool.briefcase.app.frescobaldi.windows]
-icon = "frescobaldi/icons/frescobaldi"
-use_full_install_path = false
