@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?define ProductVersion = "4.0.0" ?>
+<?define ProductUpgradeCode = "55997b91-1177-5407-9df8-4e0d047f8a4f" ?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+   <Product
+            Id="*"
+            UpgradeCode="$(var.ProductUpgradeCode)"
+            Name="Frescobaldi"
+            Version="$(var.ProductVersion)"
+            Manufacturer="Wilbert Berendsen"
+            Language="1033"
+            Codepage="utf-8">
+        <Package
+                InstallerVersion="200"
+                Compressed="yes"
+                Comments="Windows Installer Package"
+                />
+
+        <Media Id="1" Cabinet="product.cab" EmbedCab="yes"/>
+
+        <Icon Id="ProductIcon" SourceFile="icon.ico" />
+
+        <Property Id="ARPPRODUCTICON" Value="ProductIcon" />
+        <Property Id="ARPURLINFOABOUT" Value="https://frescobaldi.org" />
+        <Property Id="ARPCONTACT" Value="info@frescobaldi.org" />
+        <Property Id="ARPNOREPAIR" Value="1" />
+        <Property Id="ARPNOMODIFY" Value="1" />
+
+        <Upgrade Id="$(var.ProductUpgradeCode)">
+            <UpgradeVersion
+                    Minimum="$(var.ProductVersion)"
+                    OnlyDetect="yes"
+                    Property="NEWERVERSIONDETECTED"
+            />
+            <UpgradeVersion
+                    Minimum="0.0.0"
+                    Maximum="$(var.ProductVersion)"
+                    IncludeMinimum="yes"
+                    IncludeMaximum="no"
+                    Property="OLDERVERSIONBEINGUPGRADED"
+            />
+        </Upgrade>
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFiles64Folder">
+                <Directory Id="frescobaldi_ROOTDIR" Name="Frescobaldi" />
+            </Directory>
+            
+            <Directory Id="ProgramMenuFolder">
+                <Directory Id="ProgramMenuSubfolder" Name="Frescobaldi">
+                    <Component
+                            Id="ApplicationShortcuts"
+                            Guid="*"
+                            Win64="yes"
+                    >
+                        <Shortcut
+                                Id="ApplicationShortcut1"
+                                Name="Frescobaldi"
+                                Icon="ProductIcon"
+                                Description="Write LilyPond music sheets"
+                                Target="[frescobaldi_ROOTDIR]Frescobaldi.exe"
+                        />
+                        <RegistryValue
+                                Root="HKCU"
+                                Key="Software\Wilbert Berendsen\Frescobaldi"
+                                Name="installed"
+                                Type="integer"
+                                Value="1"
+                                KeyPath="yes" />
+                        <RemoveFolder Id="ProgramMenuSubfolder" On="uninstall"/>
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <InstallExecuteSequence>
+            <RemoveExistingProducts After="InstallValidate"/>
+        </InstallExecuteSequence>
+
+        <Feature Id="DefaultFeature" Level="1">
+            <ComponentGroupRef Id="frescobaldi_COMPONENTS" />
+            <ComponentRef Id="ApplicationShortcuts"/>
+        </Feature>
+        
+        <WixVariable Id="WixUISupportPerUser" Value="1" Overridable="yes" />
+        <WixVariable Id="WixUISupportPerMachine" Value="1" Overridable="yes" />
+
+        <UI Id="UserInterface">
+        <Property Id="WIXUI_INSTALLDIR" Value="tutorial_ROOTDIR" />
+            <Property Id="WixAppFolder" Value="WixPerUserFolder"/>
+        
+            <Property Id="WixUI_Mode" Value="Custom" />
+
+            <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
+            <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="9" Bold="yes" />
+            <TextStyle Id="WixUI_Font_Title"  FaceName="Tahoma" Size="9" Bold="yes" />
+
+            <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
+
+            <DialogRef Id="ProgressDlg" />
+            <DialogRef Id="ErrorDlg" />
+            <DialogRef Id="FilesInUse" />
+            <DialogRef Id="FatalError" />
+            <DialogRef Id="UserExit" />
+        
+            <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="InstallScopeDlg">1</Publish>
+
+            <Publish Dialog="InstallScopeDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg">1</Publish>
+            <!-- If the user selected Per-User folder, ALLUSERS=2, MSIINSTALLPERUSER=1 -->
+            <Publish Dialog="InstallScopeDlg" Control="Next" Property="ALLUSERS" Value="2" Order="2">WixAppFolder = "WixPerUserFolder"</Publish>
+            <Publish Dialog="InstallScopeDlg" Control="Next" Property="MSIINSTALLPERUSER" Value="1" Order="3">WixAppFolder = "WixPerUserFolder"</Publish>
+
+            <!-- If the user selected Per-Machine folder, ALLUSERS=1, MSIINSTALLPERUSER="" -->
+            <Publish Dialog="InstallScopeDlg" Control="Next" Property="ALLUSERS" Value="1" Order="4">WixAppFolder = "WixPerMachineFolder"</Publish>
+            <Publish Dialog="InstallScopeDlg" Control="Next" Property="MSIINSTALLPERUSER" Value="{}" Order="5">WixAppFolder = "WixPerMachineFolder"</Publish>
+
+            <Publish Dialog="InstallScopeDlg" Control="Next" Event="EndDialog" Value="Return">1</Publish>
+        
+            <Publish Dialog="ExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999">1</Publish>
+        </UI>
+        <UIRef Id="WixUI_Common" />
+    </Product>
+</Wix>
