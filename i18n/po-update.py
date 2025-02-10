@@ -21,8 +21,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument("language", help="language to update")
 language = parser.parse_args().language
 
-frescobaldi_app = "frescobaldi/"
-sys.path[0:0] = [frescobaldi_app, "i18n/"]
+frescobaldi_src = "frescobaldi/"
+sys.path[0:0] = [frescobaldi_src, "i18n/"]
 
 import appinfo
 import md2pot
@@ -51,7 +51,7 @@ command = [
     '--keyword=Keywords',
 ]
 
-for root, dirs, files in sorted(os.walk("frescobaldi_app")):
+for root, dirs, files in sorted(os.walk(frescobaldi_src)):
     for f in sorted(files):
         if f.endswith('.py') and f[0] != '.':
             command.append(os.path.join("../../", root, f))
@@ -60,7 +60,7 @@ command.extend(['../../linux/org.frescobaldi.Frescobaldi.desktop.in', '../../lin
 result = subprocess.call(command)
 
 # 2. create a POT file for the user guide
-userguide = sorted(glob.glob(os.path.join(frescobaldi_app, 'userguide', '*.md')))
+userguide = sorted(glob.glob(os.path.join(frescobaldi_src, 'userguide', '*.md')))
 md2pot.md2pot('temp.pot', userguide)
 subprocess.call('msguniq -t UTF-8 -o userguide.pot temp.pot'.split())
 os.remove("temp.pot")
