@@ -73,6 +73,22 @@
             </Directory>
         </Directory>
 
+        <SetProperty Id='FileAssociationProperty' Value="[frescobaldi_ROOTDIR]\Frescobaldi.exe" After="CostFinalize"/>
+
+        <Component Id="FileAssociation" Directory="frescobaldi_ROOTDIR" Guid="*">
+            <File Id="ProductIcon" Source="src\app\frescobaldi\icons\org.frescobaldi.Frescobaldi.ico" />
+            <ProgId Id="LilyPond.document" Description="LilyPond file" Icon="ProductIcon">
+                <Extension Id="ly" ContentType="text/plain">
+                    <Verb Id="open" Command="Open" TargetProperty="FileAssociationProperty" Argument='"%1"' />
+                </Extension>
+            </ProgId>
+            <ProgId Id="LilyPond-included.document" Description="LilyPond included file" Icon="ProductIcon">
+                <Extension Id="ily" ContentType="text/plain">
+                    <Verb Id="open" Command="Open" TargetProperty="FileAssociationProperty" Argument='"%1"' />
+                </Extension>
+            </ProgId>
+        </Component>
+
         <InstallExecuteSequence>
             <RemoveExistingProducts After="InstallValidate"/>
         </InstallExecuteSequence>
@@ -80,6 +96,7 @@
         <Feature Id="DefaultFeature" Level="1">
             <ComponentGroupRef Id="frescobaldi_COMPONENTS" />
             <ComponentRef Id="ApplicationShortcuts"/>
+            <ComponentRef Id="FileAssociation"/>
         </Feature>
         
         <WixVariable Id="WixUISupportPerUser" Value="1" Overridable="yes" />
