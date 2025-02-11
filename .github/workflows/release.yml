@@ -70,15 +70,6 @@ jobs:
         if: matrix.target == 'macOS'
         run: tox -e mo-generate
 
-      # This is needed to be able to replace the frescobaldi.wxs
-      # file before 'briefcase build'.
-      - name: Briefcase scaffold
-        run: briefcase create
-
-      - name: Add file association in Windows
-        if: matrix.target == 'Windows'
-        run: cp windows/frescobaldi.wxs build/frescobaldi/windows/app
-
       - name: Build Frescobaldi
         run: |
           ${{ matrix.briefcase-build-prefix }} \

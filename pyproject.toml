@@ -95,17 +95,14 @@ icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
 [tool.briefcase.app.frescobaldi.windows]
 use_full_install_path = false
 
-# Briefcase document_type works only on macOS.
-# Windows needs a manual fix in the .wxs file.
-# https://github.com/beeware/briefcase/issues/1706
 [tool.briefcase.app.frescobaldi.document_type.ly]
-description = "LilyPond file"
+description = "LilyPond files"
 extension = "ly"
 icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
 url = "https://lilypond.org/"
 
 [tool.briefcase.app.frescobaldi.document_type.ily]
-description = "LilyPond included file"
+description = "LilyPond included files"
 extension = "ily"
 icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
 url = "https://lilypond.org/"
