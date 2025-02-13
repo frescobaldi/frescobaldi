@@ -23,7 +23,6 @@ Base types for parts.
 
 
 import collections
-import fractions
 
 from PyQt6.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QHBoxLayout,
                              QLabel, QSpinBox)
@@ -80,7 +79,6 @@ class Part(Base):
     """Base class for Parts (that can't contain other parts)."""
 
 
-
 class Container(Base):
     """Base class for "part" types that can contain others, like a Staff Group or Score, Book etc."""
     def accepts(self):
@@ -100,7 +98,7 @@ class SingleVoicePart(Part):
     transposition = None # or a three tuple (octave, note, alteration)
 
     def build(self, data, builder):
-        a = data.assignMusic(None, self.octave, self.transposition)
+        a = data.assignMusic(None, self.octave)
         staff = ly.dom.Staff()
         builder.setInstrumentNamesFromPart(staff, self, data)
         if self.midiInstrument:
@@ -109,16 +107,7 @@ class SingleVoicePart(Part):
         if self.clef:
             ly.dom.Clef(self.clef, seq)
         if self.transposition is not None:
-            toct, tnote, talter = self.transposition
-            if tnote or talter:
-                # use the appropriate key for non-octave transpositions
-                stub = ly.dom.Command('transpose', seq)
-                # the sounding pitch from PartData.assignMusic()...
-                ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), stub)
-                # ...becomes our written middle C
-                ly.dom.Pitch(0, 0, 0, stub)
-                # place the music within our \transpose block
-                seq = ly.dom.Seqr(stub)
+            seq = builder.setStaffTransposition(seq, self.transposition)
         ly.dom.Identifier(a.name, seq)
         data.nodes.append(staff)
 
@@ -126,6 +115,8 @@ class SingleVoicePart(Part):
 class PianoStaffPart(Part):
     """Base class for parts creating a piano staff."""
     midiInstruments = ()  # may contain a list of MIDI instruments.
+    octave = 1  # for the right hand part; left is 1 octave lower.
+    transposition = None
 
     def createWidgets(self, layout):
         self.label = QLabel(wordWrap=True)
@@ -191,6 +182,8 @@ class PianoStaffPart(Part):
         c = ly.dom.Seqr(staff)
         if clef:
             ly.dom.Clef(clef, c)
+        if self.transposition is not None:
+            c = builder.setStaffTransposition(c, self.transposition)
         if numVoices == 1:
             a = data.assignMusic(name, octave)
             ly.dom.Identifier(a.name, c)
@@ -220,12 +213,12 @@ class PianoStaffPart(Part):
         builder.setInstrumentNamesFromPart(p, self, data)
         s = ly.dom.Sim(p)
         # add two staves, with a respective number of voices.
-        self.buildStaff(data, builder, 'right', 1, self.upperVoices.value(), s)
+        self.buildStaff(data, builder, 'right', self.octave, self.upperVoices.value(), s)
         if (self.dynamicsStaff.isChecked()
             and self.upperVoices.value() and self.lowerVoices.value()):
             # both staffs have to be present to use this feature
             self.buildDynamicsStaff(data, s)
-        self.buildStaff(data, builder, 'left', 0, self.lowerVoices.value(), s, "bass")
+        self.buildStaff(data, builder, 'left', self.octave - 1, self.lowerVoices.value(), s, "bass")
         data.nodes.append(p)
 
 
