@@ -32,11 +32,6 @@ from PyQt6.QtCore import pyqtSignal, QMargins, QSettings, Qt
 from PyQt6.QtWidgets import QMessageBox
 from PyQt6.QtPrintSupport import QPrinter, QPrintDialog
 
-try:
-    import popplerqt6
-except ImportError:
-    popplerqt6 = None
-
 import app
 import icons
 import textformats
@@ -139,17 +134,6 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
                 changed = True
                 rp.paperColor = paperColor
 
-        # render backend preference
-        if renderers and popplerqt6:
-            import qpageview.poppler
-            renderBackend, printRenderBackend = getPopplerBackends()
-            for r in renderers:
-                if isinstance(r, qpageview.poppler.PopplerRenderer):
-                    r.printRenderBackend = printRenderBackend
-                    if r.renderBackend != renderBackend:
-                        changed = True
-                        r.renderBackend = renderBackend
-
         if changed:
             self.rerender()
 
@@ -167,7 +151,6 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
 
     def print(self, printer=None, pageNumbers=None, showDialog=True):
         """Print the contents of the View."""
-        import qpageview.poppler
         import qpageview.cupsprinter
 
         if printer is None:
@@ -194,24 +177,6 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         s = QSettings()
         printer.setResolution(s.value("printing/dpi", 300, int))
 
-        # is it possible and preferred to print a PDF directly with cups?
-        # on Mac, when printing directly with cups, the system print window is shown
-        # but its settings are ignored and any choice (including opening the PDF)
-        # results in printing to cups' default printer
-        if (s.value("printing/directcups",
-                    False if platform.system() == "Darwin" else True, bool)
-            and isinstance(self.document(), qpageview.poppler.PopplerDocument)
-            and os.path.isfile(self.document().filename())
-            and not printer.outputFileName()):
-            h = qpageview.cupsprinter.handle(printer)
-            if h:
-                if not h.printFile(self.document().filename()):
-                    QMessageBox.warning(self,
-                        _("Printing Error"),
-                        "{}\n{}".format(
-                            _("An error occurred (code: {num}):").format(num=h.status),
-                            h.error))
-                return
         job = super().print(printer, pageNumbers, False)
         if job:
             progress = PrintProgressDialog(job, self)
@@ -261,19 +226,6 @@ class ViewActions(qpageview.viewactions.ViewActions):
         self.reload.setIcon(icons.get('view-refresh'))
 
 
-def getPopplerBackends():
-    """Return a two-tuple (renderBackend, printRenderBackend) from the prefs."""
-    if QSettings().value("musicview/arthurbackend", False, bool):
-        renderBackend = popplerqt6.Poppler.Document.ArthurBackend
-    else:
-        renderBackend = popplerqt6.Poppler.Document.SplashBackend
-    if QSettings().value("printing/arthurbackend_print", True, bool):
-        printRenderBackend = popplerqt6.Poppler.Document.ArthurBackend
-    else:
-        printRenderBackend = popplerqt6.Poppler.Document.SplashBackend
-    return renderBackend, printRenderBackend
-
-
 def getRenderer(rendertype):
     """Factory to create a renderer with the paper color adjusted to the prefs.
 
@@ -285,13 +237,8 @@ def getRenderer(rendertype):
 
     """
     if rendertype == "pdf":
-        if popplerqt6:
-            import qpageview.poppler
-            r = qpageview.poppler.PopplerRenderer()
-            r.renderBackend, r.printRenderBackend = getPopplerBackends()
-        else:
-            import qpageview.pdf
-            r = qpageview.pdf.PdfRenderer()
+        import qpageview.pdf
+        r = qpageview.pdf.PdfRenderer()
     elif rendertype == "svg":
         import qpageview.svg
         r = qpageview.svg.SvgRenderer()
