@@ -31,10 +31,10 @@ class AbstractViewWidget(QWidget):
     # This serves as a stub for a future base class.
     # It will have to contain the complete interface for generic viewer
     # widgets and any implementation that is not specific to the viewer's
-    # technology (Poppler/QWebView or whatever).
+    # technology (QtPdf/QWebView or whatever).
     #
     # The idea is to have a consistent interface (with regard to toolbar,
     # navigation, contextmenu etc.) throughout all viewers
     #
-    # Currently all code is in AbstractPopplerWidget, but we will have to
+    # Currently all code is in AbstractPdfWidget, but we will have to
     # move as much as possible up to the current base class ASAP.
