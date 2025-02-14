@@ -23,8 +23,8 @@ Builds the LilyPond score from the settings in the Score Wizard.
 
 
 import collections
-import fractions
 import re
+import fractions
 
 import ly.dom
 import i18n
@@ -120,18 +120,13 @@ class PartData:
         self.assignments.append(a)
         return a
 
-    def assignMusic(self, name=None, octave=0, transposition=None):
+    def assignMusic(self, name=None, octave=0):
         """Creates a ly.dom.Assignment with a \\relative music stub."""
         a = self.assign(name)
         stub = ly.dom.Relative(a)
         ly.dom.Pitch(octave, 0, 0, stub)
         s = ly.dom.Seq(stub)
         ly.dom.Identifier(self.globalName, s).after = 1
-        if transposition is not None:
-            toct, tnote, talter = transposition
-            # this corrects the sounding pitch for MIDI after
-            # the written pitch is transposed by SingleVoicePart.build()
-            ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), ly.dom.Transposition(s))
         ly.dom.LineComment(_("Music follows here."), s)
         ly.dom.BlankLine(s)
         return a
@@ -161,13 +156,15 @@ class Builder:
         generalPreferences = dialog.settings.widget().generalPreferences
         lilyPondPreferences = dialog.settings.widget().lilyPondPreferences
         instrumentNames = dialog.settings.widget().instrumentNames
+        midiOutput = dialog.settings.widget().midiOutput
 
         # attributes the Part and Container types may read and we need later as well
         self.header = list(dialog.header.widget().headers())
         self.headerDict = dict(self.header)
         self.lyVersionString = lilyPondPreferences.version.currentText().strip()
         self.lyVersion = tuple(map(int, re.findall('\\d+', self.lyVersionString)))
-        self.midi = generalPreferences.midi.isChecked()
+        self.midi = midiOutput.isChecked()
+        self.separateMidi = midiOutput.separateScore.isChecked()
         self.pitchLanguage = dialog.pitchLanguage()
         self.suppressTagLine = generalPreferences.tagl.isChecked()
         self.removeBarNumbers = generalPreferences.barnum.isChecked()
@@ -226,11 +223,31 @@ class Builder:
         else:
             groups = globalGroup.groups
 
+        if self.midi and self.separateMidi:
+            # collect MIDI parts here when placing them in a separate \score
+            self.midiParts = []
+
         self.blocks = []
         for group in groups:
             block = BlockData()
             self.makeBlock(group, block.scores, block)
             self.blocks.append(block)
+
+        if self.midi and self.separateMidi and self.midiParts:
+            # create a separate \score for MIDI output
+            ly.dom.BlankLine(block.scores)
+            score = ly.dom.Score(block.scores)
+            midi = ly.dom.Midi(score)
+            # set MIDI tempo if necessary
+            if not self.showMetronomeMark:
+                self.setMidiTempo(midi)
+            if len(self.midiParts) == 1:
+                score.insert(0, self.midiParts[0])
+            else:
+                music = ly.dom.Seq()
+                for part in self.midiParts:
+                    music.append(part)
+                score.insert(0, music)
 
     def makeBlock(self, group, node, block):
         """Recursively populates the Block with data from the group.
@@ -261,17 +278,13 @@ class Builder:
                 self.globalUsed = True
 
             # add parts here, always in \score { }
-            score = node if isinstance(node,ly.dom.Score) else ly.dom.Score(node)
+            score = node if isinstance(node, ly.dom.Score) else ly.dom.Score(node)
             ly.dom.Layout(score)
-            if self.midi:
+            if self.midi and not self.separateMidi:
                 midi = ly.dom.Midi(score)
                 # set MIDI tempo if necessary
                 if not self.showMetronomeMark:
-                    if self.lyVersion >= (2, 16, 0):
-                        scoreProperties.lySimpleMidiTempo(midi)
-                        midi[0].after = 1
-                    else:
-                        scoreProperties.lyMidiTempo(ly.dom.Context('Score', midi))
+                    self.setMidiTempo(midi)
             music = ly.dom.Simr()
             score.insert(0, music)
 
@@ -325,6 +338,13 @@ class Builder:
 
             parents = [p for p in partData if not p.isChild]
             makeRecursive(parents, music)
+            if self.midi and self.separateMidi:
+                # We intentionally duplicate the list of parts rather than
+                # placing it in an assignment because the point of having
+                # separate \score blocks is that they can be edited separately.
+                # For example, a part can be muted by commenting out its line
+                # in the MIDI score while leaving it visible in print.
+                self.midiParts.append(music.copy())
 
             # add the prefix to the assignments if necessary
             if self.usePrefix:
@@ -494,6 +514,14 @@ class Builder:
         if self.midi:
             node.getWith()['midiInstrument'] = midiInstrument
 
+    def setMidiTempo(self, node):
+        """Sets the MIDI tempo when the metronome mark is hidden."""
+        if self.lyVersion >= (2, 16, 0):
+            self.scoreProperties.lySimpleMidiTempo(node)
+            node[0].after = 1
+        else:
+            self.scoreProperties.lyMidiTempo(ly.dom.Context('Score', node))
+
     def setInstrumentNames(self, staff, longName, shortName):
         """Sets the instrument names to the staff (or group).
 
@@ -541,6 +569,19 @@ class Builder:
         # save this to calculate the 'indent' value in document()
         if self.showInstrumentNames:
             self.longestInstrumentNameLength = max(self.longestInstrumentNameLength, len(longName))
+
+    def setStaffTransposition(self, node, transposition):
+        """Sets the transposition of a staff for a transposing instrument."""
+        toct, tnote, talter = transposition
+        # Transpose MIDI output from written c' to the sounding pitch
+        ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2),
+                     ly.dom.Transposition(node))
+        # Transpose both notation and MIDI output from the sounding pitch
+        # to written c' (canceling out the previous \transposition for MIDI)
+        stub = ly.dom.Command('transpose', node)
+        ly.dom.Pitch(toct, tnote, fractions.Fraction(talter, 2), stub)
+        ly.dom.Pitch(0, 0, 0, stub)
+        return ly.dom.Seqr(stub)
 
 
 def assignparts(group):

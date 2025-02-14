@@ -62,7 +62,7 @@ class Chords(_base.ChordNames, _base.Part):
 class BassFigures(_base.Part):
     @staticmethod
     def title(_=_base.translate):
-        return _("Figured Bass")
+        return _("Figured bass")
 
     def createWidgets(self, layout):
         self.extenderLines = QCheckBox()

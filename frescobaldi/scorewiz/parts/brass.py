@@ -40,6 +40,7 @@ class HornF(BrassPart):
         return _("abbreviation for Horn in F", "Hn.F.")
 
     midiInstrument = 'french horn'
+    octave = 0
     transposition = (-1, 3, 0)
 
 
@@ -99,6 +100,7 @@ class Mellophone(BrassPart):
         return _("abbreviation for Mellophone", "Mph.")
 
     midiInstrument = 'french horn'
+    octave = 0
     transposition = (-1, 3, 0)
 
 
@@ -114,6 +116,57 @@ class Trombone(BrassPart):
     midiInstrument = 'trombone'
     clef = 'bass'
     octave = -1
+
+
+class TromboneBb(Trombone):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Trombone in Bb")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Trombone in Bb", "Trb.Bb.")
+
+    # British brass band notation
+    clef = None
+    transposition = (-2, 6, -1)
+
+
+class AltoTrombone(Trombone):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Alto trombone")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Alto trombone", "A.Trb.")
+
+    clef = 'alto'
+    octave = 0
+
+
+class BassTrombone(Trombone):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Bass trombone")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Bass trombone", "B.Trb.")
+
+
+class TenorHorn(BrassPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Tenor horn")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Tenor horn", "T.Hn.")
+
+    midiInstrument = 'french horn'
+    octave = -1
+    transposition = (-1, 2, -1)
 
 
 class Baritone(BrassPart):
@@ -154,22 +207,51 @@ class Tuba(BrassPart):
         return _("abbreviation for Tuba", "Tb.")
 
     midiInstrument = 'tuba'
+    clef = 'bass'
+    octave = -1
+
+
+class TubaEb(Tuba):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Tuba in Eb")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Tuba in Eb", "Tb.Eb.")
+
+    # British brass band notation
+    clef = None
+    transposition = (-1, 2, -1)
+
+
+class TubaBb(Tuba):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Tuba in Bb")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Tuba in Bb", "Tb.Bb.")
+
+    # British brass band notation
+    clef = None
     transposition = (-2, 6, -1)
 
 
 class BassTuba(BrassPart):
     @staticmethod
     def title(_=_base.translate):
-        return _("Bass Tuba")
+        return _("Bass tuba")
 
     @staticmethod
     def short(_=_base.translate):
-        return _("abbreviation for Bass Tuba", "B.Tb.")
+        return _("abbreviation for Bass tuba", "B.Tb.")
 
     midiInstrument = 'tuba'
     clef = 'bass'
-    octave = -1
-    transposition = (-2, 0, 0)
+    octave = -2
+    transposition = (-1, 0, 0)
 
 
 register(
@@ -182,8 +264,14 @@ register(
         Flugelhorn,
         Mellophone,
         Trombone,
+        TromboneBb,
+        AltoTrombone,
+        BassTrombone,
+        TenorHorn,
         Baritone,
         Euphonium,
         Tuba,
+        TubaEb,
+        TubaBb,
         BassTuba,
     ])
