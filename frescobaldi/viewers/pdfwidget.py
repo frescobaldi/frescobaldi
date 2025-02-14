@@ -19,10 +19,6 @@
 
 """
 Abstract base class for a PDF viewer widget.
-
-This widget originally used Poppler as the rendering backend.
-While this is no longer necessarily the case since switching to
-PyQt6, the class name is kept for backwards compatibility.
 """
 
 
@@ -55,7 +51,7 @@ from . import documents
 from . import pointandclick
 
 
-class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
+class AbstractPdfWidget(abstractviewwidget.AbstractViewWidget):
     """Widget containing the qpageview.View."""
 
     # TODO: As much as possible should be moved to the base class.

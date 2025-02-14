@@ -22,12 +22,12 @@ The Manuscript viewer panel widget.
 """
 
 
-from viewers import popplerwidget
+from viewers import pdfwidget
 from . import contextmenu
 from . import toolbar
 import userguide.util
 
-class ManuscriptViewWidget(popplerwidget.AbstractPopplerWidget):
+class ManuscriptViewWidget(pdfwidget.AbstractPdfWidget):
     def __init__(self, panel):
         """Widget holding a manuscript view."""
         super().__init__(panel)
