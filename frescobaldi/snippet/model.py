@@ -49,7 +49,7 @@ class SnippetModel(QAbstractItemModel):
         self._names = []
         self.load()
         app.settingsChanged.connect(self.slotSettingsChanged)
-        app.languageChanged.connect(self.slotLanguageChanged)
+        app.signals.languageChanged.connect(self.slotLanguageChanged)
 
     # methods needed to be a well-behaved model
     def headerData(self, section, orientation, role=Qt.ItemDataRole.DisplayRole):

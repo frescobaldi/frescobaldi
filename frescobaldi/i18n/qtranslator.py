@@ -51,7 +51,7 @@ def installTranslator():
 
 def initialize():
     # just install again on change, so the widgets get a LanguageChange event
-    app.languageChanged.connect(installTranslator)
+    app.signals.languageChanged.connect(installTranslator)
     installTranslator()
 
 # DEBUG: show translatable Qt messages once

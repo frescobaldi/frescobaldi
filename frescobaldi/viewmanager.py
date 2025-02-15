@@ -118,7 +118,7 @@ class ViewSpace(QWidget):
         self.status = ViewStatusBar(self)
         self.status.setEnabled(False)
         layout.addWidget(self.status)
-        app.languageChanged.connect(self.updateStatusBar)
+        app.signals.languageChanged.connect(self.updateStatusBar)
         app.signals.viewSpaceCreated.emit(self)
 
     def activeView(self):

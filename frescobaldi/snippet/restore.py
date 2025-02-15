@@ -52,7 +52,7 @@ class RestoreDialog(widgets.dialog.Dialog):
         self.tree.itemChanged.connect(self.slotItemChanged)
 
         app.translateUI(self)
-        app.languageChanged.connect(self.populate)
+        app.signals.languageChanged.connect(self.populate)
         self.accepted.connect(self.updateSnippets)
         qutil.saveDialogSize(self, "snippettool/restoredialog/size")
 

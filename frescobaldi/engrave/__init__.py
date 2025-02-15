@@ -73,7 +73,7 @@ class Engraver(plugin.MainWindowPlugin):
         app.documentClosed.connect(self.slotDocumentClosed)
         mainwindow.aboutToClose.connect(self.saveSettings)
         self.loadSettings()
-        app.languageChanged.connect(self.updateStickyActionText)
+        app.signals.languageChanged.connect(self.updateStickyActionText)
         self.updateStickyActionText()
 
     def document(self):

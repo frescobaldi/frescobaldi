@@ -60,7 +60,7 @@ class ButtonGroup(QGroupBox):
         self.setActionTexts()
         self.createButtons()
         app.translateUI(self)
-        app.languageChanged.connect(self.setActionTexts)
+        app.signals.languageChanged.connect(self.setActionTexts)
 
     def translateUI(self):
         """Should set our title."""
