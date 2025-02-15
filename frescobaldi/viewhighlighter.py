@@ -37,7 +37,7 @@ def highlighter(view):
     return ViewHighlighter.instance(view)
 
 
-app.viewCreated.connect(highlighter)
+app.signals.viewCreated.connect(highlighter)
 
 
 class ViewHighlighter(plugin.Plugin, gadgets.arbitraryhighlighter.ArbitraryHighlighter):

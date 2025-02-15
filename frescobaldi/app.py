@@ -55,8 +55,7 @@ documentModificationChanged = Signal() # Document
 documentClosed = Signal()       # Document
 documentSaved = Signal()        # Document
 documentSaving = SignalContext() # Document
-viewCreated = Signal()          # View
-viewSpaceCreated = Signal()     # ViewSpace (see viewmanager.py)
+# ...view signals were here...
 languageChanged = Signal()      # (no arguments)
 settingsChanged = Signal()      # (no arguments)
 sessionChanged = Signal()       # (name)
@@ -74,6 +73,10 @@ class GlobalSignals(QObject):
     aboutToQuit = pyqtSignal()
     mainwindowCreated = pyqtSignal("PyQt_PyObject")     # MainWindow
     mainwindowClosed = pyqtSignal("PyQt_PyObject")      # MainWindow
+    # ...document signals go here...
+    viewCreated = pyqtSignal("PyQt_PyObject")           # View
+    viewSpaceCreated = pyqtSignal("PyQt_PyObject")      # ViewSpace
+                                                        # (see viewmanager.py)
 
 signals = GlobalSignals()
 

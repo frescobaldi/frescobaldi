@@ -46,7 +46,7 @@ class SideBarManager(plugin.MainWindowPlugin):
         ac.folding_fold_all.triggered.connect(self.foldAll)
         ac.folding_unfold_all.triggered.connect(self.unfoldAll)
         mainwindow.viewManager.activeViewSpaceChanged.connect(self.updateActions)
-        app.viewSpaceCreated.connect(self.newViewSpace)
+        app.signals.viewSpaceCreated.connect(self.newViewSpace)
         # there is always one ViewSpace, initialize it
         self.manager().loadSettings()
         self.updateActions()
