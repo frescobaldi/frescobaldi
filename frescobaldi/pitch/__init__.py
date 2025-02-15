@@ -57,7 +57,7 @@ class Pitch(plugin.MainWindowPlugin):
         ac.pitch_mode_shift.triggered.connect(self.modeShift)
         ac.pitch_simplify.triggered.connect(self.simplifyAccidentals)
         self.readSettings()
-        app.aboutToQuit.connect(self.writeSettings)
+        app.signals.aboutToQuit.connect(self.writeSettings)
 
     def get_absolute(self, document):
         """Return True when the first pitch in a \\relative expression without

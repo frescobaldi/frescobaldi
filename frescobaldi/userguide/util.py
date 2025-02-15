@@ -152,7 +152,7 @@ class Cache:
     def __init__(self):
         self._title = {}
         self._children = {}
-        app.languageChanged.connect(lambda: self._title.clear(), -999)
+        app.signals.languageChanged.connect(lambda: self._title.clear(), -999)
 
     def title(self, name):
         """Return the title of the named page."""

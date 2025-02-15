@@ -96,10 +96,10 @@ class ViewSpace(QWidget):
     The viewChanged(View) signal is emitted when the current view for this ViewSpace changes.
 
     Also, when a ViewSpace is created (e.g. when a window is created or split), the
-    app.viewSpaceCreated(space) signal is emitted.
+    app.signals.viewSpaceCreated(space) signal is emitted.
 
-    You can use the app.viewSpaceCreated() and the ViewSpace.viewChanged() signals to implement
-    things on a per ViewSpace basis, e.g. in the statusbar of a ViewSpace.
+    You can use the app.signals.viewSpaceCreated() and the ViewSpace.viewChanged() signals to
+    implement things on a per ViewSpace basis, e.g. in the statusbar of a ViewSpace.
 
     """
     viewChanged = pyqtSignal(view_.View)
@@ -118,8 +118,8 @@ class ViewSpace(QWidget):
         self.status = ViewStatusBar(self)
         self.status.setEnabled(False)
         layout.addWidget(self.status)
-        app.languageChanged.connect(self.updateStatusBar)
-        app.viewSpaceCreated(self)
+        app.signals.languageChanged.connect(self.updateStatusBar)
+        app.signals.viewSpaceCreated.emit(self)
 
     def activeView(self):
         if self.views:

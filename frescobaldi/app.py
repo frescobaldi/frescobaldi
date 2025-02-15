@@ -29,7 +29,7 @@ import platform
 import importlib.util
 import weakref
 
-from PyQt6.QtCore import QObject, QSettings, Qt, QThread
+from PyQt6.QtCore import QObject, QSettings, Qt, QThread, pyqtSignal
 from PyQt6.QtWidgets import QApplication, QMenuBar
 
 ### needed for QWebEngine
@@ -47,12 +47,7 @@ documents = []
 
 from signals import Signal, SignalContext
 
-# signals
-appInstantiated  = Signal()     # Called when the QApplication is instantiated
-appStarted = Signal()           # Called when the main event loop is entered
-aboutToQuit = Signal()          # Use this and not qApp.aboutToQuit
-mainwindowCreated = Signal()    # MainWindow
-mainwindowClosed = Signal()     # MainWindow
+# non-native signals
 documentCreated = Signal()      # Document
 documentUrlChanged = Signal()   # Document
 documentLoaded = Signal()       # Document
@@ -60,14 +55,32 @@ documentModificationChanged = Signal() # Document
 documentClosed = Signal()       # Document
 documentSaved = Signal()        # Document
 documentSaving = SignalContext() # Document
-viewCreated = Signal()          # View
-viewSpaceCreated = Signal()     # ViewSpace (see viewmanager.py)
-languageChanged = Signal()      # (no arguments)
+# ...view signals were here...
 settingsChanged = Signal()      # (no arguments)
-sessionChanged = Signal()       # (name)
-saveSessionData = Signal()      # (name)
+# ...session signals were here...
 jobStarted = Signal()           # (Document, Job)
 jobFinished = Signal()          # (Document, Job, bool success)
+
+class GlobalSignals(QObject):
+    # Called when the QApplication is instantiated
+    appInstantiated = pyqtSignal()
+    # Called when the main event loop is entered
+    appStarted = pyqtSignal()
+    # Use this and not qApp.aboutToQuit since qApp may not exist yet
+    # when you need to connect it
+    aboutToQuit = pyqtSignal()
+    mainwindowCreated = pyqtSignal("PyQt_PyObject")     # MainWindow
+    mainwindowClosed = pyqtSignal("PyQt_PyObject")      # MainWindow
+    # ...document signals go here...
+    viewCreated = pyqtSignal("PyQt_PyObject")           # View
+    viewSpaceCreated = pyqtSignal("PyQt_PyObject")      # ViewSpace
+                                                        # (see viewmanager.py)
+    languageChanged = pyqtSignal()
+    # ...settings signals go here...
+    sessionChanged = pyqtSignal(str)                    # name
+    saveSessionData = pyqtSignal(str)                   # name
+
+signals = GlobalSignals()
 
 
 def activeWindow():
@@ -132,7 +145,8 @@ def instantiate():
     QApplication.setOrganizationDomain(appinfo.domain)
     if platform.system() == "Darwin":
         qApp._menubar = QMenuBar()
-    appInstantiated()
+    qApp.aboutToQuit.connect(signals.aboutToQuit)
+    signals.appInstantiated.emit()
 
 def oninit(func):
     """Call specified function on QApplication instantiation.
@@ -147,13 +161,12 @@ def oninit(func):
     if qApp:
         func()
     else:
-        appInstantiated.connect(func)
+        signals.appInstantiated.connect(func)
     return func
 
 def run():
     """Enter the Qt event loop."""
     result = qApp.exec()
-    aboutToQuit()
     return result
 
 def restart():

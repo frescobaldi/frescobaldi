@@ -52,7 +52,7 @@ class Panel(QDockWidget):
         super().__init__(mainwindow)
         self.setObjectName(self.__class__.__name__.lower())
         app.translateUI(self)
-        app.languageChanged.connect(self._setToolTips)
+        app.signals.languageChanged.connect(self._setToolTips)
         self._setToolTips()
 
     def mainwindow(self):

@@ -82,4 +82,4 @@ class ProgressBar(plugin.ViewSpacePlugin):
                 metainfo.info(document).buildtime = j.elapsed_time()
 
 
-app.viewSpaceCreated.connect(ProgressBar.instance)
+app.signals.viewSpaceCreated.connect(ProgressBar.instance)

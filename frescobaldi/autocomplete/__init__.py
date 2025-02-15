@@ -64,7 +64,7 @@ class CompleterManager(plugin.MainWindowPlugin):
             self.completer().showCompletionPopup()
 
 
-app.mainwindowCreated.connect(CompleterManager.instance)
+app.signals.mainwindowCreated.connect(CompleterManager.instance)
 
 
 class Actions(actioncollection.ActionCollection):

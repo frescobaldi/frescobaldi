@@ -29,7 +29,7 @@ from PyQt6.QtCore import QTimer
 
 import app
 
-@app.mainwindowClosed.connect
+@app.signals.mainwindowClosed.connect
 def check_open_window():
     if not app.windows:
         from . import globalmenu

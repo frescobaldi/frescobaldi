@@ -68,7 +68,7 @@ def infos():
             info = default()
             if info.abscommand():
                 _infos.append(info)
-        app.aboutToQuit.connect(saveinfos)
+        app.signals.aboutToQuit.connect(saveinfos)
     return _infos
 
 

@@ -53,6 +53,6 @@ def show():
 
     def hide():
         splash.deleteLater()
-        app.appStarted.disconnect(hide)
+        app.signals.appStarted.disconnect(hide)
 
-    app.appStarted.connect(hide)
+    app.signals.appStarted.connect(hide)

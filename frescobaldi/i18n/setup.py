@@ -105,7 +105,7 @@ please generate them using: \
         new_language = "C"
         install(new_language)
     if _currentlanguage is not None and new_language != _currentlanguage:
-            QTimer.singleShot(0, app.languageChanged)
+            app.signals.languageChanged.emit()
     _currentlanguage = new_language
 
 

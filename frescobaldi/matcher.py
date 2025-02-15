@@ -199,5 +199,5 @@ def matches(cursor, view=None):
 
 
 
-app.mainwindowCreated.connect(Matcher.instance)
+app.signals.mainwindowCreated.connect(Matcher.instance)
 

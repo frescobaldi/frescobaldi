@@ -89,7 +89,7 @@ class Widget(QWidget):
         dockwidget.mainwindow().currentDocumentChanged.connect(self.loadResults)
         app.documentLoaded.connect(self.slotDocumentLoaded)
         app.jobFinished.connect(self.slotUpdatedFiles)
-        app.aboutToQuit.connect(self.stop)
+        app.signals.aboutToQuit.connect(self.stop)
         midihub.aboutToRestart.connect(self.slotAboutToRestart)
         midihub.settingsChanged.connect(self.clearMidiSettings, -100)
         midihub.settingsChanged.connect(self.readMidiSettings)

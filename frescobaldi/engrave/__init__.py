@@ -68,12 +68,12 @@ class Engraver(plugin.MainWindowPlugin):
         app.jobFinished.connect(self.updateActions)
         app.jobFinished.connect(self.checkLilyPondInstalled)
         app.jobFinished.connect(self.openDefaultView)
-        app.sessionChanged.connect(self.slotSessionChanged)
-        app.saveSessionData.connect(self.slotSaveSessionData)
+        app.signals.sessionChanged.connect(self.slotSessionChanged)
+        app.signals.saveSessionData.connect(self.slotSaveSessionData)
         app.documentClosed.connect(self.slotDocumentClosed)
         mainwindow.aboutToClose.connect(self.saveSettings)
         self.loadSettings()
-        app.languageChanged.connect(self.updateStickyActionText)
+        app.signals.languageChanged.connect(self.updateStickyActionText)
         self.updateStickyActionText()
 
     def document(self):

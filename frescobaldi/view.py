@@ -79,7 +79,7 @@ class View(QPlainTextEdit):
         self.toolTipInfo = []
         self.block_at_mouse = None
         self.include_target = []
-        app.viewCreated(self)
+        app.signals.viewCreated.emit(self)
 
     def event(self, ev):
         """General event handler.

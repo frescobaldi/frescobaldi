@@ -72,7 +72,7 @@ def init():
         else:
             # no ids left, don't listen
             return
-    app.aboutToQuit.connect(server.close)
+    app.signals.aboutToQuit.connect(server.close)
     server.newConnection.connect(slot_new_connection)
     os.environ["FRESCOBALDI_SOCKET"] = name
     _server = server

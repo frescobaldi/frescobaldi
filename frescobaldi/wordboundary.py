@@ -37,5 +37,5 @@ class BoundaryHandler(gadgets.wordboundary.BoundaryHandler):
 
 handler = BoundaryHandler()
 
-app.viewCreated.connect(handler.install_textedit)
+app.signals.viewCreated.connect(handler.install_textedit)
 

@@ -92,5 +92,5 @@ class MusicPosition(plugin.ViewSpacePlugin):
             self._label.setVisible(bool(text))
 
 
-app.viewSpaceCreated.connect(MusicPosition.instance)
+app.signals.viewSpaceCreated.connect(MusicPosition.instance)
 

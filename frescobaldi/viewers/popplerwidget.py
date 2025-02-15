@@ -125,8 +125,8 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
     def connectSlots(self):
         """Connects the slots of the viewer."""
         app.settingsChanged.connect(self.readSettings)
-        app.sessionChanged.connect(self.slotSessionChanged)
-        app.saveSessionData.connect(self.slotSaveSessionData)
+        app.signals.sessionChanged.connect(self.slotSessionChanged)
+        app.signals.saveSessionData.connect(self.slotSaveSessionData)
 
         # react if cursor of current text document moves
         self.parent().mainwindow().currentViewChanged.connect(self.slotCurrentViewChanged)
