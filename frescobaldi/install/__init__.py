@@ -45,5 +45,9 @@ def update_settings():
         QSettings().sync() # just to be sure
 
 
-# connect with highest priority, so this runs first
-app.appInstantiated.connect(update_settings, -1000)
+# Global signals like appInstantiated formerly used a custom Signal type
+# that allowed setting slot priority. We used that ability here to ensure
+# update_settings() was always called first. We lose that feature with
+# Qt's native signals and slots, but it's not yet a problem in practice
+# because nothing else currently connects to this signal.
+app.signals.appInstantiated.connect(update_settings)

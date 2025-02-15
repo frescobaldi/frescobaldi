@@ -268,7 +268,7 @@ def main(debug=False):
 
     sys.excepthook = app.excepthook # Show Python errors in a bugreport window
 
-    app.appStarted() # Emit the appStarted signal
+    app.signals.appStarted.emit()
 
     if not debug:
         sys.exit(app.run())

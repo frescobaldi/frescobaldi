@@ -536,7 +536,7 @@ class GlobalJobQueue(QObject):
             'generic': self._generic
         }
         app.settingsChanged.connect(self.settings_changed)
-        app.aboutToQuit.connect(self.about_to_quit)
+        app.signals.aboutToQuit.connect(self.about_to_quit)
 
     def about_to_quit(self):
         # TODO:

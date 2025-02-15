@@ -29,7 +29,7 @@ import platform
 import importlib.util
 import weakref
 
-from PyQt6.QtCore import QObject, QSettings, Qt, QThread
+from PyQt6.QtCore import QObject, QSettings, Qt, QThread, pyqtSignal
 from PyQt6.QtWidgets import QApplication, QMenuBar
 
 ### needed for QWebEngine
@@ -47,10 +47,7 @@ documents = []
 
 from signals import Signal, SignalContext
 
-# signals
-appInstantiated  = Signal()     # Called when the QApplication is instantiated
-appStarted = Signal()           # Called when the main event loop is entered
-aboutToQuit = Signal()          # Use this and not qApp.aboutToQuit
+# non-native signals
 mainwindowCreated = Signal()    # MainWindow
 mainwindowClosed = Signal()     # MainWindow
 documentCreated = Signal()      # Document
@@ -68,6 +65,17 @@ sessionChanged = Signal()       # (name)
 saveSessionData = Signal()      # (name)
 jobStarted = Signal()           # (Document, Job)
 jobFinished = Signal()          # (Document, Job, bool success)
+
+class GlobalSignals(QObject):
+    # Called when the QApplication is instantiated
+    appInstantiated = pyqtSignal()
+    # Called when the main event loop is entered
+    appStarted = pyqtSignal()
+    # Use this and not qApp.aboutToQuit since qApp may not exist yet
+    # when you need to connect it
+    aboutToQuit = pyqtSignal()
+
+signals = GlobalSignals()
 
 
 def activeWindow():
@@ -132,7 +140,8 @@ def instantiate():
     QApplication.setOrganizationDomain(appinfo.domain)
     if platform.system() == "Darwin":
         qApp._menubar = QMenuBar()
-    appInstantiated()
+    qApp.aboutToQuit.connect(signals.aboutToQuit)
+    signals.appInstantiated.emit()
 
 def oninit(func):
     """Call specified function on QApplication instantiation.
@@ -147,13 +156,12 @@ def oninit(func):
     if qApp:
         func()
     else:
-        appInstantiated.connect(func)
+        signals.appInstantiated.connect(func)
     return func
 
 def run():
     """Enter the Qt event loop."""
     result = qApp.exec()
-    aboutToQuit()
     return result
 
 def restart():
