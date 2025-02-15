@@ -58,8 +58,7 @@ documentSaving = SignalContext() # Document
 # ...view signals were here...
 languageChanged = Signal()      # (no arguments)
 settingsChanged = Signal()      # (no arguments)
-sessionChanged = Signal()       # (name)
-saveSessionData = Signal()      # (name)
+# ...session signals were here...
 jobStarted = Signal()           # (Document, Job)
 jobFinished = Signal()          # (Document, Job, bool success)
 
@@ -77,6 +76,9 @@ class GlobalSignals(QObject):
     viewCreated = pyqtSignal("PyQt_PyObject")           # View
     viewSpaceCreated = pyqtSignal("PyQt_PyObject")      # ViewSpace
                                                         # (see viewmanager.py)
+    # ...language and settings signals go here...
+    sessionChanged = pyqtSignal(str)                    # name
+    saveSessionData = pyqtSignal(str)                   # name
 
 signals = GlobalSignals()
 

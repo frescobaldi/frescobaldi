@@ -128,7 +128,7 @@ def saveSession(name, documents, activeDocument=None):
         session.setValue("active", documents.index(activeDocument))
     else:
         session.remove("active")
-    app.saveSessionData(name)
+    app.signals.saveSessionData.emit(name)
 
 def deleteSession(name):
     session = app.settings("sessions")
@@ -154,7 +154,7 @@ def setCurrentSession(name):
     if name != _currentSession:
         name and sessionGroup(name) # just select it, so its name is written in case it doesn't exist
         _currentSession = name
-        app.sessionChanged(name)
+        app.signals.sessionChanged.emit(name)
 
 def currentSessionGroup():
     """Returns the session settings at the current group is there is a current session.

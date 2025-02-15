@@ -46,7 +46,7 @@ class SessionManager(plugin.MainWindowPlugin):
     Connect to this if you only want the notification for the current MainWindow
     (the one the user initiated the action from).
 
-    Use app.saveSessionData(name) if you want to get the global notification.
+    Use app.signals.saveSessionData(name) if you want to get the global notification.
 
     """
 

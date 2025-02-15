@@ -143,7 +143,7 @@ class MainWindow(QMainWindow):
         self.createToolBars()
 
         app.translateUI(self)
-        app.sessionChanged.connect(self.updateWindowTitle)
+        app.signals.sessionChanged.connect(self.updateWindowTitle)
 
         self.readSettings()
 
