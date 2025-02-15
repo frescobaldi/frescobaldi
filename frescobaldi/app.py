@@ -48,8 +48,6 @@ documents = []
 from signals import Signal, SignalContext
 
 # non-native signals
-mainwindowCreated = Signal()    # MainWindow
-mainwindowClosed = Signal()     # MainWindow
 documentCreated = Signal()      # Document
 documentUrlChanged = Signal()   # Document
 documentLoaded = Signal()       # Document
@@ -74,6 +72,8 @@ class GlobalSignals(QObject):
     # Use this and not qApp.aboutToQuit since qApp may not exist yet
     # when you need to connect it
     aboutToQuit = pyqtSignal()
+    mainwindowCreated = pyqtSignal("PyQt_PyObject")     # MainWindow
+    mainwindowClosed = pyqtSignal("PyQt_PyObject")      # MainWindow
 
 signals = GlobalSignals()
 

@@ -159,7 +159,7 @@ class MainWindow(QMainWindow):
         if other:
             self.setCurrentDocument(other.currentDocument())
         self.updateWindowTitle()
-        app.mainwindowCreated(self)
+        app.signals.mainwindowCreated.emit(self)
         app.settingsChanged.connect(self.settingsChanged)
         self.settingsChanged()
 
@@ -343,7 +343,7 @@ class MainWindow(QMainWindow):
                 self.writeSettings()
                 self.aboutToCloseLast.emit()
             app.windows.remove(self)
-            app.mainwindowClosed(self)
+            app.signals.mainwindowClosed.emit(self)
             ev.accept()
         else:
             ev.ignore()

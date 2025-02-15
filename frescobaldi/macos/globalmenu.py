@@ -49,7 +49,7 @@ def setup():
     import sessions
     sessions.setCurrentSession(None)
 
-@app.mainwindowCreated.connect
+@app.signals.mainwindowCreated.connect
 def delete():
     """Delete the global menu bar."""
     app.qApp._menubar.clear()

@@ -78,6 +78,6 @@ def initialize():
     global handler
     handler = IconDragEventHandler()
 
-@app.mainwindowCreated.connect
+@app.signals.mainwindowCreated.connect
 def windowCreated(window):
     window.installEventFilter(handler)
