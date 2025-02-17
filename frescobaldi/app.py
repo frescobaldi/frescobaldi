@@ -132,6 +132,10 @@ def instantiate():
     QApplication.setOrganizationDomain(appinfo.domain)
     if platform.system() == "Darwin":
         qApp._menubar = QMenuBar()
+    # Our aboutToQuit provides more features than qApp's and is available
+    # to connect before qApp is initialized. Connecting our signal to qApp's
+    # this way ensures it is emitted before qApp is garbage collected.
+    qApp.aboutToQuit.connect(aboutToQuit.emit)
     appInstantiated()
 
 def oninit(func):
@@ -153,7 +157,6 @@ def oninit(func):
 def run():
     """Enter the Qt event loop."""
     result = qApp.exec()
-    aboutToQuit()
     return result
 
 def restart():
