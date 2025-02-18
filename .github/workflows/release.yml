@@ -1,9 +1,8 @@
 name: Frescobaldi release
 on:
-  pull_request:
   push:
-    branches:
-      - master
+    tags:
+      - 'v[0-9].[0-9]+.[0-9]+'
 
 # Cancel active CI runs for a PR before starting another run
 concurrency:
@@ -29,10 +28,13 @@ jobs:
           - target: "Windows"
             output-format: "app"
             runs-on: "windows-latest"
+            filename: dist/*.msi
 
           - target: "macOS"
             output-format: "app"
             runs-on: "macos-latest"
+            # Commented because we need the self-certificate first.
+            #filename: dist/*.dmg
 
     steps:
       - name: Checkout
@@ -103,3 +105,11 @@ jobs:
         with:
           name: Log-Failure-${{ matrix.target }}
           path: logs/*
+
+      - name: Release upload
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file_glob: true
+          file: ${{ matrix.filename }}
+          tag: ${{ github.ref }}
