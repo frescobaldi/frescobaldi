@@ -89,6 +89,7 @@ requires = [
 [tool.briefcase.app.frescobaldi]
 formal_name = "Frescobaldi"
 description = "Write LilyPond music sheets"
+long_description = "Frescobaldi is an advanced text editor to edit LilyPond sheet music files. It aims to be powerful, yet lightweight and easy to use."
 sources = ['frescobaldi']
 icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
 
