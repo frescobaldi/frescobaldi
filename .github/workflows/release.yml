@@ -1,13 +1,11 @@
 name: Frescobaldi release
+# This action is intended to be run on releases, but the
+# manual trigger (workflow_dispatch) might be useful
+# to test the packages before a release.
 on:
-  push:
-    tags:
-      - 'v[0-9].[0-9]+.[0-9]+'
-
-# Cancel active CI runs for a PR before starting another run
-concurrency:
-  group: ${{ github.workflow}}-${{ github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  workflow_dispatch:
+  release:
+    types: [published]
 
 env:
   FORCE_COLOR: "1"
@@ -107,6 +105,7 @@ jobs:
           path: logs/*
 
       - name: Release upload
+        if: github.event.release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
