@@ -2,6 +2,13 @@
 
 Here you can configure how LilyPond is run when you engrave your document.
 
+Clicking Add… button will display a pop-up menu listing the latest stable
+and the latest unstable releases of LilyPond. Clicking one of them will
+automatically download the chosen LilyPond version and install it on your system.
+If the version is already installed on your system, it is shown as grayed.
+Clicking Other… will display another pop-up menu listing some older versions of
+the stable and unstable branches.
+
 If you have multiple versions of LilyPond installed you can specify them 
 here, and configure Frescobaldi to automatically choose the right one, based 
 on the version number that is set in the document. See {link}.
