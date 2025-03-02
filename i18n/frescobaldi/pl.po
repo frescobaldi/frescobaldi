@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Frescobaldi 4.0.0\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
 "POT-Creation-Date: 2023-10-26 16:31+0200\n"
-"PO-Revision-Date: 2025-02-12 00:00+0000\n"
+"PO-Revision-Date: 2025-03-02 00:00+0000\n"
 "Last-Translator: Grzegorz Pruchniakowski <grzegorz.pruchniakowski@gmail.com>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "Language: pl\n"
@@ -2719,7 +2719,7 @@ msgstr "Kolejka zadań nie została wstrzymana, nie można jej wznowić."
 
 #: ../../frescobaldi_app/job/queue.py:482
 msgid "Can't (re)start a finished/aborted Job Queue."
-msgstr ""
+msgstr "Nie można (ponownie) uruchomić zakończonej/przerwanej kolejki zadań."
 
 #: ../../frescobaldi_app/job/queue.py:485
 msgid "Queue already started."
@@ -2782,11 +2782,12 @@ msgstr "Wyświetl informacje w kolumnach papieru"
 
 #: ../../frescobaldi_app/layoutcontrol/__init__.py:57
 msgid "Display Skylines"
-msgstr ""
+msgstr "Wyświetlaj granice wydłużeń"
 
 #: ../../frescobaldi_app/layoutcontrol/__init__.py:58
 msgid "Display the skylines that LilyPond uses to detect collisions."
 msgstr ""
+"Wyświetlaj granice wydłużeń, na podstawie których LilyPond wykrywa kolizje."
 
 #: ../../frescobaldi_app/layoutcontrol/__init__.py:62
 msgid "Color \\voiceXXX"
@@ -3173,6 +3174,15 @@ msgid ""
 "\n"
 "(If you are unsure, the answer is likely no.)"
 msgstr ""
+"Zgodnie z Twoimi ustawieniami, zamierzasz wydrukować plik bezpośrednio do "
+"CUPS.\n"
+"Jest to niezalecane w systemie macOS, ponieważ w tym przypadku ustawienia "
+"okna drukowania systemowego są ignorowane.\n"
+"Możesz wyłączyć tę opcję w Ustawieniach partytury.\n"
+"\n"
+"Na pewno chcesz drukować do CUPS?\n"
+"\n"
+"(Jeśli nie jesteś pewien, odpowiedź prawdopodobnie brzmi nie.)"
 
 #: ../../frescobaldi_app/musicview/__init__.py:265
 #: ../../frescobaldi_app/viewers/__init__.py:340
@@ -3369,6 +3379,9 @@ msgid ""
 "expression without startpitch is absolute. Otherwise, Frescobaldi\n"
 "only assumes this when the LilyPond version is >= 2.18."
 msgstr ""
+"Jeśli zaznaczone, zawsze zakładaj, że pierwsza wysokość wyrażenia\n"
+"\\relative {...} bez wysokości początkowej jest bezwzględna. W przeciwnym\n"
+"razie Frescobaldi zakłada to tylko wtedy, gdy wersja LilyPond jest >= 2.18."
 
 #: ../../frescobaldi_app/pitch/__init__.py:192
 msgid "Write \\relative with startpitch"
@@ -4862,6 +4875,9 @@ msgid ""
 "library for PDF rendering on screen. The Arthur backend is faster\n"
 "than the default Splash backend, but more experimental."
 msgstr ""
+"Jeśli zaznaczone, Frescobaldi użyje backendu Arthur biblioteki Poppler do\n"
+"renderowania PDF na ekranie. Backend Arthur jest szybszy niż domyślny\n"
+"backend Splash, ale bardziej eksperymentalny."
 
 #: ../../frescobaldi_app/preferences/musicviewers.py:114
 msgid "Display of Music"
@@ -4909,6 +4925,10 @@ msgid ""
 "is that it is vector-based, in contrast to the default Splash backend,\n"
 "which is raster-based. But Arthur is more experimental."
 msgstr ""
+"Jeśli zaznaczone, Frescobaldi użyje backendu Arthur biblioteki Poppler do\n"
+"renderowania PDF na ekranie. Dużą zaletą backendu Arthur jest to, że jest\n"
+"oparty na wektorach, w przeciwieństwie do domyślnego backendu Splash,\n"
+"który jest oparty na rastrze. Ale Arthur jest bardziej eksperymentalny."
 
 #: ../../frescobaldi_app/preferences/musicviewers.py:184
 msgid "Print PDF documents directly to CUPS if available."
@@ -5548,6 +5568,9 @@ msgid ""
 "current note or selected music.</p>\n"
 "<p>See {link} for more information.</p>"
 msgstr ""
+"<p>Dzięki panelowi Szybkie wstawianie możesz dodawać różne elementy muzyczne "
+"do bieżącej nuty lub zaznaczonego fragmentu partytury.</p>\n"
+"<p>Zobacz {link}, aby uzyskać więcej informacji.</p>"
 
 #: ../../frescobaldi_app/quickinsert/widget.py:107
 msgid "Direction:"
@@ -7692,15 +7715,15 @@ msgstr "Pusty"
 #: ../../frescobaldi_app/snippet/edit.py:126
 #: ../../frescobaldi_app/snippet/insert.py:251
 msgid "Edit Snippet"
-msgstr "Edytuj wstawkę"
+msgstr "Edytuj fragment kodu"
 
 #: ../../frescobaldi_app/snippet/edit.py:126
 msgid "New Snippet"
-msgstr "Nowa wstawka"
+msgstr "Nowy fragment kodu"
 
 #: ../../frescobaldi_app/snippet/edit.py:128
 msgid "Snippet Text:"
-msgstr "Tekst wstawki:"
+msgstr "Tekst fragmentu kodu:"
 
 #: ../../frescobaldi_app/snippet/edit.py:129
 msgid "Title:"
@@ -7712,18 +7735,18 @@ msgstr "Skrót:"
 
 #: ../../frescobaldi_app/snippet/edit.py:137
 msgid "Empty Snippet"
-msgstr "Pusta wstawka"
+msgstr "Pusty fragment kodu"
 
 #: ../../frescobaldi_app/snippet/edit.py:138
 msgid "A snippet can't be empty."
-msgstr "Wstawka nie może być pusta."
+msgstr "Fragment kodu nie może być pusty."
 
 #: ../../frescobaldi_app/snippet/edit.py:143
 msgid ""
 "The snippet has been modified.\n"
 "Do you want to save your changes or discard them?"
 msgstr ""
-"Wstawka została zmodyfikowana.\n"
+"Fragment kodu został zmodyfikowany.\n"
 "Chcesz zapisać zmiany czy je porzucić?"
 
 #: ../../frescobaldi_app/snippet/edit.py:230
@@ -7732,25 +7755,25 @@ msgstr "Kliknij, aby zmienić skróty klawiaturowe."
 
 #: ../../frescobaldi_app/snippet/import_export.py:103
 msgid "No snippets found."
-msgstr "Nie znaleziono wstawek."
+msgstr "Nie znaleziono fragmentów kodu."
 
 #: ../../frescobaldi_app/snippet/import_export.py:113
 #: ../../frescobaldi_app/snippet/widget.py:300
 msgctxt "dialog title"
 msgid "Import Snippets"
-msgstr "Importuj wstawki"
+msgstr "Importuj fragmenty kodu"
 
 #: ../../frescobaldi_app/snippet/import_export.py:122
 msgid "New Snippets"
-msgstr "Nowe wstawki"
+msgstr "Nowe fragmenty kodu"
 
 #: ../../frescobaldi_app/snippet/import_export.py:123
 msgid "Updated Snippets"
-msgstr "Zaktualizowano wstawki"
+msgstr "Zaktualizowano fragmenty kodu"
 
 #: ../../frescobaldi_app/snippet/import_export.py:124
 msgid "Unchanged Snippets"
-msgstr "Nie zmieniono wstawek"
+msgstr "Nie zmieniono fragmentów kodu"
 
 #: ../../frescobaldi_app/snippet/import_export.py:186
 msgid "Import Keyboard Shortcuts"
@@ -7758,11 +7781,11 @@ msgstr "Importuj skróty klawiaturowe"
 
 #: ../../frescobaldi_app/snippet/import_export.py:191
 msgid "Choose which snippets you want to import:"
-msgstr "Wybierz wstawkę, którą chcesz zaimportować:"
+msgstr "Wybierz fragmenty kodu, które chcesz zaimportować:"
 
 #: ../../frescobaldi_app/snippet/import_export.py:193
 msgid "There are no new or updated snippets in the file."
-msgstr "W pliku nie ma żadnych nowych ani zaktualizowanych wstawek."
+msgstr "W pliku nie ma żadnych nowych ani zaktualizowanych fragmentów kodu."
 
 #: ../../frescobaldi_app/snippet/import_export.py:197
 #, python-brace-format
@@ -7773,15 +7796,21 @@ msgid ""
 "import all the selected snippets.</p>\n"
 "<p>Existing, unchanged snippets can't be imported.</p>\n"
 msgstr ""
+"<p>Tutaj wyświetlane są fragmenty kodu z {filename}.</p>\n"
+"<p>Jeśli są nowe lub zaktualizowane fragmenty kodu, możesz je zaznaczyć lub "
+"odznaczyć pojedynczo lub wszystkie naraz, używając pola wyboru grupy. "
+"Następnie kliknij OK, aby zaimportować wszystkie zaznaczone fragmenty "
+"kodu.</p>\n"
+"<p>Istniejących, niezmienionych fragmentów kodu nie można zaimportować.</p>\n"
 
 #: ../../frescobaldi_app/snippet/insert.py:249
 msgid "Snippet error"
-msgstr "Błąd wstawki"
+msgstr "Błąd fragmentu kodu"
 
 #: ../../frescobaldi_app/snippet/menu.py:119
 msgctxt "menu title"
 msgid "Sn&ippets"
-msgstr "W&stawki"
+msgstr "Fragmenty ko&du"
 
 #: ../../frescobaldi_app/snippet/menu.py:152
 msgid "New"
@@ -7790,7 +7819,7 @@ msgstr "Nowy"
 #: ../../frescobaldi_app/snippet/restore.py:61
 msgctxt "dialog title"
 msgid "Restore Built-in Snippets"
-msgstr "Przywróć wstawki wbudowane"
+msgstr "Przywróć wbudowane fragmenty kodu"
 
 #: ../../frescobaldi_app/snippet/restore.py:63
 msgid ""
@@ -7798,18 +7827,21 @@ msgid ""
 "or deleted. Check the snippets you want to recover and click the button "
 "\"Restore Checked Snippets.\""
 msgstr ""
+"To okno dialogowe umożliwia odzyskanie wbudowanych fragmentów kodu, które "
+"zostały zmienione lub usunięte. Zaznacz fragmenty kodu, które chcesz "
+"odzyskać i kliknij przycisk \"Przywróć zaznaczone fragmenty kodu\"."
 
 #: ../../frescobaldi_app/snippet/restore.py:66
 msgid "Restore Checked Snippets"
-msgstr "Przywróć zaznaczone wstawki"
+msgstr "Przywróć zaznaczone fragmenty kodu"
 
 #: ../../frescobaldi_app/snippet/restore.py:67
 msgid "Deleted Snippets"
-msgstr "Usunięto wstawki"
+msgstr "Usunięto fragmenty kodu"
 
 #: ../../frescobaldi_app/snippet/restore.py:68
 msgid "Changed Snippets"
-msgstr "Zmieniono wstawki"
+msgstr "Zmieniono fragmenty kodu"
 
 #: ../../frescobaldi_app/snippet/template.py:41
 msgid "Save as Template"
@@ -7841,11 +7873,11 @@ msgstr ""
 #: ../../frescobaldi_app/snippet/tool.py:57
 #: ../../frescobaldi_app/snippet/tool.py:152
 msgid "Snippets"
-msgstr "Wstawki"
+msgstr "Fragmenty kodu"
 
 #: ../../frescobaldi_app/snippet/tool.py:58
 msgid "&Snippets"
-msgstr "W&stawki"
+msgstr "F&ragmenty kodu"
 
 #: ../../frescobaldi_app/snippet/tool.py:102
 msgid "Save as Template..."
@@ -7853,7 +7885,7 @@ msgstr "Zapisz jako szablon..."
 
 #: ../../frescobaldi_app/snippet/tool.py:103
 msgid "Copy to &Snippet..."
-msgstr "Kopiuj do w&stawki..."
+msgstr "Kopiuj do f&ragmentu kodu..."
 
 #: ../../frescobaldi_app/snippet/tool.py:104
 msgid "Manage Templates..."
@@ -7861,7 +7893,7 @@ msgstr "Zarządzaj szablonami..."
 
 #: ../../frescobaldi_app/snippet/tool.py:105
 msgid "Manage &Snippets..."
-msgstr "Zarządzaj w&stawkami..."
+msgstr "Za&rządzaj fragmentami kodu..."
 
 #: ../../frescobaldi_app/snippet/widget.py:185
 #: ../../frescobaldi_app/widgets/schemeselector.py:91
@@ -7877,7 +7909,7 @@ msgstr "Dod&aj..."
 #: ../../frescobaldi_app/snippet/widget.py:188
 #, python-brace-format
 msgid "Add a new snippet. ({key})"
-msgstr "Dodaj nową wstawkę. ({key})"
+msgstr "Dodaj nowy fragment kodu. ({key})"
 
 #: ../../frescobaldi_app/snippet/widget.py:189
 #: ../../frescobaldi_app/widgets/listedit.py:72
@@ -7887,7 +7919,7 @@ msgstr "&Edytuj..."
 #: ../../frescobaldi_app/snippet/widget.py:191
 #, python-brace-format
 msgid "Edit the current snippet. ({key})"
-msgstr "Edytuj bieżącą wstawkę. ({key})"
+msgstr "Edytuj bieżący fragment kodu. ({key})"
 
 #: ../../frescobaldi_app/snippet/widget.py:192
 msgid "Configure Keyboard &Shortcut..."
@@ -7895,7 +7927,7 @@ msgstr "Konfiguruj &skrót klawiaturowy..."
 
 #: ../../frescobaldi_app/snippet/widget.py:194
 msgid "Remove the selected snippets."
-msgstr "Usuń zaznaczone wstawki."
+msgstr "Usuń zaznaczone fragmenty kodu."
 
 #: ../../frescobaldi_app/snippet/widget.py:195
 msgid "A&pply"
@@ -7903,23 +7935,23 @@ msgstr "&Zastosuj"
 
 #: ../../frescobaldi_app/snippet/widget.py:196
 msgid "Apply the current snippet."
-msgstr "Zastosuj bieżącą wstawkę."
+msgstr "Zastosuj bieżący fragment kodu."
 
 #: ../../frescobaldi_app/snippet/widget.py:198
 msgid "Import snippets from a file."
-msgstr "Importuj wstawkę z pliku."
+msgstr "Importuj fragmenty kodu z pliku."
 
 #: ../../frescobaldi_app/snippet/widget.py:200
 msgid "Export snippets to a file."
-msgstr "Eksportuj wstawkę do pliku."
+msgstr "Eksportuj fragmenty kodu do pliku."
 
 #: ../../frescobaldi_app/snippet/widget.py:201
 msgid "Restore &Built-in Snippets..."
-msgstr "Przywróć wstawki w&budowane..."
+msgstr "Przywróć w&budowane fragmenty kodu..."
 
 #: ../../frescobaldi_app/snippet/widget.py:203
 msgid "Restore deleted or changed built-in snippets."
-msgstr "Przywróć usunięte lub zmienione wstawki wbudowane."
+msgstr "Przywróć usunięte lub zmienione wbudowane fragmenty kodu."
 
 #: ../../frescobaldi_app/snippet/widget.py:204
 msgid "&Help"
@@ -7930,7 +7962,7 @@ msgid ""
 "Enter text to search in the snippets list.\n"
 "See \"What's This\" for more information."
 msgstr ""
-"Wpisz tekst, aby wyszukać go na liście wstawek.\n"
+"Wpisz tekst, aby wyszukać go na liście fragmentów kodu.\n"
 "Zobacz \"Co to jest\", aby uzyskać więcej informacji."
 
 #: ../../frescobaldi_app/snippet/widget.py:209
@@ -7938,8 +7970,8 @@ msgid ""
 "Enter text to search in the snippets list, and press Enter to apply the "
 "currently selected snippet."
 msgstr ""
-"Wpisz tekst, aby wyszukać go na liście wstawek. Naciśnij Enter, aby "
-"zastosować aktualnie wybraną wstawkę."
+"Wpisz tekst, aby wyszukać go na liście fragmentów kodu. Naciśnij Enter, aby "
+"zastosować aktualnie zaznaczony fragment kodu."
 
 #: ../../frescobaldi_app/snippet/widget.py:211
 #, python-brace-format
@@ -7948,7 +7980,7 @@ msgid ""
 "snippet, that snippet is selected."
 msgstr ""
 "Jeśli tekst wyszukiwania w pełni odpowiada wartości zmiennej '{name}' "
-"wstawki, wybrana zostaje ta wstawka."
+"fragmentu kodu, zaznaczony zostaje ten fragment kodu."
 
 #: ../../frescobaldi_app/snippet/widget.py:213
 msgid ""
@@ -7958,9 +7990,9 @@ msgid ""
 "contains the text after the space."
 msgstr ""
 "Jeśli tekst wyszukiwania zaczyna się od dwukropka ':', reszta tekstu "
-"wyszukiwania filtruje wstawki, które definiują daną zmienną. Po spacji można "
-"również wprowadzić wartość. Wstawki będą pasować, jeśli wartość danej "
-"zmiennej zawiera tekst po spacji."
+"wyszukiwania filtruje fragmenty kodu, które definiują daną zmienną. Po "
+"spacji można również wprowadzić wartość. Fragmenty kodu będą pasować, jeśli "
+"wartość danej zmiennej zawiera tekst po spacji."
 
 #: ../../frescobaldi_app/snippet/widget.py:218
 #, python-brace-format
@@ -7968,17 +8000,17 @@ msgid ""
 "E.g. entering {menu} will show all snippets that are displayed in the insert "
 "menu."
 msgstr ""
-"Np. po wpisaniu {menu} zostaną pokazane wszystkie wstawki wyświetlane w menu "
-"wstawiania."
+"Np. po wpisaniu {menu} zostaną pokazane wszystkie fragmenty kodu wyświetlane "
+"w menu wstawiania."
 
 #: ../../frescobaldi_app/snippet/widget.py:319
 #, python-brace-format
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
 msgid_plural "Export {num} Snippets"
-msgstr[0] "Eksportuj {num} wstawkę"
-msgstr[1] "Eksportuj {num} wstawki"
-msgstr[2] "Eksportuj {num} wstawek"
+msgstr[0] "Eksportuj {num} fragment kodu"
+msgstr[1] "Eksportuj {num} fragmenty kodu"
+msgstr[2] "Eksportuj {num} fragmentów kodu"
 
 #: ../../frescobaldi_app/svgview/__init__.py:55
 msgctxt "window title"
@@ -8056,11 +8088,15 @@ msgid ""
 "be working. Git support will be disabled. If you have Git installed, you can "
 "specify its location in the Preferences dialog."
 msgstr ""
+"Frescobaldi jest uruchamiany z repozytorium Git, ale Git wydaje się nie "
+"działać. Obsługa Git zostanie wyłączona. Jeśli masz zainstalowanego Git, "
+"możesz określić jego lokalizację w oknie dialogowym Ustawienia."
 
 #: ../../frescobaldi_app/vcs/gitrepo.py:45
 #, python-brace-format
 msgid "The given directory '{rootdir} doesn't seem to be a Git repository."
 msgstr ""
+"Podany katalog '{rootdir} najprawdopodobniej nie jest repozytorium Git."
 
 #: ../../frescobaldi_app/vcs/menu.py:45
 msgctxt "menu title"
@@ -8206,6 +8242,9 @@ msgid ""
 "from.</p>\n"
 "<p>See {link} for more information.</p>"
 msgstr ""
+"<p>Przeglądarka rękopisów wyświetla oryginalny rękopis, z którego się "
+"kopiuje.</p>\n"
+"<p>Zobacz {link}, aby uzyskać więcej informacji.</p>"
 
 #: ../../frescobaldi_app/widgets/keysequencewidget.py:60
 msgid "Start recording a key sequence."
@@ -8235,6 +8274,15 @@ msgid ""
 "Do you want to restart now?\n"
 "You can also save open files first and restart manually."
 msgstr ""
+"Operacja wymaga ponownego uruchomienia Frescobaldi:\n"
+"\n"
+"   {}\n"
+"\n"
+"Niektóre nowe funkcje mogą być niedostępne wcześniej, a aplikacja może nawet "
+"stać się niestabilna.\n"
+"\n"
+"Chcesz ponownie uruchomić teraz?\n"
+"Możesz również najpierw zapisać otwarte pliki i ponownie uruchomić ręcznie."
 
 #: ../../frescobaldi_app/widgets/schemeselector.py:90
 msgid "Scheme:"
@@ -9562,7 +9610,8 @@ msgstr ""
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:21
 msgid "Snippet Manager to store and apply text snippets, templates or scripts"
 msgstr ""
-"Menedżer wstawek do przechowywania i stosowania wstawek, szablonów i skryptów"
+"Menedżer fragmentów kodu do przechowywania i stosowania fragmentów kodu, "
+"szablonów i skryptów"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:22
 msgid ""
@@ -9632,7 +9681,7 @@ msgstr "Podświetlanie składni i automatyczne uzupełnianie"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:54
 msgid "Snippet manager and editor"
-msgstr "Menedżer i edytor wstawek"
+msgstr "Menedżer i edytor fragmentów kodu"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:58
 msgid "Score Wizard to quickly setup a music score"
