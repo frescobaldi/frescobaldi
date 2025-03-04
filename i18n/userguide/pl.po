@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frescobaldi 4.0.0\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2025-03-02 00:00+0000\n"
-"PO-Revision-Date: 2025-03-02 00:00+0000\n"
+"POT-Creation-Date: 2025-03-04 00:00+0000\n"
+"PO-Revision-Date: 2025-03-04 00:00+0000\n"
 "Last-Translator: Grzegorz Pruchniakowski <grzegorz.pruchniakowski@gmail.com>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "Language: pl\n"
@@ -516,7 +516,7 @@ msgstr "Wiele ulepszeń kodu i funkcji"
 
 #: ../../frescobaldi/userguide/credits.md:63
 msgid "work on proper Python 3 support"
-msgstr "praca nad poprawnym obsługą Pythona 3"
+msgstr "praca nad poprawną obsługą Pythona 3"
 
 #: ../../frescobaldi/userguide/credits.md:67
 msgid "Relative mode for MIDI capturing"
