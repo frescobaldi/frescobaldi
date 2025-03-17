@@ -31,12 +31,45 @@ jobs:
           - target: "macOS"
             output-format: "app"
             runs-on: "macos-latest"
-            # Commented because we need the self-certificate first.
-            #filename: dist/*.dmg
+            briefcase-package-args: "--identity '$CERTIFICATE_ID'"
+            filename: dist/*.dmg
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Import signing certificate on macOS
+        if: matrix.target == 'macOS'
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          CERTIFICATE_ID: ${{ secrets.CERTIFICATE_ID }}
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          BRIEFCASE_PASSWORD: ${{ secrets.BRIEFCASE_PASSWORD }}
+        run: |
+          # create variables
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          #PP_PATH=$RUNNER_TEMP/build_pp.provisionprofile
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          # import certificate and provisioning profile from secrets
+          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+          #echo -n "$BUILD_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+
+          # create temporary keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # import certificate to keychain
+          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+          # store app-specific password for notarization
+          xcrun notarytool store-credentials "briefcase-macOS-$TEAM_ID" --apple-id "$APPLE_ID" --team-id $TEAM_ID --password $BRIEFCASE_PASSWORD
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -49,11 +82,6 @@ jobs:
         run: |
           iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
           scoop install main/gettext
-
-      - name: Install macOS dependencies
-        if: matrix.target == 'macOS'
-        run: |
-          brew install gettext
 
       - name: Install python dependencies
         run: |
@@ -86,7 +114,7 @@ jobs:
           briefcase package \
             ${{ matrix.platform || matrix.target }} \
             ${{ matrix.output-format }} \
-            --update --adhoc-sign --no-input --log \
+            --update --no-input --log \
             ${{ matrix.briefcase-args }} \
             ${{ matrix.briefcase-package-args }}
 
@@ -112,3 +140,4 @@ jobs:
           file_glob: true
           file: ${{ matrix.filename }}
           tag: ${{ github.ref }}
+
