@@ -31,7 +31,7 @@ jobs:
           - target: "macOS"
             output-format: "app"
             runs-on: "macos-latest"
-            briefcase-package-args: "--identity '$CERTIFICATE_ID'"
+            briefcase-package-args: '--identity "$CERTIFICATE_ID"'
             filename: dist/*.dmg
 
     steps:
@@ -109,6 +109,8 @@ jobs:
             ${{ matrix.briefcase-build-args }}
 
       - name: Package Frescobaldi
+        env:
+          CERTIFICATE_ID: ${{ secrets.CERTIFICATE_ID }}
         run: |
           ${{ matrix.briefcase-package-prefix }} \
           briefcase package \
