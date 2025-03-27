@@ -24,17 +24,20 @@ jobs:
         target: ["Windows", "macOS", "macOS-Intel"]
         include:
           - target: "Windows"
+            platform: "windows"
             output-format: "app"
             runs-on: "windows-latest"
             filename: dist/*.msi
 
           - target: "macOS"
+            platform: "macOS"
             output-format: "app"
             runs-on: "macos-latest"
             briefcase-package-args: '--identity "$CERTIFICATE_ID"'
             filename: dist/*.dmg
 
           - target: "macOS-Intel"
+            platform: "macOS"
             output-format: "app"
             runs-on: "macos-13"
             briefcase-package-args: '--identity "$CERTIFICATE_ID"'
