@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: ["Windows", "macOS"]
+        target: ["Windows", "macOS", "macOS-Intel"]
         include:
           - target: "Windows"
             output-format: "app"
@@ -34,12 +34,18 @@ jobs:
             briefcase-package-args: '--identity "$CERTIFICATE_ID"'
             filename: dist/*.dmg
 
+          - target: "macOS-Intel"
+            output-format: "app"
+            runs-on: "macos-13"
+            briefcase-package-args: '--identity "$CERTIFICATE_ID"'
+            filename: dist/*.dmg
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Import signing certificate on macOS
-        if: matrix.target == 'macOS'
+        if: ${{ (matrix.target == 'macOS') || (matrix.target == 'macOS-Intel') }}
         env:
           BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
           P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
@@ -93,7 +99,7 @@ jobs:
           tox -e mo-generate
 
       - name: Build Frescobaldi translations on macOS
-        if: matrix.target == 'macOS'
+        if: ${{ (matrix.target == 'macOS') || (matrix.target == 'macOS-Intel') }}
         run: tox -e mo-generate
 
       - name: Build Frescobaldi
