@@ -9,6 +9,8 @@ on:
 
 env:
   FORCE_COLOR: "1"
+  # TODO: pick the Frescobaldi version from pyproject.toml?
+  RELEASE_VERSION: "4.0.0"
 
 defaults:
   run:
@@ -21,22 +23,62 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: ["Windows", "macOS"]
+        target: ["Windows", "macOS", "macOS-Intel"]
         include:
           - target: "Windows"
+            platform: "windows"
             output-format: "app"
             runs-on: "windows-latest"
             filename: dist/*.msi
 
           - target: "macOS"
+            platform: "macOS"
             output-format: "app"
             runs-on: "macos-latest"
-            # Commented because we need the self-certificate first.
-            #filename: dist/*.dmg
+            briefcase-package-args: '--identity "$CERTIFICATE_ID"'
+            filename: dist/Frescobaldi-$RELEASE_VERSION.dmg
+
+          - target: "macOS-Intel"
+            platform: "macOS"
+            output-format: "app"
+            runs-on: "macos-13"
+            briefcase-package-args: '--identity "$CERTIFICATE_ID"'
+            filename: dist/Frescobaldi-$RELEASE_VERSION-Intel.dmg
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Import signing certificate on macOS
+        if: ${{ (matrix.target == 'macOS') || (matrix.target == 'macOS-Intel') }}
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          CERTIFICATE_ID: ${{ secrets.CERTIFICATE_ID }}
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          BRIEFCASE_PASSWORD: ${{ secrets.BRIEFCASE_PASSWORD }}
+        run: |
+          # create variables
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          # import certificate from secrets
+          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+
+          # create temporary keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # import certificate to keychain
+          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+          # store app-specific password for notarization
+          xcrun notarytool store-credentials "briefcase-macOS-$TEAM_ID" --apple-id "$APPLE_ID" --team-id $TEAM_ID --password $BRIEFCASE_PASSWORD
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -50,11 +92,6 @@ jobs:
           iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
           scoop install main/gettext
 
-      - name: Install macOS dependencies
-        if: matrix.target == 'macOS'
-        run: |
-          brew install gettext
-
       - name: Install python dependencies
         run: |
           python -m pip install --upgrade pip setuptools wheel
@@ -67,7 +104,7 @@ jobs:
           tox -e mo-generate
 
       - name: Build Frescobaldi translations on macOS
-        if: matrix.target == 'macOS'
+        if: ${{ (matrix.target == 'macOS') || (matrix.target == 'macOS-Intel') }}
         run: tox -e mo-generate
 
       - name: Build Frescobaldi
@@ -81,14 +118,23 @@ jobs:
             ${{ matrix.briefcase-build-args }}
 
       - name: Package Frescobaldi
+        env:
+          CERTIFICATE_ID: ${{ secrets.CERTIFICATE_ID }}
         run: |
           ${{ matrix.briefcase-package-prefix }} \
           briefcase package \
             ${{ matrix.platform || matrix.target }} \
             ${{ matrix.output-format }} \
-            --update --adhoc-sign --no-input --log \
+            --update --no-input --log \
             ${{ matrix.briefcase-args }} \
             ${{ matrix.briefcase-package-args }}
+
+      # Briefcase generates Frescobaldi-$RELEASE_VERSION.dmg for
+      # both macOS builds. We want to rename the Intel .dmg before
+      # uploading it to Releases.
+      - name: Rename macOS-Intel .dmg file
+        if: matrix.target == 'macOS-Intel'
+        run: mv dist/Frescobaldi-$RELEASE_VERSION.dmg dist/Frescobaldi-$RELEASE_VERSION-Intel.dmg
 
       - name: Upload Frescobaldi
         uses: actions/upload-artifact@v4
@@ -112,3 +158,4 @@ jobs:
           file_glob: true
           file: ${{ matrix.filename }}
           tag: ${{ github.ref }}
+

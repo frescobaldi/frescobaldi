@@ -13,6 +13,7 @@ All notable changes to the Frescobaldi project are documented in this file.
 - Ported to PyQt6 (requires Qt >=6.6) (#1780).
 - Moved to current Python packaging tools (#1597, #1638).
 - Use standard gettext module (#1620).
+- Windows and macOS packages are now built with Briefcase (#1859 and #1887).
 - Updated translations: French, German, Italian and Polish.
 
 ### Added
