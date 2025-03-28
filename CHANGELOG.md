@@ -6,7 +6,7 @@ defined at the bottom of this file.
 
 All notable changes to the Frescobaldi project are documented in this file.
 
-## [4.0.0] - 2025-01-20
+## [4.0.0] - 2025-03-29
 
 ### Changed
 
