@@ -20,6 +20,11 @@ The following people contributed to {appname} (in alphabetical order):
 !@mr-bronson:
 : Encoding-related fixes and other improvements
 
+!Federico Bruni:
+: Linux freedesktop.org fixes,
+  maintainer of the flatpak package on Flathub,
+  Windows and macOS packages built with Briefcase
+
 !Christopher Bryan:
 : !_(Modal Transpose)_
 
