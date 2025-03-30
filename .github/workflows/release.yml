@@ -36,14 +36,14 @@ jobs:
             output-format: "app"
             runs-on: "macos-latest"
             briefcase-package-args: '--identity "$CERTIFICATE_ID"'
-            filename: dist/Frescobaldi-$RELEASE_VERSION.dmg
+            filename: dist/*.dmg
 
           - target: "macOS-Intel"
             platform: "macOS"
             output-format: "app"
             runs-on: "macos-13"
             briefcase-package-args: '--identity "$CERTIFICATE_ID"'
-            filename: dist/Frescobaldi-$RELEASE_VERSION-Intel.dmg
+            filename: dist/*.dmg
 
     steps:
       - name: Checkout
