@@ -103,7 +103,7 @@ def importTheme(filename, widget, schemeWidget):
 
     fontElt = root.find('font')
 
-    defaultfont = "Lucida Console" if platform.system() == "Windows" else "monospace"
+    defaultfont = "Consolas" if platform.system() == "Windows" else "monospace"
     if fontElt.get('fontFamily') in QFontDatabase.families():
         fontFamily = fontElt.get('fontFamily')
     else:
