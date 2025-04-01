@@ -6,6 +6,13 @@ defined at the bottom of this file.
 
 All notable changes to the Frescobaldi project are documented in this file.
 
+## 4.0.1
+
+### Fixed
+
+- Bold fonts are now supported in Windows (#1902).
+
+
 ## [4.0.0] - 2025-03-29
 
 ### Changed
