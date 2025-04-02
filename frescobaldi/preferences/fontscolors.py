@@ -408,7 +408,7 @@ class CustomAttributes(QGroupBox):
         """Returns our settings as a QTextCharFormat object."""
         f = QTextCharFormat()
         if self._tristate:
-            value = lambda checkbox: [False, None, True][checkbox.checkState()]
+            value = lambda checkbox: [False, None, True][checkbox.checkState().value]
         else:
             value = lambda checkbox: checkbox.isChecked()
         res = value(self.bold)
