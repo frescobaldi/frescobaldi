@@ -82,7 +82,7 @@ attr = "frescobaldi.appinfo.version"
 "*" = ["*~", ".git*"]
 
 [tool.briefcase]
-project_name = "Frescobaldi"
+project_name = "frescobaldi"
 bundle = "org.frescobaldi"
 # Briefcase does not support dynamic version yet.
 # https://github.com/beeware/briefcase/issues/474
