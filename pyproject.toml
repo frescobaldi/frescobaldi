@@ -7,7 +7,7 @@ name = "frescobaldi"
 description = "LilyPond Music Editor"
 authors = [{name = "Wilbert Berendsen", email = "info@frescobaldi.org"}]
 maintainers = [{name = "Wilbert Berendsen", email = "info@frescobaldi.org"}]
-license = {text = "GPL"}
+license = {text = "GPL-2.0-or-later"}
 requires-python = ">=3.8"
 dependencies = ["pyqt6>=6.6", "python-ly >= 0.9.5", "qpageview>=1.0.0"]
 dynamic = ["version"]
@@ -17,7 +17,6 @@ classifiers = [
     "Environment :: Win32 (MS Windows)",
     "Environment :: X11 Applications :: Qt",
     "Intended Audience :: End Users/Desktop",
-    "License :: OSI Approved :: GNU General Public License (GPL)",
     # Natural Language :: Chinese (Hong Kong) is not yet accepted by pypi
     #"Natural Language :: Chinese (Hong Kong)",
     "Natural Language :: Chinese (Simplified)",
@@ -70,6 +69,17 @@ include = ["frescobaldi*"]
 
 [tool.setuptools.dynamic.version]
 attr = "frescobaldi.appinfo.version"
+
+# Files not added by default in the wheel but needed on runtime.
+[tool.setuptools.package-data]
+"*" = [
+  "*.dic", "*.ily", "*.js", "*.ly", "*.md", "*.mo", "*.png", "*.svg",
+  "index.theme",
+  "svgview/background.html"
+]
+
+[tool.setuptools.exclude-package-data]
+"*" = ["*~", ".git*"]
 
 [tool.briefcase]
 project_name = "Frescobaldi"
