@@ -9,8 +9,6 @@ on:
 
 env:
   FORCE_COLOR: "1"
-  # TODO: pick the Frescobaldi version from pyproject.toml?
-  RELEASE_VERSION: "4.0.0"
 
 defaults:
   run:
@@ -129,17 +127,20 @@ jobs:
             ${{ matrix.briefcase-args }} \
             ${{ matrix.briefcase-package-args }}
 
-      # Briefcase generates Frescobaldi-$RELEASE_VERSION.dmg for
+      # Briefcase generates frescobaldi-$VERSION.dmg for
       # both macOS builds. We want to rename the Intel .dmg before
       # uploading it to Releases.
       - name: Rename macOS-Intel .dmg file
         if: matrix.target == 'macOS-Intel'
-        run: mv dist/Frescobaldi-$RELEASE_VERSION.dmg dist/Frescobaldi-$RELEASE_VERSION-Intel.dmg
+        run: |
+          export VERSION=`sed -n 's/^version = "\(.*\)"/\1/p' frescobaldi/appinfo.py`
+          echo $VERSION
+          mv dist/frescobaldi-$VERSION.dmg dist/frescobaldi-$VERSION-Intel.dmg
 
       - name: Upload Frescobaldi
         uses: actions/upload-artifact@v4
         with:
-          name: Frescobaldi-${{ matrix.target }}
+          name: frescobaldi-${{ matrix.target }}
           path: dist
           if-no-files-found: error
 
