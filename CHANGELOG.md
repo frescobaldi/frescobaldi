@@ -7,6 +7,9 @@ defined at the bottom of this file.
 All notable changes to the Frescobaldi project are documented in this file.
 Click on the version to see the complete list of commits in a release.
 
+## [unreleased]
+
+
 ## [4.0.1] - 2025-04-03
 
 ### Fixed
