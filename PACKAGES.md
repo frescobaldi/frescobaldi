@@ -2,7 +2,8 @@
 
 ## Versioning and release best practices
 
-Release versioning should follow [PEP 440](https://peps.python.org/pep-0440/).
+Release versioning should follow
+[Python versioning recommendations](https://packaging.python.org/en/latest/discussions/versioning/).
 
 The version number should be bumped right after a release and have a
 `.dev1` suffix to mark it as a developmental release.
@@ -46,9 +47,10 @@ git clone -b v4.0.0 git@github.com:frescobaldi/frescobaldi.git frescobaldi-4.0.0
 cd frescobaldi-4.0.0
 tox -e mo-generate
 tox -e linux-generate
-cd ..
-tar --exclude='.git*' --exclude='.tox' --exclude='i18n/__pycache__' -czvf frescobaldi-4.0.0.tar.gz frescobaldi-4.0.0
+python -m build
 ```
+
+The tarball will be saved as `dist/frescobaldi-4.0.0.tar.gz`.
 
 
 ## Briefcase
