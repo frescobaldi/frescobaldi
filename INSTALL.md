@@ -166,37 +166,6 @@ for certain features.
   `pipx inject frescobaldi pycups`.
 
 
-
-## "Freeze" installer
-
-
-The freeze.py script can create a self-contained Windows-installer, bundling all
-of Python, PyQt6 and pypm (from pygame) when used on MS Windows.
-To use the script you need cx_Freeze and Inno Setup.
-
-
-## macOS application bundle
-
-The macos/mac-app.py script can build an application bundle on macOS.
-To see the usage notes, run:
-
-    python macos/mac-app.py -h
-
-The application bundle will be created inside a 'dist' folder in the current
-working directory.
-The script can build both a non-standalone system-dependent launcher and an
-**almost** standalone self-contained application bundle (the script will print
-instructions on the further steps needed to get a **fully** standalone
-self-contained application bundle).
-To use the script you need argparse (included in Python >= 2.7) and py2app.
-
-A macos/build-dmg.sh script is provided to build the **fully** standalone
-application bundle and wrap it in a distributable DMG disk image along with
-the README and COPYING files.
-The script assumes a specific system configuration (for details run the script
-with the '-h' option), but can be easily adapted to other configurations.
-
-
 ## For Linux distribution packagers
 
 See above for the dependencies that need to be installed.
