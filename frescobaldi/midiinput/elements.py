@@ -28,7 +28,7 @@ class Note:
         else:
             pitch = self._pitch
         # also octavecheck if Shift is held
-        return pitch.output(language) + (('='+ly.pitch.octaveToString(self._pitch.octave)) if QApplication.keyboardModifiers() & Qt.Modifier.SHIFT else '')
+        return pitch.output(language) + (('='+ly.pitch.octaveToString(self._pitch.octave)) if QApplication.keyboardModifiers() & Qt.KeyboardModifier.ShiftModifier else '')
 
     def midinote(self):
         return self._midinote
