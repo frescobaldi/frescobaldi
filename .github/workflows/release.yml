@@ -127,7 +127,7 @@ jobs:
             ${{ matrix.briefcase-args }} \
             ${{ matrix.briefcase-package-args }}
 
-      # Briefcase generates frescobaldi-$VERSION.dmg for
+      # Briefcase generates Frescobaldi-$VERSION.dmg for
       # both macOS builds. We want to rename the Intel .dmg before
       # uploading it to Releases.
       - name: Rename macOS-Intel .dmg file
@@ -135,7 +135,7 @@ jobs:
         run: |
           export VERSION=`sed -n 's/^version = "\(.*\)"/\1/p' frescobaldi/appinfo.py`
           echo $VERSION
-          mv dist/frescobaldi-$VERSION.dmg dist/frescobaldi-$VERSION-Intel.dmg
+          mv dist/Frescobaldi-$VERSION.dmg dist/Frescobaldi-$VERSION-Intel.dmg
 
       - name: Upload Frescobaldi
         uses: actions/upload-artifact@v4
