@@ -188,13 +188,3 @@ Guidelines for writing GUI texts
 * Avoid hard line breaks (<br>) in any texts: use short paragraphs instead
 * Use named format fields: not "page {0} of {1}" but "page {num} of {total}"
 * Don't change existing strings just for cosmetics, it breaks translations
-
-
-New release checklist
-=====================
-
-Checklist before making a new release:
-
-- Bump the version in `frescobaldi/appinfo.py`.
-- Add the release date in `CHANGELOG.md` and `linux/org.frescobaldi.Frescobaldi.metainfo.xml.in`.
-- Update the list of contributors in `frescobaldi/userguide/credits.md`.
