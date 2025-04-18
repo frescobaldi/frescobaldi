@@ -58,14 +58,18 @@ class MusicView(preferences.Group):
         layout = QGridLayout()
         self.setLayout(layout)
 
+        self.newerFilesOnly = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.newerFilesOnly, 0, 0)
+        self.documentProperties = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.documentProperties, 0, 1)
         self.enableKineticScrolling = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.enableKineticScrolling, 0, 0)
+        layout.addWidget(self.enableKineticScrolling, 1, 0)
         self.showScrollbars = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.showScrollbars, 0, 1)
+        layout.addWidget(self.showScrollbars, 1, 1)
         self.enableStrictPaging = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.enableStrictPaging, 0, 2)
+        layout.addWidget(self.enableStrictPaging, 2, 0)
         self.showShadow = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.showShadow, 0, 3)
+        layout.addWidget(self.showShadow, 2, 1)
 
         self.magnifierSizeLabel = QLabel()
         self.magnifierSizeSlider = QSlider(Qt.Orientation.Horizontal, valueChanged=self.changed)
@@ -75,9 +79,9 @@ class MusicView(preferences.Group):
         self.magnifierSizeSpinBox.setRange(pagedview.Magnifier.MIN_SIZE, pagedview.Magnifier.MAX_SIZE)
         self.magnifierSizeSpinBox.valueChanged.connect(self.magnifierSizeSlider.setValue)
         self.magnifierSizeSlider.valueChanged.connect(self.magnifierSizeSpinBox.setValue)
-        layout.addWidget(self.magnifierSizeLabel, 1, 0)
-        layout.addWidget(self.magnifierSizeSlider, 1, 1, 1, 2)
-        layout.addWidget(self.magnifierSizeSpinBox, 1, 3)
+        layout.addWidget(self.magnifierSizeLabel, 3, 0)
+        layout.addWidget(self.magnifierSizeSlider, 3, 1, 1, 2)
+        layout.addWidget(self.magnifierSizeSpinBox, 3, 3)
 
         self.magnifierScaleLabel = QLabel()
         self.magnifierScaleSlider = QSlider(Qt.Orientation.Horizontal, valueChanged=self.changed)
@@ -87,19 +91,22 @@ class MusicView(preferences.Group):
         self.magnifierScaleSpinBox.setRange(50, 800)
         self.magnifierScaleSpinBox.valueChanged.connect(self.magnifierScaleSlider.setValue)
         self.magnifierScaleSlider.valueChanged.connect(self.magnifierScaleSpinBox.setValue)
-        layout.addWidget(self.magnifierScaleLabel, 2, 0)
-        layout.addWidget(self.magnifierScaleSlider, 2, 1, 1, 2)
-        layout.addWidget(self.magnifierScaleSpinBox, 2, 3)
-
-        self.newerFilesOnly = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.newerFilesOnly)
-
-        self.documentProperties = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.documentProperties)
+        layout.addWidget(self.magnifierScaleLabel, 4, 0)
+        layout.addWidget(self.magnifierScaleSlider, 4, 1, 1, 2)
+        layout.addWidget(self.magnifierScaleSpinBox, 4, 3)
 
         app.translateUI(self)
 
     def translateUI(self):
+        self.newerFilesOnly.setText(_("Only load updated documents"))
+        self.newerFilesOnly.setToolTip(_(
+            "If checked, Frescobaldi will not open PDF documents that are not\n"
+            "up-to-date (i.e. the source file has been modified later)."))
+        self.documentProperties.setText(_("Remember View settings per-document"))
+        self.documentProperties.setToolTip(_(
+            "If checked, every document in the Music View will remember its\n"
+            "own layout setting, zoom factor, etc. If unchecked, the View will\n"
+            "not change its settings when a different document is displayed."))
         # L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
         self.enableKineticScrolling.setText(_("Kinetic Scrolling"))
         self.showScrollbars.setText(_("Show Scrollbars"))
@@ -119,19 +126,12 @@ class MusicView(preferences.Group):
         self.magnifierScaleLabel.setToolTip(_(
             "Magnification of the magnifier."))
         self.magnifierScaleSpinBox.setSuffix(_("percent unit sign", "%"))
-        self.newerFilesOnly.setText(_("Only load updated PDF documents"))
-        self.newerFilesOnly.setToolTip(_(
-            "If checked, Frescobaldi will not open PDF documents that are not\n"
-            "up-to-date (i.e. the source file has been modified later)."))
-        self.documentProperties.setText(_("Remember View settings per-document"))
-        self.documentProperties.setToolTip(_(
-            "If checked, every document in the Music View will remember its\n"
-            "own layout setting, zoom factor, etc. If unchecked, the View will\n"
-            "not change its settings when a different document is displayed."))
 
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("musicview")
+        self.newerFilesOnly.setChecked(s.value("newer_files_only", True, bool))
+        self.documentProperties.setChecked(s.value("document_properties", True, bool))
         kineticScrollingActive = s.value("kinetic_scrolling", True, bool)
         self.enableKineticScrolling.setChecked(kineticScrollingActive)
         showScrollbars = s.value("show_scrollbars", True, bool)
@@ -142,20 +142,18 @@ class MusicView(preferences.Group):
         self.showShadow.setChecked(shadow)
         self.magnifierSizeSlider.setValue(s.value("magnifier/size", 350, int))
         self.magnifierScaleSlider.setValue(round(s.value("magnifier/scalef", 3.0, float) * 100))
-        self.newerFilesOnly.setChecked(s.value("newer_files_only", True, bool))
-        self.documentProperties.setChecked(s.value("document_properties", True, bool))
 
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("musicview")
+        s.setValue("newer_files_only", self.newerFilesOnly.isChecked())
+        s.setValue("document_properties", self.documentProperties.isChecked())
         s.setValue("kinetic_scrolling", self.enableKineticScrolling.isChecked())
         s.setValue("show_scrollbars", self.showScrollbars.isChecked())
         s.setValue("strict_paging", self.enableStrictPaging.isChecked())
         s.setValue("shadow", self.showShadow.isChecked())
         s.setValue("magnifier/size", self.magnifierSizeSlider.value())
         s.setValue("magnifier/scalef", self.magnifierScaleSlider.value() / 100.0)
-        s.setValue("newer_files_only", self.newerFilesOnly.isChecked())
-        s.setValue("document_properties", self.documentProperties.isChecked())
 
 
 class Printing(preferences.Group):
