@@ -28,15 +28,15 @@ import re
 from PyQt6.QtCore import QSettings, Qt
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import (
-    QAbstractItemView, QCheckBox, QComboBox, QDoubleSpinBox, QFontComboBox,
-    QGridLayout, QHBoxLayout, QLabel, QPushButton, QSlider, QSpinBox,
-    QVBoxLayout, QWidget)
+    QAbstractItemView, QButtonGroup, QCheckBox, QComboBox, QDoubleSpinBox,
+    QFontComboBox, QGridLayout, QHBoxLayout, QLabel, QPushButton, QRadioButton,
+    QSlider, QSpinBox, QVBoxLayout, QWidget)
 
 import app
 import qutil
 import preferences
 import pagedview
-import qpageview.cupsprinter
+import qpageview.constants
 
 
 class MusicViewers(preferences.ScrolledGroupsPage):
@@ -67,6 +67,41 @@ class MusicView(preferences.Group):
         self.showShadow = QCheckBox(toggled=self.changed)
         layout.addWidget(self.showShadow, 0, 3)
 
+        self.initialScaleLabel = QLabel()
+        layout.addWidget(self.initialScaleLabel, 1, 0)
+        self.viewModeGroup = QButtonGroup()
+        self.viewModeLayout = QHBoxLayout()
+        layout.addLayout(self.viewModeLayout, 1, 1, 1, 3)
+        self.viewFixedScale = QRadioButton(toggled=self.changed)
+        self.viewModeGroup.addButton(self.viewFixedScale)
+        self.viewModeGroup.setId(self.viewFixedScale, qpageview.constants.FixedScale)
+        self.viewModeLayout.addWidget(self.viewFixedScale)
+        self.viewFitHeight = QRadioButton(toggled=self.changed)
+        self.viewModeLayout.addWidget(self.viewFitHeight)
+        self.viewModeGroup.addButton(self.viewFitHeight)
+        self.viewModeGroup.setId(self.viewFitHeight, qpageview.constants.FitHeight)
+        self.viewFitWidth = QRadioButton(toggled=self.changed)
+        self.viewModeGroup.addButton(self.viewFitWidth)
+        self.viewModeGroup.setId(self.viewFitWidth, qpageview.constants.FitWidth)
+        self.viewModeLayout.addWidget(self.viewFitWidth)
+        self.viewFitBoth = QRadioButton(toggled=self.changed)
+        self.viewModeGroup.addButton(self.viewFitBoth)
+        self.viewModeGroup.setId(self.viewFitBoth, qpageview.constants.FitBoth)
+        self.viewModeLayout.addWidget(self.viewFitBoth)
+
+        self.initialScaleSlider = QSlider(Qt.Orientation.Horizontal, valueChanged=self.changed)
+        self.initialScaleSlider.setSingleStep(50)
+        self.initialScaleSlider.setRange(50, 800)
+        self.initialScaleSpinBox = QSpinBox()
+        self.initialScaleSpinBox.setRange(50, 800)
+        self.initialScaleSpinBox.valueChanged.connect(self.initialScaleSlider.setValue)
+        self.initialScaleSlider.valueChanged.connect(self.initialScaleSpinBox.setValue)
+        layout.addWidget(self.initialScaleSlider, 2, 1, 1, 2)
+        layout.addWidget(self.initialScaleSpinBox, 2, 3)
+
+        self.viewFixedScale.toggled.connect(self.initialScaleSlider.setEnabled)
+        self.viewFixedScale.toggled.connect(self.initialScaleSpinBox.setEnabled)
+
         self.magnifierSizeLabel = QLabel()
         self.magnifierSizeSlider = QSlider(Qt.Orientation.Horizontal, valueChanged=self.changed)
         self.magnifierSizeSlider.setSingleStep(50)
@@ -75,9 +110,9 @@ class MusicView(preferences.Group):
         self.magnifierSizeSpinBox.setRange(pagedview.Magnifier.MIN_SIZE, pagedview.Magnifier.MAX_SIZE)
         self.magnifierSizeSpinBox.valueChanged.connect(self.magnifierSizeSlider.setValue)
         self.magnifierSizeSlider.valueChanged.connect(self.magnifierSizeSpinBox.setValue)
-        layout.addWidget(self.magnifierSizeLabel, 1, 0)
-        layout.addWidget(self.magnifierSizeSlider, 1, 1, 1, 2)
-        layout.addWidget(self.magnifierSizeSpinBox, 1, 3)
+        layout.addWidget(self.magnifierSizeLabel, 3, 0)
+        layout.addWidget(self.magnifierSizeSlider, 3, 1, 1, 2)
+        layout.addWidget(self.magnifierSizeSpinBox, 3, 3)
 
         self.magnifierScaleLabel = QLabel()
         self.magnifierScaleSlider = QSlider(Qt.Orientation.Horizontal, valueChanged=self.changed)
@@ -87,9 +122,9 @@ class MusicView(preferences.Group):
         self.magnifierScaleSpinBox.setRange(50, 800)
         self.magnifierScaleSpinBox.valueChanged.connect(self.magnifierScaleSlider.setValue)
         self.magnifierScaleSlider.valueChanged.connect(self.magnifierScaleSpinBox.setValue)
-        layout.addWidget(self.magnifierScaleLabel, 2, 0)
-        layout.addWidget(self.magnifierScaleSlider, 2, 1, 1, 2)
-        layout.addWidget(self.magnifierScaleSpinBox, 2, 3)
+        layout.addWidget(self.magnifierScaleLabel, 4, 0)
+        layout.addWidget(self.magnifierScaleSlider, 4, 1, 1, 2)
+        layout.addWidget(self.magnifierScaleSpinBox, 4, 3)
 
         app.translateUI(self)
 
@@ -104,6 +139,14 @@ class MusicView(preferences.Group):
         self.showShadow.setToolTip(_(
             "If checked, Frescobaldi draws a shadow around the pages."))
         self.setTitle(_("Display of Music"))
+        self.initialScaleLabel.setText(_("Initial Scale:"))
+        self.initialScaleLabel.setToolTip(_(
+            "Initial scale when displaying a document."))
+        self.viewFixedScale.setText(_("Fixed Scale"))
+        self.viewFitHeight.setText(_("Fit Height"))
+        self.viewFitWidth.setText(_("Fit Width"))
+        self.viewFitBoth.setText(_("Fit Both"))
+        self.initialScaleSpinBox.setSuffix(_("percent unit sign", "%"))
         self.magnifierSizeLabel.setText(_("Magnifier Size:"))
         self.magnifierSizeLabel.setToolTip(_(
             "Size of the magnifier glass (Ctrl+Click in the Music View)."))
@@ -127,6 +170,15 @@ class MusicView(preferences.Group):
         self.showShadow.setChecked(shadow)
         self.magnifierSizeSlider.setValue(s.value("magnifier/size", 350, int))
         self.magnifierScaleSlider.setValue(round(s.value("magnifier/scalef", 3.0, float) * 100))
+        # These are from qpageview.view.ViewProperties
+        v = s.value("viewMode", -1, int)
+        b = self.viewModeGroup.button(v)
+        if b:
+            b.setChecked(True)
+        if v != qpageview.constants.FixedScale:
+            self.initialScaleSlider.setEnabled(False)
+            self.initialScaleSpinBox.setEnabled(False)
+        self.initialScaleSlider.setValue(round(s.value("zoomFactor", 1.0, float) * 100))
 
     def saveSettings(self):
         s = QSettings()
@@ -137,6 +189,9 @@ class MusicView(preferences.Group):
         s.setValue("shadow", self.showShadow.isChecked())
         s.setValue("magnifier/size", self.magnifierSizeSlider.value())
         s.setValue("magnifier/scalef", self.magnifierScaleSlider.value() / 100.0)
+        # These are from qpageview.view.ViewProperties
+        s.setValue("viewMode", self.viewModeGroup.checkedId())
+        s.setValue("zoomFactor", self.initialScaleSlider.value() / 100.0)
 
 
 class Printing(preferences.Group):
