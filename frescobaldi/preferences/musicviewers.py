@@ -145,7 +145,7 @@ class MusicView(preferences.Group):
         self.viewFixedScale.setText(_("Fixed Scale"))
         self.viewFitHeight.setText(_("Fit Height"))
         self.viewFitWidth.setText(_("Fit Width"))
-        self.viewFitBoth.setText(_("Fit Both"))
+        self.viewFitBoth.setText(_("Fit Page")) # to match the Music menu
         self.initialScaleSpinBox.setSuffix(_("percent unit sign", "%"))
         self.magnifierSizeLabel.setText(_("Magnifier Size:"))
         self.magnifierSizeLabel.setToolTip(_(
