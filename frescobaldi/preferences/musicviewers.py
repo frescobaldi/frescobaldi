@@ -126,19 +126,35 @@ class MusicView(preferences.Group):
         layout.addWidget(self.magnifierScaleSlider, 4, 1, 1, 2)
         layout.addWidget(self.magnifierScaleSpinBox, 4, 3)
 
+        self.pageLayoutLabel = QLabel()
+        layout.addWidget(self.pageLayoutLabel, 5, 0)
+        self.pageLayoutGroup = QButtonGroup()
+        self.pageLayoutSingle = QRadioButton(toggled=self.changed)
+        self.pageLayoutGroup.addButton(self.pageLayoutSingle)
+        layout.addWidget(self.pageLayoutSingle, 5, 1, 1, 3)
+        self.pageLayoutDoubleRight = QRadioButton(toggled=self.changed)
+        self.pageLayoutGroup.addButton(self.pageLayoutDoubleRight)
+        layout.addWidget(self.pageLayoutDoubleRight, 6, 1, 1, 3)
+        self.pageLayoutDoubleLeft = QRadioButton(toggled=self.changed)
+        self.pageLayoutGroup.addButton(self.pageLayoutDoubleLeft)
+        layout.addWidget(self.pageLayoutDoubleLeft, 7, 1, 1, 3)
+        self.pageLayoutRaster = QRadioButton(toggled=self.changed)
+        self.pageLayoutGroup.addButton(self.pageLayoutRaster)
+        layout.addWidget(self.pageLayoutRaster, 8, 1, 1, 3)
+
         self.orientationLabel = QLabel()
-        layout.addWidget(self.orientationLabel, 5, 0)
+        layout.addWidget(self.orientationLabel, 9, 0)
         self.orientationGroup = QButtonGroup()
         self.orientationHorizontal = QRadioButton(toggled=self.changed)
         self.orientationGroup.addButton(self.orientationHorizontal)
         self.orientationGroup.setId(self.orientationHorizontal, qpageview.constants.Horizontal)
-        layout.addWidget(self.orientationHorizontal, 5, 1)
+        layout.addWidget(self.orientationHorizontal, 9, 1)
         self.orientationVertical = QRadioButton(toggled=self.changed)
         self.orientationGroup.addButton(self.orientationVertical)
         self.orientationGroup.setId(self.orientationVertical, qpageview.constants.Vertical)
-        layout.addWidget(self.orientationVertical, 5, 2)
+        layout.addWidget(self.orientationVertical, 9, 2)
         self.continuousMode = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.continuousMode, 5, 3)
+        layout.addWidget(self.continuousMode, 9, 3)
 
         app.translateUI(self)
 
@@ -174,6 +190,11 @@ class MusicView(preferences.Group):
         self.orientationHorizontal.setText(_("Horizontal"))
         self.orientationVertical.setText(_("Vertical"))
         self.continuousMode.setText(_("Continuous"))
+        self.pageLayoutLabel.setText(_("Page Layout:"))
+        self.pageLayoutSingle.setText(_("Single"))
+        self.pageLayoutDoubleRight.setText(_("Two Pages (first page right)"))
+        self.pageLayoutDoubleLeft.setText(_("Two Pages (first page left)"))
+        self.pageLayoutRaster.setText(_("Raster"))
 
     def loadSettings(self):
         s = QSettings()
@@ -202,6 +223,15 @@ class MusicView(preferences.Group):
         if b:
             b.setChecked(True)
         self.continuousMode.setChecked(s.value("continuousMode", True, bool))
+        v = s.value("pageLayoutMode", "single")
+        if v == "single":
+            self.pageLayoutSingle.setChecked(True)
+        elif v == "double_right":
+            self.pageLayoutDoubleRight.setChecked(True)
+        elif v == "double_left":
+            self.pageLayoutDoubleLeft.setChecked(True)
+        elif v == "raster":
+            self.pageLayoutRaster.setChecked(True)
 
     def saveSettings(self):
         s = QSettings()
@@ -217,6 +247,14 @@ class MusicView(preferences.Group):
         s.setValue("zoomFactor", self.initialScaleSlider.value() / 100.0)
         s.setValue("orientation", self.orientationGroup.checkedId())
         s.setValue("continuousMode", self.continuousMode.isChecked())
+        if self.pageLayoutSingle.isChecked():
+            s.setValue("pageLayoutMode", "single")
+        elif self.pageLayoutDoubleRight.isChecked():
+            s.setValue("pageLayoutMode", "double_right")
+        elif self.pageLayoutDoubleLeft.isChecked():
+            s.setValue("pageLayoutMode", "double_left")
+        elif self.pageLayoutRaster.isChecked():
+            s.setValue("pageLayoutMode", "raster")
 
 
 class Printing(preferences.Group):
