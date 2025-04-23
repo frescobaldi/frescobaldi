@@ -126,6 +126,20 @@ class MusicView(preferences.Group):
         layout.addWidget(self.magnifierScaleSlider, 4, 1, 1, 2)
         layout.addWidget(self.magnifierScaleSpinBox, 4, 3)
 
+        self.orientationLabel = QLabel()
+        layout.addWidget(self.orientationLabel, 5, 0)
+        self.orientationGroup = QButtonGroup()
+        self.orientationHorizontal = QRadioButton(toggled=self.changed)
+        self.orientationGroup.addButton(self.orientationHorizontal)
+        self.orientationGroup.setId(self.orientationHorizontal, qpageview.constants.Horizontal)
+        layout.addWidget(self.orientationHorizontal, 5, 1)
+        self.orientationVertical = QRadioButton(toggled=self.changed)
+        self.orientationGroup.addButton(self.orientationVertical)
+        self.orientationGroup.setId(self.orientationVertical, qpageview.constants.Vertical)
+        layout.addWidget(self.orientationVertical, 5, 2)
+        self.continuousMode = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.continuousMode, 5, 3)
+
         app.translateUI(self)
 
     def translateUI(self):
@@ -156,6 +170,10 @@ class MusicView(preferences.Group):
         self.magnifierScaleLabel.setToolTip(_(
             "Magnification of the magnifier."))
         self.magnifierScaleSpinBox.setSuffix(_("percent unit sign", "%"))
+        self.orientationLabel.setText(_("Scrolling:"))
+        self.orientationHorizontal.setText(_("Horizontal"))
+        self.orientationVertical.setText(_("Vertical"))
+        self.continuousMode.setText(_("Continuous"))
 
     def loadSettings(self):
         s = QSettings()
@@ -179,6 +197,11 @@ class MusicView(preferences.Group):
             self.initialScaleSlider.setEnabled(False)
             self.initialScaleSpinBox.setEnabled(False)
         self.initialScaleSlider.setValue(round(s.value("zoomFactor", 1.0, float) * 100))
+        v = s.value("orientation", -1, int)
+        b = self.orientationGroup.button(v)
+        if b:
+            b.setChecked(True)
+        self.continuousMode.setChecked(s.value("continuousMode", True, bool))
 
     def saveSettings(self):
         s = QSettings()
@@ -192,6 +215,8 @@ class MusicView(preferences.Group):
         # These are from qpageview.view.ViewProperties
         s.setValue("viewMode", self.viewModeGroup.checkedId())
         s.setValue("zoomFactor", self.initialScaleSlider.value() / 100.0)
+        s.setValue("orientation", self.orientationGroup.checkedId())
+        s.setValue("continuousMode", self.continuousMode.isChecked())
 
 
 class Printing(preferences.Group):
