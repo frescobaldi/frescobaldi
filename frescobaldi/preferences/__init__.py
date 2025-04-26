@@ -43,13 +43,13 @@ def pageorder():
     yield LilyPond
     yield MusicViewers
     yield Midi
-    yield Helpers
+    yield Editor
+    yield Tools
     yield Paths
     yield Documentation
     yield Shortcuts
-    yield Editor
     yield FontsColors
-    yield Tools
+    yield Helpers
     yield Extensions
 
 
@@ -190,7 +190,7 @@ class General(PrefsItemBase):
     help = "prefs_general"
     iconName = "preferences-system"
     def translateUI(self):
-        self.setText(_("General Preferences"))
+        self.setText(_("General"))
 
     def widget(self, dlg):
         from . import general
@@ -201,7 +201,7 @@ class MusicViewers(PrefsItemBase):
     help = "prefs_musicviewers"
     iconName = "Audio-x-generic"
     def translateUI(self):
-        self.setText(_("Music Preferences"))
+        self.setText(_("Music View"))
 
     def widget(self, dlg):
         from . import musicviewers
@@ -212,7 +212,7 @@ class LilyPond(PrefsItemBase):
     help = "prefs_lilypond"
     iconName = "lilypond-run"
     def translateUI(self):
-        self.setText(_("LilyPond Preferences"))
+        self.setText(_("LilyPond"))
 
     def widget(self, dlg):
         from . import lilypond
@@ -223,7 +223,7 @@ class Midi(PrefsItemBase):
     help = "prefs_midi"
     iconName = "audio-volume-medium"
     def translateUI(self):
-        self.setText(_("MIDI Settings"))
+        self.setText(_("MIDI"))
 
     def widget(self, dlg):
         from . import midi
@@ -234,7 +234,7 @@ class Helpers(PrefsItemBase):
     help = "prefs_helpers"
     iconName = "applications-other"
     def translateUI(self):
-        self.setText(_("Helper Applications"))
+        self.setText(_("Helper Apps"))
 
     def widget(self, dlg):
         from . import helpers
@@ -256,7 +256,7 @@ class Documentation(PrefsItemBase):
     help = "prefs_lilydoc"
     iconName = "help-contents"
     def translateUI(self):
-        self.setText(_("LilyPond Documentation"))
+        self.setText(_("LilyPond Docs"))
 
     def widget(self, dlg):
         from . import documentation
@@ -267,7 +267,7 @@ class Shortcuts(PrefsItemBase):
     help = "prefs_shortcuts"
     iconName = "preferences-desktop-keyboard-shortcuts"
     def translateUI(self):
-        self.setText(_("Keyboard Shortcuts"))
+        self.setText(_("Shortcuts"))
 
     def widget(self, dlg):
         from . import shortcuts
@@ -278,7 +278,7 @@ class Editor(PrefsItemBase):
     help = "prefs_editor"
     iconName = "document-properties"
     def translateUI(self):
-        self.setText(_("Editor Preferences"))
+        self.setText(_("Editor"))
 
     def widget(self, dlg):
         from . import editor
