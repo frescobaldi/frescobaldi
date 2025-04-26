@@ -11,13 +11,13 @@ prefs_general
 prefs_lilypond
 prefs_musicviewers
 prefs_midi
-prefs_helpers
+prefs_editor
+prefs_tools
 prefs_paths
 prefs_lilydoc
 prefs_shortcuts
-prefs_editor
 prefs_fontscolors
-prefs_tools
+prefs_helpers
 prefs_extensions
 
 #SEEALSO
