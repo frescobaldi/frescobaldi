@@ -8132,34 +8132,34 @@ msgstr ""
 
 #: ../../i18n/messages.py:61
 msgid "About Frescobaldi"
-msgstr ""
+msgstr "About Fresco JP"
 
 #: ../../i18n/messages.py:62
 #, fuzzy
 msgid "Preferences..."
-msgstr "設定(&e)…"
+msgstr "Prefs JP..."
 
 #: ../../i18n/messages.py:63
 msgid "Services"
-msgstr ""
+msgstr "Services JP"
 
 #: ../../i18n/messages.py:64
 msgid "Hide Frescobaldi"
-msgstr ""
+msgstr "Hide Fresco JP"
 
 #: ../../i18n/messages.py:65
 #, fuzzy
 msgid "Hide Others"
-msgstr "その他"
+msgstr "Hide Others JP"
 
 #: ../../i18n/messages.py:66
 #, fuzzy
 msgid "Show All"
-msgstr "ヘルプを表示"
+msgstr "Show All JP"
 
 #: ../../i18n/messages.py:67
 msgid "Quit Frescobaldi"
-msgstr ""
+msgstr "Quit Frescobaldi JP"
 
 #: ../../i18n/messages.py:70
 msgid "usage: "
