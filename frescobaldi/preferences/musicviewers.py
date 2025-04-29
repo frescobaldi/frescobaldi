@@ -413,7 +413,7 @@ class Printing(preferences.Group):
         self.setTitle(_("Printing"))
         self.resolutionLabel.setText(_("Resolution:"))
         self.resolution.setToolTip(_(
-            "Set the resolution if Frescobaldi prints using raster images."))
+            "Set the resolution to be sent to the printer."))
 
     def loadSettings(self):
         s = QSettings()

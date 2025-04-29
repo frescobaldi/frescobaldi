@@ -143,7 +143,7 @@ class General(preferences.Group):
                 w.update()
 
     def translateUI(self):
-        self.setTitle(_("General Preferences"))
+        self.setTitle(_("Language and Style"))
         self.langLabel.setText(_("Language:"))
         self.lang.setItemText(0, _("No Translation"))
         self.lang.setItemText(1, _("System Default Language (if available)"))

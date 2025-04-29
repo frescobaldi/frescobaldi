@@ -1,6 +1,6 @@
 === General Preferences ===
 
-Under *General Preferences*, you can choose in which language Frescobaldi's 
+Under *General* preferences, you can choose in which language Frescobaldi's
 user interface is translated, which user interface style you want to use, 
 and whether you want to use the built-in Tango iconset or to use the 
 system-wide configured icon set.
