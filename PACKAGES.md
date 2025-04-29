@@ -52,6 +52,12 @@ python -m build
 
 The tarball will be saved as `dist/frescobaldi-4.0.0.tar.gz`.
 
+The link for Linux packagers will be:
+
+```
+https://github.com/frescobaldi/frescobaldi/releases/download/v%{version}/frescobaldi-%{version}.tar.gz
+```
+
 
 ## Briefcase
 
