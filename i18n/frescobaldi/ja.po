@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 3.2\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2025-04-29 22:51+0200\n"
+"POT-Creation-Date: 2025-04-30 16:05+0200\n"
 "PO-Revision-Date: 2025-02-11 12:40+0900\n"
 "Last-Translator: Jun Tamura <j.tamura@me.com>\n"
 "Language-Team: Japanese\n"
@@ -8131,33 +8131,44 @@ msgid "Next"
 msgstr ""
 
 #: ../../i18n/messages.py:61
+#, fuzzy
+msgctxt "QMenuBar"
 msgid "About Frescobaldi"
 msgstr "About Fresco JP"
 
 #: ../../i18n/messages.py:62
 #, fuzzy
+msgctxt "QMenuItems"
 msgid "Preferences..."
 msgstr "Prefs JP..."
 
 #: ../../i18n/messages.py:63
+#, fuzzy
+msgctxt "QMenu"
 msgid "Services"
 msgstr "Services JP"
 
 #: ../../i18n/messages.py:64
+#, fuzzy
+msgctxt "QMenu"
 msgid "Hide Frescobaldi"
 msgstr "Hide Fresco JP"
 
 #: ../../i18n/messages.py:65
 #, fuzzy
+msgctxt "QMenuItems"
 msgid "Hide Others"
 msgstr "Hide Others JP"
 
 #: ../../i18n/messages.py:66
 #, fuzzy
+msgctxt "QMenuItem"
 msgid "Show All"
 msgstr "Show All JP"
 
 #: ../../i18n/messages.py:67
+#, fuzzy
+msgctxt "QAction"
 msgid "Quit Frescobaldi"
 msgstr "Quit Frescobaldi JP"
 
