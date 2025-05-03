@@ -9,10 +9,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Frescobaldi 4.0.0\n"
+"Project-Id-Version: Frescobaldi 4.0.1\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2025-02-17 12:09+0100\n"
-"PO-Revision-Date: 2025-03-14 16:44+0100\n"
+"POT-Creation-Date: 2025-05-04 00:07+0200\n"
+"PO-Revision-Date: 2025-05-04 00:19+0200\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -1414,7 +1414,7 @@ msgid "Show C&ompletions Popup"
 msgstr "Mostra la finestra dei c&ompletamenti"
 
 #: ../../frescobaldi/charmap/__init__.py:39
-#: ../../frescobaldi/preferences/tools.py:183
+#: ../../frescobaldi/preferences/tools.py:143
 msgid "Special Characters"
 msgstr "Caratteri speciali"
 
@@ -1488,7 +1488,8 @@ msgid "LilyPond Source"
 msgstr "Documento LilyPond sorgente"
 
 #: ../../frescobaldi/doclist/__init__.py:38
-#: ../../frescobaldi/preferences/tools.py:216
+#: ../../frescobaldi/preferences/musicviewers.py:74
+#: ../../frescobaldi/preferences/tools.py:176
 msgid "Documents"
 msgstr "Documenti"
 
@@ -1621,7 +1622,7 @@ msgid "Output Format:"
 msgstr "Formato di uscita:"
 
 #: ../../frescobaldi/engrave/custom.py:130
-#: ../../frescobaldi/preferences/musicviewers.py:160
+#: ../../frescobaldi/preferences/musicviewers.py:414
 msgid "Resolution:"
 msgstr "Risoluzione:"
 
@@ -2144,8 +2145,8 @@ msgstr "Lingua per i nomi delle note"
 #: ../../frescobaldi/file_import/musicxml.py:105
 #: ../../frescobaldi/preferences/documentation.py:117
 #: ../../frescobaldi/preferences/general.py:151
-#: ../../frescobaldi/preferences/tools.py:258
-#: ../../frescobaldi/preferences/tools.py:261
+#: ../../frescobaldi/preferences/tools.py:218
+#: ../../frescobaldi/preferences/tools.py:221
 #: ../../frescobaldi/scorewiz/settings.py:163
 #: ../../frescobaldi/scorewiz/settings.py:277
 #: ../../frescobaldi/scorewiz/settings.py:371
@@ -2839,7 +2840,7 @@ msgid "Filename to be included"
 msgstr "Nome del file da includere"
 
 #: ../../frescobaldi/logtool/__init__.py:49
-#: ../../frescobaldi/preferences/tools.py:89
+#: ../../frescobaldi/preferences/tools.py:88
 msgid "LilyPond Log"
 msgstr "Messaggi LilyPond"
 
@@ -3083,6 +3084,7 @@ msgid "Soft pedal"
 msgstr "Pedale una corda"
 
 #: ../../frescobaldi/miditool/__init__.py:50
+#: ../../frescobaldi/preferences/__init__.py:226
 msgid "MIDI"
 msgstr "MIDI"
 
@@ -3257,7 +3259,7 @@ msgid "Display the Y Offset"
 msgstr "Mostra lo spostamento di Y"
 
 #: ../../frescobaldi/outline/__init__.py:39
-#: ../../frescobaldi/preferences/tools.py:257
+#: ../../frescobaldi/preferences/tools.py:217
 msgid "Outline"
 msgstr "Struttura"
 
@@ -3454,42 +3456,40 @@ msgid "Preferences"
 msgstr "Preferenze"
 
 #: ../../frescobaldi/preferences/__init__.py:193
-#: ../../frescobaldi/preferences/general.py:146
-msgid "General Preferences"
-msgstr "Opzioni generali"
+#: ../../frescobaldi/preferences/lilypond.py:629
+msgid "General"
+msgstr "Generale"
 
 #: ../../frescobaldi/preferences/__init__.py:204
-msgid "Music Preferences"
-msgstr "Preferenze spartito"
+msgid "Music View"
+msgstr "Anteprima spartito"
 
 #: ../../frescobaldi/preferences/__init__.py:215
-msgid "LilyPond Preferences"
-msgstr "Preferenze LilyPond"
-
-#: ../../frescobaldi/preferences/__init__.py:226
-msgid "MIDI Settings"
-msgstr "Impostazioni MIDI"
+#: ../../frescobaldi/preferences/fontscolors.py:514
+#: ../../frescobaldi/preferences/lilypond.py:622
+#: ../../frescobaldi/scorewiz/settings.py:367
+msgid "LilyPond"
+msgstr "LilyPond"
 
 #: ../../frescobaldi/preferences/__init__.py:237
-#: ../../frescobaldi/preferences/helpers.py:82
-msgid "Helper Applications"
-msgstr "Applicazioni esterne"
+msgid "Helper Apps"
+msgstr "App esterne"
 
 #: ../../frescobaldi/preferences/__init__.py:248
 msgid "Paths"
 msgstr "Percorsi"
 
 #: ../../frescobaldi/preferences/__init__.py:259
-msgid "LilyPond Documentation"
-msgstr "Documentazione LilyPond"
+msgid "LilyPond Docs"
+msgstr "Manuali LilyPond"
 
 #: ../../frescobaldi/preferences/__init__.py:270
-msgid "Keyboard Shortcuts"
+msgid "Shortcuts"
 msgstr "Scorciatoie"
 
 #: ../../frescobaldi/preferences/__init__.py:281
-msgid "Editor Preferences"
-msgstr "Preferenze dell'editor"
+msgid "Editor"
+msgstr "Editor"
 
 #: ../../frescobaldi/preferences/__init__.py:292
 msgid "Fonts & Colors"
@@ -3524,8 +3524,8 @@ msgstr "Inglese (non tradotto)"
 
 #: ../../frescobaldi/preferences/documentation.py:119
 #: ../../frescobaldi/preferences/fontscolors.py:128
-#: ../../frescobaldi/preferences/tools.py:90
-#: ../../frescobaldi/preferences/tools.py:184
+#: ../../frescobaldi/preferences/tools.py:89
+#: ../../frescobaldi/preferences/tools.py:144
 msgid "Font:"
 msgstr "Carattere:"
 
@@ -4031,12 +4031,6 @@ msgstr "Escape"
 msgid "Comment"
 msgstr "Commento"
 
-#: ../../frescobaldi/preferences/fontscolors.py:514
-#: ../../frescobaldi/preferences/lilypond.py:622
-#: ../../frescobaldi/scorewiz/settings.py:367
-msgid "LilyPond"
-msgstr "LilyPond"
-
 #: ../../frescobaldi/preferences/fontscolors.py:515
 msgid "Pitch"
 msgstr "Nota"
@@ -4214,6 +4208,10 @@ msgstr "Blocco"
 #: ../../frescobaldi/preferences/fontscolors.py:579
 msgid "Verbatim"
 msgstr "Verbatim"
+
+#: ../../frescobaldi/preferences/general.py:146
+msgid "Language and Style"
+msgstr "Lingua e stile"
 
 #: ../../frescobaldi/preferences/general.py:147
 #: ../../frescobaldi/scorewiz/settings.py:295
@@ -4433,6 +4431,10 @@ msgstr "Shell:"
 msgid "Git:"
 msgstr "Git:"
 
+#: ../../frescobaldi/preferences/helpers.py:82
+msgid "Helper Applications"
+msgstr "Applicazioni esterne"
+
 #: ../../frescobaldi/preferences/helpers.py:84
 msgid ""
 "Below you can enter commands to open different file types. <code>$f</code> "
@@ -4609,10 +4611,6 @@ msgstr "Nome o percorso completo dell'eseguibile di LilyPond."
 #: ../../frescobaldi/preferences/lilypond.py:628
 msgid "Include in automatic version selection"
 msgstr "Abilita per la selezione automatica della versione"
-
-#: ../../frescobaldi/preferences/lilypond.py:629
-msgid "General"
-msgstr "Generale"
 
 #: ../../frescobaldi/preferences/lilypond.py:630
 msgid "Tool Commands"
@@ -4811,20 +4809,113 @@ msgstr ""
 "Valori piccoli portano a un riconoscimento più rapido degli eventi MIDI, ma "
 "sforzano la CPU. 10 ms dovrebbe essere un buon valore."
 
+#: ../../frescobaldi/preferences/musicviewers.py:75
+msgid "Only load updated PDF documents"
+msgstr "Carica solo i PDF aggiornati"
+
+#: ../../frescobaldi/preferences/musicviewers.py:77
+msgid ""
+"If checked, Frescobaldi will not open PDF documents that are not\n"
+"up-to-date (i.e. the source file has been modified later)."
+msgstr ""
+"Se selezionato, Frescobaldi non aprirà i PDF non aggiornati, cioè quelli il "
+"cui sorgente è stato modificato successivamente."
+
+#: ../../frescobaldi/preferences/musicviewers.py:79
+msgid "Remember View settings per-document"
+msgstr "Ricorda le impostazioni di visualizzazione per ciascun documento"
+
+#: ../../frescobaldi/preferences/musicviewers.py:81
+msgid ""
+"If checked, every document in the Music View will remember its\n"
+"own layout setting, zoom factor, etc. If unchecked, the View will\n"
+"not change its settings when a different document is displayed."
+msgstr ""
+"Se selezionato, ogni documento dell'Anteprima spartito ricorderà le sue "
+"impostazioni\n"
+"di formattazione, il fattore di ingrandimento, etc. Se non selezionato, la "
+"vista\n"
+"non cambierà le sue impostazioni quando viene visualizzato un documento "
+"diverso."
+
+#: ../../frescobaldi/preferences/musicviewers.py:142
+msgid "Page scaling"
+msgstr "Ridimensionamento pagina"
+
+#: ../../frescobaldi/preferences/musicviewers.py:143
+msgid "Fixed scale:"
+msgstr "Scala fissa:"
+
+#: ../../frescobaldi/preferences/musicviewers.py:144
+msgid "Fit height"
+msgstr "Adatta all'altezza"
+
+#: ../../frescobaldi/preferences/musicviewers.py:145
+msgid "Fit width"
+msgstr "Adatta alla larghezza"
+
+#: ../../frescobaldi/preferences/musicviewers.py:146
+msgid "Fit page"
+msgstr "Adatta alla pagina"
+
+#: ../../frescobaldi/preferences/musicviewers.py:147
+#: ../../frescobaldi/preferences/musicviewers.py:381
+msgctxt "percent unit sign"
+msgid "%"
+msgstr "%"
+
+#: ../../frescobaldi/preferences/musicviewers.py:200
+msgid "Page layout"
+msgstr "Formattazione pagina"
+
+#: ../../frescobaldi/preferences/musicviewers.py:201
+msgid "Single"
+msgstr "Singola"
+
+#: ../../frescobaldi/preferences/musicviewers.py:202
+msgid "Two pages (first page right)"
+msgstr "Due pagine (prima pagina a destra)"
+
+#: ../../frescobaldi/preferences/musicviewers.py:203
+msgid "Two pages (first page left)"
+msgstr "Due pagine (prima pagina a sinistra)"
+
+#. L10N: "Raster", a layout type (like grid)
+#: ../../frescobaldi/preferences/musicviewers.py:204 ../../i18n/messages.py:49
+msgid "Raster"
+msgstr "Raster"
+
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../../frescobaldi/preferences/musicviewers.py:98
-msgid "Kinetic Scrolling"
+#: ../../frescobaldi/preferences/musicviewers.py:266
+msgid "Scrolling"
+msgstr "Scorrimento"
+
+#: ../../frescobaldi/preferences/musicviewers.py:267
+#: ../../frescobaldi/scorewiz/settings.py:164
+msgid "Orientation:"
+msgstr "Orientamento:"
+
+#: ../../frescobaldi/preferences/musicviewers.py:268 ../../i18n/messages.py:51
+msgid "Horizontal"
+msgstr "Orizzontale"
+
+#: ../../frescobaldi/preferences/musicviewers.py:269 ../../i18n/messages.py:50
+msgid "Vertical"
+msgstr "Verticale"
+
+#: ../../frescobaldi/preferences/musicviewers.py:270
+msgid "Continuous scrolling"
+msgstr "Scorrimento continuo"
+
+#: ../../frescobaldi/preferences/musicviewers.py:271
+msgid "Kinetic scrolling"
 msgstr "Scorrimento cinetico"
 
-#: ../../frescobaldi/preferences/musicviewers.py:99
-msgid "Show Scrollbars"
-msgstr "Mostra le barre di scorrimento"
+#: ../../frescobaldi/preferences/musicviewers.py:273
+msgid "Use Page Up and Page Down keys to change pages"
+msgstr "Usa i tasti PaginaSù e PaginaGiù per cambiare pagine"
 
-#: ../../frescobaldi/preferences/musicviewers.py:100
-msgid "Strict Paging"
-msgstr "Paginazione rigorosa"
-
-#: ../../frescobaldi/preferences/musicviewers.py:102
+#: ../../frescobaldi/preferences/musicviewers.py:275
 msgid ""
 "If checked, PageUp and PageDown always page to the previous or next page "
 "instead of scrolling."
@@ -4832,52 +4923,55 @@ msgstr ""
 "Se selezionato, PaginaSù e PaginaGiù passano direttamente alla pagina "
 "precedente o successiva senza scorrimento."
 
-#: ../../frescobaldi/preferences/musicviewers.py:103
-msgid "Shadow"
-msgstr "Ombra"
+#: ../../frescobaldi/preferences/musicviewers.py:317
+msgid "Viewer options"
+msgstr "Opzioni visualizzatore"
 
-#: ../../frescobaldi/preferences/musicviewers.py:105
+#: ../../frescobaldi/preferences/musicviewers.py:318
+msgid "Show scrollbars"
+msgstr "Mostra le barre di scorrimento"
+
+#: ../../frescobaldi/preferences/musicviewers.py:319
+msgid "Show shadow under pages"
+msgstr "Mostra ombra sotto le pagine"
+
+#: ../../frescobaldi/preferences/musicviewers.py:321
 msgid "If checked, Frescobaldi draws a shadow around the pages."
 msgstr "Se selezionato, Frescobaldi disegna un'ombra intorno alle pagine."
 
-#: ../../frescobaldi/preferences/musicviewers.py:106
-msgid "Display of Music"
-msgstr "Aspetto dello spartito"
+#: ../../frescobaldi/preferences/musicviewers.py:372 ../../i18n/messages.py:58
+msgid "Magnifier"
+msgstr "Lente d'ingrandimento"
 
-#: ../../frescobaldi/preferences/musicviewers.py:107
-msgid "Magnifier Size:"
-msgstr "Dimensione della lente d'ingrandimento:"
+#: ../../frescobaldi/preferences/musicviewers.py:373
+msgid "Size:"
+msgstr "Dimensione:"
 
-#: ../../frescobaldi/preferences/musicviewers.py:109
+#: ../../frescobaldi/preferences/musicviewers.py:375
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr ""
 "Dimensioni della lente d'ingrandimento. (Ctrl+Click nell'Anteprima spartito)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../../frescobaldi/preferences/musicviewers.py:111
+#: ../../frescobaldi/preferences/musicviewers.py:377
 msgid " pixels"
 msgstr " pixel"
 
-#: ../../frescobaldi/preferences/musicviewers.py:112
-msgid "Magnifier Scale:"
-msgstr "Fattore d'ingrandimento:"
+#: ../../frescobaldi/preferences/musicviewers.py:378
+msgid "Scale:"
+msgstr "Scala:"
 
-#: ../../frescobaldi/preferences/musicviewers.py:114
+#: ../../frescobaldi/preferences/musicviewers.py:380
 msgid "Magnification of the magnifier."
 msgstr "Quante volte ingrandisce la lente."
 
-#: ../../frescobaldi/preferences/musicviewers.py:115
-msgctxt "percent unit sign"
-msgid "%"
-msgstr "%"
+#: ../../frescobaldi/preferences/musicviewers.py:413
+msgid "Printing"
+msgstr "Stampa"
 
-#: ../../frescobaldi/preferences/musicviewers.py:159
-msgid "Printing of Music"
-msgstr "Stampa dello spartito"
-
-#: ../../frescobaldi/preferences/musicviewers.py:162
-msgid "Set the resolution if Frescobaldi prints using raster images."
-msgstr "Imposta la risoluzione se Frescobaldi stampa usando immagini raster."
+#: ../../frescobaldi/preferences/musicviewers.py:416
+msgid "Set the resolution to be sent to the printer."
+msgstr "Imposta la risoluzione da inviare alla stampante."
 
 #: ../../frescobaldi/preferences/paths.py:66
 msgid "Folders containing hyphenation dictionaries"
@@ -4957,25 +5051,25 @@ msgstr "(nessuna scorciatoia)"
 msgid "(default)"
 msgstr "(predefinita)"
 
-#: ../../frescobaldi/preferences/tools.py:91
+#: ../../frescobaldi/preferences/tools.py:90
 msgid "Show log when a job is started"
 msgstr "Mostra i messaggi di esecuzione quando si avvia un processo"
 
-#: ../../frescobaldi/preferences/tools.py:92
+#: ../../frescobaldi/preferences/tools.py:91
 msgid "Display plain log output"
 msgstr "Mostra i messaggi di LilyPond come sono"
 
-#: ../../frescobaldi/preferences/tools.py:94
+#: ../../frescobaldi/preferences/tools.py:93
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
 "Se selezionato, Frescobaldi non abbrevierà i nomi dei file\n"
 "nei messaggi di esecuzione di LilyPond."
 
-#: ../../frescobaldi/preferences/tools.py:95
+#: ../../frescobaldi/preferences/tools.py:94
 msgid "Hide automatic engraving jobs"
 msgstr "Nascondi i processi di compilazione automatica"
 
-#: ../../frescobaldi/preferences/tools.py:97
+#: ../../frescobaldi/preferences/tools.py:96
 msgid ""
 "If checked, Frescobaldi will not show the log for automatically\n"
 "started engraving jobs (LilyPond->Auto-engrave)."
@@ -4984,63 +5078,30 @@ msgstr ""
 "di\n"
 "compilazione iniziati automaticamente (LilyPond->Compilazione automatica)."
 
-#: ../../frescobaldi/preferences/tools.py:137
-msgid "Music View"
-msgstr "Anteprima spartito"
-
-#: ../../frescobaldi/preferences/tools.py:138
-msgid "Only load updated PDF documents"
-msgstr "Carica solo i PDF aggiornati"
-
-#: ../../frescobaldi/preferences/tools.py:140
-msgid ""
-"If checked, Frescobaldi will not open PDF documents that are not\n"
-"up-to-date (i.e. the source file has been modified later)."
-msgstr ""
-"Se selezionato, Frescobaldi non aprirà i PDF non aggiornati, cioè quelli il "
-"cui sorgente è stato modificato successivamente."
-
-#: ../../frescobaldi/preferences/tools.py:142
-msgid "Remember View settings per-document"
-msgstr "Ricorda le impostazioni della vista per ciascun documento"
-
-#: ../../frescobaldi/preferences/tools.py:144
-msgid ""
-"If checked, every document in the Music View will remember its\n"
-"own layout setting, zoom factor, etc. If unchecked, the View will\n"
-"not change its settings when a different document is displayed."
-msgstr ""
-"Se selezionato, ogni documento dell'Anteprima spartito ricorderà le sue "
-"impostazioni\n"
-"di formattazione, il fattore di ingrandimento, etc. Se non selezionato, la "
-"vista\n"
-"non cambierà le sue impostazioni quando viene visualizzato un documento "
-"diverso."
-
-#: ../../frescobaldi/preferences/tools.py:217
+#: ../../frescobaldi/preferences/tools.py:177
 msgid "Group documents by directory"
 msgstr "Raggruppa documenti per cartella"
 
-#: ../../frescobaldi/preferences/tools.py:259
-#: ../../frescobaldi/preferences/tools.py:262
+#: ../../frescobaldi/preferences/tools.py:219
+#: ../../frescobaldi/preferences/tools.py:222
 msgid "Restores the built-in outline patterns."
 msgstr "Ripristina gli schemi predefiniti per le strutture."
 
-#: ../../frescobaldi/preferences/tools.py:260
+#: ../../frescobaldi/preferences/tools.py:220
 msgid ""
 "Patterns to match in text (excluding comments) that are shown in outline:"
 msgstr ""
 "Schemi da cercare nel testo (escludendo i commenti) e da mostrare nella "
 "struttura:"
 
-#: ../../frescobaldi/preferences/tools.py:263
+#: ../../frescobaldi/preferences/tools.py:223
 msgid ""
 "Patterns to match in text (including comments) that are shown in outline:"
 msgstr ""
 "Schemi da cercare nel testo (includendo i commenti) e da mostrare nella "
 "struttura:"
 
-#: ../../frescobaldi/preferences/tools.py:301
+#: ../../frescobaldi/preferences/tools.py:261
 msgid "Enter a regular expression to match:"
 msgstr "Inserire un'espressione regolare:"
 
@@ -5951,10 +6012,6 @@ msgstr ""
 #: ../../frescobaldi/scorewiz/settings.py:162
 msgid "Paper size:"
 msgstr "Dimensione del foglio:"
-
-#: ../../frescobaldi/scorewiz/settings.py:164
-msgid "Orientation:"
-msgstr "Orientamento:"
 
 #: ../../frescobaldi/scorewiz/settings.py:165
 msgid "Regular"
@@ -8493,19 +8550,6 @@ msgstr "Due pagine (prima pagina a destra)"
 msgid "Two Pages (first page left)"
 msgstr "Due pagine (prima pagina a destra)"
 
-#. L10N: "Raster", a layout type (like grid)
-#: ../../i18n/messages.py:49
-msgid "Raster"
-msgstr "Raster"
-
-#: ../../i18n/messages.py:50
-msgid "Vertical"
-msgstr "Verticale"
-
-#: ../../i18n/messages.py:51
-msgid "Horizontal"
-msgstr "Orizzontale"
-
 #: ../../i18n/messages.py:52
 msgid "&Continuous"
 msgstr "&Continuo"
@@ -8529,10 +8573,6 @@ msgstr "Pagina successiva"
 #: ../../i18n/messages.py:57
 msgid "Next"
 msgstr "Avanti"
-
-#: ../../i18n/messages.py:58
-msgid "Magnifier"
-msgstr "Lente d'ingrandimento"
 
 #: ../../i18n/messages.py:62
 msgid "usage: "

@@ -8,10 +8,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Frescobaldi 4.0.0\n"
+"Project-Id-Version: Frescobaldi 4.0.1\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
 "POT-Creation-Date: 2023-06-17 20:04+0200\n"
-"PO-Revision-Date: 2025-03-14 16:59+0100\n"
+"PO-Revision-Date: 2025-05-04 00:43+0200\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -481,7 +481,7 @@ msgstr ""
 "Pulsanti per l'importazione e l'esportazione in formato MusicXML, MIDI e ABC"
 
 #: ../../frescobaldi/userguide/credits.md:16
-#: ../../frescobaldi/userguide/credits.md:45
+#: ../../frescobaldi/userguide/credits.md:50
 #: ../../frescobaldi/userguide/manuscriptview.md:1
 msgid "Manuscript Viewer"
 msgstr "Anteprima manoscritto"
@@ -491,87 +491,96 @@ msgid "Encoding-related fixes and other improvements"
 msgstr "Correzioni relative alla codifica e altri miglioramenti"
 
 #: ../../frescobaldi/userguide/credits.md:24
+msgid ""
+"Linux freedesktop.org fixes, maintainer of the flatpak package on Flathub, "
+"Windows and macOS packages built with Briefcase"
+msgstr ""
+"Correzioni secondo gli standard freedesktop.org per Linux, manutentore del "
+"pacchetto flatpak su Flathub, pacchetti Windows e macOS prodotti con "
+"Briefcase"
+
+#: ../../frescobaldi/userguide/credits.md:29
 msgid "Modal Transpose"
 msgstr "Trasposizione modale"
 
-#: ../../frescobaldi/userguide/credits.md:27
+#: ../../frescobaldi/userguide/credits.md:32
 msgid "Kinetic Scrolling for the Music View"
 msgstr "Scorrimento cinetico per l'anteprima dello spartito"
 
-#: ../../frescobaldi/userguide/credits.md:30
+#: ../../frescobaldi/userguide/credits.md:35
 msgid "Windows installers"
 msgstr "Installer per Windows"
 
-#: ../../frescobaldi/userguide/credits.md:33
+#: ../../frescobaldi/userguide/credits.md:38
 msgid "Qt 6 port"
 msgstr "Migrazione a Qt 6"
 
-#: ../../frescobaldi/userguide/credits.md:33
+#: ../../frescobaldi/userguide/credits.md:38
 msgid "Score Wizard improvements"
 msgstr "Miglioramenti della configurazione assistita di un nuovo spartito"
 
-#: ../../frescobaldi/userguide/credits.md:33
+#: ../../frescobaldi/userguide/credits.md:38
 msgid "Score Wizard From Current Document"
 msgstr "Configurazione assistita di un nuovo spartito dal documento corrente"
 
-#: ../../frescobaldi/userguide/credits.md:38
+#: ../../frescobaldi/userguide/credits.md:43
 msgid "Homebrew formula for macOS"
 msgstr "Formula Homebrew per macOS"
 
-#: ../../frescobaldi/userguide/credits.md:41
+#: ../../frescobaldi/userguide/credits.md:46
 msgid "various other improvements"
 msgstr "vari altri miglioramenti"
 
-#: ../../frescobaldi/userguide/credits.md:45
+#: ../../frescobaldi/userguide/credits.md:50
 msgid "Layout control modes"
 msgstr "Modalità di controllo della formattazione"
 
-#: ../../frescobaldi/userguide/credits.md:45
+#: ../../frescobaldi/userguide/credits.md:50
 msgid "various other contributions"
 msgstr "vari altri contributi"
 
-#: ../../frescobaldi/userguide/credits.md:50
+#: ../../frescobaldi/userguide/credits.md:55
 msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr "Migliorati l'evidenziazione e l'autocompletamento del codice Scheme"
 
-#: ../../frescobaldi/userguide/credits.md:53
+#: ../../frescobaldi/userguide/credits.md:58
 msgid "MIDI capturing"
 msgstr "Cattura MIDI"
 
-#: ../../frescobaldi/userguide/credits.md:56
+#: ../../frescobaldi/userguide/credits.md:61
 msgid "macOS installers (arm64)"
 msgstr "Installer macOS (arm64)"
 
-#: ../../frescobaldi/userguide/credits.md:59
+#: ../../frescobaldi/userguide/credits.md:64
 msgid "Finding lots of bugs"
 msgstr "Trovare molti bug"
 
-#: ../../frescobaldi/userguide/credits.md:62
+#: ../../frescobaldi/userguide/credits.md:67
 msgid "Qt 6 port testing and improvements"
 msgstr "Miglioramenti e test della migrazione a Qt 6"
 
-#: ../../frescobaldi/userguide/credits.md:62
+#: ../../frescobaldi/userguide/credits.md:67
 msgid "many bug fixes"
 msgstr "molte correzioni di bug"
 
-#: ../../frescobaldi/userguide/credits.md:66
+#: ../../frescobaldi/userguide/credits.md:71
 msgid "Many code and feature improvements"
 msgstr "Molti miglioramenti nel codice e in nuove funzionalità"
 
-#: ../../frescobaldi/userguide/credits.md:66
+#: ../../frescobaldi/userguide/credits.md:71
 msgid "work on proper Python 3 support"
 msgstr "lavoro per un completo supporto a Python 3"
 
-#: ../../frescobaldi/userguide/credits.md:70
+#: ../../frescobaldi/userguide/credits.md:75
 msgid "Relative mode for MIDI capturing"
 msgstr "Modalità relativa per la cattura MIDI"
 
-#: ../../frescobaldi/userguide/credits.md:73
+#: ../../frescobaldi/userguide/credits.md:78
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} è tradotto in queste lingue:"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi/userguide/credits.md:144
+#: ../../frescobaldi/userguide/credits.md:149
 msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"
@@ -3810,12 +3819,12 @@ msgstr "Opzioni generali"
 #. NOTE: markdown formatting
 #: ../../frescobaldi/userguide/prefs_general.md:3
 msgid ""
-"Under *General Preferences*, you can choose in which language Frescobaldi's "
+"Under *General* preferences, you can choose in which language Frescobaldi's "
 "user interface is translated, which user interface style you want to use, "
 "and whether you want to use the built-in Tango iconset or to use the system-"
 "wide configured icon set."
 msgstr ""
-"Nelle *Preferenze generali*, è possibile scegliere la lingua "
+"Nelle preferenze *Generali*, è possibile scegliere la lingua "
 "dell'interfaccia utente di Frescobaldi, lo stile da usare per l'interfaccia "
 "e se si voglia usare il set di icone Tango allegato al programma o invece le "
 "icone generali del sistema."
@@ -3917,55 +3926,6 @@ msgid ""
 msgstr ""
 "Per il terminale, il comando deve aprire una console. Il codice `$f` sarà "
 "sostituito dalla cartella del documento in uso."
-
-#: ../../frescobaldi/userguide/prefs_helpers.md:14
-msgid "Printing Music"
-msgstr "Stampa della musica"
-
-#: ../../frescobaldi/userguide/prefs_helpers.md:16
-msgid ""
-"The printing command is used to print a PostScript or PDF file. On Linux you "
-"don't need this, but on Windows and macOS you can provide a command to avoid "
-"that PDF documents are being printed using raster images, which is less "
-"optimal."
-msgstr ""
-"Il comanndo di stampa serve a stampare su file PostScript o PDF. Su Linux "
-"non serve, ma su Windows e macOS è possibile inserire un comando per evitare "
-"che i documenti PDF siano stampati usando immagini raster, metodo meno "
-"ottimale."
-
-#. NOTE: markdown formatting
-#: ../../frescobaldi/userguide/prefs_helpers.md:21
-msgid ""
-"`$pdf` gets replaced with the PDF filename, or alternatively, `$ps` is "
-"replaced with the PostScript filename. `$printer` is replaced with the "
-"printer's name to use."
-msgstr ""
-"`$pdf` viene sostituito dal nome del file PDF, oppure `$ps` è sostituito dal "
-"nome del file PostScript. `$printer` è rimpiazzato dal nome della stampante "
-"da usare."
-
-#. NOTE: markdown formatting
-#: ../../frescobaldi/userguide/prefs_helpers.md:25
-msgid ""
-"Uncheck the *Use Frescobaldi's print dialog* option when the printing "
-"command opens a print dialog itself, in which you can select e.g. the page "
-"range to print and the printer to use. If you don't use Frescobaldi's print "
-"dialog, you don't need to put the `$printer` variable in your command line."
-msgstr ""
-"Togli la spunta all'opzione *Usa la finestra di stampa di Frescobaldi* "
-"quando il comando di stampa apre una finestra in cui puoi selezionare le "
-"pagine da stampare e la stampante da usare. Se non usi la finestra di stampa "
-"di Frescobaldi, non è necessario inserire la variabile `$printer` nella "
-"linea di comando."
-
-#: ../../frescobaldi/userguide/prefs_helpers.md:31
-msgid ""
-"If Frescobaldi must fall back to printing using raster images, you can "
-"specify the number of dots per inch here."
-msgstr ""
-"Se Frescobaldi è costretto a stampare tramite immagine raster, qui è "
-"possibile specificare il numero di punti per pollice."
 
 #: ../../frescobaldi/userguide/prefs_lilydoc.md:1
 msgid "LilyPond Documentation"
@@ -4237,13 +4197,86 @@ msgstr ""
 "reimpostare gli strumenti."
 
 #: ../../frescobaldi/userguide/prefs_musicviewers.md:1
-msgid "Music Preferences"
-msgstr "Preferenze spartito"
+msgid "Music View Preferences"
+msgstr "Preferenze Anteprima spartito"
 
+#. NOTE: markdown formatting
 #: ../../frescobaldi/userguide/prefs_musicviewers.md:3
-msgid "Here you can configure how music is displayed and printed."
+msgid ""
+"Under *Music View* preferences you can configure how music is displayed and "
+"printed. This is where PDF files are displayed and all the settings "
+"discussed here refer to PDF files only (SVG files have a different viewer)."
 msgstr ""
-"Qui è possibile configurare come lo spartito viene visualizzato e stampato."
+"Nelle preferenze *Anteprima spartito* si può configurare come lo spartito "
+"viene mostrato e stampato. Qui è dove vengono visualizzati i file PDF e "
+"tutte le impostazioni di questa sezione si riferiscono soltanto ai file PDF "
+"(i file SVG hanno un visualizzatore differente)."
+
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:9
+msgid "Documents"
+msgstr "Documenti"
+
+#. NOTE: markdown formatting
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:11
+msgid "The *Documents* sections contains two main settings."
+msgstr "La sezione *Documenti* contiene due impostazioni principali."
+
+#. NOTE: markdown formatting
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:13
+msgid ""
+"*Only load updated PDF documents*: if checked, when you open a LilyPond "
+"source file you won't see the PDF document in the viewer if it's not up-to-"
+"date (i.e. the PDF file is older than the source file). If unchecked, PDF "
+"file will be opened regardless."
+msgstr ""
+"*Carica solo i PDF aggiornati*: se vistato, all'apertura di un file LilyPond "
+"non si vedrà il documento PDF nell'anteprima se quest'ultimo non è "
+"aggiornato (ovvero se il file PDF è più vecchio del file LilyPond). Se non è "
+"vistato, il file PDF verrà aperto indipendentemente dall'ultima data di "
+"modifica dei file."
+
+#. NOTE: markdown formatting
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:19
+msgid ""
+"*Remember View settings per-document*: if checked, every document in the "
+"Music View will remember its own scale and layout settings instead of the "
+"default ones (see next section)."
+msgstr ""
+"*Ricorda le impostazioni di visualizzazione per ciascun documento*: se "
+"vistato, ciascun documento nell'Anteprima spartito ricorderà le proprie "
+"impostazioni di ridimensionamento e formattazione invece di quelle "
+"predefinite (vedi prossima sezione)."
+
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:24
+msgid "Page scaling, layout and scrolling"
+msgstr "Ridimensionamento, formattazione e scorrimento pagina"
+
+#. NOTE: markdown formatting
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:26
+msgid ""
+"Here you can define the default scaling and layout of the document. These "
+"preferences may be ignored for the documents where different settings have "
+"been set, if the option *Remember View settings per-document* is checked."
+msgstr ""
+"Qui si possono definire il ridimensionamento e la formattazione predefiniti "
+"del documento. Queste preferenze potrebbero essere ignorate per i documenti "
+"che abbiano impostazioni diverse, se l'opzione *Ricorda le impostazioni di "
+"visualizzazione per ciascun documento* è vistata."
+
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:33
+msgid "Printing"
+msgstr "Stampa"
+
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:35
+msgid ""
+"Here you can set the resolution to be sent to the printer when using the "
+"Frescobaldi print dialog. The closest resolution supported by your printer "
+"will be used. If unsure, leave the default value."
+msgstr ""
+"Qui si può impostare le risoluzione da inviare alla stampante quando si "
+"utilizza la finestra di stampa di Frescobaldi. Verrà utilizzata la "
+"risoluzione più vicina supportata dalla stampante. Se non sei sicuro, lascia "
+"il valore predefinito."
 
 #: ../../frescobaldi/userguide/prefs_paths.md:1
 msgid "Paths"
