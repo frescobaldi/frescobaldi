@@ -46,6 +46,7 @@ desktop_file_name = "org.frescobaldi.Frescobaldi"
 # required versions of important dependencies
 required_python_version = (3, 8)
 required_python_ly_version = (0, 9, 4)
+required_qt_version = (6, 6)
 
 # LilyPond doc URLs to be used in lilydoc/manager.py
 # see also lilypondinfo.LilyPondInfo.lilydoc_url()
