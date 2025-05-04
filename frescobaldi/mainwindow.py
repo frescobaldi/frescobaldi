@@ -126,14 +126,15 @@ class MainWindow(QMainWindow):
 
         app.windows.append(self)
 
-        mainwidget = QWidget()
-        self.setCentralWidget(mainwidget)
+        self.mainwidget = QWidget()
+        self.setCentralWidget(self.mainwidget)
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
-        mainwidget.setLayout(layout)
+        self.mainwidget.setLayout(layout)
         self.tabBar = tabbar.TabBar(self)
         self.viewManager = viewmanager.ViewManager(self)
+        # Note layout.addWidget() changes the parent to self.mainwidget
         layout.addWidget(self.tabBar)
         layout.addWidget(self.viewManager)
 
