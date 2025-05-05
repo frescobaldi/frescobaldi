@@ -25,7 +25,7 @@ Information about the Frescobaldi application.
 # these variables are also used by the distutils setup
 name = "frescobaldi"
 # Use a PEP 440 compliant version number
-version = "4.0.2.dev1"
+version = "4.0.2"
 extension_api = "0.9.0"
 description = "LilyPond Music Editor"
 long_description = \

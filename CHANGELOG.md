@@ -10,6 +10,22 @@ Click on the version to see the complete list of commits in a release.
 ## [unreleased]
 
 
+## [4.0.2] - 2025-05-06
+
+### Changed
+
+- Reorganize and extend the Preferences (#1920 and #1928).
+- Use hatchling as build backend (#1913).
+- Updated translations: Italian, Polish.
+
+### Fixed
+
+- Make MIDI input work again (#1919 and #1922).
+- Fix a garbage-collector issue (#1935 and #1942). This should prevent
+the error "RuntimeError: wrapped C/C++ object of type FOO has been deleted",
+which has been reported as duplicates several times.
+
+
 ## [4.0.1] - 2025-04-03
 
 ### Fixed
@@ -1633,7 +1649,8 @@ Frescobaldi application itself has the PO files in i18n/frescobaldi, see
 
 * Initial release.
 
-[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.1...master
+[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.2...master
+[4.0.2]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.1...v4.0.2
 [4.0.1]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/frescobaldi/frescobaldi/compare/v3.3.0...v4.0.0
 [3.3.0]: https://github.com/frescobaldi/frescobaldi/compare/v3.2...v3.3.0
