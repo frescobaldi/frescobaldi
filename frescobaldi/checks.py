@@ -78,6 +78,12 @@ if v < r:
         f"Frescobaldi is started with Python {v[0]}.{v[1]} \
 but requires at least version {r[0]}.{r[1]}.")
 
+# Check Qt version
+from PyQt6.QtCore import QT_VERSION_STR
+if QT_VERSION_STR < appinfo.required_qt_version:
+    error("Qt version is too old.",
+        f"Frescobaldi is started with Qt {QT_VERSION_STR} \
+but requires at least version {appinfo.required_qt_version}")
 
 # Check qpageview availability
 if importlib.util.find_spec('qpageview') is None:
