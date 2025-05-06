@@ -305,7 +305,11 @@ class MethodListener(ListenerBase):
     def call(self, args, kwargs):
         obj = self.obj()
         if obj is not None:
-            return self.func(obj, *args[self.argslice], **kwargs)
+            try:
+                return self.func(obj, *args[self.argslice], **kwargs)
+            except RuntimeError:
+                # PyQt raises this if the underlying C++ object is deleted
+                self.obj = None
 
 
 class FunctionListener(ListenerBase):
