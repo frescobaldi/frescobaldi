@@ -74,8 +74,12 @@ class MusicPosition(plugin.ViewSpacePlugin):
         """Called when one of the timers fires."""
         view = self._view()
         if view:
-            d = view.document()
-            c = view.textCursor()
+            try:
+                d = view.document()
+                c = view.textCursor()
+            except RuntimeError:
+                # This happens if the window is closed before the timer fires
+                return
             import documentinfo
             m = documentinfo.music(d)
             import ly.duration
