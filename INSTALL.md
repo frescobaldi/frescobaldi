@@ -160,12 +160,6 @@ pipx inject --editable frescobaldi ./python-ly ./qpageview
 Finally, you may want to install some optional modules that are needed
 for certain features.
 
-* For MIDI the PortMidi library is used, either via importing 'pypm',
-  'pyportmidi._pyportmidi', or, if that is not available, loading the
-  pygame.pypm module from pygame; or, as a last resort, embedding the PortMidi
-  C-library via ctypes. For example, under Debian/Ubuntu, `sudo apt install
-  python3-pygame`, and on Fedora, `sudo dnf install python3-pygame`.
-
 * If you want to print PDFs to a local CUPS server, also install `pycups` using
   `pipx inject frescobaldi pycups`.
 
