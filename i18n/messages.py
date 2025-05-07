@@ -57,6 +57,14 @@ _("Next Page")
 _("Next")
 _("Magnifier")
 
+# macOS app menu
+_("QMenuBar", "About Frescobaldi")
+_("QMenuItems", "Preferences...")
+_("QMenu", "Services")
+_("QMenu", "Hide Frescobaldi")
+_("QMenuItems", "Hide Others")
+_("QMenuItem", "Show All")
+_("QAction", "Quit Frescobaldi")
 
 # Python, argparse:
 _("usage: ")
