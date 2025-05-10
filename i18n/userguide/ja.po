@@ -18,74 +18,74 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: ../../frescobaldi_app/userguide/404.md:1
+#: ../../frescobaldi/userguide/404.md:1
 msgid "Not Found"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/404.md:3
+#: ../../frescobaldi/userguide/404.md:3
 msgid "Cannot load the requested userguide resource {userguide_page}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/abc_import.md:1
+#: ../../frescobaldi/userguide/abc_import.md:1
 msgid "Import ABC"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/abc_import.md:3
+#: ../../frescobaldi/userguide/abc_import.md:3
 msgid ""
 "Using {menu_import}, you can import an ABC file using the command line tool "
 "`abc2ly` from the LilyPond package."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/abc_import.md:6
+#: ../../frescobaldi/userguide/abc_import.md:6
 msgid ""
 "ABC is a notation standard which like LilyPond is designed to notate music "
 "in plain text. It was designed primarily for folk and traditional tunes of "
 "Western European origin."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/abc_import.md:10
+#: ../../frescobaldi/userguide/abc_import.md:10
 msgid ""
 "In this dialog there are two tabs. In the first you can set some parameters "
 "for the abc2ly import. In the second you can set some actions on the "
 "imported LilyPond source code."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/abc_import.md:14
-#: ../../frescobaldi_app/userguide/midi_import.md:10
-#: ../../frescobaldi_app/userguide/musicxml_import.md:10
+#: ../../frescobaldi/userguide/abc_import.md:14
+#: ../../frescobaldi/userguide/midi_import.md:10
+#: ../../frescobaldi/userguide/musicxml_import.md:10
 msgid ""
 "Your settings in both tabs are remembered until the next time you use this "
 "dialog."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/abc_import.md:16
+#: ../../frescobaldi/userguide/abc_import.md:16
 msgid "The abc2ly tab"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/abc_import.md:18
-#: ../../frescobaldi_app/userguide/midi_import.md:14
-#: ../../frescobaldi_app/userguide/musicxml_import.md:14
+#: ../../frescobaldi/userguide/abc_import.md:18
+#: ../../frescobaldi/userguide/midi_import.md:14
+#: ../../frescobaldi/userguide/musicxml_import.md:14
 msgid "In this tab you have the following options:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/abc_import.md:20
-#: ../../frescobaldi_app/userguide/musicxml_import.md:19
+#: ../../frescobaldi/userguide/abc_import.md:20
+#: ../../frescobaldi/userguide/musicxml_import.md:19
 msgid "Import beaming"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/abc_import.md:22
+#: ../../frescobaldi/userguide/abc_import.md:22
 msgid "This option can be used to retain the beaming from the ABC notation."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/abc_import.md:24
-#: ../../frescobaldi_app/userguide/midi_import.md:21
-#: ../../frescobaldi_app/userguide/musicxml_import.md:31
+#: ../../frescobaldi/userguide/abc_import.md:24
+#: ../../frescobaldi/userguide/midi_import.md:21
+#: ../../frescobaldi/userguide/musicxml_import.md:31
 msgid "You can also change the LilyPond version to use."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/abc_import.md:26
+#: ../../frescobaldi/userguide/abc_import.md:26
 msgid ""
 "At the bottom you have a text area that mimics the command line text used to "
 "run `abc2ly`. If you are familiar with command line tools in general and "
@@ -94,82 +94,79 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/abc_import.md:32
-#: ../../frescobaldi_app/userguide/midi_import.md:29
-#: ../../frescobaldi_app/userguide/musicxml_import.md:39
+#: ../../frescobaldi/userguide/abc_import.md:32
+#: ../../frescobaldi/userguide/midi_import.md:29
+#: ../../frescobaldi/userguide/musicxml_import.md:39
 msgid "The *after import* tab"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/abc_import.md:34
+#: ../../frescobaldi/userguide/abc_import.md:34
 msgid ""
 "After `abc2ly` is run and the new ly-file is created you can set Frescobaldi "
 "to automatically do some adjustments on the new file."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/abc_import.md:37
-#: ../../frescobaldi_app/userguide/midi_import.md:34
-#: ../../frescobaldi_app/userguide/musicxml_import.md:44
+#: ../../frescobaldi/userguide/abc_import.md:37
+#: ../../frescobaldi/userguide/midi_import.md:34
+#: ../../frescobaldi/userguide/musicxml_import.md:44
 msgid "Reformat source:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/abc_import.md:38
-#: ../../frescobaldi_app/userguide/midi_import.md:35
-#: ../../frescobaldi_app/userguide/musicxml_import.md:45
+#: ../../frescobaldi/userguide/abc_import.md:38
+#: ../../frescobaldi/userguide/midi_import.md:35
 msgid ""
 "the code is reformatted. (This is identical to running Tools -> Format.)"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/abc_import.md:41
-#: ../../frescobaldi_app/userguide/midi_import.md:38
-#: ../../frescobaldi_app/userguide/musicxml_import.md:48
+#: ../../frescobaldi/userguide/abc_import.md:41
+#: ../../frescobaldi/userguide/midi_import.md:38
+#: ../../frescobaldi/userguide/musicxml_import.md:48
 msgid "Trim durations (Make implicit per line):"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/abc_import.md:42
-#: ../../frescobaldi_app/userguide/midi_import.md:39
-#: ../../frescobaldi_app/userguide/musicxml_import.md:49
+#: ../../frescobaldi/userguide/abc_import.md:42
+#: ../../frescobaldi/userguide/midi_import.md:39
 msgid ""
 "repeated time duration on the same line are deleted. (This is identical to "
 "running Tools -> Rhythm -> Make implicit per line.)"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/abc_import.md:45
-#: ../../frescobaldi_app/userguide/midi_import.md:42
-#: ../../frescobaldi_app/userguide/musicxml_import.md:52
+#: ../../frescobaldi/userguide/abc_import.md:45
+#: ../../frescobaldi/userguide/midi_import.md:42
+#: ../../frescobaldi/userguide/musicxml_import.md:52
 msgid "Remove fraction duration scaling:"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/abc_import.md:46
-#: ../../frescobaldi_app/userguide/midi_import.md:43
-#: ../../frescobaldi_app/userguide/musicxml_import.md:53
+#: ../../frescobaldi/userguide/abc_import.md:46
+#: ../../frescobaldi/userguide/midi_import.md:43
+#: ../../frescobaldi/userguide/musicxml_import.md:53
 msgid ""
 "if single notes, rests or chords are multiplied by a fraction `N/M` by "
 "appending `*N/M` this scaling is removed. (This can be useful to prevent "
 "unwanted scaling to emerge from ill-formatted musicXML-files.)"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/abc_import.md:51
-#: ../../frescobaldi_app/userguide/midi_import.md:48
-#: ../../frescobaldi_app/userguide/musicxml_import.md:58
+#: ../../frescobaldi/userguide/abc_import.md:51
+#: ../../frescobaldi/userguide/midi_import.md:48
+#: ../../frescobaldi/userguide/musicxml_import.md:58
 msgid "Engrave directly:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/abc_import.md:52
-#: ../../frescobaldi_app/userguide/midi_import.md:49
-#: ../../frescobaldi_app/userguide/musicxml_import.md:59
+#: ../../frescobaldi/userguide/abc_import.md:52
+#: ../../frescobaldi/userguide/midi_import.md:49
 msgid ""
 "LilyPond runs directly. (This is identical to running LilyPond -> Engrave "
 "(preview).)"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/about.md:1
+#: ../../frescobaldi/userguide/about.md:1
 msgid "About Frescobaldi"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/about.md:3
+#: ../../frescobaldi/userguide/about.md:3
 msgid ""
 "Frescobaldi is named after [http://en.wikipedia.org/wiki/"
 "Girolamo_Frescobaldi Girolamo Frescobaldi (1583-1643)], an Italian organist "
@@ -177,18 +174,18 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/about.md:8
+#: ../../frescobaldi/userguide/about.md:8
 msgid ""
-"Frescobaldi's homepage is at [http://www.frescobaldi.org/] and there is a "
+"Frescobaldi's homepage is at [https://www.frescobaldi.org/] and there is a "
 "mailinglist at [frescobaldi@googlegroups.com] ([http://groups.google.com/"
 "group/frescobaldi more info])."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/auto-completion.md:1
+#: ../../frescobaldi/userguide/auto-completion.md:1
 msgid "Auto-completion"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/auto-completion.md:3
+#: ../../frescobaldi/userguide/auto-completion.md:3
 msgid ""
 "If not disabled in the {menu_tools} menu Frescobaldi assists the user with "
 "auto-completion suggestions. As soon as two characters are entered in a "
@@ -197,27 +194,27 @@ msgid ""
 "current context) and from parsing the current document."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/auto-completion.md:11
+#: ../../frescobaldi/userguide/auto-completion.md:11
 msgid ""
 "If there is an ambiguous partial match it is automatically added and "
 "selected:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/auto-completion.md:15
+#: ../../frescobaldi/userguide/auto-completion.md:15
 msgid ""
 "Hitting the TAB key will accept the partial completion and select the next "
 "item in the dropdown box with suggestions. Holding down the Ctrl key causes "
-"the dropdown elements to by cycled backwards."
+"the dropdown elements to be cycled backwards."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/auto-completion.md:21
+#: ../../frescobaldi/userguide/auto-completion.md:21
 msgid ""
 "Alternatively entering another character will also accept the partial "
 "suggestion but add the new character afterwards. If that allows another "
 "partial completion it will automatically be triggered:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/auto-completion.md:27
+#: ../../frescobaldi/userguide/auto-completion.md:27
 msgid ""
 "At any point hitting ENTER will accept the currently highlighted entry from "
 "the dropdown box. Note that matching is performed case insensitively while "
@@ -226,79 +223,79 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/auto-completion.md:32
+#: ../../frescobaldi/userguide/auto-completion.md:32
 msgid ""
 "Entering `.` (a dot) will also accept the highlighted entry and add the dot, "
 "which is handy to enter grob properties."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/contributing.md:1
+#: ../../frescobaldi/userguide/contributing.md:1
 msgid "Contributing"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/contributing.md:3
+#: ../../frescobaldi/userguide/contributing.md:3
 msgid ""
 "Frescobaldi is a [http://www.gnu.org/philosophy/free-sw.html Free Software] "
 "project to create a user friendly LilyPond music score editor. The goal is "
 "to make Frescobaldi available on all major platforms."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/contributing.md:7
+#: ../../frescobaldi/userguide/contributing.md:7
 msgid ""
 "Frescobaldi is developed in a public GitHub repository at {url}. There you "
 "can browse or checkout the source code and report bugs and wishes."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/contributing.md:10
+#: ../../frescobaldi/userguide/contributing.md:10
 msgid ""
 "You can contribute by simply using Frescobaldi and reporting bugs and "
 "suggestions. Translations are also very welcome. How to create new "
-"translations is described in the file `README-translations` in the source "
+"translations is described in the file `TRANSLATIONS.md` in the source "
 "distribution of Frescobaldi. If you want to add functionality you can find "
-"information about the source code structure in the file `README-development`."
+"information about the source code structure in the file `CONTRIBUTING.md`."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/create_midi.md:1
+#: ../../frescobaldi/userguide/create_midi.md:1
 msgid "How to generate a MIDI file?"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/create_midi.md:3
+#: ../../frescobaldi/userguide/create_midi.md:3
 msgid ""
 "By default, LilyPond creates only a PDF file of the music. To create a MIDI "
 "file, you must wrap the music in a `\\score` block and add a `\\midi` block "
 "to it."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/create_midi.md:7
-#: ../../frescobaldi_app/userguide/var_output.md:12
+#: ../../frescobaldi/userguide/create_midi.md:7
+#: ../../frescobaldi/userguide/var_output.md:12
 msgid "For example:"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/create_midi.md:23
+#: ../../frescobaldi/userguide/create_midi.md:23
 msgid ""
 "If you omit the `\\layout` block, no PDF file will be generated, only a MIDI "
 "file."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/creating.md:1
+#: ../../frescobaldi/userguide/creating.md:1
 msgid "Creating new files"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/creating.md:3
+#: ../../frescobaldi/userguide/creating.md:3
 msgid "New document"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/creating.md:5
+#: ../../frescobaldi/userguide/creating.md:5
 msgid ""
 "By default, Frescobaldi always creates one empty document, where you can "
 "start right away with typing LilyPond music."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/creating.md:8
+#: ../../frescobaldi/userguide/creating.md:8
 msgid ""
 "It is recommended to always include the LilyPond version you plan to use for "
 "the document at the top of the file. This way, you can always recognize "
@@ -308,177 +305,190 @@ msgid ""
 "sometimes make small changes to the language necessary."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/creating.md:15
+#: ../../frescobaldi/userguide/creating.md:15
 msgid ""
 "You can type {key} to insert the LilyPond version you have set as default in "
 "the document."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/creating.md:18
+#: ../../frescobaldi/userguide/creating.md:18
 msgid ""
 "If you want the version always written in any new document you create, you "
 "can enable that in the {preferences}. It is even possible to specify any "
 "template as the default one."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/creating.md:22
+#: ../../frescobaldi/userguide/creating.md:22
 msgid "New from template"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/creating.md:24
+#: ../../frescobaldi/userguide/creating.md:24
 msgid "You can also select {menu} and select a template there."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/creating.md:26
+#: ../../frescobaldi/userguide/creating.md:26
 msgid "A template is simply a snippet that has the `template` variable set."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/creating.md:28
+#: ../../frescobaldi/userguide/creating.md:28
 msgid ""
 "You can define templates by creating them and then choosing "
 "{save_as_template}. You can edit already defined templates using the command "
 "{manage_templates}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/creating.md:31
+#: ../../frescobaldi/userguide/creating.md:31
 msgid "Using the Score Wizard"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/creating.md:33
+#: ../../frescobaldi/userguide/creating.md:33
 msgid ""
 "A third way to create a new document is to use the [scorewiz Score Wizard]."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:1
+#: ../../frescobaldi/userguide/credits.md:1
 msgid "Credits"
 msgstr "クレジット"
 
-#: ../../frescobaldi_app/userguide/credits.md:3
+#: ../../frescobaldi/userguide/credits.md:3
 msgid "{appname} is written in {python} and uses the {qt} toolkit."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:5
-msgid ""
-"The Music View is powered by the {poppler} library by {authors} and others."
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/credits.md:7
+#: ../../frescobaldi/userguide/credits.md:5
 msgid "Most of the bundled icons are created by {tango}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:9
+#: ../../frescobaldi/userguide/credits.md:7
 msgid "The following people contributed to {appname} (in alphabetical order):"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:12
+#: ../../frescobaldi/userguide/credits.md:10
 msgid "Bug and compatibility fixes, miscellaneous"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:15
+#: ../../frescobaldi/userguide/credits.md:13
 msgid "Main author and core developer"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:18
-msgid "Encoding-related fixes and other improvements"
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/credits.md:21
-msgid "Modal Transpose"
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/credits.md:24
+#: ../../frescobaldi/userguide/credits.md:16
 msgid "Quick Insert buttons for grace notes"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:24
+#: ../../frescobaldi/userguide/credits.md:16
 msgid "MusicXML, MIDI and ABC im- and export"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:24
-#: ../../frescobaldi_app/userguide/credits.md:46
-#: ../../frescobaldi_app/userguide/manuscriptview.md:1
+#: ../../frescobaldi/userguide/credits.md:16
+#: ../../frescobaldi/userguide/credits.md:50
+#: ../../frescobaldi/userguide/manuscriptview.md:1
 msgid "Manuscript Viewer"
 msgstr "原稿ビューア"
 
-#: ../../frescobaldi_app/userguide/credits.md:29
+#: ../../frescobaldi/userguide/credits.md:21
+msgid "Encoding-related fixes and other improvements"
+msgstr ""
+
+#: ../../frescobaldi/userguide/credits.md:24
+msgid ""
+"Linux freedesktop.org fixes, maintainer of the flatpak package on Flathub, "
+"Windows and macOS packages built with Briefcase"
+msgstr ""
+
+#: ../../frescobaldi/userguide/credits.md:29
+msgid "Modal Transpose"
+msgstr ""
+
+#: ../../frescobaldi/userguide/credits.md:32
 msgid "Kinetic Scrolling for the Music View"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:32
-msgid "Score Wizard improvements"
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/credits.md:32
-msgid "Score Wizard From Current Document"
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/credits.md:36
+#: ../../frescobaldi/userguide/credits.md:35
 msgid "Windows installers"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:39
+#: ../../frescobaldi/userguide/credits.md:38
+msgid "Qt 6 port"
+msgstr ""
+
+#: ../../frescobaldi/userguide/credits.md:38
+msgid "Score Wizard improvements"
+msgstr ""
+
+#: ../../frescobaldi/userguide/credits.md:38
+msgid "Score Wizard From Current Document"
+msgstr ""
+
+#: ../../frescobaldi/userguide/credits.md:43
 msgid "Homebrew formula for macOS"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:42
+#: ../../frescobaldi/userguide/credits.md:46
 msgid "various other improvements"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:46
+#: ../../frescobaldi/userguide/credits.md:50
 msgid "Layout control modes"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:46
+#: ../../frescobaldi/userguide/credits.md:50
 msgid "various other contributions"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:51
+#: ../../frescobaldi/userguide/credits.md:55
 msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:54
+#: ../../frescobaldi/userguide/credits.md:58
 msgid "MIDI capturing"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:57
+#: ../../frescobaldi/userguide/credits.md:61
 msgid "macOS installers (arm64)"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:60
+#: ../../frescobaldi/userguide/credits.md:64
 msgid "Finding lots of bugs"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:63
+#: ../../frescobaldi/userguide/credits.md:67
+msgid "Qt 6 port testing and improvements"
+msgstr ""
+
+#: ../../frescobaldi/userguide/credits.md:67
+msgid "many bug fixes"
+msgstr ""
+
+#: ../../frescobaldi/userguide/credits.md:71
 msgid "Many code and feature improvements"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:63
+#: ../../frescobaldi/userguide/credits.md:71
 msgid "work on proper Python 3 support"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:67
+#: ../../frescobaldi/userguide/credits.md:75
 msgid "Relative mode for MIDI capturing"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/credits.md:70
+#: ../../frescobaldi/userguide/credits.md:78
 msgid "{appname} is translated into the following languages:"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/credits.md:141
+#: ../../frescobaldi/userguide/credits.md:149
 msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts.md:1
+#: ../../frescobaldi/userguide/documentfonts.md:1
 msgid "Document Fonts"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts.md:3
+#: ../../frescobaldi/userguide/documentfonts.md:3
 msgid ""
 "The `Document Fonts` dialog which is accessible through {menu_dialog} "
 "provides tools to browse available text fonts, to browse available music "
@@ -489,7 +499,7 @@ msgid ""
 "and the \"current document\"."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts.md:10
+#: ../../frescobaldi/userguide/documentfonts.md:10
 msgid ""
 "The dialog is tied to the specific LilyPond installation that would be used "
 "for a compilation (see {page_lilyversion}). All fonts are specific to that "
@@ -497,7 +507,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts.md:14
+#: ../../frescobaldi/userguide/documentfonts.md:14
 msgid ""
 "The dialog is split in two areas, a group of browsing and configuration tabs "
 "on the left side and a preview pane on the right. In the left tabs text and "
@@ -508,63 +518,63 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts.md:21
+#: ../../frescobaldi/userguide/documentfonts.md:21
 msgid ""
 "The selected fonts are remembered between Frescobaldi sessions, but by "
 "clicking on the `Restore` button at the bottom of the dialog the selection "
 "can be reset to LilyPond's default text and music fonts."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts.md:25
-#: ../../frescobaldi_app/userguide/documentfonts_text.md:1
+#: ../../frescobaldi/userguide/documentfonts.md:25
+#: ../../frescobaldi/userguide/documentfonts_text.md:1
 msgid "Text Fonts"
 msgstr "テキストフォント"
 
-#: ../../frescobaldi_app/userguide/documentfonts.md:27
+#: ../../frescobaldi/userguide/documentfonts.md:27
 msgid ""
 "The tab {page_textfonts} provides a searchable tree view of all text fonts "
 "available to the current LilyPond installation. It also allows to select "
 "text fonts for use in the score document."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts.md:31
-#: ../../frescobaldi_app/userguide/documentfonts_music.md:1
+#: ../../frescobaldi/userguide/documentfonts.md:31
+#: ../../frescobaldi/userguide/documentfonts_music.md:1
 msgid "Music Fonts"
 msgstr "記譜フォント"
 
-#: ../../frescobaldi_app/userguide/documentfonts.md:33
+#: ../../frescobaldi/userguide/documentfonts.md:33
 msgid ""
 "The tab {page_musicfonts} provides a list of available music fonts and a "
 "number of controls to manage font installation in the current LilyPond "
 "installation."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts.md:36
+#: ../../frescobaldi/userguide/documentfonts.md:36
 msgid "Font Command"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts.md:38
+#: ../../frescobaldi/userguide/documentfonts.md:38
 msgid ""
 "The tab {page_fontcommand} provides controls to configure the way how the "
 "font-setting command is generated."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts.md:41
+#: ../../frescobaldi/userguide/documentfonts.md:41
 msgid "Preview"
 msgstr "プレビュー"
 
-#: ../../frescobaldi_app/userguide/documentfonts.md:43
+#: ../../frescobaldi/userguide/documentfonts.md:43
 msgid ""
 "On the right side of the dialog a large area is reserved for a (cached) "
 "preview of various scores using all combinations."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_command.md:1
+#: ../../frescobaldi/userguide/documentfonts_command.md:1
 msgid "Font Settings Command"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_command.md:3
+#: ../../frescobaldi/userguide/documentfonts_command.md:3
 msgid ""
 "In LilyPond music and text fonts are selected by issuing specific commands, "
 "and on the *Font Command* tab the way this command is generated can be "
@@ -575,35 +585,35 @@ msgid ""
 "the respective buttons."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_command.md:11
+#: ../../frescobaldi/userguide/documentfonts_command.md:11
 msgid "Considered Text Fonts"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_command.md:13
+#: ../../frescobaldi/userguide/documentfonts_command.md:13
 msgid ""
 "Three checkboxes regulate whether roman, sans, and typewriter fonts are "
 "considered in the font-settings command. For each family that is *not* "
 "checked LilyPond will use the default fonts."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_command.md:17
+#: ../../frescobaldi/userguide/documentfonts_command.md:17
 msgid "Command generation style"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_command.md:19
+#: ../../frescobaldi/userguide/documentfonts_command.md:19
 msgid ""
 "Frescobaldi can apply several styles of generating the font commands, which "
 "can be selected by choosing from the different tabs in the lower part of the "
 "dialog."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_command.md:22
+#: ../../frescobaldi/userguide/documentfonts_command.md:22
 msgid "Traditional Style"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_command.md:24
+#: ../../frescobaldi/userguide/documentfonts_command.md:24
 msgid ""
 "In the traditional style of setting fonts inside a *\\paper* block arbitrary "
 "fonts may be set or not, including the *music* font. So in addition to the "
@@ -612,18 +622,18 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_command.md:28
+#: ../../frescobaldi/userguide/documentfonts_command.md:28
 msgid ""
 "It is possible to generate a complete *\\paper* block or not, depending on "
 "where the generated command should be used."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_command.md:31
+#: ../../frescobaldi/userguide/documentfonts_command.md:31
 msgid "openLilyLib Style"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_command.md:33
+#: ../../frescobaldi/userguide/documentfonts_command.md:33
 msgid ""
 "{openlilylib} has a *notation-fonts* package with advanced functionality to "
 "load notation fonts (together with text fonts) which Frescobaldi makes "
@@ -632,28 +642,28 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_command.md:38
+#: ../../frescobaldi/userguide/documentfonts_command.md:38
 msgid ""
 "*NOTE:* In order for this to work the two openLilyLib packages `oll-core` "
 "and `notation-fonts` have to be installed and available."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_command.md:41
+#: ../../frescobaldi/userguide/documentfonts_command.md:41
 msgid ""
 "*Load openLilyLib*: This should be unchecked if *oll-core* is already loaded/"
 "included elsewhere in the score files."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_command.md:44
+#: ../../frescobaldi/userguide/documentfonts_command.md:44
 msgid ""
 "*Load notation-fonts package*: The same consideration regarding the "
 "*notation-fonts* package."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_command.md:46
+#: ../../frescobaldi/userguide/documentfonts_command.md:46
 msgid ""
 "*Load font extensions:* Some fonts include additional glyphs beyond the "
 "regular LilyPond coverage. openLilylib provides stylesheets with supporting "
@@ -663,7 +673,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_command.md:51
+#: ../../frescobaldi/userguide/documentfonts_command.md:51
 msgid ""
 "*Font stylesheets:* openLilyLib provides default stylesheets for each "
 "supported font, adjusting the visual appearance (e.g. line thickness of "
@@ -676,7 +686,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_music.md:3
+#: ../../frescobaldi/userguide/documentfonts_music.md:3
 msgid ""
 "LilyPond can natively use alternative notation fonts since version "
 "`2.19.12`, and version `2.18.2` can be patched with some (little) effort. "
@@ -689,19 +699,19 @@ msgid ""
 "{notationfontswiki} for more information on LilyPond's music font handling."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_music.md:13
+#: ../../frescobaldi/userguide/documentfonts_music.md:13
 msgid ""
 "Freely available notation fonts can be downloaded from {notationfonts}, but "
 "it is recommended to also visit {mtf}, an online store with a collection of "
 "extraordinary non-free music fonts."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_music.md:17
+#: ../../frescobaldi/userguide/documentfonts_music.md:17
 msgid "Browsing Music Fonts"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_music.md:19
+#: ../../frescobaldi/userguide/documentfonts_music.md:19
 msgid ""
 "The main area of the *Music Fonts* tab is a list with all music fonts found "
 "in the current LilyPond installation. If no alternative music fonts are "
@@ -713,28 +723,28 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_music.md:26
+#: ../../frescobaldi/userguide/documentfonts_music.md:26
 msgid ""
 "Selecting a row in the list will select the given font (and its *-brace* "
 "font if available) as the current music font and trigger the {preview} to be "
 "updated."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_music.md:30
+#: ../../frescobaldi/userguide/documentfonts_music.md:30
 msgid "Managing Music Fonts"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_music.md:32
+#: ../../frescobaldi/userguide/documentfonts_music.md:32
 msgid ""
 "Above the font list is a row with buttons to manage music font installation "
 "in the current LilyPond instance."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_music.md:35
+#: ../../frescobaldi/userguide/documentfonts_music.md:35
 msgid "Local Font Repository"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_music.md:37
+#: ../../frescobaldi/userguide/documentfonts_music.md:37
 msgid ""
 "If a directory is made known as a local repository for music fonts (see "
 "{paths}) its content can easily be used as a source for font installation in "
@@ -743,12 +753,12 @@ msgid ""
 "and save it in this location."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_music.md:43
+#: ../../frescobaldi/userguide/documentfonts_music.md:43
 msgid "Installing Music Fonts"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_music.md:45
+#: ../../frescobaldi/userguide/documentfonts_music.md:45
 msgid ""
 "Frescobaldi installs music fonts in a given LilyPond instance by creating "
 "*symbolic links* from a source directory into the font directory within the "
@@ -758,7 +768,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_music.md:51
+#: ../../frescobaldi/userguide/documentfonts_music.md:51
 msgid ""
 "If a Local Font Repository is defined all fonts from that repository can be "
 "added to the current LilyPond installation by clicking on the *Install "
@@ -769,7 +779,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_music.md:58
+#: ../../frescobaldi/userguide/documentfonts_music.md:58
 msgid ""
 "Clicking the *Install...* button will open a directory chooser dialog, and "
 "the selected directory will be recursively searched, installing all fonts "
@@ -778,12 +788,12 @@ msgid ""
 "time of installation because otherwise the symbolic link would break."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_music.md:64
+#: ../../frescobaldi/userguide/documentfonts_music.md:64
 msgid "Removing Music Fonts"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_music.md:66
+#: ../../frescobaldi/userguide/documentfonts_music.md:66
 msgid ""
 "The *Remove* button tries to remove the currently selected music font from "
 "the LilyPond installation by removing the symbolic link from the LilyPond "
@@ -793,12 +803,12 @@ msgid ""
 "is always true for the *Emmentaler* font that ships with LilyPond itself."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_preview.md:1
+#: ../../frescobaldi/userguide/documentfonts_preview.md:1
 msgid "Document Fonts Preview"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_preview.md:3
+#: ../../frescobaldi/userguide/documentfonts_preview.md:3
 msgid ""
 "The right hand side of the *Document Fonts* dialog provides a preview pane "
 "to see the effect of the font selection in the actual score context. "
@@ -809,22 +819,22 @@ msgid ""
 "the caching strategy."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_preview.md:10
+#: ../../frescobaldi/userguide/documentfonts_preview.md:10
 msgid "Example Source"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_preview.md:12
+#: ../../frescobaldi/userguide/documentfonts_preview.md:12
 msgid ""
 "There are three main sources for the score to be previewed: provided default "
 "examples, the \"current document\", and arbitrary custom files, each with "
 "their own considerations."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_preview.md:16
+#: ../../frescobaldi/userguide/documentfonts_preview.md:16
 msgid "Default Examples"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_preview.md:18
+#: ../../frescobaldi/userguide/documentfonts_preview.md:18
 msgid ""
 "A selection of examples has been provided to demonstrate a range of typical "
 "notation use cases. They have been chosen and tailored to showcase the use "
@@ -833,11 +843,11 @@ msgid ""
 "specimen sheet."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_preview.md:24
+#: ../../frescobaldi/userguide/documentfonts_preview.md:24
 msgid "Custom Files"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_preview.md:26
+#: ../../frescobaldi/userguide/documentfonts_preview.md:26
 msgid ""
 "It is possible to choose a custom file to preview the effects of font "
 "choices in the context of a real-world score, e.g. the one for which the "
@@ -845,7 +855,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_preview.md:30
+#: ../../frescobaldi/userguide/documentfonts_preview.md:30
 msgid ""
 "*NOTE:* Due to a limitation in LilyPond that cannot fully be handled by "
 "Frescobaldi the font preview doesn't work properly when the compiled example "
@@ -858,11 +868,11 @@ msgid ""
 "alternative fonts which will then be used."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_preview.md:41
+#: ../../frescobaldi/userguide/documentfonts_preview.md:41
 msgid "Current Document"
 msgstr "現在のドキュメント"
 
-#: ../../frescobaldi_app/userguide/documentfonts_preview.md:43
+#: ../../frescobaldi/userguide/documentfonts_preview.md:43
 msgid ""
 "This selection will compile the currently opened document (or the document "
 "that would be compiled by Frescobaldi's compilation commands). Note that "
@@ -870,17 +880,17 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_preview.md:47
+#: ../../frescobaldi/userguide/documentfonts_preview.md:47
 msgid ""
 "The considerations about a *\\paper* block outlined above apply here as well."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_preview.md:49
+#: ../../frescobaldi/userguide/documentfonts_preview.md:49
 msgid "Preview Caching"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_preview.md:51
+#: ../../frescobaldi/userguide/documentfonts_preview.md:51
 msgid ""
 "In order to optimize the user experience when comparing font choices "
 "Frescobaldi caches the compiled previews. Note that PDF files are produced "
@@ -891,7 +901,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_preview.md:58
+#: ../../frescobaldi/userguide/documentfonts_preview.md:58
 msgid ""
 "However, if the `Music Fonts Preview Cache` option in {paths} points to a "
 "user-writable persistent directory the renderings of the *provided default* "
@@ -899,12 +909,12 @@ msgid ""
 "multiple Frescobaldi sessions."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_text.md:3
+#: ../../frescobaldi/userguide/documentfonts_text.md:3
 msgid "Browsing Text Fonts"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_text.md:5
+#: ../../frescobaldi/userguide/documentfonts_text.md:5
 msgid ""
 "The `Text Fonts` tab populates a list of all text fonts that are available "
 "to LilyPond (which may differ from fonts seen by other programs). Each font "
@@ -914,7 +924,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_text.md:10
+#: ../../frescobaldi/userguide/documentfonts_text.md:10
 msgid ""
 "Note that this list is created by running LilyPond with the `-d-show-"
 "available-fonts` command line option, which may take some time. It is "
@@ -923,7 +933,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_text.md:14
+#: ../../frescobaldi/userguide/documentfonts_text.md:14
 msgid ""
 "Below the tree view is an entry field where a filter expression can be "
 "entered that incrementally filters the list to quickly locate fonts. "
@@ -934,28 +944,28 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_text.md:21
+#: ../../frescobaldi/userguide/documentfonts_text.md:21
 msgid "*^*: Beginning of string: *^Lib* will now hide *Linux Libertine*"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_text.md:22
+#: ../../frescobaldi/userguide/documentfonts_text.md:22
 msgid "*$*: End of string"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_text.md:23
+#: ../../frescobaldi/userguide/documentfonts_text.md:23
 msgid ""
 "*\\b*: word boundaries: *tu* will show *Century Schoolbook* and *Ubuntu "
 "Mono* while *tu\\b* will suppress the *Century*."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_text.md:26
+#: ../../frescobaldi/userguide/documentfonts_text.md:26
 msgid "Selecting Text Fonts"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_text.md:28
+#: ../../frescobaldi/userguide/documentfonts_text.md:28
 msgid ""
 "A context menu in the tree view shows the three fonts currently selected as "
 "*Roman*, *Sans* and *Typewriter* fonts. Clicking on any of the three menu "
@@ -963,12 +973,12 @@ msgid ""
 "family and trigger the {preview} to be updated."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/documentfonts_text.md:33
+#: ../../frescobaldi/userguide/documentfonts_text.md:33
 msgid "Miscellaneous Font Information"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/documentfonts_text.md:35
+#: ../../frescobaldi/userguide/documentfonts_text.md:35
 msgid ""
 "The last tab lists some additional information about the font system, "
 "retrieved from the *fontconfig* library. These too refer to the current "
@@ -976,12 +986,12 @@ msgid ""
 "environment's data."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:1
+#: ../../frescobaldi/userguide/docvars.md:1
 msgid "Document Variables"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/docvars.md:3
+#: ../../frescobaldi/userguide/docvars.md:3
 msgid ""
 "Document variables are variables that influence the behaviour of "
 "Frescobaldi. They can be written in the first five or last five lines of a "
@@ -989,125 +999,125 @@ msgid ""
 "lines for variable definitions like `name: value;`."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:8
+#: ../../frescobaldi/userguide/docvars.md:8
 msgid "The following variables are recognized:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:10
+#: ../../frescobaldi/userguide/docvars.md:10
 msgid "General variables"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:12
+#: ../../frescobaldi/userguide/docvars.md:12
 msgid "mode"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:13
+#: ../../frescobaldi/userguide/docvars.md:13
 msgid ""
 "Force mode to be one of lilypond, html, texinfo, latex, docbook or scheme. "
 "Default: automatic mode recognition."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:16
+#: ../../frescobaldi/userguide/docvars.md:16
 msgid "filename"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:17
+#: ../../frescobaldi/userguide/docvars.md:17
 msgid "Compiles another LilyPond document instead of the current."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:19
+#: ../../frescobaldi/userguide/docvars.md:19
 msgid "name"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/docvars.md:20
+#: ../../frescobaldi/userguide/docvars.md:20
 msgid ""
 "Looks for output documents (PDF, MIDI, etc.) starting with the specified "
 "name or comma-separated list of names. [var_output More information]."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:24
+#: ../../frescobaldi/userguide/docvars.md:24
 msgid "encoding"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:25
+#: ../../frescobaldi/userguide/docvars.md:25
 msgid "Use another encoding than the default UTF-8."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:27
+#: ../../frescobaldi/userguide/docvars.md:27
 msgid "version"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:28
+#: ../../frescobaldi/userguide/docvars.md:28
 msgid ""
 "Set the LilyPond version to use, can be used for non-LilyPond documents."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:30
+#: ../../frescobaldi/userguide/docvars.md:30
 msgid "Indentation variables"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:32
-#: ../../frescobaldi_app/userguide/docvars.md:38
-#: ../../frescobaldi_app/userguide/docvars.md:45
+#: ../../frescobaldi/userguide/docvars.md:32
+#: ../../frescobaldi/userguide/docvars.md:38
+#: ../../frescobaldi/userguide/docvars.md:45
 msgid "number"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:33
+#: ../../frescobaldi/userguide/docvars.md:33
 msgid "The visible width of a tab character in the editor, by default 8."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:36
+#: ../../frescobaldi/userguide/docvars.md:36
 msgid "Whether to use tabs in indent, by default {no}."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/docvars.md:39
+#: ../../frescobaldi/userguide/docvars.md:39
 msgid ""
 "The number of spaces each indent level uses, by default 2. This value is "
 "ignored when `indent-tabs` is set to {yes}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/docvars.md:43
+#: ../../frescobaldi/userguide/docvars.md:43
 msgid "Whether to use tabs elsewhere in the document, by default {no}."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/docvars.md:46
+#: ../../frescobaldi/userguide/docvars.md:46
 msgid ""
 "How many spaces to insert when Tab is pressed in the middle of text, by "
 "default 8. This value is ignored when `document-tabs` is set to {yes}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/editing.md:1
+#: ../../frescobaldi/userguide/editing.md:1
 msgid "Editing Files"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/editing.md:3
+#: ../../frescobaldi/userguide/editing.md:3
 msgid ""
 "In this part the features of the editor are discussed, e.g. how to control "
 "auto-indenting, how to use search and replace, etcetera."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_custom.md:1
+#: ../../frescobaldi/userguide/engrave_custom.md:1
 msgid "Custom mode"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_custom.md:3
+#: ../../frescobaldi/userguide/engrave_custom.md:3
 msgid ""
 "The *Engrave (Custom)* dialog ({key_engrave_custom}) gives you detailed "
 "access to all aspects of the LilyPond command."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_custom.md:6
+#: ../../frescobaldi/userguide/engrave_custom.md:6
 msgid ""
 "You can configure a number of options through the graphical user interface "
 "and then fine-tune the command line to be used for LilyPond directly."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_custom.md:9
+#: ../../frescobaldi/userguide/engrave_custom.md:9
 msgid ""
 "You can select from the LilyPond versions defined in the [prefs_lilypond "
 "Preferences] dialog, from the output formats available to LilyPond and (for "
@@ -1115,7 +1125,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_custom.md:13
+#: ../../frescobaldi/userguide/engrave_custom.md:13
 msgid ""
 "The options *Verbose Output* and *English Messages* may be relevant if you "
 "want to send information to a mailing list, and *Delete Intermediate Output "
@@ -1123,100 +1133,100 @@ msgid ""
 "have been converted to PDF."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_custom.md:18
+#: ../../frescobaldi/userguide/engrave_custom.md:18
 msgid ""
 "Most of these settings are reflected in the Command Line text edit field."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_custom.md:20
+#: ../../frescobaldi/userguide/engrave_custom.md:20
 msgid "The following replacements will be made:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_custom.md:23
+#: ../../frescobaldi/userguide/engrave_custom.md:23
 msgid "The LilyPond executable"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_custom.md:26
+#: ../../frescobaldi/userguide/engrave_custom.md:26
 msgid "All the include paths"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_custom.md:29
+#: ../../frescobaldi/userguide/engrave_custom.md:29
 msgid "The filename of the document"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:1
+#: ../../frescobaldi/userguide/engrave_layout.md:1
 msgid "Layout control mode"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:3
+#: ../../frescobaldi/userguide/engrave_layout.md:3
 msgid ""
 "The Layout Control options display or highlight various layout aspects and "
 "will help you fine-tuning your scores."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_layout.md:6
+#: ../../frescobaldi/userguide/engrave_layout.md:6
 msgid ""
 "The options are accessible through the *Layout Control options* dockable "
 "panel ({menu_layout_control})."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:9
+#: ../../frescobaldi/userguide/engrave_layout.md:9
 msgid "The following Layout Control options are currently implemented:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:11
+#: ../../frescobaldi/userguide/engrave_layout.md:11
 msgid "Verbose Output"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_layout.md:12
+#: ../../frescobaldi/userguide/engrave_layout.md:12
 msgid ""
 "Adds the `--verbose` option to the LilyPond commandline, causing LilyPond to "
 "print lots of information in the log window."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:15
+#: ../../frescobaldi/userguide/engrave_layout.md:15
 msgid "Point-and-Click"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:16
+#: ../../frescobaldi/userguide/engrave_layout.md:16
 msgid ""
 "Enables the point and click navigation links in the Music View. Enabled by "
 "default."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_layout.md:19
+#: ../../frescobaldi/userguide/engrave_layout.md:19
 msgid "Color `\\voiceXXX`"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_layout.md:20
+#: ../../frescobaldi/userguide/engrave_layout.md:20
 msgid ""
 "This mode highlights voices that have been explicitly set with one of the "
 "`\\voiceXXX` commands. This is useful when dealing with polyphony issues."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:23
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:27
+#: ../../frescobaldi/userguide/engrave_layout.md:23
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:27
 msgid "Color explicit directions"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_layout.md:24
+#: ../../frescobaldi/userguide/engrave_layout.md:24
 msgid ""
 "This mode colors items whose directions have been explicitly set with either "
 "the predefined commands `\\xxxUp` etc. or the directional operators `^` and "
 "`_`."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:28
+#: ../../frescobaldi/userguide/engrave_layout.md:28
 msgid "Please note how this mode and the previous are related:"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_layout.md:30
+#: ../../frescobaldi/userguide/engrave_layout.md:30
 msgid ""
 "When the condition for one of the the modes is reverted using `\\oneVoice` "
 "or `\\stemNeutral`, colors are reverted to black and will also revert the "
@@ -1224,25 +1234,25 @@ msgid ""
 "2.17.5."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:35
+#: ../../frescobaldi/userguide/engrave_layout.md:35
 msgid ""
 "If the score is engraved with LilyPond version 2.17.6 or later this problem "
 "isn't present anymore."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:38
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:44
+#: ../../frescobaldi/userguide/engrave_layout.md:38
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:44
 msgid "Display Grob Anchors"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:39
+#: ../../frescobaldi/userguide/engrave_layout.md:39
 msgid ""
 "In LilyPond, all graphical objects have an anchor (a reference point). What "
 "is a reference point?  It's a special point that defines the object's "
 "position."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:43
+#: ../../frescobaldi/userguide/engrave_layout.md:43
 msgid ""
 "Think about geometry: if you have to define where a figure is placed on a "
 "plane, you'll usually say something like \"the lower left corner of this "
@@ -1250,39 +1260,39 @@ msgid ""
 "3)\"."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:48
+#: ../../frescobaldi/userguide/engrave_layout.md:48
 msgid ""
 "\"Lower left corner\" and \"center\" would be the reference points for "
 "square and circle."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:51
+#: ../../frescobaldi/userguide/engrave_layout.md:51
 msgid "This Mode displays a red dot for each grob's anchor point."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:53
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:59
+#: ../../frescobaldi/userguide/engrave_layout.md:53
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:59
 msgid "Display Grob Names"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:54
+#: ../../frescobaldi/userguide/engrave_layout.md:54
 msgid "This mode prints a grob's name next to it."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:56
+#: ../../frescobaldi/userguide/engrave_layout.md:56
 msgid ""
 "The main purpose of this layout control option is to retrieve information "
 "about Grob names, which may come in handy if you don't know where to look up "
 "available properties."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:60
+#: ../../frescobaldi/userguide/engrave_layout.md:60
 msgid ""
 "Please note that displaying grob anchors and displaying grob names is "
 "mutually exclusive because both functions override the grob's stencil."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:63
+#: ../../frescobaldi/userguide/engrave_layout.md:63
 msgid ""
 "When both modes are active, only the grob anchors are displayed. Please also "
 "note that this mode is quite intrusive and may affect the layout. It is "
@@ -1290,11 +1300,11 @@ msgid ""
 "usable once it can be activated for single grobs."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:68
+#: ../../frescobaldi/userguide/engrave_layout.md:68
 msgid "Display Skylines"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:69
+#: ../../frescobaldi/userguide/engrave_layout.md:69
 msgid ""
 "LilyPond uses \"Skylines\" to calculate the vertical dimensions of its "
 "graphical objects in order to prevent collisions. This mode draws lines "
@@ -1302,31 +1312,31 @@ msgid ""
 "spacing."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:74
+#: ../../frescobaldi/userguide/engrave_layout.md:74
 msgid "Debug Paper Columns"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:75
+#: ../../frescobaldi/userguide/engrave_layout.md:75
 msgid ""
 "LilyPond organises the horizontal spacing in \"paper columns\". This mode "
 "prints a lot of spacing information about these entities."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:78
+#: ../../frescobaldi/userguide/engrave_layout.md:78
 msgid "Annotate Spacing"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:79
+#: ../../frescobaldi/userguide/engrave_layout.md:79
 msgid ""
 "LilyPond has a built-in function that prints lots of information about "
 "distances on the paper, which is very useful when debugging the page layout."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:82
+#: ../../frescobaldi/userguide/engrave_layout.md:82
 msgid "Include Custom File"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:83
+#: ../../frescobaldi/userguide/engrave_layout.md:83
 msgid ""
 "This mode offers the opportunity to add one's own Debug Modes by including a "
 "custom file. This file will be included at program startup and may contain "
@@ -1334,37 +1344,37 @@ msgid ""
 "in Layout Control mode."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout.md:88
+#: ../../frescobaldi/userguide/engrave_layout.md:88
 msgid ""
 "This file will be parsed before any of the other Layout Control Modes so you "
 "may use it to configure them."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_layout.md:91
+#: ../../frescobaldi/userguide/engrave_layout.md:91
 msgid ""
 "The given string will be literally included in an `\\include` directive, so "
 "you are responsible yourself that LilyPond can find it."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:1
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:1
 msgid "Configuring the Layout Control options"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:3
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:3
 msgid ""
 "The appearance of the individual Layout Control modes is defined through the "
 "use of configuration variables."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:6
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:6
 msgid ""
 "Depending on the implementation the mode you may modify its appearance by "
 "redefining these variables in your input files."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:9
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:9
 msgid ""
 "But if you are interested in a more general solution you can make use of the "
 "\"Custom file\" mode. As this custom file is read in before the different "
@@ -1372,81 +1382,81 @@ msgid ""
 "the layout control modes are parsed."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:15
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:15
 msgid "The modes use the following configuration variables:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:18
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:18
 msgid "Color \\voiceXXX"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:19
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:19
 msgid "These variables currently can't be redefined in input files."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:28
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:45
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:60
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:28
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:45
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:60
 msgid "These variables can be redefined in input files:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:34
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:34
 msgid ""
 "Defines for which grobs the explicit direction through operators is "
 "monitored. By default all grobs are watched, but alternatively one can "
 "provide a list of grobs such as e.g."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:50
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:50
 msgid ""
 "Defines for which grobs the anchor points will be displayed. By default all "
 "grobs are watched, but alternatively one can provide a list of grobs such as "
 "e.g."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:65
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:65
 msgid ""
 "Defines for which grobs the names will be displayed. By default all grobs "
 "are watched, but alternatively one can provide a list of grobs such as e.g."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_layout_configure.md:73
+#: ../../frescobaldi/userguide/engrave_layout_configure.md:73
 msgid ""
 "The remaining modes are built-in to LilyPond and don't have any "
 "configuration options."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_preview.md:1
+#: ../../frescobaldi/userguide/engrave_preview.md:1
 msgid "Preview mode"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_preview.md:3
+#: ../../frescobaldi/userguide/engrave_preview.md:3
 msgid ""
 "This mode ({key_engrave_preview}) runs LilyPond with the `-dpoint-and-click` "
 "commandline option. This enables the clickable notes and other objects in "
 "the PDF."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_preview.md:7
+#: ../../frescobaldi/userguide/engrave_preview.md:7
 msgid ""
 "Using these links, the Music View is able to provide smart two-way "
 "navigation between the Music View and the LilyPond source."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engrave_preview.md:10
+#: ../../frescobaldi/userguide/engrave_preview.md:10
 msgid ""
 "The links also increase the size of the rendered PDF significantly, so when "
 "you want to share the rendered PDF with others, it is better to use the "
 "[engrave_publish publish mode]."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_publish.md:1
+#: ../../frescobaldi/userguide/engrave_publish.md:1
 msgid "Publish mode"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_publish.md:3
+#: ../../frescobaldi/userguide/engrave_publish.md:3
 msgid ""
 "When engraving a score in Publication mode ({key_engrave_publish}), the "
 "point-and-click information isn't generated. This will prevent a reader of "
@@ -1454,18 +1464,18 @@ msgid ""
 "input file, but it will also significantly decrease the file size."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engrave_publish.md:8
+#: ../../frescobaldi/userguide/engrave_publish.md:8
 msgid ""
 "You should also note that the point-and-click links contain hard-coded path "
 "information of your system, which may be considered a security issue."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/engraving.md:1
+#: ../../frescobaldi/userguide/engraving.md:1
 msgid "Engraving Scores"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engraving.md:3
+#: ../../frescobaldi/userguide/engraving.md:3
 msgid ""
 "To engrave a score, Frescobaldi runs LilyPond with the correct commandline "
 "options. There are four modes Frescobaldi can compile scores in: *Preview*, "
@@ -1473,7 +1483,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engraving.md:7
+#: ../../frescobaldi/userguide/engraving.md:7
 msgid ""
 "The *Preview mode* renders the PDF with point and click information enabled, "
 "so that there is two-way navigation between the music view and the LilyPond "
@@ -1481,7 +1491,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engraving.md:10
+#: ../../frescobaldi/userguide/engraving.md:10
 msgid ""
 "The *Publish mode* is used to produce the final PDF intended to be shared. "
 "Not generating the point and click information reduces the size of the "
@@ -1490,14 +1500,14 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engraving.md:14
+#: ../../frescobaldi/userguide/engraving.md:14
 msgid ""
 "The *Layout Control mode* can be used to enable specific features that can "
 "help in controlling and fine-tuning the layout of a score."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engraving.md:17
+#: ../../frescobaldi/userguide/engraving.md:17
 msgid ""
 "The *Custom mode* opens a dialog allowing you to specify the LilyPond "
 "command in detail. This dialog also has options to let LilyPond engrave a "
@@ -1505,7 +1515,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/engraving.md:21
+#: ../../frescobaldi/userguide/engraving.md:21
 msgid ""
 "All commands to run LilyPond can be found in the *LilyPond* menu. Pressing "
 "the LilyPond symbol in the toolbar engraves the document in preview mode, or "
@@ -1514,12 +1524,12 @@ msgid ""
 "is modified (in preview mode)."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/experimental_features.md:1
+#: ../../frescobaldi/userguide/experimental_features.md:1
 msgid "Experimental Features"
 msgstr "実験的機能"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/experimental_features.md:3
+#: ../../frescobaldi/userguide/experimental_features.md:3
 msgid ""
 "Some features of Frescobaldi are in development for quite some time before "
 "they are considered ready for general use. To be able to take advantage of "
@@ -1527,61 +1537,61 @@ msgid ""
 "Experimental Features*, in the {prefs_general}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/experimental_features.md:8
+#: ../../frescobaldi/userguide/experimental_features.md:8
 msgid ""
 "In most cases you need to restart Frescobaldi or create a new window (via "
 "{menu_window_new}) to see the new menu options."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/experimental_features.md:11
+#: ../../frescobaldi/userguide/experimental_features.md:11
 msgid "This is the list of experimental features in Frescobaldi:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/experimental_features.md:13
+#: ../../frescobaldi/userguide/experimental_features.md:13
 msgid "{export_audio} Export audio (converts MIDI to WAV)"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/experimental_features.md:14
+#: ../../frescobaldi/userguide/experimental_features.md:14
 msgid ""
 "{export_musicxml} Convert LilyPond source to MusicXML (without using "
 "LilyPond)"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/experimental_features.md:15
+#: ../../frescobaldi/userguide/experimental_features.md:15
 msgid "{object_editor} Edit properties of objects in LilyPond output"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/experimental_features.md:16
+#: ../../frescobaldi/userguide/experimental_features.md:16
 msgid "Editing items in the SVG view"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/export.md:1
+#: ../../frescobaldi/userguide/export.md:1
 msgid "Exporting files"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_configuration.md:1
+#: ../../frescobaldi/userguide/ext_configuration.md:1
 msgid "Configuring Extensions"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_configuration.md:3
+#: ../../frescobaldi/userguide/ext_configuration.md:3
 msgid ""
 "{menu_preferences_extensions} provides an interface to configuring "
 "extensions, globally and per extension. Note that most changes done here "
 "require a restart of Frescobaldi to take effect."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_configuration.md:7
+#: ../../frescobaldi/userguide/ext_configuration.md:7
 msgid "General Settings"
 msgstr "一般設定"
 
-#: ../../frescobaldi_app/userguide/ext_configuration.md:9
+#: ../../frescobaldi/userguide/ext_configuration.md:9
 msgid ""
 "The use of extensions can be deactivated globally. Without this checkbox "
 "checked only the extensions' meta information is accessed and no extension "
 "code loaded."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_configuration.md:12
+#: ../../frescobaldi/userguide/ext_configuration.md:12
 msgid ""
 "Setting the path to a common extension base directory is the most important "
 "step to get extensions running. However, selecting an arbitrary existing "
@@ -1589,18 +1599,18 @@ msgid ""
 "loaded."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_configuration.md:16
+#: ../../frescobaldi/userguide/ext_configuration.md:16
 msgid "Installed Extensions"
 msgstr "インストールされている機能拡張"
 
-#: ../../frescobaldi_app/userguide/ext_configuration.md:18
+#: ../../frescobaldi/userguide/ext_configuration.md:18
 msgid ""
 "This tree view lists all installed (i.e. found) extensions, regardless "
 "whether they are loaded or not. Expanding an entry displays a list with "
 "useful meta information on the extension."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_configuration.md:22
+#: ../../frescobaldi/userguide/ext_configuration.md:22
 msgid ""
 "The checkbox beside the extension name indicates whether an extension is "
 "active or not. Newly detected extensions are by default active. Unchecking "
@@ -1608,7 +1618,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/ext_configuration.md:26
+#: ../../frescobaldi/userguide/ext_configuration.md:26
 msgid ""
 "Selecting an extension will reveal a configuration area in the lower part of "
 "the page if the extension provides it. *Note*: The availability and "
@@ -1617,7 +1627,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/ext_configuration.md:31
+#: ../../frescobaldi/userguide/ext_configuration.md:31
 msgid ""
 "If the *API version* entry does not match Frescobaldi's extension API "
 "version its entry will be highlighted and point to the difference. Such a "
@@ -1626,18 +1636,18 @@ msgid ""
 "problem."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_configuration.md:36
+#: ../../frescobaldi/userguide/ext_configuration.md:36
 msgid "Failed Extensions"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_configuration.md:38
+#: ../../frescobaldi/userguide/ext_configuration.md:38
 msgid ""
 "Extensions can be faulty so that either the meta information can not be "
 "parsed properly or they cause errors upon loading. If either is the case an "
 "additional tree view is displayed with details about the issue."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_configuration.md:42
+#: ../../frescobaldi/userguide/ext_configuration.md:42
 msgid ""
 "In a first sublist extensions are listed that have faulty meta information. "
 "The extensions are loaded anyway, but proper functioning can not be "
@@ -1645,7 +1655,7 @@ msgid ""
 "problem."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_configuration.md:46
+#: ../../frescobaldi/userguide/ext_configuration.md:46
 msgid ""
 "A second sublist shows extensions that could not be loaded properly. The "
 "detail entry gives a short description of the problem as reported by Python. "
@@ -1654,12 +1664,12 @@ msgid ""
 "to the extension maintainer(s) to investigate the issue."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_configuration.md:52
+#: ../../frescobaldi/userguide/ext_configuration.md:52
 msgid "Extension Configuration"
 msgstr "機能拡張の設定"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/ext_configuration.md:54
+#: ../../frescobaldi/userguide/ext_configuration.md:54
 msgid ""
 "Extensions can provide a configuration interface, which - if present - will "
 "be displayed as the last group on the Preferences page. *Note*: For "
@@ -1667,11 +1677,11 @@ msgid ""
 "deactivated extensions."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_installation.md:1
+#: ../../frescobaldi/userguide/ext_installation.md:1
 msgid "Installing Extensions"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_installation.md:3
+#: ../../frescobaldi/userguide/ext_installation.md:3
 msgid ""
 "In order to use extensions an arbitrary base directory has to be created and "
 "made known to Frescobaldi in {menu_preferences_extensions}, in the first "
@@ -1679,7 +1689,7 @@ msgid ""
 "Extensions\" has to be checked."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_installation.md:8
+#: ../../frescobaldi/userguide/ext_installation.md:8
 msgid ""
 "Extensions are installed by copying the whole extension directory into the "
 "base directory and restarting Frescobaldi. Upon program start Frescobaldi "
@@ -1688,12 +1698,12 @@ msgid ""
 "loaded to avoid large extensions slowing down the startup."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_usage.md:1
+#: ../../frescobaldi/userguide/ext_usage.md:1
 msgid "Using Extensions"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/ext_usage.md:3
+#: ../../frescobaldi/userguide/ext_usage.md:3
 msgid ""
 "Obviously the actual usage of an extension is up to the extension, and so is "
 "the documentation of its features. However, there are some common aspects "
@@ -1702,52 +1712,52 @@ msgid ""
 "and a *Tool Panel*. At least one of these must exist for any extension."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_usage.md:7
+#: ../../frescobaldi/userguide/ext_usage.md:7
 msgid "Menus"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/ext_usage.md:9
+#: ../../frescobaldi/userguide/ext_usage.md:9
 msgid ""
 "An extension's *Menu Actions* can be exposed in various {submenu_extensions} "
 "submenus. It is up to the extension maintainer(s) which actions are "
 "available in each of the following places:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_usage.md:14
+#: ../../frescobaldi/userguide/ext_usage.md:14
 msgid "Editor context menu"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_usage.md:15
+#: ../../frescobaldi/userguide/ext_usage.md:15
 msgid "Musicview context menu"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_usage.md:16
+#: ../../frescobaldi/userguide/ext_usage.md:16
 msgid "Manuscriptview context menu"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/ext_usage.md:17
+#: ../../frescobaldi/userguide/ext_usage.md:17
 msgid "*Additional places may be added over time*"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_usage.md:19
+#: ../../frescobaldi/userguide/ext_usage.md:19
 msgid "Tool Panel"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/ext_usage.md:21
+#: ../../frescobaldi/userguide/ext_usage.md:21
 msgid ""
 "If an extensions provides a Tool Panel it is accessible through "
 "{menu_panel}. The panel behaves like Frescobaldi's built-in dockable panels, "
 "and what functionality it provides is up to the extension."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/extending.md:1
+#: ../../frescobaldi/userguide/extending.md:1
 msgid "Extending Frescobaldi"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/extending.md:3
+#: ../../frescobaldi/userguide/extending.md:3
 msgid ""
 "Additional functionality can be added Frescobaldi through *Extensions*. "
 "These can be useful for any functionality or tool one might want to work "
@@ -1755,7 +1765,7 @@ msgid ""
 "the core application."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/extending.md:8
+#: ../../frescobaldi/userguide/extending.md:8
 msgid ""
 "Extensions may provide a Tool Panel and menu actions that can be exposed in "
 "the {menu_tools_extensions} and a number of context menus. They have full "
@@ -1763,43 +1773,43 @@ msgid ""
 "particular extensions may provide"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/extending.md:13
+#: ../../frescobaldi/userguide/extending.md:13
 msgid "tools to handle input files or viewer elements"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/extending.md:14
+#: ../../frescobaldi/userguide/extending.md:14
 msgid "project management capabilities (librarians, build tools)"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/extending.md:15
+#: ../../frescobaldi/userguide/extending.md:15
 msgid "custom editors for various elements (annotations, tweaking tools)"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/extending.md:16
+#: ../../frescobaldi/userguide/extending.md:16
 msgid ""
 "arbitrary other tools, e.g. an invoice generator, messaging client, "
 "Tetris ..."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/extending.md:18
+#: ../../frescobaldi/userguide/extending.md:18
 msgid ""
 "*NOTE:* This power implies risks. An extension may - due to bad programming "
 "or evil intent - do great harm to your whole computer. Please be sure to use "
 "extensions from reliable sources only!"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/externalchanges.md:1
+#: ../../frescobaldi/userguide/externalchanges.md:1
 msgid "Monitoring external changes"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/externalchanges.md:3
+#: ../../frescobaldi/userguide/externalchanges.md:3
 msgid ""
 "Frescobaldi can detect if files are modified or deleted by other "
 "applications."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/externalchanges.md:5
+#: ../../frescobaldi/userguide/externalchanges.md:5
 msgid ""
 "When another application modifies or deletes one or more documents that are "
 "opened in Frescobaldi, a list of affected documents is displayed, and you "
@@ -1807,94 +1817,95 @@ msgid ""
 "them, discarding the modifications made by the other application."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/externalchanges.md:10
+#: ../../frescobaldi/userguide/externalchanges.md:10
 msgid ""
 "When a document is reloaded, you can still press {key_undo} to get back the "
 "document as it was in memory before reloading it from disk."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/externalchanges.md:13
+#: ../../frescobaldi/userguide/externalchanges.md:13
 msgid ""
 "Press the *Show Difference...* button to see the difference between the "
 "current document and its version on disk."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/externalchanges.md:16
+#: ../../frescobaldi/userguide/externalchanges.md:16
 msgid ""
 "If you don't want to be warned when a document is changed or deleted by "
 "another application, uncheck the *Enable watching documents for external "
 "changes* checkbox."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/getstarted.md:1
+#: ../../frescobaldi/userguide/getstarted.md:1
 msgid "Getting Started"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/getstarted.md:3
+#: ../../frescobaldi/userguide/getstarted.md:3
 msgid ""
 "The default screen of Frescobaldi shows a text document on the left and an "
 "empty Music View window on the right."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/getstarted.md:6
+#: ../../frescobaldi/userguide/getstarted.md:6
 msgid "Now, in the text view, enter some LilyPond code, like this:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/getstarted.md:18
+#: ../../frescobaldi/userguide/getstarted.md:18
 msgid ""
-"Then click the Lily toolbar button or press {key_engrave}. LilyPond will "
-"start to processes your file and the PDF will be displayed in the Music View "
-"on the right. If LilyPond encounters any errors or warnings they will be "
-"displayed in the LilyPond Log at the bottom of the screen."
+"Then click the Engrave button (LilyPond icon) on the toolbar or press "
+"{key_engrave}. LilyPond will start to process your file and the PDF will be "
+"displayed in the Music View on the right. If LilyPond encounters any errors "
+"or warnings they will be displayed in the LilyPond Log at the bottom of the "
+"screen."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/getstarted.md:25
+#: ../../frescobaldi/userguide/getstarted.md:25
 msgid "The Music View has many possibilities:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/getstarted.md:27
+#: ../../frescobaldi/userguide/getstarted.md:27
 msgid ""
 "Hovering over notes and other music objects will highlight them in the text "
 "on the left window; clicking on them will place a cursor to the left of the "
 "object also in the left window."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/getstarted.md:31
+#: ../../frescobaldi/userguide/getstarted.md:31
 msgid ""
 "Use the Ctrl key and your mouse wheel to zoom in and out. Zooming will "
 "center around the mouse pointer."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/getstarted.md:34
+#: ../../frescobaldi/userguide/getstarted.md:34
 msgid ""
 "Ctrl-left-click-and-hold the mouse to magnify a small section of the Music "
 "View without zooming in the whole view."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/getstarted.md:37
+#: ../../frescobaldi/userguide/getstarted.md:37
 msgid ""
 "Selecting text in the main text window will highlight corresponding notes in "
 "the Music View; press {key_jump} to explicitly center and highlight a note "
 "or other objects in the Music View."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/getstarted.md:41
+#: ../../frescobaldi/userguide/getstarted.md:41
 msgid ""
-"Shift-drag a selection and then press {key_copy_image} or {menu_copy_image} "
-"to copy the selected music as a raster image to the clipboard, a file or "
-"another application."
+"Right-click a selection with the mouse and then press {key_copy_image} or "
+"{menu_copy_image} to copy the selected music as a raster image to the "
+"clipboard, a file or another application."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/getstarted.md:45
+#: ../../frescobaldi/userguide/getstarted.md:45
 msgid ""
 "When your music score is complete, run LilyPond once more but with clickable "
 "notes turned off: menu {menu_engrave}. This significantly reduces the size "
 "of the PDF."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/getstarted.md:49
+#: ../../frescobaldi/userguide/getstarted.md:49
 msgid ""
 "If LilyPond does not start at all, check if you have installed LilyPond "
 "correctly and that the lilypond command is in your system's PATH environment "
@@ -1902,7 +1913,7 @@ msgid ""
 "under {menu_preferences_lilypond}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/getstarted.md:54
+#: ../../frescobaldi/userguide/getstarted.md:54
 msgid ""
 "If LilyPond encounters any warnings or errors in your document they will "
 "show up in the LilyPond Log window at the bottom of the screen. Frescobaldi "
@@ -1915,21 +1926,21 @@ msgid ""
 "{menu_clear_error_marks}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/git.md:1
+#: ../../frescobaldi/userguide/git.md:1
 msgid "Git"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/history.md:1
+#: ../../frescobaldi/userguide/history.md:1
 msgid "History of Frescobaldi"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/history.md:3
+#: ../../frescobaldi/userguide/history.md:3
 msgid ""
 "Frescobaldi has its roots in LilyKDE, which was a plugin for KDE3's editor "
 "Kate. LilyKDE was written in Python and released in 2007 on Christmas."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/history.md:6
+#: ../../frescobaldi/userguide/history.md:6
 msgid ""
 "When KDE developed version 4, it was not immediately possible to make Kate "
 "plugins in Python. So LilyKDE became a standalone application, wrapping the "
@@ -1939,7 +1950,7 @@ msgid ""
 "released and on Christmas 2010 version 1.2.0."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/history.md:13
+#: ../../frescobaldi/userguide/history.md:13
 msgid ""
 "At that time it was decided to move away from the KDE4 libraries and just "
 "use Python and Qt4 which are easily available on all major computing "
@@ -1948,7 +1959,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/history.md:18
+#: ../../frescobaldi/userguide/history.md:18
 msgid ""
 "*Frescobaldi 2* had many releases from 2011 to 2017, where lots of "
 "functionality was added and many improvements were made. During these years, "
@@ -1957,7 +1968,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/history.md:23
+#: ../../frescobaldi/userguide/history.md:23
 msgid ""
 "A great effort was done to port Frescobaldi to Python3 and Qt5, which "
 "brought more stability and durability, and better multilingual support. As a "
@@ -1965,29 +1976,29 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/history.md:27
+#: ../../frescobaldi/userguide/history.md:27
 msgid ""
 "In 2017, Frescobaldi was accepted in the *Google Summer Of Code* project, "
 "where a number of students contributed significantly."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/history.md:30
+#: ../../frescobaldi/userguide/history.md:30
 msgid ""
 "In 2019, Frescobaldi and some supporting libraries were moved to the "
 "`frescobaldi` organisation on GitHub, reflecting that Frescobaldi now really "
 "is a community-supported Free Software project."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/import.md:1
+#: ../../frescobaldi/userguide/import.md:1
 msgid "Importing files"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/import_all.md:1
+#: ../../frescobaldi/userguide/import_all.md:1
 msgid "(Generic) Import"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/import_all.md:3
+#: ../../frescobaldi/userguide/import_all.md:3
 msgid ""
 "Using {menu_import}, you can import any file that is compatible with the "
 "LilyPond import tools (musicxml2ly, midi2ly and abc2ly). For each tool and "
@@ -1995,7 +2006,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/import_all.md:7
+#: ../../frescobaldi/userguide/import_all.md:7
 msgid ""
 "*Note that the specific importer is determined with the help of the file "
 "extension (.xml, .mxl, .midi, .mid or .abc) and without that the importer "
@@ -2003,12 +2014,12 @@ msgid ""
 "from the menu.*"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/indent_format.md:1
+#: ../../frescobaldi/userguide/indent_format.md:1
 msgid "Indentation and Formatting"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/indent_format.md:3
+#: ../../frescobaldi/userguide/indent_format.md:3
 msgid ""
 "By default, Frescobaldi will automatically indent two spaces after "
 "characters such as `{` and `<<`. This is in accordance with the indenting "
@@ -2016,7 +2027,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/indent_format.md:7
+#: ../../frescobaldi/userguide/indent_format.md:7
 msgid ""
 "You can change the indenting behaviour by using [docvars document "
 "variables]. In the following example, Frescobaldi will use 4 spaces for "
@@ -2024,52 +2035,52 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/indent_format.md:17
+#: ../../frescobaldi/userguide/indent_format.md:17
 msgid ""
 "You can also change the default behaviour of Frescobaldi in the "
 "[prefs_editor editor preferences]."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/indent_format.md:20
+#: ../../frescobaldi/userguide/indent_format.md:20
 msgid ""
 "Besides indenting, Frescobaldi is also able to align indented lines with "
 "other characters on the previous line, after the character that starts the "
 "indent. Consider the following example:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/indent_format.md:32
+#: ../../frescobaldi/userguide/indent_format.md:32
 msgid ""
 "The line {example} aligns itself with the preceding construct, regardless of "
 "the indent-with currently in use."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/index.md:1
+#: ../../frescobaldi/userguide/index.md:1
 msgid "Frescobaldi Manual"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/index.md:3
+#: ../../frescobaldi/userguide/index.md:3
 msgid ""
 "Frescobaldi is a light-weight, but powerful editor for LilyPond music files. "
 "This manual is written by {author} and documents {appname} version {version}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/index.md:8
+#: ../../frescobaldi/userguide/index.md:8
 msgid "How to get help inside Frescobaldi"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/index.md:10
+#: ../../frescobaldi/userguide/index.md:10
 msgid ""
 "In many dialogs there are Help buttons or you can press the {key_help} key. "
 "Many user interface items also have \"What's This\" information which can be "
 "revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/intro.md:1
+#: ../../frescobaldi/userguide/intro.md:1
 msgid "Introduction"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/intro.md:3
+#: ../../frescobaldi/userguide/intro.md:3
 msgid ""
 "[http://lilypond.org LilyPond] is a Free Software music engraving program, "
 "producing very high-quality sheet music printouts from fairly simple text "
@@ -2078,7 +2089,7 @@ msgid ""
 "but not restricted to, PDF."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/intro.md:10
+#: ../../frescobaldi/userguide/intro.md:10
 msgid ""
 "Frescobaldi is an application designed to make editing LilyPond music scores "
 "faster and easier. You will still need to learn LilyPond's input language "
@@ -2087,25 +2098,25 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/intro.md:15
+#: ../../frescobaldi/userguide/intro.md:15
 msgid ""
 "Once you have grasped the basics, the next step would be to use the LilyPond "
 "Learning Manual from [http://lilypond.org/doc/ LilyPond's excellent online "
 "documentation]."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/lyrics.md:1
+#: ../../frescobaldi/userguide/lyrics.md:1
 msgid "Lyrics"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/lyrics.md:3
+#: ../../frescobaldi/userguide/lyrics.md:3
 msgid ""
 "Frescobaldi can automatically place hyphens '{hyphen}' inside texts to make "
 "those texts usable as lyrics. It can use hyphenation dictionaries of "
-"OpenOffice.org, Scribus, etc."
+"LibreOffice, Scribus, etc."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/lyrics.md:7
+#: ../../frescobaldi/userguide/lyrics.md:7
 msgid ""
 "To use this feature you must first select the text you want to hyphenate. "
 "Then press {key_hyphen} or choose {menu_hyphen}. In the dialog that appears, "
@@ -2113,7 +2124,7 @@ msgid ""
 "place."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/lyrics.md:12
+#: ../../frescobaldi/userguide/lyrics.md:12
 msgid ""
 "A small limitation is that word processor hyphenation dictionaries often "
 "don't want to break a word right after the first letter (e.g. '{example}'), "
@@ -2121,7 +2132,7 @@ msgid ""
 "that you have to add some hyphens after the first letter of such lyrics."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/lyrics.md:17
+#: ../../frescobaldi/userguide/lyrics.md:17
 msgid ""
 "There is also a command to remove hyphenation. This can be useful if you "
 "have a stanza of lyrics that you just want to display as a markup below the "
@@ -2129,12 +2140,12 @@ msgid ""
 "for hyphenation pattern files."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/managing.md:1
+#: ../../frescobaldi/userguide/managing.md:1
 msgid "Managing Files"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/manuscriptview.md:3
+#: ../../frescobaldi/userguide/manuscriptview.md:3
 msgid ""
 "The *Manuscript Viewer* can display PDF documents alongside the default "
 "{music_view}. Typically it is used to have the to-be-copied manuscript(s) "
@@ -2144,7 +2155,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/manuscriptview.md:9
+#: ../../frescobaldi/userguide/manuscriptview.md:9
 msgid ""
 "One or more manuscripts can be opened using the *Open* button, new files are "
 "added to the list of open manuscripts. The current manuscript can be closed "
@@ -2153,7 +2164,7 @@ msgid ""
 "sessions, alongside the input documents."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/manuscriptview.md:15
+#: ../../frescobaldi/userguide/manuscriptview.md:15
 msgid ""
 "The toolbar can be hidden through the context menu entry to give more space "
 "for the document's display.  Most of the necessary functionality is then "
@@ -2161,7 +2172,7 @@ msgid ""
 "switching between different manuscripts."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/manuscriptview.md:20
+#: ../../frescobaldi/userguide/manuscriptview.md:20
 msgid ""
 "Navigation, zooming and printing provide the same functionality as the "
 "{music_view} tool, giving access through buttons, context menu items and "
@@ -2169,7 +2180,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/manuscriptview.md:23
+#: ../../frescobaldi/userguide/manuscriptview.md:23
 msgid ""
 "It is possible to inspect the document with the magnifying glass by *Ctrl*-"
 "clicking, and upon drawing a selection rectangle with the right mouse key "
@@ -2177,78 +2188,78 @@ msgid ""
 "PNG file."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/manuscriptview.md:27
+#: ../../frescobaldi/userguide/manuscriptview.md:27
 msgid ""
 "If the opened file is a PDF score engraved by LilyPond and containing valid "
 "point-and-click links several function of {music_view} also work in the "
 "manuscript viewer:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/manuscriptview.md:31
+#: ../../frescobaldi/userguide/manuscriptview.md:31
 msgid "Highlight input by selecting music or vice versa"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/manuscriptview.md:32
+#: ../../frescobaldi/userguide/manuscriptview.md:32
 msgid "Move the viewer to the current cursor position"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/manuscriptview.md:33
+#: ../../frescobaldi/userguide/manuscriptview.md:33
 msgid "Synchronize the document cursor with the view (automatic following)"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/manuscriptview.md:34
+#: ../../frescobaldi/userguide/manuscriptview.md:34
 msgid "Edit in place"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/manuscriptview.md:36
+#: ../../frescobaldi/userguide/manuscriptview.md:36
 msgid ""
 "However, when that score should be recompiled with LilyPond the manuscript "
 "viewer won't automatically update, but this can be done manually through the "
-"context menu"
+"context menu."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/manuscriptview.md:40
+#: ../../frescobaldi/userguide/manuscriptview.md:40
 msgid ""
 "If a manuscript contains external hyperlinks they can be clicked on and will "
 "open in an external viewer/browser. This may be practical for keeping lists "
 "of useful links around in that window."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/midi_import.md:1
+#: ../../frescobaldi/userguide/midi_import.md:1
 msgid "Import MIDI"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/midi_import.md:3
+#: ../../frescobaldi/userguide/midi_import.md:3
 msgid ""
 "Using {menu_import}, you can import a MIDI file using the command line tool "
 "`midi2ly` from the LilyPond package."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/midi_import.md:6
+#: ../../frescobaldi/userguide/midi_import.md:6
 msgid ""
 "In this dialog there are two tabs. In the first you can set some parameters "
 "for the midi2ly import. In the second you can set some actions on the "
 "imported LilyPond source code."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/midi_import.md:12
+#: ../../frescobaldi/userguide/midi_import.md:12
 msgid "The midi2ly tab"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/midi_import.md:16
-#: ../../frescobaldi_app/userguide/musicxml_import.md:20
+#: ../../frescobaldi/userguide/midi_import.md:16
+#: ../../frescobaldi/userguide/musicxml_import.md:20
 msgid "Pitches in absolute mode"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/midi_import.md:18
+#: ../../frescobaldi/userguide/midi_import.md:18
 msgid ""
 "This option can be used if you prefer to have the source code in absolute "
 "mode."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/midi_import.md:23
+#: ../../frescobaldi/userguide/midi_import.md:23
 msgid ""
 "At the bottom you have a text area that mimics the command line text used to "
 "run `midi2ly`. If you are familiar with command line tools in general and "
@@ -2257,59 +2268,59 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/midi_import.md:31
+#: ../../frescobaldi/userguide/midi_import.md:31
 msgid ""
 "After `midi2ly` is run and the new ly-file is created you can set "
 "Frescobaldi to automatically do some adjustments on the new file."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/midi_synth.md:1
+#: ../../frescobaldi/userguide/midi_synth.md:1
 msgid "Playing a MIDI file does not work"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/midi_synth.md:3
+#: ../../frescobaldi/userguide/midi_synth.md:3
 msgid ""
 "The built-in MIDI player needs an external synthesizer to make the MIDI "
 "audible, otherwise it will play the file silently, only showing the \"No "
 "Output Found!\" message."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/midi_synth.md:7
+#: ../../frescobaldi/userguide/midi_synth.md:7
 msgid ""
 "So make sure either a software synthesizer like TiMidity or FluidSynth is "
 "running (preferably at bootup or session login), or you have an external "
 "MIDI synthesizer connected to your computer."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/midi_synth.md:11
+#: ../../frescobaldi/userguide/midi_synth.md:11
 msgid ""
 "In the {midi_prefs} you can configure which MIDI port you want to use for "
 "playing the MIDI files."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/modal_transpose.md:1
+#: ../../frescobaldi/userguide/modal_transpose.md:1
 msgid "Modal transpose"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/modal_transpose.md:3
+#: ../../frescobaldi/userguide/modal_transpose.md:3
 msgid ""
 "Use the modal transpose if you want the notes to be kept within a given "
 "scale or key."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/modal_transpose.md:5
+#: ../../frescobaldi/userguide/modal_transpose.md:5
 msgid ""
 "Enter the number of steps you want to transpose followed by the given scale."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/modal_transpose.md:7
+#: ../../frescobaldi/userguide/modal_transpose.md:7
 msgid ""
 "E.g. when transposing a major second upwards in the key of C major, you "
 "would enter:"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/modal_transpose.md:13
+#: ../../frescobaldi/userguide/modal_transpose.md:13
 msgid ""
 "*Note that if some of the original pitches are outside the given key the "
 "relation will be kept and the pitches will not be adjusted to the key. Hence "
@@ -2317,188 +2328,189 @@ msgid ""
 "{modeshift} function instead.*"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/mode_shift.md:1
+#: ../../frescobaldi/userguide/mode_shift.md:1
 msgid "Mode shift"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/mode_shift.md:3
+#: ../../frescobaldi/userguide/mode_shift.md:3
 msgid ""
 "Use the mode shifter to change all or selected notes to a specified mode or "
 "scale. Any note that is divergent will be adjusted to fit inside the given "
 "mode/scale."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/mode_shift.md:6
+#: ../../frescobaldi/userguide/mode_shift.md:6
 msgid ""
 "In the dialog enter the key (root/tonic pitch) as a note name in your "
 "preferred language. And choose the mode/scale in the dropdown list."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/mode_shift.md:9
+#: ../../frescobaldi/userguide/mode_shift.md:9
 msgid ""
 "*Note that unlike the modal transposer all pitches will be shifted to the "
 "chosen scale regardless of which mode they possibly belonged to originally.*"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/mode_shift.md:12
+#: ../../frescobaldi/userguide/mode_shift.md:12
 msgid ""
 "*Note also that when using modes with less than seven scale steps (e. g. "
 "hexatonic and pentatonic modes) the mode shift can lead to double notes.*"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicview.md:1
-msgid "The Music View"
-msgstr ""
+#: ../../frescobaldi/userguide/musicview.md:1
+#, fuzzy
+msgid "Music View"
+msgstr "原稿ビューア"
 
-#: ../../frescobaldi_app/userguide/musicview.md:3
+#: ../../frescobaldi/userguide/musicview.md:3
 msgid "The Music View displays the PDF document created by LilyPond."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicview.md:5
+#: ../../frescobaldi/userguide/musicview.md:5
 msgid ""
 "When LilyPond was run in preview mode (i.e. with Point & Click turned on), "
 "the PDF contains a clickable link for every music object, pointing to its "
 "definition in the text document."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicview.md:9
+#: ../../frescobaldi/userguide/musicview.md:9
 msgid ""
 "The Music View uses this information to provide smart, two-way integration "
 "with the text document:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicview.md:12
+#: ../../frescobaldi/userguide/musicview.md:12
 msgid "Move the mouse pointer over music objects to highlight them in the text"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicview.md:13
+#: ../../frescobaldi/userguide/musicview.md:13
 msgid "Click an object to move the text cursor to that object"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicview.md:14
+#: ../../frescobaldi/userguide/musicview.md:14
 msgid ""
 "Shift-click an object to edit its text in a small window (see "
 "{musicview_editinplace})"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicview.md:16
+#: ../../frescobaldi/userguide/musicview.md:16
 msgid ""
 "Move the text cursor to highlight them in the music view, press "
 "{key_music_jump_to_cursor} to scroll them into view."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicview.md:19
+#: ../../frescobaldi/userguide/musicview.md:19
 msgid "You can also adjust the view:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicview.md:21
+#: ../../frescobaldi/userguide/musicview.md:21
 msgid ""
 "Use the Control (or Command) key with the mouse wheel to zoom in and out"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicview.md:22
+#: ../../frescobaldi/userguide/musicview.md:22
 msgid "Hold Control or Command and left-click to display a magnifier glass"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicview.md:23
+#: ../../frescobaldi/userguide/musicview.md:23
 msgid "Configure the background color under {settings_preview_background}"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicview.md:25
+#: ../../frescobaldi/userguide/musicview.md:25
 msgid ""
-"You can copy music right from the PDF view to a raster image: Hold Shift and "
-"drag a rectangular selection (or use the right mouse button) and then press "
+"You can copy music right from the PDF view to a raster image: use the right "
+"mouse button to drag a rectangular selection, then press "
 "{key_music_copy_image} or select {menu_music_copy_image} to copy the "
 "selected music as a raster image to the clipboard, a file or another "
 "application."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicview_editinplace.md:1
+#: ../../frescobaldi/userguide/musicview_editinplace.md:1
 msgid "Edit in Place"
 msgstr "その場で編集"
 
-#: ../../frescobaldi_app/userguide/musicview_editinplace.md:3
-msgid "In this dialog you can edit one line of the text document."
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/musicview_editinplace.md:5
-msgid ""
-"Click OK or press {key_editinplace} to place the modified text in the "
-"document."
-msgstr ""
-
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/musicview_editinplace.md:7
+#: ../../frescobaldi/userguide/musicview_editinplace.md:3
 msgid ""
 "You can open the *Edit in Place* dialog by Shift-clicking a clickable object "
 "in the Music View or by right-clicking the object and selecting "
 "{menu_editinplace}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicxml_export.md:1
+#: ../../frescobaldi/userguide/musicview_editinplace.md:6
+msgid "In this dialog you can edit one line of the text document."
+msgstr ""
+
+#: ../../frescobaldi/userguide/musicview_editinplace.md:8
+msgid ""
+"Click OK or press {key_editinplace} to place the modified text in the "
+"document."
+msgstr ""
+
+#: ../../frescobaldi/userguide/musicxml_export.md:1
 msgid "Export Music XML"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicxml_export.md:3
+#: ../../frescobaldi/userguide/musicxml_export.md:3
 msgid "Convert LilyPond source to MusicXML (without using LilyPond)."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicxml_export.md:5
+#: ../../frescobaldi/userguide/musicxml_export.md:5
 msgid "You can use the MusicXML-file to export to other applications."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicxml_export.md:7
+#: ../../frescobaldi/userguide/musicxml_export.md:7
 msgid "This feature is currently experimental, see {experimental}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicxml_import.md:1
+#: ../../frescobaldi/userguide/musicxml_import.md:1
 msgid "Import Music XML"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/musicxml_import.md:3
+#: ../../frescobaldi/userguide/musicxml_import.md:3
 msgid ""
 "Using {menu_import}, you can import a Music XML file using the command line "
 "tool `musicxml2ly` from the LilyPond package."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicxml_import.md:6
+#: ../../frescobaldi/userguide/musicxml_import.md:6
 msgid ""
 "In this dialog there are two tabs. In the first you can set some parameters "
 "for the musicxml2ly import. In the second you can set some actions on the "
 "imported LilyPond source code."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicxml_import.md:12
+#: ../../frescobaldi/userguide/musicxml_import.md:12
 msgid "The musicxml2ly tab"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicxml_import.md:16
+#: ../../frescobaldi/userguide/musicxml_import.md:16
 msgid "Import articulation directions"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicxml_import.md:17
+#: ../../frescobaldi/userguide/musicxml_import.md:17
 msgid "Import rest positions"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicxml_import.md:18
+#: ../../frescobaldi/userguide/musicxml_import.md:18
 msgid "Import page layout"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicxml_import.md:21
+#: ../../frescobaldi/userguide/musicxml_import.md:21
 msgid "Language for pitch names"
 msgstr "ピッチ表記の言語"
 
-#: ../../frescobaldi_app/userguide/musicxml_import.md:23
+#: ../../frescobaldi/userguide/musicxml_import.md:23
 msgid ""
 "The first four options are score elements you can retrieve from the musicXML-"
 "file if they are present and if you prefer not to use LilyPond's automatic "
 "handling of these elements."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/musicxml_import.md:27
+#: ../../frescobaldi/userguide/musicxml_import.md:27
 msgid ""
 "The next two options can be used if you prefer to have the source code in "
 "absolute mode or if you prefer a different pitch name language than the "
@@ -2506,7 +2518,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/musicxml_import.md:33
+#: ../../frescobaldi/userguide/musicxml_import.md:33
 msgid ""
 "At the bottom you have a text area that mimics the command line text used to "
 "run `musicxml2ly`. If you are familiar with command line tools in general "
@@ -2515,34 +2527,48 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/musicxml_import.md:41
+#: ../../frescobaldi/userguide/musicxml_import.md:41
 msgid ""
 "After `musicxml2ly` is run and the new ly-file is created you can set "
 "Frescobaldi to automatically do some adjustments on the new file."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/nomusic.md:1
+#: ../../frescobaldi/userguide/musicxml_import.md:45
+msgid "the code is reformatted. (This is identical to running {menu_format}.)"
+msgstr ""
+
+#: ../../frescobaldi/userguide/musicxml_import.md:49
+msgid ""
+"repeated time duration on the same line are deleted. (This is identical to "
+"running {menu_implicit}.)"
+msgstr ""
+
+#: ../../frescobaldi/userguide/musicxml_import.md:59
+msgid "LilyPond runs directly. (This is identical to running {menu_preview}.)"
+msgstr ""
+
+#: ../../frescobaldi/userguide/nomusic.md:1
 msgid "After engraving a score, the Music View does not show the music"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/nomusic.md:3
+#: ../../frescobaldi/userguide/nomusic.md:3
 msgid "Does the `\\score` block have a layout section?"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/nomusic.md:5
+#: ../../frescobaldi/userguide/nomusic.md:5
 msgid ""
 "If a `\\score` block has a `\\midi` section but no `\\layout` section, no "
 "PDF output is generated."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/nomusic.md:8
+#: ../../frescobaldi/userguide/nomusic.md:8
 msgid "Do you use an exotic way to specify the output filename?"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/nomusic.md:10
+#: ../../frescobaldi/userguide/nomusic.md:10
 msgid ""
 "Frescobaldi is able to determine the output file names by looking at the "
 "document's filename and the various LilyPond commands that specify the "
@@ -2551,7 +2577,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/nomusic.md:16
+#: ../../frescobaldi/userguide/nomusic.md:16
 msgid ""
 "But if you use more complicated Scheme code in your document to specify the "
 "output filenames, Frescobaldi may not be able to correctly determine those "
@@ -2559,32 +2585,32 @@ msgid ""
 "[var_output `output`] document variable."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/outline.md:1
+#: ../../frescobaldi/userguide/outline.md:1
 msgid "Document Outline"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/outline.md:3
+#: ../../frescobaldi/userguide/outline.md:3
 msgid ""
-"The Document Outline (menu {tools}) shows important lines from your document "
-"and enables you to quickly navigate to them."
+"The Document Outline shows important lines from your document and enables "
+"you to quickly navigate to them. Select {tools} to display it."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/outline_configure.md:1
+#: ../../frescobaldi/userguide/outline_configure.md:1
 msgid "Configuring the Outline View"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/outline_configure.md:3
+#: ../../frescobaldi/userguide/outline_configure.md:3
 msgid ""
 "The document outline view is created by looking for certain expressions in "
 "the document text."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/outline_configure.md:6
+#: ../../frescobaldi/userguide/outline_configure.md:6
 msgid ""
 "You can specify what to search for by entering a list of regular expressions."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/outline_configure.md:8
+#: ../../frescobaldi/userguide/outline_configure.md:8
 msgid ""
 "Those expressions are grouped in two sections: one that matches the whole "
 "text (including comments) and one that only matches the active code "
@@ -2592,69 +2618,69 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/outline_configure.md:11
+#: ../../frescobaldi/userguide/outline_configure.md:11
 msgid ""
 "In regular expressions, `^` matches at the beginning of every line, and `$` "
 "matches at the end of a line."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/outline_configure.md:14
+#: ../../frescobaldi/userguide/outline_configure.md:14
 msgid ""
 "Normally when an expressions matches text, the whole match is displayed as "
 "an item in the outline."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/outline_configure.md:17
+#: ../../frescobaldi/userguide/outline_configure.md:17
 msgid "You can also use named groups, with the {code} named group syntax."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/outline_configure.md:19
+#: ../../frescobaldi/userguide/outline_configure.md:19
 msgid ""
 "You can use the name `text` or `title`. In that case, only the named part of "
 "a match is displayed. If the `title` name is used, it is displayed in a bold "
 "font."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/outline_configure.md:23
+#: ../../frescobaldi/userguide/outline_configure.md:23
 msgid "For more information about regular expressions, see {link}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/pitch.md:1
+#: ../../frescobaldi/userguide/pitch.md:1
 msgid "Pitch Manipulation"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/pitch.md:4
+#: ../../frescobaldi/userguide/pitch.md:4
 msgid ""
 "Frescobaldi offers the following pitch-manipulating functions, all in the "
 "menu {menu}:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/pitch.md:7
+#: ../../frescobaldi/userguide/pitch.md:7
 msgid "Pitch language"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/pitch.md:8
+#: ../../frescobaldi/userguide/pitch.md:8
 msgid "This translates pitch names in the whole document or a selection."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/pitch.md:10
+#: ../../frescobaldi/userguide/pitch.md:10
 msgid "Convert relative music to absolute"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/pitch.md:11
+#: ../../frescobaldi/userguide/pitch.md:11
 msgid ""
 "This converts all `\\relative` music parts to absolute pitch names. It "
 "removes, but honours, octave checks."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/pitch.md:14
+#: ../../frescobaldi/userguide/pitch.md:14
 msgid "Convert absolute music to relative"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/pitch.md:15
+#: ../../frescobaldi/userguide/pitch.md:15
 msgid ""
 "Checks all toplevel music expressions, changing them into `\\relative` mode "
 "as soon as the expression contains a pitch. If you want to make separate sub-"
@@ -2662,51 +2688,51 @@ msgid ""
 "expression, leaving out higher-level opening braces."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/preferences.md:1
+#: ../../frescobaldi/userguide/preferences.md:1
 msgid "Preferences"
 msgstr "設定"
 
-#: ../../frescobaldi_app/userguide/preferences.md:3
+#: ../../frescobaldi/userguide/preferences.md:3
 msgid ""
 "In the Preferences Dialog (under {menu_edit_preferences}) you can configure "
 "many aspects of Frescobaldi and LilyPond."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_editor.md:1
+#: ../../frescobaldi/userguide/prefs_editor.md:1
 msgid "Editor Preferences"
 msgstr "エディター設定"
 
-#: ../../frescobaldi_app/userguide/prefs_editor.md:3
+#: ../../frescobaldi/userguide/prefs_editor.md:3
 msgid "Highlighting Options"
 msgstr "強調表示オプション"
 
-#: ../../frescobaldi_app/userguide/prefs_editor.md:5
+#: ../../frescobaldi/userguide/prefs_editor.md:5
 msgid ""
 "Here you can define how long \"matching\" items like matching brackets or "
 "the items linked through Point-and-Click are highlighted."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_editor.md:8
+#: ../../frescobaldi/userguide/prefs_editor.md:8
 msgid "Use the value 0 for infinite."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_editor.md:11
+#: ../../frescobaldi/userguide/prefs_editor.md:11
 msgid "Indenting Preferences"
 msgstr "インデント設定"
 
-#: ../../frescobaldi_app/userguide/prefs_editor.md:13
+#: ../../frescobaldi/userguide/prefs_editor.md:13
 msgid "Here you can specify how you want to handle Tabs and indenting."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_editor.md:15
+#: ../../frescobaldi/userguide/prefs_editor.md:15
 msgid ""
 "The entry *Tab Width* specifies the visual distance between tab stops. It "
 "does not change the indenting behaviour or the document contents."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_editor.md:18
+#: ../../frescobaldi/userguide/prefs_editor.md:18
 msgid ""
 "Using the entry *Indent with* you can specify how many spaces will be "
 "inserted it you press Tab once at the beginning of the line, or when you "
@@ -2714,38 +2740,38 @@ msgid ""
 "{menu_autoindent} is enabled)."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_editor.md:23
+#: ../../frescobaldi/userguide/prefs_editor.md:23
 msgid ""
 "By default 2 spaces are inserted, but you can move the number to zero to use "
 "a literal Tab character for every level of indent."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_editor.md:26
+#: ../../frescobaldi/userguide/prefs_editor.md:26
 msgid ""
 "The entry *Tab outside indent inserts* specifies what happens when you press "
 "Tab while in the middle of a line of text. Also here you can choose to "
 "insert a real Tab by moving the number to zero."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_editor.md:30
+#: ../../frescobaldi/userguide/prefs_editor.md:30
 msgid ""
 "You can also set indentation preferences per-document, see "
 "{document_variables}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_editor.md:33
+#: ../../frescobaldi/userguide/prefs_editor.md:33
 msgid "Source Export Preferences"
 msgstr "LilyPond ソースコードのエクスポート設定"
 
-#: ../../frescobaldi_app/userguide/prefs_editor.md:35
+#: ../../frescobaldi/userguide/prefs_editor.md:35
 msgid ""
 "Configures how colored source code is produced when exporting to a file or "
 "copying to clipboard. Available options are:"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_editor.md:38
+#: ../../frescobaldi/userguide/prefs_editor.md:38
 msgid ""
 "`Copy HTML as plain text` | Generates the colored source code as HTML markup "
 "so it can be pasted in HTML pages.  When unchecked rich text is produced "
@@ -2753,7 +2779,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_editor.md:42
+#: ../../frescobaldi/userguide/prefs_editor.md:42
 msgid ""
 "`Copy document body only` | Wraps the source in a single HTML tag. When "
 "unchecked a full HTML document is produced. *Note:* This option doesn't take "
@@ -2761,7 +2787,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_editor.md:46
+#: ../../frescobaldi/userguide/prefs_editor.md:46
 msgid ""
 "`Use inline style when copying colored HTML` | Inserts CSS styles *in* the "
 "generated HTML tags. When unchecked CSS classes are used. *Note:* When this "
@@ -2772,19 +2798,19 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_editor.md:53
+#: ../../frescobaldi/userguide/prefs_editor.md:53
 msgid ""
 "`Use inline style when exporting colored HTML` | Same as above but applies "
 "for exporting instead of copying."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_editor.md:55
+#: ../../frescobaldi/userguide/prefs_editor.md:55
 msgid "`Show line numbers` | (should be self-explanatory)"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_editor.md:57
+#: ../../frescobaldi/userguide/prefs_editor.md:57
 msgid ""
 "`Wrappers` | By default colored code is wrapped in a `<pre id=\"document\"></"
 "pre>` tag, but this can be configured to use a selection of wrapper tags and "
@@ -2793,40 +2819,40 @@ msgid ""
 "the existing CSS."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_extensions.md:1
+#: ../../frescobaldi/userguide/prefs_extensions.md:1
 msgid "Extensions"
 msgstr "機能拡張"
 
-#: ../../frescobaldi_app/userguide/prefs_extensions.md:3
+#: ../../frescobaldi/userguide/prefs_extensions.md:3
 msgid ""
 "List and (partially) configure installed extensions. See {extending} and "
 "especially {configure}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_fontscolors.md:1
+#: ../../frescobaldi/userguide/prefs_fontscolors.md:1
 msgid "Fonts & Colors"
 msgstr "フォントと色"
 
-#: ../../frescobaldi_app/userguide/prefs_fontscolors.md:3
+#: ../../frescobaldi/userguide/prefs_fontscolors.md:3
 msgid ""
 "Here you can set the editor font (a monospace font is recommended) and all "
 "colors."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_fontscolors.md:6
+#: ../../frescobaldi/userguide/prefs_fontscolors.md:6
 msgid ""
 "The first item lets you set the colors for the text editor background, "
 "foreground, selection background, the current line, line markings, the paper "
 "color in the Music View, etcetera."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_fontscolors.md:10
+#: ../../frescobaldi/userguide/prefs_fontscolors.md:10
 msgid ""
 "The second item lets you set color and other attributes of the general "
 "highlighting styles, e.g. keyword, variable, value, comment, etcetera."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_fontscolors.md:13
+#: ../../frescobaldi/userguide/prefs_fontscolors.md:13
 msgid ""
 "The other items contain the types of text the syntax highlighter recognizes "
 "for every particular document type Frescobaldi supports. Some of these types "
@@ -2834,32 +2860,32 @@ msgid ""
 "underline and the foreground, background and underline color."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_fontscolors.md:18
-#: ../../frescobaldi_app/userguide/prefs_shortcuts.md:12
+#: ../../frescobaldi/userguide/prefs_fontscolors.md:18
+#: ../../frescobaldi/userguide/prefs_shortcuts.md:12
 msgid "You can define a new scheme by using the New button."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_general.md:1
+#: ../../frescobaldi/userguide/prefs_general.md:1
 msgid "General Preferences"
 msgstr "一般設定"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_general.md:3
+#: ../../frescobaldi/userguide/prefs_general.md:3
 msgid ""
-"Under *General Preferences*, you can choose in which language Frescobaldi's "
+"Under *General* preferences, you can choose in which language Frescobaldi's "
 "user interface is translated, which user interface style you want to use, "
 "and whether you want to use the built-in Tango iconset or to use the system-"
 "wide configured icon set."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_general.md:8
+#: ../../frescobaldi/userguide/prefs_general.md:8
 msgid ""
 "Language and style take effect immediately, but the new iconset is visible "
 "after Frescobaldi has been restarted."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_general.md:11
+#: ../../frescobaldi/userguide/prefs_general.md:11
 msgid ""
 "Under *Session to load if Frescobaldi is started without arguments* you can "
 "configure which session to load if Frescobaldi is started without a "
@@ -2870,21 +2896,21 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_general.md:18
+#: ../../frescobaldi/userguide/prefs_general.md:18
 msgid ""
 "Under *When saving documents*, you can choose what to do when a document is "
 "saved, such as remembering the cursor position and marked lines, formatting, "
 "or leaving a backup copy of the document (with a `~` appended)."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_general.md:22
+#: ../../frescobaldi/userguide/prefs_general.md:22
 msgid ""
 "Also, you can specify a default folder in which you keep your LilyPond "
 "documents."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_general.md:25
+#: ../../frescobaldi/userguide/prefs_general.md:25
 msgid ""
 "Under *Creating new documents*, you can choose what to do when a new "
 "document is created. It can be left empty (the default), the current "
@@ -2893,19 +2919,19 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_general.md:29
+#: ../../frescobaldi/userguide/prefs_general.md:29
 msgid ""
 "Under *Experimental Features*, you can choose whether to enable features "
 "that are in development and are not yet considered complete. See "
 "{experimental}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_helpers.md:1
+#: ../../frescobaldi/userguide/prefs_helpers.md:1
 msgid "Helper Applications"
 msgstr "ヘルパーアプリケーション"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_helpers.md:3
+#: ../../frescobaldi/userguide/prefs_helpers.md:3
 msgid ""
 "In this page you can enter commands to open different file types. `$f` is "
 "replaced with the filename, `$u` with the URL. Leave a field empty to use "
@@ -2913,80 +2939,45 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_helpers.md:8
+#: ../../frescobaldi/userguide/prefs_helpers.md:8
 msgid "For the e-mail setting, the command should accept a `mailto:` url."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_helpers.md:11
+#: ../../frescobaldi/userguide/prefs_helpers.md:11
 msgid ""
 "For the command prompt, the command should open a console window. A `$f` "
 "value is replaced with the directory of the current document."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_helpers.md:14
-msgid "Printing Music"
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/prefs_helpers.md:16
-msgid ""
-"The printing command is used to print a PostScript or PDF file. On Linux you "
-"don't need this, but on Windows and macOS you can provide a command to avoid "
-"that PDF documents are being printed using raster images, which is less "
-"optimal."
-msgstr ""
-
-#. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_helpers.md:21
-msgid ""
-"`$pdf` gets replaced with the PDF filename, or alternatively, `$ps` is "
-"replaced with the PostScript filename. `$printer` is replaced with the "
-"printer's name to use."
-msgstr ""
-
-#. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_helpers.md:25
-msgid ""
-"Uncheck the *Use Frescobaldi's print dialog* option when the printing "
-"command opens a print dialog itself, in which you can select e.g. the page "
-"range to print and the printer to use. If you don't use Frescobaldi's print "
-"dialog, you don't need to put the `$printer` variable in your command line."
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/prefs_helpers.md:31
-msgid ""
-"If Frescobaldi must fall back to printing using raster images, you can "
-"specify the number of dots per inch here."
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:1
+#: ../../frescobaldi/userguide/prefs_lilydoc.md:1
 msgid "LilyPond Documentation"
 msgstr "LilyPond ドキュメンテーション"
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:3
+#: ../../frescobaldi/userguide/prefs_lilydoc.md:3
 msgid ""
 "Here you can add local paths or remote URLs pointing to LilyPond "
 "documentation."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:5
+#: ../../frescobaldi/userguide/prefs_lilydoc.md:5
 msgid ""
 "The URLs to the latest stable and development LilyPond manuals are already "
 "set by default for user convenience."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:8
+#: ../../frescobaldi/userguide/prefs_lilydoc.md:8
 msgid "Local path"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:10
+#: ../../frescobaldi/userguide/prefs_lilydoc.md:10
 msgid ""
 "A local path should point to the directory where either the `Documentation` "
 "directory lives, or the whole `share/doc/lilypond/html/offline-root` path."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:13
+#: ../../frescobaldi/userguide/prefs_lilydoc.md:13
 msgid ""
 "If those can't be found, documentation is looked for in all subdirectories "
 "of the given path, one level deep. This makes it possible to put multiple "
@@ -2994,44 +2985,58 @@ msgid ""
 "Frescobaldi automatically find them."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:18
+#: ../../frescobaldi/userguide/prefs_lilydoc.md:18
 msgid "Remote URL"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:20
+#: ../../frescobaldi/userguide/prefs_lilydoc.md:20
 msgid ""
 "If you don't want to manage the LilyPond documentation locally on your "
 "computer, you can add an URL to the LilyPond website.  The URL should have "
 "the following format:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:24
+#: ../../frescobaldi/userguide/prefs_lilydoc.md:24
 msgid "http://www.lilypond.org/doc/VERSION/"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:26
+#: ../../frescobaldi/userguide/prefs_lilydoc.md:26
 msgid ""
 "where *VERSION* can be either a specific release number or the latest stable "
 "or development release, as in the following examples:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilydoc.md:29
+#: ../../frescobaldi/userguide/prefs_lilydoc.md:29
 msgid ""
 "http://www.lilypond.org/doc/v2.18/ http://www.lilypond.org/doc/v2.19/ http://"
 "www.lilypond.org/doc/stable/ http://www.lilypond.org/doc/development/"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilypond.md:1
+#: ../../frescobaldi/userguide/prefs_lilypond.md:1
 msgid "LilyPond Preferences"
 msgstr "LilyPond 設定"
 
-#: ../../frescobaldi_app/userguide/prefs_lilypond.md:3
+#: ../../frescobaldi/userguide/prefs_lilypond.md:3
 msgid ""
 "Here you can configure how LilyPond is run when you engrave your document."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilypond.md:5
+#: ../../frescobaldi/userguide/prefs_lilypond.md:5
+msgid ""
+"Clicking Add… button will display a pop-up menu listing the latest stable "
+"and the latest unstable releases of LilyPond. Clicking one of them will "
+"automatically download the chosen LilyPond version and install it on your "
+"system. If the version is already installed on your system, it is shown as "
+"grayed. Clicking Other… will display another pop-up menu listing some older "
+"versions of the stable and unstable branches. Finally the Custom… option "
+"allows to choose a LilyPond binary already present in your computer. It's "
+"useful especially if you want to run a custom version of LilyPond built from "
+"source. This option is disabled in the flatpak package because of the "
+"limitations of the sandbox."
+msgstr ""
+
+#: ../../frescobaldi/userguide/prefs_lilypond.md:16
 msgid ""
 "If you have multiple versions of LilyPond installed you can specify them "
 "here, and configure Frescobaldi to automatically choose the right one, based "
@@ -3039,7 +3044,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_lilypond.md:9
+#: ../../frescobaldi/userguide/prefs_lilypond.md:20
 msgid ""
 "If the LilyPond executable is not in your system's PATH you can specify the "
 "full path here so Frescobaldi can run it. For the helper applications like "
@@ -3047,20 +3052,20 @@ msgid ""
 "they are in the same directory as the LilyPond executable itself."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilypond.md:14
+#: ../../frescobaldi/userguide/prefs_lilypond.md:25
 msgid ""
 "You may enter a custom label to easily recognize a specific LilyPond "
 "instance. I you do not enter a label, \"LilyPond\" is used."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilypond.md:17
+#: ../../frescobaldi/userguide/prefs_lilypond.md:28
 msgid ""
 "You can also configure how LilyPond is run. See the tooltips of the settings "
 "for more information."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_lilypond.md:20
+#: ../../frescobaldi/userguide/prefs_lilypond.md:31
 msgid ""
 "Finally, you can specify a list of paths where the LilyPond `\\include` "
 "command looks for files. You can change the order of the includes by "
@@ -3068,47 +3073,47 @@ msgid ""
 "searches for files."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:1
+#: ../../frescobaldi/userguide/prefs_lilypond_autoversion.md:1
 msgid "Automatically choose LilyPond version from document"
 msgstr "ドキュメント内の情報から使用する LilyPond のバージョンを自動的に選択"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:3
+#: ../../frescobaldi/userguide/prefs_lilypond_autoversion.md:3
 msgid ""
 "If this setting is enabled, the document is searched for a LilyPond "
 "`\\version` command or a `version` document variable."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:6
+#: ../../frescobaldi/userguide/prefs_lilypond_autoversion.md:6
 msgid "The LilyPond version command looks like:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:12
+#: ../../frescobaldi/userguide/prefs_lilypond_autoversion.md:12
 msgid "The document variable looks like:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:18
+#: ../../frescobaldi/userguide/prefs_lilypond_autoversion.md:18
 msgid ""
 "somewhere (in a comments section) in the first or last 5 lines of the "
 "document. This way the LilyPond version to use can also be specified in non-"
 "LilyPond documents like HTML, LaTeX, etc."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_lilypond_autoversion.md:22
+#: ../../frescobaldi/userguide/prefs_lilypond_autoversion.md:22
 msgid ""
 "If the document specifies a version, the oldest suitable LilyPond version is "
 "chosen. Otherwise, the default version is chosen."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_midi.md:1
+#: ../../frescobaldi/userguide/prefs_midi.md:1
 msgid "MIDI Settings"
 msgstr "MIDI 設定"
 
-#: ../../frescobaldi_app/userguide/prefs_midi.md:3
+#: ../../frescobaldi/userguide/prefs_midi.md:3
 msgid "Here you can configure Frescobaldi's MIDI settings."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_midi.md:5
+#: ../../frescobaldi/userguide/prefs_midi.md:5
 msgid ""
 "You can specify the MIDI port name to play to. If there are no port names "
 "visible in the drop-down box, it may be necessary to connect a hardware MIDI "
@@ -3116,24 +3121,24 @@ msgid ""
 "such as TiMidity or Fluidsynth."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_midi.md:10
+#: ../../frescobaldi/userguide/prefs_midi.md:10
 msgid "On Linux, the synthesizer should be available as an ALSA MIDI device."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_midi.md:12
+#: ../../frescobaldi/userguide/prefs_midi.md:12
 msgid ""
 "If you have a device with multiple ports, you can specify the first letters "
 "of the name, to have Frescobaldi automatically pick the first available one."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_midi.md:15
+#: ../../frescobaldi/userguide/prefs_midi.md:15
 msgid ""
 "And finally, when using a software synthesizer it is recommended to enable "
 "the option *Close unused MIDI output*."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_midi.md:18
+#: ../../frescobaldi/userguide/prefs_midi.md:18
 msgid ""
 "If checked, Frescobaldi will close MIDI output ports that are not used for "
 "one minute. This could free up system resources that a software MIDI "
@@ -3143,61 +3148,95 @@ msgid ""
 "beginning sets up the instruments again."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_musicviewers.md:1
-msgid "Music Preferences"
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:1
+#, fuzzy
+msgid "Music View Preferences"
 msgstr "楽譜ビューア設定"
 
-#: ../../frescobaldi_app/userguide/prefs_musicviewers.md:3
-msgid "Here you can configure how music is displayed and printed."
-msgstr ""
-
-#: ../../frescobaldi_app/userguide/prefs_musicviewers.md:5
+#. NOTE: markdown formatting
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:3
 msgid ""
-"You can configure whether to use the Arthur backend for music display and "
-"printing. For display it is not yet recommended, as the default Splash "
-"raster engine is more robust, but for printing Arthur is recommended, as it "
-"is vector-based rather than raster-based, which significantly improves "
-"printing quality."
+"Under *Music View* preferences you can configure how music is displayed and "
+"printed. This is where PDF files are displayed and all the settings "
+"discussed here refer to PDF files only (SVG files have a different viewer)."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_musicviewers.md:11
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:9
+#, fuzzy
+msgid "Documents"
+msgstr "現在のドキュメント"
+
+#. NOTE: markdown formatting
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:11
+msgid "The *Documents* sections contains two main settings."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:13
 msgid ""
-"On systems that use the CUPS server, such as macOS and GNU/Linux, PDF's can "
-"be sent directly to the printer if you want to."
+"*Only load updated PDF documents*: if checked, when you open a LilyPond "
+"source file you won't see the PDF document in the viewer if it's not up-to-"
+"date (i.e. the PDF file is older than the source file). If unchecked, PDF "
+"file will be opened regardless."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_musicviewers.md:14
+#. NOTE: markdown formatting
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:19
 msgid ""
-"The print resolution is only used when raster-based printing can't be "
-"avoided."
+"*Remember View settings per-document*: if checked, every document in the "
+"Music View will remember its own scale and layout settings instead of the "
+"default ones (see next section)."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_paths.md:1
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:24
+msgid "Page scaling, layout and scrolling"
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:26
+msgid ""
+"Here you can define the default scaling and layout of the document. These "
+"preferences may be ignored for the documents where different settings have "
+"been set, if the option *Remember View settings per-document* is checked."
+msgstr ""
+
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:33
+msgid "Printing"
+msgstr ""
+
+#: ../../frescobaldi/userguide/prefs_musicviewers.md:35
+msgid ""
+"Here you can set the resolution to be sent to the printer when using the "
+"Frescobaldi print dialog. The closest resolution supported by your printer "
+"will be used. If unsure, leave the default value."
+msgstr ""
+
+#: ../../frescobaldi/userguide/prefs_paths.md:1
 msgid "Paths"
 msgstr "パス"
 
-#: ../../frescobaldi_app/userguide/prefs_paths.md:3
+#: ../../frescobaldi/userguide/prefs_paths.md:3
 msgid "Hyphenation dictionaries"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_paths.md:5
+#: ../../frescobaldi/userguide/prefs_paths.md:5
 msgid ""
 "Here, directories can be added that contain `hyph_*.dic` files, where the "
 "`*` stands for different language codes."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_paths.md:8
+#: ../../frescobaldi/userguide/prefs_paths.md:8
 msgid ""
 "These hyphenation dictionaries are used by Frescobaldi to break lyrics text "
 "into syllables."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_paths.md:11
+#: ../../frescobaldi/userguide/prefs_paths.md:11
 msgid "Music fonts"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_paths.md:13
+#: ../../frescobaldi/userguide/prefs_paths.md:13
 msgid ""
 "Since version 2.19.12 LilyPond natively supports the selection of "
 "alternative music fonts, and Frescobaldi supports both the management of "
@@ -3206,7 +3245,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_paths.md:18
+#: ../../frescobaldi/userguide/prefs_paths.md:18
 msgid ""
 "*Music Font Repository:* Typically one will want to store music fonts in a "
 "dedicated directory. If this directory is selected here the Document Fonts "
@@ -3214,7 +3253,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_paths.md:22
+#: ../../frescobaldi/userguide/prefs_paths.md:22
 msgid ""
 "*Auto Install:* If this box is checked fonts are installed into the current "
 "LilyPond installation whenever the Document Fonts dialog is opened. With "
@@ -3223,7 +3262,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_paths.md:27
+#: ../../frescobaldi/userguide/prefs_paths.md:27
 msgid ""
 "*Music Font Preview Cache:* The Document Fonts dialog compiles and displays "
 "preview samples using the selected music and text fonts. In order to provide "
@@ -3235,19 +3274,19 @@ msgid ""
 "by Frescobaldi are cached persistently."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_shortcuts.md:1
+#: ../../frescobaldi/userguide/prefs_shortcuts.md:1
 msgid "Keyboard Shortcuts"
 msgstr "キーボードショートカット"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/prefs_shortcuts.md:3
+#: ../../frescobaldi/userguide/prefs_shortcuts.md:3
 msgid ""
 "Here you can add keyboard shortcuts to all commands available. Also the "
 "[snippets Snippets] or [quickinsert Quick-Insert] buttons that have keyboard "
 "shortcuts are listed here."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_shortcuts.md:7
+#: ../../frescobaldi/userguide/prefs_shortcuts.md:7
 msgid ""
 "To change a keyboard shortcut, highlight an action in the list and click the "
 "Edit button, or double-click an action. In the dialog that appears, you can "
@@ -3255,33 +3294,33 @@ msgid ""
 "the shortcut."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/prefs_tools.md:1
+#: ../../frescobaldi/userguide/prefs_tools.md:1
 msgid "Tools"
 msgstr "ツール"
 
-#: ../../frescobaldi_app/userguide/prefs_tools.md:3
+#: ../../frescobaldi/userguide/prefs_tools.md:3
 msgid "Here you can change the settings for various tools."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/quickinsert.md:1
+#: ../../frescobaldi/userguide/quickinsert.md:1
 msgid "The Quick Insert Panel"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/quickinsert.md:3
+#: ../../frescobaldi/userguide/quickinsert.md:3
 msgid ""
 "With the tools in the Quick Insert Panel you can add various music elements "
 "to the current note or selected music."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/quickinsert.md:6
+#: ../../frescobaldi/userguide/quickinsert.md:6
 msgid ""
 "The *Direction* chooser specifies if articulations, dynamics or slurs appear "
 "in a neutral position (e.g. determined by stem direction), or above or below "
 "the staff by prepending a `-`, `^` or `_` character."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/quickinsert.md:10
+#: ../../frescobaldi/userguide/quickinsert.md:10
 msgid ""
 "Click on a tab to select a tool. You can cycle through the tools with Ctrl "
 "(or {command}) and the mouse wheel. All buttons in the Quick Insert Panel "
@@ -3289,11 +3328,11 @@ msgid ""
 "a button."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/quickinsert.md:16
+#: ../../frescobaldi/userguide/quickinsert.md:16
 msgid "Articulations"
 msgstr "アーティキュレーション"
 
-#: ../../frescobaldi_app/userguide/quickinsert.md:18
+#: ../../frescobaldi/userguide/quickinsert.md:18
 msgid ""
 "These musical symbols can be added to a note or rest or a selected range of "
 "music. If you add them to a selection, rests will be skipped. If there is no "
@@ -3302,17 +3341,17 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/quickinsert.md:24
+#: ../../frescobaldi/userguide/quickinsert.md:24
 msgid ""
 "If *Allow shorthands* is checked, Frescobaldi will use short signs for "
 "articulations if they exist (e.g. `-.` instead of `-\\staccato`)."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/quickinsert.md:29
+#: ../../frescobaldi/userguide/quickinsert.md:29
 msgid "Dynamics"
 msgstr "強弱記号"
 
-#: ../../frescobaldi_app/userguide/quickinsert.md:31
+#: ../../frescobaldi/userguide/quickinsert.md:31
 msgid ""
 "Dynamics can also be added to a note or rest. If you select a range of "
 "music, you can add spanners which will automatically terminate at the last "
@@ -3320,17 +3359,17 @@ msgid ""
 "replace the terminator."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/quickinsert.md:37
+#: ../../frescobaldi/userguide/quickinsert.md:37
 msgid "Spanners"
 msgstr "スパナ"
 
-#: ../../frescobaldi_app/userguide/quickinsert.md:39
+#: ../../frescobaldi/userguide/quickinsert.md:39
 msgid ""
 "This tool lets you add arpeggio, glissandos and other spanners like slurs, "
 "phrasing slurs, manual beams or trills."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/quickinsert.md:42
+#: ../../frescobaldi/userguide/quickinsert.md:42
 msgid ""
 "Arpeggios and glissandos apply to the current note; they need no music to be "
 "selected. The slurs, beams or trill apply to the current note and the next "
@@ -3338,19 +3377,19 @@ msgid ""
 "the selection."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/quickinsert.md:49
+#: ../../frescobaldi/userguide/quickinsert.md:49
 msgid "Bar Lines"
 msgstr "小節線"
 
-#: ../../frescobaldi_app/userguide/quickinsert.md:51
+#: ../../frescobaldi/userguide/quickinsert.md:51
 msgid "Here you can insert bar lines or various breathing signs."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/rhythm.md:1
+#: ../../frescobaldi/userguide/rhythm.md:1
 msgid "Rhythm manipulation"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/rhythm.md:3
+#: ../../frescobaldi/userguide/rhythm.md:3
 msgid ""
 "The rhythm functions of Frescobaldi alter the durations written after notes, "
 "chords, rests, etcetera. Using those functions, all in menu {menu}, it is "
@@ -3358,7 +3397,7 @@ msgid ""
 "to remove scaling factors."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/rhythm.md:8
+#: ../../frescobaldi/userguide/rhythm.md:8
 msgid ""
 "Also it is possible to change the way rhythm is specified: for every note "
 "(explicit), or only when the duration changes (implicit). Some users may "
@@ -3366,39 +3405,40 @@ msgid ""
 "the first note, chord or rest on a line."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/rhythm.md:13
+#: ../../frescobaldi/userguide/rhythm.md:13
 msgid ""
 "The last three menu commands can copy, paste or apply a rhythm that is "
 "entered in a dialog."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/rhythm.md:16
+#: ../../frescobaldi/userguide/rhythm.md:16
 msgid ""
 "In the \"Apply Rhythm\" dialog you can enter a series of durations, e.g.:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/rhythm.md:22
+#: ../../frescobaldi/userguide/rhythm.md:22
 msgid "which will then, repetitively, be applied to a selection of notes."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/scorewiz.md:1
+#: ../../frescobaldi/userguide/scorewiz.md:1
 msgid "The Score Wizard"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/scorewiz.md:3
+#: ../../frescobaldi/userguide/scorewiz.md:3
 msgid ""
 "The Score Setup Wizard ({key}) in {menu} is designed to quickly setup a "
 "LilyPond music score."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/scorewiz.md:6
+#: ../../frescobaldi/userguide/scorewiz.md:6
 msgid ""
-"In the first tab, *Titles and Headers*, you can enter titling information."
+"In the first tab, *Titles and Headers*, you can enter titling information. "
+"The text you type is immediately displayed in the preview on the left."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/scorewiz.md:9
+#: ../../frescobaldi/userguide/scorewiz.md:10
 msgid ""
 "In the second tab, *Parts*, you can compose your score out of many available "
 "part types. Doubleclick a part type to add it to your score (or click Add). "
@@ -3408,30 +3448,30 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/scorewiz.md:17
+#: ../../frescobaldi/userguide/scorewiz.md:18
 msgid ""
 "In the third tab, *Score settings*, global score properties and preferences "
 "can be set."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/scorewiz.md:20
+#: ../../frescobaldi/userguide/scorewiz.md:21
 msgid ""
 "Click the Preview button to get a preview with some example music filled in. "
 "Click OK to copy the generated LilyPond source text to the editor."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/scorewiz.md:23
+#: ../../frescobaldi/userguide/scorewiz.md:24
 msgid "Multiple pieces or movements"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/scorewiz.md:25
+#: ../../frescobaldi/userguide/scorewiz.md:26
 msgid ""
 "A special and powerful feature of the *Parts* tab is hidden in the "
 "\"Containers\" category in the part types list."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/scorewiz.md:28
+#: ../../frescobaldi/userguide/scorewiz.md:29
 msgid ""
 "This category contains the Score, Book and Bookpart types, with which you "
 "can setup a LilyPond document containing multiple scores or even books. You "
@@ -3440,7 +3480,7 @@ msgid ""
 "to a Bookpart or a Score."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/scorewiz.md:34
+#: ../../frescobaldi/userguide/scorewiz.md:35
 msgid ""
 "Then you can add musical parts. If you want to create multiple scores with "
 "exact the same parts, you can just add the parts to the top level of the "
@@ -3448,88 +3488,88 @@ msgid ""
 "The scores will then use the parts in the top level of the score."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/search_replace.md:1
+#: ../../frescobaldi/userguide/search_replace.md:1
 msgid "Search and replace"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/search_replace.md:3
+#: ../../frescobaldi/userguide/search_replace.md:3
 msgid ""
 "In the menu {menu_edit} the commands Find ({key_search}) and Replace "
 "({key_replace}) can be found, which open a small window at the bottom of the "
 "view. It is possible to search for plain text or regular expressions."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/search_replace.md:8
+#: ../../frescobaldi/userguide/search_replace.md:8
 msgid ""
 "Regular expressions are advanced search texts that contain characters that "
 "can match multiple characters in the document. When replacing text, it is "
 "also possible to refer to parenthesized parts of the search text."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/search_replace.md:13
+#: ../../frescobaldi/userguide/search_replace.md:13
 msgid ""
 "In regular expression search mode, some characters have a special meaning:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/search_replace.md:16
+#: ../../frescobaldi/userguide/search_replace.md:16
 msgid "matches the preceding character or group zero or more times"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/search_replace.md:19
+#: ../../frescobaldi/userguide/search_replace.md:19
 msgid "matches the preceding character or group one or more times"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/search_replace.md:22
+#: ../../frescobaldi/userguide/search_replace.md:22
 msgid "matches the preceding character or group zero or one time"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/search_replace.md:25
+#: ../../frescobaldi/userguide/search_replace.md:25
 msgid "matches one of the contained characters"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/search_replace.md:28
+#: ../../frescobaldi/userguide/search_replace.md:28
 msgid "group characters. This also saves the matched text in the group."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/search_replace.md:30
+#: ../../frescobaldi/userguide/search_replace.md:30
 msgid ""
 "When replacing, you can use characters like `\\1`, `\\2` etcetera, to write "
 "the text of the corresponding group in the replacement text."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/search_replace.md:34
+#: ../../frescobaldi/userguide/search_replace.md:34
 msgid ""
 "match, respectively, a backslash, a newline, a tab, any whitespace "
 "character, a digit, a generic word-like character."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/search_replace.md:37
+#: ../../frescobaldi/userguide/search_replace.md:37
 msgid ""
-"A full discussion on regular expressions can be found in the [http://docs."
-"python.org/library/re.html#regular-expression-syntax Python documentation]."
+"A full discussion on regular expressions can be found in the [https://docs."
+"python.org/3/library/re.html#regular-expression-syntax Python documentation]."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/sessions.md:1
+#: ../../frescobaldi/userguide/sessions.md:1
 msgid "Sessions"
 msgstr "セッション"
 
-#: ../../frescobaldi_app/userguide/sessions.md:3
+#: ../../frescobaldi/userguide/sessions.md:3
 msgid ""
 "A session is basically a list of open files. At any time you can choose "
 "{menu_session_save} or {menu_session_new} and save the current list of open "
 "files to a named session."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/sessions.md:7
+#: ../../frescobaldi/userguide/sessions.md:7
 msgid ""
 "Available sessions are accessible through the {menu_session} menu. When you "
 "switch sessions, all current documents are closed first and then the "
 "documents of the other session are opened."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/sessions.md:11
+#: ../../frescobaldi/userguide/sessions.md:11
 msgid ""
 "Inside the session properties dialog, you can specify a default directory "
 "for the session. You can also choose whether to always save the list of open "
@@ -3539,144 +3579,143 @@ msgid ""
 "working."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/sessions.md:18
+#: ../../frescobaldi/userguide/sessions.md:18
 msgid ""
 "Another way of backing up the state of the session is to use the import and "
 "export functionality in the session manager ({menu_session_manage}). In the "
 "session manager you can also add, edit or remove a session."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/sessions.md:22
+#: ../../frescobaldi/userguide/sessions.md:22
 msgid ""
 "Sessions can be grouped in the {menu_session} menu by prepending a group "
 "name to the session name, separated by a slash."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:1
+#: ../../frescobaldi/userguide/snippet_editor.md:1
 msgid "Snippet Editor"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:3
+#: ../../frescobaldi/userguide/snippet_editor.md:3
 msgid "Here you can edit the text of the snippet."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/snippet_editor.md:5
+#: ../../frescobaldi/userguide/snippet_editor.md:5
 msgid ""
 "If you start the first line(s) with '`-*- `' (note the space), the remainder "
 "of that line(s) defines variables like `name: value;` or simply `name;` "
 "which influence the behaviour of the snippet."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:9
+#: ../../frescobaldi/userguide/snippet_editor.md:9
 msgid "The following variables can be used:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:12
+#: ../../frescobaldi/userguide/snippet_editor.md:12
 msgid "Place the snippet in the insert menu, grouped by the (optional) value."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:15
+#: ../../frescobaldi/userguide/snippet_editor.md:15
 msgid ""
-"Place the snippet in the menu {file_new_from_template}, grouped by the "
-"(optional) value. When triggered via the menu, the snippet is inserted into "
-"a new document."
+"Place the snippet in the menu {file_new}, grouped by the (optional) value. "
+"When triggered via the menu, the snippet is inserted into a new document."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:20
+#: ../../frescobaldi/userguide/snippet_editor.md:20
 msgid "The mnemonic to type to select the snippet."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:23
+#: ../../frescobaldi/userguide/snippet_editor.md:23
 msgid "Do not auto-indent the snippet after inserting."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:26
+#: ../../frescobaldi/userguide/snippet_editor.md:26
 msgid "The icon to show in menu and snippet list."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:29
+#: ../../frescobaldi/userguide/snippet_editor.md:29
 msgid ""
 "The symbol to show in menu and snippet list. Symbols are icons that use the "
 "default text color and can be found in {directory}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:33
+#: ../../frescobaldi/userguide/snippet_editor.md:33
 msgid "Execute the snippet as a Python script. See {link}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:36
+#: ../../frescobaldi/userguide/snippet_editor.md:36
 msgid "One of more of the following words (separated with spaces or commas):"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:36
+#: ../../frescobaldi/userguide/snippet_editor.md:36
 msgid "Requires text to be selected."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:36
+#: ../../frescobaldi/userguide/snippet_editor.md:36
 msgid "Adjusts the selection to not include starting and trailing whitespace."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:36
+#: ../../frescobaldi/userguide/snippet_editor.md:36
 msgid "Selects all inserted text."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/snippet_editor.md:42
+#: ../../frescobaldi/userguide/snippet_editor.md:42
 msgid ""
 "The other lines of the snippet define the text to be inserted in the editor. "
 "Here, you can insert variables prefixed with a `$`. A double `$` will be "
 "replaced with a single one. The following variables are recognized:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:47
+#: ../../frescobaldi/userguide/snippet_editor.md:47
 msgid "The current date in YYYY-MM-DD format."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:50
+#: ../../frescobaldi/userguide/snippet_editor.md:50
 msgid "The version of the default LilyPond program."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:53
+#: ../../frescobaldi/userguide/snippet_editor.md:53
 msgid "The version of Frescobaldi."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:56
+#: ../../frescobaldi/userguide/snippet_editor.md:56
 msgid "The URL of the current document."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:59
+#: ../../frescobaldi/userguide/snippet_editor.md:59
 msgid "The full local filename of the current document."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:62
+#: ../../frescobaldi/userguide/snippet_editor.md:62
 msgid "The name of the current document."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:65
+#: ../../frescobaldi/userguide/snippet_editor.md:65
 msgid "Moves the text cursor here after insert."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/snippet_editor.md:68
+#: ../../frescobaldi/userguide/snippet_editor.md:68
 msgid ""
 "Selects text from here to the position given using the `$CURSOR` variable."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_editor.md:71
+#: ../../frescobaldi/userguide/snippet_editor.md:71
 msgid "The selected text if available. If not, the text cursor is moved here."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_import_export.md:1
+#: ../../frescobaldi/userguide/snippet_import_export.md:1
 msgid "Importing and exporting snippets"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_import_export.md:3
+#: ../../frescobaldi/userguide/snippet_import_export.md:3
 msgid "Snippets can be imported from and exported to XML files."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/snippet_import_export.md:5
+#: ../../frescobaldi/userguide/snippet_import_export.md:5
 msgid ""
 "To export snippets, either select them in the snippet manager, or filter the "
 "snippets using the search bar and select none, so that all the snippets "
@@ -3685,24 +3724,24 @@ msgid ""
 "xml`."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_import_export.md:11
+#: ../../frescobaldi/userguide/snippet_import_export.md:11
 msgid ""
 "To import snippets, select {menu_import} and choose the file you want to "
 "import. You may also drop an XML file on the snippet manager. A dialog will "
 "be displayed where you can select which snippets you want to import."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_import_export.md:15
+#: ../../frescobaldi/userguide/snippet_import_export.md:15
 msgid ""
 "The XML format of the snippet library files is simple and documented inside "
 "the XML file."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_lib.md:1
+#: ../../frescobaldi/userguide/snippet_lib.md:1
 msgid "Maintaining a library of snippets"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_lib.md:3
+#: ../../frescobaldi/userguide/snippet_lib.md:3
 msgid ""
 "To keep a certain group of snippets manageable as a snippet library, you can "
 "of course prefix the snippet titles with some sort of special name. But a "
@@ -3710,14 +3749,14 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/snippet_lib.md:7
+#: ../../frescobaldi/userguide/snippet_lib.md:7
 msgid ""
 "It is suggested to use the `{set}` variable, and set it to the name of the "
 "library you want the snippet to belong to."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/snippet_lib.md:10
+#: ../../frescobaldi/userguide/snippet_lib.md:10
 msgid ""
 "Then in the snippet manager, you can easily select all the snippets "
 "belonging to the library by entering `:{set} name` in the snippet search "
@@ -3725,45 +3764,45 @@ msgid ""
 "snippets to an XML file for sharing the snippets with others."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_python.md:1
+#: ../../frescobaldi/userguide/snippet_python.md:1
 msgid "Python Snippets"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/snippet_python.md:3
+#: ../../frescobaldi/userguide/snippet_python.md:3
 msgid ""
 "Python snippets can read and should set the variable `text`. The variable "
 "`text` contains the currently selected text (which may be an empty string)."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/snippet_python.md:7
+#: ../../frescobaldi/userguide/snippet_python.md:7
 msgid "You may set `text` to a string or a list of strings."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_python.md:9
+#: ../../frescobaldi/userguide/snippet_python.md:9
 msgid "Other variables that may be referenced:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_python.md:12
+#: ../../frescobaldi/userguide/snippet_python.md:12
 msgid "A list of strings describing the type of text the cursor is at."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippet_python.md:15
+#: ../../frescobaldi/userguide/snippet_python.md:15
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/snippet_python.md:19
+#: ../../frescobaldi/userguide/snippet_python.md:19
 msgid ""
 "When setting `text` to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/snippet_python.md:23
+#: ../../frescobaldi/userguide/snippet_python.md:23
 msgid ""
 "When setting `text` to a list instead of a string, this value can be used "
 "together with `CURSOR` to select text when inserting the string parts of the "
@@ -3771,30 +3810,30 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/snippet_python.md:28
+#: ../../frescobaldi/userguide/snippet_python.md:28
 msgid ""
 "When you define a function with this name, it is called without arguments, "
 "instead of inserting the text from the `text` variable. In this case you may "
 "alter the document through the `cursor`."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippets.md:1
+#: ../../frescobaldi/userguide/snippets.md:1
 msgid "Snippets"
 msgstr "コード断片集"
 
-#: ../../frescobaldi_app/userguide/snippets.md:3
+#: ../../frescobaldi/userguide/snippets.md:3
 msgid ""
 "With the snippets manager you can store often used pieces of text called "
 "\"snippets\", and easily paste them into the text editor."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippets.md:6
+#: ../../frescobaldi/userguide/snippets.md:6
 msgid ""
 "The snippets manager can be activated via the menu {menu_snippets} or by "
 "pressing {key_snippets}."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippets.md:9
+#: ../../frescobaldi/userguide/snippets.md:9
 msgid ""
 "Snippets can be searched by browsing the list or by typing some characters "
 "in the search entry. Snippets can also have keyboard shortcuts applied to "
@@ -3803,28 +3842,28 @@ msgid ""
 "then apply the snippet to the text editor and hide the snippets manager."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippets.md:16
+#: ../../frescobaldi/userguide/snippets.md:16
 msgid ""
 "Add new snippets using {key_add}. Edit the selected snippet with {key_edit}. "
 "Remove selected snippets using {key_delete}. Warning: this cannot be undone!"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/snippets.md:19
+#: ../../frescobaldi/userguide/snippets.md:19
 msgid ""
 "Snippets can also be put in the menu (see {link}). And finally, there are "
 "snippets which can include or alter selected text. Some snippets do this by "
 "using special variables, while others are small scripts written in Python."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/toc.md:1
+#: ../../frescobaldi/userguide/toc.md:1
 msgid "Table of Contents"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/transpose.md:1
+#: ../../frescobaldi/userguide/transpose.md:1
 msgid "Transpose"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/transpose.md:3
+#: ../../frescobaldi/userguide/transpose.md:3
 msgid ""
 "When transposing music, two absolute pitches need to be given to specify the "
 "distance to transpose over. The pitches may include octave marks. The "
@@ -3832,71 +3871,71 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/transpose.md:7
+#: ../../frescobaldi/userguide/transpose.md:7
 msgid ""
 "The music will then be transposed from the first pitch to the second, just "
 "as the `\\transpose` LilyPond command would do."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/transpose.md:10
+#: ../../frescobaldi/userguide/transpose.md:10
 msgid "E.g. when transposing a minor third upwards, you would enter:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/transpose.md:16
+#: ../../frescobaldi/userguide/transpose.md:16
 msgid "To transpose down a major second, you can enter:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/transpose.md:22
+#: ../../frescobaldi/userguide/transpose.md:22
 msgid "or:"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/transpose.md:28
+#: ../../frescobaldi/userguide/transpose.md:28
 msgid ""
 "It is also possible to use the transpose function to change a piece of music "
 "from C-sharp to D-flat, or to specify quarter tones if supported in the "
 "pitch name language that is used."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/transpose.md:32
+#: ../../frescobaldi/userguide/transpose.md:32
 msgid ""
 "The transpose function can transpose both relative and absolute music, "
 "correctly handling key signatures, chordmode and octave checks."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/troubleshooting.md:1
+#: ../../frescobaldi/userguide/troubleshooting.md:1
 msgid "Troubleshooting"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/troubleshooting.md:3
+#: ../../frescobaldi/userguide/troubleshooting.md:3
 msgid ""
 "Sometimes things don't go the way you would expect; this section may give "
 "some solutions."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/var_output.md:1
+#: ../../frescobaldi/userguide/var_output.md:1
 msgid "The `output` document variable"
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/var_output.md:3
+#: ../../frescobaldi/userguide/var_output.md:3
 msgid ""
 "Setting this variable suppresses the automatic output file name "
 "determination and makes Frescobaldi look for output documents (PDF, MIDI, "
 "etc.) with the specified basename, or comma-separated list of names."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/var_output.md:7
+#: ../../frescobaldi/userguide/var_output.md:7
 msgid ""
 "If a name ends with a directory separator, output files are looked for in "
 "the specified directory."
 msgstr ""
 
-#: ../../frescobaldi_app/userguide/var_output.md:10
+#: ../../frescobaldi/userguide/var_output.md:10
 msgid "All names are relative to the document's filename."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi_app/userguide/var_output.md:27
+#: ../../frescobaldi/userguide/var_output.md:27
 msgid ""
 "You can set this variable if the automatic output file name determination "
 "would be time-consuming (as Frescobaldi parses the document and all the "

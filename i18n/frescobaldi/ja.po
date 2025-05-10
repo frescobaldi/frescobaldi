@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 3.2\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
-"POT-Creation-Date: 2025-02-11 11:13+0900\n"
-"PO-Revision-Date: 2025-02-11 12:40+0900\n"
+"POT-Creation-Date: 2025-05-06 17:42+0900\n"
+"PO-Revision-Date: 2025-05-10 14:26+0900\n"
 "Last-Translator: Jun Tamura <j.tamura@me.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 
 #: ../../frescobaldi/__main__.py:63 ../../frescobaldi/about.py:109
 msgid "A LilyPond Music Editor"
@@ -326,7 +326,7 @@ msgstr ""
 msgid "The document has not been changed."
 msgstr "ドキュメントは変更されませんでした。"
 
-#: ../../frescobaldi/convert_ly.py:260 ../../frescobaldi/mainwindow.py:602
+#: ../../frescobaldi/convert_ly.py:260 ../../frescobaldi/mainwindow.py:603
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "ファイルを保存"
@@ -379,7 +379,7 @@ msgstr "ドラッグ"
 msgid "Drag File"
 msgstr "ファイルとしてドラッグ"
 
-#: ../../frescobaldi/copy2image.py:151 ../../frescobaldi/mainwindow.py:1390
+#: ../../frescobaldi/copy2image.py:151 ../../frescobaldi/mainwindow.py:1391
 #: ../../frescobaldi/docbrowser/browser.py:263
 #: ../../frescobaldi/fonts/dialog.py:179
 msgid "&Copy"
@@ -438,11 +438,11 @@ msgstr ""
 
 #. L10N: a basic type of input in the editor
 #: ../../frescobaldi/copy2image.py:296 ../../frescobaldi/cut_assign.py:139
-#: ../../frescobaldi/helpers.py:108 ../../frescobaldi/mainwindow.py:483
-#: ../../frescobaldi/mainwindow.py:570 ../../frescobaldi/mainwindow.py:626
-#: ../../frescobaldi/mainwindow.py:692 ../../frescobaldi/mainwindow.py:713
-#: ../../frescobaldi/mainwindow.py:732 ../../frescobaldi/mainwindow.py:820
-#: ../../frescobaldi/mainwindow.py:889
+#: ../../frescobaldi/helpers.py:108 ../../frescobaldi/mainwindow.py:484
+#: ../../frescobaldi/mainwindow.py:571 ../../frescobaldi/mainwindow.py:627
+#: ../../frescobaldi/mainwindow.py:693 ../../frescobaldi/mainwindow.py:714
+#: ../../frescobaldi/mainwindow.py:733 ../../frescobaldi/mainwindow.py:821
+#: ../../frescobaldi/mainwindow.py:890
 #: ../../frescobaldi/externalchanges/widget.py:246
 #: ../../frescobaldi/externalchanges/widget.py:265
 #: ../../frescobaldi/file_export/__init__.py:73
@@ -479,10 +479,10 @@ msgctxt "dialog title"
 msgid "Move to include file"
 msgstr "インクルードファイルへ移動"
 
-#: ../../frescobaldi/cut_assign.py:135 ../../frescobaldi/mainwindow.py:473
-#: ../../frescobaldi/mainwindow.py:566 ../../frescobaldi/mainwindow.py:622
-#: ../../frescobaldi/mainwindow.py:688 ../../frescobaldi/mainwindow.py:709
-#: ../../frescobaldi/mainwindow.py:816 ../../frescobaldi/mainwindow.py:885
+#: ../../frescobaldi/cut_assign.py:135 ../../frescobaldi/mainwindow.py:474
+#: ../../frescobaldi/mainwindow.py:567 ../../frescobaldi/mainwindow.py:623
+#: ../../frescobaldi/mainwindow.py:689 ../../frescobaldi/mainwindow.py:710
+#: ../../frescobaldi/mainwindow.py:817 ../../frescobaldi/mainwindow.py:886
 #: ../../frescobaldi/sessions/dialog.py:104
 #: ../../frescobaldi/sessions/dialog.py:125
 #, python-brace-format
@@ -492,8 +492,8 @@ msgid ""
 "{strerror} ({errno})"
 msgstr ""
 
-#: ../../frescobaldi/cut_assign.py:136 ../../frescobaldi/mainwindow.py:623
-#: ../../frescobaldi/mainwindow.py:689 ../../frescobaldi/mainwindow.py:886
+#: ../../frescobaldi/cut_assign.py:136 ../../frescobaldi/mainwindow.py:624
+#: ../../frescobaldi/mainwindow.py:690 ../../frescobaldi/mainwindow.py:887
 #: ../../frescobaldi/sessions/dialog.py:126
 #, python-brace-format
 msgid "Could not write to: {url}"
@@ -603,7 +603,7 @@ msgid "&Save"
 msgstr "保存(&S)"
 
 #: ../../frescobaldi/documentcontextmenu.py:72
-#: ../../frescobaldi/mainwindow.py:1358
+#: ../../frescobaldi/mainwindow.py:1359
 msgid "Save &As..."
 msgstr "名前を付けて保存(&A)…"
 
@@ -612,7 +612,7 @@ msgid "&Close"
 msgstr "閉じる(&C)"
 
 #: ../../frescobaldi/documentcontextmenu.py:74
-#: ../../frescobaldi/mainwindow.py:1371
+#: ../../frescobaldi/mainwindow.py:1372
 msgid "Close Other Documents"
 msgstr "他のドキュメントを閉じる"
 
@@ -771,17 +771,17 @@ msgid "&Copy Lyrics with hyphenation removed"
 msgstr "ハイフネーションを削除した歌詞をコピー(&C)"
 
 #. L10N: state of document in window titlebar
-#: ../../frescobaldi/mainwindow.py:306
+#: ../../frescobaldi/mainwindow.py:307
 #: ../../frescobaldi/externalchanges/widget.py:160
 msgid "[modified]"
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:370
+#: ../../frescobaldi/mainwindow.py:371
 msgctxt "dialog title"
 msgid "Close Document"
 msgstr "ドキュメントを閉じる"
 
-#: ../../frescobaldi/mainwindow.py:371
+#: ../../frescobaldi/mainwindow.py:372
 #, python-brace-format
 msgid ""
 "The document \"{name}\" has been modified.\n"
@@ -790,317 +790,317 @@ msgstr ""
 "ドキュメント “{name}” は変更されました。\n"
 "変更を保存しますか？それとも破棄しますか？"
 
-#: ../../frescobaldi/mainwindow.py:384
+#: ../../frescobaldi/mainwindow.py:385
 msgid "Tab Bar"
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:474 ../../frescobaldi/mainwindow.py:710
-#: ../../frescobaldi/mainwindow.py:817 ../../frescobaldi/sessions/dialog.py:105
+#: ../../frescobaldi/mainwindow.py:475 ../../frescobaldi/mainwindow.py:711
+#: ../../frescobaldi/mainwindow.py:818 ../../frescobaldi/sessions/dialog.py:105
 #, python-brace-format
 msgid "Could not read from: {url}"
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:478
+#: ../../frescobaldi/mainwindow.py:479
 msgid "Could not read:"
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:545
+#: ../../frescobaldi/mainwindow.py:546
 #: ../../frescobaldi/macos/globalmenu.py:170
 msgctxt "dialog title"
 msgid "Open File"
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:556
+#: ../../frescobaldi/mainwindow.py:557
 msgctxt "dialog title"
 msgid "Rename/Move File"
 msgstr "ファイルの名前を変更または移動"
 
-#: ../../frescobaldi/mainwindow.py:567
+#: ../../frescobaldi/mainwindow.py:568
 #, python-brace-format
 msgid "Could not delete: {url}"
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:672
+#: ../../frescobaldi/mainwindow.py:673
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "コピーを保存"
 
-#: ../../frescobaldi/mainwindow.py:678
+#: ../../frescobaldi/mainwindow.py:679
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "選択範囲を保存"
 
-#: ../../frescobaldi/mainwindow.py:727
+#: ../../frescobaldi/mainwindow.py:728
 #: ../../frescobaldi/externalchanges/widget.py:241
 msgid "Could not reload:"
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:808
+#: ../../frescobaldi/mainwindow.py:809
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "ファイルから挿入"
 
-#: ../../frescobaldi/mainwindow.py:840
+#: ../../frescobaldi/mainwindow.py:841
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "LilyPond ソースコードを印刷"
 
-#: ../../frescobaldi/mainwindow.py:866
+#: ../../frescobaldi/mainwindow.py:867
 msgid "Export as HTML"
 msgstr "HTML としてエクスポート"
 
-#: ../../frescobaldi/mainwindow.py:1002
+#: ../../frescobaldi/mainwindow.py:1003
 #, python-brace-format
 msgid "Go to Line Number (1-{num}):"
 msgstr "この行番号に移動 (1-{num}):"
 
-#: ../../frescobaldi/mainwindow.py:1049
+#: ../../frescobaldi/mainwindow.py:1050
 msgid "<Please summarize your bug or feature request>"
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:1050
+#: ../../frescobaldi/mainwindow.py:1051
 msgid ""
 "<Please describe the issue or feature request.\n"
 "Provide as much information as possible.>"
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:1191
+#: ../../frescobaldi/mainwindow.py:1192
 msgid "Main Toolbar"
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:1192
+#: ../../frescobaldi/mainwindow.py:1193
 msgid "Music View Toolbar"
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:1347
+#: ../../frescobaldi/mainwindow.py:1348
 msgctxt "action: new document"
 msgid "&New Document"
 msgstr "新規ドキュメント(&N)"
 
-#: ../../frescobaldi/mainwindow.py:1348
+#: ../../frescobaldi/mainwindow.py:1349
 msgctxt "action: new document"
 msgid "New"
 msgstr "新規"
 
-#: ../../frescobaldi/mainwindow.py:1349
+#: ../../frescobaldi/mainwindow.py:1350
 #: ../../frescobaldi/macos/globalmenu.py:72
 msgid "&Open..."
 msgstr "開く(&O)…"
 
-#: ../../frescobaldi/mainwindow.py:1350
+#: ../../frescobaldi/mainwindow.py:1351
 #: ../../frescobaldi/macos/globalmenu.py:103
 msgid "Open &Recent"
 msgstr "最近使ったドキュメントを開く(&R)"
 
-#: ../../frescobaldi/mainwindow.py:1351
+#: ../../frescobaldi/mainwindow.py:1352
 msgid "Insert from &File..."
 msgstr "ファイルから挿入(&F)…"
 
-#: ../../frescobaldi/mainwindow.py:1353
+#: ../../frescobaldi/mainwindow.py:1354
 msgid "Insert the contents of a file at the current cursor position."
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:1354
+#: ../../frescobaldi/mainwindow.py:1355
 msgid "Open Current Directory"
 msgstr "現在のディレクトリを開く"
 
-#: ../../frescobaldi/mainwindow.py:1355
+#: ../../frescobaldi/mainwindow.py:1356
 msgid "Open Command Prompt"
 msgstr "コマンドプロンプト（ターミナル）を開く"
 
-#: ../../frescobaldi/mainwindow.py:1356
+#: ../../frescobaldi/mainwindow.py:1357
 msgid "&Save Document"
 msgstr "ドキュメントを保存"
 
-#: ../../frescobaldi/mainwindow.py:1357
+#: ../../frescobaldi/mainwindow.py:1358
 #: ../../frescobaldi/externalchanges/widget.py:114
 msgid "Save"
 msgstr "保存"
 
-#: ../../frescobaldi/mainwindow.py:1359
+#: ../../frescobaldi/mainwindow.py:1360
 msgid "Save Copy or Selection As..."
 msgstr "コピーまたは選択範囲を名前を付けて保存…"
 
-#: ../../frescobaldi/mainwindow.py:1360
+#: ../../frescobaldi/mainwindow.py:1361
 msgid "&Rename/Move File..."
 msgstr "ファイルの名前を変更または移動(&R)…"
 
-#: ../../frescobaldi/mainwindow.py:1361
+#: ../../frescobaldi/mainwindow.py:1362
 #: ../../frescobaldi/externalchanges/widget.py:118
 msgid "Save All"
 msgstr "すべてのドキュメントを保存"
 
-#: ../../frescobaldi/mainwindow.py:1362
+#: ../../frescobaldi/mainwindow.py:1363
 msgid "Re&load"
 msgstr "再読み込み(&l)"
 
-#: ../../frescobaldi/mainwindow.py:1363
+#: ../../frescobaldi/mainwindow.py:1364
 #: ../../frescobaldi/externalchanges/widget.py:109
 msgid "Reload All"
 msgstr "すべて再読み込み"
 
-#: ../../frescobaldi/mainwindow.py:1364
+#: ../../frescobaldi/mainwindow.py:1365
 msgid "Check for External Changes..."
 msgstr "外部アプリケーションによる変更をチェック…"
 
-#: ../../frescobaldi/mainwindow.py:1366
+#: ../../frescobaldi/mainwindow.py:1367
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:1368
+#: ../../frescobaldi/mainwindow.py:1369
 msgid "Print Source..."
 msgstr "LilyPond ソースコードを印刷…"
 
-#: ../../frescobaldi/mainwindow.py:1369
+#: ../../frescobaldi/mainwindow.py:1370
 msgid "&Close Document"
 msgstr "ドキュメントを閉じる(&C)"
 
-#: ../../frescobaldi/mainwindow.py:1370 ../../frescobaldi/panel.py:108
+#: ../../frescobaldi/mainwindow.py:1371 ../../frescobaldi/panel.py:108
 #: ../../frescobaldi/search/__init__.py:120
-#: ../../frescobaldi/viewers/__init__.py:352
+#: ../../frescobaldi/viewers/__init__.py:332
 #: ../../frescobaldi/viewers/manuscript/__init__.py:78
 msgid "Close"
 msgstr "閉じる"
 
-#: ../../frescobaldi/mainwindow.py:1372
+#: ../../frescobaldi/mainwindow.py:1373
 msgid "Close All Documents"
 msgstr "すべてのドキュメントを閉じる"
 
-#: ../../frescobaldi/mainwindow.py:1374
+#: ../../frescobaldi/mainwindow.py:1375
 msgid "Closes all documents but preserves the current session."
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:1377
+#: ../../frescobaldi/mainwindow.py:1378
 msgid "Close All Documents and Session"
 msgstr "すべてのドキュメントとセッションを閉じる"
 
-#: ../../frescobaldi/mainwindow.py:1380
+#: ../../frescobaldi/mainwindow.py:1381
 msgid "Closes all documents and leaves the current session."
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:1382
+#: ../../frescobaldi/mainwindow.py:1383
 #: ../../frescobaldi/macos/globalmenu.py:78
 msgid "&Quit"
 msgstr "終了(&Q)"
 
-#: ../../frescobaldi/mainwindow.py:1383
+#: ../../frescobaldi/mainwindow.py:1384
 #, python-brace-format
 msgid "Restart {appname}"
 msgstr "{appname} を再起動"
 
-#: ../../frescobaldi/mainwindow.py:1385
+#: ../../frescobaldi/mainwindow.py:1386
 msgid "Export Source as Colored &HTML..."
 msgstr "LilyPond ソースコードを色付きの HTML としてエクスポート…"
 
-#: ../../frescobaldi/mainwindow.py:1387
+#: ../../frescobaldi/mainwindow.py:1388
 msgid "&Undo"
 msgstr "取り消す(&U)"
 
-#: ../../frescobaldi/mainwindow.py:1388
+#: ../../frescobaldi/mainwindow.py:1389
 msgid "Re&do"
 msgstr "やり直す(&d)"
 
-#: ../../frescobaldi/mainwindow.py:1389
+#: ../../frescobaldi/mainwindow.py:1390
 msgid "Cu&t"
 msgstr "カット(&t)"
 
-#: ../../frescobaldi/mainwindow.py:1391
+#: ../../frescobaldi/mainwindow.py:1392
 msgid "Copy as Colored &HTML"
 msgstr "色付きの HTML としてコピー"
 
-#: ../../frescobaldi/mainwindow.py:1392
+#: ../../frescobaldi/mainwindow.py:1393
 msgid "&Paste"
 msgstr "ペースト(&P)"
 
-#: ../../frescobaldi/mainwindow.py:1393
+#: ../../frescobaldi/mainwindow.py:1394
 msgid "Select &All"
 msgstr "すべてを選択(&A)"
 
-#: ../../frescobaldi/mainwindow.py:1394
+#: ../../frescobaldi/mainwindow.py:1395
 msgid "Select &Block"
 msgstr "ブロックを選択(&B)"
 
-#: ../../frescobaldi/mainwindow.py:1395
+#: ../../frescobaldi/mainwindow.py:1396
 msgid "Select &None"
 msgstr "選択を解除(&N)"
 
-#: ../../frescobaldi/mainwindow.py:1396
+#: ../../frescobaldi/mainwindow.py:1397
 msgid "Select Whole Lines Up"
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:1397
+#: ../../frescobaldi/mainwindow.py:1398
 msgid "Select Whole Lines Down"
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:1398
+#: ../../frescobaldi/mainwindow.py:1399
 msgid "&Find..."
 msgstr "検索(&F)…"
 
-#: ../../frescobaldi/mainwindow.py:1399
+#: ../../frescobaldi/mainwindow.py:1400
 msgid "Find Ne&xt"
 msgstr "次を検索(&x)"
 
-#: ../../frescobaldi/mainwindow.py:1400
+#: ../../frescobaldi/mainwindow.py:1401
 msgid "Find Pre&vious"
 msgstr "前を検索(&v)"
 
-#: ../../frescobaldi/mainwindow.py:1401
+#: ../../frescobaldi/mainwindow.py:1402
 msgid "&Replace..."
 msgstr "置換(&R)…"
 
-#: ../../frescobaldi/mainwindow.py:1402
+#: ../../frescobaldi/mainwindow.py:1403
 #: ../../frescobaldi/macos/globalmenu.py:124
 msgid "Pr&eferences..."
 msgstr "設定(&e)…"
 
-#: ../../frescobaldi/mainwindow.py:1404
+#: ../../frescobaldi/mainwindow.py:1405
 msgid "&Next Document"
 msgstr "次のドキュメント(&N)"
 
-#: ../../frescobaldi/mainwindow.py:1405
+#: ../../frescobaldi/mainwindow.py:1406
 msgid "&Previous Document"
 msgstr "前のドキュメント(&P)"
 
-#: ../../frescobaldi/mainwindow.py:1406
+#: ../../frescobaldi/mainwindow.py:1407
 msgid "Wrap &Lines"
 msgstr "行を折り返す(&L)"
 
-#: ../../frescobaldi/mainwindow.py:1407
+#: ../../frescobaldi/mainwindow.py:1408
 msgid "Scroll Up"
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:1408
+#: ../../frescobaldi/mainwindow.py:1409
 msgid "Scroll Down"
 msgstr ""
 
-#: ../../frescobaldi/mainwindow.py:1409
+#: ../../frescobaldi/mainwindow.py:1410
 msgid "&Go to Line..."
 msgstr "行へ移動(&G)…"
 
-#: ../../frescobaldi/mainwindow.py:1411
+#: ../../frescobaldi/mainwindow.py:1412
 #: ../../frescobaldi/macos/globalmenu.py:130
 msgid "New &Window"
 msgstr "新規ウィンドウ(&W)"
 
-#: ../../frescobaldi/mainwindow.py:1412
+#: ../../frescobaldi/mainwindow.py:1413
 msgid "&Fullscreen"
 msgstr "全画面表示(&F)"
 
-#: ../../frescobaldi/mainwindow.py:1414
+#: ../../frescobaldi/mainwindow.py:1415
 msgid "&User Guide"
 msgstr "ユーザーガイド(&U)"
 
-#: ../../frescobaldi/mainwindow.py:1415
+#: ../../frescobaldi/mainwindow.py:1416
 msgid "&What's This?"
 msgstr "これは何？(&W)"
 
-#: ../../frescobaldi/mainwindow.py:1416
+#: ../../frescobaldi/mainwindow.py:1417
 msgid "Report a &Bug..."
 msgstr "バグを報告(&B)"
 
-#: ../../frescobaldi/mainwindow.py:1417
+#: ../../frescobaldi/mainwindow.py:1418
 #: ../../frescobaldi/macos/globalmenu.py:148
 #, python-brace-format
 msgid "&About {appname}..."
@@ -1229,12 +1229,12 @@ msgctxt "menu title"
 msgid "&Help"
 msgstr "ヘルプ(&H)"
 
-#: ../../frescobaldi/musicpos.py:85
+#: ../../frescobaldi/musicpos.py:89
 #, python-brace-format
 msgid "Length: {length}"
 msgstr ""
 
-#: ../../frescobaldi/musicpos.py:89
+#: ../../frescobaldi/musicpos.py:93
 #, python-brace-format
 msgid "Pos: {pos}"
 msgstr ""
@@ -1251,41 +1251,36 @@ msgstr ""
 msgid "Music Preview"
 msgstr ""
 
-#: ../../frescobaldi/pagedview.py:187
+#: ../../frescobaldi/pagedview.py:170
 #, python-brace-format
 msgid "Print {filename}"
 msgstr ""
 
-#: ../../frescobaldi/pagedview.py:189
+#: ../../frescobaldi/pagedview.py:172
 #: ../../frescobaldi/docbrowser/browser.py:241
 #: ../../frescobaldi/userguide/browser.py:85
 #: ../../frescobaldi/userguide/browser.py:115
 msgid "Print"
 msgstr ""
 
-#: ../../frescobaldi/pagedview.py:210 ../../frescobaldi/pagedview.py:232
-msgid "Printing Error"
-msgstr ""
-
-#: ../../frescobaldi/pagedview.py:212
-#, python-brace-format
-msgid "An error occurred (code: {num}):"
-msgstr ""
-
-#: ../../frescobaldi/pagedview.py:219
+#: ../../frescobaldi/pagedview.py:184
 msgid "Preparing to print..."
 msgstr ""
 
-#: ../../frescobaldi/pagedview.py:227
+#: ../../frescobaldi/pagedview.py:192
 #, python-brace-format
 msgid "Printing page {page} ({num} of {total})..."
 msgstr ""
 
-#: ../../frescobaldi/pagedview.py:233
+#: ../../frescobaldi/pagedview.py:197
+msgid "Printing Error"
+msgstr ""
+
+#: ../../frescobaldi/pagedview.py:198
 msgid "Could not send the document to the printer."
 msgstr ""
 
-#: ../../frescobaldi/pagedview.py:245
+#: ../../frescobaldi/pagedview.py:210
 #, python-brace-format
 msgid "{num} of {total}"
 msgstr ""
@@ -1367,7 +1362,7 @@ msgid "Show C&ompletions Popup"
 msgstr "補完ポップアップを表示(&o)"
 
 #: ../../frescobaldi/charmap/__init__.py:39
-#: ../../frescobaldi/preferences/tools.py:183
+#: ../../frescobaldi/preferences/tools.py:143
 msgid "Special Characters"
 msgstr "記号"
 
@@ -1441,7 +1436,8 @@ msgid "LilyPond Source"
 msgstr ""
 
 #: ../../frescobaldi/doclist/__init__.py:38
-#: ../../frescobaldi/preferences/tools.py:216
+#: ../../frescobaldi/preferences/musicviewers.py:74
+#: ../../frescobaldi/preferences/tools.py:176
 msgid "Documents"
 msgstr "ドキュメント"
 
@@ -1566,7 +1562,7 @@ msgid "Output Format:"
 msgstr "出力フォーマット:"
 
 #: ../../frescobaldi/engrave/custom.py:130
-#: ../../frescobaldi/preferences/musicviewers.py:188
+#: ../../frescobaldi/preferences/musicviewers.py:414
 msgid "Resolution:"
 msgstr "解像度:"
 
@@ -2043,12 +2039,12 @@ msgstr "ピッチ表記の言語"
 #: ../../frescobaldi/file_import/musicxml.py:105
 #: ../../frescobaldi/preferences/documentation.py:117
 #: ../../frescobaldi/preferences/general.py:151
-#: ../../frescobaldi/preferences/tools.py:258
-#: ../../frescobaldi/preferences/tools.py:261
-#: ../../frescobaldi/scorewiz/settings.py:166
-#: ../../frescobaldi/scorewiz/settings.py:245
-#: ../../frescobaldi/scorewiz/settings.py:339
-#: ../../frescobaldi/scorewiz/parts/_base.py:276
+#: ../../frescobaldi/preferences/tools.py:218
+#: ../../frescobaldi/preferences/tools.py:221
+#: ../../frescobaldi/scorewiz/settings.py:163
+#: ../../frescobaldi/scorewiz/settings.py:277
+#: ../../frescobaldi/scorewiz/settings.py:371
+#: ../../frescobaldi/scorewiz/parts/_base.py:269
 #: ../../frescobaldi/scorewiz/parts/plucked_strings.py:69
 #: ../../frescobaldi/widgets/schemeselector.py:196
 msgid "Default"
@@ -2673,7 +2669,7 @@ msgid "Filename to be included"
 msgstr ""
 
 #: ../../frescobaldi/logtool/__init__.py:49
-#: ../../frescobaldi/preferences/tools.py:89
+#: ../../frescobaldi/preferences/tools.py:88
 msgid "LilyPond Log"
 msgstr "LilyPond ログ"
 
@@ -2902,6 +2898,7 @@ msgid "Soft pedal"
 msgstr ""
 
 #: ../../frescobaldi/miditool/__init__.py:50
+#: ../../frescobaldi/preferences/__init__.py:226
 msgid "MIDI"
 msgstr ""
 
@@ -2963,94 +2960,76 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr ""
 
-#: ../../frescobaldi/musicview/__init__.py:115
+#: ../../frescobaldi/musicview/__init__.py:112
 msgctxt "window title"
 msgid "Music View"
 msgstr "楽譜ビューア"
 
-#: ../../frescobaldi/musicview/__init__.py:116
+#: ../../frescobaldi/musicview/__init__.py:113
 msgid "&Music View"
 msgstr "楽譜ビューア(&M)"
 
-#: ../../frescobaldi/musicview/__init__.py:165
-#: ../../frescobaldi/viewers/__init__.py:195
-msgid "Print Music"
-msgstr "楽譜を印刷"
-
-#: ../../frescobaldi/musicview/__init__.py:166
-#: ../../frescobaldi/viewers/__init__.py:196
-msgid ""
-"As per your settings, you are about to print the file directly to CUPS.\n"
-"This is discouraged on macOS, since in this case the settings of the system "
-"print window are ignored.\n"
-"You can disable it in Music Preferences.\n"
-"\n"
-"Do you really want to print to CUPS?\n"
-"\n"
-"(If you are unsure, the answer is likely no.)"
-msgstr ""
-
-#: ../../frescobaldi/musicview/__init__.py:264
-#: ../../frescobaldi/viewers/__init__.py:340
+#: ../../frescobaldi/musicview/__init__.py:242
+#: ../../frescobaldi/viewers/__init__.py:320
 msgid "Select Music View Document"
 msgstr ""
 
-#: ../../frescobaldi/musicview/__init__.py:265
-#: ../../frescobaldi/viewers/__init__.py:341
+#: ../../frescobaldi/musicview/__init__.py:243
+#: ../../frescobaldi/viewers/__init__.py:321
 msgid "&Print Music..."
 msgstr "楽譜を印刷(&P)…"
 
-#: ../../frescobaldi/musicview/__init__.py:266
-#: ../../frescobaldi/viewers/__init__.py:342
+#: ../../frescobaldi/musicview/__init__.py:244
+#: ../../frescobaldi/viewers/__init__.py:322
 msgid "Zoom Music"
 msgstr ""
 
-#: ../../frescobaldi/musicview/__init__.py:267
+#: ../../frescobaldi/musicview/__init__.py:245
 msgid "Save current View settings as default"
 msgstr "現在のビューの設定をデフォルトとして保存"
 
-#: ../../frescobaldi/musicview/__init__.py:268
-#: ../../frescobaldi/viewers/__init__.py:343
+#: ../../frescobaldi/musicview/__init__.py:246
+#: ../../frescobaldi/viewers/__init__.py:323
 msgid "&Maximize"
 msgstr "最大化(&M)"
 
-#: ../../frescobaldi/musicview/__init__.py:269
-#: ../../frescobaldi/viewers/__init__.py:344
+#: ../../frescobaldi/musicview/__init__.py:247
+#: ../../frescobaldi/viewers/__init__.py:324
 msgid "&Jump to Cursor Position"
 msgstr "カーソル位置に対応した場所へジャンプ(&J)"
 
-#: ../../frescobaldi/musicview/__init__.py:270
-#: ../../frescobaldi/viewers/__init__.py:345
+#: ../../frescobaldi/musicview/__init__.py:248
+#: ../../frescobaldi/viewers/__init__.py:325
 msgid "S&ynchronize with Cursor Position"
 msgstr "カーソル位置に同期してスクロール(&S)"
 
-#: ../../frescobaldi/musicview/__init__.py:271
-#: ../../frescobaldi/viewers/__init__.py:346
+#: ../../frescobaldi/musicview/__init__.py:249
+#: ../../frescobaldi/viewers/__init__.py:326
 msgid "Copy to &Image..."
 msgstr "画像としてコピー(&I)…"
 
-#: ../../frescobaldi/musicview/__init__.py:272
+#: ../../frescobaldi/musicview/__init__.py:250
 msgid "Copy Selected &Text"
 msgstr "選択されたテキストをコピー(&T)"
 
-#: ../../frescobaldi/musicview/__init__.py:273
-#: ../../frescobaldi/viewers/__init__.py:347
+#: ../../frescobaldi/musicview/__init__.py:251
+#: ../../frescobaldi/viewers/__init__.py:327
 msgid "&Reload"
 msgstr "再読み込み(&R)"
 
-#: ../../frescobaldi/musicview/__init__.py:274
+#: ../../frescobaldi/musicview/__init__.py:252
 #: ../../frescobaldi/scorewiz/dialog.py:84
 #: ../../frescobaldi/sessions/dialog.py:268
 msgid "Clear"
 msgstr "クリア"
 
-#: ../../frescobaldi/musicview/__init__.py:425
-#: ../../frescobaldi/viewers/__init__.py:614
+#: ../../frescobaldi/musicview/__init__.py:403
+#: ../../frescobaldi/viewers/__init__.py:594
 msgid "Choose the PDF document to display."
 msgstr ""
 
-#: ../../frescobaldi/musicview/__init__.py:427
-#: ../../frescobaldi/viewers/__init__.py:616
+#: ../../frescobaldi/musicview/__init__.py:405
+#: ../../frescobaldi/viewers/__init__.py:596
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -3062,7 +3041,7 @@ msgid "Open Link in &New Window"
 msgstr ""
 
 #: ../../frescobaldi/musicview/widget.py:189
-#: ../../frescobaldi/viewers/popplerwidget.py:263
+#: ../../frescobaldi/viewers/pdfwidget.py:263
 #, python-brace-format
 msgid "Page {num}"
 msgstr ""
@@ -3092,7 +3071,7 @@ msgid "Display the Y Offset"
 msgstr ""
 
 #: ../../frescobaldi/outline/__init__.py:39
-#: ../../frescobaldi/preferences/tools.py:257
+#: ../../frescobaldi/preferences/tools.py:217
 msgid "Outline"
 msgstr "アウトライン"
 
@@ -3262,25 +3241,23 @@ msgid "Preferences"
 msgstr "設定"
 
 #: ../../frescobaldi/preferences/__init__.py:193
-#: ../../frescobaldi/preferences/general.py:146
-msgid "General Preferences"
-msgstr "一般設定"
+#: ../../frescobaldi/preferences/lilypond.py:629
+msgid "General"
+msgstr "一般"
 
 #: ../../frescobaldi/preferences/__init__.py:204
-msgid "Music Preferences"
-msgstr "楽譜ビューア設定"
+msgid "Music View"
+msgstr "楽譜ビューア"
 
 #: ../../frescobaldi/preferences/__init__.py:215
-msgid "LilyPond Preferences"
-msgstr "LilyPond 設定"
-
-#: ../../frescobaldi/preferences/__init__.py:226
-msgid "MIDI Settings"
-msgstr "MIDI 設定"
+#: ../../frescobaldi/preferences/fontscolors.py:514
+#: ../../frescobaldi/preferences/lilypond.py:622
+#: ../../frescobaldi/scorewiz/settings.py:367
+msgid "LilyPond"
+msgstr ""
 
 #: ../../frescobaldi/preferences/__init__.py:237
-#: ../../frescobaldi/preferences/helpers.py:82
-msgid "Helper Applications"
+msgid "Helper Apps"
 msgstr "ヘルパーアプリケーション"
 
 #: ../../frescobaldi/preferences/__init__.py:248
@@ -3288,16 +3265,16 @@ msgid "Paths"
 msgstr "パス"
 
 #: ../../frescobaldi/preferences/__init__.py:259
-msgid "LilyPond Documentation"
+msgid "LilyPond Docs"
 msgstr "LilyPond ドキュメンテーション"
 
 #: ../../frescobaldi/preferences/__init__.py:270
-msgid "Keyboard Shortcuts"
-msgstr "キーボードショートカット"
+msgid "Shortcuts"
+msgstr "ショートカット"
 
 #: ../../frescobaldi/preferences/__init__.py:281
-msgid "Editor Preferences"
-msgstr "エディター設定"
+msgid "Editor"
+msgstr "エディター"
 
 #: ../../frescobaldi/preferences/__init__.py:292
 msgid "Fonts & Colors"
@@ -3324,14 +3301,14 @@ msgid "Preferred Language:"
 msgstr "言語設定:"
 
 #: ../../frescobaldi/preferences/documentation.py:118
-#: ../../frescobaldi/scorewiz/settings.py:243
+#: ../../frescobaldi/scorewiz/settings.py:275
 msgid "English (untranslated)"
 msgstr ""
 
 #: ../../frescobaldi/preferences/documentation.py:119
 #: ../../frescobaldi/preferences/fontscolors.py:128
-#: ../../frescobaldi/preferences/tools.py:90
-#: ../../frescobaldi/preferences/tools.py:184
+#: ../../frescobaldi/preferences/tools.py:89
+#: ../../frescobaldi/preferences/tools.py:144
 msgid "Font:"
 msgstr "フォント:"
 
@@ -3792,12 +3769,6 @@ msgstr ""
 msgid "Comment"
 msgstr "コメント"
 
-#: ../../frescobaldi/preferences/fontscolors.py:514
-#: ../../frescobaldi/preferences/lilypond.py:622
-#: ../../frescobaldi/scorewiz/settings.py:335
-msgid "LilyPond"
-msgstr ""
-
 #: ../../frescobaldi/preferences/fontscolors.py:515
 msgid "Pitch"
 msgstr "ピッチ"
@@ -3890,7 +3861,6 @@ msgid "Delimiter"
 msgstr "境界線"
 
 #: ../../frescobaldi/preferences/fontscolors.py:538
-#: ../../frescobaldi/scorewiz/parts/special.py:65
 msgid "Figured Bass"
 msgstr "通奏低音"
 
@@ -3977,8 +3947,12 @@ msgstr ""
 msgid "Verbatim"
 msgstr ""
 
+#: ../../frescobaldi/preferences/general.py:146
+msgid "Language and Style"
+msgstr "言語とスタイル"
+
 #: ../../frescobaldi/preferences/general.py:147
-#: ../../frescobaldi/scorewiz/settings.py:263
+#: ../../frescobaldi/scorewiz/settings.py:295
 msgid "Language:"
 msgstr "言語:"
 
@@ -3991,7 +3965,7 @@ msgid "System Default Language (if available)"
 msgstr "システムのデフォルト言語（設定されている場合）"
 
 #: ../../frescobaldi/preferences/general.py:150
-#: ../../frescobaldi/scorewiz/parts/percussion.py:211
+#: ../../frescobaldi/scorewiz/parts/percussion.py:215
 msgid "Style:"
 msgstr "スタイル:"
 
@@ -4176,6 +4150,10 @@ msgstr ""
 msgid "Git:"
 msgstr ""
 
+#: ../../frescobaldi/preferences/helpers.py:82
+msgid "Helper Applications"
+msgstr "ヘルパーアプリケーション"
+
 #: ../../frescobaldi/preferences/helpers.py:84
 msgid ""
 "Below you can enter commands to open different file types. <code>$f</code> "
@@ -4340,10 +4318,6 @@ msgstr ""
 msgid "Include in automatic version selection"
 msgstr "自動バージョン選択に含める"
 
-#: ../../frescobaldi/preferences/lilypond.py:629
-msgid "General"
-msgstr "一般"
-
 #: ../../frescobaldi/preferences/lilypond.py:630
 msgid "Tool Commands"
 msgstr "ツールコマンド"
@@ -4495,106 +4469,157 @@ msgid ""
 "the CPU. 10 ms should be a good value."
 msgstr ""
 
+#: ../../frescobaldi/preferences/musicviewers.py:75
+msgid "Only load updated PDF documents"
+msgstr "更新されたPDFドキュメントのみをロードする"
+
+#: ../../frescobaldi/preferences/musicviewers.py:77
+msgid ""
+"If checked, Frescobaldi will not open PDF documents that are not\n"
+"up-to-date (i.e. the source file has been modified later)."
+msgstr ""
+
+#: ../../frescobaldi/preferences/musicviewers.py:79
+msgid "Remember View settings per-document"
+msgstr "ドキュメント毎にビュー設定を記憶"
+
+#: ../../frescobaldi/preferences/musicviewers.py:81
+msgid ""
+"If checked, every document in the Music View will remember its\n"
+"own layout setting, zoom factor, etc. If unchecked, the View will\n"
+"not change its settings when a different document is displayed."
+msgstr ""
+
+#: ../../frescobaldi/preferences/musicviewers.py:142
+msgid "Page scaling"
+msgstr "ページの倍率"
+
+#: ../../frescobaldi/preferences/musicviewers.py:143
+msgid "Fixed scale:"
+msgstr "固定倍率:"
+
+#: ../../frescobaldi/preferences/musicviewers.py:144
+msgid "Fit height"
+msgstr "高さに合わせる"
+
+#: ../../frescobaldi/preferences/musicviewers.py:145
+msgid "Fit width"
+msgstr "幅に合わせる"
+
+#: ../../frescobaldi/preferences/musicviewers.py:146
+msgid "Fit page"
+msgstr "ページ全体に合わせる"
+
+#: ../../frescobaldi/preferences/musicviewers.py:147
+#: ../../frescobaldi/preferences/musicviewers.py:381
+msgctxt "percent unit sign"
+msgid "%"
+msgstr ""
+
+#: ../../frescobaldi/preferences/musicviewers.py:200
+msgid "Page layout"
+msgstr ""
+
+#: ../../frescobaldi/preferences/musicviewers.py:201
+msgid "Single"
+msgstr "単一ページ"
+
+#: ../../frescobaldi/preferences/musicviewers.py:202
+msgid "Two pages (first page right)"
+msgstr "2ページ（最初のページを右）"
+
+#: ../../frescobaldi/preferences/musicviewers.py:203
+msgid "Two pages (first page left)"
+msgstr "2ページ（最初のページを左）"
+
+#. L10N: "Raster", a layout type (like grid)
+#: ../../frescobaldi/preferences/musicviewers.py:204 ../../i18n/messages.py:49
+msgid "Raster"
+msgstr "タイル"
+
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../../frescobaldi/preferences/musicviewers.py:101
-msgid "Kinetic Scrolling"
+#: ../../frescobaldi/preferences/musicviewers.py:266
+msgid "Scrolling"
+msgstr "スクロール"
+
+#: ../../frescobaldi/preferences/musicviewers.py:267
+#: ../../frescobaldi/scorewiz/settings.py:164
+msgid "Orientation:"
+msgstr "向き:"
+
+#: ../../frescobaldi/preferences/musicviewers.py:268 ../../i18n/messages.py:51
+msgid "Horizontal"
+msgstr "横にスクロール"
+
+#: ../../frescobaldi/preferences/musicviewers.py:269 ../../i18n/messages.py:50
+msgid "Vertical"
+msgstr "縦にスクロール"
+
+#: ../../frescobaldi/preferences/musicviewers.py:270
+msgid "Continuous scrolling"
+msgstr "連続スクロール"
+
+#: ../../frescobaldi/preferences/musicviewers.py:271
+msgid "Kinetic scrolling"
 msgstr "慣性スクロール"
 
-#: ../../frescobaldi/preferences/musicviewers.py:102
-msgid "Show Scrollbars"
-msgstr "スクロールバーを表示"
+#: ../../frescobaldi/preferences/musicviewers.py:273
+msgid "Use Page Up and Page Down keys to change pages"
+msgstr "Page Up キーと Page Down キーでページを移動"
 
-#: ../../frescobaldi/preferences/musicviewers.py:103
-msgid "Strict Paging"
-msgstr "厳密なページング"
-
-#: ../../frescobaldi/preferences/musicviewers.py:105
+#: ../../frescobaldi/preferences/musicviewers.py:275
 msgid ""
 "If checked, PageUp and PageDown always page to the previous or next page "
 "instead of scrolling."
 msgstr ""
 
-#: ../../frescobaldi/preferences/musicviewers.py:106
-msgid "Shadow"
-msgstr "影を表示"
+#: ../../frescobaldi/preferences/musicviewers.py:317
+msgid "Viewer options"
+msgstr "ビューアオプション"
 
-#: ../../frescobaldi/preferences/musicviewers.py:108
+#: ../../frescobaldi/preferences/musicviewers.py:318
+msgid "Show scrollbars"
+msgstr "スクロールバーを表示"
+
+#: ../../frescobaldi/preferences/musicviewers.py:319
+msgid "Show shadow under pages"
+msgstr "各ページの下に影を表示"
+
+#: ../../frescobaldi/preferences/musicviewers.py:321
 msgid "If checked, Frescobaldi draws a shadow around the pages."
 msgstr ""
 
-#: ../../frescobaldi/preferences/musicviewers.py:109
-msgid ""
-"Use vector based backend (Arthur) for rendering PDF documents on screen "
-"(experimental!)"
-msgstr ""
-"画面上にPDFドキュメントをレンダリングするためにベクターベースのバックエンド "
-"(Arthur) を使用 (実験的です！)"
+#: ../../frescobaldi/preferences/musicviewers.py:372 ../../i18n/messages.py:58
+msgid "Magnifier"
+msgstr "拡大鏡"
 
-#: ../../frescobaldi/preferences/musicviewers.py:111
-msgid ""
-"If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
-"library for PDF rendering on screen. The Arthur backend is faster\n"
-"than the default Splash backend, but more experimental."
-msgstr ""
+#: ../../frescobaldi/preferences/musicviewers.py:373
+msgid "Size:"
+msgstr "大きさ:"
 
-#: ../../frescobaldi/preferences/musicviewers.py:114
-msgid "Display of Music"
-msgstr "楽譜の表示"
-
-#: ../../frescobaldi/preferences/musicviewers.py:115
-msgid "Magnifier Size:"
-msgstr "拡大鏡の大きさ:"
-
-#: ../../frescobaldi/preferences/musicviewers.py:117
+#: ../../frescobaldi/preferences/musicviewers.py:375
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr ""
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../../frescobaldi/preferences/musicviewers.py:119
+#: ../../frescobaldi/preferences/musicviewers.py:377
 msgid " pixels"
 msgstr " ピクセル"
 
-#: ../../frescobaldi/preferences/musicviewers.py:120
-msgid "Magnifier Scale:"
-msgstr "拡大鏡の倍率:"
+#: ../../frescobaldi/preferences/musicviewers.py:378
+msgid "Scale:"
+msgstr "倍率:"
 
-#: ../../frescobaldi/preferences/musicviewers.py:122
+#: ../../frescobaldi/preferences/musicviewers.py:380
 msgid "Magnification of the magnifier."
 msgstr ""
 
-#: ../../frescobaldi/preferences/musicviewers.py:123
-msgctxt "percent unit sign"
-msgid "%"
-msgstr ""
+#: ../../frescobaldi/preferences/musicviewers.py:413
+msgid "Printing"
+msgstr "印刷"
 
-#: ../../frescobaldi/preferences/musicviewers.py:177
-msgid "Printing of Music"
-msgstr "楽譜の印刷"
-
-#: ../../frescobaldi/preferences/musicviewers.py:178
-msgid "Use vector based backend (Arthur) for printing PDF documents"
-msgstr "PDFドキュメントの印刷にベクターベースのバックエンド (Arthur) を使用"
-
-#: ../../frescobaldi/preferences/musicviewers.py:180
-msgid ""
-"If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
-"library for printing PDF documents. A big advantage of the Arthur backend\n"
-"is that it is vector-based, in contrast to the default Splash backend,\n"
-"which is raster-based. But Arthur is more experimental."
-msgstr ""
-
-#: ../../frescobaldi/preferences/musicviewers.py:184
-msgid "Print PDF documents directly to CUPS if available."
-msgstr "可能な場合は PDF ドキュメントをCUPSに直接印刷"
-
-#: ../../frescobaldi/preferences/musicviewers.py:186
-msgid ""
-"If checked, Frescobaldi tries to print a PDF document directly using\n"
-"the CUPS server, if available."
-msgstr ""
-
-#: ../../frescobaldi/preferences/musicviewers.py:190
-msgid "Set the resolution if Frescobaldi prints using raster images."
+#: ../../frescobaldi/preferences/musicviewers.py:416
+msgid "Set the resolution to be sent to the printer."
 msgstr ""
 
 #: ../../frescobaldi/preferences/paths.py:66
@@ -4664,75 +4689,50 @@ msgstr ""
 msgid "(default)"
 msgstr "（デフォルト）"
 
-#: ../../frescobaldi/preferences/tools.py:91
+#: ../../frescobaldi/preferences/tools.py:90
 msgid "Show log when a job is started"
 msgstr "ジョブの開始時にログを表示する"
 
-#: ../../frescobaldi/preferences/tools.py:92
+#: ../../frescobaldi/preferences/tools.py:91
 msgid "Display plain log output"
 msgstr "ログ出力をそのまま表示"
 
-#: ../../frescobaldi/preferences/tools.py:94
+#: ../../frescobaldi/preferences/tools.py:93
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
 
-#: ../../frescobaldi/preferences/tools.py:95
+#: ../../frescobaldi/preferences/tools.py:94
 msgid "Hide automatic engraving jobs"
 msgstr "自動譜刻ジョブを非表示にする"
 
-#: ../../frescobaldi/preferences/tools.py:97
+#: ../../frescobaldi/preferences/tools.py:96
 msgid ""
 "If checked, Frescobaldi will not show the log for automatically\n"
 "started engraving jobs (LilyPond->Auto-engrave)."
 msgstr ""
 
-#: ../../frescobaldi/preferences/tools.py:137
-msgid "Music View"
-msgstr "楽譜ビューア"
-
-#: ../../frescobaldi/preferences/tools.py:138
-msgid "Only load updated PDF documents"
-msgstr "更新されたPDFドキュメントのみをロードする"
-
-#: ../../frescobaldi/preferences/tools.py:140
-msgid ""
-"If checked, Frescobaldi will not open PDF documents that are not\n"
-"up-to-date (i.e. the source file has been modified later)."
-msgstr ""
-
-#: ../../frescobaldi/preferences/tools.py:142
-msgid "Remember View settings per-document"
-msgstr "ドキュメント毎にビュー設定を記憶"
-
-#: ../../frescobaldi/preferences/tools.py:144
-msgid ""
-"If checked, every document in the Music View will remember its\n"
-"own layout setting, zoom factor, etc. If unchecked, the View will\n"
-"not change its settings when a different document is displayed."
-msgstr ""
-
-#: ../../frescobaldi/preferences/tools.py:217
+#: ../../frescobaldi/preferences/tools.py:177
 msgid "Group documents by directory"
 msgstr "ディレクトリごとにドキュメントをグループ化"
 
-#: ../../frescobaldi/preferences/tools.py:259
-#: ../../frescobaldi/preferences/tools.py:262
+#: ../../frescobaldi/preferences/tools.py:219
+#: ../../frescobaldi/preferences/tools.py:222
 msgid "Restores the built-in outline patterns."
 msgstr ""
 
-#: ../../frescobaldi/preferences/tools.py:260
+#: ../../frescobaldi/preferences/tools.py:220
 msgid ""
 "Patterns to match in text (excluding comments) that are shown in outline:"
 msgstr ""
 "アウトラインで表示されるテキスト（コメントを除く）にマッチするパターン:"
 
-#: ../../frescobaldi/preferences/tools.py:263
+#: ../../frescobaldi/preferences/tools.py:223
 msgid ""
 "Patterns to match in text (including comments) that are shown in outline:"
 msgstr ""
 "アウトラインで表示されるテキスト（コメントを含む）にマッチするパターン:"
 
-#: ../../frescobaldi/preferences/tools.py:301
+#: ../../frescobaldi/preferences/tools.py:261
 msgid "Enter a regular expression to match:"
 msgstr "マッチする正規表現を入力してください:"
 
@@ -5070,8 +5070,8 @@ msgstr ""
 
 #: ../../frescobaldi/quickinsert/buttongroup.py:186
 #: ../../frescobaldi/scorewiz/scoreproperties.py:171
-#: ../../frescobaldi/scorewiz/settings.py:233
-#: ../../frescobaldi/scorewiz/settings.py:236
+#: ../../frescobaldi/scorewiz/settings.py:265
+#: ../../frescobaldi/scorewiz/settings.py:268
 #: ../../frescobaldi/snippet/edit.py:224
 msgid "None"
 msgstr "無し"
@@ -5374,15 +5374,15 @@ msgstr "スコア ウィザード(&W)…"
 msgid "From C&urrent Document..."
 msgstr "現在のドキュメントから作成(&C)…"
 
-#: ../../frescobaldi/scorewiz/build.py:135
+#: ../../frescobaldi/scorewiz/build.py:130
 msgid "Music follows here."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/build.py:420
+#: ../../frescobaldi/scorewiz/build.py:440
 msgid "Remove default LilyPond tagline"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/build.py:443
+#: ../../frescobaldi/scorewiz/build.py:463
 msgid "Add space for instrument names"
 msgstr "楽器名にスペースを加える"
 
@@ -5565,7 +5565,7 @@ msgstr ""
 msgid "Locrian"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/settings.py:82
+#: ../../frescobaldi/scorewiz/settings.py:84
 msgid "Score properties"
 msgstr "スコアのプロパティ"
 
@@ -5616,176 +5616,180 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi/scorewiz/settings.py:157
-msgid "Create MIDI output"
-msgstr "MIDI 出力ファイルを作成"
-
-#: ../../frescobaldi/scorewiz/settings.py:159
-msgid "Create a MIDI file in addition to the PDF file."
-msgstr ""
-
-#: ../../frescobaldi/scorewiz/settings.py:160
 msgid "Show metronome mark"
 msgstr "メトロノーム記号を表示"
 
-#: ../../frescobaldi/scorewiz/settings.py:162
+#: ../../frescobaldi/scorewiz/settings.py:159
 msgid ""
 "If checked, show the metronome mark at the beginning of the score. The MIDI "
 "output also uses the metronome setting."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/settings.py:165
+#: ../../frescobaldi/scorewiz/settings.py:162
 msgid "Paper size:"
 msgstr "紙面サイズ:"
 
-#: ../../frescobaldi/scorewiz/settings.py:167
-msgid "Orientation:"
-msgstr "向き:"
-
-#: ../../frescobaldi/scorewiz/settings.py:168
+#: ../../frescobaldi/scorewiz/settings.py:165
 msgid "Regular"
 msgstr "通常"
 
-#: ../../frescobaldi/scorewiz/settings.py:169
+#: ../../frescobaldi/scorewiz/settings.py:166
 msgid "Landscape"
 msgstr "横長"
 
-#: ../../frescobaldi/scorewiz/settings.py:170
+#: ../../frescobaldi/scorewiz/settings.py:167
 msgid "Rotated"
 msgstr "90度回転"
 
-#: ../../frescobaldi/scorewiz/settings.py:171
+#: ../../frescobaldi/scorewiz/settings.py:168
 msgid "Regular portrait orientation"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/settings.py:173
+#: ../../frescobaldi/scorewiz/settings.py:170
 msgid ""
 "Set paper orientation to landscape while keeping upright printing "
 "orientation."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/settings.py:175
+#: ../../frescobaldi/scorewiz/settings.py:172
 msgid "Rotate print on regular paper."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/settings.py:233
-#: ../../frescobaldi/scorewiz/settings.py:236
+#: ../../frescobaldi/scorewiz/settings.py:226
+msgid "Create MIDI output"
+msgstr "MIDI 出力ファイルを作成"
+
+#: ../../frescobaldi/scorewiz/settings.py:228
+msgid "Create a MIDI file in addition to the PDF file."
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/settings.py:230
+msgid "Place in a separate \\score block"
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/settings.py:232
+msgid "Create a separate \\score block for MIDI output."
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/settings.py:265
+#: ../../frescobaldi/scorewiz/settings.py:268
 msgid "Long"
 msgstr "長い"
 
-#: ../../frescobaldi/scorewiz/settings.py:233
-#: ../../frescobaldi/scorewiz/settings.py:236
+#: ../../frescobaldi/scorewiz/settings.py:265
+#: ../../frescobaldi/scorewiz/settings.py:268
 msgid "Short"
 msgstr "短い"
 
-#: ../../frescobaldi/scorewiz/settings.py:260
+#: ../../frescobaldi/scorewiz/settings.py:292
 msgid "Instrument names"
 msgstr "楽器名"
 
-#: ../../frescobaldi/scorewiz/settings.py:261
+#: ../../frescobaldi/scorewiz/settings.py:293
 msgid "First system:"
 msgstr "最初のシステム:"
 
-#: ../../frescobaldi/scorewiz/settings.py:262
+#: ../../frescobaldi/scorewiz/settings.py:294
 msgid "Other systems:"
 msgstr "他のシステム:"
 
-#: ../../frescobaldi/scorewiz/settings.py:265
+#: ../../frescobaldi/scorewiz/settings.py:297
 msgid "Use long or short instrument names before the first system."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/settings.py:267
+#: ../../frescobaldi/scorewiz/settings.py:299
 msgid "Use short, long or no instrument names before the next systems."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/settings.py:269
+#: ../../frescobaldi/scorewiz/settings.py:301
 msgid "Which language to use for the instrument names."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/settings.py:336
+#: ../../frescobaldi/scorewiz/settings.py:368
 msgid "Pitch name language:"
 msgstr "ピッチ表記の言語:"
 
-#: ../../frescobaldi/scorewiz/settings.py:338
+#: ../../frescobaldi/scorewiz/settings.py:370
 msgid "The LilyPond language you want to use for the pitch names."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/settings.py:340
+#: ../../frescobaldi/scorewiz/settings.py:372
 msgid "Version:"
 msgstr "バージョン:"
 
-#: ../../frescobaldi/scorewiz/settings.py:342
+#: ../../frescobaldi/scorewiz/settings.py:374
 msgid "The LilyPond version you will be using for this document."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:68
+#: ../../frescobaldi/scorewiz/parts/_base.py:67
 msgid "No settings available."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:76
+#: ../../frescobaldi/scorewiz/parts/_base.py:75
 #, python-brace-format
 msgid "Part {self.__class__.__name__}"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:167
+#: ../../frescobaldi/scorewiz/parts/_base.py:158
 msgid "Adjust how many separate voices you want on each staff."
 msgstr "各譜表に必要な独立した声部の数を調整します。"
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:168
+#: ../../frescobaldi/scorewiz/parts/_base.py:159
 msgid "This is primarily useful when you write polyphonic music like a fugue."
 msgstr "これは主にフーガのような多声音楽を書くときに役立ちます。"
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:170
+#: ../../frescobaldi/scorewiz/parts/_base.py:161
 msgid "Right hand:"
 msgstr "右手:"
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:171
+#: ../../frescobaldi/scorewiz/parts/_base.py:162
 msgid "Left hand:"
 msgstr "左手:"
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:172
+#: ../../frescobaldi/scorewiz/parts/_base.py:163
 msgid "Center dynamics between staffs"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:177
+#: ../../frescobaldi/scorewiz/parts/_base.py:168
 #: ../../frescobaldi/scorewiz/parts/plucked_strings.py:118
 msgid "MIDI instrument:"
 msgstr "MIDI 楽器:"
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:214
+#: ../../frescobaldi/scorewiz/parts/_base.py:207
 msgid "Dynamics follow here."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:248
+#: ../../frescobaldi/scorewiz/parts/_base.py:241
 msgid "Chord style:"
 msgstr "コード スタイル:"
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:249
+#: ../../frescobaldi/scorewiz/parts/_base.py:242
 msgid "Guitar fret diagrams"
 msgstr "ギター用フレット ダイアグラム"
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:251
+#: ../../frescobaldi/scorewiz/parts/_base.py:244
 msgid ""
 "Show predefined guitar fret diagrams below the chord names (LilyPond 2.12 "
 "and above)."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:265
+#: ../../frescobaldi/scorewiz/parts/_base.py:258
 msgid "Chords follow here."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:277
+#: ../../frescobaldi/scorewiz/parts/_base.py:270
 msgid "German"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:278
+#: ../../frescobaldi/scorewiz/parts/_base.py:271
 msgid "Semi-German"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:279
+#: ../../frescobaldi/scorewiz/parts/_base.py:272
 msgid "Italian"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/_base.py:280
+#: ../../frescobaldi/scorewiz/parts/_base.py:273
 msgid "French"
 msgstr ""
 
@@ -5798,103 +5802,158 @@ msgctxt "abbreviation for Horn in F"
 msgid "Hn.F."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:49
+#: ../../frescobaldi/scorewiz/parts/brass.py:50
 msgid "Trumpet in C"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:53
+#: ../../frescobaldi/scorewiz/parts/brass.py:54
 msgctxt "abbreviation for Trumpet in C"
 msgid "Tr.C."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:61
+#: ../../frescobaldi/scorewiz/parts/brass.py:62
 msgid "Trumpet in Bb"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:65
+#: ../../frescobaldi/scorewiz/parts/brass.py:66
 msgctxt "abbreviation for Trumpet in Bb"
 msgid "Tr.Bb."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:73
+#: ../../frescobaldi/scorewiz/parts/brass.py:74
 msgid "Cornet in Bb"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:77
+#: ../../frescobaldi/scorewiz/parts/brass.py:78
 msgctxt "abbreviation for Cornet in Bb"
 msgid "Crt.Bb."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:83
+#: ../../frescobaldi/scorewiz/parts/brass.py:84
 msgid "Flugelhorn"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:87
+#: ../../frescobaldi/scorewiz/parts/brass.py:88
 msgctxt "abbreviation for Flugelhorn"
 msgid "Fgh."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:95
+#: ../../frescobaldi/scorewiz/parts/brass.py:96
 msgid "Mellophone"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:99
+#: ../../frescobaldi/scorewiz/parts/brass.py:100
 msgctxt "abbreviation for Mellophone"
 msgid "Mph."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:108
+#: ../../frescobaldi/scorewiz/parts/brass.py:110
 msgid "Trombone"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:112
+#: ../../frescobaldi/scorewiz/parts/brass.py:114
 msgctxt "abbreviation for Trombone"
 msgid "Trb."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:122
+#: ../../frescobaldi/scorewiz/parts/brass.py:124
+msgid "Trombone in Bb"
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/brass.py:128
+msgctxt "abbreviation for Trombone in Bb"
+msgid "Trb.Bb."
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/brass.py:138
+msgid "Alto trombone"
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/brass.py:142
+msgctxt "abbreviation for Alto trombone"
+msgid "A.Trb."
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/brass.py:151
+msgid "Bass trombone"
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/brass.py:155
+msgctxt "abbreviation for Bass trombone"
+msgid "B.Trb."
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/brass.py:161
+msgid "Tenor horn"
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/brass.py:165
+msgctxt "abbreviation for Tenor horn"
+msgid "T.Hn."
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/brass.py:175
 msgid "Baritone"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:126
+#: ../../frescobaldi/scorewiz/parts/brass.py:179
 msgctxt "abbreviation for Baritone"
 msgid "Bar."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:136
+#: ../../frescobaldi/scorewiz/parts/brass.py:189
 msgid "Euphonium"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:140
+#: ../../frescobaldi/scorewiz/parts/brass.py:193
 msgctxt "abbreviation for Euphonium"
 msgid "Euph."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:150
+#: ../../frescobaldi/scorewiz/parts/brass.py:203
 msgid "Tuba"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:154
+#: ../../frescobaldi/scorewiz/parts/brass.py:207
 msgctxt "abbreviation for Tuba"
 msgid "Tb."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:163
-msgid "Bass Tuba"
+#: ../../frescobaldi/scorewiz/parts/brass.py:217
+msgid "Tuba in Eb"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:167
-msgctxt "abbreviation for Bass Tuba"
+#: ../../frescobaldi/scorewiz/parts/brass.py:221
+msgctxt "abbreviation for Tuba in Eb"
+msgid "Tb.Eb."
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/brass.py:231
+msgid "Tuba in Bb"
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/brass.py:235
+msgctxt "abbreviation for Tuba in Bb"
+msgid "Tb.Bb."
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/brass.py:245
+msgid "Bass tuba"
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/brass.py:249
+msgctxt "abbreviation for Bass tuba"
 msgid "B.Tb."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/brass.py:176
+#: ../../frescobaldi/scorewiz/parts/brass.py:258
 msgid "Brass"
 msgstr "金管楽器"
 
 #: ../../frescobaldi/scorewiz/parts/containers.py:41
-msgid "Staff Group"
-msgstr ""
+#, fuzzy
+msgid "Staff group"
+msgstr "譜の種類:"
 
 #. L10N: Brace like a piano staff
 #: ../../frescobaldi/scorewiz/parts/containers.py:52
@@ -5911,43 +5970,44 @@ msgstr ""
 msgid "Square"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/containers.py:69
+#: ../../frescobaldi/scorewiz/parts/containers.py:70
 msgid "Type:"
 msgstr "形式:"
 
-#: ../../frescobaldi/scorewiz/parts/containers.py:70
-msgid "Connect Barlines"
+#: ../../frescobaldi/scorewiz/parts/containers.py:71
+#, fuzzy
+msgid "Connect barlines"
 msgstr "小節線を接続"
 
-#: ../../frescobaldi/scorewiz/parts/containers.py:71
+#: ../../frescobaldi/scorewiz/parts/containers.py:72
 msgid "If checked, barlines are connected between the staves."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/containers.py:92
+#: ../../frescobaldi/scorewiz/parts/containers.py:93
 msgid "Score"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/containers.py:120
+#: ../../frescobaldi/scorewiz/parts/containers.py:121
 msgid "Piece:"
 msgstr "曲（楽章）名:"
 
-#: ../../frescobaldi/scorewiz/parts/containers.py:121
+#: ../../frescobaldi/scorewiz/parts/containers.py:122
 msgid "Opus:"
 msgstr "作品番号:"
 
-#: ../../frescobaldi/scorewiz/parts/containers.py:122
+#: ../../frescobaldi/scorewiz/parts/containers.py:123
 msgid "Properties"
 msgstr "プロパティ"
 
-#: ../../frescobaldi/scorewiz/parts/containers.py:150
-msgid "Book Part"
+#: ../../frescobaldi/scorewiz/parts/containers.py:151
+msgid "Book part"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/containers.py:163
+#: ../../frescobaldi/scorewiz/parts/containers.py:164
 msgid "Book"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/containers.py:185
+#: ../../frescobaldi/scorewiz/parts/containers.py:186
 msgid ""
 "<p>Here you can specify a filename or suffix (without extension) to set the "
 "names of generated output files for this book.</p>\n"
@@ -5956,19 +6016,20 @@ msgid ""
 "be used.</p>"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/containers.py:190
-msgid "Output Filename:"
-msgstr ""
-
 #: ../../frescobaldi/scorewiz/parts/containers.py:191
+#, fuzzy
+msgid "Output filename:"
+msgstr "デフォルトのファイル名をカスタマイズ:"
+
+#: ../../frescobaldi/scorewiz/parts/containers.py:192
 msgid "Filename"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/containers.py:192
+#: ../../frescobaldi/scorewiz/parts/containers.py:193
 msgid "Suffix"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/containers.py:204
+#: ../../frescobaldi/scorewiz/parts/containers.py:205
 msgid "Containers"
 msgstr "コンテナ"
 
@@ -6034,69 +6095,69 @@ msgctxt "abbreviation for Celesta"
 msgid "Cel."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/keyboard.py:202
+#: ../../frescobaldi/scorewiz/parts/keyboard.py:204
 msgid "Set to 0 to disable the right-hand part altogether."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/keyboard.py:204
+#: ../../frescobaldi/scorewiz/parts/keyboard.py:206
 msgid "Set to 0 to disable the left-hand part altogether."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/keyboard.py:227
+#: ../../frescobaldi/scorewiz/parts/keyboard.py:229
 msgid "Synth lead"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/keyboard.py:231
+#: ../../frescobaldi/scorewiz/parts/keyboard.py:233
 msgctxt "abbreviation for Synth lead"
 msgid "Syn.Ld."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/keyboard.py:256
+#: ../../frescobaldi/scorewiz/parts/keyboard.py:258
 msgid "Synth pad"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/keyboard.py:260
+#: ../../frescobaldi/scorewiz/parts/keyboard.py:262
 msgctxt "abbreviation for Synth pad"
 msgid "Syn.Pad"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/keyboard.py:278
+#: ../../frescobaldi/scorewiz/parts/keyboard.py:280
 msgid "Synth bass"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/keyboard.py:282
+#: ../../frescobaldi/scorewiz/parts/keyboard.py:284
 msgctxt "abbreviation for Synth bass"
 msgid "Syn.Bass"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/keyboard.py:301
+#: ../../frescobaldi/scorewiz/parts/keyboard.py:303
 msgid "Synth strings"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/keyboard.py:305
+#: ../../frescobaldi/scorewiz/parts/keyboard.py:307
 msgctxt "abbreviation for Synth strings"
 msgid "Syn.Str."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/keyboard.py:317
+#: ../../frescobaldi/scorewiz/parts/keyboard.py:319
 msgid "Synth brass"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/keyboard.py:321
+#: ../../frescobaldi/scorewiz/parts/keyboard.py:323
 msgctxt "abbreviation for Synth brass"
 msgid "Syn.Br."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/keyboard.py:332
+#: ../../frescobaldi/scorewiz/parts/keyboard.py:334
 msgid "Synth effects"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/keyboard.py:336
+#: ../../frescobaldi/scorewiz/parts/keyboard.py:338
 msgctxt "abbreviation for Synth effects"
 msgid "Syn.Fx."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/keyboard.py:352
+#: ../../frescobaldi/scorewiz/parts/keyboard.py:354
 msgid "Keyboard instruments"
 msgstr "鍵盤楽器"
 
@@ -6118,142 +6179,142 @@ msgctxt "abbreviation for Xylophone"
 msgid "Xyl."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:69
+#: ../../frescobaldi/scorewiz/parts/percussion.py:71
 msgid "Marimba"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:73
+#: ../../frescobaldi/scorewiz/parts/percussion.py:75
 msgctxt "abbreviation for Marimba"
 msgid "Mar."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:82
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:435
+#: ../../frescobaldi/scorewiz/parts/percussion.py:84
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:457
 msgid "Upper staff:"
 msgstr "上段:"
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:83
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:436
+#: ../../frescobaldi/scorewiz/parts/percussion.py:85
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:458
 msgid "Lower staff:"
 msgstr "下段:"
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:85
+#: ../../frescobaldi/scorewiz/parts/percussion.py:87
 msgid "Set the number of voices to 0 to disable the second staff."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:97
+#: ../../frescobaldi/scorewiz/parts/percussion.py:99
 msgid "Vibraphone"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:101
+#: ../../frescobaldi/scorewiz/parts/percussion.py:103
 msgctxt "abbreviation for Vibraphone"
 msgid "Vib."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:109
+#: ../../frescobaldi/scorewiz/parts/percussion.py:111
 msgid "Tubular bells"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:113
+#: ../../frescobaldi/scorewiz/parts/percussion.py:115
 msgctxt "abbreviation for Tubular bells"
 msgid "Tub."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:121
+#: ../../frescobaldi/scorewiz/parts/percussion.py:123
 msgid "Steelpan"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:125
+#: ../../frescobaldi/scorewiz/parts/percussion.py:127
 msgctxt "abbreviation for Steelpan"
 msgid "Pan"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:135
+#: ../../frescobaldi/scorewiz/parts/percussion.py:137
 msgid "Dulcimer"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:139
+#: ../../frescobaldi/scorewiz/parts/percussion.py:141
 msgctxt "abbreviation for Dulcimer"
 msgid "Dul."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:147
+#: ../../frescobaldi/scorewiz/parts/percussion.py:149
 msgid "Glockenspiel"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:151
+#: ../../frescobaldi/scorewiz/parts/percussion.py:153
 msgctxt "abbreviation for Glockenspiel"
 msgid "Gls."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:159
+#: ../../frescobaldi/scorewiz/parts/percussion.py:163
 msgid "Carillon"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:163
+#: ../../frescobaldi/scorewiz/parts/percussion.py:167
 msgctxt "abbreviation for Carillon"
 msgid "Car."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:169
+#: ../../frescobaldi/scorewiz/parts/percussion.py:173
 msgid "Manual staff:"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:170
+#: ../../frescobaldi/scorewiz/parts/percussion.py:174
 msgid "Pedal staff:"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:185
+#: ../../frescobaldi/scorewiz/parts/percussion.py:189
 msgid "Drums"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:189
+#: ../../frescobaldi/scorewiz/parts/percussion.py:193
 msgctxt "abbreviation for Drums"
 msgid "Dr."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:210
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:341
+#: ../../frescobaldi/scorewiz/parts/percussion.py:214
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:349
 msgid "Voices:"
 msgstr "声部:"
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:212
+#: ../../frescobaldi/scorewiz/parts/percussion.py:216
 msgid "Remove stems"
 msgstr "符幹を削除"
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:213
+#: ../../frescobaldi/scorewiz/parts/percussion.py:217
 msgid "Remove the stems from the drum notes."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:225
+#: ../../frescobaldi/scorewiz/parts/percussion.py:229
 msgid "Drums follow here."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:250
+#: ../../frescobaldi/scorewiz/parts/percussion.py:254
 msgid "keep some distance"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:256
+#: ../../frescobaldi/scorewiz/parts/percussion.py:260
 msgid "Drums (5 lines, default)"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:257
+#: ../../frescobaldi/scorewiz/parts/percussion.py:261
 msgid "Timbales-style (2 lines)"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:258
+#: ../../frescobaldi/scorewiz/parts/percussion.py:262
 msgid "Congas-style (2 lines)"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:259
+#: ../../frescobaldi/scorewiz/parts/percussion.py:263
 msgid "Bongos-style (2 lines)"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:260
+#: ../../frescobaldi/scorewiz/parts/percussion.py:264
 msgid "Percussion-style (1 line)"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/percussion.py:266
+#: ../../frescobaldi/scorewiz/parts/percussion.py:270
 msgid "Percussion"
 msgstr "打楽器"
 
@@ -6280,201 +6341,212 @@ msgstr ""
 msgid "Custom tuning..."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:226
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:231
 msgid "Normal staff"
 msgstr "通常の譜"
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:227
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:232
 msgid "Tablature"
 msgstr "タブ譜"
 
 #. L10N: Both a Normal and a Tablature staff
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:229
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:234
 msgid "Both"
 msgstr "両方"
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:236
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:241
 msgid "Mandolin"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:240
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:245
 msgctxt "abbreviation for Mandolin"
 msgid "Mdl."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:244
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:249
 msgid "Mandolin tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:251
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:256
 msgid "Ukulele"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:255
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:260
 msgctxt "abbreviation for Ukulele"
 msgid "Uk."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:259
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:264
 msgid "Ukulele tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:260
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:265
 msgid "Ukulele D-tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:261
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:266
 msgid "Tenor Ukulele tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:262
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:267
 msgid "Baritone Ukulele tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:269
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:274
 msgid "Banjo"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:273
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:278
 msgctxt "abbreviation for Banjo"
 msgid "Bj."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:278
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:284
 msgid "Open G-tuning (aDGBD)"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:279
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:285
 msgid "C-tuning (gCGBD)"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:280
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:286
 msgid "Modal tuning (gDGCD)"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:281
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:287
 msgid "Open D-tuning (aDF#AD)"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:282
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:288
 msgid "Open Dm-tuning (aDFAD)"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:292
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:298
 msgid "Four strings (instead of five)"
 msgstr "4弦（5弦ではなく）"
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:311
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:317
 msgid "Guitar"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:315
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:321
 msgctxt "abbreviation for Guitar"
 msgid "Gt."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:320
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:326
 msgid "Guitar tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:321
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:327
 msgid "Guitar seven-string tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:322
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:328
 msgid "Guitar drop-D tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:323
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:329
 msgid "Guitar drop-C tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:324
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:330
 msgid "Open G-tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:325
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:331
 msgid "Guitar open D tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:326
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:332
 msgid "Guitar d-a-d-g-a-d tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:327
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:333
 msgid "Lute tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:328
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:334
 msgid "Guitar A-sus4 tuning"
 msgstr ""
 
 #: ../../frescobaldi/scorewiz/parts/plucked_strings.py:350
+#, fuzzy
+msgid "Include octave indication"
+msgstr "テンポ記号:"
+
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:352
+msgid ""
+"Use an octave (treble_8) clef to make transposition explicit as preferred by "
+"some style guides."
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:371
 msgid "Acoustic guitar"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:354
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:375
 msgctxt "abbreviation for Acoustic guitar"
 msgid "A.Gt."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:366
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:387
 msgid "Electric guitar"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:370
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:391
 msgctxt "abbreviation for Electric guitar"
 msgid "E.Gt."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:385
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:406
 msgid "Acoustic bass"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:389
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:410
 msgctxt "abbreviation for Acoustic bass"
 msgid "A.Bs."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:395
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:417
 msgid "Bass tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:396
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:418
 msgid "Four-string bass tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:397
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:419
 msgid "Bass drop-D tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:398
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:420
 msgid "Five-string bass tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:399
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:421
 msgid "Six-string bass tuning"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:406
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:428
 msgid "Electric bass"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:410
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:432
 msgctxt "abbreviation for Electric bass"
 msgid "E.Bs."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:425
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:447
 msgid "Harp"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:429
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:451
 msgctxt "abbreviation for Harp"
 msgid "Hp."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:452
+#: ../../frescobaldi/scorewiz/parts/plucked_strings.py:474
 msgid "Plucked strings"
 msgstr "撥弦楽器"
 
@@ -6491,12 +6563,17 @@ msgstr ""
 msgid "Chord names"
 msgstr "コード ネーム"
 
+#: ../../frescobaldi/scorewiz/parts/special.py:65
+#, fuzzy
+msgid "Figured bass"
+msgstr "通奏低音"
+
 #: ../../frescobaldi/scorewiz/parts/special.py:72
 msgid "Use extender lines"
 msgstr "継続線を使用"
 
 #: ../../frescobaldi/scorewiz/parts/special.py:80
-#: ../../frescobaldi/scorewiz/parts/strings.py:106
+#: ../../frescobaldi/scorewiz/parts/strings.py:107
 msgid "Figures follow here."
 msgstr ""
 
@@ -6544,16 +6621,16 @@ msgctxt "abbreviation for Contrabass"
 msgid "Cb."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/strings.py:92
-msgid "Basso Continuo"
+#: ../../frescobaldi/scorewiz/parts/strings.py:93
+msgid "Basso continuo"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/strings.py:96
-msgctxt "abbreviation for Basso Continuo"
-msgid "B.c."
+#: ../../frescobaldi/scorewiz/parts/strings.py:97
+msgctxt "abbreviation for Basso continuo"
+msgid "B.C."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/strings.py:114
+#: ../../frescobaldi/scorewiz/parts/strings.py:115
 msgid "Strings"
 msgstr "弦楽器"
 
@@ -6747,232 +6824,232 @@ msgctxt "abbreviation for Piccolo"
 msgid "Pic."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:61
-msgid "Alto Flute"
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:62
+msgid "Alto flute"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:65
-msgctxt "abbreviation Alto flute"
-msgid "Afl."
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:66
+msgctxt "abbreviation for Alto flute"
+msgid "A.Fl."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:74
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:76
 msgid "Bass flute"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:78
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:80
 msgctxt "abbreviation for Bass flute"
-msgid "Bfl."
+msgid "B.Fl."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:87
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:90
 msgid "Oboe"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:91
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:94
 msgctxt "abbreviation for Oboe"
 msgid "Ob."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:99
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:102
 msgid "Oboe d'amore"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:103
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:106
 msgctxt "abbreviation for Oboe d'amore"
-msgid "Ob.d'am."
-msgstr ""
-
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:112
-msgid "English horn"
+msgid "Ob.D'am."
 msgstr ""
 
 #: ../../frescobaldi/scorewiz/parts/woodwind.py:116
-msgctxt "abbreviation for English horn"
-msgid "Eng.h."
+msgid "English horn"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:125
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:120
+msgctxt "abbreviation for English horn"
+msgid "Eng.H."
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:130
 msgid "Bassoon"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:129
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:134
 msgctxt "abbreviation for Bassoon"
 msgid "Bn."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:139
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:144
 msgid "Contrabassoon"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:143
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:148
 msgctxt "abbreviation for Contrabassoon"
 msgid "C.Bn."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:154
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:159
 msgid "Clarinet"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:158
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:163
 msgctxt "abbreviation for Clarinet"
 msgid "Cl."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:167
-msgid "E-flat clarinet "
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:172
+msgid "E-flat clarinet"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:171
-msgctxt "abbreviation for E-flat Clarinet"
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:176
+msgctxt "abbreviation for E-flat clarinet"
 msgid "Cl. in Eb"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:180
-msgid "A clarinet "
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:185
+msgid "A clarinet"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:184
-msgctxt "abbreviation for A Clarinet"
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:189
+msgctxt "abbreviation for A clarinet"
 msgid "Cl. in A"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:193
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:199
 msgid "Bass clarinet"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:197
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:203
 msgctxt "abbreviation for Bass clarinet"
-msgid "BCl."
+msgid "B.Cl."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:206
-msgid "C-Melody Sax"
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:213
+msgid "C-melody saxophone"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:210
-msgctxt "abbreviation for C-Melody Sax"
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:217
+msgctxt "abbreviation for C-melody saxophone"
 msgid "C-Mel Sax"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:218
-msgid "Sopranino Sax"
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:225
+msgid "Sopranino saxophone"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:222
-msgctxt "abbreviation for Sopranino Sax"
-msgid "SiSx."
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:229
+msgctxt "abbreviation for Sopranino saxophone"
+msgid "Si.Sax."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:231
-msgid "Soprano Sax"
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:238
+msgid "Soprano saxophone"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:235
-msgctxt "abbreviation for Soprano Sax"
-msgid "SoSx."
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:242
+msgctxt "abbreviation for Soprano saxophone"
+msgid "So.Sax."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:244
-msgid "Alto Sax"
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:251
+msgid "Alto saxophone"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:248
-msgctxt "abbreviation for Alto Sax"
-msgid "ASx."
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:255
+msgctxt "abbreviation for Alto saxophone"
+msgid "A.Sax."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:257
-msgid "Tenor Sax"
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:265
+msgid "Tenor saxophone"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:261
-msgctxt "abbreviation for Tenor Sax"
-msgid "TSx."
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:269
+msgctxt "abbreviation for Tenor saxophone"
+msgid "T.Sax."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:270
-msgid "Baritone Sax"
-msgstr ""
-
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:274
-msgctxt "abbreviation for Baritone Sax"
-msgid "BSx."
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:279
+msgid "Baritone saxophone"
 msgstr ""
 
 #: ../../frescobaldi/scorewiz/parts/woodwind.py:283
-msgid "Bass Sax"
+msgctxt "abbreviation for Baritone saxophone"
+msgid "B.Sax."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:287
-msgctxt "abbreviation for Bass Sax"
-msgid "BsSx."
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:293
+msgid "Bass saxophone"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:296
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:297
+msgctxt "abbreviation for Bass saxophone"
+msgid "Bs.Sax."
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:307
 msgid "Sopranino recorder"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:300
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:311
 msgctxt "abbreviation for Sopranino recorder"
-msgid "Si.rec."
+msgid "Si.Rec."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:308
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:320
 msgid "Soprano recorder"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:312
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:324
 msgctxt "abbreviation for Soprano recorder"
-msgid "S.rec."
+msgid "S.Rec."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:321
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:334
 msgid "Alto recorder"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:325
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:338
 msgctxt "abbreviation for Alto recorder"
-msgid "A.rec."
+msgid "A.Rec."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:333
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:346
 msgid "Tenor recorder"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:337
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:350
 msgctxt "abbreviation for Tenor recorder"
-msgid "T.rec."
+msgid "T.Rec."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:345
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:358
 msgid "Bass recorder"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:349
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:362
 msgctxt "abbreviation for Bass recorder"
-msgid "B.rec."
+msgid "B.Rec."
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:360
-msgid "Contra Bass recorder"
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:373
+msgid "Contrabass recorder"
 msgstr ""
 
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:364
-msgctxt "abbreviation for Contra Bass recorder"
-msgid "Cb.rec."
-msgstr ""
-
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:374
-msgid "Subcontra Bass recorder"
-msgstr ""
-
-#: ../../frescobaldi/scorewiz/parts/woodwind.py:378
-msgctxt "abbreviation for Subcontra Bass recorder"
-msgid "Scb.rec."
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:377
+msgctxt "abbreviation for Contrabass recorder"
+msgid "Cb.Rec."
 msgstr ""
 
 #: ../../frescobaldi/scorewiz/parts/woodwind.py:387
+msgid "Subcontrabass recorder"
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:391
+msgctxt "abbreviation for Subcontrabass recorder"
+msgid "Scb.Rec."
+msgstr ""
+
+#: ../../frescobaldi/scorewiz/parts/woodwind.py:401
 msgid "Woodwinds"
 msgstr "木管楽器"
 
@@ -7699,11 +7776,11 @@ msgstr ""
 msgid "Git Checkout Error"
 msgstr ""
 
-#: ../../frescobaldi/viewers/__init__.py:259
+#: ../../frescobaldi/viewers/__init__.py:239
 msgid "PDF Files"
 msgstr "PDF ファイル"
 
-#: ../../frescobaldi/viewers/__init__.py:286
+#: ../../frescobaldi/viewers/__init__.py:266
 msgid ""
 "The following file is missing and could not be loaded when restoring a "
 "session:"
@@ -7712,41 +7789,41 @@ msgid_plural ""
 "session:"
 msgstr[0] ""
 
-#: ../../frescobaldi/viewers/__init__.py:291
+#: ../../frescobaldi/viewers/__init__.py:271
 #, python-brace-format
 msgid "Missing files in {name}"
 msgstr ""
 
-#: ../../frescobaldi/viewers/__init__.py:339
+#: ../../frescobaldi/viewers/__init__.py:319
 msgid "Show Help"
 msgstr "ヘルプを表示"
 
-#: ../../frescobaldi/viewers/__init__.py:348
+#: ../../frescobaldi/viewers/__init__.py:328
 msgid "Show toolbar"
 msgstr "ツールバーを表示"
 
-#: ../../frescobaldi/viewers/__init__.py:349
+#: ../../frescobaldi/viewers/__init__.py:329
 msgid "Open music document(s)"
 msgstr ""
 
-#: ../../frescobaldi/viewers/__init__.py:350
+#: ../../frescobaldi/viewers/__init__.py:330
 #: ../../frescobaldi/viewers/manuscript/__init__.py:76
 msgid "Open"
 msgstr ""
 
-#: ../../frescobaldi/viewers/__init__.py:351
+#: ../../frescobaldi/viewers/__init__.py:331
 msgid "Close document"
 msgstr ""
 
-#: ../../frescobaldi/viewers/__init__.py:353
+#: ../../frescobaldi/viewers/__init__.py:333
 msgid "Close other documents"
 msgstr "他のドキュメントを閉じる"
 
-#: ../../frescobaldi/viewers/__init__.py:354
+#: ../../frescobaldi/viewers/__init__.py:334
 msgid "Close all documents"
 msgstr "すべてのドキュメントを閉じる"
 
-#: ../../frescobaldi/viewers/__init__.py:494
+#: ../../frescobaldi/viewers/__init__.py:474
 msgid ""
 "File not found:\n"
 "{}\n"
@@ -7765,7 +7842,7 @@ msgstr "閉じる…"
 msgid "Zoom"
 msgstr "拡大/縮小"
 
-#: ../../frescobaldi/viewers/popplerwidget.py:167
+#: ../../frescobaldi/viewers/pdfwidget.py:167
 #, python-brace-format
 msgid ""
 "The file {filename} is missing.\n"
@@ -7773,7 +7850,7 @@ msgid ""
 "Do you want to remove the filename from the list?"
 msgstr ""
 
-#: ../../frescobaldi/viewers/popplerwidget.py:171
+#: ../../frescobaldi/viewers/pdfwidget.py:171
 msgid ""
 "Answering 'No' will give you a chance to restore the file without having to "
 "re-add it."
@@ -8010,19 +8087,6 @@ msgstr "2ページ（最初のページを右）"
 msgid "Two Pages (first page left)"
 msgstr "2ページ（最初のページを左）"
 
-#. L10N: "Raster", a layout type (like grid)
-#: ../../i18n/messages.py:49
-msgid "Raster"
-msgstr "タイル"
-
-#: ../../i18n/messages.py:50
-msgid "Vertical"
-msgstr "縦にスクロール"
-
-#: ../../i18n/messages.py:51
-msgid "Horizontal"
-msgstr "横にスクロール"
-
 #: ../../i18n/messages.py:52
 msgid "&Continuous"
 msgstr "連続スクロール(&C)"
@@ -8046,10 +8110,6 @@ msgstr "次のページ"
 #: ../../i18n/messages.py:57
 msgid "Next"
 msgstr ""
-
-#: ../../i18n/messages.py:58
-msgid "Magnifier"
-msgstr "拡大鏡"
 
 #: ../../i18n/messages.py:62
 msgid "usage: "
