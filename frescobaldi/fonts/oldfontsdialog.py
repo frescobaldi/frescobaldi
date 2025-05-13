@@ -47,7 +47,7 @@ class DocumentFontsDialog(widgets.dialog.Dialog):
         self.sansLabel = QLabel()
         self.sansCombo = QFontComboBox()
         self.typewriterLabel = QLabel()
-        self.typewriterCombo = QFontComboBox(fontFilters=QFontComboBox.FontDialogOption.MonospacedFonts)
+        self.typewriterCombo = QFontComboBox(fontFilters=QFontComboBox.FontFilter.MonospacedFonts)
 
         layout.addWidget(self.romanLabel, 0, 0)
         layout.addWidget(self.romanCombo, 0, 1, 1, 2)
