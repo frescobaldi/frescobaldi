@@ -168,6 +168,15 @@ for certain features.
 
 See above for the dependencies that need to be installed.
 
+Please note that a few files should be manually copied to the
+proper system directories for the installation to work correctly:
+
+| File type | File name                       | Installation directory |
+| --------- | ------------------------------- | ---------------------- |
+| Icon      | org.frescobaldi.Frescobaldi.svg | /usr/share/icons/hicolor/scalable/apps |
+| Desktop   | org.frescobaldi.Frescobaldi.desktop | /usr/share/applications |
+| Metainfo  | org.frescobaldi.Frescobaldi.metainfo.xml | /usr/share/metainfo |
+
 Frescobaldi contains some files by default which are also available in other
 packages often used in Linux distributions. It is possible to remove those
 files after installing/packaging and make Frescobaldi depend on the package
