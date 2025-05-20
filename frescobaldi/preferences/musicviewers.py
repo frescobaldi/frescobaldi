@@ -150,7 +150,7 @@ class PageScaling(preferences.Group):
         s = QSettings()
         s.beginGroup("musicview")
         # These are from qpageview.view.ViewProperties
-        v = s.value("viewMode", -1, int)
+        v = s.value("viewMode", qpageview.constants.FixedScale, int)
         b = self.viewModeGroup.button(v)
         if b:
             b.setChecked(True)
@@ -282,7 +282,7 @@ class Scrolling(preferences.Group):
         strictPaging = s.value("strict_paging", False, bool)
         self.enableStrictPaging.setChecked(strictPaging)
         # These are from qpageview.view.ViewProperties
-        v = s.value("orientation", -1, int)
+        v = s.value("orientation", qpageview.constants.Vertical, int)
         b = self.orientationGroup.button(v)
         if b:
             b.setChecked(True)
