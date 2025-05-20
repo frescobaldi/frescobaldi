@@ -303,8 +303,8 @@ class MethodListener(ListenerBase):
         return self.__class__ is other.__class__ and self.objid == other.objid and self.func is other.func
 
     def call(self, args, kwargs):
-        obj = self.obj()
-        if obj is not None:
+        if self.obj is not None:
+            obj = self.obj()
             try:
                 return self.func(obj, *args[self.argslice], **kwargs)
             except RuntimeError:
