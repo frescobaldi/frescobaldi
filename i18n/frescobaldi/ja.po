@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 3.2\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
 "POT-Creation-Date: 2025-05-06 17:42+0900\n"
-"PO-Revision-Date: 2025-05-10 14:26+0900\n"
+"PO-Revision-Date: 2025-05-21 22:13+0900\n"
 "Last-Translator: Jun Tamura <j.tamura@me.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -4518,7 +4518,7 @@ msgstr ""
 
 #: ../../frescobaldi/preferences/musicviewers.py:200
 msgid "Page layout"
-msgstr ""
+msgstr "ページレイアウト"
 
 #: ../../frescobaldi/preferences/musicviewers.py:201
 msgid "Single"
@@ -5951,9 +5951,8 @@ msgid "Brass"
 msgstr "金管楽器"
 
 #: ../../frescobaldi/scorewiz/parts/containers.py:41
-#, fuzzy
 msgid "Staff group"
-msgstr "譜の種類:"
+msgstr "譜のグループ"
 
 #. L10N: Brace like a piano staff
 #: ../../frescobaldi/scorewiz/parts/containers.py:52
@@ -5975,7 +5974,6 @@ msgid "Type:"
 msgstr "形式:"
 
 #: ../../frescobaldi/scorewiz/parts/containers.py:71
-#, fuzzy
 msgid "Connect barlines"
 msgstr "小節線を接続"
 
@@ -6017,9 +6015,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi/scorewiz/parts/containers.py:191
-#, fuzzy
 msgid "Output filename:"
-msgstr "デフォルトのファイル名をカスタマイズ:"
+msgstr ""
 
 #: ../../frescobaldi/scorewiz/parts/containers.py:192
 msgid "Filename"
@@ -6471,9 +6468,8 @@ msgid "Guitar A-sus4 tuning"
 msgstr ""
 
 #: ../../frescobaldi/scorewiz/parts/plucked_strings.py:350
-#, fuzzy
 msgid "Include octave indication"
-msgstr "テンポ記号:"
+msgstr ""
 
 #: ../../frescobaldi/scorewiz/parts/plucked_strings.py:352
 msgid ""
@@ -6564,7 +6560,6 @@ msgid "Chord names"
 msgstr "コード ネーム"
 
 #: ../../frescobaldi/scorewiz/parts/special.py:65
-#, fuzzy
 msgid "Figured bass"
 msgstr "通奏低音"
 
