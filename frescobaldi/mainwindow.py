@@ -1316,7 +1316,9 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_find_next.setShortcuts(QKeySequence.StandardKey.FindNext)
         self.edit_find_previous.setShortcuts(QKeySequence.StandardKey.FindPrevious)
         self.edit_replace.setShortcuts(QKeySequence.StandardKey.Replace)
-        self.edit_preferences.setShortcuts(QKeySequence.StandardKey.Preferences)
+        # QKeySequence.StandardKey.Preferences currently has no defaults on Windows and GNOME.
+        # Let's force Ctrl+, (default on macOS and GNOME guidelines) for all platforms.
+        self.edit_preferences.setShortcut(QKeySequence(Qt.Modifier.CTRL | Qt.Key.Key_Comma))
 
         if platform.system() == "Darwin":
             self.view_next_document.setShortcut(QKeySequence(Qt.Modifier.META | Qt.Key.Key_Tab))
