@@ -103,7 +103,12 @@ def importTheme(filename, widget, schemeWidget):
 
     fontElt = root.find('font')
 
-    defaultfont = "Consolas" if platform.system() == "Windows" else "monospace"
+    if platform.system() == "Darwin":   # macOS
+        defaultfont = "Monaco"
+    elif platform.system() == "Windows":
+        defaultfont = "Consolas"
+    else:
+        defaultfont = "monospace"
     if fontElt.get('fontFamily') in QFontDatabase.families():
         fontFamily = fontElt.get('fontFamily')
     else:

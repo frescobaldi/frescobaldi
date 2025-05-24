@@ -71,7 +71,12 @@ class TextFormatData:
         s.beginGroup("fontscolors/" + scheme)
 
         # load font
-        defaultfont = "Consolas" if platform.system() == "Windows" else "monospace"
+        if platform.system() == "Darwin":   # macOS
+            defaultfont = "Monaco"
+        elif platform.system() == "Windows":
+            defaultfont = "Consolas"
+        else:
+            defaultfont = "monospace"
         self.font = QFont(s.value("fontfamily", defaultfont, str))
         self.font.setPointSizeF(s.value("fontsize", 10.0, float))
 
