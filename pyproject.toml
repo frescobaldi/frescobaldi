@@ -9,7 +9,7 @@ authors = [{name = "Wilbert Berendsen", email = "info@frescobaldi.org"}]
 maintainers = [{name = "Wilbert Berendsen", email = "info@frescobaldi.org"}]
 license = {text = "GPL-2.0-or-later"}
 requires-python = ">=3.8"
-dependencies = ["pyqt6>=6.6", "python-ly >= 0.9.5", "qpageview>=1.0.0"]
+dependencies = ["pyqt6>=6.6", "python-ly >= 0.9.5", "qpageview>=1.0.0", "PyQt6-WebEngine", "pygame"]
 dynamic = ["version"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
