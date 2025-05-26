@@ -145,7 +145,7 @@ class Browser(QTextBrowser):
         return super().loadResource(type, url)
 
     def keyPressEvent(self, ev):
-        if ev.key() == Qt.Key.Key_Escape and int(ev.modifiers()) == 0:
+        if ev.key() == Qt.Key.Key_Escape and ev.modifiers() == Qt.KeyboardModifier.NoModifier:
             self.window().close()
         super().keyPressEvent(ev)
 
