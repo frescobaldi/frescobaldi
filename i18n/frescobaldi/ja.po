@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 3.2\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
 "POT-Creation-Date: 2025-05-06 17:42+0900\n"
-"PO-Revision-Date: 2025-05-21 22:13+0900\n"
+"PO-Revision-Date: 2025-05-28 21:45+0900\n"
 "Last-Translator: Jun Tamura <j.tamura@me.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -660,6 +660,8 @@ msgid ""
 "Please use the button below to send a bug report to the maintainer of this "
 "extension by email."
 msgstr ""
+"この拡張機能の管理者にバグレポートを電子メールで送信するには、以下のボタンを"
+"使用してください。"
 
 #: ../../frescobaldi/exception.py:92
 msgid "An internal error has occurred:"
@@ -748,15 +750,15 @@ msgstr "言語を選択してください:"
 
 #: ../../frescobaldi/inputdialog.py:101
 msgid "Select Color"
-msgstr ""
+msgstr "色を選択"
 
 #: ../../frescobaldi/lilychooser.py:42
 msgid "Choose the desired LilyPond version."
-msgstr ""
+msgstr "ご希望の LilyPond のバージョンを選択してください。"
 
 #: ../../frescobaldi/lilypondinfo.py:151
 msgid "Running LilyPond, this can take some time..."
-msgstr ""
+msgstr "LilyPond を実行中-しばらく時間がかかることがあります..."
 
 #: ../../frescobaldi/lyrics.py:126
 msgid "&Hyphenate Lyrics Text..."
@@ -866,11 +868,11 @@ msgstr ""
 
 #: ../../frescobaldi/mainwindow.py:1192
 msgid "Main Toolbar"
-msgstr ""
+msgstr "メインツールバー"
 
 #: ../../frescobaldi/mainwindow.py:1193
 msgid "Music View Toolbar"
-msgstr ""
+msgstr "楽譜ビューアツールバー"
 
 #: ../../frescobaldi/mainwindow.py:1348
 msgctxt "action: new document"
@@ -898,7 +900,7 @@ msgstr "ファイルから挿入(&F)…"
 
 #: ../../frescobaldi/mainwindow.py:1354
 msgid "Insert the contents of a file at the current cursor position."
-msgstr ""
+msgstr "現在のカーソル位置にファイルの内容を挿入します。"
 
 #: ../../frescobaldi/mainwindow.py:1355
 msgid "Open Current Directory"
@@ -970,7 +972,7 @@ msgstr "すべてのドキュメントを閉じる"
 
 #: ../../frescobaldi/mainwindow.py:1375
 msgid "Closes all documents but preserves the current session."
-msgstr ""
+msgstr "すべてのドキュメントを閉じるが、現在のセッションを保持する。"
 
 #: ../../frescobaldi/mainwindow.py:1378
 msgid "Close All Documents and Session"
@@ -978,7 +980,7 @@ msgstr "すべてのドキュメントとセッションを閉じる"
 
 #: ../../frescobaldi/mainwindow.py:1381
 msgid "Closes all documents and leaves the current session."
-msgstr ""
+msgstr "すべてのドキュメントを閉じて、現在のセッションを終了する。"
 
 #: ../../frescobaldi/mainwindow.py:1383
 #: ../../frescobaldi/macos/globalmenu.py:78
@@ -1241,31 +1243,31 @@ msgstr ""
 
 #: ../../frescobaldi/musicpreview.py:110
 msgid "Document:"
-msgstr ""
+msgstr "ドキュメント:"
 
 #: ../../frescobaldi/musicpreview.py:229
 msgid "&Print"
-msgstr ""
+msgstr "印刷(&P)"
 
 #: ../../frescobaldi/musicpreview.py:230
 msgid "Music Preview"
-msgstr ""
+msgstr "楽譜プレビュー"
 
 #: ../../frescobaldi/pagedview.py:170
 #, python-brace-format
 msgid "Print {filename}"
-msgstr ""
+msgstr "{filename} を印刷"
 
 #: ../../frescobaldi/pagedview.py:172
 #: ../../frescobaldi/docbrowser/browser.py:241
 #: ../../frescobaldi/userguide/browser.py:85
 #: ../../frescobaldi/userguide/browser.py:115
 msgid "Print"
-msgstr ""
+msgstr "印刷"
 
 #: ../../frescobaldi/pagedview.py:184
 msgid "Preparing to print..."
-msgstr ""
+msgstr "印刷を準備中..."
 
 #: ../../frescobaldi/pagedview.py:192
 #, python-brace-format
@@ -1383,7 +1385,7 @@ msgstr "ドキュメンテーションブラウザー(&D)"
 #. L10N: Home page of the LilyPond manual
 #: ../../frescobaldi/docbrowser/__init__.py:92
 msgid "Home"
-msgstr ""
+msgstr "ホーム"
 
 #: ../../frescobaldi/docbrowser/__init__.py:93
 #: ../../frescobaldi/docbrowser/browser.py:266
@@ -1392,7 +1394,7 @@ msgstr "現在のページをWebブラウザーで開く"
 
 #: ../../frescobaldi/docbrowser/__init__.py:94
 msgid "Open Homepage in Web Browser"
-msgstr ""
+msgstr "ホームページをWebブラウザーで開く"
 
 #: ../../frescobaldi/docbrowser/__init__.py:95
 msgid "Print..."
@@ -1425,11 +1427,11 @@ msgstr ""
 #: ../../frescobaldi/musicview/contextmenu.py:63
 #: ../../frescobaldi/viewers/contextmenu.py:73
 msgid "Copy &Link"
-msgstr ""
+msgstr "リンクをコピー(&L)"
 
 #: ../../frescobaldi/docbrowser/browser.py:257
 msgid "Open Link in Web Browser"
-msgstr ""
+msgstr "Webブラウザーでリンクを開く"
 
 #: ../../frescobaldi/docbrowser/sourceviewer.py:57
 msgid "LilyPond Source"
@@ -1455,7 +1457,7 @@ msgstr "選択されたドキュメントを閉じる"
 
 #: ../../frescobaldi/doclist/widget.py:176
 msgid "Save documents in this folder"
-msgstr ""
+msgstr "このフォルダにドキュメントを保存"
 
 #: ../../frescobaldi/doclist/widget.py:177
 msgid "Close documents in this folder"
@@ -1482,7 +1484,7 @@ msgstr "譜刻（プレビュー；カスタムのためには shift キーを�
 #: ../../frescobaldi/sessions/dialog.py:382
 #: ../../frescobaldi/sessions/dialog.py:388
 msgid "Warning"
-msgstr ""
+msgstr "警告"
 
 #: ../../frescobaldi/engrave/__init__.py:240
 #, python-brace-format
@@ -1663,7 +1665,7 @@ msgstr ""
 
 #: ../../frescobaldi/extensions/__init__.py:242
 msgid "&Tool Panel"
-msgstr ""
+msgstr "ツールパネル(&T)"
 
 #: ../../frescobaldi/extensions/__init__.py:326
 #, python-brace-format
@@ -1899,7 +1901,7 @@ msgstr "オーディオファイルをエクスポート"
 
 #: ../../frescobaldi/file_export/__init__.py:90
 msgid "WAV Files"
-msgstr ""
+msgstr "WAV ファイル"
 
 #: ../../frescobaldi/file_export/__init__.py:136
 msgid "Export Music&XML..."
@@ -1997,7 +1999,7 @@ msgstr "Abc ファイルを abc2ly を用いてインポート"
 #: ../../frescobaldi/file_import/abc.py:62
 #: ../../frescobaldi/file_import/musicxml.py:100
 msgid "Import beaming"
-msgstr ""
+msgstr "連桁をインポート"
 
 #: ../../frescobaldi/file_import/abc.py:64
 msgid "Run abc2ly"
@@ -2006,7 +2008,7 @@ msgstr "abc2ly を実行"
 #: ../../frescobaldi/file_import/midi.py:60
 #: ../../frescobaldi/file_import/musicxml.py:101
 msgid "Pitches in absolute mode"
-msgstr ""
+msgstr "音高は絶対モード"
 
 #: ../../frescobaldi/file_import/midi.py:62
 msgid "Run midi2ly"
@@ -2014,23 +2016,23 @@ msgstr "midi2ly を実行"
 
 #: ../../frescobaldi/file_import/musicxml.py:96
 msgid "Import Music XML"
-msgstr ""
+msgstr "Music XML ファイルをインポート"
 
 #: ../../frescobaldi/file_import/musicxml.py:97
 msgid "Import articulation directions"
-msgstr ""
+msgstr "アーティキュレーションの方向をインポート"
 
 #: ../../frescobaldi/file_import/musicxml.py:98
 msgid "Import rest positions"
-msgstr ""
+msgstr "休符の位置をインポート"
 
 #: ../../frescobaldi/file_import/musicxml.py:99
 msgid "Import page layout"
-msgstr ""
+msgstr "ページレイアウトをインポート"
 
 #: ../../frescobaldi/file_import/musicxml.py:102
 msgid "Comment out midi block"
-msgstr ""
+msgstr "MIDI ブロックをコメント化"
 
 #: ../../frescobaldi/file_import/musicxml.py:104
 msgid "Language for pitch names"
@@ -2056,7 +2058,7 @@ msgstr "musicxml2ly を実行"
 
 #: ../../frescobaldi/file_import/toly_dialog.py:79
 msgid "After Import"
-msgstr ""
+msgstr "インポート後"
 
 #: ../../frescobaldi/file_import/toly_dialog.py:133
 msgid "LilyPond version:"
@@ -2064,7 +2066,7 @@ msgstr "LilyPond のバージョン:"
 
 #: ../../frescobaldi/file_import/toly_dialog.py:134
 msgid "Reformat source"
-msgstr ""
+msgstr "ソースコードを整形"
 
 #: ../../frescobaldi/file_import/toly_dialog.py:135
 msgid "Trim durations (Make implicit per line)"
@@ -2076,7 +2078,7 @@ msgstr ""
 
 #: ../../frescobaldi/file_import/toly_dialog.py:137
 msgid "Engrave directly"
-msgstr ""
+msgstr "直ぐに譜刻する"
 
 #: ../../frescobaldi/fonts/__init__.py:110
 msgid "&Document Fonts..."
