@@ -55,6 +55,9 @@ class HistoryManager:
         self._documents.insert(-1, doc)
 
     def removeDocument(self, doc):
+        if doc not in self._documents:
+            # e.g. calling setCurrentDocument() when self._documents is empty
+            return
         active = doc is self._documents[-1]
         if active:
             if len(self._documents) > 1:
