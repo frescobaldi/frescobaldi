@@ -201,7 +201,7 @@ def file_import_musicxml():
     w = mainwindow()
     w.newDocument()
     import file_import
-    file_import.FileImport.instance(w).importMusicXML()
+    file_import.FileImport.instance(w).import_musicxml()
 
 def edit_preferences():
     import preferences
