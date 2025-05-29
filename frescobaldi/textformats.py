@@ -71,8 +71,7 @@ class TextFormatData:
         s.beginGroup("fontscolors/" + scheme)
 
         # load font
-        defaultfont = "Consolas" if platform.system() == "Windows" else "monospace"
-        self.font = QFont(s.value("fontfamily", defaultfont, str))
+        self.font = app.editor_font(s.value("fontfamily", None, str))
         self.font.setPointSizeF(s.value("fontsize", 10.0, float))
 
         # load base colors
