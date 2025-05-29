@@ -304,3 +304,40 @@ def is_git_controlled():
         import vcs
         _is_git_controlled = vcs.app_is_git_controlled()
     return _is_git_controlled
+
+_editor_font = None
+
+def editor_font(requested_family=None):
+    """Returns a font suitable for editing text as a QFont object.
+
+    If a specific font family is requested and available, it will be used.
+    Otherwise, this attempts to pick a readable monospace font (the exact
+    choice of which is platform-dependent).
+
+    """
+    global _editor_font
+    if requested_family or _editor_font is None:
+        from PyQt6.QtGui import QFontDatabase
+        available_families = QFontDatabase.families()
+    if _editor_font is None:
+        # This is always a safe choice but not necessarily the best available
+        _editor_font = QFontDatabase.systemFont(QFontDatabase.SystemFont.FixedFont)
+        # Our preferred font is generally the default of the platform's native
+        # text editor (Notepad, TextEdit, etc.). If this has changed over time
+        # then we try the most recent first.
+        if platform.system() == "Darwin":   # macOS
+            preferred_families = ["SF Mono", "Menlo", "Monaco"]
+        elif platform.system() == "Windows":
+            # Avoid Lucida Console since it lacks a bold weight
+            preferred_families = ["Consolas"]
+        else:
+            preferred_families = ["monospace"]
+        for family in preferred_families:
+            if family in available_families:
+                _editor_font.setFamily(family)
+                break
+    # Caller requests should not override the global default
+    font = _editor_font
+    if requested_family and requested_family in available_families:
+        font.setFamily(requested_family)
+    return font
