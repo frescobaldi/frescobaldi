@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 3.2\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
 "POT-Creation-Date: 2025-05-06 17:42+0900\n"
-"PO-Revision-Date: 2025-05-28 21:45+0900\n"
+"PO-Revision-Date: 2025-06-01 16:38+0900\n"
 "Last-Translator: Jun Tamura <j.tamura@me.com>\n"
 "Language-Team: Japanese\n"
 "Language: ja\n"
@@ -794,23 +794,23 @@ msgstr ""
 
 #: ../../frescobaldi/mainwindow.py:385
 msgid "Tab Bar"
-msgstr ""
+msgstr "タブバー"
 
 #: ../../frescobaldi/mainwindow.py:475 ../../frescobaldi/mainwindow.py:711
 #: ../../frescobaldi/mainwindow.py:818 ../../frescobaldi/sessions/dialog.py:105
 #, python-brace-format
 msgid "Could not read from: {url}"
-msgstr ""
+msgstr "ここから読み取れませんでした: {url}"
 
 #: ../../frescobaldi/mainwindow.py:479
 msgid "Could not read:"
-msgstr ""
+msgstr "読み取れませんでした:"
 
 #: ../../frescobaldi/mainwindow.py:546
 #: ../../frescobaldi/macos/globalmenu.py:170
 msgctxt "dialog title"
 msgid "Open File"
-msgstr ""
+msgstr "ファイルを開く"
 
 #: ../../frescobaldi/mainwindow.py:557
 msgctxt "dialog title"
@@ -820,7 +820,7 @@ msgstr "ファイルの名前を変更または移動"
 #: ../../frescobaldi/mainwindow.py:568
 #, python-brace-format
 msgid "Could not delete: {url}"
-msgstr ""
+msgstr "削除できませんでした: {url}"
 
 #: ../../frescobaldi/mainwindow.py:673
 msgctxt "dialog title"
@@ -835,7 +835,7 @@ msgstr "選択範囲を保存"
 #: ../../frescobaldi/mainwindow.py:728
 #: ../../frescobaldi/externalchanges/widget.py:241
 msgid "Could not reload:"
-msgstr ""
+msgstr "再読み込みできませんでした:"
 
 #: ../../frescobaldi/mainwindow.py:809
 msgctxt "dialog title"
@@ -1071,11 +1071,11 @@ msgstr "行を折り返す(&L)"
 
 #: ../../frescobaldi/mainwindow.py:1408
 msgid "Scroll Up"
-msgstr ""
+msgstr "上にスクロール"
 
 #: ../../frescobaldi/mainwindow.py:1409
 msgid "Scroll Down"
-msgstr ""
+msgstr "下ににスクロール"
 
 #: ../../frescobaldi/mainwindow.py:1410
 msgid "&Go to Line..."
@@ -1234,12 +1234,12 @@ msgstr "ヘルプ(&H)"
 #: ../../frescobaldi/musicpos.py:89
 #, python-brace-format
 msgid "Length: {length}"
-msgstr ""
+msgstr "長さ: {length}"
 
 #: ../../frescobaldi/musicpos.py:93
 #, python-brace-format
 msgid "Pos: {pos}"
-msgstr ""
+msgstr "位置: {pos}"
 
 #: ../../frescobaldi/musicpreview.py:110
 msgid "Document:"
@@ -1272,11 +1272,11 @@ msgstr "印刷を準備中..."
 #: ../../frescobaldi/pagedview.py:192
 #, python-brace-format
 msgid "Printing page {page} ({num} of {total})..."
-msgstr ""
+msgstr "{page} の {total} ページの中 {num} ページ目を印刷中..."
 
 #: ../../frescobaldi/pagedview.py:197
 msgid "Printing Error"
-msgstr ""
+msgstr "印刷エラー"
 
 #: ../../frescobaldi/pagedview.py:198
 msgid "Could not send the document to the printer."
@@ -1398,7 +1398,7 @@ msgstr "ホームページをWebブラウザーで開く"
 
 #: ../../frescobaldi/docbrowser/__init__.py:95
 msgid "Print..."
-msgstr ""
+msgstr "印刷…"
 
 #: ../../frescobaldi/docbrowser/__init__.py:96
 msgid "&LilyPond Documentation"
@@ -1435,7 +1435,7 @@ msgstr "Webブラウザーでリンクを開く"
 
 #: ../../frescobaldi/docbrowser/sourceviewer.py:57
 msgid "LilyPond Source"
-msgstr ""
+msgstr "LilyPond ソースコード"
 
 #: ../../frescobaldi/doclist/__init__.py:38
 #: ../../frescobaldi/preferences/musicviewers.py:74
@@ -1553,7 +1553,7 @@ msgstr "LilyPond のデータディレクトリを開く"
 
 #: ../../frescobaldi/engrave/custom.py:127
 msgid "Engrave custom"
-msgstr ""
+msgstr "譜刻（カスタム）"
 
 #: ../../frescobaldi/engrave/custom.py:128
 msgid "LilyPond Version:"
@@ -1844,12 +1844,13 @@ msgstr ""
 
 #: ../../frescobaldi/externalchanges/widget.py:257
 msgid "Could not save:"
-msgstr ""
+msgstr "保存できませんでした:"
 
 #: ../../frescobaldi/externalchanges/widget.py:262
 msgid "Please save the document using the \"Save As...\" dialog."
 msgid_plural "Please save the documents using the \"Save As...\" dialog."
 msgstr[0] ""
+"このドキュメントを “名前を付けて保存…” ダイアログで保存してください。"
 
 #: ../../frescobaldi/externalchanges/widget.py:287
 msgid "Document on Disk"
@@ -5667,7 +5668,7 @@ msgstr ""
 
 #: ../../frescobaldi/scorewiz/settings.py:230
 msgid "Place in a separate \\score block"
-msgstr ""
+msgstr "独立した \\score ブロックを作成"
 
 #: ../../frescobaldi/scorewiz/settings.py:232
 msgid "Create a separate \\score block for MIDI output."
@@ -5750,7 +5751,7 @@ msgstr "左手:"
 
 #: ../../frescobaldi/scorewiz/parts/_base.py:163
 msgid "Center dynamics between staffs"
-msgstr ""
+msgstr "強弱記号を譜の間に配置"
 
 #: ../../frescobaldi/scorewiz/parts/_base.py:168
 #: ../../frescobaldi/scorewiz/parts/plucked_strings.py:118
@@ -5954,7 +5955,7 @@ msgstr "金管楽器"
 
 #: ../../frescobaldi/scorewiz/parts/containers.py:41
 msgid "Staff group"
-msgstr "譜のグループ"
+msgstr "譜表グループ"
 
 #. L10N: Brace like a piano staff
 #: ../../frescobaldi/scorewiz/parts/containers.py:52
@@ -5985,7 +5986,7 @@ msgstr ""
 
 #: ../../frescobaldi/scorewiz/parts/containers.py:93
 msgid "Score"
-msgstr ""
+msgstr "スコア"
 
 #: ../../frescobaldi/scorewiz/parts/containers.py:121
 msgid "Piece:"
@@ -6257,11 +6258,11 @@ msgstr ""
 
 #: ../../frescobaldi/scorewiz/parts/percussion.py:173
 msgid "Manual staff:"
-msgstr ""
+msgstr "手譜表:"
 
 #: ../../frescobaldi/scorewiz/parts/percussion.py:174
 msgid "Pedal staff:"
-msgstr ""
+msgstr "ペダル譜表:"
 
 #: ../../frescobaldi/scorewiz/parts/percussion.py:189
 msgid "Drums"
@@ -6471,7 +6472,7 @@ msgstr ""
 
 #: ../../frescobaldi/scorewiz/parts/plucked_strings.py:350
 msgid "Include octave indication"
-msgstr ""
+msgstr "オクターブ記号を使用する"
 
 #: ../../frescobaldi/scorewiz/parts/plucked_strings.py:352
 msgid ""
@@ -6576,7 +6577,7 @@ msgstr ""
 
 #: ../../frescobaldi/scorewiz/parts/special.py:90
 msgid "Staff"
-msgstr ""
+msgstr "譜表"
 
 #: ../../frescobaldi/scorewiz/parts/special.py:96
 msgid "Special"
@@ -7362,7 +7363,7 @@ msgstr ""
 
 #: ../../frescobaldi/snippet/builtin.py:375
 msgid "Staff Size"
-msgstr ""
+msgstr "譜のサイズ"
 
 #: ../../frescobaldi/snippet/builtin.py:394
 msgid "Double selection or current line"
