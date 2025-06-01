@@ -81,6 +81,7 @@ class Marimba(_base.PianoStaffPart):
         self.lowerVoices.setMinimum(0)
 
     def translateWidgets(self):
+        super().translateWidgets()
         self.upperVoicesLabel.setText(_("Upper staff:"))
         self.lowerVoicesLabel.setText(_("Lower staff:"))
         self.lowerVoices.setToolTip(_(
