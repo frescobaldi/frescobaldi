@@ -102,13 +102,11 @@ def importTheme(filename, widget, schemeWidget):
     tfd = textformats.TextFormatData(key)
 
     fontElt = root.find('font')
-
-    defaultfont = "Consolas" if platform.system() == "Windows" else "monospace"
     if fontElt.get('fontFamily') in QFontDatabase.families():
         fontFamily = fontElt.get('fontFamily')
     else:
-        fontFamily = defaultfont
-    font = QFont(fontFamily)
+        fontFamily = None   # fall back on the default
+    font = app.editor_font(fontFamily)
     font.setPointSizeF(float(fontElt.get('fontSize')))
     tfd.font = font
 
