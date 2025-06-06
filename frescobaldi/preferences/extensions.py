@@ -227,7 +227,7 @@ class Installed(preferences.Group):
                 bold.setWeight(QFont.Weight.Bold)
                 label_item.setFont(bold)
                 details = ext_infos.get(entry, "") if ext_infos else ""
-                if type(details) == list:
+                if type(details) is list:
                     details = '\n'.join(details)
                 details_item = QStandardItem(details)
                 details_item.setTextAlignment(Qt.AlignmentFlag.AlignTop)
@@ -358,7 +358,7 @@ class Config(preferences.Group):
         """Return a configuration widget if provided by the extension,
         or None otherwise."""
         widget = self._widgets.get(extension, False)
-        if widget == False:
+        if not widget:
             ext = app.extensions().get(extension)
             # skip non-loaded extensions
             if ext:

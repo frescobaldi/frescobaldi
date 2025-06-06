@@ -258,7 +258,7 @@ def excepthook(exctype, excvalue, exctb):
     """Called when a Python exception goes unhandled."""
     from traceback import format_exception
     sys.stderr.write(''.join(format_exception(exctype, excvalue, exctb)))
-    if exctype != KeyboardInterrupt:
+    if exctype is not KeyboardInterrupt:
         # show dialog, but not when in non-GUI thread
         if QThread.currentThread() == qApp.thread():
             import exception
