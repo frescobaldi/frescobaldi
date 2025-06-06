@@ -115,7 +115,8 @@ The following people contributed to {appname} (in alphabetical order):
     Davide Liessi
 
 {lang_de}:
-:  !Henrik Evers,
+:  !Hajo Bäß,
+    Henrik Evers,
     Georg Hennig,
     Markus W. Kropp,
     Urs Liska,
