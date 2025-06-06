@@ -114,7 +114,8 @@ class KeySequenceButton(QPushButton):
         if self._isrecording:
             s = self._recseq.toString(QKeySequence.SequenceFormat.NativeText).replace('&', '&&')
             if self._modifiers:
-                if s: s += ","
+                if s:
+                    s += ","
                 s += QKeySequence(self._modifiers.value).toString(QKeySequence.SequenceFormat.NativeText)
             elif self._recseq.isEmpty():
                 s = _("Input")

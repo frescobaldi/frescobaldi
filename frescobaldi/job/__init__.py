@@ -237,12 +237,12 @@ class Job:
         """
         self.command.extend(self._arguments)
         if self._input:
-            if type(self._input) == list:
+            if type(self._input) is list:
                 self.command.extend(self._input)
             else:
                 self.command.append(self._input)
         if self._output:
-            if type(self._output) == list:
+            if type(self._output) is list:
                 self.command.extend(self._output)
             else:
                 self.command.append(self._output)
