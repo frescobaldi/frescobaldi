@@ -129,6 +129,7 @@ The following people contributed to {appname} (in alphabetical order):
 
 {lang_pl}:
 :  !Piotr Komorowski
+:  !Grzegorz Pruchniakowski
 
 {lang_gl}:
 :  !Manuel A. Vázquez
