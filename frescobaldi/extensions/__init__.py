@@ -722,7 +722,7 @@ class Extensions(QObject):
     def icon(self, name):
         """Return a main icon for the given extension, or None."""
         icon = self._icons.get(name, False)
-        if not icon: # None would be a valid result indicating 'no icon'
+        if icon is False: # None would be a valid result indicating 'no icon'
             self._load_icon(name)
         return self._icons[name]
 
