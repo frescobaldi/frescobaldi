@@ -81,7 +81,7 @@ project_name = "frescobaldi"
 bundle = "org.frescobaldi"
 # Briefcase does not support dynamic version yet.
 # https://github.com/beeware/briefcase/issues/474
-version = "4.0.3.dev1"
+version = "4.0.3"
 requires = [
     "PyQt6==6.9.0",
     "PyQt6-Qt6==6.9.0",
@@ -90,7 +90,7 @@ requires = [
     "PyQt6-WebEngine-Qt6==6.9.0",
     "python-ly==0.9.9",
     "qpageview==1.0.0",
-    "pygame-ce==2.5.3"  # https://github.com/pygame-community/pygame-ce/issues/3468
+    "pygame-ce==2.5.5"
 ]
 
 [tool.briefcase.app.frescobaldi]
