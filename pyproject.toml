@@ -7,7 +7,7 @@ name = "frescobaldi"
 description = "LilyPond Music Editor"
 authors = [{name = "Wilbert Berendsen", email = "info@frescobaldi.org"}]
 maintainers = [{name = "Wilbert Berendsen", email = "info@frescobaldi.org"}]
-license = {text = "GPL-2.0-or-later"}
+license = {text = "GPL-2.0-or-later", file = "LICENSE"}
 requires-python = ">=3.8"
 dependencies = ["pyqt6>=6.6", "python-ly >= 0.9.5", "qpageview>=1.0.0", "PyQt6-WebEngine", "pygame-ce"]
 dynamic = ["version"]
@@ -81,7 +81,7 @@ project_name = "frescobaldi"
 bundle = "org.frescobaldi"
 # Briefcase does not support dynamic version yet.
 # https://github.com/beeware/briefcase/issues/474
-version = "4.0.3.dev1"
+version = "4.0.3"
 requires = [
     "PyQt6==6.9.0",
     "PyQt6-Qt6==6.9.0",
@@ -90,7 +90,7 @@ requires = [
     "PyQt6-WebEngine-Qt6==6.9.0",
     "python-ly==0.9.9",
     "qpageview==1.0.0",
-    "pygame-ce==2.5.3"  # https://github.com/pygame-community/pygame-ce/issues/3468
+    "pygame-ce==2.5.5"
 ]
 
 [tool.briefcase.app.frescobaldi]

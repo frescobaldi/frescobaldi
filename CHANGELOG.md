@@ -9,6 +9,27 @@ Click on the version to see the complete list of commits in a release.
 
 ## [unreleased]
 
+## [4.0.3] - 2025-06-09
+
+### Fixed
+
+- MIDI playback on macOS works again, thanks to the switch to
+the Pygame Community Edition fork (#1987).
+- #1956 issue ("TypeError: 'NoneType' object is not callable"),
+reported by several users, has been fixed in #1959.
+- Some minor fixes: #1955, #1961, #1967, #1974, #1977, #1984.
+
+### Changed
+
+- Select an appropriate default editor font for each platform: Consolas for Windows; SF Mono, Menlo or Monaco for macOS; the system monospace default for Linux (#1960).
+- Add a keyboard shortcut `Ctrl+,` to open the Preferences in any operating system (#1952).
+- Updated translations: German, Japanese, Polish.
+
+### Added
+
+- Add Qt version check (#1938). Frescobaldi won't run if the installed
+Qt version is below the required version number.
+
 
 ## [4.0.2] - 2025-05-06
 
@@ -1649,7 +1670,8 @@ Frescobaldi application itself has the PO files in i18n/frescobaldi, see
 
 * Initial release.
 
-[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.2...master
+[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.3...master
+[4.0.3]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.2...v4.0.3
 [4.0.2]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.1...v4.0.2
 [4.0.1]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/frescobaldi/frescobaldi/compare/v3.3.0...v4.0.0

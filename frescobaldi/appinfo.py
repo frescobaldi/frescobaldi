@@ -25,7 +25,7 @@ Information about the Frescobaldi application.
 # these variables are also used by the distutils setup
 name = "frescobaldi"
 # https://packaging.python.org/en/latest/discussions/versioning/
-version = "4.0.3.dev1"
+version = "4.0.3"
 extension_api = "0.9.0"
 description = "LilyPond Music Editor"
 long_description = \

@@ -73,6 +73,7 @@
   <translation type="gettext">frescobaldi</translation>
 
   <releases>
+    <release version="4.0.3" date="2025-06-09" />
     <release version="4.0.2" date="2025-05-06" />
     <release version="4.0.1" date="2025-04-03" />
     <release version="4.0.0" date="2025-03-29" />
