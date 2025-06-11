@@ -427,6 +427,7 @@ class ViewdocChooserAction(ComboBoxAction):
         # the current document to be engraved (e.g. sticky or master) and the
         # the job was started on this mainwindow
         import engrave
+        import job
         mainwindow = self.parent().mainwindow()
         if (doc == self._viewdoc or
             (job.attributes.get(j).mainwindow == mainwindow and

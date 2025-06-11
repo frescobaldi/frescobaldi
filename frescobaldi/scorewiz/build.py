@@ -289,7 +289,8 @@ class Builder:
             score.insert(0, music)
 
             # a PartData subclass "knowing" the globalName and scoreProperties
-            class _PartData(PartData): pass
+            class _PartData(PartData):
+                pass
             _PartData.globalName = globalName
             _PartData.scoreProperties = scoreProperties
 

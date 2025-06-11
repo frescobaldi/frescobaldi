@@ -120,7 +120,7 @@ class MidiIn:
                            r'(?<![<\\])<[^<>]*>(?!>)'
 
               notes = re.search(ly_reg_expr,music)
-              if notes != None :
+              if notes is not None :
                     start = cursor.position() + notes.start()
                     end = cursor.position() + notes.end()
 
