@@ -65,5 +65,6 @@ sys.displayhook = app.displayhook
 main(debug=True)
 
 # be friendly and import Qt stuff
-from PyQt6.QtCore import *
-from PyQt6.QtGui import *
+# suppress ruff F403 lint check
+from PyQt6.QtCore import *  # noqa: F403
+from PyQt6.QtGui import *  # noqa: F403
