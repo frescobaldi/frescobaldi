@@ -24,7 +24,6 @@ Before creating a new release on GitHub make sure to review this
 - Add a new release entry in `linux/org.frescobaldi.Frescobaldi.metainfo.xml.in`.
 - Check if the list of contributors in `frescobaldi/userguide/credits.md`
   should be updated.
-- Create a source tarball (see the next section).
 
 You can manually run the GitHub Action release workflow on the master
 branch just before making a new release in order to test the packages.
@@ -40,18 +39,7 @@ files used for Linux packaging.
 The maintainers of Frescobaldi packages for Linux distros don't want
 to run build commands to generate the missing files, so we have to
 provide a tarball with all the needed files already available.
-Here's how to build a compliant tarball using a new clean directory:
-
-```
-git clone -b v4.0.0 git@github.com:frescobaldi/frescobaldi.git frescobaldi-4.0.0
-cd frescobaldi-4.0.0
-tox -e mo-generate
-tox -e linux-generate
-python -m build
-```
-
-The tarball will be saved as `dist/frescobaldi-4.0.0.tar.gz`.
-
+This tarball is automatically generated for every release.
 The link for Linux packagers will be:
 
 ```

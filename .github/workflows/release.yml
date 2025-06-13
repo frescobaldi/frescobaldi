@@ -15,8 +15,40 @@ defaults:
     shell: bash
 
 jobs:
-  ci:
-    name: Package Frescobaldi
+  tarball:
+    # Tarball including .mo files plus the built .desktop and .metainfo.xml files
+    name: Tarball for Linux packagers
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          sudo apt update && sudo apt install -y appstream desktop-file-utils gettext
+          python -m pip install --upgrade pip build wheel tox
+      - name: Build tarball
+        id: build_tarball
+        run: |
+          tox -e mo-generate
+          tox -e linux-generate
+          tox -e linux-validate
+          python -m build
+          echo "filename=$(ls dist/*.tar.gz)" >> "$GITHUB_OUTPUT"
+      - name: Tarball upload
+        if: github.event.release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file_glob: true
+          file: ${{ steps.build_tarball.outputs.filename }}
+          tag: ${{ github.ref }}
+
+  packages:
+    name: Windows and macOS packages
     runs-on: ${{ matrix.runs-on }}
     strategy:
       fail-fast: false
