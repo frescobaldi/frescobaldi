@@ -62,7 +62,7 @@ class ViewStatusBar(QWidget):
     def event(self, ev):
         if ev.type() == QEvent.Type.MouseButtonPress:
             if ev.button() == Qt.MouseButton.RightButton:
-                self.showContextMenu(ev.globalPos())
+                self.showContextMenu(ev.globalPosition().toPoint())
             else:
                 self.parent().activeView().setFocus()
             return True
