@@ -52,7 +52,7 @@ def is_available(tool):
             "\n- ".join(_vcs_modules.keys())
         ))
     mod = _vcs_modules[tool]
-    if type(mod) == str:
+    if type(mod) is str:
         mod = _vcs_modules[tool] = importlib.import_module(mod)
     return mod.Repo.vcs_available()
 

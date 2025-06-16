@@ -239,7 +239,8 @@ def handle_exception(name, view):
     Shows the error message and offers the option to edit the offending snippet.
 
     """
-    import sys, traceback
+    import sys
+    import traceback
     exc_type, exc_value, exc_traceback = sys.exc_info()
     tb = traceback.extract_tb(exc_traceback)
     while tb and tb[0][0] != "<snippet>":

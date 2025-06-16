@@ -149,11 +149,11 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
             diritem.setExpanded(True)
             diritem.setFlags(Qt.ItemFlag.ItemIsEnabled)
             diritem.setIcon(0, icons.get('folder-open'))
-            for filename, document in sorted(dirs[dirname],
+            for filename, doc in sorted(dirs[dirname],
                                               key=lambda item: util.naturalsort(item[0])):
                 fileitem = QTreeWidgetItem()
                 diritem.addChild(fileitem)
-                if documentwatcher.DocumentWatcher.instance(document).isdeleted():
+                if documentwatcher.DocumentWatcher.instance(doc).isdeleted():
                     itemtext = _("[deleted]")
                     icon = "dialog-error"
                 else:
@@ -162,7 +162,7 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
                 fileitem.setIcon(0, icons.get(icon))
                 fileitem.setText(0, filename)
                 fileitem.setText(1, itemtext)
-                fileitem.doc = document
+                fileitem.doc = doc
         # select the item if there is only one
         if len(dirs) == 1 and len(list(dirs.values())[0]) == 1:
             fileitem.setSelected(True)

@@ -120,3 +120,8 @@ description = "LilyPond included file"
 extension = "ily"
 icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
 url = "https://lilypond.org/"
+
+[tool.ruff]
+# _ is currently added to builtins, so ruff can't find where it's defined.
+# We may remove this line when we switch to gettext standard library (#1285).
+builtins = ["_"]
