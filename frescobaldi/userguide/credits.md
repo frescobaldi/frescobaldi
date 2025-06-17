@@ -21,12 +21,11 @@ The following people contributed to {appname} (in alphabetical order):
 : Encoding-related fixes and other improvements
 
 !Federico Bruni:
-: Linux freedesktop.org fixes,
-  maintainer of the flatpak package on Flathub,
-  Windows and macOS packages built with Briefcase
+: !_(Packaging and release tools)_,
+   _(Maintainer of the Linux flatpak package on Flathub)_
 
 !Christopher Bryan:
-: !_(Modal Transpose)_
+: Modal Transpose
 
 !Richard Cognot:
 : Kinetic Scrolling for the Music View
@@ -43,7 +42,7 @@ The following people contributed to {appname} (in alphabetical order):
 : Homebrew formula for macOS
 
 !Davide Liessi:
-: !macOS packaging,
+: !_(macOS packaging)_,
    _(various other improvements)_
 
 !Urs Liska:
@@ -129,8 +128,8 @@ The following people contributed to {appname} (in alphabetical order):
 :  !Pavel Fric
 
 {lang_pl}:
-:  !Piotr Komorowski
-:  !Grzegorz Pruchniakowski
+:  !Piotr Komorowski,
+    Grzegorz Pruchniakowski
 
 {lang_gl}:
 :  !Manuel A. Vázquez
