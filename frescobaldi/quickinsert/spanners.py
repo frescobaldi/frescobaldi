@@ -262,7 +262,7 @@ class GraceGroup(buttongroup.ButtonGroup):
                         after.setPosition(pos)
                         after.setPosition(end, QTextCursor.MoveMode.KeepAnchor)
                     except IndexError:
-                        after.movePosition(cursor.EndOfLine)
+                        after.movePosition(QTextCursor.MoveOperation.EndOfLine)
                     after.insertText(outer[1])
                     cursor.insertText(outer[0])
 
