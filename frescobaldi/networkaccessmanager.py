@@ -22,7 +22,7 @@ A QNetworkAccessManager subclass with easy registration of custom url schemes.
 """
 
 
-from PyQt6.QtCore import QThread, QTimer, QUrl
+from PyQt6.QtCore import QThread, QTimer
 from PyQt6.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkRequest
 
 

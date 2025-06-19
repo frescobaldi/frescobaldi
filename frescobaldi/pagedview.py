@@ -26,9 +26,8 @@ This is used throughout Frescobaldi, to obey color settings etc.
 
 import itertools
 import os
-import platform
 
-from PyQt6.QtCore import pyqtSignal, QMargins, QSettings, Qt
+from PyQt6.QtCore import QMargins, QSettings, Qt
 from PyQt6.QtWidgets import QMessageBox
 from PyQt6.QtPrintSupport import QPrinter, QPrintDialog
 

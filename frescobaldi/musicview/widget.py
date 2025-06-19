@@ -24,10 +24,9 @@ The PDF preview panel widget.
 
 
 import collections
-import itertools
 import os
 
-from PyQt6.QtCore import pyqtSignal, QMargins, QPoint, QRect, QSettings, Qt, QUrl
+from PyQt6.QtCore import QMargins, QPoint, QRect, QSettings, Qt, QUrl
 from PyQt6.QtGui import QCursor, QTextCharFormat
 from PyQt6.QtWidgets import QToolTip, QVBoxLayout, QWidget
 
@@ -38,13 +37,10 @@ import qpageview.rubberband
 import pagedview
 
 import app
-import icons
 import helpers
 import textedit
 import textformats
-import lydocument
 import viewhighlighter
-import ly.lex.lilypond
 
 from . import pointandclick
 

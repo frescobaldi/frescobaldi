@@ -25,7 +25,6 @@ Exception dialog for unhandled Python exceptions
 
 import traceback
 
-from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QTextCursor
 from PyQt6.QtWidgets import (
     QDialog, QDialogButtonBox, QLabel, QTextBrowser, QVBoxLayout)

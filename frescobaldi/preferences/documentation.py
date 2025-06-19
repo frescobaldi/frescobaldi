@@ -22,7 +22,7 @@ Documentation preferences.
 """
 
 
-from PyQt6.QtCore import QSettings, Qt
+from PyQt6.QtCore import QSettings
 from PyQt6.QtWidgets import (QComboBox, QCompleter, QFontComboBox,
     QGridLayout, QLabel, QSpinBox, QVBoxLayout)
 

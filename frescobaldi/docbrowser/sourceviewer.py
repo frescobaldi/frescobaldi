@@ -22,7 +22,7 @@ A dialog to view LilyPond source.
 """
 
 
-from PyQt6.QtCore import QSettings, QSize, Qt
+from PyQt6.QtCore import QSize
 from PyQt6.QtWidgets import QDialog, QLabel, QSizePolicy, QTextBrowser, QVBoxLayout
 
 

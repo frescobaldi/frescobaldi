@@ -22,14 +22,12 @@ Per-MainWindow session manager
 """
 
 
-from PyQt6.QtGui import QAction, QActionGroup
+from PyQt6.QtGui import QAction
 
 import actioncollection
 import actioncollectionmanager
 import plugin
-import document
 import icons
-import util
 import sessions
 import signals
 

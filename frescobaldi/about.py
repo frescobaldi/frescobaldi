@@ -22,12 +22,11 @@ About dialog.
 """
 
 
-from PyQt6.QtCore import QSettings, QSize, Qt, QUrl
+from PyQt6.QtCore import QSize, Qt, QUrl
 from PyQt6.QtWidgets import (
     QDialog, QDialogButtonBox, QLabel, QLayout, QTabWidget, QTextBrowser,
     QVBoxLayout, QWidget)
 
-import app
 import appinfo
 import icons
 import helpers

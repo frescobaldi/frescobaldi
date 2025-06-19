@@ -24,8 +24,7 @@ The score settings widget.
 
 from PyQt6.QtCore import QSettings, Qt
 from PyQt6.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QGroupBox,
-                             QHBoxLayout, QLabel, QVBoxLayout, QWidget,
-                             QButtonGroup, QRadioButton)
+                             QLabel, QVBoxLayout, QWidget)
 
 import app
 import i18n.setup

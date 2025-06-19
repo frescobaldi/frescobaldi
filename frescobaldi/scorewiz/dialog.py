@@ -229,7 +229,7 @@ class Parts(Page):
         if not self._partTypes:
             # This is only needed when reading from an existing score,
             # so generate it the first time it is used.
-            from . import build, parts
+            from . import parts
             for category in parts.categories:
                 for item in category.items:
                     self._partTypes[ly.util.mkid(item.__name__)] = item

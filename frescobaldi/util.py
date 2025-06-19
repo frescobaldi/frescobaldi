@@ -27,7 +27,6 @@ import glob
 import itertools
 import io
 import os
-import pathlib
 import platform
 import re
 import unicodedata

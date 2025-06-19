@@ -26,7 +26,7 @@ import weakref
 import operator
 
 from PyQt6.QtCore import QObject, QTimer
-from PyQt6.QtGui import QTextCharFormat, QTextFormat
+from PyQt6.QtGui import QTextFormat
 from PyQt6.QtWidgets import QTextEdit
 
 

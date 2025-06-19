@@ -22,13 +22,9 @@ Interface for extensions to save and load settings from extension files
 """
 
 import os
-import sys
 
-from PyQt6.QtCore import Qt, QObject, QSettings
-from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QMenu
+from PyQt6.QtCore import QObject, QSettings
 
-import app
 
 class ExtensionSettings(QObject):
     """

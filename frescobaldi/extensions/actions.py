@@ -21,7 +21,6 @@
 Base ExtensionActionCollection for extensions
 """
 
-from PyQt6.QtWidgets import QMenu
 
 import actioncollection
 

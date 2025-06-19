@@ -26,7 +26,6 @@ Currently this makes only sense on macOS.
 
 
 from PyQt6.QtCore import QEvent, QObject
-from PyQt6.QtWidgets import QApplication
 
 import app
 

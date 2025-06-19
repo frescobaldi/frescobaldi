@@ -24,13 +24,11 @@ In the dialog the options of abc2ly can be set.
 """
 
 
-import os
 
 from PyQt6.QtCore import QSettings, QSize
-from PyQt6.QtWidgets import (QCheckBox, QComboBox, QDialogButtonBox, QLabel)
+from PyQt6.QtWidgets import (QCheckBox, QDialogButtonBox)
 
 import app
-import util
 import qutil
 
 from . import toly_dialog

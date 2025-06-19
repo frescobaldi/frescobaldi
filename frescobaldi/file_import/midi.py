@@ -25,7 +25,7 @@ In the dialog the options of midi2ly can be set.
 
 
 from PyQt6.QtCore import QSettings, QSize
-from PyQt6.QtWidgets import (QCheckBox, QComboBox, QDialogButtonBox, QLabel)
+from PyQt6.QtWidgets import (QCheckBox, QDialogButtonBox)
 
 import app
 import qutil

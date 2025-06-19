@@ -28,7 +28,6 @@ from PyQt6.QtCore import Qt, QUrl
 
 import icons
 import plugin
-import signals
 import job.manager
 import resultfiles
 import listmodel

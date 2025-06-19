@@ -22,9 +22,8 @@ The documents list tool widget.
 """
 
 
-import os
 
-from PyQt6.QtCore import QItemSelectionModel, QSettings, Qt, QUrl
+from PyQt6.QtCore import QItemSelectionModel, QSettings, Qt
 from PyQt6.QtWidgets import QMenu, QTreeWidget, QTreeWidgetItem
 
 import app

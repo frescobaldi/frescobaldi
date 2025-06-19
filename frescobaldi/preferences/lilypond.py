@@ -28,10 +28,9 @@ import json
 import os
 import platform
 import shutil
-import sys
 import tempfile
 
-from PyQt6.QtCore import pyqtSignal, QSettings, Qt, QTimer, QUrl
+from PyQt6.QtCore import QSettings, Qt, QUrl
 from PyQt6.QtNetwork import QNetworkAccessManager, QNetworkRequest
 from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import (

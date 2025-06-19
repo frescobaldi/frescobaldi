@@ -26,7 +26,6 @@ import os
 import platform
 import re
 import subprocess
-import sys
 
 from PyQt6.QtCore import QSettings
 from PyQt6.QtGui import QDesktopServices

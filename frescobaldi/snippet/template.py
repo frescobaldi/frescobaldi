@@ -26,7 +26,6 @@ import app
 import documentinfo
 import widgets.dialog
 
-from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
     QCheckBox, QCompleter, QVBoxLayout, QMessageBox, QWidget)
 

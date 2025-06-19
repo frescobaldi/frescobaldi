@@ -23,7 +23,6 @@ An Object Editor widget.
 
 
 
-import sys
 
 from PyQt6 import QtCore
 from PyQt6.QtCore import QSettings
@@ -32,7 +31,6 @@ from PyQt6.QtWidgets import (
     QDoubleSpinBox, QLabel, QPushButton, QVBoxLayout, QWidget)
 
 import app
-import objecteditor
 
 from . import defineoffset
 

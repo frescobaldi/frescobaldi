@@ -29,7 +29,6 @@ from PyQt6.QtGui import QAction, QKeySequence
 
 import actioncollection
 import actioncollectionmanager
-import app
 import panel
 
 

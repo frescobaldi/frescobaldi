@@ -22,9 +22,7 @@ Page, a page from the Frescobaldi User Manual.
 """
 
 
-import re
 
-from PyQt6.QtCore import QSettings
 from PyQt6.QtGui import QKeySequence
 
 import simplemarkdown

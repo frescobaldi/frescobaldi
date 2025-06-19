@@ -49,7 +49,6 @@ def manual_translated_by():
 def table_of_contents():
     """Return the body of the table of contents page."""
     from .util import cache, format_link
-    from simplemarkdown import html_escape
     html = ['<ul>']
     seen = set()
     def addpage(page):

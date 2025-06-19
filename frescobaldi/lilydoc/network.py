@@ -22,7 +22,7 @@ Network-related utility functions for LilyPond Documentation.
 """
 
 from PyQt6.QtCore import QSettings
-from PyQt6.QtNetwork import QNetworkReply, QNetworkRequest
+from PyQt6.QtNetwork import QNetworkRequest
 
 import app
 import i18n

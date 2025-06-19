@@ -26,19 +26,15 @@ import difflib
 import textwrap
 import os
 import platform
-import sys
 
 from PyQt6.QtCore import QSettings, QSize
 from PyQt6.QtGui import QFont, QTextCursor
 from PyQt6.QtWidgets import (
-    QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFileDialog, QHBoxLayout,
-    QGridLayout, QLabel, QLineEdit, QTabWidget, QTextBrowser, QVBoxLayout)
+    QCheckBox, QDialog, QDialogButtonBox, QFileDialog, QGridLayout, QLabel, QLineEdit, QTabWidget, QTextBrowser, QVBoxLayout)
 
 import app
 import job
-import util
 import qutil
-import icons
 import widgets
 import htmldiff
 import cursordiff

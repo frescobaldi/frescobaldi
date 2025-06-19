@@ -22,7 +22,7 @@ Keyboard part types.
 """
 
 
-from PyQt6.QtWidgets import QGridLayout, QLabel, QSpinBox
+from PyQt6.QtWidgets import QLabel, QSpinBox
 
 import ly.dom
 import ly.util

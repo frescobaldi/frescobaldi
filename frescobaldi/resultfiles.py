@@ -22,8 +22,6 @@ Finds out which files are created by running the engraver.
 """
 
 
-import itertools
-import glob
 import os
 
 import app

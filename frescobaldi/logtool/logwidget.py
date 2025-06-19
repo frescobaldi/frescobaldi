@@ -24,13 +24,12 @@ The LogWidget.
 
 import itertools
 import os
-import re
 import sys
 import weakref
 
 from PyQt6.QtCore import QSettings
 from PyQt6.QtGui import (
-    QColor, QTextCharFormat, QTextCursor, QTextFormat)
+    QTextCharFormat, QTextCursor, QTextFormat)
 from PyQt6.QtWidgets import QTextEdit
 
 import app

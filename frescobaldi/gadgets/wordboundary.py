@@ -40,11 +40,9 @@ many textedit widgets as you like.
 import itertools
 import operator
 import re
-import time
 
 from PyQt6.QtCore import QEvent, QObject, Qt
 from PyQt6.QtGui import QKeySequence, QTextCursor
-from PyQt6.QtWidgets import QApplication
 
 
 _move_operations = (

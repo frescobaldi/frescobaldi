@@ -35,7 +35,6 @@ class Formatter:
     def html(self, name):
         """Return a full userguide page HTML."""
         page = Page(name)
-        from appinfo import appname, version
 
         parents = cache.parents(name) if name != 'index' else []
         children = cache.children(name)

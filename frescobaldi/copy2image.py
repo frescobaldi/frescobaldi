@@ -22,18 +22,15 @@ Dialog to copy contents from PDF to a raster image.
 """
 
 
-import collections
 import os
-import tempfile
 
-from PyQt6.QtCore import QEvent, QSettings, QSize, Qt
-from PyQt6.QtGui import QBitmap, QColor, QDoubleValidator, QImage, QRegion
+from PyQt6.QtCore import QSettings, QSize, Qt
+from PyQt6.QtGui import QColor, QDoubleValidator
 from PyQt6.QtWidgets import (
-    QApplication, QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFileDialog,
+    QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFileDialog,
     QGridLayout, QHBoxLayout, QLabel, QMessageBox, QPushButton, QVBoxLayout)
 
 import app
-import util
 import qutil
 import icons
 import qpageview.backgroundjob

@@ -25,8 +25,6 @@ instances.
 
 import re
 
-from PyQt6.QtCore import QEvent, QObject, Qt
-from PyQt6.QtGui import QKeySequence, QTextCursor
 
 import app
 import gadgets.wordboundary

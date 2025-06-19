@@ -34,7 +34,6 @@ import widgets.dialog
 from . import builtin
 from . import snippets
 from . import model
-from . import widget
 
 
 class RestoreDialog(widgets.dialog.Dialog):

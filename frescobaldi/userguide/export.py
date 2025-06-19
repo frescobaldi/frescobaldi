@@ -24,9 +24,7 @@ Export the user guide to other formats and destinations.
 
 import re
 
-import simplemarkdown
 
-from . import page
 from . import util
 
 

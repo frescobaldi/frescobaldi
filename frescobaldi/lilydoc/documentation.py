@@ -22,7 +22,6 @@ Manage access to LilyPond documentation.
 """
 
 
-import os
 import re
 
 from PyQt6.QtCore import pyqtSignal, QObject, QUrl

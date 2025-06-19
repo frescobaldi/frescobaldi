@@ -22,7 +22,6 @@ The Quick Insert panel barlines and breathing sings Tool.
 """
 
 
-import app
 import symbols
 import documentinfo
 

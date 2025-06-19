@@ -23,7 +23,6 @@ Parse textedit:// urls.
 
 
 import re
-import sys
 import collections
 import urllib.parse
 
