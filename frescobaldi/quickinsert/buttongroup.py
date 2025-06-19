@@ -26,7 +26,7 @@ A QGroupBox in the Quick Insert Panel that auto-layouts its buttons.
 import weakref
 
 from PyQt6.QtCore import QEvent, QSize
-from PyQt6.QtGui import QAction, QKeySequence
+from PyQt6.QtGui import QAction, QKeySequence, QTextCursor
 from PyQt6.QtWidgets import (
     QGridLayout, QGroupBox, QMenu, QToolButton, QToolTip)
 
@@ -145,7 +145,7 @@ class ButtonGroup(QGroupBox):
         pos = cursor.selectionStart()
         cursor.insertText(text)
         if indent and '\n' in text:
-            cursor.setPosition(pos, cursor.KeepAnchor)
+            cursor.setPosition(pos, QTextCursor.MoveMode.KeepAnchor)
             import indent
             with cursortools.compress_undo(cursor, True):
                 indent.re_indent(cursor)
