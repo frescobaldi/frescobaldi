@@ -21,8 +21,6 @@
 VCS interface (application and documents)
 """
 
-import sys
-import os
 from abc import ABCMeta, abstractmethod
 
 class AbstractVCSRepo:

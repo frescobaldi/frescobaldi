@@ -26,7 +26,6 @@ from PyQt6.QtGui import QAction, QActionGroup, QIcon
 from PyQt6.QtWidgets import QMenu
 
 import app
-import icons
 import plugin
 import engrave
 import documenticon

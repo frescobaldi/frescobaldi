@@ -7,8 +7,8 @@ import os
 import platform
 import sys
 
-from ctypes import (CDLL, CFUNCTYPE, POINTER, Structure, byref, c_char_p,
-    c_int32, c_uint, c_void_p, cast, create_string_buffer)
+from ctypes import (CDLL, CFUNCTYPE, POINTER, Structure, c_char_p,
+    c_int32, c_uint, c_void_p, cast)
 
 import macos
 

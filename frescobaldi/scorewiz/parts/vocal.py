@@ -26,7 +26,7 @@ import collections
 import itertools
 import re
 
-from PyQt6.QtCore import QRegularExpression, Qt
+from PyQt6.QtCore import QRegularExpression
 from PyQt6.QtGui import QRegularExpressionValidator
 from PyQt6.QtWidgets import (
     QCheckBox, QComboBox, QGroupBox, QHBoxLayout, QLabel, QSpinBox, QVBoxLayout)

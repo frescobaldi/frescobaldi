@@ -22,11 +22,9 @@ A LilyPondJob runs LilyPond and captures the output
 to get it later or to have a log follow it.
 """
 
-import codecs
 import glob
 import os
 import shutil
-import sys
 
 from PyQt6.QtCore import QSettings, QUrl
 

@@ -35,7 +35,6 @@ from PyQt6.QtWidgets import QApplication, QMenuBar
 ### needed for QWebEngine
 ### it wants those two things be done before constructing QApplication()
 if importlib.util.find_spec('PyQt6.QtWebEngineWidgets'):
-    import PyQt6.QtWebEngineWidgets
     QApplication.setAttribute(Qt.ApplicationAttribute.AA_ShareOpenGLContexts, True)
 ### end needed for QWebEngine
 

@@ -24,7 +24,6 @@ Durations are represented simply by lists of ly.lex.lilypond.Duration tokens.
 """
 
 
-import itertools
 
 import icons
 import inputdialog

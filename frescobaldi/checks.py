@@ -26,7 +26,6 @@ translation infrastructure is not yet set up.
 
 """
 
-import os
 import importlib.util
 import sys
 

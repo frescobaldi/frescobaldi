@@ -9,7 +9,7 @@ from ctypes import byref, create_string_buffer
 from .pm_ctypes import (
     libpm, libpt,
     pmHostError, PmEvent,
-    PmTimeProcPtr, NullTimeProcPtr,
+    NullTimeProcPtr,
     PortMidiStreamPtr,
 )
 

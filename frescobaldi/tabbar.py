@@ -24,13 +24,11 @@ The tab bar with the documents.
 
 import platform
 
-from PyQt6.QtCore import QSettings, Qt, QUrl, pyqtSignal
-from PyQt6.QtWidgets import QMenu, QTabBar
+from PyQt6.QtCore import QSettings, Qt, pyqtSignal
+from PyQt6.QtWidgets import QTabBar
 
 import app
-import icons
 import document
-import documentcontextmenu
 import documenticon
 import engrave
 import util

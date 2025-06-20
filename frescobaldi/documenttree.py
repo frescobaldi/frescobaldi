@@ -30,7 +30,6 @@ yet, they can also show up.
 """
 
 
-import os
 
 import ly.node
 import app

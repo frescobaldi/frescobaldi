@@ -22,11 +22,8 @@ Delivers information about a document.
 """
 
 
-import itertools
-import functools
 import os
 import re
-import weakref
 
 from PyQt6.QtCore import QSettings, QUrl
 
@@ -35,10 +32,7 @@ import qsettings
 import ly.lex
 import lydocinfo
 import lydocument
-import app
 import fileinfo
-import cursortools
-import tokeniter
 import plugin
 import variables
 import lilypondinfo

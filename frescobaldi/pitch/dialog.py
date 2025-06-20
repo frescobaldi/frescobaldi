@@ -27,7 +27,7 @@ from fractions import Fraction
 from PyQt6.QtCore import QSettings, QSize
 from PyQt6.QtGui import QValidator
 from PyQt6.QtWidgets import (QComboBox, QDialog, QDialogButtonBox,
-    QGridLayout, QLabel, QLineEdit, QWidget)
+    QGridLayout, QLabel, QLineEdit)
 
 import app
 import userguide
