@@ -57,17 +57,18 @@ You will also need a few packages from your operating system:
 * Git, the version control software used for Frescobaldi's source code,
 * GNU Gettext, a suite of tools for working with translations, for generating
   compiled MO catalogs.
+* [PortMidi](https://github.com/PortMidi/portmidi), for MIDI playback.
 
 On Debian/Ubuntu, these packages can be installed using:
 
 ```
-sudo apt install pipx tox git gettext
+sudo apt install pipx tox git gettext libportmidi0
 ```
 
 On Fedora:
 
 ```
-sudo dnf install pipx tox git gettext
+sudo dnf install pipx tox git gettext portmidi
 ```
 
 PyQt6 dependencies will be automatically installed from PyPI
