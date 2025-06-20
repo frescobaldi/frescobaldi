@@ -124,7 +124,7 @@ class Job:
     def add_argument(self, arg):
         """Append an additional command line argument if it is not
         present already."""
-        if not arg in self._arguments:
+        if arg not in self._arguments:
             self._arguments.append(arg)
 
     def arguments(self):

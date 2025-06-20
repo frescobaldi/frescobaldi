@@ -132,7 +132,7 @@ class PanelManager(plugin.MainWindowPlugin):
             menu.addMenu(submenu)
 
         for name, panel in self._panels:
-            if not panel in added_panels:
+            if panel not in added_panels:
                 menu.addAction(panel.toggleViewAction())
 
     def panels_at(self, area):

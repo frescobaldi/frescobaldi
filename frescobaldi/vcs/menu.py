@@ -86,7 +86,7 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
         """
         result = []
         for branch in vcs.app_repo.branches():
-            if not branch in self._acts:
+            if branch not in self._acts:
                 self.addBranch(branch)
             result.append(self._acts[branch])
         return result

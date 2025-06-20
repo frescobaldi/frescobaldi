@@ -46,7 +46,7 @@ def is_available(tool):
 
     Any NNNrepo.py module has to implement a function vcs_available()
     """
-    if not tool in _vcs_modules.keys():
+    if tool not in _vcs_modules.keys():
         raise VCSError('Invalid argument for VCS software: {}\nSupported:\n- {}'.format(
             tool,
             "\n- ".join(_vcs_modules.keys())

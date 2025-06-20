@@ -58,7 +58,7 @@ class ExtensionSettings(QObject):
     def get(self, key):
         """Retrieve a setting.
         Raises a KeyError if non-existent key is requested."""
-        if not key in self._defaults.keys():
+        if key not in self._defaults.keys():
             raise KeyError(
                 _("Trying to retrieve unknown setting '{setting}' "
                   "in extension '{extension}'").format(
@@ -78,7 +78,7 @@ class ExtensionSettings(QObject):
         Check type before and raise an exception if necessary."""
         extension_name = (self.extension().display_name()
             or self.extension().name())
-        if not key in self._defaults.keys():
+        if key not in self._defaults.keys():
             raise KeyError(
                 _("Trying to store unknown setting '{setting}' "
                   "in extension '{extension}'").format(
