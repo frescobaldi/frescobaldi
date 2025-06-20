@@ -117,7 +117,7 @@ def importTheme(filename, widget, schemeWidget):
         tfd.defaultStyles[elt.tag] = eltToStyle(elt)
 
     for style in root.find('allStyles'):
-        if not style in tfd.allStyles:
+        if style not in tfd.allStyles:
             tfd.allStyles[style] = {}
         for elt in style:
             tfd.allStyles[style.tag][elt.tag] = eltToStyle(elt)
@@ -133,7 +133,7 @@ def exportShortcut(widget, scheme, schemeName, filename):
     lst = {}
     for item in widget.items():
         col = item.collection.name
-        if not col in lst:
+        if col not in lst:
             lst[col] = {}
         if not item.isDefault(scheme):
             lst[col][item.name] = item.shortcuts(scheme)

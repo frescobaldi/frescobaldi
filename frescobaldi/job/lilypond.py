@@ -126,7 +126,7 @@ class LilyPondJob(Job):
     def add_additional_arg(self, arg):
         """Append an additional command line argument if it is not
         present already."""
-        if not arg in self._additional_args:
+        if arg not in self._additional_args:
             self._additional_args.append(arg)
 
     def add_include_path(self, path):
