@@ -49,6 +49,9 @@ import guistyle         # Setup GUI style
 import i18n.setup       # Setup language
 import remote           # IPC with other Frescobaldi instances
 
+# Avoid crashes on Windows
+if platform.system() == "Windows":
+    os.environ["QTWEBENGINE_CHROMIUM_FLAGS"] = "--disable-gpu --disable-software-rasterizer"
 
 def parse_commandline():
     """Parses the command line; returns options and filenames.
