@@ -599,7 +599,6 @@ class Extensions(QObject):
         """
 
         inactive = self.inactive_extensions()
-        active = [key for key in self._infos.keys() if key not in inactive]
         inactive_dependencies = []
         missing_dependencies = []
         infos = self._infos
@@ -655,7 +654,6 @@ class Extensions(QObject):
 
         if missing_dependencies or inactive_dependencies or incoming:
             self._failed_dependencies = {}
-            message = []
             if missing_dependencies:
                 missing = self._failed_dependencies['missing'] = []
                 for dep in missing_dependencies:
@@ -707,7 +705,7 @@ class Extensions(QObject):
                 extension.set_load_time(
                     f"{(end - start) * 1000:.2f} ms")
                 self._extensions[ext] = extension
-            except Exception as e:
+            except Exception:
                 self._failed_extensions[ext] = sys.exc_info()
 
     def _load_icon(self, name):

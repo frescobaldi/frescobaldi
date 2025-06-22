@@ -231,7 +231,7 @@ class Analyzer:
     def midi_instrument(self):
         """Complete midiInstrument = #"... """
         try:
-            i = self.tokens.index('midiInstrument', -7, -2)
+            self.tokens.index('midiInstrument', -7, -2)
         except ValueError:
             return
         if self.last != '"':
@@ -241,7 +241,7 @@ class Analyzer:
     def font_name(self):
         """Complete #'font-name = #"..."""
         try:
-            i = self.tokens.index('font-name', -7, -3)
+            self.tokens.index('font-name', -7, -3)
         except ValueError:
             return
         if self.last != '"':
@@ -437,7 +437,6 @@ class Analyzer:
         except ValueError:
             return
         self.backuntil(lx.Space, lp.DotPath)
-        tokens = self.tokens[i+1:]
         tokenclasses = self.tokenclasses()[i+1:]
         try:
             i = tokenclasses.index(lp.AccidentalStyleSpecifier)
@@ -462,7 +461,6 @@ class Analyzer:
             return
         self.backuntil(lx.Space, lp.DotPath)
         i = max(indices)
-        tokens = self.tokens[i+1:]
         tokenclasses = self.tokenclasses()[i+1:]
         if lp.GrobName not in tokenclasses[:-1]:
             if lp.ContextName in tokenclasses:
