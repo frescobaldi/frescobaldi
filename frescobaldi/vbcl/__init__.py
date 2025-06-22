@@ -51,7 +51,7 @@ def set_defaults(d, defaults):
         d[key] = d.get(key, defaults[key])
 
 
-def parse(lines, mandatory_keys, defaults):
+def parse(lines, mandatory_keys=[], defaults={}):
     """Returns a dictionary corresponding to a parsed VBCL string list."""
     d = dict()
     it = iter(lines)
@@ -100,7 +100,7 @@ def parse(lines, mandatory_keys, defaults):
     return d
 
 
-def parse_file(filename, mandatory_keys=None, defaults=None):
+def parse_file(filename, mandatory_keys=[], defaults={}):
     """Returns a dictionary corresponding to a parsed VBCL config file.
     Raises an exception if the given file doesn't exist or isn't readable"""
 
