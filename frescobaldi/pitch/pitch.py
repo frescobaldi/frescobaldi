@@ -145,8 +145,8 @@ def getModalTransposer(document, mainwindow):
         if len(words) != 2:
             return False
         try:
-            steps = int(words[0])
-            keyIndex = ly.pitch.transpose.ModalTransposer.getKeyIndex(words[1])
+            int(words[0])
+            ly.pitch.transpose.ModalTransposer.getKeyIndex(words[1])
             return True
         except ValueError:
             return False

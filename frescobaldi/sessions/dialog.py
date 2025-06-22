@@ -308,7 +308,7 @@ class SessionEditor(QDialog):
         """Add global paths (for edit)."""
         genPaths = self.fetchGenPaths()
         for p in genPaths:
-            i = QListWidgetItem(p, self.include.listBox)
+            QListWidgetItem(p, self.include.listBox)
 
     def clearPaths(self):
         """Remove all active paths."""
