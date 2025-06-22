@@ -111,7 +111,7 @@ New features that add menu actions can be imported in `menu.py`, while building 
 
 ## Preparing patches or Pull Requests
 
-When preparing a patch or pull request, please add new functionality first.  Old functionality that is superseded by the newer functions can be removed later when the new functionality has been tested thoroughly. Change existing files as less as possible. Preferably add new files and packages.
+When preparing a patch or pull request, please add new functionality first.  Old functionality that is superseded by the newer functions can be removed later when the new functionality has been tested thoroughly. Change existing files as little as possible. Preferably add new files and packages.
 
 User Interface strings that are meant to be translated should be wrapped in `_("Message Text")` constructs. See also [TRANSLATIONS.md](TRANSLATIONS.md) for vital information about how to use the translation mechanism and how to use variables inside messages.
 
