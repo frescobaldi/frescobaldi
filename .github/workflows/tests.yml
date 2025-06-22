@@ -4,8 +4,8 @@ on:
   - pull_request
 
 jobs:
-  pytest:
-    name: Run pytest tests
+  tests:
+    name: Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
