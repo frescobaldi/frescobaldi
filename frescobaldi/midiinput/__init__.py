@@ -72,6 +72,8 @@ class MidiIn:
         self._language = documentinfo.docinfo(doc).language() or 'nederlands'
         self._activenotes = 0
         self._listener.start()
+        # DEBUG: Verify which MIDI input is actually used
+        print(midihub.default_input())
 
     def capturestop(self):
         self._listener.stop()

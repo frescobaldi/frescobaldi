@@ -82,6 +82,11 @@ artifacts = [
   "linux/org.frescobaldi.Frescobaldi.metainfo.xml",
 ]
 
+[tool.hatch.envs.default]
+dependencies = [
+  "pygame-ce"
+]
+
 [tool.briefcase]
 project_name = "frescobaldi"
 bundle = "org.frescobaldi"
