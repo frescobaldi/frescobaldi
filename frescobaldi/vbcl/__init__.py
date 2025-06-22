@@ -51,10 +51,10 @@ def set_defaults(d, defaults):
         d[key] = d.get(key, defaults[key])
 
 
-def parse(lines, mandatory_keys=[], defaults={}):
+def parse(text, mandatory_keys=[], defaults={}):
     """Returns a dictionary corresponding to a parsed VBCL string list."""
     d = dict()
-    it = iter(lines)
+    it = iter(text.split('\n'))
 
     try:
         while True:
@@ -105,5 +105,5 @@ def parse_file(filename, mandatory_keys=[], defaults={}):
     Raises an exception if the given file doesn't exist or isn't readable"""
 
     with open(filename, encoding='utf-8') as f:
-        cfg_dict = parse(f.read().split('\n'), mandatory_keys, defaults)
+        cfg_dict = parse(f.read(), mandatory_keys, defaults)
         return cfg_dict
