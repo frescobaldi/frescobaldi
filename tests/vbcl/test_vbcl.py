@@ -21,16 +21,27 @@ def test_mandatory_key_missing():
 
 def test_comment():
     assert parse('# this is a comment') == {}
+    assert parse('  # this is a comment') == {}
 
 def test_one_line_value():
     assert parse('key: my value') == {'key': 'my value'}
 
+def test_comment_after_value():
+    # comments at the end of meaningful lines are not supported
+    assert parse('key: my value # not a comment') == {'key': 'my value # not a comment'}
+
 def test_long_value():
     assert parse("key: <\nLong\ntext value\n>") == {'key': "Long\ntext value"}
+
+def test_long_value_whitespace():
+    assert parse("key: <  \n  Long  \n  \n  text value  \n  >  \n") == {'key': "Long\n\ntext value"}
 
 def test_list():
     assert parse("key: [\napples\n]") == {'key': ['apples']}
     assert parse("key: [\napples\nbananas\n]") == {'key': ['apples', 'bananas']}
+
+def test_list_whitespace():
+    assert parse("key: [  \n  apples  \n  \n  bananas  \n  ]  \n") == {'key': ['apples', '', 'bananas']}
 
 def test_full_example():
     config = '''
