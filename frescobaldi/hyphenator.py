@@ -16,11 +16,6 @@ License: LGPL. More info: http://python-hyphenator.googlecode.com/
 """
 
 
-try:
-    chr = unichr
-except NameError:
-    pass
-
 import codecs
 import re
 
