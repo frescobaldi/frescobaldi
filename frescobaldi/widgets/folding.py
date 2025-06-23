@@ -361,7 +361,6 @@ class Folder(QObject):
         if not r:
             return
         # if the last block starts a new region, don't hide it
-        count = 0
         end = r.end.previous() if self.fold_level(r.end).start else r.end
         # don't hide the first block of the region
         for block in cursortools.forwards(r.start.next(), end):
