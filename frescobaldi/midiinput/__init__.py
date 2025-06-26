@@ -45,6 +45,7 @@ class MidiIn:
 
     def open(self):
         s = QSettings()
+        s.beginGroup("midi")
         self._portname = s.value("midi/input_port", midihub.default_input(), str)
         self._pollingtime = s.value("midi/polling_time", 10, int)
         self._portmidiinput = midihub.input_by_name(self._portname)
