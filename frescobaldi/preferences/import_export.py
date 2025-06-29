@@ -32,7 +32,6 @@ from PyQt6.QtGui import (
     QKeySequence)
 from PyQt6.QtWidgets import QMessageBox
 
-import os
 import platform
 
 import appinfo

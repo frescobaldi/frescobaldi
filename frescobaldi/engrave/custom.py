@@ -40,7 +40,6 @@ import lilychooser
 import listmodel
 import widgets
 import qutil
-import util
 
 
 class Dialog(QDialog):

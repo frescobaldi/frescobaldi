@@ -28,9 +28,8 @@ import platform
 from PyQt6.QtCore import Qt
 
 from PyQt6.QtWidgets import (QCheckBox, QDialog, QDialogButtonBox,
-    QGridLayout, QLabel, QTabWidget, QTextEdit, QWidget)
+    QGridLayout, QLabel, QTabWidget, QWidget)
 
-import app
 import lilychooser
 import userguide
 import util

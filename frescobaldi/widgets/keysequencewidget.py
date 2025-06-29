@@ -28,7 +28,7 @@ Loosely based on kkeysequencewidget.cpp from KDE :-)
 from PyQt6.QtCore import QKeyCombination, QEvent, QSize, Qt, QTimer, pyqtSignal
 from PyQt6.QtGui import QKeySequence
 from PyQt6.QtWidgets import (
-    QApplication, QHBoxLayout, QPushButton, QToolButton, QWidget)
+    QApplication, QHBoxLayout, QPushButton, QWidget)
 
 import app
 import icons

@@ -22,12 +22,10 @@ Manages cursor positions of file-references in error messages.
 """
 
 
-import os
 import re
 import sys
 
 from PyQt6.QtCore import QSettings, QUrl
-from PyQt6.QtGui import QTextCursor
 
 import app
 import bookmarks

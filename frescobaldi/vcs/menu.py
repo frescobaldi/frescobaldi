@@ -28,7 +28,6 @@ from PyQt6.QtGui import QAction, QActionGroup
 from PyQt6.QtWidgets import QMenu, QMessageBox
 
 import app
-import mainwindow
 import plugin
 import vcs
 from .gitrepo import GitError

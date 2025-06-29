@@ -26,7 +26,6 @@ from PyQt6.QtCore import QSettings
 
 import ly.lex
 import ly.indent
-import cursortools
 import tokeniter
 import variables
 import lydocument

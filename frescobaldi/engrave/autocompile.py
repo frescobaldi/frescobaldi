@@ -41,7 +41,6 @@ import documentinfo
 import resultfiles
 import job
 import plugin
-import ly.lex
 
 from . import engraver
 

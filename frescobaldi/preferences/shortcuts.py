@@ -30,7 +30,6 @@ from PyQt6.QtWidgets import (
     QLineEdit, QMessageBox, QPushButton, QTreeWidget, QTreeWidgetItem,
     QVBoxLayout)
 
-import app
 import actioncollectionmanager
 import icons
 import qutil

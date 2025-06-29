@@ -23,9 +23,6 @@ Handles Point and Click.
 
 
 
-import re
-import os
-import sys
 import weakref
 
 from PyQt6.QtCore import QRectF

@@ -33,7 +33,6 @@ import qutil
 import util
 import icons
 import htmldiff
-import document
 import widgets.dialog
 import documentwatcher
 import userguide

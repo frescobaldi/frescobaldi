@@ -40,7 +40,6 @@ import lyrics
 import panelmanager
 import engrave.result_menu
 import snippet.menu
-import scorewiz
 import autocomplete
 import sidebar
 import matcher
