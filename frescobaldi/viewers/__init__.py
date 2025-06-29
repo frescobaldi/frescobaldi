@@ -545,7 +545,7 @@ class ViewdocChooserAction(ComboBoxAction):
         """Load from a list of filenames. Check if the file already exists."""
         viewdocs = []
         for f in files:
-            if not f in self._viewdocFiles():
+            if f not in self._viewdocFiles():
                 doc = pagedview.loadPdf(f)
                 doc.ispresent = os.path.isfile(f)
                 viewdocs.append(doc)
