@@ -45,10 +45,11 @@ class MidiIn:
 
     def open(self):
         s = QSettings()
+        s.beginGroup("midi")
         self._portname = s.value("midi/input_port", midihub.default_input(), str)
         self._pollingtime = s.value("midi/polling_time", 10, int)
+        midihub.refresh_ports()
         self._portmidiinput = midihub.input_by_name(self._portname)
-
         self._listener = Listener(self._portmidiinput, self._pollingtime)
         self._listener.NoteEventSignal.connect(self.analyzeevent)
 
