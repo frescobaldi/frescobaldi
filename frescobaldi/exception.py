@@ -119,9 +119,9 @@ class ExceptionDialog(QDialog):
             bugreport.email(
                 self._tbshort + ext_header,
                 ext_intro + self._tbfull + '\n'
-                + _("Optionally describe below what you were doing:"),
+                + _("Please describe below what you were doing:"),
                 recipient=rcpt)
         else:
             body = (self._tblimited + '\n'
-                    + _("Optionally describe below what you were doing:"))
+                    + _("Please describe below what you were doing:"))
             bugreport.new_github_issue(title=self._tbshort, body=body)
