@@ -201,7 +201,8 @@ class PageLayout(preferences.Group):
         self.pageLayoutSingle.setText(_("Single"))
         self.pageLayoutDoubleRight.setText(_("Two pages (first page right)"))
         self.pageLayoutDoubleLeft.setText(_("Two pages (first page left)"))
-        self.pageLayoutRaster.setText(_("Raster"))
+        self.pageLayoutRaster.setText(_("Grid Layout"))
+        self.pageLayoutRaster.setToolTip(_("The layout of pages (horizontal or vertical) adjusts dinamycally based on the zoom level and the available space in the Music View. Continuous scrolling option must be checked."))
 
     def loadSettings(self):
         s = QSettings()
