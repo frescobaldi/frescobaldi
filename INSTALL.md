@@ -29,51 +29,60 @@ If you are *not* a developer and none of the options above are right for you, th
 
 ### Installing the compressed tar file
 
-It is a good idea to uninstall any previous versions before continuing.  See **Uninstalling other versions** under **Developing Frescobaldi** for how to do this.
+It is a good idea to uninstall any previous versions before continuing.  See [Uninstalling other versions](#uninstalling-other-versions) for how to do this.
 
 #### Download, extract and move the Frescobaldi directory
 
-If you have not already done so, [download](https://github.com/frescobaldi/frescobaldi/releases/latest) the compressed tar file from the latest release, then extract the files from the compressed tar file.  You may be able to do this using GUI tools.  Your browser may extract files when you click on the file, or using whatever version of File Explorer you have, try double-clicking or right-clicking.  There are also third-party apps that will extract compressed files.  
+If you have not already done so, go to the [latest release page](https://github.com/frescobaldi/frescobaldi/releases/latest) and download the compressed tar file called `frescobaldi-x.y.z.tar.gz` (where `x`, `y`, and `z` are the version numbers), and extract the files from it.  You may be able to do this using GUI tools.  Your browser may extract the files when you click on the downloaded file, or using whatever File Manager you have, try double-clicking or right-clicking.  There are also third-party apps that will extract compressed files.  
 
-Move the extracted directory to a permanent location, like your home directory.  (The rest of the instructions will assume that the extracted file is in the home directory.)
+Move the extracted directory to a permanent location, like your home directory.  (The rest of the instructions will assume that the extracted files are in the home directory.)
 
-If you can't extract the file using GUI tools, you can use the command line.  Get to a command prompt and `cd` to your Download directory.  This is often in your home directory, which you can get to by typing `cd` by itself and pressing Enter.  Once in the download directory, use `ls` to look for your compressed tar file.  It should look like this
+If you can't extract the file using GUI tools, you can use the command line.  Get to a command prompt and `cd` to your Download directory.  This is often in your home directory, which you can get to by typing `cd` by itself.  Once in the download directory, use `ls` to make sure you have this file:
 
     frescobaldi-x.y.z.tar.gz
 
-...where `x`, `y`, and `z` are the version numbers.  To extract the file, type
+To extract the file, type
 
     tar xvf frescobaldi-x.y.z.tar.gz
 
 You should now have the directory `frescobaldi-x.y.z` in your download directory.  Move it to your home directory by typing
 
-    mv frescobaldi-x.y.z $HOME
+    mv frescobaldi-x.y.z ~
 
 #### Install the necessary tools
 
-At this point, it you have been using GUI tools, you will need to get to the command line.  We will install some tools needed to install Frescobaldi.  You only have to do this once.  The next release you install, you can skip this.  If you are on a Debian/Ubuntu-like distribution, type
+At this point, if you have been using GUI tools, you will need to get to the command line.  We will now install some tools needed to install Frescobaldi.  You only have to do this once.  The next release you install, you can skip this.  If you are on a Debian/Ubuntu-like distribution, type:
 
     sudo apt install pipx gettext libportmidi0
 
-If you are on Fedora, type
+If you are on Fedora, type:
 
     sudo dnf install pipx gettext portmidi
 
 #### Install using `pipx`
 
-At the command line, `cd` into your home directory and type
+At the command line, type:
 
-    pipx install ./frescobaldi-x.y.z
+    cd ~/frescobaldi-x.y.z
+    pipx install .
 
-After a few moments, `pipx` will say Frescobaldi is installed.  If this is your first time installing using `pipx`, type the following:
+After a few moments, `pipx` will say Frescobaldi is installed.  Next, install the desktop shortcut (this is all one command):
+
+    desktop-file-install --dir ~/.local/share/applications/ --set-icon $PWD/frescobaldi/icons/org.frescobaldi.Frescobaldi.svg  linux/org.frescobaldi.Frescobaldi.desktop
+
+Now update the desktop database:
+
+    update-desktop-database ~/.local/share/
+
+ If this is your first time installing using `pipx`, type the following:
 
     pipx ensurepath
 
-Then type `exit` and restart your command line shell.  Now you should be able to type
+Then type `exit` and restart your command line shell.  Now you can to type:
 
     frescobaldi
 
-...and Frescobaldi should start up.  You can dock the Frescobaldi icon to be able to start again without the command line.
+...and Frescobaldi will start up.
 
 ## Developing Frescobaldi
 
