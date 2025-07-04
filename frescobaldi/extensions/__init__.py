@@ -599,7 +599,7 @@ class Extensions(QObject):
         """
 
         inactive = self.inactive_extensions()
-        active = [key for key in self._infos.keys() if not key in inactive]
+        active = [key for key in self._infos.keys() if key not in inactive]
         inactive_dependencies = []
         missing_dependencies = []
         infos = self._infos
@@ -682,11 +682,11 @@ class Extensions(QObject):
     def load_extensions(self):
         """Load active extensions in topological order."""
         root = self.root_directory()
-        if not root in sys.path:
+        if root not in sys.path:
             sys.path.append(root)
 
         for ext in [ext for ext  in self._extensions_ordered
-            if not ext in self.inactive_extensions()]:
+            if ext not in self.inactive_extensions()]:
             try:
                 # measure loading time
                 start = perf_counter()
@@ -882,7 +882,7 @@ class Extensions(QObject):
     def set_inactive(self, extension, state=True):
         """Set one extension to active/inactive"""
         if state:
-            if not extension in self._inactive_extensions:
+            if extension not in self._inactive_extensions:
                 self._inactive_extensions.append(extension)
         else:
             if extension in self._inactive_extensions:
@@ -905,7 +905,7 @@ class Extensions(QObject):
             inactive_changed = True
         else:
             for ext in inactive:
-                if not ext in self._inactive_extensions:
+                if ext not in self._inactive_extensions:
                     inactive_changed = True
                     break
         self.reset_inactive(inactive)
