@@ -55,7 +55,7 @@ class ExtensionPanel(panel.Panel):
             if not hasattr(w, 'extension'):
                 w.extension = lambda: self.extension()
             return w
-        except Exception as e:
+        except Exception:
             # If the instantiation of the widget fails we create a nice
             # error message and return an "empty" FailedExtensionWidget instead.
             import sys
