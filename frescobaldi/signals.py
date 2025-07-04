@@ -238,7 +238,7 @@ class SignalContext(Signal):
                 m.__enter__()
                 exits.append(m.__exit__)
             yield
-        except:
+        except Exception:
             exc = sys.exc_info()
         finally:
             while exits:
@@ -246,7 +246,7 @@ class SignalContext(Signal):
                 try:
                     if exit(*exc):
                         exc = (None, None, None)
-                except:
+                except Exception:
                     exc = sys.exc_info()
             if exc != (None, None, None):
                 raise # exc[0], exc[1], exc[2]
