@@ -14,7 +14,7 @@ dependencies = [
   "pyqt6>=6.6",
   "pyqt6-webengine",
   "python-ly >= 0.9.5",
-  "qpageview>=1.0.0"
+  "qpageview>=1.0.1"
 ]
 dynamic = ["version"]
 classifiers = [
@@ -95,7 +95,7 @@ requires = [
     "PyQt6-WebEngine==6.9.0",
     "PyQt6-WebEngine-Qt6==6.9.0",
     "python-ly==0.9.9",
-    "qpageview==1.0.0",
+    "qpageview==1.0.1",
     "pygame-ce==2.5.5"
 ]
 
