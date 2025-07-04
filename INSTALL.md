@@ -15,10 +15,13 @@ so, installing it is the easiest route, even though it might be out of date.
 Run `sudo apt install frescobaldi` on Debian/Ubuntu or `sudo dnf install
 frescobaldi` on Fedora.
 
-You can also install Frescobaldi from Flathub using Flatpak to get a more
-up-to-date application.
+You can also install [Frescobaldi from Flathub](https://flathub.org/apps/org.frescobaldi.Frescobaldi) using Flatpak to get a more up-to-date application:
 
-https://flathub.org/apps/org.frescobaldi.Frescobaldi
+```
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub org.frescobaldi.Frescobaldi
+flatpak run org.frescobaldi.Frescobaldi
+```
 
 If you previously installed Frescobaldi via your distribution, remember to
 remove it before installing it through Flatpak. Otherwise, they will coexist on
