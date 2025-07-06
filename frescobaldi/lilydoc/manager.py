@@ -138,7 +138,7 @@ def urls():
     installed = lilypondinfo.preferred()
     if installed.version():
         remote_url = installed.lilydoc_url()
-        if not remote_url in remote:
+        if remote_url not in remote:
             remote.insert(0, remote_url)
 
     # now find all instances of LilyPond documentation in the local paths

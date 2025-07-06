@@ -37,7 +37,7 @@ def check_mandatory_keys(d, mandatory_keys):
     if mandatory_keys:
         missing = []
         for key in mandatory_keys:
-            if not key in d.keys():
+            if key not in d.keys():
                 missing.append(key)
         if missing:
             raise ValueError(
