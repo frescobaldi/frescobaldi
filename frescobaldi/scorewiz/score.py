@@ -125,7 +125,7 @@ class ScorePartsWidget(QSplitter):
                     parent.setExpanded(True)
                 else:
                     parent = self.scoreView
-                item = PartItem(parent, part, box)
+                PartItem(parent, part, box)
 
     def slotCurrentItemChanged(self, item):
         if isinstance(item, PartItem):
