@@ -381,7 +381,7 @@ msgid "MusicXML, MIDI and ABC im- and export"
 msgstr ""
 
 #: ../../frescobaldi/userguide/credits.md:16
-#: ../../frescobaldi/userguide/credits.md:50
+#: ../../frescobaldi/userguide/credits.md:49
 #: ../../frescobaldi/userguide/manuscriptview.md:1
 msgid "Manuscript Viewer"
 msgstr "原稿ビューア"
@@ -391,93 +391,99 @@ msgid "Encoding-related fixes and other improvements"
 msgstr ""
 
 #: ../../frescobaldi/userguide/credits.md:24
-msgid ""
-"Linux freedesktop.org fixes, maintainer of the flatpak package on Flathub, "
-"Windows and macOS packages built with Briefcase"
+msgid "Packaging and release tools"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:29
+#: ../../frescobaldi/userguide/credits.md:24
+msgid "Maintainer of the Linux flatpak package on Flathub"
+msgstr ""
+
+#: ../../frescobaldi/userguide/credits.md:28
 msgid "Modal Transpose"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:32
+#: ../../frescobaldi/userguide/credits.md:31
 msgid "Kinetic Scrolling for the Music View"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:35
+#: ../../frescobaldi/userguide/credits.md:34
 msgid "Windows installers"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:38
+#: ../../frescobaldi/userguide/credits.md:37
 msgid "Qt 6 port"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:38
+#: ../../frescobaldi/userguide/credits.md:37
 msgid "Score Wizard improvements"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:38
+#: ../../frescobaldi/userguide/credits.md:37
 msgid "Score Wizard From Current Document"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:43
+#: ../../frescobaldi/userguide/credits.md:42
 msgid "Homebrew formula for macOS"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:46
+#: ../../frescobaldi/userguide/credits.md:45
+msgid "macOS packaging"
+msgstr ""
+
+#: ../../frescobaldi/userguide/credits.md:45
 msgid "various other improvements"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:50
+#: ../../frescobaldi/userguide/credits.md:49
 msgid "Layout control modes"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:50
+#: ../../frescobaldi/userguide/credits.md:49
 msgid "various other contributions"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:55
+#: ../../frescobaldi/userguide/credits.md:54
 msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:58
+#: ../../frescobaldi/userguide/credits.md:57
 msgid "MIDI capturing"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:61
+#: ../../frescobaldi/userguide/credits.md:60
 msgid "macOS installers (arm64)"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:64
+#: ../../frescobaldi/userguide/credits.md:63
 msgid "Finding lots of bugs"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:67
+#: ../../frescobaldi/userguide/credits.md:66
 msgid "Qt 6 port testing and improvements"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:67
+#: ../../frescobaldi/userguide/credits.md:66
 msgid "many bug fixes"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:71
+#: ../../frescobaldi/userguide/credits.md:70
 msgid "Many code and feature improvements"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:71
+#: ../../frescobaldi/userguide/credits.md:70
 msgid "work on proper Python 3 support"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:75
+#: ../../frescobaldi/userguide/credits.md:74
 msgid "Relative mode for MIDI capturing"
 msgstr ""
 
-#: ../../frescobaldi/userguide/credits.md:78
+#: ../../frescobaldi/userguide/credits.md:77
 msgid "{appname} is translated into the following languages:"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi/userguide/credits.md:149
+#: ../../frescobaldi/userguide/credits.md:150
 msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"
