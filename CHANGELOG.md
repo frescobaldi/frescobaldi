@@ -9,6 +9,22 @@ Click on the version to see the complete list of commits in a release.
 
 ## [unreleased]
 
+## [4.0.4] - 2025-07-29
+
+### Fixed
+
+- Prevent crashes on Windows when opening the Documentation Browser (#2016).
+- The mysterious Raster page layout has been renamed to Grid layout and a tooltip now explains how it works (#2027). This requires qpageview 1.0.1.
+- Some small bugfixes.
+
+### Changed
+
+- Remove pygame from project dependencies and let Linux packagers use PortMidi instead (#2007).
+- The tarball used by packagers is now built automatically by a GitHub Action workflow (#2000).
+- Improve the installation instructions (#2028).
+- Updated translations: Japanese.
+
+
 ## [4.0.3] - 2025-06-09
 
 ### Fixed
@@ -1670,7 +1686,8 @@ Frescobaldi application itself has the PO files in i18n/frescobaldi, see
 
 * Initial release.
 
-[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.3...master
+[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.4...master
+[4.0.4]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.3...v4.0.4
 [4.0.3]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.2...v4.0.3
 [4.0.2]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.1...v4.0.2
 [4.0.1]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.0...v4.0.1
