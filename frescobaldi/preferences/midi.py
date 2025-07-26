@@ -133,14 +133,14 @@ class MidiPorts(preferences.Group):
         input_port = midihub.default_input()
         s = QSettings()
         s.beginGroup("midi")
-        self._playerPort.setEditText(s.value("player/output_port", output_port, str))
-        self._inputPort.setEditText(s.value("midi/input_port", input_port, str))
+        self._playerPort.setEditText(s.value("output_port", output_port, str))
+        self._inputPort.setEditText(s.value("input_port", input_port, str))
 
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("midi")
-        s.setValue("player/output_port", self._playerPort.currentText())
-        s.setValue("midi/input_port", self._inputPort.currentText())
+        s.setValue("output_port", self._playerPort.currentText())
+        s.setValue("input_port", self._inputPort.currentText())
 
 
 class Prefs(preferences.Group):
