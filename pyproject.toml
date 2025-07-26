@@ -118,13 +118,13 @@ template_branch = "file-associations"
 [tool.briefcase.app.frescobaldi.document_type.ly]
 description = "LilyPond file"
 extension = "ly"
-icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
+icon = "frescobaldi/icons/org.frescobaldi.document_type-ly"
 url = "https://lilypond.org/"
 
 [tool.briefcase.app.frescobaldi.document_type.ily]
 description = "LilyPond included file"
 extension = "ily"
-icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
+icon = "frescobaldi/icons/org.frescobaldi.document_type-ily"
 url = "https://lilypond.org/"
 
 [tool.ruff]
