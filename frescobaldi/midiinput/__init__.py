@@ -74,6 +74,12 @@ class MidiIn:
         self._language = documentinfo.docinfo(doc).language() or 'nederlands'
         self._activenotes = 0
         self._listener.start()
+        # MIDI DEBUG
+        from PyQt6.QtCore import QSettings
+        s = QSettings()
+        input_port = s.value("midi/input_port", type=str)
+        print(f"MIDI input from settings file: {input_port}")
+        print(f"midihub.default_input: {midihub.default_input()}")
 
     def capturestop(self):
         self._listener.stop()
