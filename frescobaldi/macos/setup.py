@@ -49,6 +49,10 @@ def initialize():
     from . import icon_drag_eventhandler
     icon_drag_eventhandler.initialize()
 
+    # handle change of theme event
+    from . import change_theme_eventhandler
+    change_theme_eventhandler.initialize()
+
     # on macOS, the app should remain running, even if there is no main window
     # anymore. In this case, we setup a basic global menu.
     app.qApp.setQuitOnLastWindowClosed(False)
