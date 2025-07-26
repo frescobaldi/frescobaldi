@@ -74,7 +74,7 @@ class Widget(QWidget):
         p.setHorizontalPolicy(QSizePolicy.Policy.MinimumExpanding)
         self._fileSelector.view().setSizePolicy(p)
 
-        self._player = player.Player()
+        self._player = player.Player.instance()
         self._outputCloseTimer = QTimer(interval=60000, singleShot=True,
             timeout=self.closeOutput)
         self._timeSliderTicker = QTimer(interval=200, timeout=self.updateTimeSlider)
