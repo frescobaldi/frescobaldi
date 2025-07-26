@@ -205,8 +205,9 @@ def main(debug=False):
             splashscreen.show()
 
     # application icon
-    import icons
-    QApplication.setWindowIcon(icons.get("org.frescobaldi.Frescobaldi"))
+    if platform.system() != "Darwin":
+        import icons
+        QApplication.setWindowIcon(icons.get("org.frescobaldi.Frescobaldi"))
 
     QTimer.singleShot(0, remote.setup)  # Start listening for IPC
 

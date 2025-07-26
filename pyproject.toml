@@ -14,7 +14,7 @@ dependencies = [
   "pyqt6>=6.6",
   "pyqt6-webengine",
   "python-ly >= 0.9.5",
-  "qpageview>=1.0.1"
+  "qpageview>=1.0.0"
 ]
 dynamic = ["version"]
 classifiers = [
@@ -95,7 +95,7 @@ requires = [
     "PyQt6-WebEngine==6.9.0",
     "PyQt6-WebEngine-Qt6==6.9.0",
     "python-ly==0.9.9",
-    "qpageview==1.0.1",
+    "qpageview==1.0.0",
     "pygame-ce==2.5.5"
 ]
 
@@ -118,13 +118,13 @@ template_branch = "file-associations"
 [tool.briefcase.app.frescobaldi.document_type.ly]
 description = "LilyPond file"
 extension = "ly"
-icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
+icon = "frescobaldi/icons/org.frescobaldi.document_type-ly"
 url = "https://lilypond.org/"
 
 [tool.briefcase.app.frescobaldi.document_type.ily]
 description = "LilyPond included file"
 extension = "ily"
-icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
+icon = "frescobaldi/icons/org.frescobaldi.document_type-ily"
 url = "https://lilypond.org/"
 
 [tool.ruff]
