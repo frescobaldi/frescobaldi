@@ -243,6 +243,7 @@ class Widget(QWidget):
                 self.loadSong(files.current)
 
     def loadSong(self, index):
+        midihub.refresh_ports()
         files = midifiles.MidiFiles.instance(self._document)
         self._player.set_song(files.song(index))
         m, s = divmod(self._player.total_time() // 1000, 60)
