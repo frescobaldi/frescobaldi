@@ -2,10 +2,10 @@
 
 Under *General* preferences, you can choose in which language Frescobaldi's
 user interface is translated, which user interface style you want to use, 
-and whether you want to use the built-in Tango iconset or to use the 
+and whether you want to use the built-in Tango icon set or to use the
 system-wide configured icon set.
 
-Language and style take effect immediately, but the new iconset is visible
+Language and style take effect immediately, but the new icon set is visible
 after Frescobaldi has been restarted.
 
 Under *Session to load if Frescobaldi is started without arguments* you can 
