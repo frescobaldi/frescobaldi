@@ -1,9 +1,0 @@
-[Icon Theme]
-Name=Light
-Comment=Icons for light theme
-Directories=scalable
-
-[scalable]
-Type=Scalable
-Size=24
-
