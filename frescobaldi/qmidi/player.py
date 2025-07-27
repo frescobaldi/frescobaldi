@@ -32,6 +32,10 @@ import midifile.player
 class Player(QThread, midifile.player.Player):
     """An implementation of midifile.player.Player using a QThread and QTimer.
 
+    You should generally use the global instance accessed through the
+    instance() class method unless you have a specific need. If multiple
+    instances exist they may block one another's access to MIDI ports.
+
     emit signals:
 
     stateChanged(playing):
@@ -52,11 +56,19 @@ class Player(QThread, midifile.player.Player):
     time = pyqtSignal(int)
     beat = pyqtSignal(int, int, int, int)
     user = pyqtSignal(object)
+    _instance = None
 
     def __init__(self, parent=None):
         QThread.__init__(self, parent)
         midifile.player.Player.__init__(self)
         self._timer = None
+
+    @classmethod
+    def instance(cls):
+        """Return the global instance of this class."""
+        if not cls._instance:
+            cls._instance = cls()
+        return cls._instance
 
     def run(self):
         self._timer = QTimer(singleShot=True, timerType=Qt.TimerType.PreciseTimer)
