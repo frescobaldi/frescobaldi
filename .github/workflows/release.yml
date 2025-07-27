@@ -48,7 +48,7 @@ jobs:
           tag: ${{ github.ref }}
 
   packages:
-    name: Windows and macOS packages
+    name: Packages
     runs-on: ${{ matrix.runs-on }}
     strategy:
       fail-fast: false
