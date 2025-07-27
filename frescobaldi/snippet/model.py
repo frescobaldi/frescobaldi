@@ -31,7 +31,7 @@ from PyQt6.QtGui import QKeySequence
 import app
 import actioncollection
 
-from . import snippets
+from . import snippets, tool
 
 
 def model():
@@ -181,17 +181,7 @@ def shortcut(name):
 
 def shortcuts(name):
     """Returns a (maybe empty) list of QKeySequences for the named snippet."""
-    ac = collection()
+    ac = tool.collection()
     return ac and ac.shortcuts(name) or []
-
-
-def collection():
-    """Returns an instance of the 'snippets' ShortcutCollection, if existing."""
-    try:
-        # HACK alert :-) access an instance of the ShortcutCollection named 'snippets'
-        ref = actioncollection.ShortcutCollection.others['snippets'][0]
-    except (KeyError, IndexError):
-        return
-    return ref()
 
 

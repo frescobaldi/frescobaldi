@@ -33,12 +33,21 @@ import app
 import panel
 
 
+# store active instances of SnippetActions for collection()
+_shortcutCollections = []
+
+
 class SnippetTool(panel.Panel):
     """A dockwidget for selecting, applying and editing the list of snippets."""
     def __init__(self, mainwindow):
         super().__init__(mainwindow)
         self.hide()
         self.snippetActions = SnippetActions(self)
+        # we track collection instances manually rather than rely on weakref
+        # because they are invalid once the window is closed, but Python might
+        # not garbage-collect them immediately
+        _shortcutCollections.append(self.snippetActions)
+        mainwindow.aboutToClose.connect(self._removeShortcuts)
         actioncollectionmanager.manager(mainwindow).addActionCollection(self.snippetActions)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+S"))
         ac = self.actionCollection = Actions()
@@ -86,6 +95,9 @@ class SnippetTool(panel.Panel):
         if self.isFloating():
             self.activateWindow()
         self.widget().searchEntry.setText(":template")
+
+    def _removeShortcuts(self):
+        _shortcutCollections.remove(self.snippetActions)
 
 
 class Actions(actioncollection.ActionCollection):
@@ -149,5 +161,12 @@ class SnippetActions(actioncollection.ShortcutCollection):
 
     def title(self):
         return _("Snippets")
+
+
+def collection():
+    """Returns an instance of the 'snippets' ShortcutCollection, if existing."""
+    # any instance will do since changes are synchronized across all instances
+    if _shortcutCollections:
+        return _shortcutCollections[-1]
 
 
