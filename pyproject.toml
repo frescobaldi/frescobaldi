@@ -108,13 +108,7 @@ icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
 
 [tool.briefcase.app.frescobaldi.windows]
 use_full_install_path = false
-# https://github.com/beeware/briefcase-windows-app-template/pull/62
-template = "https://github.com/davidfokkema/briefcase-windows-app-template"
-template_branch = "file-associations"
 
-# File associations currently work only in Windows using
-# a custom template.
-# https://github.com/beeware/briefcase/issues/1706
 [tool.briefcase.app.frescobaldi.document_type.ly]
 description = "LilyPond file"
 extension = "ly"
