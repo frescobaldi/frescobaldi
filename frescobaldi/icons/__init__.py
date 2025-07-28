@@ -87,7 +87,7 @@ def initialize():
 
 
 def update_theme():
-    """Change the theme for icon lookup after change of style preference. On MacOS the option 'system_icons' is ignored."""
+    """Change the theme for icon lookup after change of style preference"""
     s = QSettings()
     if s.value("system_icons", True, bool):
         if platform.system() == "Darwin":
@@ -100,7 +100,7 @@ def update_theme():
         else:
             QIcon.setThemeName(s.value("guistyle", "", str))
     else:
-        QIcon.setThemeName("TangoExt")  # Our icon theme
+        QIcon.setThemeName("TangoExt") # Our icon theme
 
 
 app.settingsChanged.connect(update_theme)
