@@ -193,6 +193,11 @@ def main(debug=False):
     urls = list(map(url, args.files))
 
     if not app.qApp.isSessionRestored():
+
+        if platform.system() == "Darwin":
+            import macos.setup
+            macos.setup.initialize()
+
         if not args.new and remote.enabled():
             api = remote.get()
             if api:
@@ -221,19 +226,22 @@ def main(debug=False):
     import autocomplete     # auto-complete input
     import wordboundary     # better wordboundary behaviour for the editor
 
-    if platform.system() == "Darwin":
-        import macos.setup
-        macos.setup.initialize()
-
     if app.qApp.isSessionRestored():
         # Restore session, we are started by the session manager
         session.restoreSession(app.qApp.sessionKey())
         return
 
     # Just create one MainWindow
-    win = mainwindow.MainWindow()
-    win.show()
-    win.activateWindow()
+    if platform.system() == "Darwin":
+        win = app.activeWindow()
+        if not win:
+            win = mainwindow.MainWindow()
+            win.show()
+            win.activateWindow()
+    else:
+        win = mainwindow.MainWindow()
+        win.show()
+        win.activateWindow()
     # make sure all dock tools are initialized and resized
     app.qApp.processEvents()
 
