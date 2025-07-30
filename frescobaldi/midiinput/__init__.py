@@ -49,11 +49,11 @@ class MidiIn:
         midihub.refresh_ports()
 
         s = app.settings("midi")
-        self._portname = s.value("input_port", midihub.default_input(), str)
-        self._pollingtime = s.value("polling_time", 10, int)
-        self._portmidiinput = midihub.input_by_name(self._portname)
+        portname = s.value("input_port", midihub.default_input(), str)
+        pollingtime = s.value("polling_time", 10, int)
+        self._portmidiinput = midihub.input_by_name(portname)
 
-        self._listener = Listener(self._portmidiinput, self._pollingtime)
+        self._listener = Listener(self._portmidiinput, pollingtime)
         self._listener.NoteEventSignal.connect(self.analyzeevent)
 
     def close(self):
