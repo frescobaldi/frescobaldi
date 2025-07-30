@@ -19,8 +19,9 @@ from PyQt6.QtGui import QTextCursor
 import time
 import weakref
 
-from PyQt6.QtCore import QObject, QSettings, QThread, pyqtSignal
+from PyQt6.QtCore import QObject, QThread, pyqtSignal
 
+import app
 import midihub
 import midifile.event
 import midifile.parser
@@ -44,9 +45,9 @@ class MidiIn:
         return self._widget()
 
     def open(self):
-        s = QSettings()
-        self._portname = s.value("midi/input_port", midihub.default_input(), str)
-        self._pollingtime = s.value("midi/polling_time", 10, int)
+        s = app.settings("midi")
+        self._portname = s.value("input_port", midihub.default_input(), str)
+        self._pollingtime = s.value("polling_time", 10, int)
         self._portmidiinput = midihub.input_by_name(self._portname)
 
         self._listener = Listener(self._portmidiinput, self._pollingtime)

@@ -5,7 +5,7 @@ MIDI input controls
 
 import weakref
 
-from PyQt6.QtCore import QSettings, Qt
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QGroupBox,
                              QHBoxLayout, QLabel, QRadioButton, QToolButton,
                              QVBoxLayout, QWidget)
@@ -149,8 +149,7 @@ class Widget(QWidget):
             self._accidentalsflats.setChecked(True)
 
     def savesettings(self):
-        s = QSettings()
-        s.beginGroup("midiinputdock")
+        s = app.settings("midiinputdock")
         s.setValue("midichannel", self._midichannel.currentIndex())
         s.setValue("keysignature", self._keysignature.currentIndex())
         if self._accidentalsflats.isChecked():
@@ -162,8 +161,7 @@ class Widget(QWidget):
         s.setValue("repitchmode", self._repitchmode.isChecked())
 
     def loadsettings(self):
-        s = QSettings()
-        s.beginGroup("midiinputdock")
+        s = app.settings("midiinputdock")
         self._midichannel.setCurrentIndex(s.value("midichannel", 0, int))
         self._keysignature.setCurrentIndex(s.value("keysignature", 7, int))
         if s.value("accidentals", 'sharps', str) == 'flats':
