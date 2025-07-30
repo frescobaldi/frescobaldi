@@ -151,7 +151,7 @@ class Listener(QThread):
     receivedNoteEvent = pyqtSignal(midifile.event.NoteEvent)
 
     def __init__(self, portmidiinput, pollingtime):
-        QThread.__init__(self)
+        super().__init__()
         self._portmidiinput = portmidiinput
         self._pollingtime = pollingtime
 
@@ -159,7 +159,7 @@ class Listener(QThread):
         self._capturing = True
         while self._capturing:
             while not self._portmidiinput.poll():
-                time.sleep(self._pollingtime/1000.)
+                time.sleep(self._pollingtime / 1000.)
                 if not self._capturing:
                     break
             if not self._capturing:
@@ -173,7 +173,7 @@ class Listener(QThread):
             s = bytearray([77, data[0][0][0], data[0][0][1], data[0][0][2], data[0][0][3]])
             event = next(midifile.parser.parse_midi_events(s))[1]
 
-            if isinstance(event,midifile.event.NoteEvent):
+            if isinstance(event, midifile.event.NoteEvent):
                 self.receivedNoteEvent.emit(event)
 
     def stop(self):
