@@ -45,6 +45,9 @@ class MidiIn:
         return self._widget()
 
     def open(self):
+        # needed because close() does not reliably do its job
+        midihub.refresh_ports()
+
         s = app.settings("midi")
         self._portname = s.value("input_port", midihub.default_input(), str)
         self._pollingtime = s.value("polling_time", 10, int)
