@@ -29,6 +29,12 @@ import documentinfo
 
 from . import elements
 
+LY_REG_EXPR = re.compile(
+    r'(?<![a-zA-Z#_^\-\\])[a-ps-zA-PS-Z]{1,3}(?![a-zA-Z])[\'\,]*'
+   '|'
+   r'(?<![<\\])<[^<>]*>(?!>)'
+)
+
 
 class MidiIn:
     def __init__(self, widget):
@@ -106,20 +112,13 @@ class MidiIn:
                     self._chord = None
 
     def print_or_replace(self, text):
-
         view = self.widget().mainwindow()
         cursor = view.textCursor()
 
         if self.widget().repitchmode():
-
               music = cursor.document().toPlainText()[cursor.position() : ]
-
-              ly_reg_expr = r'(?<![a-zA-Z#_^\-\\])[a-ps-zA-PS-Z]{1,3}(?![a-zA-Z])[\'\,]*'\
-                           '|'\
-                           r'(?<![<\\])<[^<>]*>(?!>)'
-
-              notes = re.search(ly_reg_expr,music)
-              if notes is not None :
+              notes = LY_REG_EXPR.search(music)
+              if notes is not None:
                     start = cursor.position() + notes.start()
                     end = cursor.position() + notes.end()
 
