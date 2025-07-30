@@ -64,7 +64,7 @@ class MidiIn:
         self._portmidiinput = midihub.input_by_name(portname)
 
         self._listener = Listener(self._portmidiinput, pollingtime)
-        self._listener.NoteEventSignal.connect(self.analyzeevent)
+        self._listener.receivedNoteEvent.connect(self.analyzeEvent)
 
     def close(self):
         if self._portmidiinput:
@@ -89,11 +89,11 @@ class MidiIn:
         self._activenotes = 0
         self.close()
 
-    def analyzeevent(self, event):
+    def analyzeEvent(self, event):
         if isinstance(event, midifile.event.NoteEvent):
-            self.noteevent(event.type, event.channel, event.note, event.value)
+            self.processNoteEvent(event.type, event.channel, event.note, event.value)
 
-    def noteevent(self, notetype, channel, notenumber, value):
+    def processNoteEvent(self, notetype, channel, notenumber, value):
         targetchannel = self.widget().channel()
         if targetchannel == 0 or channel == targetchannel - 1:  # '0' captures all
             # midi channels start at 1 for humans and 0 for programs
@@ -106,18 +106,18 @@ class MidiIn:
                     self._chord.add(note)
                     self._activenotes += 1
                 else:
-                    self.print_or_replace(note.output(self.widget().relativemode(), self._language))
+                    self.addToDocument(note.output(self.widget().relativemode(), self._language))
             elif ((notetype == NOTE_OFF_EVENT
                    or (notetype == NOTE_ON_EVENT and value == 0))
                   and self.widget().chordmode()):
                 self._activenotes -= 1
                 if self._activenotes <= 0:    # activenotes could get negative under strange conditions
                     if self._chord:
-                        self.print_or_replace(self._chord.output(self.widget().relativemode(), self._language))
+                        self.addToDocument(self._chord.output(self.widget().relativemode(), self._language))
                     self._activenotes = 0    # reset in case it was negative
                     self._chord = None
 
-    def print_or_replace(self, text):
+    def addToDocument(self, text):
         view = self.widget().mainwindow()
         cursor = view.textCursor()
 
@@ -147,10 +147,9 @@ class MidiIn:
                    cursor.insertText(' ' +  text)
 
 
-
-
 class Listener(QThread):
-    NoteEventSignal = pyqtSignal(midifile.event.NoteEvent)
+    receivedNoteEvent = pyqtSignal(midifile.event.NoteEvent)
+
     def __init__(self, portmidiinput, pollingtime):
         QThread.__init__(self)
         self._portmidiinput = portmidiinput
@@ -175,7 +174,7 @@ class Listener(QThread):
             event = next(midifile.parser.parse_midi_events(s))[1]
 
             if isinstance(event,midifile.event.NoteEvent):
-                self.NoteEventSignal.emit(event)
+                self.receivedNoteEvent.emit(event)
 
     def stop(self):
         self._capturing = False
