@@ -2860,22 +2860,22 @@ msgstr "MIDI 입력(&N)"
 #: ../../frescobaldi/midiinput/tool.py:58
 msgctxt "midi input"
 msgid "Start capturing"
-msgstr "캡처 시작하기"
+msgstr "캡처링 시작하기"
 
 #: ../../frescobaldi/midiinput/tool.py:59
 msgctxt "midi input"
 msgid "Start MIDI capturing"
-msgstr "MIDI 캡처 시작하기"
+msgstr "MIDI 캡처링 시작하기"
 
 #: ../../frescobaldi/midiinput/tool.py:60
 msgctxt "midi input"
 msgid "Stop capturing"
-msgstr "캡처 중지하기"
+msgstr "캡처링 중지하기"
 
 #: ../../frescobaldi/midiinput/tool.py:61
 msgctxt "midi input"
 msgid "Stop MIDI capturing"
-msgstr "MIDI 캡처 중지하기"
+msgstr "MIDI 캡처링 중지하기"
 
 #: ../../frescobaldi/midiinput/tool.py:62
 msgctxt "midi input"
