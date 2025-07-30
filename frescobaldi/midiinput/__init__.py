@@ -35,6 +35,10 @@ LY_REG_EXPR = re.compile(
    r'(?<![<\\])<[^<>]*>(?!>)'
 )
 
+# Event codes from the MIDI specification
+NOTE_OFF_EVENT = 8
+NOTE_ON_EVENT = 9
+
 
 class MidiIn:
     def __init__(self, widget):
@@ -91,10 +95,10 @@ class MidiIn:
 
     def noteevent(self, notetype, channel, notenumber, value):
         targetchannel = self.widget().channel()
-        if targetchannel == 0 or channel == targetchannel-1: # '0' captures all
+        if targetchannel == 0 or channel == targetchannel - 1:  # '0' captures all
             # midi channels start at 1 for humans and 0 for programs
-            if notetype == 9 and value > 0:    # note on with velocity > 0
-                notemapping = elements.NoteMapping(self.widget().keysignature(), self.widget().accidentals()=='sharps')
+            if notetype == NOTE_ON_EVENT and value > 0: # value gives the velocity
+                notemapping = elements.NoteMapping(self.widget().keysignature(), self.widget().accidentals() == 'sharps')
                 note = elements.Note(notenumber, notemapping)
                 if self.widget().chordmode():
                     if not self._chord:    # no Chord instance?
@@ -103,7 +107,9 @@ class MidiIn:
                     self._activenotes += 1
                 else:
                     self.print_or_replace(note.output(self.widget().relativemode(), self._language))
-            elif (notetype == 8 or (notetype == 9 and value == 0)) and self.widget().chordmode():
+            elif ((notetype == NOTE_OFF_EVENT
+                   or (notetype == NOTE_ON_EVENT and value == 0))
+                  and self.widget().chordmode()):
                 self._activenotes -= 1
                 if self._activenotes <= 0:    # activenotes could get negative under strange conditions
                     if self._chord:
