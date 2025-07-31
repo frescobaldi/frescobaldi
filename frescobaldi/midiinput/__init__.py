@@ -29,10 +29,12 @@ import documentinfo
 
 from . import elements
 
+# What this does was originally undocumented. It appears intended to match
+# chord and pitch names, but not commands or variables (thanks @ksnortum)
 LY_REG_EXPR = re.compile(
     r'(?<![a-zA-Z#_^\-\\])[a-ps-zA-PS-Z]{1,3}(?![a-zA-Z])[\'\,]*'
-   '|'
-   r'(?<![<\\])<[^<>]*>(?!>)'
+    '|'
+    r'(?<![<\\])<[^<>]*>(?!>)'
 )
 
 # Event codes from the MIDI specification
