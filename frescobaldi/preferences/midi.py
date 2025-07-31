@@ -133,14 +133,14 @@ class MidiPorts(preferences.Group):
         input_port = midihub.default_input()
         s = QSettings()
         s.beginGroup("midi")
-        self._playerPort.setEditText(s.value("player/output_port", output_port, str))
-        self._inputPort.setEditText(s.value("midi/input_port", input_port, str))
+        self._playerPort.setEditText(s.value("output_port", output_port, str))
+        self._inputPort.setEditText(s.value("input_port", input_port, str))
 
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("midi")
-        s.setValue("player/output_port", self._playerPort.currentText())
-        s.setValue("midi/input_port", self._inputPort.currentText())
+        s.setValue("output_port", self._playerPort.currentText())
+        s.setValue("input_port", self._inputPort.currentText())
 
 
 class Prefs(preferences.Group):
@@ -192,12 +192,14 @@ class Prefs(preferences.Group):
 
     def loadSettings(self):
         s = QSettings()
+        s.beginGroup("midi")
         self._closeOutputs.setChecked(
-            s.value("midi/close_outputs", False, bool))
+            s.value("close_outputs", False, bool))
         self._pollingTime.setValue(
-            s.value("midi/polling_time", 10, int))
+            s.value("polling_time", 10, int))
 
     def saveSettings(self):
         s = QSettings()
-        s.setValue("midi/close_outputs", self._closeOutputs.isChecked())
-        s.setValue("midi/polling_time", self._pollingTime.value())
+        s.beginGroup("midi")
+        s.setValue("close_outputs", self._closeOutputs.isChecked())
+        s.setValue("polling_time", self._pollingTime.value())
