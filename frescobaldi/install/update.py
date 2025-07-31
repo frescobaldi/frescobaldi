@@ -38,6 +38,9 @@ def update(version):
     if version < 4:
         removeUseshebang()
 
+    if version < 5:
+        reorganizeMidiSettings()
+
     # ... add other setting updates here...
 
 
@@ -84,3 +87,15 @@ def removeUseshebang():
         s.setArrayIndex(i)
         s.remove("useshebang")
     s.endArray()
+
+def reorganizeMidiSettings():
+    # remove the redundant midi/ and player/ prefixes
+    for branch in ("midi", "player"):
+        o = QSettings()
+        o.beginGroup(f"midi/{branch}")
+        keys = o.allKeys()
+        s = QSettings()
+        s.beginGroup("midi")
+        for k in keys:
+            s.setValue(k, o.value(k))
+        s.remove(branch)
