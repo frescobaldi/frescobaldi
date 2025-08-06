@@ -37,7 +37,11 @@
   </description>
 
   <screenshots>
-  <!-- The screenshots of panels (such as the Snippets editor or the Edit in place panel) won't pass
+  <!--
+  Take screenshots in the Plasma desktop environment. This ensures that the transparent border is big enough.
+  https://github.com/flathub/flathub/issues/6745
+
+  The screenshots of panels (such as the Snippets editor or the Edit in place panel) won't pass
   the Flathub quality guidelines validation. We can screenshot only windows.
   https://discourse.flathub.org/t/quality-guidelines-help-with-screenshots/7414
   -->
