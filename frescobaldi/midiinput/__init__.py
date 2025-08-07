@@ -19,14 +19,27 @@ from PyQt6.QtGui import QTextCursor
 import time
 import weakref
 
-from PyQt6.QtCore import QObject, QSettings, QThread, pyqtSignal
+from PyQt6.QtCore import QObject, QThread, pyqtSignal
 
+import app
 import midihub
 import midifile.event
 import midifile.parser
 import documentinfo
 
 from . import elements
+
+# What this does was originally undocumented. It appears intended to match
+# chord and pitch names, but not commands or variables (thanks @ksnortum)
+LY_REG_EXPR = re.compile(
+    r'(?<![a-zA-Z#_^\-\\])[a-ps-zA-PS-Z]{1,3}(?![a-zA-Z])[\'\,]*'
+    '|'
+    r'(?<![<\\])<[^<>]*>(?!>)'
+)
+
+# Event codes from the MIDI specification
+NOTE_OFF_EVENT = 8
+NOTE_ON_EVENT = 9
 
 
 class MidiIn:
@@ -44,22 +57,20 @@ class MidiIn:
         return self._widget()
 
     def open(self):
-        s = QSettings()
-        self._portname = s.value("midi/input_port", midihub.default_input(), str)
-        self._pollingtime = s.value("midi/polling_time", 10, int)
-        self._portmidiinput = midihub.input_by_name(self._portname)
+        # needed because close() does not reliably do its job
+        midihub.refresh_ports()
 
-        self._listener = Listener(self._portmidiinput, self._pollingtime)
-        self._listener.NoteEventSignal.connect(self.analyzeevent)
+        s = app.settings("midi")
+        portname = s.value("input_port", midihub.default_input(), str)
+        pollingtime = s.value("polling_time", 10, int)
+        self._portmidiinput = midihub.input_by_name(portname)
+
+        self._listener = Listener(self._portmidiinput, pollingtime)
+        self._listener.receivedNoteEvent.connect(self.analyzeEvent)
 
     def close(self):
-        # self._portmidiinput.close()
-        # this will end in segfault with pyportmidi 0.0.7 in ubuntu
-        # see https://groups.google.com/d/msg/pygame-mirror-on-google-groups/UA16GbFsUDE/RkYxb9SzZFwJ
-        # so we cleanup ourself and invoke __dealloc__() by garbage collection
-        # so discard any reference to a pypm.Input instance
         if self._portmidiinput:
-            self._portmidiinput._input = None
+            self._portmidiinput.close()
         self._portmidiinput = None
         self._listener = None
 
@@ -80,16 +91,16 @@ class MidiIn:
         self._activenotes = 0
         self.close()
 
-    def analyzeevent(self, event):
+    def analyzeEvent(self, event):
         if isinstance(event, midifile.event.NoteEvent):
-            self.noteevent(event.type, event.channel, event.note, event.value)
+            self.processNoteEvent(event.type, event.channel, event.note, event.value)
 
-    def noteevent(self, notetype, channel, notenumber, value):
+    def processNoteEvent(self, notetype, channel, notenumber, value):
         targetchannel = self.widget().channel()
-        if targetchannel == 0 or channel == targetchannel-1: # '0' captures all
+        if targetchannel == 0 or channel == targetchannel - 1:  # '0' captures all
             # midi channels start at 1 for humans and 0 for programs
-            if notetype == 9 and value > 0:    # note on with velocity > 0
-                notemapping = elements.NoteMapping(self.widget().keysignature(), self.widget().accidentals()=='sharps')
+            if notetype == NOTE_ON_EVENT and value > 0: # value gives the velocity
+                notemapping = elements.NoteMapping(self.widget().keysignature(), self.widget().accidentals() == 'sharps')
                 note = elements.Note(notenumber, notemapping)
                 if self.widget().chordmode():
                     if not self._chord:    # no Chord instance?
@@ -97,30 +108,25 @@ class MidiIn:
                     self._chord.add(note)
                     self._activenotes += 1
                 else:
-                    self.print_or_replace(note.output(self.widget().relativemode(), self._language))
-            elif (notetype == 8 or (notetype == 9 and value == 0)) and self.widget().chordmode():
+                    self.addToDocument(note.output(self.widget().relativemode(), self._language))
+            elif ((notetype == NOTE_OFF_EVENT
+                   or (notetype == NOTE_ON_EVENT and value == 0))
+                  and self.widget().chordmode()):
                 self._activenotes -= 1
                 if self._activenotes <= 0:    # activenotes could get negative under strange conditions
                     if self._chord:
-                        self.print_or_replace(self._chord.output(self.widget().relativemode(), self._language))
+                        self.addToDocument(self._chord.output(self.widget().relativemode(), self._language))
                     self._activenotes = 0    # reset in case it was negative
                     self._chord = None
 
-    def print_or_replace(self, text):
-
+    def addToDocument(self, text):
         view = self.widget().mainwindow()
         cursor = view.textCursor()
 
         if self.widget().repitchmode():
-
               music = cursor.document().toPlainText()[cursor.position() : ]
-
-              ly_reg_expr = r'(?<![a-zA-Z#_^\-\\])[a-ps-zA-PS-Z]{1,3}(?![a-zA-Z])[\'\,]*'\
-                           '|'\
-                           r'(?<![<\\])<[^<>]*>(?!>)'
-
-              notes = re.search(ly_reg_expr,music)
-              if notes is not None :
+              notes = LY_REG_EXPR.search(music)
+              if notes is not None:
                     start = cursor.position() + notes.start()
                     end = cursor.position() + notes.end()
 
@@ -143,12 +149,11 @@ class MidiIn:
                    cursor.insertText(' ' +  text)
 
 
-
-
 class Listener(QThread):
-    NoteEventSignal = pyqtSignal(midifile.event.NoteEvent)
+    receivedNoteEvent = pyqtSignal(midifile.event.NoteEvent)
+
     def __init__(self, portmidiinput, pollingtime):
-        QThread.__init__(self)
+        super().__init__()
         self._portmidiinput = portmidiinput
         self._pollingtime = pollingtime
 
@@ -156,7 +161,7 @@ class Listener(QThread):
         self._capturing = True
         while self._capturing:
             while not self._portmidiinput.poll():
-                time.sleep(self._pollingtime/1000.)
+                time.sleep(self._pollingtime / 1000.)
                 if not self._capturing:
                     break
             if not self._capturing:
@@ -170,8 +175,8 @@ class Listener(QThread):
             s = bytearray([77, data[0][0][0], data[0][0][1], data[0][0][2], data[0][0][3]])
             event = next(midifile.parser.parse_midi_events(s))[1]
 
-            if isinstance(event,midifile.event.NoteEvent):
-                self.NoteEventSignal.emit(event)
+            if isinstance(event, midifile.event.NoteEvent):
+                self.receivedNoteEvent.emit(event)
 
     def stop(self):
         self._capturing = False
