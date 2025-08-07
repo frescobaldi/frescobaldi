@@ -2,7 +2,7 @@
 <component type="desktop-application">
   <id>org.frescobaldi.Frescobaldi</id>
   <name>Frescobaldi</name>
-  <summary>Write LilyPond music sheets</summary>
+  <summary>Write beautiful music sheets</summary>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <developer id="org.frescobaldi">
@@ -37,7 +37,11 @@
   </description>
 
   <screenshots>
-  <!-- The screenshots of panels (such as the Snippets editor or the Edit in place panel) won't pass
+  <!--
+  Take screenshots in the Plasma desktop environment. This ensures that the transparent border is big enough.
+  https://github.com/flathub/flathub/issues/6745
+
+  The screenshots of panels (such as the Snippets editor or the Edit in place panel) won't pass
   the Flathub quality guidelines validation. We can screenshot only windows.
   https://discourse.flathub.org/t/quality-guidelines-help-with-screenshots/7414
   -->
@@ -71,6 +75,7 @@
   <launchable type="desktop-id">org.frescobaldi.Frescobaldi.desktop</launchable>
 
   <translation type="gettext">frescobaldi</translation>
+  <translation type="gettext">userguide</translation>
 
   <releases>
     <release version="4.0.3" date="2025-06-09" />
