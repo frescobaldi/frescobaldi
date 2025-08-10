@@ -60,7 +60,7 @@ from . import (
 
 
 
-def model():
+def model(): # noqa: F811 Creating a singleton
     """Returns all available part types as a hierarchical model."""
     m = Model(QApplication.instance())
     global model

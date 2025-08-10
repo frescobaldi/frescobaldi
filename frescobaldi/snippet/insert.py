@@ -22,8 +22,6 @@ Insert snippets into a Document.
 """
 
 
-import sys
-
 from PyQt6.QtCore import QSettings
 from PyQt6.QtGui import QTextCursor
 from PyQt6.QtWidgets import QMessageBox

@@ -34,7 +34,7 @@ import actioncollection
 from . import snippets, tool
 
 
-def model():
+def model(): # noqa: F811 Creating a singleton
     """Returns the global model containing snippets."""
     m = SnippetModel(app.qApp)
     global model
