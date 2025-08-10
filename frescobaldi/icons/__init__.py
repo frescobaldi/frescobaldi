@@ -24,8 +24,10 @@ Icons.
 
 import os
 
-from PyQt6.QtCore import QDir, QFile, QFileInfo, QSettings, QSize
-from PyQt6.QtGui import QIcon
+import platform
+
+from PyQt6.QtCore import QDir, QFile, QFileInfo, QSettings, QSize, Qt
+from PyQt6.QtGui import QIcon, QGuiApplication
 from PyQt6.QtWidgets import QFileIconProvider
 
 import app
@@ -88,7 +90,16 @@ def update_theme():
     """Change the theme for icon lookup after change of style preference"""
     s = QSettings()
     if s.value("system_icons", True, bool):
-        QIcon.setThemeName(s.value("guistyle", "", str))
+        match platform.system():
+            case "Windows" | "Darwin":
+                if QGuiApplication.styleHints().colorScheme() == Qt.ColorScheme.Dark:
+                    QIcon.setThemeName("Dark")
+                elif QGuiApplication.styleHints().colorScheme() == Qt.ColorScheme.Light:
+                    QIcon.setThemeName("Light")
+                else:
+                    QIcon.setThemeName("TangoExt")
+            case _:
+                QIcon.setThemeName(s.value("guistyle", "", str))
     else:
         QIcon.setThemeName("TangoExt") # Our icon theme
 
