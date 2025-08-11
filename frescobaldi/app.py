@@ -239,13 +239,12 @@ def basedir():
 
     """
     import sessions
-    docs_dir = QStandardPaths.writableLocation(
-        QStandardPaths.StandardLocation.DocumentsLocation)
     conf = sessions.currentSessionGroup()
     if not conf:
         conf = QSettings()
     basedir = conf.value("basedir", "", str)
-    return basedir if basedir else docs_dir
+    return basedir if basedir else QStandardPaths.writableLocation(
+        QStandardPaths.StandardLocation.DocumentsLocation)
 
 def settings(name):
     """Returns a QSettings object referring a file in ~/.config/frescobaldi/"""
