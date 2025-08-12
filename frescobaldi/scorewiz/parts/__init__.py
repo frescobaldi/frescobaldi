@@ -59,13 +59,13 @@ from . import (
 
 
 
-
-def model(): # noqa: F811 Creating a singleton
+_model = None
+def model():
     """Returns all available part types as a hierarchical model."""
-    m = Model(QApplication.instance())
-    global model
-    model = lambda: m
-    return m
+    global _model
+    if _model is None:
+        _model = Model(QApplication.instance())
+    return _model
 
 
 class Model(QAbstractItemModel):
