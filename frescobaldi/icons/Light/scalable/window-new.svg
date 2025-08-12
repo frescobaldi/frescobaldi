@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   version="1.1"
+   xml:space="preserve"
+   style="fill-rule:evenodd;fill:black;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;"
+   id="svg5"
+   sodipodi:docname="window-new.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs5" /><sodipodi:namedview
+   id="namedview5"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1" />
+    <path
+   d="M4,8L20,8"
+   style="fill:none;fill-rule:nonzero;stroke:black;stroke-width:1px;"
+   id="path1" />
+    <path
+   d="M12.784,20.174L3.76,20.189L3.76,3.864L20.123,3.864L20.123,13.521"
+   style="fill:none;stroke:black;stroke-width:1px;stroke-miterlimit:1.5;"
+   id="path2" />
+    <g
+   transform="matrix(1,0,0,1,-0.713122,-0.295502)"
+   id="g3">
+        <path
+   d="M16,19L22,19"
+   style="fill:none;fill-rule:nonzero;stroke:black;stroke-width:1px;"
+   id="path3" />
+    </g>
+    <g
+   transform="matrix(1,0,0,1,-0.713122,-0.295502)"
+   id="g4">
+        <path
+   d="M19,16L19,22"
+   style="fill:none;fill-rule:nonzero;stroke:black;stroke-width:1px;"
+   id="path4" />
+    </g>
+    <path
+   d="M8,4L8,8"
+   style="fill:none;fill-rule:nonzero;stroke:black;stroke-width:1px;"
+   id="path5" />
+</svg>

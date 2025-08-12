@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+category: Map
+tags: [earth, globe, global, language, union]
+version: "1.0"
+unicode: "eb54"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="black"
+   stroke-width="1"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="internet-web-browser.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs5" />
+  <sodipodi:namedview
+     id="namedview5"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1" />
+  <path
+     d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"
+     id="path1" />
+  <path
+     d="M3.6 9h16.8"
+     id="path2" />
+  <path
+     d="M3.6 15h16.8"
+     id="path3" />
+  <path
+     d="M11.5 3a17 17 0 0 0 0 18"
+     id="path4" />
+  <path
+     d="M12.5 3a17 17 0 0 1 0 18"
+     id="path5" />
+</svg>

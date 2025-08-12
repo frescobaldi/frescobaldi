@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+category: Devices
+tags: [computer, laptop, device, type]
+version: "1.6"
+unicode: "ebd6"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="white"
+   stroke-width="1"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="preferences-desktop-keyboard-shortcuts.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1" />
+  <path
+     d="M2 6m0 2a2 2 0 0 1 2 -2h16a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-16a2 2 0 0 1 -2 -2z"
+     id="path1" />
+  <path
+     d="M6 10l0 .01"
+     id="path2" />
+  <path
+     d="M10 10l0 .01"
+     id="path3" />
+  <path
+     d="M14 10l0 .01"
+     id="path4" />
+  <path
+     d="M18 10l0 .01"
+     id="path5" />
+  <path
+     d="M6 14l0 .01"
+     id="path6" />
+  <path
+     d="M18 14l0 .01"
+     id="path7" />
+  <path
+     d="M10 14l4 .01"
+     id="path8" />
+</svg>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+category: Text
+tags: [tongue, country, speech, speak, translate, communication, communicate, english, dialect, dictionary, word]
+version: "1.5"
+unicode: "ebbe"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="white"
+   stroke-width="1"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="tools-pitch-language.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs6" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1" />
+  <path
+     d="M9 6.371c0 4.418 -2.239 6.629 -5 6.629"
+     id="path1" />
+  <path
+     d="M4 6.371h7"
+     id="path2" />
+  <path
+     d="M5 9c0 2.144 2.252 3.908 6 4"
+     id="path3" />
+  <path
+     d="M12 20l4 -9l4 9"
+     id="path4" />
+  <path
+     d="M19.1 18h-6.2"
+     id="path5" />
+  <path
+     d="M6.694 3l.793 .582"
+     id="path6" />
+</svg>

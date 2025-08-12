@@ -112,13 +112,13 @@ use_full_install_path = false
 [tool.briefcase.app.frescobaldi.document_type.ly]
 description = "LilyPond file"
 extension = "ly"
-icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
+icon = "frescobaldi/icons/text-x-lilypond"
 url = "https://lilypond.org/"
 
 [tool.briefcase.app.frescobaldi.document_type.ily]
 description = "LilyPond included file"
 extension = "ily"
-icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
+icon = "frescobaldi/icons/text-x-included-lilypond"
 url = "https://lilypond.org/"
 
 [tool.ruff]
