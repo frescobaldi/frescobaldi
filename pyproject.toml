@@ -125,3 +125,6 @@ url = "https://lilypond.org/"
 # _ is currently added to builtins, so ruff can't find where it's defined.
 # We may remove this line when we switch to gettext standard library (#1285).
 builtins = ["_"]
+
+[tool.ruff.lint]
+ignore = ["E741", "F401"]
