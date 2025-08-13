@@ -34,6 +34,7 @@ import actioncollection
 from . import snippets, tool
 
 _model = None
+
 def model():
     """Returns the global model containing snippets."""
     global _model

@@ -60,6 +60,7 @@ from . import (
 
 
 _model = None
+
 def model():
     """Returns all available part types as a hierarchical model."""
     global _model
