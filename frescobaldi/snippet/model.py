@@ -33,13 +33,14 @@ import actioncollection
 
 from . import snippets, tool
 
+_model = None
 
 def model():
     """Returns the global model containing snippets."""
-    m = SnippetModel(app.qApp)
-    global model
-    model = lambda: m
-    return m
+    global _model
+    if _model is None:
+        _model = SnippetModel(app.qApp)
+    return _model
 
 
 class SnippetModel(QAbstractItemModel):
