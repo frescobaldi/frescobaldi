@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   version="1.1"
+   xml:space="preserve"
+   style="fill-rule:evenodd;fill:white;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;"
+   id="svg2"
+   sodipodi:docname="zoom-magnifier.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs2" /><sodipodi:namedview
+   id="namedview2"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1" />
+    <path
+   d="M3,10C3,13.84 6.16,17 10,17C13.84,17 17,13.84 17,10C17,6.16 13.84,3 10,3C6.16,3 3,6.16 3,10"
+   style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"
+   id="path1" />
+    <path
+   d="M21,21L15,15"
+   style="fill:none;fill-rule:nonzero;stroke:white;stroke-width:1px;"
+   id="path2" />
+    <g
+   transform="matrix(1.69513,0,0,1.69513,-5.16435,-5.4664)"
+   id="g2">
+        <circle
+   cx="8.914"
+   cy="9.043"
+   r="1.469"
+   id="circle2" />
+    </g>
+</svg>
