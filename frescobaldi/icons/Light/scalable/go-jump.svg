@@ -1,45 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-tags: [navigation, direction, upward, advance, double, path, symbol, interface, ui, movement]
-version: "2.11"
-unicode: "f9ef"
-category: Arrows
--->
-
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   fill="none"
-   stroke="black"
-   stroke-width="1"
-   stroke-linecap="round"
-   stroke-linejoin="round"
-   version="1.1"
-   id="svg3"
-   sodipodi:docname="go-jump.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs3" />
-  <sodipodi:namedview
-     id="namedview3"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1" />
-  <path
-     d="M11 14l4 -4l-4 -4"
-     id="path1" />
-  <path
-     d="M16 14l4 -4l-4 -4"
-     id="path2" />
-  <path
-     d="M15 10h-7a4 4 0 1 0 0 8h1"
-     id="path3" />
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <path id="path1" d="M13.793,10.5L8,10.5C6.792,10.5 5.948,10.935 5.373,11.582C4.798,12.229 4.5,13.111 4.5,14C4.5,14.889 4.798,15.771 5.373,16.418C5.948,17.065 6.792,17.5 8,17.5L9,17.5C9.274,17.5 9.5,17.726 9.5,18C9.5,18.274 9.274,18.5 9,18.5L8,18.5C6.542,18.5 5.385,17.935 4.627,17.082C3.869,16.229 3.5,15.111 3.5,14C3.5,12.889 3.869,11.771 4.627,10.918C5.385,10.065 6.542,9.5 8,9.5L13.793,9.5L10.646,6.354C10.453,6.16 10.453,5.84 10.646,5.646C10.84,5.453 11.16,5.453 11.354,5.646L15.353,9.647C15.444,9.738 15.5,9.863 15.5,10C15.5,10.137 15.444,10.262 15.353,10.353L11.354,14.354C11.16,14.547 10.84,14.547 10.646,14.354C10.453,14.16 10.453,13.84 10.646,13.646L13.793,10.5ZM15.646,5.646C15.84,5.453 16.16,5.453 16.354,5.646L20.354,9.646C20.547,9.84 20.547,10.16 20.354,10.354L16.354,14.354C16.16,14.547 15.84,14.547 15.646,14.354C15.453,14.16 15.453,13.84 15.646,13.646L19.293,10L15.646,6.354C15.453,6.16 15.453,5.84 15.646,5.646Z"/>
 </svg>

@@ -1,42 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-tags: [music, forward, play, song, playlist]
-category: Media
-version: "1.28"
-unicode: "ed4c"
--->
-
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   fill="none"
-   stroke="black"
-   stroke-width="1"
-   stroke-linecap="round"
-   stroke-linejoin="round"
-   version="1.1"
-   id="svg2"
-   sodipodi:docname="media-seek-backward.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs2" />
-  <sodipodi:namedview
-     id="namedview2"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1" />
-  <path
-     d="M21 5v14l-8 -7z"
-     id="path1" />
-  <path
-     d="M10 5v14l-8 -7z"
-     id="path2" />
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <path id="path1" d="M21.207,4.545C21.385,4.626 21.5,4.804 21.5,5L21.5,19.001C21.5,19.275 21.274,19.501 21,19.501C20.879,19.501 20.761,19.457 20.67,19.377L12.67,12.377C12.561,12.282 12.498,12.144 12.498,12C12.498,11.856 12.561,11.718 12.67,11.623L20.67,4.623C20.818,4.494 21.029,4.463 21.207,4.545ZM20.5,6.104L13.762,12L20.5,17.896L20.5,6.104ZM10.207,4.545C10.385,4.626 10.5,4.804 10.5,5L10.5,19.001C10.5,19.275 10.274,19.501 10,19.501C9.879,19.501 9.761,19.457 9.67,19.377L1.67,12.377C1.561,12.282 1.498,12.144 1.498,12C1.498,11.856 1.561,11.718 1.67,11.623L9.67,4.623C9.818,4.494 10.029,4.463 10.207,4.545ZM9.5,6.104L2.762,12L9.5,17.896L9.5,6.104Z"/>
 </svg>

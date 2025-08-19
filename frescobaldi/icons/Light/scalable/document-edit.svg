@@ -1,43 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   version="1.1"
-   xml:space="preserve"
-   style="fill-rule:evenodd;fill:black;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;"
-   id="svg4"
-   sodipodi:docname="document-edit.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"><defs
-   id="defs4" /><sodipodi:namedview
-   id="namedview4"
-   pagecolor="#ffffff"
-   bordercolor="#000000"
-   borderopacity="0.25"
-   inkscape:showpageshadow="2"
-   inkscape:pageopacity="0.0"
-   inkscape:pagecheckerboard="0"
-   inkscape:deskcolor="#d1d1d1" />
-    <path
-   d="M12,15L20.385,6.585C20.779,6.191 21,5.657 21,5.1C21,3.948 20.052,3 18.9,3C18.343,3 17.809,3.221 17.415,3.615L9,12L9,15L12,15Z"
-   style="fill:none;fill-rule:nonzero;stroke:black;stroke-width:1px;"
-   id="path1" />
-    <path
-   d="M16,5L19,8"
-   style="fill:none;fill-rule:nonzero;stroke:black;stroke-width:1px;"
-   id="path2" />
-    <path
-   d="M9,7.07C5.566,7.559 2.987,10.531 2.987,14C2.987,17.84 6.147,21 9.987,21C9.992,21 9.996,21 10,21C13.464,21 16.434,18.429 16.929,15"
-   style="fill:none;fill-rule:nonzero;stroke:black;stroke-width:1px;"
-   id="path3" />
-    <g
-   transform="matrix(-0.705857,-0.708355,0.634677,-0.632439,11.8016,22.498)"
-   id="g4">
-        <path
-   d="M7.365,4.314L9.089,6.332L5.641,6.332L7.365,4.314Z"
-   id="path4" />
-    </g>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <path id="path1" d="M19.25,8.433L12.354,15.354C12.26,15.447 12.133,15.5 12,15.5L9,15.5C8.726,15.5 8.5,15.274 8.5,15L8.5,12C8.5,11.867 8.553,11.74 8.646,11.646L15.567,4.75C15.589,4.713 15.615,4.678 15.646,4.646C15.678,4.615 15.714,4.588 15.751,4.567L17.061,3.262C17.548,2.774 18.211,2.5 18.9,2.5C20.327,2.5 21.5,3.673 21.5,5.1C21.5,5.788 21.225,6.45 20.738,6.938L20.738,6.939L19.433,8.249C19.412,8.286 19.385,8.322 19.354,8.354C19.322,8.385 19.287,8.411 19.25,8.433ZM16.012,5.719L9.528,12.179L11.817,14.476L18.281,7.988L16.012,5.719ZM11.728,14.5L11.793,14.5L11.794,14.499L11.728,14.5ZM18.987,7.28L20.031,6.232C20.332,5.932 20.5,5.524 20.5,5.1C20.5,4.222 19.778,3.5 18.9,3.5C18.476,3.5 18.068,3.668 17.768,3.969L16.72,5.013L18.987,7.28ZM8.93,6.574C9.201,6.536 9.456,6.728 9.494,7C9.532,7.271 9.341,7.525 9.07,7.564C5.882,8.019 3.486,10.779 3.486,14C3.486,17.566 6.421,20.5 9.986,20.5L10,20.5C13.217,20.5 15.974,18.112 16.434,14.928C16.474,14.657 16.729,14.467 17,14.506C17.245,14.541 17.429,14.753 17.429,15.001C17.429,15.025 17.427,15.049 17.424,15.072C16.893,18.746 13.711,21.5 10,21.5L9.986,21.5C5.872,21.5 2.486,18.114 2.486,14C2.486,10.283 5.25,7.098 8.93,6.574Z"/>
 </svg>

@@ -1,42 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-category: Document
-tags: [copy, clipboard, paste, document, file, paper, note, text, page, sheet, blank]
-version: "1.0"
-unicode: "ea6f"
--->
-
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   fill="none"
-   stroke="black"
-   stroke-width="1"
-   stroke-linecap="round"
-   stroke-linejoin="round"
-   version="1.1"
-   id="svg2"
-   sodipodi:docname="edit-paste.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs2" />
-  <sodipodi:namedview
-     id="namedview2"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1" />
-  <path
-     d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"
-     id="path1" />
-  <path
-     d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"
-     id="path2" />
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <path id="path1" d="M15.449,4.5L17,4.5C18.375,4.5 19.5,5.625 19.5,7L19.5,19C19.5,20.375 18.375,21.5 17,21.5L7,21.5C5.625,21.5 4.5,20.375 4.5,19L4.5,7C4.5,5.625 5.625,4.5 7,4.5L8.551,4.5C8.784,3.363 9.796,2.5 11,2.5L13,2.5C14.204,2.5 15.216,3.363 15.449,4.5ZM8.551,5.5L7,5.5C6.166,5.5 5.5,6.166 5.5,7L5.5,19C5.5,19.834 6.166,20.5 7,20.5L17,20.5C17.834,20.5 18.5,19.834 18.5,19L18.5,7C18.5,6.166 17.834,5.5 17,5.5L15.449,5.5C15.216,6.637 14.204,7.5 13,7.5L11,7.5C9.796,7.5 8.784,6.637 8.551,5.5ZM14.5,5C14.5,4.166 13.834,3.5 13,3.5L11,3.5C10.166,3.5 9.5,4.166 9.5,5C9.5,5.834 10.166,6.5 11,6.5L13,6.5C13.834,6.5 14.5,5.834 14.5,5Z"/>
 </svg>

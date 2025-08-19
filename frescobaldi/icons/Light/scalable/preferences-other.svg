@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="24"
-   height="24"
+   width="24px"
+   height="24px"
    viewBox="0 0 24 24"
    version="1.1"
    xml:space="preserve"
-   style="fill-rule:evenodd;fill:black;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
    id="svg1"
    sodipodi:docname="preferences-other.svg"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -20,13 +21,19 @@
    inkscape:showpageshadow="2"
    inkscape:pageopacity="0.0"
    inkscape:pagecheckerboard="0"
-   inkscape:deskcolor="#d1d1d1" />
-    <g
-   transform="matrix(0.883011,0,0,0.883011,1.40594,1.40594)"
-   id="g1">
-        <path
-   d="M7,10L10,10L10,7L6.5,3.5C7.307,3.114 8.191,2.914 9.086,2.914C12.377,2.914 15.086,5.623 15.086,8.914C15.086,9.809 14.886,10.693 14.5,11.5L20.5,17.5C20.898,17.898 21.121,18.438 21.121,19C21.121,20.164 20.164,21.121 19,21.121C18.438,21.121 17.898,20.898 17.5,20.5L11.5,14.5C10.693,14.886 9.809,15.086 8.914,15.086C5.623,15.086 2.914,12.377 2.914,9.086C2.914,8.191 3.114,7.307 3.5,6.5L7,10"
-   style="fill:none;fill-rule:nonzero;stroke:black;stroke-width:1.13px;"
-   id="path1" />
-    </g>
+   inkscape:deskcolor="#d1d1d1"
+   inkscape:zoom="34.666667"
+   inkscape:cx="12.014423"
+   inkscape:cy="11.985577"
+   inkscape:window-width="976"
+   inkscape:window-height="1186"
+   inkscape:window-x="0"
+   inkscape:window-y="25"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="svg1" />
+    <path
+   d="M9.086,2.35C8.107,2.35 7.139,2.568 6.256,2.99C6.059,3.084 5.934,3.283 5.934,3.5C5.934,3.65 5.993,3.794 6.1,3.9L9.436,7.234L9.436,9.436L7.236,9.436L3.9,6.1C3.794,5.993 3.65,5.934 3.5,5.934C3.283,5.934 3.084,6.059 2.99,6.256C2.568,7.139 2.35,8.107 2.35,9.086C2.35,12.687 5.313,15.65 8.914,15.65C9.742,15.65 10.541,15.413 11.309,15.109L17.1,20.9C17.604,21.404 18.289,21.686 19,21.686C20.474,21.686 21.686,20.474 21.686,19C21.686,18.289 21.404,17.604 20.9,17.1L15.109,11.309C15.413,10.541 15.65,9.742 15.65,8.914C15.65,5.313 12.687,2.35 9.086,2.35ZM9.086,3.479C12.067,3.479 14.521,5.933 14.521,8.914C14.521,9.725 14.34,10.525 13.99,11.256C13.886,11.472 13.93,11.731 14.1,11.9L20.1,17.9C20.392,18.192 20.557,18.587 20.557,19C20.557,19.854 19.854,20.557 19,20.557C18.587,20.557 18.192,20.392 17.9,20.1L11.9,14.1C11.731,13.93 11.472,13.886 11.256,13.99C10.525,14.34 9.725,14.521 8.914,14.521C5.933,14.521 3.479,12.067 3.479,9.086C3.479,8.576 3.672,8.1 3.812,7.613L6.6,10.4C6.678,10.417 6.758,10.417 6.836,10.4C6.879,10.466 6.935,10.522 7,10.564L10,10.564C10.31,10.564 10.564,10.31 10.564,10L10.564,7C10.565,6.85 10.506,6.706 10.4,6.6L7.613,3.813C8.1,3.672 8.576,3.479 9.086,3.479Z"
+   style="fill-rule:nonzero;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2"
+   id="path1"
+   transform="matrix(0.883011,0,0,0.883011,1.40594,1.40594)" />
 </svg>

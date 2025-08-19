@@ -1,45 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-tags: [warning, danger, caution, risk]
-version: "1.0"
-unicode: "ea06"
-category: System
--->
-
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   fill="none"
-   stroke="black"
-   stroke-width="1"
-   stroke-linecap="round"
-   stroke-linejoin="round"
-   version="1.1"
-   id="svg3"
-   sodipodi:docname="dialog-error.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs3" />
-  <sodipodi:namedview
-     id="namedview3"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1" />
-  <path
-     d="M12 9v4"
-     id="path1" />
-  <path
-     d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z"
-     id="path2" />
-  <path
-     d="M12 16h.01"
-     id="path3" />
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <path id="path1" d="M12,2.182C12.8,2.182 13.6,2.564 14.064,3.33L14.066,3.334L22.172,16.869L22.176,16.877C23.086,18.455 21.935,20.475 20.113,20.496L3.887,20.496C2.064,20.476 0.913,18.454 1.824,16.875L1.828,16.867L9.934,3.334L9.936,3.33C10.4,2.564 11.2,2.182 12,2.182ZM12,3.154C11.536,3.154 11.072,3.386 10.791,3.85L2.689,17.377C2.139,18.333 2.794,19.484 3.898,19.496L20.102,19.496C21.205,19.483 21.86,18.333 21.311,17.377L13.209,3.85C12.928,3.386 12.464,3.154 12,3.154ZM12,8.5C12.274,8.5 12.5,8.726 12.5,9L12.5,13C12.5,13.274 12.274,13.5 12,13.5C11.726,13.5 11.5,13.274 11.5,13L11.5,9C11.5,8.726 11.726,8.5 12,8.5ZM12,15.5L12.01,15.5C12.284,15.5 12.51,15.726 12.51,16C12.51,16.274 12.284,16.5 12.01,16.5L12,16.5C11.726,16.5 11.5,16.274 11.5,16C11.5,15.726 11.726,15.5 12,15.5Z"/>
 </svg>

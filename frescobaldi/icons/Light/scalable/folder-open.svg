@@ -1,38 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-tags: [access, unseal, uncover, unlock, expose, reveal, unshield, available, accessible, visible]
-version: "2.24"
-unicode: "faf7"
--->
-
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   fill="none"
-   stroke="black"
-   stroke-width="1"
-   stroke-linecap="round"
-   stroke-linejoin="round"
-   version="1.1"
-   id="svg1"
-   sodipodi:docname="folder-open.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs1" />
-  <sodipodi:namedview
-     id="namedview1"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1" />
-  <path
-     d="M5 19l2.757 -7.351a1 1 0 0 1 .936 -.649h12.307a1 1 0 0 1 .986 1.164l-.996 5.211a2 2 0 0 1 -1.964 1.625h-14.026a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2h4l3 3h7a2 2 0 0 1 2 2v2"
-     id="path1" />
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <path id="path1" d="M5,3.5C3.625,3.5 2.5,4.625 2.5,6L2.5,17C2.5,18.297 3.533,19.301 4.801,19.418C4.808,19.435 4.815,19.452 4.824,19.469C4.855,19.47 4.886,19.469 4.916,19.465C4.948,19.466 4.967,19.5 5,19.5L19.025,19.5C20.222,19.5 21.256,18.644 21.48,17.469L22.477,12.258C22.477,12.254 22.478,12.25 22.479,12.246C22.596,11.54 22.121,10.993 21.5,10.734L21.5,9C21.5,7.625 20.375,6.5 19,6.5L12.207,6.5L9.354,3.646C9.26,3.553 9.133,3.5 9,3.5L5,3.5ZM5,4.5L8.793,4.5L11.646,7.354C11.74,7.447 11.867,7.5 12,7.5L19,7.5C19.834,7.5 20.5,8.166 20.5,9L20.5,10.5L8.693,10.5C8.07,10.5 7.508,10.889 7.289,11.473L4.699,18.377C4.032,18.224 3.5,17.716 3.5,17L3.5,6C3.5,5.166 4.166,4.5 5,4.5ZM8.693,11.5L21,11.5C21.318,11.5 21.544,11.768 21.492,12.082L20.498,17.281C20.362,17.991 19.748,18.5 19.025,18.5L5.723,18.5L8.225,11.824C8.298,11.628 8.483,11.5 8.693,11.5Z" style="fill-rule:nonzero;"/>
 </svg>

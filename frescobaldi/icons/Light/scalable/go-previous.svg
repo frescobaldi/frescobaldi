@@ -1,45 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-tags: [back, swipe, return]
-category: Arrows
-version: "1.0"
-unicode: "ea19"
--->
-
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   fill="none"
-   stroke="black"
-   stroke-width="1"
-   stroke-linecap="round"
-   stroke-linejoin="round"
-   version="1.1"
-   id="svg3"
-   sodipodi:docname="go-previous.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs3" />
-  <sodipodi:namedview
-     id="namedview3"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1" />
-  <path
-     d="M5 12l14 0"
-     id="path1" />
-  <path
-     d="M5 12l6 6"
-     id="path2" />
-  <path
-     d="M5 12l6 -6"
-     id="path3" />
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <path id="path1" d="M4.599,12.299C4.537,12.215 4.5,12.111 4.5,12C4.5,11.894 4.534,11.794 4.591,11.713C4.608,11.689 4.626,11.667 4.647,11.647L10.646,5.646C10.84,5.453 11.16,5.453 11.354,5.646C11.547,5.84 11.547,6.16 11.354,6.354L6.207,11.5L19,11.5C19.274,11.5 19.5,11.726 19.5,12C19.5,12.274 19.274,12.5 19,12.5L6.207,12.5L11.354,17.646C11.547,17.84 11.547,18.16 11.354,18.354C11.16,18.547 10.84,18.547 10.646,18.354L4.647,12.353C4.63,12.336 4.614,12.318 4.599,12.299Z"/>
 </svg>

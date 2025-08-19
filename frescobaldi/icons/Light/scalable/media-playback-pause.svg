@@ -1,42 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-category: Media
-tags: [video, film, music, player, stop]
-version: "1.28"
-unicode: "ed45"
--->
-
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   fill="none"
-   stroke="black"
-   stroke-width="1"
-   stroke-linecap="round"
-   stroke-linejoin="round"
-   version="1.1"
-   id="svg2"
-   sodipodi:docname="media-playback-pause.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs2" />
-  <sodipodi:namedview
-     id="namedview2"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1" />
-  <path
-     d="M6 5m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z"
-     id="path1" />
-  <path
-     d="M14 5m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z"
-     id="path2" />
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <path id="path1" d="M7,4.5L9,4.5C9.823,4.5 10.5,5.177 10.5,6L10.5,18C10.5,18.823 9.823,19.5 9,19.5L7,19.5C6.177,19.5 5.5,18.823 5.5,18L5.5,6C5.5,5.177 6.177,4.5 7,4.5ZM7,5.5C6.718,5.5 6.5,5.718 6.5,6L6.5,18C6.5,18.282 6.718,18.5 7,18.5L9,18.5C9.282,18.5 9.5,18.282 9.5,18L9.5,6C9.5,5.718 9.282,5.5 9,5.5L7,5.5ZM15,4.5L17,4.5C17.823,4.5 18.5,5.177 18.5,6L18.5,18C18.5,18.823 17.823,19.5 17,19.5L15,19.5C14.177,19.5 13.5,18.823 13.5,18L13.5,6C13.5,5.177 14.177,4.5 15,4.5ZM15,5.5C14.718,5.5 14.5,5.718 14.5,6L14.5,18C14.5,18.282 14.718,18.5 15,18.5L17,18.5C17.282,18.5 17.5,18.282 17.5,18L17.5,6C17.5,5.718 17.282,5.5 17,5.5L15,5.5Z"/>
 </svg>

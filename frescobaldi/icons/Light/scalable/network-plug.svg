@@ -1,48 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-category: Devices
-tags: [electricity, charger, socket, connection]
-version: "1.6"
-unicode: "ebd9"
--->
-
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   fill="none"
-   stroke="black"
-   stroke-width="1"
-   stroke-linecap="round"
-   stroke-linejoin="round"
-   version="1.1"
-   id="svg4"
-   sodipodi:docname="network-plug.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs4" />
-  <sodipodi:namedview
-     id="namedview4"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1" />
-  <path
-     d="M9.785 6l8.215 8.215l-2.054 2.054a5.81 5.81 0 1 1 -8.215 -8.215l2.054 -2.054z"
-     id="path1" />
-  <path
-     d="M4 20l3.5 -3.5"
-     id="path2" />
-  <path
-     d="M15 4l-3.5 3.5"
-     id="path3" />
-  <path
-     d="M20 9l-3.5 3.5"
-     id="path4" />
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <path id="path1" d="M7.663,17.044L4.354,20.354C4.16,20.547 3.84,20.547 3.646,20.354C3.453,20.16 3.453,19.84 3.646,19.646L6.956,16.337C6.027,15.267 5.418,13.917 5.344,12.475C5.261,10.863 5.87,9.149 7.385,7.693L9.432,5.646C9.626,5.453 9.945,5.453 10.139,5.646L11.393,6.9L14.646,3.646C14.84,3.453 15.16,3.453 15.354,3.646C15.547,3.84 15.547,4.16 15.354,4.354L12.1,7.607L16.393,11.9L19.646,8.646C19.84,8.453 20.16,8.453 20.354,8.646C20.547,8.84 20.547,9.16 20.354,9.354L17.1,12.607L18.354,13.861C18.547,14.055 18.547,14.374 18.354,14.568L16.307,16.615C14.851,18.13 13.137,18.739 11.525,18.656C10.083,18.582 8.733,17.973 7.663,17.044ZM9.785,6.707L8.078,8.414C6.745,9.696 6.274,11.09 6.342,12.422C6.41,13.754 7.042,15.035 8.004,15.996C8.965,16.958 10.246,17.59 11.578,17.658C12.91,17.727 14.304,17.255 15.586,15.922L17.293,14.215L9.785,6.707Z"/>
 </svg>
