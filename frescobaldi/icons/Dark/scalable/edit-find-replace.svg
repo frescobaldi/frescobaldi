@@ -1,45 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-tags: [refresh, default, settings, vision]
-category: Map
-version: "1.78"
-unicode: "f295"
--->
-
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   fill="none"
-   stroke="white"
-   stroke-width="1"
-   stroke-linecap="round"
-   stroke-linejoin="round"
-   version="1.1"
-   id="svg3"
-   sodipodi:docname="edit-find-replace.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs3" />
-  <sodipodi:namedview
-     id="namedview3"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1" />
-  <path
-     d="M21 21l-6 -6"
-     id="path1" />
-  <path
-     d="M3.268 12.043a7.017 7.017 0 0 0 6.634 4.957a7.012 7.012 0 0 0 7.043 -6.131a7 7 0 0 0 -5.314 -7.672a7.021 7.021 0 0 0 -8.241 4.403"
-     id="path2" />
-  <path
-     d="M3 4v4h4"
-     id="path3" />
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="24px" height="24px" fill="white" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <path id="path1" d="M3.966,7.5L7,7.5C7.274,7.5 7.5,7.726 7.5,8C7.5,8.274 7.274,8.5 7,8.5L3,8.5C2.726,8.5 2.5,8.274 2.5,8L2.5,4C2.5,3.726 2.726,3.5 3,3.5C3.274,3.5 3.5,3.726 3.5,4L3.5,6.202C4.683,4.195 6.728,2.869 8.99,2.566C9.889,2.446 10.821,2.487 11.748,2.711C15.458,3.601 17.913,7.146 17.441,10.932C17.247,12.465 16.598,13.842 15.641,14.934L21.354,20.646C21.547,20.84 21.547,21.16 21.354,21.354C21.16,21.547 20.84,21.547 20.646,21.354L14.934,15.641C13.583,16.823 11.811,17.524 9.896,17.5C6.626,17.466 3.749,15.316 2.789,12.189C2.774,12.142 2.767,12.092 2.767,12.043C2.767,11.823 2.911,11.628 3.121,11.564C3.169,11.55 3.218,11.542 3.268,11.542C3.487,11.542 3.682,11.687 3.746,11.896C4.579,14.611 7.069,16.47 9.908,16.5C13.223,16.541 16.033,14.095 16.449,10.807C16.859,7.518 14.736,4.456 11.514,3.684C8.385,2.927 5.197,4.557 3.966,7.5Z"/>
 </svg>

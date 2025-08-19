@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="24"
-   height="24"
+   width="24px"
+   height="24px" fill="white"
    viewBox="0 0 24 24"
    version="1.1"
    xml:space="preserve"
-   style="fill-rule:evenodd;fill:white;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
    id="svg1"
    sodipodi:docname="tools-pitch.svg"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -20,12 +21,19 @@
    inkscape:showpageshadow="2"
    inkscape:pageopacity="0.0"
    inkscape:pagecheckerboard="0"
-   inkscape:deskcolor="#d1d1d1" />
-    <g
-   id="Livello2"
-   transform="matrix(1.13589,0,0,1.01607,-3.83252,0.114657)">
-        <path
+   inkscape:deskcolor="#d1d1d1"
+   inkscape:zoom="34.666667"
+   inkscape:cx="12.014423"
+   inkscape:cy="11.985577"
+   inkscape:window-width="976"
+   inkscape:window-height="1186"
+   inkscape:window-x="0"
+   inkscape:window-y="25"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="svg1" />
+    <path
    d="M10.33,3.641C11.023,4.006 11.503,4.794 11.503,5.707C11.503,6.966 10.589,7.989 9.462,7.989C8.336,7.989 7.421,6.966 7.421,5.707C7.421,4.693 8.015,3.832 8.834,3.536C9.483,3.248 10.177,3.093 10.899,3.093C14.502,3.093 17.426,6.972 17.426,11.749C17.426,16.527 14.502,20.406 10.899,20.406C9.951,20.406 9.049,20.137 8.236,19.654C8.767,19.829 9.324,19.921 9.899,19.921C13.502,19.921 16.426,16.27 16.426,11.773C16.426,7.456 13.732,3.919 10.33,3.641ZM20.19,5.38C20.766,5.38 21.233,5.903 21.233,6.547C21.233,7.191 20.766,7.714 20.19,7.714C19.614,7.714 19.146,7.191 19.146,6.547C19.146,5.903 19.614,5.38 20.19,5.38ZM20.19,10.301C20.766,10.301 21.233,10.824 21.233,11.468C21.233,12.112 20.766,12.635 20.19,12.635C19.614,12.635 19.146,12.112 19.146,11.468C19.146,10.824 19.614,10.301 20.19,10.301Z"
-   id="path1" />
-    </g>
+   id="path1"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2"
+   transform="matrix(1.13589,0,0,1.01607,-3.83252,0.114657)" />
 </svg>

@@ -1,45 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-category: Development
-tags: [console, command, git, command line, command prompt]
-version: "1.7"
-unicode: "ebef"
--->
-
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   fill="none"
-   stroke="white"
-   stroke-width="1"
-   stroke-linecap="round"
-   stroke-linejoin="round"
-   version="1.1"
-   id="svg3"
-   sodipodi:docname="utilities-terminal.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs3" />
-  <sodipodi:namedview
-     id="namedview3"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1" />
-  <path
-     d="M8 9l3 3l-3 3"
-     id="path1" />
-  <path
-     d="M13 15l3 0"
-     id="path2" />
-  <path
-     d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"
-     id="path3" />
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="24px" height="24px" fill="white" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <path id="path1" d="M5,3.5L19,3.5C20.375,3.5 21.5,4.625 21.5,6L21.5,18C21.5,19.375 20.375,20.5 19,20.5L5,20.5C3.625,20.5 2.5,19.375 2.5,18L2.5,6C2.5,4.625 3.625,3.5 5,3.5ZM5,4.5C4.166,4.5 3.5,5.166 3.5,6L3.5,18C3.5,18.834 4.166,19.5 5,19.5L19,19.5C19.834,19.5 20.5,18.834 20.5,18L20.5,6C20.5,5.166 19.834,4.5 19,4.5L5,4.5ZM7.646,8.646C7.84,8.453 8.16,8.453 8.354,8.646L11.354,11.646C11.547,11.84 11.547,12.16 11.354,12.354L8.354,15.354C8.16,15.547 7.84,15.547 7.646,15.354C7.453,15.16 7.453,14.84 7.646,14.646L10.293,12L7.646,9.354C7.453,9.16 7.453,8.84 7.646,8.646ZM13,14.5L16,14.5C16.274,14.5 16.5,14.726 16.5,15C16.5,15.274 16.274,15.5 16,15.5L13,15.5C12.726,15.5 12.5,15.274 12.5,15C12.5,14.726 12.726,14.5 13,14.5Z"/>
 </svg>

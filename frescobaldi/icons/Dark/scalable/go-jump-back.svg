@@ -1,45 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-tags: [navigation, direction, return, reverse, double, path, symbol, interface, ui, gesture]
-version: "2.11"
-unicode: "f9ec"
-category: Arrows
--->
-
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   fill="none"
-   stroke="white"
-   stroke-width="1"
-   stroke-linecap="round"
-   stroke-linejoin="round"
-   version="1.1"
-   id="svg3"
-   sodipodi:docname="go-jump-back.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs3" />
-  <sodipodi:namedview
-     id="namedview3"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1" />
-  <path
-     d="M13 14l-4 -4l4 -4"
-     id="path1" />
-  <path
-     d="M8 14l-4 -4l4 -4"
-     id="path2" />
-  <path
-     d="M9 10h7a4 4 0 1 1 0 8h-1"
-     id="path3" />
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="24px" height="24px" fill="white" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <path id="path1" d="M8.647,10.353C8.556,10.262 8.5,10.137 8.5,10C8.5,9.863 8.556,9.738 8.647,9.647L12.646,5.646C12.84,5.453 13.16,5.453 13.354,5.646C13.547,5.84 13.547,6.16 13.354,6.354L10.207,9.5L16,9.5C17.458,9.5 18.615,10.065 19.373,10.918C20.131,11.771 20.5,12.889 20.5,14C20.5,15.111 20.131,16.229 19.373,17.082C18.615,17.935 17.458,18.5 16,18.5L15,18.5C14.726,18.5 14.5,18.274 14.5,18C14.5,17.726 14.726,17.5 15,17.5L16,17.5C17.208,17.5 18.052,17.065 18.627,16.418C19.202,15.771 19.5,14.889 19.5,14C19.5,13.111 19.202,12.229 18.627,11.582C18.052,10.935 17.208,10.5 16,10.5L10.207,10.5L13.354,13.646C13.547,13.84 13.547,14.16 13.354,14.354C13.16,14.547 12.84,14.547 12.646,14.354L8.647,10.353ZM7.646,5.646C7.84,5.453 8.16,5.453 8.354,5.646C8.547,5.84 8.547,6.16 8.354,6.354L4.707,10L8.354,13.646C8.547,13.84 8.547,14.16 8.354,14.354C8.16,14.547 7.84,14.547 7.646,14.354L3.646,10.354C3.453,10.16 3.453,9.84 3.646,9.646L7.646,5.646Z"/>
 </svg>

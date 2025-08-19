@@ -1,42 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-tags: [button, player, video, film, music, cancel, rewind, reverse]
-category: Media
-version: "1.28"
-unicode: "ed48"
--->
-
-<svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
-   fill="none"
-   stroke="white"
-   stroke-width="1"
-   stroke-linecap="round"
-   stroke-linejoin="round"
-   version="1.1"
-   id="svg2"
-   sodipodi:docname="media-skip-backward.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs2" />
-  <sodipodi:namedview
-     id="namedview2"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1" />
-  <path
-     d="M20 5v14l-12 -7z"
-     id="path1" />
-  <path
-     d="M4 5l0 14"
-     id="path2" />
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="24px" height="24px" fill="white" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <path id="path1" d="M20.248,4.566C20.403,4.655 20.5,4.821 20.5,5L20.5,19C20.5,19.274 20.274,19.5 20,19.5C19.911,19.5 19.825,19.476 19.748,19.432L7.748,12.432C7.595,12.342 7.5,12.177 7.5,12C7.5,11.823 7.595,11.658 7.748,11.568L19.748,4.568C19.902,4.479 20.093,4.478 20.248,4.566ZM19.5,5.871L8.992,12L19.5,18.129L19.5,5.871ZM4,4.5C4.274,4.5 4.5,4.726 4.5,5L4.5,19C4.5,19.274 4.274,19.5 4,19.5C3.726,19.5 3.5,19.274 3.5,19L3.5,5C3.5,4.726 3.726,4.5 4,4.5Z"/>
 </svg>
