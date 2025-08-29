@@ -37,14 +37,19 @@ def suggest_restart(operation):
     msgBox = QMessageBox()
     msgBox.setIcon(QMessageBox.Icon.Warning)
     msgBox.setText(_("Restart Required"))
-    msgBox.setInformativeText(_(
+
+    # Translate first, then use format
+    translated_template = _(
         "An operation requires a restart of Frescobaldi:\n\n"
         "   {}\n\n"
         "Some new functionality may not be available before, "
         "or the application may even become unstable.\n\n"
         "Do you want to restart now?\n"
-        "You can also save open files first and restart manually.".format(operation)
-    ))
+        "You can also save open files first and restart manually."
+    )
+    formatted_message = translated_template.format(operation)
+    msgBox.setInformativeText(formatted_message)
+
     msgBox.setStandardButtons(QMessageBox.StandardButton.Ok | QMessageBox.StandardButton.Cancel)
     if msgBox.exec() == QMessageBox.StandardButton.Ok:
         app.activeWindow().restart()
