@@ -23,9 +23,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.13"
       - name: Install dependencies
         run: |
           sudo apt update && sudo apt install -y appstream desktop-file-utils gettext
@@ -111,9 +111,9 @@ jobs:
           xcrun notarytool store-credentials "briefcase-macOS-$TEAM_ID" --apple-id "$APPLE_ID" --team-id $TEAM_ID --password $BRIEFCASE_PASSWORD
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.13"
 
       - name: Install Windows dependencies
         if: matrix.target == 'Windows'
