@@ -221,7 +221,7 @@ class LilyPond(PrefsItemBase):
 
 class Midi(PrefsItemBase):
     help = "prefs_midi"
-    iconName = "audio-volume-medium"
+    iconName = "audio-midi"
     def translateUI(self):
         self.setText(_("MIDI"))
 
