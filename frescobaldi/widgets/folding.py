@@ -357,6 +357,7 @@ class Folder(QObject):
         find one more above that, etc. Use -1 to get the top-most region.
 
         """
+        print(['fold', block, block.position(), block.length(), block.text()])
         r = self.region(block, depth)
         if not r:
             return
@@ -365,6 +366,7 @@ class Folder(QObject):
         # don't hide the first block of the region
         for block in cursortools.forwards(r.start.next(), end):
             block.setVisible(False)
+            print([block.position(), block.length(), block.text()])
         self.mark(r.start, True)
         start = r.start.next().position()
         self.document().markContentsDirty(start, end.position() - start)
@@ -385,6 +387,7 @@ class Folder(QObject):
         collapsed (provided that the mark() method is implemented).
 
         """
+        print(['unfold', block, block.position(), block.length(), block.text()])
         r = self.region(block, depth)
         if not r:
             return
@@ -404,6 +407,7 @@ class Folder(QObject):
                                 break
                             count += sum(l)
             block.setVisible(True)
+            print([block.position(), block.length(), block.text()])
         self.mark(r.start, False)
         start = r.start.position()
         self.document().markContentsDirty(start, r.end.position() - start)
@@ -532,6 +536,7 @@ class FoldingArea(QWidget):
 
     def slotCursorPositionChanged(self):
         """Unfold the block the cursor is in if it is invisible."""
+        print(['cursor', self.textEdit().textCursor().position()])
         block = self.textEdit().textCursor().block()
         if not block.isVisible():
             self.folder().ensure_visible(block)
