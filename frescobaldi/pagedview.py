@@ -78,6 +78,7 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
 
     """
 
+    MAX_ZOOM = 8.0  # see issue #2035; this should be plenty for our needs
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -203,6 +204,13 @@ class ViewActions(qpageview.viewactions.ViewActions):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         app.translateUI(self)
+
+    def createActions(self):
+        """Creates the actions; called by __init__()."""
+        super().createActions()
+        # limit the maximum zoom factor to what our PagedView allows
+        self.zoomer._zoomFactors = tuple(filter(
+            lambda x: x <= PagedView.MAX_ZOOM, self.zoomer._zoomFactors))
 
     def translateUI(self):
         """Translate our actions correctly."""

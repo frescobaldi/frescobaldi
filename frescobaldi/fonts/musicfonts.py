@@ -584,7 +584,7 @@ class MusicFontsModel(QStandardItemModel):
             sizes = font.missing_sizes(type)
             if sizes:
                 if len(sizes) == 8:
-                    size_result.setCheckState(False)
+                    size_result.setCheckState(Qt.CheckState.Unchecked)
                 else:
                     size_result.setCheckState(Qt.CheckState.PartiallyChecked)
                     size_result.setText(_("Missing:") + " {}".format(

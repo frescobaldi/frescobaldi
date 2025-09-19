@@ -103,7 +103,6 @@ def loadSession(name):
     session = sessionGroup(name)
     urls = qsettings.get_url_list(session, "urls")
     active = session.value("active", -1, int)
-    result = None
     docs = []
     for url in urls:
         try:

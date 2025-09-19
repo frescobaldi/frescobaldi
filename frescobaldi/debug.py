@@ -25,24 +25,24 @@ def doc_repr(self):
 document.Document.__repr__ = doc_repr
 
 @app.documentCreated.connect
-def f(doc):
+def doc_created(doc):
     print("created:", doc)
 
 @app.documentLoaded.connect
-def f(doc):
+def doc_loaded(doc):
     print("loaded:", doc)
 
 @app.documentClosed.connect
-def f(doc):
+def doc_closed(doc):
     print("closed:", doc)
 
 @app.jobStarted.connect
-def f(doc, job):
+def job_started(doc, job):
     print('job started:', doc)
     print(job.command)
 
 @app.jobFinished.connect
-def f(doc, job, success):
+def job_finished(doc, job, success):
     print('job finished', doc)
     print('success:', success)
 
@@ -51,7 +51,7 @@ def f(doc, job, success):
 
 
 # delete unneeded stuff
-del f, doc_repr
+del doc_repr, doc_created, doc_loaded, doc_closed, job_started, job_finished
 
 def modules():
     """Print the list of loaded modules."""

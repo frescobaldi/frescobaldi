@@ -9,6 +9,32 @@ Click on the version to see the complete list of commits in a release.
 
 ## [unreleased]
 
+## [4.0.4] - 2025-08-08
+
+### Fixed
+
+- MIDI input now works reliably on all operating systems and macOS in particular (#2060).
+- Avoid MIDI playback issues while using multiple windows (#2053).
+- Set the maximum zoom for the PDF viewer to 800%. This is to prevent qpageview performance issues, but it's also a reasonable max value (#2056).
+- Fix snippet shortcuts breaking when a main window is closed (#2048).
+- Prevent crashes on Windows when opening the Documentation Browser (#2016).
+- Fix open .ly file from Finder (macOS) (#2051).
+- The Raster page layout option has been renamed Grid layout and a tooltip now explains how it works (#2027). This requires qpageview 1.0.1.
+- Some small bugfixes.
+
+### Changed
+
+- Remove pygame from project dependencies and let Linux packagers use PortMidi instead (#2007).
+- Since the release of Briefcase version 0.3.24, file associations are now supported also on macOS (#2057).
+- The tarball used by packagers is now built automatically by a GitHub Action workflow (#2000).
+- Improve the installation instructions (#2028).
+- Updated translations: Japanese, Korean.
+
+### Added
+
+- Doc: explain how to backup the settings (#2043).
+
+
 ## [4.0.3] - 2025-06-09
 
 ### Fixed
@@ -1670,7 +1696,8 @@ Frescobaldi application itself has the PO files in i18n/frescobaldi, see
 
 * Initial release.
 
-[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.3...master
+[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.4...master
+[4.0.4]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.3...v4.0.4
 [4.0.3]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.2...v4.0.3
 [4.0.2]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.1...v4.0.2
 [4.0.1]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.0...v4.0.1

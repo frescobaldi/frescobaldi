@@ -74,7 +74,7 @@ class Widget(QWidget):
         p.setHorizontalPolicy(QSizePolicy.Policy.MinimumExpanding)
         self._fileSelector.view().setSizePolicy(p)
 
-        self._player = player.Player()
+        self._player = player.Player.instance()
         self._outputCloseTimer = QTimer(interval=60000, singleShot=True,
             timeout=self.closeOutput)
         self._timeSliderTicker = QTimer(interval=200, timeout=self.updateTimeSlider)
@@ -121,7 +121,7 @@ class Widget(QWidget):
         """Called when playing starts. Ensures an output port is opened."""
         self._outputCloseTimer.stop()
         if not self._player.output():
-            p = QSettings().value("midi/player/output_port", midihub.default_output(), str)
+            p = QSettings().value("midi/output_port", midihub.default_output(), str)
             o = midihub.output_by_name(p)
             if o:
                 self._player.set_output(output.Output(o))

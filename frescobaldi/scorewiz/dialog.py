@@ -243,11 +243,9 @@ class Parts(Page):
                 parent = widget.scoreView
                 part = self._partTypes[name[:-4]]
                 box = QGroupBox(widget.partSettings)
-                item = score.PartItem(parent, part, box)
+                score.PartItem(parent, part, box)
             except KeyError:
-                # Unrecognized part type; fall back on a piano staff since
-                # they can hold almost anything.
-                partType = self._partTypes['piano']
+                pass
 
 
 class Settings(Page):

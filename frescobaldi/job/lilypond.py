@@ -126,7 +126,7 @@ class LilyPondJob(Job):
     def add_additional_arg(self, arg):
         """Append an additional command line argument if it is not
         present already."""
-        if not arg in self._additional_args:
+        if arg not in self._additional_args:
             self._additional_args.append(arg)
 
     def add_include_path(self, path):
@@ -215,19 +215,7 @@ class VolatileTextJob(PublishJob):
     base_dir can be used to add a 'virtual' document Directory
     in order to use relative includes.
     """
-    def __init__(
-        self, text, title=None, base_dir=None):
-        # TODO: ???
-        #       I have the impression this "info" stuff
-        #       is not used at all. And *if* it is used,
-        #       shouldn't it be implemented in LilyPondJob???
-        # Initialize default LilyPond version
-        info = lilypondinfo.preferred()
-        # Optionally infer a suitable LilyPond version from the content
-        if QSettings().value("lilypond_settings/autoversion", True, bool):
-            version = ly.docinfo.DocInfo(ly.document.Document(text, 'lilypond')).version()
-            if version:
-                info = lilypondinfo.suitable(version)
+    def __init__(self, text, title=None, base_dir=None):
         # Create temporary (document.Document object and file)
         self.directory = util.tempdir()
         filename = os.path.join(self.directory, 'document.ly')

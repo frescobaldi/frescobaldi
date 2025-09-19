@@ -35,7 +35,6 @@ import tokeniter
 import highlighter
 import textformats
 import gadgets.customtooltip
-import tokeniter
 import ly.lex.lilypond
 
 

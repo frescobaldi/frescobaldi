@@ -408,7 +408,7 @@ class TextFonts(QObject):
                 else style
             )
 
-        if not family_name in families.keys():
+        if family_name not in families.keys():
             families[family_name] = {}
         family = families[family_name]
         input = input.strip().split(':')
@@ -421,7 +421,7 @@ class TextFonts(QObject):
             # We "unescape" hyphens because this escape is not necessary
             # for our purposes.
             sub_family = input[0].split(',')[-1].replace('\\-', '-')
-            if not sub_family in family.keys():
+            if sub_family not in family.keys():
                 family[sub_family] = []
             qt_styles = self.font_db.styles(sub_family)
             lily_styles = input[1][6:].split(',')
@@ -447,7 +447,7 @@ class TextFonts(QObject):
                         break
                 if not match:
                     match = un_camel(lily_styles[0])
-            if not match in family[sub_family]:
+            if match not in family[sub_family]:
                 family[sub_family].append(match)
         else:
             pass

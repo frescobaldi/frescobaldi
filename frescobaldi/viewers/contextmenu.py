@@ -91,7 +91,6 @@ class AbstractViewerContextMenu(QObject):
         opened viewer documents"""
         mds = self._actionCollection.viewer_document_select
         docs = mds.viewdocs()
-        document_actions = {}
         multi_docs = len(docs) > 1
         if self._panel.widget().currentViewdoc():
             current_doc_filename = self._panel.widget().currentViewdoc().filename()

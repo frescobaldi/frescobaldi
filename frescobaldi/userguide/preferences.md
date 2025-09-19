@@ -19,6 +19,7 @@ prefs_shortcuts
 prefs_fontscolors
 prefs_helpers
 prefs_extensions
+backup
 
 #SEEALSO
 experimental_features

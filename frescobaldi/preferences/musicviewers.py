@@ -124,11 +124,12 @@ class PageScaling(preferences.Group):
         self.viewModeGroup.setId(self.viewFitBoth, qpageview.constants.FitBoth)
         layout.addWidget(self.viewFitBoth, 3, 0, 1, 1)
 
+        maxScale = int(pagedview.PagedView.MAX_ZOOM * 100)
         self.initialScaleSlider = QSlider(Qt.Orientation.Horizontal, valueChanged=self.changed)
         self.initialScaleSlider.setSingleStep(50)
-        self.initialScaleSlider.setRange(50, 800)
+        self.initialScaleSlider.setRange(50, maxScale)
         self.initialScaleSpinBox = QSpinBox()
-        self.initialScaleSpinBox.setRange(50, 800)
+        self.initialScaleSpinBox.setRange(50, maxScale)
         self.initialScaleSpinBox.valueChanged.connect(self.initialScaleSlider.setValue)
         self.initialScaleSlider.valueChanged.connect(self.initialScaleSpinBox.setValue)
         layout.addWidget(self.initialScaleSlider, 0, 1, 1, 2)
@@ -201,7 +202,8 @@ class PageLayout(preferences.Group):
         self.pageLayoutSingle.setText(_("Single"))
         self.pageLayoutDoubleRight.setText(_("Two pages (first page right)"))
         self.pageLayoutDoubleLeft.setText(_("Two pages (first page left)"))
-        self.pageLayoutRaster.setText(_("Raster"))
+        self.pageLayoutRaster.setText(_("Grid layout"))
+        self.pageLayoutRaster.setToolTip(_("The layout of pages (horizontal or vertical) adjusts dynamically based on the zoom level and the available space in the Music View. Continuous scrolling option must be checked."))
 
     def loadSettings(self):
         s = QSettings()

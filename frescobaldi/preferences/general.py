@@ -219,7 +219,7 @@ class SessionsAndFiles(preferences.Group):
         basedir_layout = QHBoxLayout()
         save_layout.addLayout(basedir_layout)
 
-        self.basedirLabel = l = QLabel()
+        self.basedirLabel = QLabel()
         self.basedir = UrlRequester()
         basedir_layout.addWidget(self.basedirLabel)
         basedir_layout.addWidget(self.basedir)

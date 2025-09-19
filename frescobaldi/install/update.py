@@ -22,11 +22,6 @@ Performs upgrades in the settings structure.
 """
 
 
-try:
-    string_types = basestring
-except NameError:
-    string_types = str
-
 from PyQt6.QtCore import QSettings
 
 import appinfo
@@ -43,6 +38,9 @@ def update(version):
     if version < 4:
         removeUseshebang()
 
+    if version < 5:
+        reorganizeMidiSettings()
+
     # ... add other setting updates here...
 
 
@@ -51,7 +49,7 @@ def moveSettingsToNewRoot():
     """Move all settings to one application file."""
     movelist = [[appinfo.name, appinfo.url, False], "metainfo", "snippets", "sessions", "sessiondata"]
     for moveitem in movelist:
-        if isinstance(moveitem, string_types):
+        if isinstance(moveitem, str):
             moveitem = [moveitem, appinfo.name, True]
         o = QSettings(moveitem[1], moveitem[0])
         o.setFallbacksEnabled(False)
@@ -89,3 +87,15 @@ def removeUseshebang():
         s.setArrayIndex(i)
         s.remove("useshebang")
     s.endArray()
+
+def reorganizeMidiSettings():
+    # remove the redundant midi/ and player/ prefixes
+    for branch in ("midi", "player"):
+        o = QSettings()
+        o.beginGroup(f"midi/{branch}")
+        keys = o.allKeys()
+        s = QSettings()
+        s.beginGroup("midi")
+        for k in keys:
+            s.setValue(k, o.value(k))
+        s.remove(branch)

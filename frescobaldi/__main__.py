@@ -49,6 +49,9 @@ import guistyle         # Setup GUI style
 import i18n.setup       # Setup language
 import remote           # IPC with other Frescobaldi instances
 
+# Avoid crashes on Windows
+if platform.system() == "Windows":
+    os.environ["QTWEBENGINE_CHROMIUM_FLAGS"] = "--disable-gpu --disable-software-rasterizer"
 
 def parse_commandline():
     """Parses the command line; returns options and filenames.
@@ -190,6 +193,11 @@ def main(debug=False):
     urls = list(map(url, args.files))
 
     if not app.qApp.isSessionRestored():
+
+        if platform.system() == "Darwin":
+            import macos.setup
+            macos.setup.initialize()
+
         if not args.new and remote.enabled():
             api = remote.get()
             if api:
@@ -218,19 +226,22 @@ def main(debug=False):
     import autocomplete     # auto-complete input
     import wordboundary     # better wordboundary behaviour for the editor
 
-    if platform.system() == "Darwin":
-        import macos.setup
-        macos.setup.initialize()
-
     if app.qApp.isSessionRestored():
         # Restore session, we are started by the session manager
         session.restoreSession(app.qApp.sessionKey())
         return
 
     # Just create one MainWindow
-    win = mainwindow.MainWindow()
-    win.show()
-    win.activateWindow()
+    if platform.system() == "Darwin":
+        win = app.activeWindow()
+        if not win:
+            win = mainwindow.MainWindow()
+            win.show()
+            win.activateWindow()
+    else:
+        win = mainwindow.MainWindow()
+        win.show()
+        win.activateWindow()
     # make sure all dock tools are initialized and resized
     app.qApp.processEvents()
 

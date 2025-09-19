@@ -14,7 +14,7 @@ dependencies = [
   "pyqt6>=6.6",
   "pyqt6-webengine",
   "python-ly >= 0.9.5",
-  "qpageview>=1.0.0"
+  "qpageview>=1.0.1"
 ]
 dynamic = ["version"]
 classifiers = [
@@ -92,15 +92,15 @@ project_name = "frescobaldi"
 bundle = "org.frescobaldi"
 # Briefcase does not support dynamic version yet.
 # https://github.com/beeware/briefcase/issues/474
-version = "4.0.4.dev1"
+version = "4.0.5.dev1"
 requires = [
-    "PyQt6==6.9.0",
-    "PyQt6-Qt6==6.9.0",
-    "PyQt6-sip==13.10.0",
+    "PyQt6==6.9.1",
+    "PyQt6-Qt6==6.9.1",
+    "PyQt6-sip==13.10.2",
     "PyQt6-WebEngine==6.9.0",
-    "PyQt6-WebEngine-Qt6==6.9.0",
+    "PyQt6-WebEngine-Qt6==6.9.1",
     "python-ly==0.9.9",
-    "qpageview==1.0.0",
+    "qpageview==1.0.1",
     "pygame-ce==2.5.5"
 ]
 
@@ -113,13 +113,7 @@ icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
 
 [tool.briefcase.app.frescobaldi.windows]
 use_full_install_path = false
-# https://github.com/beeware/briefcase-windows-app-template/pull/62
-template = "https://github.com/davidfokkema/briefcase-windows-app-template"
-template_branch = "file-associations"
 
-# File associations currently work only in Windows using
-# a custom template.
-# https://github.com/beeware/briefcase/issues/1706
 [tool.briefcase.app.frescobaldi.document_type.ly]
 description = "LilyPond file"
 extension = "ly"

@@ -156,6 +156,6 @@ here another line
 and here yet another
 """)
     e.show()
-    v = ViMode(e)
+    ViMode(e)
     a.exec()
 

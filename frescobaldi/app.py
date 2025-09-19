@@ -29,7 +29,7 @@ import platform
 import importlib.util
 import weakref
 
-from PyQt6.QtCore import QObject, QSettings, Qt, QThread
+from PyQt6.QtCore import QObject, QSettings, Qt, QThread, QStandardPaths
 from PyQt6.QtWidgets import QApplication, QMenuBar
 
 ### needed for QWebEngine
@@ -235,17 +235,16 @@ def basedir():
     """Returns a base directory for documents.
 
     First looks in the session settings, then the default settings.
-    Returns "" if no directory was set. It is recommended to use the
-    home directory in that case.
+    If no directory was set, this returns the user's Documents directory.
 
     """
     import sessions
     conf = sessions.currentSessionGroup()
-    if conf:
-        basedir = conf.value("basedir", "", str)
-        if basedir:
-            return basedir
-    return QSettings().value("basedir", "", str)
+    if not conf:
+        conf = QSettings()
+    basedir = conf.value("basedir", "", str)
+    return basedir if basedir else QStandardPaths.writableLocation(
+        QStandardPaths.StandardLocation.DocumentsLocation)
 
 def settings(name):
     """Returns a QSettings object referring a file in ~/.config/frescobaldi/"""

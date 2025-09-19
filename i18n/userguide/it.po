@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Frescobaldi 4.0.1\n"
 "Report-Msgid-Bugs-To: frescobaldi@googlegroups.com\n"
 "POT-Creation-Date: 2023-06-17 20:04+0200\n"
-"PO-Revision-Date: 2025-05-04 00:43+0200\n"
+"PO-Revision-Date: 2025-08-29 09:21+0200\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 47.1\n"
+"X-Generator: Gtranslator 48.0\n"
 
 #: ../../frescobaldi/userguide/404.md:1
 msgid "Not Found"
@@ -287,6 +287,90 @@ msgstr ""
 "Inserendo `.` (un punto) viene accettato l'elemento evidenziato e viene "
 "aggiunto il punto, rendendo comodo l'inserimento delle proprietà del grob."
 
+#: ../../frescobaldi/userguide/backup.md:1
+msgid "Backup"
+msgstr "Backup"
+
+#: ../../frescobaldi/userguide/backup.md:3
+msgid ""
+"All the application settings (paths to LilyPond installations, custom "
+"snippets, MIDI ports and any other preferences) are saved in the main "
+"configuration file."
+msgstr ""
+"Tutte le impostazioni dell'applicazione (percorsi delle installazioni "
+"LilyPond, frammenti personalizzati, porte MIDI e tutte le altre preferenze) "
+"sono salvate nel file di configurazione principale."
+
+#: ../../frescobaldi/userguide/backup.md:5
+msgid ""
+"If you want to backup your settings or use them in another computer, you "
+"must know where to find it. The file format and location depends on the "
+"operating system default."
+msgstr ""
+"Per fare il backup delle impostazioni o usarle in un altro computer, occorre "
+"sapere dove trovarlo. Il formato del file e la sua posizione dipendono dalle "
+"impostazioni predefinite di ciascun sistema operativo."
+
+#: ../../frescobaldi/userguide/backup.md:8
+msgid "Linux"
+msgstr "Linux"
+
+#. NOTE: markdown formatting
+#: ../../frescobaldi/userguide/backup.md:10
+msgid ""
+"On Linux the settings file is a plain text file in the INI format. For "
+"regular installations the path is `~/.config/frescobaldi/frescobaldi.conf`; "
+"for Flatpak installations it's `~/.var/app/org.frescobaldi.Frescobaldi/"
+"config/frescobaldi/frescobaldi.conf`."
+msgstr ""
+"In Linux il file delle impostazioni è un file di testo semplice in formato "
+"INI. Il percorso è `~/.config/frescobaldi/frescobaldi.conf` per le normali "
+"installazioni e `~/.var/app/org.frescobaldi.Frescobaldi/config/frescobaldi/"
+"frescobaldi.conf` per le installazioni Flatpak."
+
+#: ../../frescobaldi/userguide/backup.md:14
+msgid "macOS"
+msgstr "macOS"
+
+#. NOTE: markdown formatting
+#: ../../frescobaldi/userguide/backup.md:16
+msgid ""
+"On macOS the settings file is a Apple binary property list located at `/"
+"Library/Preferences/org.frescobaldi.frescobaldi.plist`."
+msgstr ""
+"In macOS il file delle impostazioni è un file property list binario di Apple "
+"che si trova in `/Library/Preferences/org.frescobaldi.frescobaldi.plist`."
+
+#: ../../frescobaldi/userguide/backup.md:18
+msgid ""
+"If you want to share the contents with others (for example to help a "
+"developer to debug an issue), you should first convert it to a plain XML "
+"file:"
+msgstr ""
+"Per condividere i contenuti con altri (ad esempio, per aiutare un "
+"programmatore a fare il debug di un problema), bisogna prima convertirlo in "
+"un file XML:"
+
+#: ../../frescobaldi/userguide/backup.md:26
+msgid "Windows"
+msgstr "Windows"
+
+#. NOTE: markdown formatting
+#: ../../frescobaldi/userguide/backup.md:28
+msgid ""
+"On Windows the settings are saved in the following registry path: "
+"`HHKEY_CURRENT_USER\\software\\Frescobaldi\\frescobaldi`."
+msgstr ""
+"In Windows le impostazioni vengono salvate nel seguente percorso del "
+"registro di sistema: "
+"`HHKEY_CURRENT_USER\\software\\Frescobaldi\\frescobaldi`."
+
+#: ../../frescobaldi/userguide/backup.md:30
+msgid "You can use the Registry Editor to check or backup your settings."
+msgstr ""
+"Si può usare l'editor del registro per controllare o fare il backup delle "
+"impostazioni."
+
 #: ../../frescobaldi/userguide/contributing.md:1
 msgid "Contributing"
 msgstr "Come contribuire"
@@ -481,7 +565,7 @@ msgstr ""
 "Pulsanti per l'importazione e l'esportazione in formato MusicXML, MIDI e ABC"
 
 #: ../../frescobaldi/userguide/credits.md:16
-#: ../../frescobaldi/userguide/credits.md:50
+#: ../../frescobaldi/userguide/credits.md:49
 #: ../../frescobaldi/userguide/manuscriptview.md:1
 msgid "Manuscript Viewer"
 msgstr "Anteprima manoscritto"
@@ -491,96 +575,99 @@ msgid "Encoding-related fixes and other improvements"
 msgstr "Correzioni relative alla codifica e altri miglioramenti"
 
 #: ../../frescobaldi/userguide/credits.md:24
-msgid ""
-"Linux freedesktop.org fixes, maintainer of the flatpak package on Flathub, "
-"Windows and macOS packages built with Briefcase"
-msgstr ""
-"Correzioni secondo gli standard freedesktop.org per Linux, manutentore del "
-"pacchetto flatpak su Flathub, pacchetti Windows e macOS prodotti con "
-"Briefcase"
+msgid "Packaging and release tools"
+msgstr "Strumenti di packaging e distribuzione"
 
-#: ../../frescobaldi/userguide/credits.md:29
+#: ../../frescobaldi/userguide/credits.md:24
+msgid "Maintainer of the Linux flatpak package on Flathub"
+msgstr "Responsabile del pacchetto Linux flatpak su Flathub"
+
+#: ../../frescobaldi/userguide/credits.md:28
 msgid "Modal Transpose"
 msgstr "Trasposizione modale"
 
-#: ../../frescobaldi/userguide/credits.md:32
+#: ../../frescobaldi/userguide/credits.md:31
 msgid "Kinetic Scrolling for the Music View"
 msgstr "Scorrimento cinetico per l'anteprima dello spartito"
 
-#: ../../frescobaldi/userguide/credits.md:35
+#: ../../frescobaldi/userguide/credits.md:34
 msgid "Windows installers"
 msgstr "Installer per Windows"
 
-#: ../../frescobaldi/userguide/credits.md:38
+#: ../../frescobaldi/userguide/credits.md:37
 msgid "Qt 6 port"
 msgstr "Migrazione a Qt 6"
 
-#: ../../frescobaldi/userguide/credits.md:38
+#: ../../frescobaldi/userguide/credits.md:37
 msgid "Score Wizard improvements"
 msgstr "Miglioramenti della configurazione assistita di un nuovo spartito"
 
-#: ../../frescobaldi/userguide/credits.md:38
+#: ../../frescobaldi/userguide/credits.md:37
 msgid "Score Wizard From Current Document"
 msgstr "Configurazione assistita di un nuovo spartito dal documento corrente"
 
-#: ../../frescobaldi/userguide/credits.md:43
+#: ../../frescobaldi/userguide/credits.md:42
 msgid "Homebrew formula for macOS"
 msgstr "Formula Homebrew per macOS"
 
-#: ../../frescobaldi/userguide/credits.md:46
+#: ../../frescobaldi/userguide/credits.md:45
+msgid "macOS packaging"
+msgstr "macOS packaging"
+
+#: ../../frescobaldi/userguide/credits.md:45
 msgid "various other improvements"
 msgstr "vari altri miglioramenti"
 
-#: ../../frescobaldi/userguide/credits.md:50
+#: ../../frescobaldi/userguide/credits.md:49
 msgid "Layout control modes"
 msgstr "Modalità di controllo della formattazione"
 
-#: ../../frescobaldi/userguide/credits.md:50
+#: ../../frescobaldi/userguide/credits.md:49
 msgid "various other contributions"
 msgstr "vari altri contributi"
 
-#: ../../frescobaldi/userguide/credits.md:55
+#: ../../frescobaldi/userguide/credits.md:54
 msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr "Migliorati l'evidenziazione e l'autocompletamento del codice Scheme"
 
-#: ../../frescobaldi/userguide/credits.md:58
+#: ../../frescobaldi/userguide/credits.md:57
 msgid "MIDI capturing"
 msgstr "Cattura MIDI"
 
-#: ../../frescobaldi/userguide/credits.md:61
+#: ../../frescobaldi/userguide/credits.md:60
 msgid "macOS installers (arm64)"
 msgstr "Installer macOS (arm64)"
 
-#: ../../frescobaldi/userguide/credits.md:64
+#: ../../frescobaldi/userguide/credits.md:63
 msgid "Finding lots of bugs"
 msgstr "Trovare molti bug"
 
-#: ../../frescobaldi/userguide/credits.md:67
+#: ../../frescobaldi/userguide/credits.md:66
 msgid "Qt 6 port testing and improvements"
 msgstr "Miglioramenti e test della migrazione a Qt 6"
 
-#: ../../frescobaldi/userguide/credits.md:67
+#: ../../frescobaldi/userguide/credits.md:66
 msgid "many bug fixes"
 msgstr "molte correzioni di bug"
 
-#: ../../frescobaldi/userguide/credits.md:71
+#: ../../frescobaldi/userguide/credits.md:70
 msgid "Many code and feature improvements"
 msgstr "Molti miglioramenti nel codice e in nuove funzionalità"
 
-#: ../../frescobaldi/userguide/credits.md:71
+#: ../../frescobaldi/userguide/credits.md:70
 msgid "work on proper Python 3 support"
 msgstr "lavoro per un completo supporto a Python 3"
 
-#: ../../frescobaldi/userguide/credits.md:75
+#: ../../frescobaldi/userguide/credits.md:74
 msgid "Relative mode for MIDI capturing"
 msgstr "Modalità relativa per la cattura MIDI"
 
-#: ../../frescobaldi/userguide/credits.md:78
+#: ../../frescobaldi/userguide/credits.md:77
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} è tradotto in queste lingue:"
 
 #. NOTE: markdown formatting
-#: ../../frescobaldi/userguide/credits.md:149
+#: ../../frescobaldi/userguide/credits.md:150
 msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"
@@ -3821,20 +3908,20 @@ msgstr "Opzioni generali"
 msgid ""
 "Under *General* preferences, you can choose in which language Frescobaldi's "
 "user interface is translated, which user interface style you want to use, "
-"and whether you want to use the built-in Tango iconset or to use the system-"
+"and whether you want to use the built-in Tango icon set or to use the system-"
 "wide configured icon set."
 msgstr ""
 "Nelle preferenze *Generali*, è possibile scegliere la lingua "
 "dell'interfaccia utente di Frescobaldi, lo stile da usare per l'interfaccia "
-"e se si voglia usare il set di icone Tango allegato al programma o invece le "
-"icone generali del sistema."
+"e se si voglia usare il set di icone Tango integrato nell'applicazione o "
+"invece le icone generali del sistema."
 
 #: ../../frescobaldi/userguide/prefs_general.md:8
 msgid ""
-"Language and style take effect immediately, but the new iconset is visible "
+"Language and style take effect immediately, but the new icon set is visible "
 "after Frescobaldi has been restarted."
 msgstr ""
-"I cambiamenti di lingua e di stile hanno effetto immediato mentre il cambio "
+"I cambiamenti di lingua e di stile hanno effetto immediato, mentre il cambio "
 "delle icone richiede il riavvio di Frescobaldi."
 
 #. NOTE: markdown formatting
