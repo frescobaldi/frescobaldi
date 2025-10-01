@@ -81,10 +81,11 @@ class ViewSettings(preferences.Group):
             "share the same line wrapping width, which might look strange."))
         self.numContextLinesLabel.setText(_("Number of surrounding lines:"))
         self.numContextLines.setToolTip('<qt>' + _(
-            "When jumping between search results or clicking on a link, the "
-            "text view tries to scroll as few lines as possible. "
-            "Here you can specify how many surrounding lines at least should "
-            "be visible."))
+            "The number of surrounding lines to show when clicking "
+            "on an object of the music view or jumping to a search result. "
+            "The text view will scroll and unfold blocks as needed, "
+            "but always as little as possible. "
+            "Set it to 0 to disable unfolding."))
         self.numContextLinesLabel.setToolTip(self.numContextLines.toolTip())
 
     def loadSettings(self):
