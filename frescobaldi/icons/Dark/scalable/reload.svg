@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+category: Document
+tags: [cancel, "no", directory, dir]
+version: "1.0"
+unicode: "eaad"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="1"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="reload.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1" />
+  <path
+     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1"
+     d="M 5,3.5 C 3.6252104,3.5 2.5,4.6252104 2.5,6 v 11 c 0,1.37479 1.1252104,2.5 2.5,2.5 h 14 c 1.37479,0 2.5,-1.12521 2.5,-2.5 V 9 C 21.5,7.6252104 20.37479,6.5 19,6.5 H 12.207031 L 9.3535156,3.6464844 A 0.50005,0.50005 0 0 0 9,3.5 Z m 0,1 H 8.7929688 L 11.646484,7.3535156 A 0.50005,0.50005 0 0 0 12,7.5 h 7 c 0.834349,0 1.5,0.6656506 1.5,1.5 v 8 c 0,0.834349 -0.665651,1.5 -1.5,1.5 H 5 C 4.1656506,18.5 3.5,17.834349 3.5,17 V 6 C 3.5,5.1656506 4.1656506,4.5 5,4.5 Z"
+     id="path1" />
+</svg>

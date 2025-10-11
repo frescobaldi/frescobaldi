@@ -90,15 +90,10 @@ def update_theme():
     """Change the theme for icon lookup after change of style preference"""
     s = QSettings()
     if s.value("system_icons", True, bool):
-        if platform.system() == "Windows" or platform.system() == "Darwin":
-            if QGuiApplication.styleHints().colorScheme() == Qt.ColorScheme.Dark:
-                QIcon.setThemeName("Dark")
-            elif QGuiApplication.styleHints().colorScheme() == Qt.ColorScheme.Light:
-                QIcon.setThemeName("Light")
-            else:
-                QIcon.setThemeName("TangoExt")
+        if QGuiApplication.palette().window().color().value() > QGuiApplication.palette().windowText().color().value():
+            QIcon.setThemeName("Light")
         else:
-            QIcon.setThemeName(s.value("guistyle", "", str))
+            QIcon.setThemeName("Dark")
     else:
         QIcon.setThemeName("TangoExt") # Our icon theme
 

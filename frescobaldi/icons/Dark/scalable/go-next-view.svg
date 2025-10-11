@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--
-tags: [find, change, switch, swap]
-category: Map
-version: "1.79"
-unicode: "f2a7"
+tags: [stack, arrange, pile, order, sort, group, select, organize, choose, layout]
+category: Design
+unicode: "fea9"
+version: "3.1"
 -->
 
 <svg
@@ -17,7 +17,7 @@ unicode: "f2a7"
    stroke-linejoin="round"
    version="1.1"
    id="svg5"
-   sodipodi:docname="edit-find-replace.svg"
+   sodipodi:docname="go-next-view.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -35,22 +35,22 @@ unicode: "f2a7"
      inkscape:deskcolor="#d1d1d1" />
   <path
      style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1"
-     d="m 14.646484,14.646484 a 0.5,0.5 0 0 0 0,0.707032 l 6,6 a 0.5,0.5 0 0 0 0.707032,0 0.5,0.5 0 0 0 0,-0.707032 l -6,-6 a 0.5,0.5 0 0 0 -0.707032,0 z"
+     d="M 14.138672,3.6542969 7.6464844,10.146484 a 0.5,0.5 0 0 0 0,0.707032 0.5,0.5 0 0 0 0.7070312,0 L 14.845703,4.3613281 a 0.5,0.5 0 0 0 0,-0.7070312 0.5,0.5 0 0 0 -0.707031,0 z"
      id="path1" />
   <path
      style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1"
-     d="M 11.009766,2.5625 C 10.110977,2.4423225 9.1774623,2.484511 8.25,2.7089844 5.6500646,3.332768 3.5769862,5.2951929 2.8125,7.8574219 A 0.5,0.5 0 0 0 3.1484375,8.4785156 0.5,0.5 0 0 0 3.7695313,8.1425781 C 4.4327229,5.9198449 6.2286386,4.2200758 8.484375,3.6796875 a 0.50005,0.50005 0 0 0 0.00195,0 C 11.710321,2.8993857 14.996833,4.655893 16.140625,7.7695312 a 0.5,0.5 0 0 0 0.642578,0.2968751 0.5,0.5 0 0 0 0.296875,-0.6425782 C 16.092957,4.7366803 13.706131,2.9230324 11.009766,2.5625 Z"
+     d="m 19.646484,9.1425781 -6.503906,6.5039059 a 0.50005,0.50005 0 0 0 0.0039,0.701172 0.50005,0.50005 0 0 0 0.703125,0.0059 l 6.503907,-6.5039066 a 0.50005,0.50005 0 0 0 -0.0059,-0.703125 0.50005,0.50005 0 0 0 -0.701172,-0.00391 z"
      id="path2" />
   <path
      style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1"
-     d="M 17,3.5 A 0.5,0.5 0 0 0 16.5,4 V 7.5 H 13 A 0.5,0.5 0 0 0 12.5,8 0.5,0.5 0 0 0 13,8.5 h 4 A 0.50005,0.50005 0 0 0 17.5,8 V 4 A 0.5,0.5 0 0 0 17,3.5 Z"
+     d="M 19.058594,4.234375 8.2324219,15.060547 a 0.5,0.5 0 0 0 0,0.707031 0.5,0.5 0 0 0 0.7070312,0 L 19.765625,4.9414062 a 0.5,0.5 0 0 0 0,-0.7070312 0.5,0.5 0 0 0 -0.707031,0 z"
      id="path3" />
   <path
      style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1"
-     d="m 16.847656,11.521484 a 0.5,0.5 0 0 0 -0.621094,0.335938 c -0.664945,2.219137 -2.460068,3.915159 -4.71289,4.455078 -3.223689,0.779769 -6.5105452,-0.976639 -7.654297,-4.089844 a 0.5,0.5 0 0 0 -0.6425781,-0.296875 0.5,0.5 0 0 0 -0.296875,0.642578 c 1.3161166,3.582368 5.1186223,5.612125 8.8281251,4.714844 v 0.002 c 2.597753,-0.622587 4.668791,-2.583668 5.435547,-5.142578 a 0.5,0.5 0 0 0 -0.335938,-0.621094 z"
+     d="M 10,3.5 C 8.6252104,3.5 7.5,4.6252104 7.5,6 v 8 c 0,1.37479 1.1252104,2.5 2.5,2.5 h 8 c 1.37479,0 2.5,-1.12521 2.5,-2.5 V 6 C 20.5,4.6252104 19.37479,3.5 18,3.5 Z m 0,1 h 8 c 0.834349,0 1.5,0.6656506 1.5,1.5 v 8 c 0,0.834349 -0.665651,1.5 -1.5,1.5 H 10 C 9.1656506,15.5 8.5,14.834349 8.5,14 V 6 C 8.5,5.1656506 9.1656506,4.5 10,4.5 Z"
      id="path4" />
   <path
      style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1"
-     d="M 3,11.5 A 0.50005,0.50005 0 0 0 2.5,12 v 4 A 0.5,0.5 0 0 0 3,16.5 0.5,0.5 0 0 0 3.5,16 V 12.5 H 7 A 0.5,0.5 0 0 0 7.5,12 0.5,0.5 0 0 0 7,11.5 Z"
+     d="M 6,7.5 C 4.6252104,7.5 3.5,8.6252104 3.5,10 v 8 c 0,1.37479 1.1252104,2.5 2.5,2.5 h 8 c 1.37479,0 2.5,-1.12521 2.5,-2.5 V 16 A 0.5,0.5 0 0 0 16,15.5 0.5,0.5 0 0 0 15.5,16 v 2 c 0,0.834349 -0.665651,1.5 -1.5,1.5 H 6 C 5.1656506,19.5 4.5,18.834349 4.5,18 V 10 C 4.5,9.1656506 5.1656506,8.5 6,8.5 H 8 A 0.5,0.5 0 0 0 8.5,8 0.5,0.5 0 0 0 8,7.5 Z"
      id="path5" />
 </svg>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+category: Design
+tags: [grid, column, rows]
+version: "1.0"
+unicode: "ead4"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="1"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg2"
+   sodipodi:docname="view-split-left-right.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="namedview2"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1" />
+  <path
+     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#000000;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1"
+     d="M 6,3.5 C 4.6252104,3.5 3.5,4.6252104 3.5,6 v 12 c 0,1.37479 1.1252104,2.5 2.5,2.5 h 12 c 1.37479,0 2.5,-1.12521 2.5,-2.5 V 6 C 20.5,4.6252104 19.37479,3.5 18,3.5 Z m 0,1 h 12 c 0.834349,0 1.5,0.6656506 1.5,1.5 v 12 c 0,0.834349 -0.665651,1.5 -1.5,1.5 H 6 C 5.1656506,19.5 4.5,18.834349 4.5,18 V 6 C 4.5,5.1656506 5.1656506,4.5 6,4.5 Z"
+     id="path1" />
+  <path
+     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#000000;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1"
+     d="M 12,3.5 A 0.5,0.5 0 0 0 11.5,4 V 20 A 0.5,0.5 0 0 0 12,20.5 0.5,0.5 0 0 0 12.5,20 V 4 A 0.5,0.5 0 0 0 12,3.5 Z"
+     id="path2" />
+</svg>

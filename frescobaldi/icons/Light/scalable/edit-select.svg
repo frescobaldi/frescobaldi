@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+tags: [arrows, select, dropdown, chevron, down, south, bottom, direction, input]
+version: "1.16"
+unicode: "ec9e"
+category: Arrows
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="1"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg2"
+   sodipodi:docname="edit-select.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="namedview2"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1" />
+  <path
+     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#000000;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1"
+     d="M 5,2.5 C 3.6252104,2.5 2.5,3.6252104 2.5,5 v 14 c 0,1.37479 1.1252104,2.5 2.5,2.5 h 14 c 1.37479,0 2.5,-1.12521 2.5,-2.5 V 5 C 21.5,3.6252104 20.37479,2.5 19,2.5 Z m 0,1 h 14 c 0.834349,0 1.5,0.6656506 1.5,1.5 v 14 c 0,0.834349 -0.665651,1.5 -1.5,1.5 H 5 C 4.1656506,20.5 3.5,19.834349 3.5,19 V 5 C 3.5,4.1656506 4.1656506,3.5 5,3.5 Z"
+     id="path1" />
+  <path
+     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#000000;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1"
+     d="m 8.6464844,10.646484 a 0.5,0.5 0 0 0 0,0.707032 l 2.9999996,3 a 0.50005,0.50005 0 0 0 0.707032,0 l 3,-3 a 0.5,0.5 0 0 0 0,-0.707032 0.5,0.5 0 0 0 -0.707032,0 L 12,13.292969 9.3535156,10.646484 a 0.5,0.5 0 0 0 -0.7070312,0 z"
+     id="path2" />
+</svg>
