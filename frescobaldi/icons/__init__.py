@@ -24,8 +24,6 @@ Icons.
 
 import os
 
-import platform
-
 from PyQt6.QtCore import QDir, QFile, QFileInfo, QSettings, QSize, Qt
 from PyQt6.QtGui import QIcon, QGuiApplication
 from PyQt6.QtWidgets import QFileIconProvider

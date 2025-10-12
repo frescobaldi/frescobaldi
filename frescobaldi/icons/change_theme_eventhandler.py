@@ -42,10 +42,9 @@ class ChangingThemeEventHandler(QObject):
     def eventFilter(self, obj, ev):
         if ev.type() == QEvent.Type.ApplicationPaletteChange:
             s = QSettings()
-            if platform.system() == "Windows" or platform.system() == "Darwin":
-                if s.value("system_icons", True, bool):
-                    icons.update_theme()
-                return True
+            if s.value("system_icons", True, bool):
+                icons.update_theme()
+            return True
         return False
 
 
