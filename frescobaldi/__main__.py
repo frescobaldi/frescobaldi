@@ -210,8 +210,12 @@ def main(debug=False):
             splashscreen.show()
 
     # application icon
-    import icons
-    QApplication.setWindowIcon(icons.get("org.frescobaldi.Frescobaldi"))
+    if platform.system() != "Darwin":
+        import icons
+        QApplication.setWindowIcon(icons.get("org.frescobaldi.Frescobaldi"))
+    # for new icon theme, to handle the light/dark mode change event
+    from icons import change_theme_eventhandler
+    change_theme_eventhandler.initialize()
 
     QTimer.singleShot(0, remote.setup)  # Start listening for IPC
 
