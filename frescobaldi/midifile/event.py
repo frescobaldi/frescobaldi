@@ -31,6 +31,7 @@ ControllerEvent = collections.namedtuple('ControllerEvent', 'channel number valu
 ProgramChangeEvent = collections.namedtuple('ProgramChangeEvent', 'channel number')
 ChannelAfterTouchEvent = collections.namedtuple('ChannelAfterTouchEvent', 'channel value')
 PitchBendEvent = collections.namedtuple('PitchBendEvent', 'channel value')
+PointAndClickEvent = collections.namedtuple('PointAndClickEvent', 'on link')
 
 
 class EventFactory:
@@ -47,6 +48,7 @@ class EventFactory:
     pitchbend_event = PitchBendEvent
     sysex_event = SysExEvent
     meta_event = MetaEvent
+    pointandclick_event = PointAndClickEvent
 
 
 # MIDI message constants

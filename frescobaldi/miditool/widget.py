@@ -22,7 +22,7 @@ The MIDI tool widget.
 """
 
 
-from PyQt6.QtCore import Qt, QTimer, QSettings
+from PyQt6.QtCore import pyqtSignal, Qt, QTimer, QSettings
 from PyQt6.QtWidgets import (
     QWidget, QComboBox, QToolButton, QSlider, QGridLayout, QSizePolicy, QLabel)
 
@@ -39,6 +39,9 @@ from . import player
 
 
 class Widget(QWidget):
+    midiPointAndClickPlayed = pyqtSignal(object, bool)
+    playerStateChanged = pyqtSignal(bool)
+
     def __init__(self, dockwidget):
         super().__init__(dockwidget)
         self._document = None
@@ -85,6 +88,7 @@ class Widget(QWidget):
         self._player.beat.connect(self.updateDisplayBeat)
         self._player.time.connect(self.updateDisplayTime)
         self._player.stateChanged.connect(self.slotPlayerStateChanged)
+        self._player.pointandclick.connect(self.slotPointAndClickPlayed)
         self.slotPlayerStateChanged(False)
         dockwidget.mainwindow().currentDocumentChanged.connect(self.loadResults)
         app.documentLoaded.connect(self.slotDocumentLoaded)
@@ -131,6 +135,7 @@ class Widget(QWidget):
         self._player.set_output(None)
 
     def slotPlayerStateChanged(self, playing):
+        self.playerStateChanged.emit(playing)
         ac = self.parentWidget().actionCollection
         # setDefaultAction also adds the action
         for b in self._stopButton, self._playButton:
@@ -148,6 +153,10 @@ class Widget(QWidget):
             # close the output if the preference is set
             if QSettings().value("midi/close_outputs", False, bool):
                 self._outputCloseTimer.start()
+
+    def slotPointAndClickPlayed(self, link, is_on):
+        """Called when a point-and-click meta event is played"""
+        self.midiPointAndClickPlayed.emit(link, is_on)
 
     def play(self):
         """Starts the MIDI player, opening an output if necessary."""

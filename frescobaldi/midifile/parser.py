@@ -34,6 +34,8 @@ Runs with Python 2.6, 2.7 and 3.
 import sys
 import struct
 
+import textedit
+
 from . import event
 
 
@@ -136,7 +138,13 @@ def parse_midi_events(s, factory=None):
                 meta_size, pos = read_var_len(s, pos+1)
                 meta_data = s[pos:pos+meta_size]
                 pos += meta_size
-                ev = factory.meta_event(meta_type, meta_data)
+                ev = None
+                if meta_size > 3 and meta_data[:3] in (b'LYS', b'LYE'):
+                    link = textedit.link(meta_data[3:].decode('utf-8'))
+                    if link:
+                        ev = factory.pointandclick_event(meta_data[:3] == b'LYS', link)
+                if not ev:
+                    ev = factory.meta_event(meta_type, meta_data)
             else:
                 # some sort of sysex
                 sysex_size, pos = read_var_len(s, pos)
