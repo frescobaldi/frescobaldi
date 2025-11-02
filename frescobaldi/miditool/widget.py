@@ -158,6 +158,10 @@ class Widget(QWidget):
         """Called when a point-and-click meta event is played"""
         self.midiPointAndClickPlayed.emit(link, is_on)
 
+    def seekPointAndClick(self, link):
+        """Seeks the player to specified link"""
+        self._player.seek_link(link)
+
     def play(self):
         """Starts the MIDI player, opening an output if necessary."""
         if not self._player.is_playing() and not self._player.has_events():

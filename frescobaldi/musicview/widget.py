@@ -91,9 +91,9 @@ class MusicView(QWidget):
             self.slotCurrentViewChanged(view)
 
         # react if midi player plays a point and click meta event
-        playerWidget = panelmanager.manager(dockwidget.mainwindow()).miditool.widget()
-        playerWidget.midiPointAndClickPlayed.connect(self.slotMidiPointAndClickPlayed)
-        playerWidget.playerStateChanged.connect(self.slotPlayerStateChanged)
+        self.playerWidget = panelmanager.manager(dockwidget.mainwindow()).miditool.widget()
+        self.playerWidget.midiPointAndClickPlayed.connect(self.slotMidiPointAndClickPlayed)
+        self.playerWidget.playerStateChanged.connect(self.slotPlayerStateChanged)
 
     def sizeHint(self):
         """Returns the initial size the PDF (Music) View prefers."""
@@ -149,6 +149,7 @@ class MusicView(QWidget):
                 widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
                 mainwindow.activateWindow()
                 mainwindow.currentView().setFocus()
+                self.seekPlayerToLink(link.url)
         elif link.url and not link.url.startswith('textedit:'):
             helpers.openUrl(QUrl(link.url))
         elif link.targetPage != -1 and not link.isExternal:
@@ -311,3 +312,9 @@ class MusicView(QWidget):
             # clear current highlights when stopped
             self._midiHighlights = {}
             self.view.clearHighlight(self._highlightMusicFormat)
+
+    def seekPlayerToLink(self, url):
+        """Seek player to specified textedit url"""
+        l = textedit.link(url)
+        if l:
+            self.playerWidget.seekPointAndClick(l)

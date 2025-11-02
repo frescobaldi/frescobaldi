@@ -82,6 +82,7 @@ class Player:
             self.timer_stop_playing()
         self._song = song
         self._events = make_event_list(song, time, beat)
+        self._pac_index = make_pointandclick_index(self._events)
         self._position = 0
         self._offset = 0
         if playing:
@@ -174,6 +175,11 @@ class Player:
             self.set_position(position)
             return True
         return False
+
+    def seek_link(self, link):
+        """Goes to the first instance of the specified link"""
+        if link in self._pac_index:
+            self.seek(self._pac_index[link][0])
 
     def set_position(self, position, offset=0):
         """(Private) Goes to the specified position in the internal events list.
@@ -427,3 +433,14 @@ def make_event_list(song, time=None, beat=None):
     return [(t, d[t]) for t in sorted(d)]
 
 
+def make_pointandclick_index(events):
+    """Returns a dict mapping point-and-click links to times in the song"""
+
+    d = collections.defaultdict(lambda: [])
+    for t, ev in events:
+        if ev.pac:
+            for track in ev.pac:
+                for e in ev.pac[track]:
+                    if e.on:
+                        d[e.link].append(t)
+    return d
