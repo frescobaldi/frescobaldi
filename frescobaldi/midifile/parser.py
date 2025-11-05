@@ -140,6 +140,8 @@ def parse_midi_events(s, factory=None):
                 pos += meta_size
                 ev = None
                 if meta_size > 3 and meta_data[:3] in (b'LYS', b'LYE'):
+                    # lilypond point-and-click start (LYS) or end (LYE) meta event
+                    # see https://gitlab.com/lilypond/lilypond/-/merge_requests/2790
                     link = textedit.link(meta_data[3:].decode('utf-8'))
                     if link:
                         ev = factory.pointandclick_event(meta_data[:3] == b'LYS', link)
