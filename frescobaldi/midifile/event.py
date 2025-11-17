@@ -31,7 +31,7 @@ ControllerEvent = collections.namedtuple('ControllerEvent', 'channel number valu
 ProgramChangeEvent = collections.namedtuple('ProgramChangeEvent', 'channel number')
 ChannelAfterTouchEvent = collections.namedtuple('ChannelAfterTouchEvent', 'channel value')
 PitchBendEvent = collections.namedtuple('PitchBendEvent', 'channel value')
-PointAndClickEvent = collections.namedtuple('PointAndClickEvent', 'on link')
+PointAndClickEvent = collections.namedtuple('PointAndClickEvent', 'kind link')
 
 
 class EventFactory:

@@ -278,10 +278,13 @@ class MusicView(QWidget):
         from . import contextmenu
         contextmenu.show(pos, self.parent(), link, cursor)
 
-    def slotMidiPointAndClickPlayed(self, link, is_on):
+    def slotMidiPointAndClickPlayed(self, link, kind):
         """Called when the midi player plays a point-and-click meta event"""
 
-        if is_on:
+        if kind == 'mark':
+            # do not highlight durationless marks
+            return
+        elif kind == 'start':
             # add areas for that link
             links = self._links.linksForFile(link.filename)
             if not links:

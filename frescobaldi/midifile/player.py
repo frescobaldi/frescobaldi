@@ -441,6 +441,6 @@ def make_pointandclick_index(events):
         if ev.pac:
             for track in ev.pac:
                 for e in ev.pac[track]:
-                    if e.on:
+                    if e.kind in ('start', 'mark'):
                         d[e.link].append(t)
     return d

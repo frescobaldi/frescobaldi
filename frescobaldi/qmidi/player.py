@@ -56,7 +56,7 @@ class Player(QThread, midifile.player.Player):
     time = pyqtSignal(int)
     beat = pyqtSignal(int, int, int, int)
     user = pyqtSignal(object)
-    pointandclick = pyqtSignal(object, bool)
+    pointandclick = pyqtSignal(object, str)
     _instance = None
 
     def __init__(self, parent=None):
@@ -122,5 +122,5 @@ class Player(QThread, midifile.player.Player):
     def pointandclick_event(self, pac):
         for track in pac:
             for ev in pac[track]:
-                self.pointandclick.emit(ev.link, ev.on)
+                self.pointandclick.emit(ev.link, ev.kind)
 

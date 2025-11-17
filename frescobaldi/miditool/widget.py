@@ -39,7 +39,7 @@ from . import player
 
 
 class Widget(QWidget):
-    midiPointAndClickPlayed = pyqtSignal(object, bool)
+    midiPointAndClickPlayed = pyqtSignal(object, str)
     playerStateChanged = pyqtSignal(bool)
 
     def __init__(self, dockwidget):
@@ -154,9 +154,9 @@ class Widget(QWidget):
             if QSettings().value("midi/close_outputs", False, bool):
                 self._outputCloseTimer.start()
 
-    def slotPointAndClickPlayed(self, link, is_on):
+    def slotPointAndClickPlayed(self, link, kind):
         """Called when a point-and-click meta event is played"""
-        self.midiPointAndClickPlayed.emit(link, is_on)
+        self.midiPointAndClickPlayed.emit(link, kind)
 
     def seekPointAndClick(self, link):
         """Seeks the player to specified link"""
