@@ -43,7 +43,8 @@ unpack_midi_header = struct.Struct(b'>hhh').unpack
 unpack_int = struct.Struct(b'>i').unpack
 
 
-# Point-and-click kind mapping
+# Point-and-click manufacturer IDs and kind mapping
+POINT_AND_CLICK_IDS = [b'\0\0\0']
 POINT_AND_CLICK_KINDS = {
     b'LYS': 'start',
     b'LYE': 'end',
@@ -147,12 +148,14 @@ def parse_midi_events(s, factory=None):
                 meta_data = s[pos:pos+meta_size]
                 pos += meta_size
                 ev = None
-                if meta_size > 3 and meta_data[:3] in POINT_AND_CLICK_KINDS:
+                if (meta_size > 6
+                        and meta_data[:3] in POINT_AND_CLICK_IDS
+                        and meta_data[3:6] in POINT_AND_CLICK_KINDS):
                     # lilypond point-and-click start (LYS), mark (LYM) or end (LYE) meta event
                     # see https://gitlab.com/lilypond/lilypond/-/merge_requests/2790
-                    link = textedit.link(meta_data[3:].decode('utf-8'))
+                    link = textedit.link(meta_data[6:].decode('utf-8'))
                     if link:
-                        ev = factory.pointandclick_event(POINT_AND_CLICK_KINDS[meta_data[:3]], link)
+                        ev = factory.pointandclick_event(POINT_AND_CLICK_KINDS[meta_data[3:6]], link)
                 if not ev:
                     ev = factory.meta_event(meta_type, meta_data)
             else:
