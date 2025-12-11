@@ -1,0 +1,83 @@
+\version "2.24.0"
+
+\header {
+  title = "Mini Chorus Jazz en Bb"
+  subtitle = "Version Piano – Mains Gauche et Droite"
+  composer = "ChatGPT"
+}
+
+global = {
+  \key bes \major
+  \time 4/4
+}
+
+right = \relative c'' {
+  \global
+  % Mesure 1
+  bes4 d8 f aes4 f8 d |
+  % Mesure 2
+  g4 bes8 c ees4 c8 bes |
+  % Mesure 3
+  bes4 d8 f g4 f8 d |
+  % Mesure 4
+  f4 aes8 bes c4 bes8 f |
+
+  % Mesure 5
+  ees4 g8 bes c4 bes8 g |
+  % Mesure 6
+  e4 g8 bes cis4 bes8 g |
+  % Mesure 7
+  bes4 d8 f aes4 f8 d |
+  % Mesure 8
+  b4 d8 f a4 f8 d |
+
+  % Mesure 9
+  c4 ees8 g bes4 g8 ees |
+  % Mesure 10
+  a4 c8 ees fis4 ees8 c |
+  % Mesure 11
+  bes4 d8 f aes4 f8 d |
+  % Mesure 12
+  c4 ees8 f g4 f8 c |
+}
+
+left = \relative c {
+  \global
+  % Voicings jazz rootless
+  % M1
+  a8 c ees g  a c ees g |
+  % M2
+  d g bes des d g bes des |
+  % M3
+  a c ees g a c ees g |
+  % M4
+  a c ees g a c ees g |
+
+  % M5
+  d g bes des d g bes des |
+  % M6
+  d f gis b d f gis b |
+  % M7
+  a c ees g a c ees g |
+  % M8
+  f a b d f a b d |
+
+  % M9
+  bes d ees g bes d ees g |
+  % M10
+  ees a c e ees a c e |
+  % M11
+  a c ees g a c ees g |
+  % M12
+  ees a c e ees a c e |
+}
+
+\score {
+  <<
+    \new PianoStaff <<
+      \new Staff = "RH" \right
+      \new Staff = "LH" \with { \clef bass } \left
+    >>
+  >>
+  \layout { }
+}
