@@ -89,14 +89,14 @@ bundle = "org.frescobaldi"
 # https://github.com/beeware/briefcase/issues/474
 version = "4.0.5.dev1"
 requires = [
-    "PyQt6==6.9.1",
-    "PyQt6-Qt6==6.9.1",
-    "PyQt6-sip==13.10.2",
-    "PyQt6-WebEngine==6.9.0",
-    "PyQt6-WebEngine-Qt6==6.9.1",
+    "PyQt6==6.10.1",
+    "PyQt6-Qt6==6.10.1",
+    "PyQt6-sip==13.10.3",
+    "PyQt6-WebEngine==6.10.0",
+    "PyQt6-WebEngine-Qt6==6.10.1",
     "python-ly==0.9.9",
     "qpageview==1.0.1",
-    "pygame-ce==2.5.5"
+    "pygame-ce==2.5.6"
 ]
 
 [tool.briefcase.app.frescobaldi]
