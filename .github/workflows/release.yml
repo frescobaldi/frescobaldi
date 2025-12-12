@@ -71,7 +71,7 @@ jobs:
           - target: "macOS-Intel"
             platform: "macOS"
             output-format: "app"
-            runs-on: "macos-13"
+            runs-on: "macos-latest"
             briefcase-package-args: '--identity "$CERTIFICATE_ID"'
             filename: dist/*.dmg
 
