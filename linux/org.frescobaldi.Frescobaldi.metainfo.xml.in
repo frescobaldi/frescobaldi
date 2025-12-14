@@ -68,7 +68,7 @@
     <color type="primary" scheme_preference="dark">#222571</color>
   </branding>
 
-  <url type="homepage">https://frescobaldi.org/</url>
+  <url type="homepage">https://www.frescobaldi.org/</url>
   <url type="bugtracker">https://github.com/frescobaldi/frescobaldi/issues</url>
   <url type="contact">https://groups.google.com/g/frescobaldi</url>
 
