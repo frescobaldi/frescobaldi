@@ -323,5 +323,6 @@ class View(QPlainTextEdit):
     def createMimeDataFromSelection(self):
         """Reimplemented to only copy plain text."""
         m = QMimeData()
+        m.setParent(self)
         m.setText(self.textCursor().selection().toPlainText())
         return m
