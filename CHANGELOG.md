@@ -9,6 +9,17 @@ Click on the version to see the complete list of commits in a release.
 
 ## [unreleased]
 
+## [4.0.5] - 2026-01-13
+
+### Fixed
+
+- The DPI setting for the Copy selection to image feature of the Music View is now working again (#2117). Fixed in qpageview version 1.0.2.
+
+### Changed
+
+- The default directory for saving files, if not specified in the Preferences, is now the documents folder (for all the operating systems). On Windows it used to be `\Windows\System32` and it's now `%USERPROFILE%\Documents` (#2064).
+
+
 ## [4.0.4] - 2025-08-08
 
 ### Fixed
@@ -1696,7 +1707,8 @@ Frescobaldi application itself has the PO files in i18n/frescobaldi, see
 
 * Initial release.
 
-[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.4...master
+[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.5...master
+[4.0.5]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.4...v4.0.5
 [4.0.4]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.3...v4.0.4
 [4.0.3]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.2...v4.0.3
 [4.0.2]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.1...v4.0.2
