@@ -31,12 +31,11 @@ from . import elements
 
 # Match LilyPond pitch names and chords, but not variables or commands
 LY_REG_EXPR = re.compile(
-    r"(?<![a-zA-Z_\\:#\"-])" # Ensure no letters, underscores, or special characters precede
+    r"(?<![a-zA-Z_\\^#\"-])" # Ensure no letters, underscores, or special characters precede
         r"(?:(?:(?:do|re|ré|mi|fa|sol|la|si)[db]{0,2})" # do re mi pitch names and modifiers
         r"|" # or ...
         r"(?:(?:[a-h](?:s|is|x|f|es|as){0,2})))" # a b c pitch names and modifiers
         r"[',]*" # optional octave indicators
-        r"(?![a-zA-Z_\"-])" # Ensure no letters, or special characters follow
     r"|" # or ...
     r"(?<![<\\])<[^<>]*>(?!>)" # Match angle brackets with content inside
 )
