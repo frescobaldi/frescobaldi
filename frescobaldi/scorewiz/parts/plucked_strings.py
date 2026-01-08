@@ -343,6 +343,9 @@ class Guitar(TablaturePart):
         layout.addLayout(box)
         self.octaveClef = QCheckBox()
         layout.addWidget(self.octaveClef)
+        # Use treble_8 by default for (classical) Guitar but not derived
+        # types, since it is less common in the styles those are intended for
+        self.octaveClef.setChecked(type(self) is Guitar)
 
     def translateWidgets(self):
         super().translateWidgets()
