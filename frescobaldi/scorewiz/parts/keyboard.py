@@ -281,7 +281,7 @@ class SynthBass(SynthPart):
 
     @staticmethod
     def short(_=_base.translate):
-        return _("abbreviation for Synth bass", "Syn.Bass")
+        return _("abbreviation for Synth bass", "Syn.Bs.")
 
     def createWidgets(self, layout):
         super().createWidgets(layout)
