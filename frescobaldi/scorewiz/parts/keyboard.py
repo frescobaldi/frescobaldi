@@ -215,6 +215,9 @@ class SynthPart(KeyboardPart):
         if upperCount and lowerCount:
             # add two staves, with a respective number of voices.
             self.buildStaff(data, builder, 'right', 1, upperCount, s)
+            if self.dynamicsStaff.isChecked():
+                # both staffs have to be present to use this feature
+                self.buildDynamicsStaff(data, s)
             self.buildStaff(data, builder, 'left', 0, lowerCount, s, "bass")
         elif upperCount:
             self.buildStaff(data, builder, 'right', 1, upperCount, s)
