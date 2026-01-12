@@ -192,11 +192,9 @@ class SynthPart(KeyboardPart):
         'fx 8 (sci-fi)',
     )
 
-    def createWidgets(self, layout):
-        super().createWidgets(layout)
-
-        self.upperVoices.setMinimum(0)
-        self.lowerVoices.setMinimum(0)
+    # These can be set to zero to disable either staff
+    minUpperVoices = 0
+    minLowerVoices = 0
 
     def translateWidgets(self):
         super().translateWidgets()
@@ -215,12 +213,9 @@ class SynthLead(SynthPart):
     def short(_=_base.translate):
         return _("abbreviation for Synth lead", "Syn.Ld.")
 
-    def createWidgets(self, layout):
-        super().createWidgets(layout)
-
-        # This is intended primarily for monophonic parts in treble clef,
-        # so omit lower voices by default
-        self.lowerVoices.setValue(0)
+    # This is intended primarily for monophonic parts in treble clef,
+    # so omit lower voices by default
+    defaultLowerVoices = 0
 
     midiInstrument = 'lead 1 (square)'
     midiInstruments = (
@@ -266,12 +261,9 @@ class SynthBass(SynthPart):
     def short(_=_base.translate):
         return _("abbreviation for Synth bass", "Syn.Bs.")
 
-    def createWidgets(self, layout):
-        super().createWidgets(layout)
-
-        # This is intended primarily for monophonic parts in bass clef,
-        # so omit upper voices by default
-        self.upperVoices.setValue(0)
+    # This is intended primarily for monophonic parts in bass clef,
+    # so omit upper voices by default
+    defaultUpperVoices = 0
 
     midiInstrument = 'synth bass 1'
     midiInstruments = (
