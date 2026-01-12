@@ -211,17 +211,25 @@ class PianoStaffPart(Part):
         ly.dom.BlankLine(s)
 
     def build(self, data, builder):
-        """ Setup structure for a 2-staff PianoStaff. """
+        """ Setup structure for a 1- or 2-staff PianoStaff. """
         p = ly.dom.PianoStaff()
         builder.setInstrumentNamesFromPart(p, self, data)
         s = ly.dom.Sim(p)
-        # add two staves, with a respective number of voices.
-        self.buildStaff(data, builder, 'right', self.octave, self.upperVoices.value(), s)
-        if (self.dynamicsStaff.isChecked()
-            and self.upperVoices.value() and self.lowerVoices.value()):
-            # both staffs have to be present to use this feature
-            self.buildDynamicsStaff(data, s)
-        self.buildStaff(data, builder, 'left', self.octave - 1, self.lowerVoices.value(), s, "bass")
+        upperCount = self.upperVoices.value()
+        lowerCount = self.lowerVoices.value()
+        if upperCount and lowerCount:
+            # add two staves, with a respective number of voices.
+            self.buildStaff(data, builder, 'right', self.octave, upperCount, s)
+            if self.dynamicsStaff.isChecked():
+                # both staffs have to be present to use this feature
+                self.buildDynamicsStaff(data, s)
+            self.buildStaff(data, builder, 'left', self.octave - 1, lowerCount, s, "bass")
+        elif upperCount:
+            # add the treble staff only
+            self.buildStaff(data, builder, 'right', self.octave, upperCount, s)
+        elif lowerCount:
+            # add the bass staff only
+            self.buildStaff(data, builder, 'left', self.octave - 1, lowerCount, s, "bass")
         data.nodes.append(p)
 
     def _voiceCountChanged(self, value):

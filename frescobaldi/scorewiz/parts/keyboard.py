@@ -205,26 +205,6 @@ class SynthPart(KeyboardPart):
         self.lowerVoices.setToolTip(_(
             "Set to 0 to disable the left-hand part altogether."))
 
-    def build(self, data, builder):
-        """ Setup structure for a 1- or 2-staff PianoStaff. """
-        p = ly.dom.PianoStaff()
-        builder.setInstrumentNamesFromPart(p, self, data)
-        s = ly.dom.Sim(p)
-        upperCount = self.upperVoices.value()
-        lowerCount = self.lowerVoices.value()
-        if upperCount and lowerCount:
-            # add two staves, with a respective number of voices.
-            self.buildStaff(data, builder, 'right', 1, upperCount, s)
-            if self.dynamicsStaff.isChecked():
-                # both staffs have to be present to use this feature
-                self.buildDynamicsStaff(data, s)
-            self.buildStaff(data, builder, 'left', 0, lowerCount, s, "bass")
-        elif upperCount:
-            self.buildStaff(data, builder, 'right', 1, upperCount, s)
-        elif lowerCount:
-            self.buildStaff(data, builder, 'left', 0, lowerCount, s, "bass")
-        data.nodes.append(p)
-
 
 class SynthLead(SynthPart):
     @staticmethod
