@@ -142,6 +142,9 @@ class PianoStaffPart(Part):
         if self.midiInstruments:
             self.createMidiInstrumentWidgets(layout)
 
+        self.upperVoices.valueChanged.connect(self._voiceCountChanged)
+        self.lowerVoices.valueChanged.connect(self._voiceCountChanged)
+
     def createMidiInstrumentWidgets(self, layout):
         self.midiInstrumentLabel = QLabel()
         self.midiInstrumentSelection = QComboBox()
@@ -220,6 +223,12 @@ class PianoStaffPart(Part):
             self.buildDynamicsStaff(data, s)
         self.buildStaff(data, builder, 'left', self.octave - 1, self.lowerVoices.value(), s, "bass")
         data.nodes.append(p)
+
+    def _voiceCountChanged(self, value):
+        """Called when the number of voices in a staff is changed."""
+        # Enable the option to center dynamics only when two staffs are present
+        self.dynamicsStaff.setEnabled(
+            self.upperVoices.value() and self.lowerVoices.value())
 
 
 class ChordNames:
