@@ -75,10 +75,7 @@ class Marimba(_base.PianoStaffPart):
         return _("abbreviation for Marimba", "Mar.")
 
     midiInstrument = 'marimba'
-
-    def createWidgets(self, layout):
-        super().createWidgets(layout)
-        self.lowerVoices.setMinimum(0)
+    minLowerVoices = 0
 
     def translateWidgets(self):
         super().translateWidgets()
@@ -86,12 +83,6 @@ class Marimba(_base.PianoStaffPart):
         self.lowerVoicesLabel.setText(_("Lower staff:"))
         self.lowerVoices.setToolTip(_(
             "Set the number of voices to 0 to disable the second staff."))
-
-    def build(self, data, builder):
-        if self.lowerVoices.value():
-            super().build(data, builder)
-        else:
-            data.nodes.append(self.buildStaff(data, builder, None, 1))
 
 
 class Vibraphone(Marimba):
