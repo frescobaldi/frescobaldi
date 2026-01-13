@@ -239,10 +239,10 @@ class PianoStaffPart(Part):
             self.buildStaff(data, builder, 'left', self.octave - 1, lowerCount, s, "bass")
         elif upperCount:
             # add the treble staff only
-            self.buildStaff(data, builder, 'right', self.octave, upperCount, s)
+            self.buildStaff(data, builder, None, self.octave, upperCount, s)
         elif lowerCount:
             # add the bass staff only
-            self.buildStaff(data, builder, 'left', self.octave - 1, lowerCount, s, "bass")
+            self.buildStaff(data, builder, None, self.octave - 1, lowerCount, s, "bass")
         data.nodes.append(p)
 
     def _voiceCountChanged(self, value=None):
