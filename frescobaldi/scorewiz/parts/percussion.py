@@ -171,6 +171,8 @@ class Carillon(_base.PianoStaffPart):
         s = ly.dom.Sim(p)
         # add two staves, with a respective number of voices.
         self.buildStaff(data, builder, 'manual', 1, self.upperVoices.value(), s)
+        if self.dynamicsStaff.isChecked():
+            self.buildDynamicsStaff(data, s)
         self.buildStaff(data, builder, 'pedal', 0, self.lowerVoices.value(), s, "bass")
         data.nodes.append(p)
 
