@@ -225,13 +225,12 @@ class PianoStaffPart(Part):
 
     def build(self, data, builder):
         """ Setup structure for a 1- or 2-staff PianoStaff. """
-        p = ly.dom.PianoStaff()
-        builder.setInstrumentNamesFromPart(p, self, data)
-        s = ly.dom.Sim(p)
         upperCount = self.upperVoices.value()
         lowerCount = self.lowerVoices.value()
         if upperCount and lowerCount:
             # add two staves, with a respective number of voices.
+            p = ly.dom.PianoStaff()
+            s = ly.dom.Sim(p)
             self.buildStaff(data, builder, 'right', self.octave, upperCount, s)
             if self.dynamicsStaff.isChecked():
                 # both staffs have to be present to use this feature
@@ -239,10 +238,11 @@ class PianoStaffPart(Part):
             self.buildStaff(data, builder, 'left', self.octave - 1, lowerCount, s, "bass")
         elif upperCount:
             # add the treble staff only
-            self.buildStaff(data, builder, None, self.octave, upperCount, s)
+            p = self.buildStaff(data, builder, None, self.octave, upperCount)
         elif lowerCount:
             # add the bass staff only
-            self.buildStaff(data, builder, None, self.octave - 1, lowerCount, s, "bass")
+            p = self.buildStaff(data, builder, None, self.octave - 1, lowerCount, None, "bass")
+        builder.setInstrumentNamesFromPart(p, self, data)
         data.nodes.append(p)
 
     def _voiceCountChanged(self, value=None):
