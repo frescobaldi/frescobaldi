@@ -70,6 +70,7 @@
 
   <url type="homepage">https://www.frescobaldi.org/</url>
   <url type="bugtracker">https://github.com/frescobaldi/frescobaldi/issues</url>
+  <url type="vcs-browser">https://github.com/frescobaldi/frescobaldi</url>
   <url type="contact">https://groups.google.com/g/frescobaldi</url>
 
   <launchable type="desktop-id">org.frescobaldi.Frescobaldi.desktop</launchable>
