@@ -253,7 +253,11 @@ class ShortcutCollection(ActionCollectionBase):
         """Reads keyboard shortcuts from the settings.  Instantiates QActions as needed."""
         # clears all actions
         for a in self._actions.values():
-            a.setParent(None)
+            try:
+                a.setParent(None)
+            except RuntimeError:
+                # the underlying C++ object has already been deleted
+                pass
         self._actions = {}
         # then set defaults
         for name, shortcuts in self.defaults().items():
