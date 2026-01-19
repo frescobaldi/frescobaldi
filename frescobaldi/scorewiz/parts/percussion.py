@@ -75,10 +75,7 @@ class Marimba(_base.PianoStaffPart):
         return _("abbreviation for Marimba", "Mar.")
 
     midiInstrument = 'marimba'
-
-    def createWidgets(self, layout):
-        super().createWidgets(layout)
-        self.lowerVoices.setMinimum(0)
+    minLowerVoices = 0
 
     def translateWidgets(self):
         super().translateWidgets()
@@ -86,12 +83,6 @@ class Marimba(_base.PianoStaffPart):
         self.lowerVoicesLabel.setText(_("Lower staff:"))
         self.lowerVoices.setToolTip(_(
             "Set the number of voices to 0 to disable the second staff."))
-
-    def build(self, data, builder):
-        if self.lowerVoices.value():
-            super().build(data, builder)
-        else:
-            data.nodes.append(self.buildStaff(data, builder, None, 1))
 
 
 class Vibraphone(Marimba):
@@ -180,6 +171,8 @@ class Carillon(_base.PianoStaffPart):
         s = ly.dom.Sim(p)
         # add two staves, with a respective number of voices.
         self.buildStaff(data, builder, 'manual', 1, self.upperVoices.value(), s)
+        if self.dynamicsStaff.isChecked():
+            self.buildDynamicsStaff(data, s)
         self.buildStaff(data, builder, 'pedal', 0, self.lowerVoices.value(), s, "bass")
         data.nodes.append(p)
 

@@ -192,11 +192,9 @@ class SynthPart(KeyboardPart):
         'fx 8 (sci-fi)',
     )
 
-    def createWidgets(self, layout):
-        super().createWidgets(layout)
-
-        self.upperVoices.setMinimum(0)
-        self.lowerVoices.setMinimum(0)
+    # These can be set to zero to disable either staff
+    minUpperVoices = 0
+    minLowerVoices = 0
 
     def translateWidgets(self):
         super().translateWidgets()
@@ -204,23 +202,6 @@ class SynthPart(KeyboardPart):
             "Set to 0 to disable the right-hand part altogether."))
         self.lowerVoices.setToolTip(_(
             "Set to 0 to disable the left-hand part altogether."))
-
-    def build(self, data, builder):
-        """ Setup structure for a 1- or 2-staff PianoStaff. """
-        p = ly.dom.PianoStaff()
-        builder.setInstrumentNamesFromPart(p, self, data)
-        s = ly.dom.Sim(p)
-        upperCount = self.upperVoices.value()
-        lowerCount = self.lowerVoices.value()
-        if upperCount and lowerCount:
-            # add two staves, with a respective number of voices.
-            self.buildStaff(data, builder, 'right', 1, upperCount, s)
-            self.buildStaff(data, builder, 'left', 0, lowerCount, s, "bass")
-        elif upperCount:
-            self.buildStaff(data, builder, 'right', 1, upperCount, s)
-        elif lowerCount:
-            self.buildStaff(data, builder, 'left', 0, lowerCount, s, "bass")
-        data.nodes.append(p)
 
 
 class SynthLead(SynthPart):
@@ -232,12 +213,9 @@ class SynthLead(SynthPart):
     def short(_=_base.translate):
         return _("abbreviation for Synth lead", "Syn.Ld.")
 
-    def createWidgets(self, layout):
-        super().createWidgets(layout)
-
-        # This is intended primarily for monophonic parts in treble clef,
-        # so omit lower voices by default
-        self.lowerVoices.setValue(0)
+    # This is intended primarily for monophonic parts in treble clef,
+    # so omit lower voices by default
+    defaultLowerVoices = 0
 
     midiInstrument = 'lead 1 (square)'
     midiInstruments = (
@@ -281,14 +259,11 @@ class SynthBass(SynthPart):
 
     @staticmethod
     def short(_=_base.translate):
-        return _("abbreviation for Synth bass", "Syn.Bass")
+        return _("abbreviation for Synth bass", "Syn.Bs.")
 
-    def createWidgets(self, layout):
-        super().createWidgets(layout)
-
-        # This is intended primarily for monophonic parts in bass clef,
-        # so omit upper voices by default
-        self.upperVoices.setValue(0)
+    # This is intended primarily for monophonic parts in bass clef,
+    # so omit upper voices by default
+    defaultUpperVoices = 0
 
     midiInstrument = 'synth bass 1'
     midiInstruments = (
