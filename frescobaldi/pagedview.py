@@ -152,8 +152,6 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
 
     def print(self, printer=None, pageNumbers=None, showDialog=True):
         """Print the contents of the View."""
-        import qpageview.cupsprinter
-
         if printer is None:
             if self._printer is None:
                 self._printer = QPrinter()
@@ -165,7 +163,6 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
             filename = ""
         printer.setDocName(filename)
         if showDialog:
-            qpageview.cupsprinter.clearPageSetSetting(printer)
             dlg = QPrintDialog(printer, self)
             if filename:
                 title = app.caption(_("Print {filename}").format(filename=filename))
