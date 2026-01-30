@@ -122,7 +122,7 @@ You will also need a few packages from your operating system:
 On Debian/Ubuntu, these packages can be installed using:
 
 ```
-sudo apt install pipx tox git gettext libportmidi0
+sudo apt install pipx tox git gettext libportmidi0 libxcb-cursor0
 ```
 
 On Fedora:
