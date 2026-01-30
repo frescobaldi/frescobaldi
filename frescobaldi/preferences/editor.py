@@ -61,18 +61,21 @@ class ViewSettings(preferences.Group):
         layout = QGridLayout(spacing=1)
         self.setLayout(layout)
 
+        self.musicPos = QCheckBox(toggled=self.changed)
         self.wrapLines = QCheckBox(toggled=self.changed)
         self.numContextLines = QSpinBox(minimum=0, maximum=20, valueChanged=self.changed)
         self.numContextLinesLabel = l = QLabel()
         l.setBuddy(self.numContextLines)
 
-        layout.addWidget(self.wrapLines, 0, 0, 1, 1)
-        layout.addWidget(self.numContextLinesLabel, 1, 0)
-        layout.addWidget(self.numContextLines, 1, 1)
+        layout.addWidget(self.musicPos, 0, 0, 1, 1)
+        layout.addWidget(self.wrapLines, 1, 0, 1, 1)
+        layout.addWidget(self.numContextLinesLabel, 2, 0)
+        layout.addWidget(self.numContextLines, 2, 1)
         app.translateUI(self)
 
     def translateUI(self):
         self.setTitle(_("View Preferences"))
+        self.musicPos.setText(_("Show music position in the status bar"))
         self.wrapLines.setText(_("Wrap long lines by default"))
         self.wrapLines.setToolTip('<qt>' + _(
             "If enabled, lines that don't fit in the editor width are wrapped "
@@ -91,12 +94,14 @@ class ViewSettings(preferences.Group):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("view_preferences")
+        self.musicPos.setChecked(s.value("show_musicpos", True, bool))
         self.wrapLines.setChecked(s.value("wrap_lines", False, bool))
         self.numContextLines.setValue(s.value("context_lines", 3, int))
 
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("view_preferences")
+        s.setValue("show_musicpos", self.musicPos.isChecked())
         s.setValue("wrap_lines", self.wrapLines.isChecked())
         s.setValue("context_lines", self.numContextLines.value())
 
