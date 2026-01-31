@@ -28,7 +28,7 @@ import os
 import re
 import weakref
 
-from PyQt6.QtCore import QSettings, QUrl
+from PyQt6.QtCore import QCoreApplication, QMutex, QSettings, QThread, QUrl
 
 import document
 import qsettings
@@ -125,6 +125,8 @@ class DocumentInfo(plugin.DocumentPlugin):
             doc.contentsChanged.connect(self._reset)
             doc.closed.connect(self._reset)
         self._reset()
+        # lock this when working in another thread
+        self._mutex = QMutex()
 
     def _reset(self):
         """Called when the document is changed."""
@@ -142,9 +144,27 @@ class DocumentInfo(plugin.DocumentPlugin):
     def music(self):
         """Return the music.Document instance for our document."""
         if self._music is None:
-            import music
-            doc = lydocument.Document(self.document())
-            self._music = music.Document(doc)
+            self._mutex.lock()
+            # Generating a music.Document instance is slow, so we do the
+            # actual work in a separate thread to avoid locking up the UI.
+            # However, we maintain a synchronous interface so the caller
+            # does not have to be thread-aware.
+            mt = MusicThread()
+            mt.finished.connect(mt.deleteLater)
+            # we need to modify the original document, so we can't clone() it
+            document = self.document()
+            # the document needs to be in the MusicThread while it's working;
+            # the MusicThread will return it to the main thread when it's done
+            documentThread = document.thread()
+            document.moveToThread(mt)
+            mt.setDocument(document, documentThread)
+            # start the thread and block until it finishes...
+            mt.start()
+            while mt.isRunning():
+                # ...but keep the GUI running while we're blocking
+                QCoreApplication.processEvents()
+            self._music = mt.music()
+            self._mutex.unlock()
         self._music.include_path = self.includepath()
         return self._music
 
@@ -293,3 +313,26 @@ class DocumentInfo(plugin.DocumentPlugin):
             pass
 
         return []
+
+
+class MusicThread(QThread):
+    """Thread to generate a music.Document instance."""
+    def __init__(self):
+        super().__init__()
+        self._document = None
+        self._mainThread = None
+        self._music = None
+
+    def run(self):
+        import music
+        doc = lydocument.Document(self._document)
+        self._music = music.Document(doc)
+        # return the document to the main application thread
+        self._document.moveToThread(self._mainThread)
+
+    def music(self):
+        return self._music
+
+    def setDocument(self, document, mainThread):
+        self._document = document
+        self._mainThread = mainThread
