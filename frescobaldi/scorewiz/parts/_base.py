@@ -118,12 +118,24 @@ class PianoStaffPart(Part):
     octave = 1  # for the right hand part; left is 1 octave lower.
     transposition = None
 
+    # subclasses can override these as needed
+    minUpperVoices = 1
+    maxUpperVoices = 4
+    defaultUpperVoices = 1
+    minLowerVoices = 1
+    maxLowerVoices = 4
+    defaultLowerVoices = 1
+
     def createWidgets(self, layout):
         self.label = QLabel(wordWrap=True)
         self.upperVoicesLabel = QLabel()
         self.lowerVoicesLabel = QLabel()
-        self.upperVoices = QSpinBox(minimum=1, maximum=4, value=1)
-        self.lowerVoices = QSpinBox(minimum=1, maximum=4, value=1)
+        self.upperVoices = QSpinBox(minimum=self.minUpperVoices,
+                                    maximum=self.maxUpperVoices,
+                                    value=self.defaultUpperVoices)
+        self.lowerVoices = QSpinBox(minimum=self.minLowerVoices,
+                                    maximum=self.maxUpperVoices,
+                                    value=self.defaultLowerVoices)
         self.dynamicsStaff = QCheckBox()
         self.dynamicsStaff.setChecked(True)
 
@@ -141,6 +153,10 @@ class PianoStaffPart(Part):
 
         if self.midiInstruments:
             self.createMidiInstrumentWidgets(layout)
+
+        self.upperVoices.valueChanged.connect(self._voiceCountChanged)
+        self.lowerVoices.valueChanged.connect(self._voiceCountChanged)
+        self._voiceCountChanged()
 
     def createMidiInstrumentWidgets(self, layout):
         self.midiInstrumentLabel = QLabel()
@@ -208,18 +224,38 @@ class PianoStaffPart(Part):
         ly.dom.BlankLine(s)
 
     def build(self, data, builder):
-        """ Setup structure for a 2-staff PianoStaff. """
-        p = ly.dom.PianoStaff()
+        """ Setup structure for a 1- or 2-staff PianoStaff. """
+        upperCount = self.upperVoices.value()
+        lowerCount = self.lowerVoices.value()
+        if upperCount and lowerCount:
+            # add two staves, with a respective number of voices.
+            p = ly.dom.PianoStaff()
+            s = ly.dom.Sim(p)
+            self.buildStaff(data, builder, 'right', self.octave, upperCount, s)
+            if self.dynamicsStaff.isChecked():
+                # both staffs have to be present to use this feature
+                self.buildDynamicsStaff(data, s)
+            self.buildStaff(data, builder, 'left', self.octave - 1, lowerCount, s, "bass")
+        elif upperCount:
+            # add the treble staff only
+            p = self.buildStaff(data, builder, None, self.octave, upperCount)
+        elif lowerCount:
+            # add the bass staff only
+            p = self.buildStaff(data, builder, None, self.octave - 1, lowerCount, None, "bass")
         builder.setInstrumentNamesFromPart(p, self, data)
-        s = ly.dom.Sim(p)
-        # add two staves, with a respective number of voices.
-        self.buildStaff(data, builder, 'right', self.octave, self.upperVoices.value(), s)
-        if (self.dynamicsStaff.isChecked()
-            and self.upperVoices.value() and self.lowerVoices.value()):
-            # both staffs have to be present to use this feature
-            self.buildDynamicsStaff(data, s)
-        self.buildStaff(data, builder, 'left', self.octave - 1, self.lowerVoices.value(), s, "bass")
         data.nodes.append(p)
+
+    def _voiceCountChanged(self, value=None):
+        """Called when the number of voices in a staff is changed."""
+        # Make sure we always have at least one voice present (this is mainly
+        # for the synth parts that allow setting either count to zero)
+        self.upperVoices.setMinimum(
+            self.minUpperVoices if self.lowerVoices.value() else 1)
+        self.lowerVoices.setMinimum(
+            self.minLowerVoices if self.upperVoices.value() else 1)
+        # Enable the option to center dynamics only when two staffs are present
+        self.dynamicsStaff.setEnabled(
+            self.upperVoices.value() and self.lowerVoices.value())
 
 
 class ChordNames:
