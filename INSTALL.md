@@ -222,7 +222,9 @@ Finally, you may want to install some optional modules that are needed
 for certain features.
 
 * If you want to print PDFs to a local CUPS server, also install `pycups` using
-  `pipx inject frescobaldi pycups`.
+  `pipx inject frescobaldi pycups`. This [may require](https://gitmemories.com/index.php/OpenPrinting/pycups/issues/50)
+  `sudo apt install libcups2-dev`
+  in order to work properly.
 
 
 ## For Linux distribution packagers
