@@ -30,12 +30,12 @@ import weakref
 import app
 import plugin
 import cursortools
+import documentinfo
 
 
 class MusicPosition(plugin.ViewSpacePlugin):
     def __init__(self, space):
         self._timer = QTimer(singleShot=True, timeout=self.slotTimeout)
-        self._waittimer = QTimer(singleShot=True, timeout=self.slotTimeout)
         self._label = QLabel()
         space.status.layout().insertWidget(1, self._label)
         self._view = lambda: None
@@ -54,21 +54,21 @@ class MusicPosition(plugin.ViewSpacePlugin):
 
     def connectView(self, view):
         view.cursorPositionChanged.connect(self.startTimer)
-        view.document().contentsChanged.connect(self.startWaitTimer)
+        d = documentinfo.info(view.document())
+        d.contentsChanged.connect(self.slotTimeout)
 
     def disconnectView(self, view):
         view.cursorPositionChanged.disconnect(self.startTimer)
-        view.document().contentsChanged.disconnect(self.startWaitTimer)
-
-    def startWaitTimer(self):
-        """Called when the document changes, waits longer to prevent stutter."""
-        self._waittimer.start(900)
-        self._timer.stop()
+        d = documentinfo.info(view.document())
+        d.contentsChanged.disconnect(self.slotTimeout)
 
     def startTimer(self):
         """Called when the cursor moves."""
-        if not self._waittimer.isActive():
-            self._timer.start(100)
+        try:
+            if not self._view().document().userIsTyping():
+                self._timer.start(100)
+        except AttributeError:
+            pass
 
     def slotTimeout(self):
         """Called when one of the timers fires."""
@@ -80,7 +80,6 @@ class MusicPosition(plugin.ViewSpacePlugin):
             except RuntimeError:
                 # This happens if the window is closed before the timer fires
                 return
-            import documentinfo
             m = documentinfo.music(d)
             import ly.duration
             if c.hasSelection():
