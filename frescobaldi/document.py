@@ -35,7 +35,7 @@ document to a job.lilypond.LilyPondJob without implicitly creating a tab.
 
 import os
 
-from PyQt6.QtCore import QUrl
+from PyQt6.QtCore import QTimer, QUrl
 from PyQt6.QtGui import QTextCursor, QTextDocument
 from PyQt6.QtWidgets import QPlainTextDocumentLayout
 
@@ -240,6 +240,9 @@ class EditorDocument(AbstractDocument):
     loaded = signals.Signal()
     saving = signals.SignalContext()
     saved = signals.Signal()
+    # use this rather than contentsChanged to delay slow operations
+    # until the user has stopped typing
+    userStoppedTyping = signals.Signal()
 
     @classmethod
     def new_from_url(cls, url, encoding=None):
@@ -254,6 +257,20 @@ class EditorDocument(AbstractDocument):
         self.modificationChanged.connect(self.slotModificationChanged)
         app.documents.append(self)
         app.documentCreated(self)
+        # this is reset each time the document is changed; it timing out
+        # indicates the user has stopped typing
+        self._typingTimer = QTimer(singleShot=True,
+                                   timeout=self._typingTimeout)
+        self.contentsChanged.connect(self._typingStarted)
+
+    def _typingStarted(self):
+        self._typingTimer.start(900)
+
+    def _typingTimeout(self):
+        self.userStoppedTyping.emit()
+
+    def userIsTyping(self):
+        return self._typingTimer.isActive()
 
     def slotModificationChanged(self):
         app.documentModificationChanged(self)
