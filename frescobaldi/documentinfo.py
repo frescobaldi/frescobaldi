@@ -125,7 +125,9 @@ class DocumentInfo(plugin.DocumentPlugin):
         if isinstance(doc, document.EditorDocument):
             doc.userStoppedTyping.connect(self._contentsChanged)
             doc.closed.connect(self._reset)
-        self._contentsChanged()
+        # we don't need to call _contentsChanged ourselves; it will be
+        # triggered automatically when the document is displayed
+        self._reset()
 
     # connect to this to be notified when the document has changed and
     # the results of slow DocumentInfo operations are available
