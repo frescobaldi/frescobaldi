@@ -42,6 +42,7 @@ import tokeniter
 import plugin
 import variables
 import lilypondinfo
+import signals
 
 
 __all__ = ['docinfo', 'info', 'mode']
@@ -121,13 +122,24 @@ def defaultfilename(doc):
 class DocumentInfo(plugin.DocumentPlugin):
     """Computes and caches various information about a Document."""
     def __init__(self, doc):
-        if doc.__class__ == document.EditorDocument:
-            doc.contentsChanged.connect(self._reset)
+        if isinstance(doc, document.EditorDocument):
+            doc.userStoppedTyping.connect(self._contentsChanged)
             doc.closed.connect(self._reset)
+        self._contentsChanged()
+
+    # connect to this to be notified when the document has changed and
+    # the results of slow DocumentInfo operations are available
+    contentsChanged = signals.Signal()
+
+    def _contentsChanged(self):
+        """Called when the document is changed."""
         self._reset()
+        # perform slow operations now and cache the results
+        self._updateMusic()
+        self.contentsChanged.emit()
 
     def _reset(self):
-        """Called when the document is changed."""
+        """Clear cached data when the document is changed or closed."""
         self._lydocinfo = None
         self._music = None
 
@@ -142,11 +154,17 @@ class DocumentInfo(plugin.DocumentPlugin):
     def music(self):
         """Return the music.Document instance for our document."""
         if self._music is None:
-            import music
-            doc = lydocument.Document(self.document())
-            self._music = music.Document(doc)
+            # this should normally be done by _contentsChanged(), but we
+            # include a fallback here so this method always returns something
+            self._updateMusic()
         self._music.include_path = self.includepath()
         return self._music
+
+    def _updateMusic(self):
+        """Re-generate the music.Document instance for our document."""
+        import music
+        doc = lydocument.Document(self.document())
+        self._music = music.Document(doc)
 
     def mode(self, guess=True):
         """Returns the type of document ('lilypond, 'html', etc.).
