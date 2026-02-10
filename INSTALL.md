@@ -216,14 +216,6 @@ the automatically downloaded copies of python-ly and qpageview:
 pipx inject --editable frescobaldi ./python-ly ./qpageview
 ```
 
-### Optional: additional features
-
-Finally, you may want to install some optional modules that are needed
-for certain features.
-
-* If you want to print PDFs to a local CUPS server, also install `pycups` using
-  `pipx inject frescobaldi pycups`.
-
 
 ## For Linux distribution packagers
 
