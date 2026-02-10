@@ -28,7 +28,8 @@ import os
 import re
 import weakref
 
-from PyQt6.QtCore import QSettings, QUrl
+from PyQt6.QtCore import (
+    QCoreApplication, QObject, QSettings, QTimer, QUrl, pyqtSignal)
 
 import document
 import qsettings
@@ -128,6 +129,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         # we don't need to call _contentsChanged ourselves; it will be
         # triggered automatically when the document is displayed
         self._reset()
+        self._workerActive = False
 
     # connect to this to be notified when the document has changed and
     # the results of slow DocumentInfo operations are available
@@ -135,10 +137,17 @@ class DocumentInfo(plugin.DocumentPlugin):
 
     def _contentsChanged(self):
         """Called when the document is changed."""
-        self._reset()
-        # perform slow operations now and cache the results
-        self._updateMusic()
-        self.contentsChanged.emit()
+        # if our worker is running, let it finish before we re-trigger it
+        self._waitForWorker()
+        # this will be re-generated on demand
+        # (doing so in the worker has no advantage and will break things)
+        self._lydocinfo = None
+        # use a worker to perform slow operations in the background
+        self._workerActive = True
+        worker = self._worker()
+        # the worker needs the original document, not a clone()
+        self.document().moveToThread(worker.thread())
+        QTimer.singleShot(0, worker.work)
 
     def _reset(self):
         """Clear cached data when the document is changed or closed."""
@@ -156,17 +165,10 @@ class DocumentInfo(plugin.DocumentPlugin):
     def music(self):
         """Return the music.Document instance for our document."""
         if self._music is None:
-            # this should normally be done by _contentsChanged(), but we
-            # include a fallback here so this method always returns something
-            self._updateMusic()
+            self._contentsChanged()
+            self._waitForWorker()
         self._music.include_path = self.includepath()
         return self._music
-
-    def _updateMusic(self):
-        """Re-generate the music.Document instance for our document."""
-        import music
-        doc = lydocument.Document(self.document())
-        self._music = music.Document(doc)
 
     def mode(self, guess=True):
         """Returns the type of document ('lilypond, 'html', etc.).
@@ -313,3 +315,45 @@ class DocumentInfo(plugin.DocumentPlugin):
             pass
 
         return []
+
+    def _worker(self):
+        """Return the Worker instance associated with this document."""
+        try:
+            worker = self._worker_instance
+        except AttributeError:
+            worker = self._worker_instance = _Worker(self.document())
+            worker.moveToThread(app.worker_thread())
+            worker.finished.connect(self._workerFinished)
+        return worker
+
+    def _workerFinished(self, data):
+        self._music = data.music
+        self._workerActive = False
+        self.contentsChanged.emit()
+
+    def _waitForWorker(self):
+        while self._workerActive:
+            QCoreApplication.processEvents()
+
+
+class _Worker(QObject):
+    """Worker to perform slow update operations in a separate thread."""
+    def __init__(self, document):
+        super().__init__()
+        self._document = document
+        self._documentThread = document.thread()
+
+    def work(self):
+        """Trigger this using a signal or QTimer to perform work."""
+        class WorkerData:
+            pass
+        data = WorkerData()
+        # update DocumentInfo.music()
+        import music
+        doc = lydocument.Document(self._document)
+        data.music = music.Document(doc)
+        # return the document to its original thread
+        self._document.moveToThread(self._documentThread)
+        self.finished.emit(data)
+
+    finished = pyqtSignal("PyQt_PyObject")  # WorkerData

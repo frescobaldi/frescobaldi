@@ -295,6 +295,17 @@ def job_queue():
         _job_queue = job.queue.GlobalJobQueue()
     return _job_queue
 
+_worker_thread = None
+
+def worker_thread():
+    """Return a QThread where workers can perform slow operations."""
+    global _worker_thread
+    if _worker_thread is None:
+        _worker_thread = QThread()
+        _worker_thread.finished.connect(_worker_thread.deleteLater)
+        _worker_thread.start()
+    return _worker_thread
+
 _is_git_controlled = None
 
 def is_git_controlled():
