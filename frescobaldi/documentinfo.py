@@ -123,13 +123,13 @@ def defaultfilename(doc):
 class DocumentInfo(plugin.DocumentPlugin):
     """Computes and caches various information about a Document."""
     def __init__(self, doc):
-        if isinstance(doc, document.EditorDocument):
-            doc.changesStopped.connect(self._contentsChanged)
-            doc.closed.connect(self._reset)
-        # we don't need to call _contentsChanged ourselves; it will be
-        # triggered automatically when the document is displayed
         self._reset()
         self._workerActive = False
+        if isinstance(doc, document.EditorDocument):
+            # populate this immediately so we never have a cache miss
+            self._contentsChanged()
+            doc.changesStopped.connect(self._contentsChanged)
+            doc.closed.connect(self._reset)
 
     # connect to this to be notified when the document has changed and
     # the results of slow DocumentInfo operations are available
