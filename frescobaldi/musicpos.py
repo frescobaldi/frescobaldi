@@ -65,7 +65,7 @@ class MusicPosition(plugin.ViewSpacePlugin):
     def startTimer(self):
         """Called when the cursor moves."""
         try:
-            if not self._view().document().userIsTyping():
+            if not self._view().document().isChanging():
                 self._timer.start(100)
         except AttributeError:
             pass

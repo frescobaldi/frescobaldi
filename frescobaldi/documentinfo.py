@@ -124,7 +124,7 @@ class DocumentInfo(plugin.DocumentPlugin):
     """Computes and caches various information about a Document."""
     def __init__(self, doc):
         if isinstance(doc, document.EditorDocument):
-            doc.userStoppedTyping.connect(self._contentsChanged)
+            doc.changesStopped.connect(self._contentsChanged)
             doc.closed.connect(self._reset)
         # we don't need to call _contentsChanged ourselves; it will be
         # triggered automatically when the document is displayed
