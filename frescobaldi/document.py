@@ -240,9 +240,10 @@ class EditorDocument(AbstractDocument):
     loaded = signals.Signal()
     saving = signals.SignalContext()
     saved = signals.Signal()
-    # use this rather than contentsChanged to delay slow operations
-    # until the user has stopped typing
-    userStoppedTyping = signals.Signal()
+    # this is like contentsChanged, but emitted only once for changes
+    # occurring within a short time period, to avoid repeatedly triggering
+    # slots while the user is typing
+    changesStopped = signals.Signal()
 
     @classmethod
     def new_from_url(cls, url, encoding=None):
@@ -257,20 +258,11 @@ class EditorDocument(AbstractDocument):
         self.modificationChanged.connect(self.slotModificationChanged)
         app.documents.append(self)
         app.documentCreated(self)
-        # this is reset each time the document is changed; it timing out
-        # indicates the user has stopped typing
-        self._typingTimer = QTimer(singleShot=True,
-                                   timeout=self._typingTimeout)
-        self.contentsChanged.connect(self._typingStarted)
-
-    def _typingStarted(self):
-        self._typingTimer.start(900)
-
-    def _typingTimeout(self):
-        self.userStoppedTyping.emit()
-
-    def userIsTyping(self):
-        return self._typingTimer.isActive()
+        # this timer is restarted after each change to the document;
+        # the changesStopped signal is emitted once it times out
+        self._changeTimer = QTimer(singleShot=True,
+                                   timeout=self._slotChangesStopped)
+        self.contentsChanged.connect(self._slotChangesStarted)
 
     def slotModificationChanged(self):
         app.documentModificationChanged(self)
@@ -329,3 +321,19 @@ class EditorDocument(AbstractDocument):
         else:
             cursor.movePosition(QTextCursor.MoveOperation.End)
         return cursor
+
+    def isChanging(self):
+        """Return whether the document is currently changing.
+
+        This returns True for a brief period after each contentsChanged
+        signal is emitted. You can use this to block or delay operations
+        while the user is typing.
+
+        """
+        return self._changeTimer.isActive()
+
+    def _slotChangesStarted(self):
+        self._changeTimer.start(900)
+
+    def _slotChangesStopped(self):
+        self.changesStopped.emit()
