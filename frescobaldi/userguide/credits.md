@@ -73,6 +73,8 @@ The following people contributed to {appname} (in alphabetical order):
 !Alex Schreiber:
 : Relative mode for MIDI capturing
 
+!Knute Snortum:
+: Python syntax and other small bug fixes
 
 {appname} is translated into the following languages:
 
