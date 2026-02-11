@@ -192,6 +192,16 @@ class Highlighter(plugin.Plugin, QSyntaxHighlighter):
             return ly.lex.state(mode)
         return self._fridge.thaw(self._initialState)
 
+    @classmethod
+    def instance(cls, doc):
+        """Return the Highlighter instance for this document."""
+        highlighter = super().instance(doc)
+        # the document may be in a different thread when performing slow
+        # operations like updating DocumentInfo; the highlighter needs to
+        # run in whichever thread the document is currently in
+        highlighter.moveToThread(doc.thread())
+        return highlighter
+
 
 def html_copy(cursor, scheme='editor', number_lines=False):
     """Return a new QTextDocument with highlighting set as HTML textcharformats.
