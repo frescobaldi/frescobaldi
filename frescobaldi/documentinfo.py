@@ -139,9 +139,6 @@ class DocumentInfo(plugin.DocumentPlugin):
         """Called when the document is changed."""
         # if our worker is running, let it finish before we re-trigger it
         self._waitForWorker()
-        # this will be re-generated on demand
-        # (doing so in the worker has no advantage and will break things)
-        self._lydocinfo = None
         # use a worker to perform slow operations in the background
         self._workerActive = True
         worker = self._worker()
@@ -157,9 +154,8 @@ class DocumentInfo(plugin.DocumentPlugin):
     def lydocinfo(self):
         """Return the lydocinfo instance for our document."""
         if self._lydocinfo is None:
-            doc = lydocument.Document(self.document())
-            v = variables.manager(self.document()).variables()
-            self._lydocinfo = lydocinfo.DocInfo(doc, v)
+            self._contentsChanged()
+            self._waitForWorker()
         return self._lydocinfo
 
     def music(self):
@@ -327,6 +323,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         return worker
 
     def _workerFinished(self, data):
+        self._lydocinfo = data.lydocinfo
         self._music = data.music
         self._workerActive = False
         self.contentsChanged.emit()
@@ -348,6 +345,10 @@ class _Worker(QObject):
         class WorkerData:
             pass
         data = WorkerData()
+        # update DocumentInfo.lydocinfo()
+        doc = lydocument.Document(self._document)
+        v = variables.manager(self._document).variables()
+        data.lydocinfo = lydocinfo.DocInfo(doc, v)
         # update DocumentInfo.music()
         import music
         doc = lydocument.Document(self._document)
