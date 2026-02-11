@@ -87,7 +87,7 @@ project_name = "frescobaldi"
 bundle = "org.frescobaldi"
 # Briefcase does not support dynamic version yet.
 # https://github.com/beeware/briefcase/issues/474
-version = "4.0.5"
+version = "4.0.6.dev1"
 requires = [
     "PyQt6==6.10.2",
     "PyQt6-Qt6==6.10.2",
