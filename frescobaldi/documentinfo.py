@@ -137,14 +137,14 @@ class DocumentInfo(plugin.DocumentPlugin):
 
     def _contentsChanged(self):
         """Called when the document is changed."""
-        # if our worker is running, let it finish before we re-trigger it
-        self._waitForWorker()
-        # use a worker to perform slow operations in the background
         self._workerActive = True
         worker = self._worker()
-        # the worker needs the original document, not a clone()
+        # the worker modifies the document so we can't use a clone()
         self.document().moveToThread(worker.thread())
         QTimer.singleShot(0, worker.work)
+        # block (but keep the UI running) until the worker has finished
+        while self._workerActive:
+            QCoreApplication.processEvents()
 
     def _reset(self):
         """Clear cached data when the document is changed or closed."""
@@ -155,14 +155,12 @@ class DocumentInfo(plugin.DocumentPlugin):
         """Return the lydocinfo instance for our document."""
         if self._lydocinfo is None:
             self._contentsChanged()
-            self._waitForWorker()
         return self._lydocinfo
 
     def music(self):
         """Return the music.Document instance for our document."""
         if self._music is None:
             self._contentsChanged()
-            self._waitForWorker()
         self._music.include_path = self.includepath()
         return self._music
 
@@ -327,10 +325,6 @@ class DocumentInfo(plugin.DocumentPlugin):
         self._music = data.music
         self._workerActive = False
         self.contentsChanged.emit()
-
-    def _waitForWorker(self):
-        while self._workerActive:
-            QCoreApplication.processEvents()
 
 
 class _Worker(QObject):
