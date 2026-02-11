@@ -87,6 +87,14 @@ Then type `exit` and restart your command line shell.  Now you can to type:
 
 ...and Frescobaldi will start up.
 
+It may happen that you can no longer run Frescobaldi if the Python version
+used to create the virtual environment is no longer present in your system
+installation. In this case you can simply launch this command to repair
+the installation:
+
+    pipx reinstall frescobaldi
+
+
 ## Developing Frescobaldi
 
 If you would like to help with the development of Frescobaldi, a Linux platform
@@ -215,14 +223,6 @@ the automatically downloaded copies of python-ly and qpageview:
 ```
 pipx inject --editable frescobaldi ./python-ly ./qpageview
 ```
-
-### Optional: additional features
-
-Finally, you may want to install some optional modules that are needed
-for certain features.
-
-* If you want to print PDFs to a local CUPS server, also install `pycups` using
-  `pipx inject frescobaldi pycups`.
 
 
 ## For Linux distribution packagers
