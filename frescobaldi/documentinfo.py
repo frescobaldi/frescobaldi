@@ -127,24 +127,14 @@ class DocumentInfo(plugin.DocumentPlugin):
         self._workerActive = False
         if isinstance(doc, document.EditorDocument):
             # populate this immediately so we never have a cache miss
-            self._contentsChanged()
-            doc.changesStopped.connect(self._contentsChanged)
+            self._processChanges()
+            doc.changesStopped.connect(self._processChanges)
             doc.closed.connect(self._reset)
 
-    # connect to this to be notified when the document has changed and
-    # the results of slow DocumentInfo operations are available
+    # connect to this to be notified when lydocinfo() and music() are
+    # updated; otherwise, they return cached values that may be a couple
+    # keystrokes behind while the user is typing
     contentsChanged = signals.Signal()
-
-    def _contentsChanged(self):
-        """Called when the document is changed."""
-        self._workerActive = True
-        worker = self._worker()
-        # the worker modifies the document so we can't use a clone()
-        self.document().moveToThread(worker.thread())
-        QTimer.singleShot(0, worker.work)
-        # block (but keep the UI running) until the worker has finished
-        while self._workerActive:
-            QCoreApplication.processEvents()
 
     def _reset(self):
         """Clear cached data when the document is changed or closed."""
@@ -154,13 +144,13 @@ class DocumentInfo(plugin.DocumentPlugin):
     def lydocinfo(self):
         """Return the lydocinfo instance for our document."""
         if self._lydocinfo is None:
-            self._contentsChanged()
+            self._processChanges()
         return self._lydocinfo
 
     def music(self):
         """Return the music.Document instance for our document."""
         if self._music is None:
-            self._contentsChanged()
+            self._processChanges()
         self._music.include_path = self.includepath()
         return self._music
 
@@ -310,6 +300,17 @@ class DocumentInfo(plugin.DocumentPlugin):
 
         return []
 
+    def _processChanges(self):
+        """Called when the document is changed."""
+        self._workerActive = True
+        worker = self._worker()
+        # the worker modifies the document so we can't use a clone()
+        self.document().moveToThread(worker.thread())
+        QTimer.singleShot(0, worker.work)
+        # block (but keep the UI running) until the worker has finished
+        while self._workerActive:
+            QCoreApplication.processEvents()
+
     def _worker(self):
         """Return the Worker instance associated with this document."""
         try:
@@ -317,10 +318,10 @@ class DocumentInfo(plugin.DocumentPlugin):
         except AttributeError:
             worker = self._worker_instance = _Worker(self.document())
             worker.moveToThread(app.worker_thread())
-            worker.finished.connect(self._workerFinished)
+            worker.finished.connect(self._slotWorkerFinished)
         return worker
 
-    def _workerFinished(self, data):
+    def _slotWorkerFinished(self, data):
         self._lydocinfo = data.lydocinfo
         self._music = data.music
         self._workerActive = False
