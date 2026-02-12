@@ -44,7 +44,7 @@ appname = "Frescobaldi"
 desktop_file_name = "org.frescobaldi.Frescobaldi"
 
 # required versions of important dependencies
-required_python_version = (3, 8)
+required_python_version = (3, 10)
 required_python_ly_version = (0, 9, 4)
 required_qt_version = (6, 6)
 
