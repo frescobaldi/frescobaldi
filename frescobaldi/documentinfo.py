@@ -301,7 +301,15 @@ class DocumentInfo(plugin.DocumentPlugin):
         return []
 
     def _processChanges(self):
-        """Called when the document is changed."""
+        """Called when the document is changed.
+
+        This triggers a worker to regenerate _lydocinfo and _music
+        in a background thread. These are slow operations, and
+        processing them in the main thread caused significant lag
+        when editing large LilyPond documents in older Frescobaldi
+        versions (see issue #473).
+
+        """
         self._workerActive = True
         worker = self._worker()
         # the worker modifies the document so we can't use a clone()
