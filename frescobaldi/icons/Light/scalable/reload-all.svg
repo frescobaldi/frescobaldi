@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+category: Document
+tags: [directory, dir, clone, copy]
+version: "1.0"
+unicode: "eaae"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="1"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg2"
+   sodipodi:docname="reload-all.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="namedview2"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1" />
+  <path
+     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#000000;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1"
+     d="M 9,2.5 C 7.6252104,2.5 6.5,3.6252104 6.5,5 v 9 c 0,1.37479 1.1252104,2.5 2.5,2.5 h 10 c 1.37479,0 2.5,-1.12521 2.5,-2.5 V 7 C 21.5,5.6252104 20.37479,4.5 19,4.5 H 14.207031 L 12.353516,2.6464844 A 0.50005,0.50005 0 0 0 12,2.5 Z m 0,1 h 2.792969 l 1.853515,1.8535156 A 0.50005,0.50005 0 0 0 14,5.5 h 5 c 0.834349,0 1.5,0.6656506 1.5,1.5 v 7 c 0,0.834349 -0.665651,1.5 -1.5,1.5 H 9 C 8.1656506,15.5 7.5,14.834349 7.5,14 V 5 C 7.5,4.1656506 8.1656506,3.5 9,3.5 Z"
+     id="path1" />
+  <path
+     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#000000;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1"
+     d="M 5,6.5 C 3.6252104,6.5 2.5,7.6252104 2.5,9 v 9 c 0,1.37479 1.1252104,2.5 2.5,2.5 h 10 c 1.37479,0 2.5,-1.12521 2.5,-2.5 V 16 A 0.5,0.5 0 0 0 17,15.5 0.5,0.5 0 0 0 16.5,16 v 2 c 0,0.834349 -0.665651,1.5 -1.5,1.5 H 5 C 4.1656506,19.5 3.5,18.834349 3.5,18 V 9 C 3.5,8.1656506 4.1656506,7.5 5,7.5 H 7 A 0.5,0.5 0 0 0 7.5,7 0.5,0.5 0 0 0 7,6.5 Z"
+     id="path2" />
+</svg>
