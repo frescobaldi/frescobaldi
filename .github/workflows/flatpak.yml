@@ -1,0 +1,61 @@
+name: Flatpak CI
+
+# Run only manually to let Linux users easily test some PRs.
+on:
+  workflow_dispatch:
+
+jobs:
+  build-flatpak:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:kde-6.9
+      options: --privileged
+
+    steps:
+      - name: Checkout PR repository
+        uses: actions/checkout@v4
+
+      - name: Checkout Flathub manifest
+        uses: actions/checkout@v4
+        with:
+          repository: flathub/org.frescobaldi.Frescobaldi
+          path: flathub-manifest
+
+      - name: Prepare CI manifest
+        run: |
+          cp -r flathub-manifest/. .
+          # Remove Flathub frescobaldi module
+          awk '
+            BEGIN {skip=0}
+            /^- name: frescobaldi$/ {skip=1; next}
+            /^- name:/ && skip==1 && $2!="frescobaldi"{skip=0}
+            skip==0{print}
+          ' org.frescobaldi.Frescobaldi.yaml > tmp.yaml && mv tmp.yaml org.frescobaldi.Frescobaldi.yaml
+
+          # Use a frescobaldi module for git sources
+          cat <<'EOF' >> org.frescobaldi.Frescobaldi.yaml
+            - name: frescobaldi
+              buildsystem: simple
+              build-commands:
+                - python i18n/mo-gen.py
+                - msgfmt --desktop -d i18n/frescobaldi --template linux/org.frescobaldi.Frescobaldi.desktop.in -o linux/org.frescobaldi.Frescobaldi.desktop
+                - msgfmt --xml -d i18n/frescobaldi --template linux/org.frescobaldi.Frescobaldi.metainfo.xml.in -o linux/org.frescobaldi.Frescobaldi.metainfo.xml
+                - pip install --no-build-isolation --prefix=/app .
+                - cp linux/org.frescobaldi.Frescobaldi.desktop /app/share/applications/
+                - cp linux/org.frescobaldi.Frescobaldi.metainfo.xml /app/share/metainfo/
+                - cp frescobaldi/icons/org.frescobaldi.Frescobaldi.svg /app/share/icons/hicolor/scalable/apps/
+              sources:
+                - type: git
+                  url: https://github.com/${{ github.repository }}.git
+                  commit: ${{ github.sha }}
+              cleanup:
+                - /lib/python*/site-packages/frescobaldi/__pycache__
+                - /lib/python*/site-packages/frescobaldi/*/__pycache__
+          EOF
+
+      - name: Build Flatpak
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          manifest-path: org.frescobaldi.Frescobaldi.yaml
+          bundle: frescobaldi.flatpak
+          cache-key: flatpak-builder-${{ github.sha }}
