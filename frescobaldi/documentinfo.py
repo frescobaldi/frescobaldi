@@ -27,6 +27,7 @@ import functools
 import os
 import re
 import weakref
+import collections
 
 from PyQt6.QtCore import (
     QCoreApplication, QObject, QSettings, QTimer, QUrl, pyqtSignal)
@@ -336,6 +337,10 @@ class DocumentInfo(plugin.DocumentPlugin):
         self.contentsChanged.emit()
 
 
+# named tuple type to pass data from the worker to the main thread
+_WorkerData = collections.namedtuple("_WorkerData", "lydocinfo music")
+
+
 class _Worker(QObject):
     """Worker to perform slow update operations in a separate thread."""
     def __init__(self, document):
@@ -345,19 +350,16 @@ class _Worker(QObject):
 
     def work(self):
         """Trigger this using a signal or QTimer to perform work."""
-        class WorkerData:
-            pass
-        data = WorkerData()
         # update DocumentInfo.lydocinfo()
         doc = lydocument.Document(self._document)
         v = variables.manager(self._document).variables()
-        data.lydocinfo = lydocinfo.DocInfo(doc, v)
+        lydocinfoData = lydocinfo.DocInfo(doc, v)
         # update DocumentInfo.music()
         import music
         doc = lydocument.Document(self._document)
-        data.music = music.Document(doc)
+        musicData = music.Document(doc)
         # return the document to its original thread
         self._document.moveToThread(self._documentThread)
-        self.finished.emit(data)
+        self.finished.emit(_WorkerData(lydocinfoData, musicData))
 
     finished = pyqtSignal("PyQt_PyObject")  # WorkerData
