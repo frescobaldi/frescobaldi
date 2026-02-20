@@ -27,8 +27,10 @@ import functools
 import os
 import re
 import weakref
+import collections
 
-from PyQt6.QtCore import QSettings, QUrl
+from PyQt6.QtCore import (
+    QCoreApplication, QObject, QSettings, QTimer, QUrl, pyqtSignal)
 
 import document
 import qsettings
@@ -42,6 +44,7 @@ import tokeniter
 import plugin
 import variables
 import lilypondinfo
+import signals
 
 
 __all__ = ['docinfo', 'info', 'mode']
@@ -121,30 +124,34 @@ def defaultfilename(doc):
 class DocumentInfo(plugin.DocumentPlugin):
     """Computes and caches various information about a Document."""
     def __init__(self, doc):
-        if doc.__class__ == document.EditorDocument:
-            doc.contentsChanged.connect(self._reset)
-            doc.closed.connect(self._reset)
         self._reset()
+        self._workerActive = False
+        if isinstance(doc, document.EditorDocument):
+            # populate this immediately so we never have a cache miss
+            self._processChanges()
+            doc.changesStopped.connect(self._processChanges)
+            doc.closed.connect(self._reset)
+
+    # connect to this to be notified when lydocinfo() and music() are
+    # updated; otherwise, they return cached values that may be a couple
+    # keystrokes behind while the user is typing
+    contentsChanged = signals.Signal()
 
     def _reset(self):
-        """Called when the document is changed."""
+        """Clear cached data when the document is changed or closed."""
         self._lydocinfo = None
         self._music = None
 
     def lydocinfo(self):
         """Return the lydocinfo instance for our document."""
         if self._lydocinfo is None:
-            doc = lydocument.Document(self.document())
-            v = variables.manager(self.document()).variables()
-            self._lydocinfo = lydocinfo.DocInfo(doc, v)
+            self._processChanges()
         return self._lydocinfo
 
     def music(self):
         """Return the music.Document instance for our document."""
         if self._music is None:
-            import music
-            doc = lydocument.Document(self.document())
-            self._music = music.Document(doc)
+            self._processChanges()
         self._music.include_path = self.includepath()
         return self._music
 
@@ -293,3 +300,66 @@ class DocumentInfo(plugin.DocumentPlugin):
             pass
 
         return []
+
+    def _processChanges(self):
+        """Called when the document is changed.
+
+        This triggers a worker to regenerate _lydocinfo and _music
+        in a background thread. These are slow operations, and
+        processing them in the main thread caused significant lag
+        when editing large LilyPond documents in older Frescobaldi
+        versions (see issue #473).
+
+        """
+        self._workerActive = True
+        worker = self._worker()
+        # the worker modifies the document so we can't use a clone()
+        self.document().moveToThread(worker.thread())
+        QTimer.singleShot(0, worker.work)
+        # block (but keep the UI running) until the worker has finished
+        while self._workerActive:
+            QCoreApplication.processEvents()
+
+    def _worker(self):
+        """Return the Worker instance associated with this document."""
+        try:
+            worker = self._worker_instance
+        except AttributeError:
+            worker = self._worker_instance = _Worker(self.document())
+            worker.moveToThread(app.worker_thread())
+            worker.finished.connect(self._slotWorkerFinished)
+        return worker
+
+    def _slotWorkerFinished(self, data):
+        self._lydocinfo = data.lydocinfo
+        self._music = data.music
+        self._workerActive = False
+        self.contentsChanged.emit()
+
+
+# named tuple type to pass data from the worker to the main thread
+_WorkerData = collections.namedtuple("_WorkerData", "lydocinfo music")
+
+
+class _Worker(QObject):
+    """Worker to perform slow update operations in a separate thread."""
+    def __init__(self, document):
+        super().__init__()
+        self._document = document
+        self._documentThread = document.thread()
+
+    def work(self):
+        """Trigger this using a signal or QTimer to perform work."""
+        # update DocumentInfo.lydocinfo()
+        doc = lydocument.Document(self._document)
+        v = variables.manager(self._document).variables()
+        lydocinfoData = lydocinfo.DocInfo(doc, v)
+        # update DocumentInfo.music()
+        import music
+        doc = lydocument.Document(self._document)
+        musicData = music.Document(doc)
+        # return the document to its original thread
+        self._document.moveToThread(self._documentThread)
+        self.finished.emit(_WorkerData(lydocinfoData, musicData))
+
+    finished = pyqtSignal("PyQt_PyObject")  # WorkerData
