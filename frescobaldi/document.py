@@ -261,8 +261,9 @@ class EditorDocument(AbstractDocument):
         # this timer is restarted after each change to the document;
         # the changesStopped signal is emitted once it times out
         self._changeTimer = QTimer(singleShot=True,
-                                   timeout=self._slotChangesStopped)
-        self.contentsChanged.connect(self._slotChangesStarted)
+                                   interval=900, # msec
+                                   timeout=self.changesStopped)
+        self.contentsChanged.connect(self._changeTimer.start)
 
     def slotModificationChanged(self):
         app.documentModificationChanged(self)
@@ -331,9 +332,3 @@ class EditorDocument(AbstractDocument):
 
         """
         return self._changeTimer.isActive()
-
-    def _slotChangesStarted(self):
-        self._changeTimer.start(900)
-
-    def _slotChangesStopped(self):
-        self.changesStopped.emit()
