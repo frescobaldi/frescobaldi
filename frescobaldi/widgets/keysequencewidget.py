@@ -161,6 +161,11 @@ class KeySequenceButton(QPushButton):
             # change Shift+Backtab into Shift+Tab
             if key == Qt.Key.Key_Backtab and modifiers & Qt.KeyboardModifier.ShiftModifier:
                 key = QKeyCombination(modifiers, Qt.Key.Key_Tab)
+            # if a symbol key is already transformed by Shift (e.g. ';' to ':'),
+            # remove the redundant Shift modifier to avoid ambiguous shortcuts
+            elif ev.text() and not Qt.Key.Key_A <= key <= Qt.Key.Key_Z:
+                modifiers &= ~Qt.KeyboardModifier.ShiftModifier
+                key = QKeyCombination(modifiers, key)
             else:
                 key = QKeyCombination(modifiers, key)
 
