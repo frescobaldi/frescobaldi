@@ -22,7 +22,7 @@ Shows the time position of the text cursor in the music.
 """
 
 
-from PyQt6.QtCore import QTimer
+from PyQt6.QtCore import QSettings, QTimer
 from PyQt6.QtWidgets import QLabel
 
 import weakref
@@ -43,6 +43,8 @@ class MusicPosition(plugin.ViewSpacePlugin):
         view = space.activeView()
         if view:
             self.slotViewChanged(view)
+        app.settingsChanged.connect(self.reloadSettings)
+        self.reloadSettings()
 
     def slotViewChanged(self, view):
         old = self._view()
@@ -62,12 +64,13 @@ class MusicPosition(plugin.ViewSpacePlugin):
 
     def startWaitTimer(self):
         """Called when the document changes, waits longer to prevent stutter."""
-        self._waittimer.start(900)
-        self._timer.stop()
+        if self._visible:
+            self._waittimer.start(900)
+            self._timer.stop()
 
     def startTimer(self):
         """Called when the cursor moves."""
-        if not self._waittimer.isActive():
+        if self._visible and not self._waittimer.isActive():
             self._timer.start(100)
 
     def slotTimeout(self):
@@ -94,6 +97,13 @@ class MusicPosition(plugin.ViewSpacePlugin):
                     pos=ly.duration.format_fraction(pos)) if pos is not None else ''
             self._label.setText(text)
             self._label.setVisible(bool(text))
+
+    def reloadSettings(self):
+        s = QSettings()
+        s.beginGroup("view_preferences")
+        self._visible = s.value("show_musicpos", True, bool)
+        if not self._visible:
+            self._label.hide()  # otherwise slotTimeout() shows it when needed
 
 
 app.viewSpaceCreated.connect(MusicPosition.instance)
