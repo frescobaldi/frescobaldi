@@ -8,7 +8,7 @@ jobs:
   build-flatpak:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/flathub-infra/flatpak-github-actions:kde-6.9
+      image: ghcr.io/flathub-infra/flatpak-github-actions:kde-6.10
       options: --privileged
 
     steps:
@@ -24,34 +24,43 @@ jobs:
       - name: Prepare CI manifest
         run: |
           cp -r flathub-manifest/. .
-          # Remove Flathub frescobaldi module
-          awk '
-            BEGIN {skip=0}
-            /^- name: frescobaldi$/ {skip=1; next}
-            /^- name:/ && skip==1 && $2!="frescobaldi"{skip=0}
-            skip==0{print}
-          ' org.frescobaldi.Frescobaldi.yaml > tmp.yaml && mv tmp.yaml org.frescobaldi.Frescobaldi.yaml
 
-          # Use a frescobaldi module for git sources
-          cat <<'EOF' >> org.frescobaldi.Frescobaldi.yaml
-            - name: frescobaldi
-              buildsystem: simple
-              build-commands:
-                - python i18n/mo-gen.py
-                - msgfmt --desktop -d i18n/frescobaldi --template linux/org.frescobaldi.Frescobaldi.desktop.in -o linux/org.frescobaldi.Frescobaldi.desktop
-                - msgfmt --xml -d i18n/frescobaldi --template linux/org.frescobaldi.Frescobaldi.metainfo.xml.in -o linux/org.frescobaldi.Frescobaldi.metainfo.xml
-                - pip install --no-build-isolation --prefix=/app .
-                - cp linux/org.frescobaldi.Frescobaldi.desktop /app/share/applications/
-                - cp linux/org.frescobaldi.Frescobaldi.metainfo.xml /app/share/metainfo/
-                - cp frescobaldi/icons/org.frescobaldi.Frescobaldi.svg /app/share/icons/hicolor/scalable/apps/
-              sources:
-                - type: git
-                  url: https://github.com/${{ github.repository }}.git
-                  commit: ${{ github.sha }}
-              cleanup:
-                - /lib/python*/site-packages/frescobaldi/__pycache__
-                - /lib/python*/site-packages/frescobaldi/*/__pycache__
+          # Install yq v4
+          YQ_VERSION=v4.44.3
+          wget -q https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -O /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
+
+          # Remove Flathub frescobaldi module
+          yq eval 'del(.modules[] | select(.name == "frescobaldi"))' -i org.frescobaldi.Frescobaldi.yaml
+
+          # Use a git frescobaldi module for CI
+          cat <<EOF > ci-module.yaml
+          name: frescobaldi
+          buildsystem: simple
+          build-commands:
+            - python i18n/mo-gen.py
+            - msgfmt --desktop -d i18n/frescobaldi --template linux/org.frescobaldi.Frescobaldi.desktop.in -o linux/org.frescobaldi.Frescobaldi.desktop
+            - msgfmt --xml -d i18n/frescobaldi --template linux/org.frescobaldi.Frescobaldi.metainfo.xml.in -o linux/org.frescobaldi.Frescobaldi.metainfo.xml
+            - pip install --no-build-isolation --prefix=/app .
+            - cp linux/org.frescobaldi.Frescobaldi.desktop /app/share/applications/
+            - cp linux/org.frescobaldi.Frescobaldi.metainfo.xml /app/share/metainfo/
+            - cp frescobaldi/icons/org.frescobaldi.Frescobaldi.svg /app/share/icons/hicolor/scalable/apps/
+          sources:
+            - type: git
+              url: https://github.com/${{ github.repository }}.git
+              commit: ${{ github.sha }}
+          cleanup:
+            - /lib/python*/site-packages/frescobaldi/__pycache__
+            - /lib/python*/site-packages/frescobaldi/*/__pycache__
           EOF
+
+          # Append frescobaldi module
+          yq eval '.modules += [load("ci-module.yaml")]' -i org.frescobaldi.Frescobaldi.yaml
+
+      - name: Show final manifest (debug)
+        run: |
+          echo "========== FINAL MANIFEST =========="
+          cat org.frescobaldi.Frescobaldi.yaml
 
       - name: Build Flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
