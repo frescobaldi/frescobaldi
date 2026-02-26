@@ -35,7 +35,7 @@ document to a job.lilypond.LilyPondJob without implicitly creating a tab.
 
 import os
 
-from PyQt6.QtCore import QUrl
+from PyQt6.QtCore import QTimer, QUrl
 from PyQt6.QtGui import QTextCursor, QTextDocument
 from PyQt6.QtWidgets import QPlainTextDocumentLayout
 
@@ -240,6 +240,10 @@ class EditorDocument(AbstractDocument):
     loaded = signals.Signal()
     saving = signals.SignalContext()
     saved = signals.Signal()
+    # this is like contentsChanged, but emitted only once for changes
+    # occurring within a short time period, to avoid repeatedly triggering
+    # slots while the user is typing
+    changesStopped = signals.Signal()
 
     @classmethod
     def new_from_url(cls, url, encoding=None):
@@ -254,6 +258,12 @@ class EditorDocument(AbstractDocument):
         self.modificationChanged.connect(self.slotModificationChanged)
         app.documents.append(self)
         app.documentCreated(self)
+        # this timer is restarted after each change to the document;
+        # the changesStopped signal is emitted once it times out
+        self._changeTimer = QTimer(singleShot=True,
+                                   interval=900, # msec
+                                   timeout=self.changesStopped)
+        self.contentsChanged.connect(self._changeTimer.start)
 
     def slotModificationChanged(self):
         app.documentModificationChanged(self)
@@ -312,3 +322,13 @@ class EditorDocument(AbstractDocument):
         else:
             cursor.movePosition(QTextCursor.MoveOperation.End)
         return cursor
+
+    def isChanging(self):
+        """Return whether the document is currently changing.
+
+        This returns True for a brief period after each contentsChanged
+        signal is emitted. You can use this to block or delay operations
+        while the user is typing.
+
+        """
+        return self._changeTimer.isActive()
