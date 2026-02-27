@@ -350,7 +350,7 @@ def menu_tools_format(mainwindow):
 
 def menu_tools_transform(mainwindow):
     m = Menu(_('submenu title', "Musical &Transformations"), mainwindow)
-    m.setIcon(icons.get('Audio-x-generic'))
+    m.setIcon(icons.get('audio-x-generic'))
     m.addMenu(menu_tools_pitch(mainwindow))
     m.addMenu(menu_tools_rest(mainwindow))
     m.addMenu(menu_tools_rhythm(mainwindow))

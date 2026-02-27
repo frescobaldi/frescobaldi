@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24px"
+   height="24px" fill="white"
+   viewBox="0 0 24 24"
+   version="1.1"
+   xml:space="preserve"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+   id="svg1"
+   sodipodi:docname="help-contents.svg"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs1" /><sodipodi:namedview
+   id="namedview1"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   inkscape:zoom="34.666667"
+   inkscape:cx="12.014423"
+   inkscape:cy="11.985577"
+   inkscape:window-width="976"
+   inkscape:window-height="1186"
+   inkscape:window-x="0"
+   inkscape:window-y="25"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="svg1" />
+    <path
+   d="M9.011,17.513C10.029,17.513 10.856,18.34 10.856,19.358C10.856,20.376 10.029,21.203 9.011,21.203C7.993,21.203 7.166,20.376 7.166,19.358C7.166,18.34 7.993,17.513 9.011,17.513ZM11.05,8.555C13.029,7.798 14.344,5.888 14.344,3.769C14.344,0.955 12.029,-1.355 9.215,-1.355C7.615,-1.355 6.102,-0.604 5.135,0.671C4.904,0.975 4.544,1.153 4.163,1.153C3.896,1.153 3.636,1.066 3.424,0.904C3.12,0.674 2.941,0.313 2.941,-0.068C2.941,-0.335 3.028,-0.595 3.19,-0.807C4.619,-2.69 6.852,-3.796 9.215,-3.796C13.367,-3.796 16.785,-0.382 16.785,3.769C16.785,6.897 14.84,9.716 11.918,10.833L11.889,10.843C10.867,11.203 10.202,12.202 10.264,13.283L10.266,13.357C10.266,14 9.757,14.539 9.115,14.575L9.042,14.577C8.398,14.577 7.86,14.069 7.823,13.426C7.7,11.272 9.023,9.283 11.05,8.555Z"
+   id="path1"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2"
+   transform="matrix(0.712915,0,0,0.712915,4.50536,5.67357)" />
+</svg>
