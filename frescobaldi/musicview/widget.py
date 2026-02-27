@@ -40,6 +40,7 @@ import pagedview
 import app
 import icons
 import helpers
+import panelmanager
 import textedit
 import textformats
 import lydocument
@@ -61,6 +62,8 @@ class MusicView(QWidget):
         self._highlightFormat = QTextCharFormat()
         self._highlightMusicFormat = qpageview.highlight.Highlighter()
         self._highlightRange = None
+
+        self._midiHighlights = {}
 
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
@@ -86,6 +89,11 @@ class MusicView(QWidget):
         view = dockwidget.mainwindow().currentView()
         if view:
             self.slotCurrentViewChanged(view)
+
+        # react if midi player plays a point and click meta event
+        self.playerWidget = panelmanager.manager(dockwidget.mainwindow()).miditool.widget()
+        self.playerWidget.midiPointAndClickPlayed.connect(self.slotMidiPointAndClickPlayed)
+        self.playerWidget.playerStateChanged.connect(self.slotPlayerStateChanged)
 
     def sizeHint(self):
         """Returns the initial size the PDF (Music) View prefers."""
@@ -141,6 +149,7 @@ class MusicView(QWidget):
                 widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
                 mainwindow.activateWindow()
                 mainwindow.currentView().setFocus()
+                self.seekPlayerToLink(link.url)
         elif link.url and not link.url.startswith('textedit:'):
             helpers.openUrl(QUrl(link.url))
         elif link.targetPage != -1 and not link.isExternal:
@@ -268,3 +277,47 @@ class MusicView(QWidget):
                 cursor = self._links.cursor(link, True)
         from . import contextmenu
         contextmenu.show(pos, self.parent(), link, cursor)
+
+    def slotMidiPointAndClickPlayed(self, link, kind):
+        """Called when the midi player plays a point-and-click meta event"""
+
+        if kind == 'mark':
+            # do not highlight durationless marks
+            return
+        elif kind == 'start':
+            # add areas for that link
+            links = self._links.linksForFile(link.filename)
+            if not links:
+                return
+
+            pos = (link.line, link.column)
+            if pos not in links:
+                return
+
+            self._midiHighlights[link] = links[pos]
+        elif link in self._midiHighlights:
+            # remove areas for that link
+            del self._midiHighlights[link]
+        else:
+            return
+
+        # merge areas for active links
+        layout = self.view.pageLayout()
+        areas = collections.defaultdict(list)
+        for _, dests in self._midiHighlights.items():
+            for pageNum, rect in dests:
+                areas[layout[pageNum]].append(rect)
+
+        self.view.highlight(areas, self._highlightMusicFormat)
+
+    def slotPlayerStateChanged(self, playing):
+        if not playing:
+            # clear current highlights when stopped
+            self._midiHighlights = {}
+            self.view.clearHighlight(self._highlightMusicFormat)
+
+    def seekPlayerToLink(self, url):
+        """Seek player to specified textedit url"""
+        l = textedit.link(url)
+        if l:
+            self.playerWidget.seekPointAndClick(l)
