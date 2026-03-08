@@ -124,9 +124,9 @@ def defaultfilename(doc):
 class DocumentInfo(plugin.DocumentPlugin):
     """Computes and caches various information about a Document."""
     def __init__(self, doc):
-        self._reset()
         self._workerActive = False
         self._documentChanged = False
+        self._reset()
         if isinstance(doc, document.EditorDocument):
             # populate these immediately so we never have a cache miss
             self._lydocinfo = _Worker.lydocinfo(doc)
@@ -142,17 +142,20 @@ class DocumentInfo(plugin.DocumentPlugin):
 
     def _reset(self):
         """Clear cached data when the document is changed or closed."""
+        self._waitForWorker()
         self._lydocinfo = None
         self._music = None
 
     def lydocinfo(self):
         """Return the lydocinfo instance for our document."""
+        self._waitForWorker()
         if self._lydocinfo is None:
             self._lydocinfo = _Worker.lydocinfo(doc)
         return self._lydocinfo
 
     def music(self):
         """Return the music.Document instance for our document."""
+        self._waitForWorker()
         if self._music is None:
             self._music = _Worker.music(doc)
         self._music.include_path = self.includepath()
@@ -330,7 +333,8 @@ class DocumentInfo(plugin.DocumentPlugin):
             self.document().moveToThread(worker.thread())
             QTimer.singleShot(0, worker.work)
 
-        # block (but keep the UI running) until the worker has finished
+    def _waitForWorker(self):
+        """Block (but keep the UI running) while the worker is active."""
         while self._workerActive:
             QCoreApplication.processEvents()
 
