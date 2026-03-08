@@ -127,8 +127,9 @@ class DocumentInfo(plugin.DocumentPlugin):
         self._reset()
         self._workerActive = False
         if isinstance(doc, document.EditorDocument):
-            # populate this immediately so we never have a cache miss
-            self._processChanges()
+            # populate these immediately so we never have a cache miss
+            self._lydocinfo = _Worker.lydocinfo(doc)
+            self._music = _Worker.music(doc)
             doc.changesStopped.connect(self._processChanges)
             doc.closed.connect(self._reset)
 
@@ -350,16 +351,27 @@ class _Worker(QObject):
 
     def work(self):
         """Trigger this using a signal or QTimer to perform work."""
-        # update DocumentInfo.lydocinfo()
-        doc = lydocument.Document(self._document)
-        v = variables.manager(self._document).variables()
-        lydocinfoData = lydocinfo.DocInfo(doc, v)
-        # update DocumentInfo.music()
-        import music
-        doc = lydocument.Document(self._document)
-        musicData = music.Document(doc)
+        lydocinfoData = self.lydocinfo(self._document)
+        musicData = self.music(self._document)
         # return the document to its original thread
         self._document.moveToThread(self._documentThread)
         self.finished.emit(_WorkerData(lydocinfoData, musicData))
+
+    # these are static methods so we can also call them directly from the
+    # main thread as needed (for example, in the DocumentInfo constructor)
+
+    @staticmethod
+    def lydocinfo(document):
+        """Returns the data for DocumentInfo.lydocinfo()."""
+        doc = lydocument.Document(document)
+        v = variables.manager(document).variables()
+        return lydocinfo.DocInfo(doc, v)
+
+    @staticmethod
+    def music(document):
+        """Returns the data for DocumentInfo.music()."""
+        import music
+        doc = lydocument.Document(document)
+        return music.Document(doc)
 
     finished = pyqtSignal("PyQt_PyObject")  # WorkerData
