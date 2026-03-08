@@ -326,7 +326,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         versions (see issue #473).
 
         """
-        if self._documentChanged:
+        if self._documentChanged and not self._workerActive:
             try:
                 worker = self._worker_instance
             except AttributeError:
@@ -334,10 +334,9 @@ class DocumentInfo(plugin.DocumentPlugin):
                 worker.moveToThread(app.worker_thread())
                 worker.finished.connect(self._slotWorkerFinished)
 
-            if not self._workerActive:
-                self._workerActive = True
-                # the worker modifies the document so we can't use a clone()
-                self.document().moveToThread(worker.thread())
+            self._workerActive = True
+            # the worker modifies the document so we can't use a clone()
+            self.document().moveToThread(worker.thread())
             QTimer.singleShot(0, worker.work)
 
     def _slotWorkerFinished(self, data):
