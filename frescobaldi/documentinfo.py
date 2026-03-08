@@ -326,11 +326,12 @@ class DocumentInfo(plugin.DocumentPlugin):
         versions (see issue #473).
 
         """
-        if self._documentChanged and not self._workerActive:
-            self._workerActive = True
+        if self._documentChanged:
             worker = self._worker()
-            # the worker modifies the document so we can't use a clone()
-            self.document().moveToThread(worker.thread())
+            if not self._workerActive:
+                self._workerActive = True
+                # the worker modifies the document so we can't use a clone()
+                self.document().moveToThread(worker.thread())
             QTimer.singleShot(0, worker.work)
 
     def _waitForWorker(self):
