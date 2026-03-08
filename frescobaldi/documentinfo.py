@@ -126,11 +126,10 @@ class DocumentInfo(plugin.DocumentPlugin):
     def __init__(self, doc):
         self._workerActive = False
         self._documentChanged = False
+        # _lydocinfo and _music will be populated the first time their
+        # respective getter functions are called
         self._reset()
         if isinstance(doc, document.EditorDocument):
-            # populate these immediately so we never have a cache miss
-            self._lydocinfo = _Worker.lydocinfo(doc)
-            self._music = _Worker.music(doc)
             doc.contentsChanged.connect(self._invalidate)
             doc.changesStopped.connect(self._processChanges)
             doc.closed.connect(self._reset)
