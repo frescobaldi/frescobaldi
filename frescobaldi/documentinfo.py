@@ -126,10 +126,12 @@ class DocumentInfo(plugin.DocumentPlugin):
     def __init__(self, doc):
         self._reset()
         self._workerActive = False
+        self._documentChanged = False
         if isinstance(doc, document.EditorDocument):
             # populate these immediately so we never have a cache miss
             self._lydocinfo = _Worker.lydocinfo(doc)
             self._music = _Worker.music(doc)
+            doc.contentsChanged.connect(self._invalidate)
             doc.changesStopped.connect(self._processChanges)
             doc.closed.connect(self._reset)
 
@@ -302,6 +304,15 @@ class DocumentInfo(plugin.DocumentPlugin):
 
         return []
 
+    def _invalidate(self):
+        """Called when the document is changed.
+
+        This invalidates cached data so the worker is forced to
+        regenerate it next time _processChanges is called.
+
+        """
+        self._documentChanged = True
+
     def _processChanges(self):
         """Called when the document is changed.
 
@@ -312,11 +323,13 @@ class DocumentInfo(plugin.DocumentPlugin):
         versions (see issue #473).
 
         """
-        self._workerActive = True
-        worker = self._worker()
-        # the worker modifies the document so we can't use a clone()
-        self.document().moveToThread(worker.thread())
-        QTimer.singleShot(0, worker.work)
+        if self._documentChanged and not self._workerActive:
+            self._workerActive = True
+            worker = self._worker()
+            # the worker modifies the document so we can't use a clone()
+            self.document().moveToThread(worker.thread())
+            QTimer.singleShot(0, worker.work)
+
         # block (but keep the UI running) until the worker has finished
         while self._workerActive:
             QCoreApplication.processEvents()
@@ -335,6 +348,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         self._lydocinfo = data.lydocinfo
         self._music = data.music
         self._workerActive = False
+        self._documentChanged = False
         self.contentsChanged.emit()
 
 
