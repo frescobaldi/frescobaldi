@@ -340,17 +340,17 @@ class DocumentInfo(plugin.DocumentPlugin):
                 self.document().moveToThread(worker.thread())
             QTimer.singleShot(0, worker.work)
 
-    def _waitForWorker(self):
-        """Block (but keep the UI running) while the worker is active."""
-        while self._workerActive:
-            QCoreApplication.processEvents()
-
     def _slotWorkerFinished(self, data):
         self._lydocinfo = data.lydocinfo
         self._music = data.music
         self._workerActive = False
         self._documentChanged = False
         self.contentsChanged.emit()
+
+    def _waitForWorker(self):
+        """Block (but keep the UI running) while the worker is active."""
+        while self._workerActive:
+            QCoreApplication.processEvents()
 
 
 # named tuple type to pass data from the worker to the main thread
