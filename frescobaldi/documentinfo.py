@@ -327,7 +327,13 @@ class DocumentInfo(plugin.DocumentPlugin):
 
         """
         if self._documentChanged:
-            worker = self._worker()
+            try:
+                worker = self._worker_instance
+            except AttributeError:
+                worker = self._worker_instance = _Worker(self.document())
+                worker.moveToThread(app.worker_thread())
+                worker.finished.connect(self._slotWorkerFinished)
+
             if not self._workerActive:
                 self._workerActive = True
                 # the worker modifies the document so we can't use a clone()
@@ -338,16 +344,6 @@ class DocumentInfo(plugin.DocumentPlugin):
         """Block (but keep the UI running) while the worker is active."""
         while self._workerActive:
             QCoreApplication.processEvents()
-
-    def _worker(self):
-        """Return the Worker instance associated with this document."""
-        try:
-            worker = self._worker_instance
-        except AttributeError:
-            worker = self._worker_instance = _Worker(self.document())
-            worker.moveToThread(app.worker_thread())
-            worker.finished.connect(self._slotWorkerFinished)
-        return worker
 
     def _slotWorkerFinished(self, data):
         self._lydocinfo = data.lydocinfo
