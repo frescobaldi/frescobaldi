@@ -150,14 +150,14 @@ class DocumentInfo(plugin.DocumentPlugin):
         """Return the lydocinfo instance for our document."""
         self._waitForWorker()
         if self._lydocinfo is None:
-            self._lydocinfo = _Worker.lydocinfo(doc)
+            self._lydocinfo = _Worker.lydocinfo(self.document())
         return self._lydocinfo
 
     def music(self):
         """Return the music.Document instance for our document."""
         self._waitForWorker()
         if self._music is None:
-            self._music = _Worker.music(doc)
+            self._music = _Worker.music(self.document())
         self._music.include_path = self.includepath()
         return self._music
 
