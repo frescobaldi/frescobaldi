@@ -80,12 +80,25 @@ but requires at least version {r[0]}.{r[1]}.")
 
 # Check Qt version
 from PyQt6.QtCore import QLibraryInfo, QVersionNumber
-v = QLibraryInfo.version()
-r = QVersionNumber(*appinfo.required_qt_version)
-if v < r:
-    error("Qt version is too old.",
-        f"Frescobaldi is started with Qt {v.toString()} \
-but requires at least version {r.toString()}.")
+qt_version = QLibraryInfo.version()
+## It's better to test for specific features than the overall Qt version
+#qt_required = QVersionNumber(*appinfo.required_qt_version)
+#if qt_version < qt_required:
+#    error("Qt version is too old.",
+#        f"Frescobaldi is started with Qt {qt_version.toString()} \
+#but requires at least version {qt_required.toString()}.")
+
+# Check QtSvg availability
+if importlib.util.find_spec('PyQt6.QtSvg') is None:
+    error("Missing Qt module",
+        "Frescobaldi cannot start because the "
+        "PyQt6.QtSvg module is not installed.")
+
+# Check QtPdf availability
+if importlib.util.find_spec('PyQt6.QtPdf') is None:
+    error("Missing Qt module",
+        "Frescobaldi cannot start because the "
+        "PyQt6.QtPdf module is not installed.")
 
 # Check qpageview availability
 if importlib.util.find_spec('qpageview') is None:
@@ -95,6 +108,19 @@ if importlib.util.find_spec('qpageview') is None:
         "and can be downloaded from http://github.com/frescobaldi/qpageview."
         "\n\n"
         "Unfortunately, Frescobaldi cannot run without it.")
+
+# Check for PDF link support (added in Qt 6.6)
+# As of 2026, some Linux distros still ship older Qt versions without it.
+try:
+    from PyQt6.QtPdf import QPdfLinkModel
+except ImportError:
+    error("Point-and-click unavailable",
+        f"You are using an older Qt version ({qt_version.toString()}) "
+        "that lacks support for links in PDF documents. "
+        "Frescobaldi will run, but point-and-click will be unavailable."
+        "\n\n"
+        "To fix this, install Qt 6.6 or newer.",
+        can_continue=True)
 
 
 # The python-ly check could also move where, but we don't do it now, because
