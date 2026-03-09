@@ -10,8 +10,7 @@ Clicking Other… will display another pop-up menu listing some older versions o
 the stable and unstable branches.
 Finally the Custom… option allows to choose a LilyPond binary already
 present in your computer. It's useful especially if you want to run
-a custom version of LilyPond built from source. This option is disabled in
-the flatpak package because of the limitations of the sandbox.
+a custom version of LilyPond built from source.
 
 If you have multiple versions of LilyPond installed you can specify them 
 here, and configure Frescobaldi to automatically choose the right one, based 
