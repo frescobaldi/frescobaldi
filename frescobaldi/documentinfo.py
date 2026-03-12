@@ -144,13 +144,10 @@ class DocumentInfo(plugin.DocumentPlugin):
             doc.changesStopped.connect(self._processChanges)
             doc.closed.connect(self._reset)
 
-    # connect to this to be notified when lydocinfo() and music() are
-    # updated; otherwise, they return cached values that may be a couple
-    # keystrokes behind while the user is typing
     contentsChanged = signals.Signal()
 
     def _reset(self):
-        """Clear cached data when the document is changed or closed."""
+        """Clear cached data when the document is opened or closed."""
         self._waitForWorker()
         self._lydocinfo = None
         self._music = None
@@ -317,16 +314,19 @@ class DocumentInfo(plugin.DocumentPlugin):
         return []
 
     def _invalidate(self):
-        """Called when the document is changed.
+        """Invalidate the cache when the document is changed.
 
-        This invalidates cached data so the worker is forced to
-        regenerate it next time _processChanges is called.
+        This forces the worker to regenerate cached data the next time
+        _processChanges is called. The old data remains in the cache
+        until the worker finishes, so DocumentInfo will return slightly
+        outdated information while the worker is running. (This is the
+        dirty secret to how we avoid lag.)
 
         """
         self._documentChanged = True
 
     def _processChanges(self):
-        """Called when the document is changed.
+        """Update cached data when the document is changed.
 
         This triggers a worker to regenerate _lydocinfo and _music
         in a background thread. These are slow operations, and
@@ -335,6 +335,11 @@ class DocumentInfo(plugin.DocumentPlugin):
         versions (see issue #473).
 
         """
+        # Note the worker operates on the live Document instance,
+        # so it always sees the latest changes even if they happen
+        # while the worker is running. There is no need to ever
+        # retrigger an active worker; doing so will only cause more
+        # of the very lag this design was intended to reduce.
         if self._documentChanged and not self._workerActive:
             try:
                 worker = self._worker_instance
@@ -383,6 +388,8 @@ class _Worker(QObject):
     @classmethod
     def preferredThread(cls):
         """Return the QThread where we want workers to live."""
+        # all workers can share the same thread since we only have one
+        # active document, and therefore one active worker, at a time
         try:
             thread = cls._thread
         except AttributeError:
@@ -392,7 +399,7 @@ class _Worker(QObject):
         return thread
 
     # these are static methods so we can also call them directly from the
-    # main thread as needed (for example, in the DocumentInfo constructor)
+    # main thread as needed
 
     @staticmethod
     def lydocinfo(document):
