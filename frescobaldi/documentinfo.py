@@ -27,8 +27,10 @@ import functools
 import os
 import re
 import weakref
+import collections
 
-from PyQt6.QtCore import QSettings, QUrl
+from PyQt6.QtCore import (
+    QCoreApplication, QObject, QSettings, QThread, QTimer, QUrl, pyqtSignal)
 
 import document
 import qsettings
@@ -42,6 +44,7 @@ import tokeniter
 import plugin
 import variables
 import lilypondinfo
+import signals
 
 
 __all__ = ['docinfo', 'info', 'mode']
@@ -119,32 +122,48 @@ def defaultfilename(doc):
 
 
 class DocumentInfo(plugin.DocumentPlugin):
-    """Computes and caches various information about a Document."""
+    """Computes and caches various information about a Document.
+
+    To reduce lag, DocumentInfo computations are processed in the
+    background while the document is being edited. As a consequence
+    of this, DocumentInfo methods may return slightly older cached
+    data while edits are being processed. This usually does not
+    cause problems in practice, but if you do need absolutely
+    current data, you can connect to your instance's contentsChanged
+    signal to be notified when this processing has finished.
+
+    """
     def __init__(self, doc):
-        if doc.__class__ == document.EditorDocument:
-            doc.contentsChanged.connect(self._reset)
-            doc.closed.connect(self._reset)
+        self._workerActive = False
+        self._documentChanged = False
+        # _lydocinfo and _music will be populated the first time their
+        # respective getter functions are called
         self._reset()
+        if isinstance(doc, document.EditorDocument):
+            doc.contentsChanged.connect(self._invalidate)
+            doc.changesStopped.connect(self._processChanges)
+            doc.closed.connect(self._reset)
+
+    contentsChanged = signals.Signal()
 
     def _reset(self):
-        """Called when the document is changed."""
+        """Clear cached data when the document is opened or closed."""
+        self._waitForWorker()
         self._lydocinfo = None
         self._music = None
 
     def lydocinfo(self):
         """Return the lydocinfo instance for our document."""
+        self._waitForWorker()
         if self._lydocinfo is None:
-            doc = lydocument.Document(self.document())
-            v = variables.manager(self.document()).variables()
-            self._lydocinfo = lydocinfo.DocInfo(doc, v)
+            self._lydocinfo = _Worker.lydocinfo(self.document())
         return self._lydocinfo
 
     def music(self):
         """Return the music.Document instance for our document."""
+        self._waitForWorker()
         if self._music is None:
-            import music
-            doc = lydocument.Document(self.document())
-            self._music = music.Document(doc)
+            self._music = _Worker.music(self.document())
         self._music.include_path = self.includepath()
         return self._music
 
@@ -293,3 +312,107 @@ class DocumentInfo(plugin.DocumentPlugin):
             pass
 
         return []
+
+    def _invalidate(self):
+        """Invalidate the cache when the document is changed.
+
+        This forces the worker to regenerate cached data the next time
+        _processChanges is called. The old data remains in the cache
+        until the worker finishes, so DocumentInfo will return slightly
+        outdated information while the worker is running. (This is the
+        dirty secret to how we avoid lag.)
+
+        """
+        self._documentChanged = True
+
+    def _processChanges(self):
+        """Update cached data when the document is changed.
+
+        This triggers a worker to regenerate _lydocinfo and _music
+        in a background thread. These are slow operations, and
+        processing them in the main thread caused significant lag
+        when editing large LilyPond documents in older Frescobaldi
+        versions (see issue #473).
+
+        """
+        # Note the worker operates on the live Document instance,
+        # so it always sees the latest changes even if they happen
+        # while the worker is running. There is no need to ever
+        # retrigger an active worker; doing so will only cause more
+        # of the very lag this design was intended to reduce.
+        if self._documentChanged and not self._workerActive:
+            try:
+                worker = self._worker_instance
+            except AttributeError:
+                worker = self._worker_instance = _Worker(self.document())
+                worker.moveToThread(_Worker.preferredThread())
+                worker.finished.connect(self._slotWorkerFinished)
+
+            self._workerActive = True
+            # the worker modifies the document so we can't use a clone()
+            self.document().moveToThread(worker.thread())
+            QTimer.singleShot(0, worker.work)
+
+    def _slotWorkerFinished(self, data):
+        self._lydocinfo = data.lydocinfo
+        self._music = data.music
+        self._workerActive = False
+        self._documentChanged = False
+        self.contentsChanged.emit()
+
+    def _waitForWorker(self):
+        """Block (but keep the UI running) while the worker is active."""
+        while self._workerActive:
+            QCoreApplication.processEvents()
+
+
+# named tuple type to pass data from the worker to the main thread
+_WorkerData = collections.namedtuple("_WorkerData", "lydocinfo music")
+
+
+class _Worker(QObject):
+    """Worker to perform slow update operations in a separate thread."""
+    def __init__(self, document):
+        super().__init__()
+        self._document = document
+        self._documentThread = document.thread()
+
+    def work(self):
+        """Trigger this using a signal or QTimer to perform work."""
+        lydocinfoData = self.lydocinfo(self._document)
+        musicData = self.music(self._document)
+        # return the document to its original thread
+        self._document.moveToThread(self._documentThread)
+        self.finished.emit(_WorkerData(lydocinfoData, musicData))
+
+    @classmethod
+    def preferredThread(cls):
+        """Return the QThread where we want workers to live."""
+        # all workers can share the same thread since we only have one
+        # active document, and therefore one active worker, at a time
+        try:
+            thread = cls._thread
+        except AttributeError:
+            thread = cls._thread = QThread()
+            thread.finished.connect(thread.deleteLater)
+            thread.start()
+        return thread
+
+    # these are static methods so we can also call them directly from the
+    # main thread as needed
+
+    @staticmethod
+    def lydocinfo(document):
+        """Returns the data for DocumentInfo.lydocinfo()."""
+        doc = lydocument.Document(document)
+        v = variables.manager(document).variables()
+        return lydocinfo.DocInfo(doc, v)
+
+    @staticmethod
+    def music(document):
+        """Returns the data for DocumentInfo.music()."""
+        import music
+        doc = lydocument.Document(document)
+        return music.Document(doc)
+
+    finished = pyqtSignal("PyQt_PyObject")  # WorkerData
