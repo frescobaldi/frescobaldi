@@ -122,7 +122,17 @@ def defaultfilename(doc):
 
 
 class DocumentInfo(plugin.DocumentPlugin):
-    """Computes and caches various information about a Document."""
+    """Computes and caches various information about a Document.
+
+    To reduce lag, DocumentInfo computations are processed in the
+    background while the document is being edited. As a consequence
+    of this, DocumentInfo methods may return slightly older cached
+    data while edits are being processed. This usually does not
+    cause problems in practice, but if you do need absolutely
+    current data, you can connect to your instance's contentsChanged
+    signal to be notified when this processing has finished.
+
+    """
     def __init__(self, doc):
         self._workerActive = False
         self._documentChanged = False
