@@ -30,7 +30,7 @@ import weakref
 import collections
 
 from PyQt6.QtCore import (
-    QCoreApplication, QObject, QSettings, QTimer, QUrl, pyqtSignal)
+    QCoreApplication, QObject, QSettings, QThread, QTimer, QUrl, pyqtSignal)
 
 import document
 import qsettings
@@ -330,7 +330,7 @@ class DocumentInfo(plugin.DocumentPlugin):
                 worker = self._worker_instance
             except AttributeError:
                 worker = self._worker_instance = _Worker(self.document())
-                worker.moveToThread(app.worker_thread())
+                worker.moveToThread(_Worker.preferredThread())
                 worker.finished.connect(self._slotWorkerFinished)
 
             self._workerActive = True
@@ -369,6 +369,17 @@ class _Worker(QObject):
         # return the document to its original thread
         self._document.moveToThread(self._documentThread)
         self.finished.emit(_WorkerData(lydocinfoData, musicData))
+
+    @classmethod
+    def preferredThread(cls):
+        """Return the QThread where we want workers to live."""
+        try:
+            thread = cls._thread
+        except AttributeError:
+            thread = cls._thread = QThread()
+            thread.finished.connect(thread.deleteLater)
+            thread.start()
+        return thread
 
     # these are static methods so we can also call them directly from the
     # main thread as needed (for example, in the DocumentInfo constructor)
