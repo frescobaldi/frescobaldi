@@ -203,13 +203,14 @@ class InfoList(widgets.listedit.ListEdit):
 
     def createItem(self):
         if linux.inside_flatpak():
-            QMessageBox.critical(self, app.caption(_("Error")),
-                                 _("""You have installed Frescobaldi from Flathub using \
-Flatpak. Because Flatpak isolates apps from the rest of the system, it is not possible \
-to use custom LilyPond binaries in this configuration. Please either let Frescobaldi auto-install \
-a given LilyPond version, using the “Add…” menu, or if you wish to use a custom build, \
-install Frescobaldi using a distribution package or from source."""))
-            return None
+            QMessageBox.warning(self, app.caption(_("Warning")),
+                _("You are running a Flatpak installation of Frescobaldi. Use this menu "
+                  "only to add a LilyPond installation in /app (flatpak bundle) that "
+                  "was accidentally removed or not detected by Frescobaldi.\n\n"
+                  "Because Flatpak isolates apps from the rest of the system, custom LilyPond "
+                  "binaries are not supported. Please either let Frescobaldi auto-install "
+                  "a given LilyPond version, using the “Add…” menu, or if you wish to use "
+                  "a custom build, install Frescobaldi from a distribution package or from source."))
         return InfoItem(InstalledState(lilypondinfo.LilyPondInfo("lilypond")))
 
     def openEditor(self, item):
