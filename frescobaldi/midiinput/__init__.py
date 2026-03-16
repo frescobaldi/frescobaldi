@@ -29,12 +29,15 @@ import documentinfo
 
 from . import elements
 
-# What this does was originally undocumented. It appears intended to match
-# chord and pitch names, but not commands or variables (thanks @ksnortum)
+# Match LilyPond pitch names and chords, but not variables or commands
 LY_REG_EXPR = re.compile(
-    r'(?<![a-zA-Z#_^\-\\])[a-ps-zA-PS-Z]{1,3}(?![a-zA-Z])[\'\,]*'
-    '|'
-    r'(?<![<\\])<[^<>]*>(?!>)'
+    r"(?<![a-zA-Z_\\^#\"-])" # Ensure no letters, underscores, or special characters precede
+        r"(?:(?:(?:do|re|ré|mi|fa|sol|la|si)[db]{0,2})" # do re mi pitch names and modifiers
+        r"|" # or ...
+        r"(?:(?:[a-h](?:s|is|x|f|es|as){0,2})))" # a b c pitch names and modifiers
+        r"[',]*" # optional octave indicators
+    r"|" # or ...
+    r"(?<![<\\])<[^<>]*>(?!>)" # Match angle brackets with content inside
 )
 
 # Event codes from the MIDI specification
