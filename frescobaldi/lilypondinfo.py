@@ -1,5 +1,5 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
-#
+#FF
 # Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
@@ -437,7 +437,9 @@ class LilyPondInfo:
                 info.name = settings.value("name", "LilyPond", str)
                 for name in cls.ly_tool_names:
                     info.set_ly_tool(name, settings.value(name, name, str))
-                if int(os.path.getmtime(info.abscommand())) == int(settings.value("mtime", 0, float)):
+                    path = info.abscommand()
+                    if path and os.path.exists(path) and \
+   i                    int(os.path.getmtime(path)) == int(settings.value("mtime", 0, float)):
                     info.versionString = settings.value("version", "", str)
                     datadir = settings.value("datadir", "", str)
                     if datadir and os.path.isdir(datadir):
@@ -449,8 +451,12 @@ class LilyPondInfo:
         settings.setValue("command", self.command)
         settings.setValue("version", self.versionString())
         settings.setValue("datadir", self.datadir() or "")
-        if self.abscommand():
-            settings.setValue("mtime", int(os.path.getmtime(self.abscommand())))
+        path = self.abscommand()
+
+        if path and os.path.exists(path):
+            settings.setValue("mtime", int(os.path.getmtime(path)))
+        else:
+           settings.remove("mtime")
         settings.setValue("auto", self.autoVersionIncluded)
         settings.setValue("name", self.name)
         for name in self.ly_tool_names:
