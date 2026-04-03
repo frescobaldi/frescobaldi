@@ -25,8 +25,6 @@ has support for showing multiple Views in a window.
 """
 
 
-import weakref
-
 from PyQt6.QtCore import QEvent, QMimeData, QSettings, Qt, QTimer, pyqtSignal
 from PyQt6.QtGui import (
     QContextMenuEvent, QKeySequence, QPainter, QTextCursor, QCursor)
