@@ -26,7 +26,6 @@ import itertools
 import functools
 import os
 import re
-import weakref
 import collections
 
 from PyQt6.QtCore import (
