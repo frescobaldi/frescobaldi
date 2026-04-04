@@ -349,11 +349,15 @@ class InfoItem(QListWidgetItem):
             return # the finished signal is called even in the error case
         assert isinstance(self.state, DownloadingState)
         # Unpack the downloaded archive
-        with tempfile.NamedTemporaryFile(delete_on_close=False) as tfile:
+        with tempfile.NamedTemporaryFile(delete=False) as tfile:
             tfile.write(self.reply.readAll())
-            tfile.close()   # otherwise we may be blocking unpack_archive()
+            tfile.close()   # needed to not block unpack_archive() on Windows
             shutil.unpack_archive(tfile.name, lilypondinfo.LILYPOND_AUTOINSTALL_DIR,
                                   format=self.archive_format)
+            # On Python >= 3.12 we can create tfile with delete=True and
+            # delete_on_close=False to avoid having to do this manually,
+            # but this is not backwards compatible with older versions
+            os.unlink(tfile.name)
         # Switch to "installed" state
         self.state = InstalledState(lilypondinfo.LilyPondInfo(self.executable_path))
         self.display()
