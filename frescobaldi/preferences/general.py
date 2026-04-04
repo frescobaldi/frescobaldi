@@ -62,6 +62,16 @@ class GeneralPrefs(preferences.ScrolledGroupsPage):
         layout.addWidget(SessionsAndFiles(self))
         layout.addWidget(ExperimentalFeatures(self))
 
+        # Since this is the first page shown, its size hint determines the
+        # initial size of the whole dialog. We want it to be big enough to
+        # show all the items on this page without scrolling
+        self._sizeHint = layout.minimumSize()
+        # Pad the width so wider pages like Tools won't scroll horizontally
+        self._sizeHint.setWidth(self._sizeHint.width() + 40)
+
+    def sizeHint(self):
+        return self._sizeHint
+
 
 class General(preferences.Group):
     def __init__(self, page):

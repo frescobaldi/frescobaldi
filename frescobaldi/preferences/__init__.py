@@ -107,8 +107,8 @@ class PreferencesDialog(QDialog):
 
         app.translateUI(self, 100)
         # read our size and selected page
-        qutil.saveDialogSize(self, "preferences/dialog/size", QSize(500, 300))
         self.pagelist.setCurrentRow(_prefsindex)
+        qutil.saveDialogSize(self, "preferences/dialog/size", self.sizeHint())
 
     def translateUI(self):
         self.pagelist.setFixedWidth(self.pagelist.sizeHintForColumn(0) + 12)
