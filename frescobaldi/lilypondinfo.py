@@ -82,9 +82,15 @@ def saveinfos():
     """Saves the info's."""
     s = QSettings()
     s.beginWriteArray("lilypondinfo")
+    s.remove("")    # previously saved infos may no longer be valid
     for i, info in enumerate(infos()):
         s.setArrayIndex(i)
-        info.write(s)
+        try:
+            info.write(s)
+        except FileNotFoundError:
+            # this LilyPond version is no longer available
+            _infos.remove(info)
+            i -= 1  # to keep array indices consecutive
     s.endArray()
 
 
@@ -378,7 +384,10 @@ class LilyPondInfo:
     def forget(self):
         """If this is an auto-managed installation, then wipe it from the file system."""
         if self.isAutoManaged:
-            shutil.rmtree(self.prefix())
+            try:
+                shutil.rmtree(self.prefix())
+            except FileNotFoundError:
+                pass    # this installation has already been deleted
 
     @CachedProperty.cachedproperty(depends=versionString)
     def prettyName(self):
