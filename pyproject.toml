@@ -8,7 +8,7 @@ description = "LilyPond Music Editor"
 authors = [{name = "Wilbert Berendsen", email = "info@frescobaldi.org"}]
 maintainers = [{name = "Wilbert Berendsen", email = "info@frescobaldi.org"}]
 license = {text = "GPL-2.0-or-later"}
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 # Do not add pygame dependency
 dependencies = [
   "pyqt6>=6.6",
@@ -17,44 +17,6 @@ dependencies = [
   "qpageview>=1.0.1"
 ]
 dynamic = ["version"]
-classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Environment :: MacOS X",
-    "Environment :: Win32 (MS Windows)",
-    "Environment :: X11 Applications :: Qt",
-    "Intended Audience :: End Users/Desktop",
-    # Natural Language :: Chinese (Hong Kong) is not yet accepted by pypi
-    #"Natural Language :: Chinese (Hong Kong)",
-    "Natural Language :: Chinese (Simplified)",
-    "Natural Language :: Chinese (Traditional)",
-    "Natural Language :: Czech",
-    "Natural Language :: Dutch",
-    "Natural Language :: English",
-    "Natural Language :: French",
-    "Natural Language :: Galician",
-    "Natural Language :: German",
-    "Natural Language :: Italian",
-    "Natural Language :: Japanese",
-    "Natural Language :: Korean",
-    "Natural Language :: Polish",
-    "Natural Language :: Portuguese (Brazilian)",
-    "Natural Language :: Russian",
-    "Natural Language :: Spanish",
-    "Natural Language :: Turkish",
-    "Natural Language :: Ukrainian",
-    "Operating System :: MacOS :: MacOS X",
-    "Operating System :: Microsoft :: Windows",
-    "Operating System :: POSIX",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Topic :: Multimedia :: Sound/Audio",
-    "Topic :: Multimedia :: Graphics",
-    "Topic :: Text Editors",
-]
 
 [project.readme]
 # Shorter version of the main README.md, for PyPI (also in appinfo.py).
