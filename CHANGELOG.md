@@ -9,6 +9,24 @@ Click on the version to see the complete list of commits in a release.
 
 ## [unreleased]
 
+## [4.0.6] - 2026-04-10
+
+### Fixed
+
+- Use a background thread for music related parsing/computation while editing (#2152). This fixes the old bug #473, where Frescobaldi had lags and freezes while editing very big files.
+- Fix redundant Shift modifier in shortcuts for symbol keys (#2161)
+- Automatically unconfigure missing LilyPond versions (#2186)
+- Set the Preferences dialog to a more reasonable initial size (#2185)
+
+### Changed
+
+- LilyPond preferences: allow Custom menu in flatpak (#2172)
+
+### Added
+
+- Add a GitHub Action workflow to build a flatpak package (#2162)
+
+
 ## [4.0.5] - 2026-02-11
 
 ### Fixed
@@ -1712,6 +1730,7 @@ Frescobaldi application itself has the PO files in i18n/frescobaldi, see
 * Initial release.
 
 [unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.5...master
+[4.0.6]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.5...v4.0.6
 [4.0.5]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.4...v4.0.5
 [4.0.4]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.3...v4.0.4
 [4.0.3]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.2...v4.0.3
