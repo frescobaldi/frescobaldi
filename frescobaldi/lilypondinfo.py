@@ -89,6 +89,7 @@ def saveinfos():
             info.write(s)
         except FileNotFoundError:
             # this LilyPond version is no longer available
+            _infos.remove(info)
             i -= 1  # to keep array indices consecutive
     s.endArray()
 
