@@ -23,7 +23,7 @@ Icons.
 
 
 import os
-import sys
+import platform
 
 from PyQt6.QtCore import QDir, QFile, QFileInfo, QSettings, QSize
 from PyQt6.QtGui import QIcon
@@ -87,7 +87,7 @@ def initialize():
 
 def update_theme():
     """Change the theme for icon lookup after change of style preference"""
-    if sys.platform == "darwin":
+    if platform.system() == "Darwin":
         # On macOS, QAppleIconEngine (SF Symbols) crashes with zero-dimension
         # rects in PyQt6 6.10.1+ due to integer division in actualSize().
         # Always use our bundled theme to avoid the crash. See:
