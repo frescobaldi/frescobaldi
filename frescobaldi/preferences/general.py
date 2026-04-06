@@ -22,6 +22,8 @@ Keyboard shortcuts settings page.
 """
 
 
+import sys
+
 from PyQt6.QtCore import QSettings
 from PyQt6.QtWidgets import (
     QApplication,
@@ -92,12 +94,20 @@ class General(preferences.Group):
 
         self.systemIcons = QCheckBox(toggled=self.changed)
         grid.addWidget(self.systemIcons, 2, 0, 1, 3)
+        self.systemIconsWarning = QLabel()
+        self.systemIconsWarning.setWordWrap(True)
+        if sys.platform == "darwin":
+            self.systemIcons.setEnabled(False)
+            self.systemIconsWarning.setVisible(True)
+        else:
+            self.systemIconsWarning.setVisible(False)
+        grid.addWidget(self.systemIconsWarning, 3, 0, 1, 3)
         self.tabsClosable = QCheckBox(toggled=self.changed)
-        grid.addWidget(self.tabsClosable, 3, 0, 1, 3)
+        grid.addWidget(self.tabsClosable, 4, 0, 1, 3)
         self.splashScreen = QCheckBox(toggled=self.changed)
-        grid.addWidget(self.splashScreen, 4, 0, 1, 3)
+        grid.addWidget(self.splashScreen, 5, 0, 1, 3)
         self.allowRemote = QCheckBox(toggled=self.changed)
-        grid.addWidget(self.allowRemote, 5, 0, 1, 3)
+        grid.addWidget(self.allowRemote, 6, 0, 1, 3)
 
         grid.setColumnStretch(2, 1)
 
@@ -163,6 +173,11 @@ class General(preferences.Group):
         self.systemIcons.setToolTip(_(
             "If checked, icons of the desktop icon theme "
             "will be used instead of the bundled icons."))
+        if sys.platform == "darwin":
+            self.systemIconsWarning.setText(_(
+                "System icons are disabled on macOS due to a crash in "
+                "PyQt6 6.10.1+. The bundled icon theme is "
+                "used instead."))
         self.splashScreen.setText(_("Show Splash Screen on Startup"))
         self.tabsClosable.setText(_("Show Close Button on Document tabs"))
         self.allowRemote.setText(_("Open Files in Running Instance"))
