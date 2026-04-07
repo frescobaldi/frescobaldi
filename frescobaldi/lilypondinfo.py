@@ -83,14 +83,17 @@ def saveinfos():
     s = QSettings()
     s.beginWriteArray("lilypondinfo")
     s.remove("")    # previously saved infos may no longer be valid
-    for i, info in enumerate(infos()):
+    i = 0           # see below for why we don't use enumerate() here
+    for info in infos():
         s.setArrayIndex(i)
         try:
             info.write(s)
+            # QSettings expects consecutive array indices, so we don't want
+            # to increment this for unavailable versions, which leaves a gap
+            i += 1
         except FileNotFoundError:
             # this LilyPond version is no longer available
             _infos.remove(info)
-            i -= 1  # to keep array indices consecutive
     s.endArray()
 
 
