@@ -26,7 +26,7 @@ import os
 
 from PyQt6.QtCore import QSettings, Qt, QUrl
 from PyQt6.QtGui import QAction, QKeySequence, QTextCursor
-from PyQt6.QtWidgets import QApplication, QMessageBox
+from PyQt6.QtWidgets import QApplication, QMessageBox, QPushButton
 
 import app
 import actioncollection
@@ -357,13 +357,23 @@ class Engraver(plugin.MainWindowPlugin):
         """
         app.jobFinished.disconnect(self.checkLilyPondInstalled)
         if not success and j.failed_to_start():
-            QMessageBox.warning(self.mainwindow(),
+            dlg = QMessageBox(QMessageBox.Icon.Warning,
                 _("No LilyPond installation found"), _(
                 "Frescobaldi uses LilyPond to engrave music, "
                 "but LilyPond is not installed in the default locations "
                 "and it cannot be found in your PATH.\n\n"
-                "Please install LilyPond or, if you have already installed it, "
-                "add it in the Preferences dialog."))
+                "You can download LilyPond on the Preferences dialog. If "
+                "you have an existing installation that was not detected, "
+                "you can add it manually there."), parent=self.mainwindow())
+            prefBtn = QPushButton(icons.get('preferences-system'), _("Preferences"), dlg)
+            dlg.addButton(QMessageBox.StandardButton.Ignore)
+            dlg.addButton(prefBtn, QMessageBox.ButtonRole.ActionRole)
+            dlg.exec()
+            if dlg.clickedButton() == prefBtn:
+                import preferences
+                dlg = preferences.PreferencesDialog(self.mainwindow())
+                dlg.setCurrentPage("prefs_lilypond")
+                dlg.exec()
 
 
 
