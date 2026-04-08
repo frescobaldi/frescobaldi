@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24px"
+   height="24px"
+   viewBox="0 0 24 24"
+   version="1.1"
+   xml:space="preserve"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+   id="svg1"
+   sodipodi:docname="media-record.svg"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs1" /><sodipodi:namedview
+   id="namedview1"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   inkscape:zoom="34.666667"
+   inkscape:cx="12.014423"
+   inkscape:cy="11.985577"
+   inkscape:window-width="976"
+   inkscape:window-height="1186"
+   inkscape:window-x="0"
+   inkscape:window-y="25"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="svg1" />
+    <path
+   d="M480,-320C524.567,-320 562.373,-335.527 593.42,-366.58C624.473,-397.627 640,-435.433 640,-480C640,-524.567 624.473,-562.373 593.42,-593.42C562.373,-624.473 524.567,-640 480,-640C435.433,-640 397.627,-624.473 366.58,-593.42C335.527,-562.373 320,-524.567 320,-480C320,-435.433 335.527,-397.627 366.58,-366.58C397.627,-335.527 435.433,-320 480,-320ZM480.13,-120C430.35,-120 383.547,-129.447 339.72,-148.34C295.9,-167.233 257.78,-192.873 225.36,-225.26C192.94,-257.647 167.277,-295.733 148.37,-339.52C129.457,-383.3 120,-430.083 120,-479.87C120,-529.65 129.447,-576.453 148.34,-620.28C167.233,-664.1 192.873,-702.22 225.26,-734.64C257.647,-767.06 295.733,-792.723 339.52,-811.63C383.3,-830.543 430.083,-840 479.87,-840C529.65,-840 576.453,-830.553 620.28,-811.66C664.1,-792.767 702.22,-767.127 734.64,-734.74C767.06,-702.353 792.723,-664.267 811.63,-620.48C830.543,-576.7 840,-529.917 840,-480.13C840,-430.35 830.553,-383.547 811.66,-339.72C792.767,-295.9 767.127,-257.78 734.74,-225.36C702.353,-192.94 664.267,-167.277 620.48,-148.37C576.7,-129.457 529.917,-120 480.13,-120ZM480,-160C569.333,-160 645,-191 707,-253C769,-315 800,-390.667 800,-480C800,-569.333 769,-645 707,-707C645,-769 569.333,-800 480,-800C390.667,-800 315,-769 253,-707C191,-645 160,-569.333 160,-480C160,-390.667 191,-315 253,-253C315,-191 390.667,-160 480,-160Z"
+   style="fill-rule:nonzero;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2"
+   id="path1"
+   transform="matrix(0.025,0,0,0.025,0,24)" />
+</svg>
