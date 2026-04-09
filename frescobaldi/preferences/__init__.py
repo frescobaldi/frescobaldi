@@ -159,6 +159,13 @@ class PreferencesDialog(QDialog):
         # emit the signal
         app.settingsChanged()
 
+    def setCurrentPage(self, id):
+        for i in range(self.pagelist.count()):
+            item = self.pagelist.item(i)
+            if item.help == id:
+                self.pagelist.setCurrentRow(i)
+                return
+
     def slotCurrentItemChanged(self, item):
         item.activate()
 
