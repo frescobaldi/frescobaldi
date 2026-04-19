@@ -100,11 +100,11 @@ def saveinfos():
 def default():
     """Returns a default LilyPondInfo instance with the default LilyPond command.
 
-    On Windows, the default command is "lilypond-windows.exe",
+    On Windows, the default command is "lilypond.exe",
     on other platforms simply "lilypond".
 
     """
-    lilypond = "lilypond-windows.exe" if platform.system() == "Windows" else "lilypond"
+    lilypond = "lilypond.exe" if platform.system() == "Windows" else "lilypond"
     return LilyPondInfo(lilypond)
 
 
@@ -118,7 +118,7 @@ def preferred():
     s = QSettings()
     s.beginGroup("lilypond_settings")
     # find default version
-    defaultCommand = "lilypond-windows.exe" if platform.system() == "Windows" else "lilypond"
+    defaultCommand = "lilypond.exe" if platform.system() == "Windows" else "lilypond"
     userDefault = s.value("default", defaultCommand, str)
     if userDefault != defaultCommand:
         for info in infos_:
