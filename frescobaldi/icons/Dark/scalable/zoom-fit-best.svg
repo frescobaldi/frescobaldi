@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+category: Map
+tags: [verify, magnifying, glass, magnifier, ok, done]
+version: "1.39"
+unicode: "ef09"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="1"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg3"
+   sodipodi:docname="zoom-fit-best.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3" />
+  <sodipodi:namedview
+     id="namedview3"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1" />
+  <path
+     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1"
+     d="m 10,2.5 c -4.1362127,0 -7.5,3.3637843 -7.5,7.5 0,4.136216 3.3637873,7.5 7.5,7.5 4.136213,0 7.5,-3.363784 7.5,-7.5 0,-4.1362157 -3.363787,-7.5 -7.5,-7.5 z m 0,1 c 3.595774,0 6.5,2.904224 6.5,6.5 0,3.595776 -2.904226,6.5 -6.5,6.5 C 6.4042264,16.5 3.5,13.595776 3.5,10 3.5,6.404224 6.4042264,3.5 10,3.5 Z"
+     id="path1" />
+  <path
+     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1"
+     d="m 14.646484,14.646484 a 0.5,0.5 0 0 0 0,0.707032 l 6,6 a 0.5,0.5 0 0 0 0.707032,0 0.5,0.5 0 0 0 0,-0.707032 l -6,-6 a 0.5,0.5 0 0 0 -0.707032,0 z"
+     id="path2" />
+  <path
+     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1"
+     d="M 12.646484,7.6464844 9,11.292969 7.3535156,9.6464844 a 0.5,0.5 0 0 0 -0.7070312,0 0.5,0.5 0 0 0 0,0.7070316 l 2,2 a 0.50005,0.50005 0 0 0 0.7070312,0 L 13.353516,8.3535156 a 0.5,0.5 0 0 0 0,-0.7070312 0.5,0.5 0 0 0 -0.707032,0 z"
+     id="path3" />
+</svg>

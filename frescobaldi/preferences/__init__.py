@@ -206,7 +206,7 @@ class General(PrefsItemBase):
 
 class MusicViewers(PrefsItemBase):
     help = "prefs_musicviewers"
-    iconName = "Audio-x-generic"
+    iconName = "audio-x-generic"
     def translateUI(self):
         self.setText(_("Music View"))
 
@@ -228,7 +228,7 @@ class LilyPond(PrefsItemBase):
 
 class Midi(PrefsItemBase):
     help = "prefs_midi"
-    iconName = "audio-volume-medium"
+    iconName = "audio-midi"
     def translateUI(self):
         self.setText(_("MIDI"))
 
