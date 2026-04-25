@@ -67,7 +67,9 @@ class Dialog(QDialog):
         self.dpiCombo = QComboBox(insertPolicy=QComboBox.InsertPolicy.NoInsert, editable=True)
         self.dpiCombo.lineEdit().setCompleter(None)
         self.dpiCombo.setValidator(QDoubleValidator(10.0, 1200.0, 4, self.dpiCombo))
-        self.dpiCombo.addItems([format(i) for i in (72, 100, 200, 300, 600, 1200)])
+        # 96 dpi is a standard PC screen; 192 dpi is high-DPI or "Retina"
+        # 300 dpi and up are print resolutions
+        self.dpiCombo.addItems([format(i) for i in (96, 192, 300, 600, 1200)])
 
         self.colorCheck = QCheckBox(checked=False)
         self.colorButton = widgets.colorbutton.ColorButton()
