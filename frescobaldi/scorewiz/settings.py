@@ -349,7 +349,7 @@ class LilyPondPreferences(QGroupBox):
         self.pitchLanguage.addItem('')
         self.pitchLanguage.addItems([lang.title() for lang in sorted(scoreproperties.keyNames)])
         self.version.addItem(lilypondinfo.preferred().versionString())
-        for v in ("2.24.0", "2.22.0", "2.20.0", "2.18.0", "2.16.0", "2.14.0", "2.12.0"):
+        for v in lilypondVersions:
             if v != lilypondinfo.preferred().versionString():
                 self.version.addItem(v)
 
@@ -390,4 +390,5 @@ class LilyPondPreferences(QGroupBox):
         QSettings().setValue('scorewiz/lilypond/pitch_language', self.window().pitchLanguage())
 
 
+lilypondVersions = ["2.26.0", "2.24.0", "2.22.0", "2.20.0", "2.18.0", "2.16.0", "2.14.0", "2.12.0"]
 paperSizes = ['', 'a3', 'a4', 'a5', 'a6', 'a7', 'legal', 'letter', '11x17']
