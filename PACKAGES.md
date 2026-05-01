@@ -1,21 +1,31 @@
 # Packaging Frescobaldi
 
-## Versioning and release best practices
+## Versioning
 
 Release versioning should follow
 [Python versioning recommendations](https://packaging.python.org/en/latest/discussions/versioning/).
 
 The version number should be bumped right after a release and have a
-`.dev1` suffix to mark it as a developmental release.
-For example, after 4.0.0 release the version will be bumped to
-4.0.1.dev1 so any package built during the development will have
-a version different from the actual releases. Right before the
-release the `.dev1` suffix can be removed.
+`.dev0` suffix to mark it as a developmental release.
+For example, after the 4.0.0 release the version will be bumped to
+4.0.1.dev0 so any package built during the development will have
+a version different from the last or next release.
+Right before the next release the `.dev0` suffix can be removed.
+You can use hatch to automatically update the version in
+`frescobaldi/appinfo.py`:
+
+    hatch version 4.0.1.dev0
+
+As Briefcase does not support dynamic versioning, you should
+also manually change the version in `pyproject.toml`.
+
+## New release
 
 Before creating a new release on GitHub make sure to review this
 **release checklist**:
 
-- Update the version in `frescobaldi/appinfo.py` and `pyproject.toml`.
+- Run `hatch version patch` or `hatch version minor`.
+- Manually update the version in the tool.briefcase section of `pyproject.toml`.
 - Check that project.dependencies and tool.briefcase.requires versions
   in `pyproject.toml` are correct and up-to-date. Use `pip index versions PACKAGE`
   to quickly see the latest available version.
