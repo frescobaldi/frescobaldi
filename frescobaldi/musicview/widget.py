@@ -27,7 +27,8 @@ import collections
 import itertools
 import os
 
-from PyQt6.QtCore import pyqtSignal, QMargins, QPoint, QRect, QSettings, Qt, QUrl
+from PyQt6.QtCore import (pyqtSignal, QMargins, QPoint, QPointF, QRect, QRectF,
+                          QSettings, Qt, QUrl)
 from PyQt6.QtGui import QCursor, QTextCharFormat
 from PyQt6.QtWidgets import QToolTip, QVBoxLayout, QWidget
 
@@ -235,7 +236,8 @@ class MusicView(QWidget):
         areas = collections.defaultdict(list)
         for dest in links.destinations()[s]:
             for pageNum, rect in dest:
-                areas[layout[pageNum]].append(rect)
+                areas[layout[pageNum]].append(
+                    QRectF(QPointF(*rect[0:2]), QPointF(*rect[2:4])))
 
         if scroll:
             # compute the bounding rect
