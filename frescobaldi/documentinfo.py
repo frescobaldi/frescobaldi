@@ -27,6 +27,7 @@ import functools
 import os
 import re
 import collections
+import weakref
 
 from PyQt6.QtCore import (
     QCoreApplication, QObject, QSettings, QThread, QTimer, QUrl, pyqtSignal)
@@ -373,16 +374,18 @@ class _Worker(QObject):
     """Worker to perform slow update operations in a separate thread."""
     def __init__(self, document):
         super().__init__()
-        self._document = document
+        self._document = weakref.ref(document)
         self._documentThread = document.thread()
 
     def work(self):
         """Trigger this using a signal or QTimer to perform work."""
-        lydocinfoData = self.lydocinfo(self._document)
-        musicData = self.music(self._document)
-        # return the document to its original thread
-        self._document.moveToThread(self._documentThread)
-        self.finished.emit(_WorkerData(lydocinfoData, musicData))
+        document = self._document()
+        if document:
+            lydocinfoData = self.lydocinfo(document)
+            musicData = self.music(document)
+            # return the document to its original thread
+            document.moveToThread(self._documentThread)
+            self.finished.emit(_WorkerData(lydocinfoData, musicData))
 
     @classmethod
     def preferredThread(cls):
