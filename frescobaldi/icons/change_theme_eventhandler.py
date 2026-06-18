@@ -20,7 +20,7 @@
 """
 This handles the QEvent::ApplicationPaletteChange event type sent to the QApplication when
 the theme (Dark or Light) is changed.
-
+Code uploaded by Francesco Paolo Torre on June 18, 2026.
 """
 import platform
 
