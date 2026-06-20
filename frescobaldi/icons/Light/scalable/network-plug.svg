@@ -1,5 +1,90 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <path id="path1" d="M7.663,17.044L4.354,20.354C4.16,20.547 3.84,20.547 3.646,20.354C3.453,20.16 3.453,19.84 3.646,19.646L6.956,16.337C6.027,15.267 5.418,13.917 5.344,12.475C5.261,10.863 5.87,9.149 7.385,7.693L9.432,5.646C9.626,5.453 9.945,5.453 10.139,5.646L11.393,6.9L14.646,3.646C14.84,3.453 15.16,3.453 15.354,3.646C15.547,3.84 15.547,4.16 15.354,4.354L12.1,7.607L16.393,11.9L19.646,8.646C19.84,8.453 20.16,8.453 20.354,8.646C20.547,8.84 20.547,9.16 20.354,9.354L17.1,12.607L18.354,13.861C18.547,14.055 18.547,14.374 18.354,14.568L16.307,16.615C14.851,18.13 13.137,18.739 11.525,18.656C10.083,18.582 8.733,17.973 7.663,17.044ZM9.785,6.707L8.078,8.414C6.745,9.696 6.274,11.09 6.342,12.422C6.41,13.754 7.042,15.035 8.004,15.996C8.965,16.958 10.246,17.59 11.578,17.658C12.91,17.727 14.304,17.255 15.586,15.922L17.293,14.215L9.785,6.707Z"/>
+<!--
+tags: [gate, technology, electirical, it, logic, nand, boolean, operation, reasoning, conditional]
+category: Logic
+version: "1.74"
+unicode: "f242"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="2"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="network-plug.svg"
+   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs5">
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect5"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" />
+  </defs>
+  <sodipodi:namedview
+     id="namedview5"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="33.439867"
+     inkscape:cx="14.563455"
+     inkscape:cy="13.367278"
+     inkscape:window-width="1976"
+     inkscape:window-height="1265"
+     inkscape:window-x="191"
+     inkscape:window-y="111"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg5" />
+  <path
+     d="m 18.524308,15.296642 c -4.24264,4.24264 -8.131727,3.18198 -10.6066004,0.707106 C 5.4428338,13.528874 4.3821736,9.6397868 8.6248138,5.3971466 l 1.4142132,-1.4142135 9.899495,9.8994949 -1.414214,1.414214"
+     id="path4"
+     style="stroke-width:1;stroke-dasharray:none" />
+  <path
+     style="fill:none;stroke-width:2.5;stroke-linecap:round;stroke-dasharray:none"
+     d="m 7.6606493,16.853429 c -0.534463,0.570094 -1.0689164,1.140178 -1.840936,1.478679 -0.7720195,0.3385 -1.7815421,0.44539 -2.7910843,0.552282"
+     id="path5"
+     inkscape:path-effect="#path-effect5"
+     inkscape:original-d="M 7.6606493,16.853429 C 7.1261863,17.423523 6.5917329,17.993607 6.0572577,18.563714 5.0476938,18.670608 4.0381712,18.777498 3.028629,18.88439"
+     sodipodi:nodetypes="ccc" />
+  <rect
+     style="fill:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none"
+     id="rect1-3"
+     width="2.9217362"
+     height="5.1308522"
+     x="18.817858"
+     y="-9.4255705"
+     ry="1.4"
+     transform="rotate(45)"
+     rx="1.4" />
+  <rect
+     style="fill:none;stroke-width:1;stroke-linecap:round;stroke-dasharray:none"
+     id="rect1-3-1"
+     width="2.9217362"
+     height="5.1308522"
+     x="11.800919"
+     y="-9.4486914"
+     ry="1.4"
+     transform="rotate(45)"
+     rx="1.4" />
 </svg>

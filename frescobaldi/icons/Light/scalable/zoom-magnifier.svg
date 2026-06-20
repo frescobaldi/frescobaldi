@@ -1,5 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <path id="path1" d="M14.928,15.635C13.606,16.794 11.879,17.5 10,17.5C5.886,17.5 2.5,14.114 2.5,10C2.5,5.886 5.886,2.5 10,2.5C14.114,2.5 17.5,5.886 17.5,10C17.5,11.879 16.794,13.606 15.635,14.928L21.354,20.646C21.547,20.84 21.547,21.16 21.354,21.354C21.16,21.547 20.84,21.547 20.646,21.354L14.928,15.635ZM10,3.5C6.434,3.5 3.5,6.434 3.5,10C3.5,13.566 6.434,16.5 10,16.5C13.566,16.5 16.5,13.566 16.5,10C16.5,6.434 13.566,3.5 10,3.5ZM9.946,7.373C11.32,7.373 12.436,8.488 12.436,9.863C12.436,11.237 11.32,12.353 9.946,12.353C8.572,12.353 7.456,11.237 7.456,9.863C7.456,8.488 8.572,7.373 9.946,7.373Z"/>
-</svg>
+<svg
+   width="24px"
+   height="24px"
+   viewBox="0 0 24 24"
+   version="1.1"
+   xml:space="preserve"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+   id="svg1"
+   sodipodi:docname="zoom-magnifier.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs1" /><sodipodi:namedview
+   id="namedview1"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   inkscape:zoom="36.666667"
+   inkscape:cx="12"
+   inkscape:cy="12"
+   inkscape:window-width="2141"
+   inkscape:window-height="1205"
+   inkscape:window-x="0"
+   inkscape:window-y="30"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="svg1" />
+    <path
+   d="M 3,10 A 7,7 0 1 0 17,10 7,7 0 1 0 3,10"
+   id="path1-7"
+   style="clip-rule:evenodd;fill:none;fill-rule:evenodd;stroke:currentColor;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none" /><path
+   d="m 21.409091,21.354545 -6,-6"
+   id="path2-9"
+   style="clip-rule:evenodd;fill:none;fill-rule:evenodd;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2" />
+<ellipse
+   style="fill:#000000;fill-opacity:1;stroke-width:0.844708;stroke-linecap:round"
+   id="path2"
+   cx="9.9681816"
+   cy="9.9409084"
+   rx="2.55"
+   ry="2.4954545" /></svg>
