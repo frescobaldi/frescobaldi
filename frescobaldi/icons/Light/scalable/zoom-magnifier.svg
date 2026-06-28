@@ -23,25 +23,28 @@
    inkscape:pagecheckerboard="0"
    inkscape:deskcolor="#d1d1d1"
    inkscape:zoom="36.666667"
-   inkscape:cx="12"
-   inkscape:cy="12"
+   inkscape:cx="12.013636"
+   inkscape:cy="12.027273"
    inkscape:window-width="2141"
    inkscape:window-height="1205"
    inkscape:window-x="0"
    inkscape:window-y="30"
    inkscape:window-maximized="0"
    inkscape:current-layer="svg1" />
-    <path
-   d="M 3,10 A 7,7 0 1 0 17,10 7,7 0 1 0 3,10"
-   id="path1-7"
-   style="clip-rule:evenodd;fill:none;fill-rule:evenodd;stroke:currentColor;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none" /><path
-   d="m 21.409091,21.354545 -6,-6"
-   id="path2-9"
-   style="clip-rule:evenodd;fill:none;fill-rule:evenodd;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2" />
+    
 <ellipse
    style="fill:#000000;fill-opacity:1;stroke-width:0.844708;stroke-linecap:round"
    id="path2"
    cx="9.9681816"
    cy="9.9409084"
    rx="2.55"
-   ry="2.4954545" /></svg>
+   ry="2.4954545" /><g
+   style="clip-rule:evenodd;fill:none;fill-rule:evenodd;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2"
+   id="g2"
+   transform="translate(0.46692717,0.46692718)"><path
+     d="m 1.8363636,9.5636364 a 7.7000002,7.7000002 0 1 0 15.4000004,0 7.7000002,7.7000002 0 1 0 -15.4000004,0"
+     id="path1-7-7"
+     style="stroke-width:1;stroke-dasharray:none" /><path
+     d="M 20.618182,20.727272 15.409091,15.354545"
+     id="path2-9-3"
+     sodipodi:nodetypes="cc" /></g></svg>

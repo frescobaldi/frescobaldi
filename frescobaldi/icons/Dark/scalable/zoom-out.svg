@@ -11,24 +11,14 @@
    inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg"><defs
    id="defs1"><linearGradient
      id="swatch3"
      inkscape:swatch="solid"><stop
-       style="stop-color:#ffffff;stop-opacity:1;"
+       style="stop-color:#000000;stop-opacity:1;"
        offset="0"
-       id="stop3" /></linearGradient><linearGradient
-     inkscape:collect="always"
-     xlink:href="#swatch3"
-     id="linearGradient2"
-     gradientUnits="userSpaceOnUse"
-     gradientTransform="rotate(90,10.302011,9.9652973)"
-     x1="7.875"
-     y1="9.9519234"
-     x2="10.298077"
-     y2="9.9519234" /></defs><sodipodi:namedview
+       id="stop3" /></linearGradient></defs><sodipodi:namedview
    id="namedview1"
    pagecolor="#ffffff"
    bordercolor="#000000"
@@ -46,15 +36,18 @@
    inkscape:window-y="30"
    inkscape:window-maximized="0"
    inkscape:current-layer="svg1" />
-    <path
-   d="M 3,10 A 7,7 0 1 0 17,10 7,7 0 1 0 3,10"
-   id="path1-7"
-   style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none" /><path
-   d="m 21.409091,21.354545 -6,-6"
-   id="path2-9"
-   style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" />
+    
 <path
-   style="clip-rule:evenodd;fill:none;fill-rule:evenodd;stroke:url(#linearGradient2);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-dasharray:none"
-   d="M 12.737413,9.9613638 H 6.9115386"
-   id="path2"
-   sodipodi:nodetypes="cc" /></svg>
+   style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:0;stroke-opacity:1"
+   d="m 6.9545453,10.145454 6.0000007,-0.02727"
+   id="path1" /><g
+   style="clip-rule:evenodd;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-opacity:1"
+   id="g2"
+   transform="translate(0.46692717,0.46692718)"><path
+     d="m 1.8363636,9.5636364 a 7.7000002,7.7000002 0 1 0 15.4000004,0 7.7000002,7.7000002 0 1 0 -15.4000004,0"
+     id="path1-7-7"
+     style="stroke-width:1;stroke-dasharray:none;stroke:#ffffff;stroke-opacity:1" /><path
+     d="M 20.618182,20.727272 15.409091,15.354545"
+     id="path2-9-3"
+     sodipodi:nodetypes="cc"
+     style="stroke:#ffffff;stroke-opacity:1" /></g></svg>

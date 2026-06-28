@@ -380,7 +380,7 @@ class InfoItem(QListWidgetItem):
                       progress=self.state.download_progress)
         elif isinstance(self.state, InstalledState):
             if self.state.info.version():
-                icon = "lilypond-run"
+                icon = "lilypond"
             else:
                 icon = "dialog-error"
             text = self.state.info.prettyName()

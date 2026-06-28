@@ -7,7 +7,7 @@
    xml:space="preserve"
    style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
    id="svg1"
-   sodipodi:docname="zoom-original.svg"
+   sodipodi:docname="help-contextual.svg"
    inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -28,22 +28,16 @@
    inkscape:pagecheckerboard="0"
    inkscape:deskcolor="#d1d1d1"
    inkscape:zoom="34.666667"
-   inkscape:cx="12"
-   inkscape:cy="12.043269"
-   inkscape:window-width="3008"
-   inkscape:window-height="1568"
+   inkscape:cx="12.014423"
+   inkscape:cy="12.057692"
+   inkscape:window-width="2778"
+   inkscape:window-height="1387"
    inkscape:window-x="0"
    inkscape:window-y="30"
-   inkscape:window-maximized="1"
+   inkscape:window-maximized="0"
    inkscape:current-layer="svg1" />
     
-<path
-   d="M 3,10 A 7,7 0 1 0 17,10 7,7 0 1 0 3,10"
-   id="path1-7"
-   style="fill:none;stroke:currentColor;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none" /><path
-   d="m 21.409091,21.354545 -6,-6"
-   id="path2-9"
-   style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" /><g
+<g
    style="fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
    id="g1"
    transform="translate(-0.05769231,-0.40384767)"><path
@@ -54,4 +48,13 @@
      style="stroke-width:1.5;stroke-dasharray:none" /></g><path
    style="fill:none;fill-opacity:0.133421;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
    d="m 9.807692,9.663461 0.02885,1.298077"
-   id="path1" /></svg>
+   id="path1" /><g
+   style="clip-rule:evenodd;fill:none;fill-rule:evenodd;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2"
+   id="g2"
+   transform="translate(0.46692717,0.46692718)"><path
+     d="m 1.8363636,9.5636364 a 7.7000002,7.7000002 0 1 0 15.4000004,0 7.7000002,7.7000002 0 1 0 -15.4000004,0"
+     id="path1-7-7"
+     style="stroke-width:1;stroke-dasharray:none" /><path
+     d="M 20.618182,20.727272 15.409091,15.354545"
+     id="path2-9-3"
+     sodipodi:nodetypes="cc" /></g></svg>

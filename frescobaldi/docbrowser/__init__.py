@@ -80,7 +80,7 @@ class Actions(actioncollection.ActionCollection):
         self.help_home.setIcon(icons.get("go-home"))
         self.help_web_browser.setIcon(icons.get("internet-web-browser"))
         self.help_web_browser_homepage.setIcon(icons.get("internet-web-browser"))
-        self.help_lilypond_doc.setIcon(icons.get("lilypond-run"))
+        self.help_lilypond_doc.setIcon(icons.get("lilypond"))
         self.help_print.setIcon(icons.get("document-print"))
         self.help_lilypond_doc.setShortcut(QKeySequence("F9"))
         self.help_lilypond_context.setShortcut(QKeySequence("Shift+F9"))

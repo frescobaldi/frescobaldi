@@ -36,7 +36,7 @@ unicode: "f07f"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="34.666667"
      inkscape:cx="12"
-     inkscape:cy="12.014423"
+     inkscape:cy="12.043269"
      inkscape:window-width="2246"
      inkscape:window-height="1462"
      inkscape:window-x="0"
@@ -44,19 +44,25 @@ unicode: "f07f"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg4" />
   <path
-     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#ffffff;stop-opacity:1;opacity:1"
-     d="m 9.6464844,5.6464844 -2,2 a 0.5,0.5 0 0 0 0,0.7070312 0.5,0.5 0 0 0 0.7070312,0 L 10,6.7070312 11.646484,8.3535156 a 0.5,0.5 0 0 0 0.707032,0 0.5,0.5 0 0 0 0,-0.7070312 l -2,-2 a 0.50005,0.50005 0 0 0 -0.7070316,0 z"
-     id="path3" />
+     style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-opacity:1"
+     d="m 7.8461535,7.8461541 2.076923,-2.048077 2.0192315,2.048077"
+     id="path1" />
   <path
-     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#ffffff;stop-opacity:1;opacity:1"
-     d="m 7.6464844,11.646484 a 0.5,0.5 0 0 0 0,0.707032 l 2,2 a 0.50005,0.50005 0 0 0 0.7070316,0 l 2,-2 a 0.5,0.5 0 0 0 0,-0.707032 0.5,0.5 0 0 0 -0.707032,0 L 10,13.292969 8.3535156,11.646484 a 0.5,0.5 0 0 0 -0.7070312,0 z"
-     id="path4" />
-  <path
-     d="M 3,10 A 7,7 0 1 0 17,10 7,7 0 1 0 3,10"
-     id="path1-7"
-     style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none" />
-  <path
-     d="m 21.409091,21.354545 -6,-6"
-     id="path2-9"
-     style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" />
+     style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-opacity:1"
+     d="m 7.8461535,12.230811 2.076923,2.048077 2.0192315,-2.048077"
+     id="path2" />
+  <g
+     style="clip-rule:evenodd;fill:none;fill-rule:evenodd;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2;stroke-opacity:1"
+     id="g2"
+     transform="translate(0.46692717,0.46692718)">
+    <path
+       d="m 1.8363636,9.5636364 a 7.7000002,7.7000002 0 1 0 15.4000004,0 7.7000002,7.7000002 0 1 0 -15.4000004,0"
+       id="path1-7-7"
+       style="stroke-width:1;stroke-dasharray:none;stroke:#ffffff;stroke-opacity:1" />
+    <path
+       d="M 20.618182,20.727272 15.409091,15.354545"
+       id="path2-9-3"
+       sodipodi:nodetypes="cc"
+       style="stroke:#ffffff;stroke-opacity:1" />
+  </g>
 </svg>

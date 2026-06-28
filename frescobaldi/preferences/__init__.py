@@ -210,7 +210,7 @@ class MusicViewers(PrefsItemBase):
 
 class LilyPond(PrefsItemBase):
     help = "prefs_lilypond"
-    iconName = "lilypond-run"
+    iconName = "lilypond"
     def translateUI(self):
         self.setText(_("LilyPond"))
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--
-tags: [sound, mp3, album, speakers, melody, music, content, entertainment, multimedia, broadcast]
-category: Media
+tags: [brackets, source, programming, command, code, script, software, development, coding, typography]
+category: Text
 version: "1.0"
-unicode: "eafc"
+unicode: "ea77"
 -->
 
 <svg
@@ -16,17 +16,17 @@ unicode: "eafc"
    stroke-linecap="round"
    stroke-linejoin="round"
    version="1.1"
-   id="svg4"
-   sodipodi:docname="audio-x-generic.svg"
+   id="svg3"
+   sodipodi:docname="code.svg"
    inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs4" />
+     id="defs3" />
   <sodipodi:namedview
-     id="namedview4"
+     id="namedview3"
      pagecolor="#ffffff"
      bordercolor="#000000"
      borderopacity="0.25"
@@ -35,28 +35,24 @@ unicode: "eafc"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="36.666667"
-     inkscape:cx="12.013636"
-     inkscape:cy="12.013636"
-     inkscape:window-width="2279"
-     inkscape:window-height="1308"
+     inkscape:cx="12"
+     inkscape:cy="12.027273"
+     inkscape:window-width="2126"
+     inkscape:window-height="1433"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg4" />
+     inkscape:current-layer="svg3" />
   <path
-     d="M3 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"
+     d="M7 8l-4 4l4 4"
      id="path1"
-     style="stroke-width:1;stroke-dasharray:none;stroke:#ffffff;stroke-opacity:1" />
+     style="stroke-width:1.5;stroke-dasharray:none" />
   <path
-     d="M13 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"
+     d="M17 8l4 4l-4 4"
      id="path2"
-     style="stroke-width:1;stroke-dasharray:none;stroke:#ffffff;stroke-opacity:1" />
+     style="stroke-width:1.5;stroke-dasharray:none" />
   <path
-     d="M9 17v-13h10v13"
+     d="M14 4l-4 16"
      id="path3"
-     style="stroke-width:1;stroke-dasharray:none;stroke:#ffffff;stroke-opacity:1" />
-  <path
-     d="M9 8h10"
-     id="path4"
-     style="stroke-width:1;stroke-dasharray:none;stroke:#ffffff;stroke-opacity:1" />
+     style="stroke-width:1.5;stroke-dasharray:none" />
 </svg>
