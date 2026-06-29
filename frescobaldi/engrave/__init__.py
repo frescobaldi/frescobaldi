@@ -107,7 +107,7 @@ class Engraver(plugin.MainWindowPlugin):
         ac.engrave_publish.setEnabled(not visible)
         ac.engrave_debug.setEnabled(not visible)
         ac.engrave_abort.setEnabled(running)
-        ac.engrave_runner.setIcon(icons.get('process-stop' if visible else 'lilypond-run'))
+        ac.engrave_runner.setIcon(icons.get('lilypond-stop' if visible else 'lilypond-run'))
         ac.engrave_runner.setToolTip(_("Abort engraving job") if visible else
                     _("Engrave (preview; press Shift for custom)"))
 
@@ -393,7 +393,7 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_publish.setIcon(icons.get('lilypond-run'))
         self.engrave_debug.setIcon(icons.get('lilypond-run'))
         self.engrave_custom.setIcon(icons.get('lilypond-run'))
-        self.engrave_abort.setIcon(icons.get('process-stop'))
+        self.engrave_abort.setIcon(icons.get('lilypond-stop'))
 
 
     def translateUI(self):
