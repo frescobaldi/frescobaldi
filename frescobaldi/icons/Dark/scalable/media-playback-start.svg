@@ -1,5 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="24px" height="24px" fill="white" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <path id="path1" d="M6.756,3.564C6.598,3.653 6.5,3.819 6.5,4L6.5,20C6.5,20.274 6.726,20.5 7,20.5C7.092,20.5 7.183,20.474 7.262,20.426L20.262,12.426C20.409,12.335 20.5,12.173 20.5,12C20.5,11.827 20.409,11.665 20.262,11.574L7.262,3.574C7.108,3.48 6.914,3.476 6.756,3.564ZM7.5,4.895L19.047,12L7.5,19.105L7.5,4.895Z" style="fill-rule:nonzero;"/>
+<!--
+tags: [start, video, film, music, player, play, content, entertainment, multimedia, broadcast]
+category: Media
+version: "1.28"
+unicode: "ed46"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="1.2"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="media-playback-start.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="36.666667"
+     inkscape:cx="12"
+     inkscape:cy="12.013636"
+     inkscape:window-width="1024"
+     inkscape:window-height="1186"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg1" />
+  <path
+     d="M7 4v16l13 -8l-13 -8"
+     id="path1"
+     style="stroke:#ffffff;stroke-opacity:1" />
 </svg>

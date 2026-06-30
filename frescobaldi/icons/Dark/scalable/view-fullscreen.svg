@@ -1,5 +1,62 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="24px" height="24px" fill="white" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <path id="path1" d="M6,3.5L8,3.5C8.274,3.5 8.5,3.726 8.5,4C8.5,4.274 8.274,4.5 8,4.5L6,4.5C5.177,4.5 4.5,5.177 4.5,6L4.5,8C4.5,8.274 4.274,8.5 4,8.5C3.726,8.5 3.5,8.274 3.5,8L3.5,6C3.5,4.629 4.629,3.5 6,3.5ZM4,15.5C4.274,15.5 4.5,15.726 4.5,16L4.5,18C4.5,18.823 5.177,19.5 6,19.5L8,19.5C8.274,19.5 8.5,19.726 8.5,20C8.5,20.274 8.274,20.5 8,20.5L6,20.5C4.629,20.5 3.5,19.371 3.5,18L3.5,16C3.5,15.726 3.726,15.5 4,15.5ZM16,3.5L18,3.5C19.371,3.5 20.5,4.629 20.5,6L20.5,8C20.5,8.274 20.274,8.5 20,8.5C19.726,8.5 19.5,8.274 19.5,8L19.5,6C19.5,5.177 18.823,4.5 18,4.5L16,4.5C15.726,4.5 15.5,4.274 15.5,4C15.5,3.726 15.726,3.5 16,3.5ZM20,15.5C20.274,15.5 20.5,15.726 20.5,16L20.5,18C20.5,19.371 19.371,20.5 18,20.5L16,20.5C15.726,20.5 15.5,20.274 15.5,20C15.5,19.726 15.726,19.5 16,19.5L18,19.5C18.823,19.5 19.5,18.823 19.5,18L19.5,16C19.5,15.726 19.726,15.5 20,15.5Z"/>
+<!--
+tags: [magnify, enlarge, analyze, focus, enhance, view, magnification, zoom-in, scan-zoom, magnify-scan]
+category: System
+version: "2.36"
+unicode: "fcb0"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="1.2"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="view-fullscreen.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs6" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="36.666667"
+     inkscape:cx="12"
+     inkscape:cy="12.013636"
+     inkscape:window-width="3008"
+     inkscape:window-height="1568"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg6" />
+  <path
+     d="m 3.545454,7.545454 v -2 a 2,2 0 0 1 2,-2 h 2"
+     id="path3"
+     style="stroke:#ffffff;stroke-opacity:1" />
+  <path
+     d="m 3.545454,16.45454 v 2 a 2,2 0 0 0 2,2 h 2"
+     id="path4"
+     style="stroke:#ffffff;stroke-opacity:1" />
+  <path
+     d="m 16.45454,3.545454 h 2 a 2,2 0 0 1 2,2 v 2"
+     id="path5"
+     style="stroke:#ffffff;stroke-opacity:1" />
+  <path
+     d="m 16.45454,20.45454 h 2 a 2,2 0 0 0 2,-2 v -2"
+     id="path6"
+     style="stroke:#ffffff;stroke-opacity:1" />
 </svg>

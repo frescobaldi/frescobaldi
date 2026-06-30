@@ -38,16 +38,16 @@ unicode: "eb55"
      inkscape:cy="12.013636"
      inkscape:window-width="1942"
      inkscape:window-height="1242"
-     inkscape:window-x="967"
-     inkscape:window-y="302"
+     inkscape:window-x="838"
+     inkscape:window-y="137"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg2" />
   <path
-     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1;fill-opacity:1"
-     d="M 17.292969,5.2929687 5.2929687,17.292969 a 1,1 0 0 0 0,1.414062 1,1 0 0 0 1.4140625,0 L 18.707031,6.7070312 a 1,1 0 0 0 0,-1.4140625 1,1 0 0 0 -1.414062,0 z"
-     id="path1" />
+     style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none"
+     d="M 18.327273,18.300001 5.6727272,5.6727271"
+     id="path4" />
   <path
-     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#ffffff;stroke:none;stroke-linecap:butt;stroke-linejoin:miter;enable-background:accumulate;stop-color:#000000;stop-opacity:1;opacity:1;fill-opacity:1"
-     d="m 6,5 a 1,1 0 0 0 -0.7070313,0.2929687 1,1 0 0 0 0,1.4140625 L 17.292969,18.707031 a 1,1 0 0 0 1.414062,0 1,1 0 0 0 0,-1.414062 L 6.7070312,5.2929687 A 1,1 0 0 0 6,5 Z"
-     id="path2" />
+     style="fill:#000000;fill-opacity:1;stroke:#ffffff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none"
+     d="M 5.6727272,18.300001 18.327273,5.6727271"
+     id="path5" />
 </svg>
