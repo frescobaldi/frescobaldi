@@ -35,10 +35,10 @@ unicode: "eaf2"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="36.666667"
-     inkscape:cx="12"
+     inkscape:cx="12.013636"
      inkscape:cy="12.013636"
-     inkscape:window-width="1024"
-     inkscape:window-height="1186"
+     inkscape:window-width="1811"
+     inkscape:window-height="1222"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="0"
@@ -46,5 +46,5 @@ unicode: "eaf2"
   <path
      d="M5 12l14 0"
      id="path1"
-     style="stroke:#ffffff;stroke-opacity:1" />
+     style="stroke-width:1.4;stroke-dasharray:none;stroke:#ffffff;stroke-opacity:1" />
 </svg>

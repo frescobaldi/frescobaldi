@@ -37,8 +37,8 @@ unicode: "eb0b"
      inkscape:zoom="36.666667"
      inkscape:cx="12"
      inkscape:cy="12.013636"
-     inkscape:window-width="1024"
-     inkscape:window-height="1186"
+     inkscape:window-width="1810"
+     inkscape:window-height="1216"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="0"
@@ -46,9 +46,9 @@ unicode: "eb0b"
   <path
      d="M12 5l0 14"
      id="path1"
-     style="stroke:#ffffff;stroke-opacity:1" />
+     style="stroke-width:1.4;stroke-dasharray:none;stroke:#ffffff;stroke-opacity:1" />
   <path
      d="M5 12l14 0"
      id="path2"
-     style="stroke:#ffffff;stroke-opacity:1" />
+     style="stroke-width:1.4;stroke-dasharray:none;stroke:#ffffff;stroke-opacity:1" />
 </svg>
