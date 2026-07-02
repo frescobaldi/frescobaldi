@@ -39,15 +39,15 @@ unicode: "eb55"
      inkscape:window-width="1942"
      inkscape:window-height="1242"
      inkscape:window-x="838"
-     inkscape:window-y="109"
+     inkscape:window-y="81"
      inkscape:window-maximized="0"
      inkscape:current-layer="svg2" />
   <path
-     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
-     d="M 18.327273,18.300001 5.6727272,5.6727271"
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+     d="M 18.327273,18.313637 5.672727,5.686363"
      id="path4" />
   <path
-     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
-     d="M 5.6727272,18.300001 18.327273,5.6727271"
-     id="path5" />
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+     d="M 5.686363,18.327273 18.313637,5.672727"
+     id="path1" />
 </svg>
