@@ -9,7 +9,7 @@ Frescobaldi is a LilyPond sheet music text editor. It aims to be powerful, yet
 lightweight and easy to use. Frescobaldi is Free Software, freely available
 under the General Public License.
 
-Features:
+### Features
 
 - Powerful text editor with syntax highlighting and automatic completion
 - Music view with advanced two-way Point & Click
@@ -28,7 +28,7 @@ Features:
   Russian, Spanish, Galician, Turkish, Polish, Brazilian, Ukrainian,
   Traditional Chinese, Simplified Chinese, Japanese and Korean.
 
-Music functions:
+### Music functions
 
 - Transpose music
 - Change music from relative to absolute and vice versa
