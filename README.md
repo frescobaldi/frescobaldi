@@ -46,8 +46,8 @@ composer of keyboard music in the late Renaissance and early Baroque period.
 Here is an idea of the basic Frescobaldi workflow:
 
 - Start Frescobaldi
-- Open a .ly file or create one using *File->New* from template or
-  *Tools->Setup new Score...* and fill in some music
+- Open a .ly file or create one using *File->New Document* or from a template with
+  *File->New->Score Wizard...* and fill in some music
 - Press Ctrl+M to run LilyPond
 - If the LilyPond output shows errors, press Ctrl+E to jump to the first error
 - If you see other mistakes in the music, click the notes to move the text
