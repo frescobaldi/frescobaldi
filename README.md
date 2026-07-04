@@ -1,9 +1,8 @@
-README for Frescobaldi
-======================
+# README for Frescobaldi
 
 ## About Frescobaldi
 
-Homepage: http://www.frescobaldi.org/ \
+Homepage: <http://www.frescobaldi.org/> \
 Main author: Wilbert Berendsen
 
 Frescobaldi is a LilyPond sheet music text editor. It aims to be powerful, yet
