@@ -151,13 +151,13 @@ class General(preferences.Group):
         self.styleCombo.setItemText(0, _("Default"))
         self.systemIcons.setText(_("Use Symbolic Icons"))
         self.systemIcons.setToolTip(_(
-            "If checked, minimal, high-contrast icons designed for both light and "
+            "If checked, minimal, high-contrast icons designed for both light and \n"
             "dark themes will be used instead of the classic colored Tango icons."))
         self.splashScreen.setText(_("Show Splash Screen on Startup"))
         self.tabsClosable.setText(_("Show Close Button on Document tabs"))
         self.allowRemote.setText(_("Open Files in Running Instance"))
         self.allowRemote.setToolTip(_(
-            "If checked, files will be opened in a running Frescobaldi "
+            "If checked, files will be opened in a running Frescobaldi \n"
             "application if available, instead of starting a new instance."))
 
 
