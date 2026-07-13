@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+tags: [save, file, disk, device, floppy, hardware, technology, electronic, gadget, equipment]
+category: Devices
+version: "1.2"
+unicode: "eb62"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="1"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg3"
+   sodipodi:docname="document-rename.svg"
+   xml:space="preserve"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+     id="defs3"><inkscape:path-effect
+       effect="bspline"
+       id="path-effect3"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" /><inkscape:path-effect
+       effect="bspline"
+       id="path-effect1"
+       is_visible="true"
+       lpeversion="1.3"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false"
+       uniform="false" /></defs><sodipodi:namedview
+     id="namedview3"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="5.0943499"
+     inkscape:cx="-12.955529"
+     inkscape:cy="20.905513"
+     inkscape:window-width="1440"
+     inkscape:window-height="654"
+     inkscape:window-x="0"
+     inkscape:window-y="138"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg3" /><g
+     id="g5"
+     transform="translate(0.10042846)"><g
+       id="g15"
+       transform="translate(-0.16014159)"><path
+         d="m 15.633529,4 a 3,3 0 0 1 3,3 v 10 a 3,3 0 0 1 -3,3"
+         id="path2-1"
+         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none" /><path
+         d="m 21.633529,4 a 3,3 0 0 0 -3,3 v 10 a 3,3 0 0 0 3,3"
+         id="path3"
+         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none" /></g><g
+       id="g4"
+       style="stroke:#000000;stroke-opacity:1"
+       transform="translate(0,-0.20607062)"><path
+         style="fill:none;stroke:#000000;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         d="M 2.6757557,17.838371 C 4.2723999,13.907323 5.8690444,9.9762744 7.4656888,6.0452259"
+         id="path1"
+         inkscape:path-effect="#path-effect1"
+         inkscape:original-d="M 2.6757557,17.838371 C 4.2724001,13.907323 5.8690444,9.9762744 7.4656888,6.0452259"
+         transform="translate(0,0.26427217)" /><path
+         style="fill:none;stroke:#000000;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         d="M 2.6757557,17.838371 C 4.2723999,13.907323 5.8690444,9.9762744 7.4656888,6.0452259"
+         id="path2"
+         inkscape:path-effect="#path-effect3"
+         inkscape:original-d="M 2.6757557,17.838371 C 4.2724001,13.907323 5.8690444,9.9762744 7.4656888,6.0452259"
+         transform="matrix(-1,0,0,1,14.93426,0.26427217)" /><path
+         style="fill:none;stroke:#000000;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+         d="M 4.8208895,14.249982 H 9.9253611"
+         id="path4" /></g></g></svg>

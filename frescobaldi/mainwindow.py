@@ -1262,7 +1262,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_save.setIcon(icons.get('document-save'))
         self.file_save_as.setIcon(icons.get('document-save-as'))
         self.file_save_copy_as.setIcon(icons.get('document-save-as'))
-        self.file_rename.setIcon(icons.get('document-save-as'))
+        self.file_rename.setIcon(icons.get('document-rename'))
         self.file_save_all.setIcon(icons.get('document-save-all'))
         self.file_reload.setIcon(icons.get('reload'))
         self.file_reload_all.setIcon(icons.get('reload-all'))

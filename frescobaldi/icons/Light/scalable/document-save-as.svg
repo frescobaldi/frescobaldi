@@ -1,21 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--
 tags: [save, file, disk, device, floppy, hardware, technology, electronic, gadget, equipment]
 category: Devices
 version: "1.2"
 unicode: "eb62"
 -->
+
 <svg
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="1"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
-  <path d="M10 14a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-  <path d="M14 4l0 4l-6 0l0 -4" />
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="1"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg3"
+   sodipodi:docname="document-save-as.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3" />
+  <sodipodi:namedview
+     id="namedview3"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="6.3827685"
+     inkscape:cx="16.920557"
+     inkscape:cy="16.763885"
+     inkscape:window-width="928"
+     inkscape:window-height="789"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg3" />
+  <path
+     d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2"
+     id="path1" />
+  <path
+     d="M10 14a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"
+     id="path2" />
+  <path
+     d="M14 4l0 4l-6 0l0 -4"
+     id="path3"
+     style="fill:#000000;fill-opacity:1" />
 </svg>
