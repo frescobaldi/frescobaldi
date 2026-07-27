@@ -443,12 +443,12 @@ def lilypond():
         if text.endswith('\n'):
             return '% ' + text[:-1].replace('\n', '\n% ') + '\n'
         elif after and not after.isspace():
-            return '%{ ' + text + '%} '
+            return '%{ ' + text + ' %}'
         else:
             return '% ' + text.replace('\n', '\n% ')
     elif text:
         if after and not after.isspace():
-            return '%{ ' + text + '%} '
+            return '%{ ' + text + ' %}'
         else:
             return '% ' + text + after
     else:
@@ -497,7 +497,9 @@ def main():
                 text = text.lstrip()[3:]
             else:
                 text = text.lstrip()[2:]
-            if text.rstrip().endswith('%}'):
+            if text.rstrip().endswith(' %}'):
+                text = text.rstrip()[:-3]
+            elif text.rstrip().endswith('%}'):
                 text = text.rstrip()[:-2]
         else:
             if not text:
