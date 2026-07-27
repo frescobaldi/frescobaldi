@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+tags: [computer, laptop, device, type, keyboard, hardware, technology, electronic, gadget, equipment]
+category: Devices
+version: "1.6"
+unicode: "ebd6"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="1.2"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="preferences-desktop-keyboard-shortcuts.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="36.666667"
+     inkscape:cx="12"
+     inkscape:cy="12.013636"
+     inkscape:window-width="2540"
+     inkscape:window-height="1294"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg8" />
+  <path
+     d="M2 8a2 2 0 0 1 2 -2h16a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-16a2 2 0 0 1 -2 -2l0 -8"
+     id="path1"
+     style="stroke-width:1;stroke-dasharray:none;stroke:#ffffff;stroke-opacity:1" />
+  <path
+     d="M6 10l0 .01"
+     id="path2"
+     style="stroke:#ffffff;stroke-opacity:1" />
+  <path
+     d="M10 10l0 .01"
+     id="path3"
+     style="stroke:#ffffff;stroke-opacity:1" />
+  <path
+     d="M14 10l0 .01"
+     id="path4"
+     style="stroke:#ffffff;stroke-opacity:1" />
+  <path
+     d="M18 10l0 .01"
+     id="path5"
+     style="stroke:#ffffff;stroke-opacity:1" />
+  <path
+     d="M6 14l0 .01"
+     id="path6"
+     style="stroke:#ffffff;stroke-opacity:1" />
+  <path
+     d="M18 14l0 .01"
+     id="path7"
+     style="stroke:#ffffff;stroke-opacity:1" />
+  <path
+     d="M10 14l4 .01"
+     id="path8"
+     style="stroke:#ffffff;stroke-opacity:1" />
+</svg>

@@ -209,9 +209,13 @@ def main(debug=False):
             import splashscreen
             splashscreen.show()
 
-    # application icon
-    import icons
-    QApplication.setWindowIcon(icons.get("org.frescobaldi.Frescobaldi"))
+    # application icon. On macOS this feature is not recommended, because it changes the launcher icon in the dock while the app is in use.
+    if platform.system() != "Darwin":
+        import icons
+        QApplication.setWindowIcon(icons.get("org.frescobaldi.Frescobaldi"))
+    # for new icon theme, to handle the light/dark mode change event
+    from icons import change_theme_eventhandler
+    change_theme_eventhandler.initialize()
 
     QTimer.singleShot(0, remote.setup)  # Start listening for IPC
 

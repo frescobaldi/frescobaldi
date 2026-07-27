@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+tags: [scissors, divide, hairdresser, sharp, cut, creative, artistic, visual, aesthetic, style]
+category: Design
+version: "1.0"
+unicode: "ea86"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="1"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="edit-cut.svg"
+   xml:space="preserve"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+     id="defs4" /><sodipodi:namedview
+     id="namedview4"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="25.71972"
+     inkscape:cx="-1.4969059"
+     inkscape:cy="10.847708"
+     inkscape:window-width="2257"
+     inkscape:window-height="1361"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg4" /><path
+     d="m 4,17.501553 a 3,3 0 1 0 6,0 3,3 0 1 0 -6,0"
+     id="path1"
+     style="stroke:#ffffff;stroke-opacity:1" /><path
+     d="m 14,17.501553 a 3,3 0 1 0 6,0 3,3 0 1 0 -6,0"
+     id="path2"
+     style="stroke:#ffffff;stroke-opacity:1" /><path
+     d="m 13.152344,12.046875 -1.046875,1.044922 2.511719,2.513672 1.046875,-1.046875 z"
+     style="fill:#ffffff;stroke:#ffffff;stroke-width:0.6;stroke-miterlimit:0;stroke-opacity:1;fill-opacity:1"
+     id="path8" /><path
+     d="M 5.7910156,4.6855469 4.7460937,5.7324219 11.058594,12.046875 12.105469,11 Z"
+     style="fill:#ffffff;stroke:#ffffff;stroke-width:0.6;stroke-miterlimit:0;stroke-opacity:1;fill-opacity:1"
+     id="path5" /><path
+     style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.556993;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+     d="M 4.5249097,5.5746278 V 3.2769024 l 1.3327545,1.417428 -1.0521756,1.1190219 z"
+     id="path10" /><path
+     d="m 12.105469,13.091797 -1.046875,-1.044922 -2.511719,2.511719 1.0449219,1.046875 z"
+     style="fill:#ffffff;stroke:#ffffff;stroke-width:0.6;stroke-miterlimit:0;stroke-opacity:1;fill-opacity:1"
+     id="path7" /><path
+     d="m 12.105469,11 1.046875,1.046875 6.3125,-6.3144531 -1.046875,-1.046875 z"
+     style="fill:#ffffff;stroke:#ffffff;stroke-width:0.6;stroke-miterlimit:0;stroke-opacity:1;fill-opacity:1"
+     id="path4" /><path
+     style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.556993;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+     d="M 19.685639,5.5746278 V 3.2769024 l -1.332754,1.417428 1.052175,1.1190219 z"
+     id="path3" /></svg>

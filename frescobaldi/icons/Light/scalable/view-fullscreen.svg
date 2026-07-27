@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+tags: [magnify, enlarge, analyze, focus, enhance, view, magnification, zoom-in, scan-zoom, magnify-scan]
+category: System
+version: "2.36"
+unicode: "fcb0"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="1.2"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="view-fullscreen.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs6" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="36.666667"
+     inkscape:cx="12"
+     inkscape:cy="12.013636"
+     inkscape:window-width="3008"
+     inkscape:window-height="1568"
+     inkscape:window-x="1362"
+     inkscape:window-y="602"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg6" />
+  <path
+     d="m 3.545454,7.545454 v -2 a 2,2 0 0 1 2,-2 h 2"
+     id="path3" />
+  <path
+     d="m 3.545454,16.45454 v 2 a 2,2 0 0 0 2,2 h 2"
+     id="path4" />
+  <path
+     d="m 16.45454,3.545454 h 2 a 2,2 0 0 1 2,2 v 2"
+     id="path5" />
+  <path
+     d="m 16.45454,20.45454 h 2 a 2,2 0 0 0 2,-2 v -2"
+     id="path6" />
+</svg>

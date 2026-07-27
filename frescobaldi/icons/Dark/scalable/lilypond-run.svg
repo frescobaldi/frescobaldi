@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+tags: [system, technology, automate, configure, device, program, settings, automation, preferences, config]
+category: System
+version: "1.39"
+unicode: "eed6"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="2"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg2"
+   sodipodi:docname="lilypond-run.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xml:space="preserve"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+     id="defs2" /><sodipodi:namedview
+     id="namedview2"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="36.666667"
+     inkscape:cx="16.009091"
+     inkscape:cy="15.504545"
+     inkscape:window-width="3008"
+     inkscape:window-height="1564"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" /><path
+     d="M 3.7285155,8.602539 C 3.2851927,9.6807318 3.056953,10.835201 3.0566405,12.000977 3.0574933,16.939589 7.0613878,20.942609 12,20.942383 c 4.938611,2.26e-4 8.942506,-4.002794 8.943359,-8.941406 C 20.943585,7.0616018 16.939374,3.0573909 12,3.0576172 10.809378,3.0575898 9.6307348,3.2953103 8.533203,3.7568359"
+     style="stroke:#ffffff;stroke-width:1.2;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none"
+     id="path7"
+     sodipodi:nodetypes="cccccc" /><circle
+     style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1.23967;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+     id="path8"
+     cx="5.7001066"
+     cy="5.5636544"
+     r="0.74380165" /><path
+     d="m 8.4058731,15.279691 a 2.0165455,2.0165455 0 1 0 4.0330909,0 2.0165455,2.0165455 0 0 0 -4.0330909,0"
+     id="path1"
+     style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" /><path
+     d="M 12.438964,15.279691 V 6.5413283 c 2.864402,-0.2024688 1.960907,2.9928528 3.073111,4.0003527"
+     id="path3-7"
+     style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+     sodipodi:nodetypes="ccc" /></svg>

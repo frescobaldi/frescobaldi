@@ -340,7 +340,7 @@ def menu_tools(mainwindow):
 
 def menu_tools_format(mainwindow):
     m = Menu(_('submenu title', "Code &Formatting"), mainwindow)
-    m.setIcon(icons.get('document-edit'))
+    m.setIcon(icons.get('code-formatting'))
     ac = documentactions.get(mainwindow).actionCollection
     m.addAction(ac.tools_indent_auto)
     m.addAction(ac.tools_indent_indent)
@@ -350,7 +350,7 @@ def menu_tools_format(mainwindow):
 
 def menu_tools_transform(mainwindow):
     m = Menu(_('submenu title', "Musical &Transformations"), mainwindow)
-    m.setIcon(icons.get('Audio-x-generic'))
+    m.setIcon(icons.get('audio-x-generic'))
     m.addMenu(menu_tools_pitch(mainwindow))
     m.addMenu(menu_tools_rest(mainwindow))
     m.addMenu(menu_tools_rhythm(mainwindow))

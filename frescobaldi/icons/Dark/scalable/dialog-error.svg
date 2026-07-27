@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+tags: [warning, danger, caution, risk, alert, triangle, control, operation, function, interface]
+category: System
+version: "1.0"
+unicode: "ea06"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="2"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg3"
+   sodipodi:docname="dialog-error.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3" />
+  <sodipodi:namedview
+     id="namedview3"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="36.666667"
+     inkscape:cx="12.013636"
+     inkscape:cy="12.054545"
+     inkscape:window-width="2391"
+     inkscape:window-height="1359"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg3" />
+  <path
+     d="M 12,9.0818182 V 13.054545"
+     id="path1"
+     style="stroke:#ffffff;stroke-width:1.5;stroke-dasharray:none;stroke-opacity:1"
+     sodipodi:nodetypes="cc" />
+  <path
+     d="M 10.363277,4.2728182 2.2572774,17.806818 a 1.914,1.914 0 0 0 1.636,2.871 H 20.107277 a 1.914,1.914 0 0 0 1.636,-2.87 l -8.106,-13.5359998 a 1.914,1.914 0 0 0 -3.274,0"
+     id="path2"
+     style="stroke:#ffffff;stroke-width:1.1;stroke-dasharray:none;stroke-opacity:1" />
+  <path
+     d="m 11.995,16.490909 h 0.01"
+     id="path3"
+     style="stroke:#ffffff;stroke-opacity:1" />
+</svg>

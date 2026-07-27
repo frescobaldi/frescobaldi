@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+tags: [equalizer, sliders, controls, settings, filter, adjustments, control, operation, function, interface]
+category: System
+version: "1.0"
+unicode: "ea03"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="1"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg9"
+   sodipodi:docname="document-properties.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs9" />
+  <sodipodi:namedview
+     id="namedview9"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="36.666667"
+     inkscape:cx="12"
+     inkscape:cy="12.013636"
+     inkscape:window-width="2126"
+     inkscape:window-height="1378"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg9" />
+  <path
+     d="m 14,4 a 2,2 0 1 0 0,4 2,2 0 0 0 0,-4"
+     id="path1" />
+  <path
+     d="M 20,6 H 16"
+     id="path2" />
+  <path
+     d="M 12,6 H 4"
+     id="path3" />
+  <path
+     d="m 8,10 a 2,2 0 1 0 0,4 2,2 0 0 0 0,-4"
+     id="path4" />
+  <path
+     d="M 20,12 H 10"
+     id="path5" />
+  <path
+     d="M 6,12 H 4"
+     id="path6" />
+  <path
+     d="m 17,16 a 2,2 0 1 0 0,4 2,2 0 0 0 0,-4"
+     id="path7" />
+  <path
+     d="M 20,18 H 19"
+     id="path8" />
+  <path
+     d="M 15,18 H 4"
+     id="path9" />
+</svg>

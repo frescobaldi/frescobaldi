@@ -154,7 +154,7 @@ class LilyDocPathsList(widgets.listedit.ListEdit):
         dlg = widgets.dialog.Dialog(self,
             _("Please enter a local path or a URL:"),
             app.caption("LilyPond Documentation"),
-            icon = icons.get('lilypond-run'))
+            icon = icons.get('lilypond'))
         urlreq = widgets.urlrequester.UrlRequester()
         urlreq.lineEdit.setCompleter(QCompleter([
             "http://lilypond.org/doc/stable/",

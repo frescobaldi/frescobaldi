@@ -131,6 +131,8 @@ def instantiate():
     QApplication.setOrganizationName(appinfo.name)
     QApplication.setOrganizationDomain(appinfo.domain)
     if platform.system() == "Darwin":
+        # to show icons in menus on macOS
+        qApp.setAttribute(Qt.ApplicationAttribute.AA_DontShowIconsInMenus, False)
         qApp._menubar = QMenuBar()
     appInstantiated()
 

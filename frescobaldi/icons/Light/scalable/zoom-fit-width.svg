@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+tags: [inspect, marketing, search, markup, coding, magnifier]
+category: Map
+version: "1.59"
+unicode: "f07f"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="1"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="zoom-fit-width.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="namedview4"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="36.666667"
+     inkscape:cx="12"
+     inkscape:cy="12.054545"
+     inkscape:window-width="2206"
+     inkscape:window-height="1397"
+     inkscape:window-x="802"
+     inkscape:window-y="70"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg4" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round"
+     d="M 7.7019023,12.08656 5.6538253,10.009637 7.7019023,7.9904053"
+     id="path1" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round"
+     d="M 12.086559,12.08656 14.134636,10.009637 12.086559,7.9904053"
+     id="path2" />
+  <g
+     style="clip-rule:evenodd;fill:none;fill-rule:evenodd;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2"
+     id="g2"
+     transform="translate(0.46692717,0.46692718)">
+    <path
+       d="m 1.8363636,9.5636364 a 7.7000002,7.7000002 0 1 0 15.4000004,0 7.7000002,7.7000002 0 1 0 -15.4000004,0"
+       id="path1-7-7"
+       style="stroke-width:1;stroke-dasharray:none" />
+    <path
+       d="M 20.618182,20.727272 15.409091,15.354545"
+       id="path2-9-3"
+       sodipodi:nodetypes="cc" />
+  </g>
+</svg>

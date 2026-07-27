@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+tags: [jigsaw, extension, add-on, puzzle, entertainment, playing, recreation, fun, activity]
+category: Games
+version: "1.0"
+unicode: "eb10"
+-->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="1.2"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="applications-other2.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="20.400266"
+     inkscape:cx="3.6519131"
+     inkscape:cy="-5.7107097"
+     inkscape:window-width="2189"
+     inkscape:window-height="1374"
+     inkscape:window-x="674"
+     inkscape:window-y="190"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg1" />
+  <path
+     d="m 14.08631,17.638009 -0.339844,1.576171 c -0.10819,0.503213 0.602482,0.433594 1.117188,0.433594 h 2.796874 c 0.514706,0 0.931641,-0.416934 0.931641,-0.93164 v -3.990235 c 0,-1.412553 0.07917,-1.473908 0.746094,-1.271484 l 1.117187,0.339844 c 2.378095,0.721799 2.428078,-4.2583878 0,-3.728516 l -1.271484,0.277344 c -0.502869,0.10974 -0.591797,0.13174 -0.591797,-1.2089848 v -3.853516 c 0,-0.514706 -0.491153,-0.918761 -1.005859,-0.919921 l -2.697266,-0.0059 c -0.514704,-0.0012 -1.298124,-0.08701 -1.208984,0.419922 l 0.251953,1.4375 C 14.175622,7.5975112 12.81985,8.0188282 12,8.0188282 c -0.822463,0 -2.1756218,-0.421317 -1.932013,-1.806641 l 0.251953,-1.4375 C 10.40908,4.2677552 9.6256602,4.3535652 9.1109562,4.3547652 l -2.697266,0.0059 c -0.514706,0.0012 -1.005859,0.405215 -1.005859,0.919921 v 3.853516 c 0,1.3407248 -0.088928,1.3187248 -0.591797,1.2089848 L 3.5445501,10.065743 c -2.4280775,-0.5298718 -2.3780945,4.450315 0,3.728516 l 1.1171871,-0.339844 c 0.666924,-0.202424 0.746094,-0.141069 0.746094,1.271484 v 3.990235 c 0,0.514706 0.416935,0.93164 0.931641,0.93164 h 2.796874 c 0.514706,0 1.2253778,0.06962 1.1171878,-0.433594 L 9.9136902,17.638009 C 9.6235102,16.288333 11.092924,15.766915 12,15.766915 c 0.94747,0 2.37649,0.521418 2.08631,1.871094 z"
+     style="stroke-width:1;stroke:#ffffff;stroke-opacity:1"
+     id="path3"
+     sodipodi:nodetypes="ccssssccccsscccccccccssccccsssscccc" />
+</svg>
