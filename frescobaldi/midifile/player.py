@@ -26,6 +26,7 @@ import time
 import threading
 
 from . import song
+from . import event
 
 
 class Player:
@@ -81,6 +82,7 @@ class Player:
             self.timer_stop_playing()
         self._song = song
         self._events = make_event_list(song, time, beat)
+        self._pac_index = make_pointandclick_index(self._events)
         self._position = 0
         self._offset = 0
         if playing:
@@ -174,6 +176,11 @@ class Player:
             return True
         return False
 
+    def seek_link(self, link):
+        """Goes to the first instance of the specified link"""
+        if link in self._pac_index:
+            self.seek(self._pac_index[link][0])
+
     def set_position(self, position, offset=0):
         """(Private) Goes to the specified position in the internal events list.
 
@@ -221,6 +228,8 @@ class Player:
             self.beat_event(*event.beat)
         if event.user is not None:
             self.user_event(event.user)
+        if event.pac:
+            self.pointandclick_event(event.pac)
 
     def midi_event(self, midi):
         """(Private) Plays the specified MIDI events.
@@ -242,6 +251,9 @@ class Player:
 
     def beat_event(self, measnum, beat, num, den):
         """(Private) Called on every beat."""
+
+    def pointandclick_event(self, pac):
+        """(Private) Called when there are point-and-click events"""
 
     def start_event(self):
         """Called when playback is started."""
@@ -358,20 +370,22 @@ class Player:
 class Event:
     """Any event (MIDI, Time and/or Beat).
 
-    Has three attributes that determine what the Player does:
+    Has five attributes that determine what the Player does:
 
     time: if True, time_event() is called with the current music time.
     beat: None or (measnum, beat, num, den), then beat_event() is called.
     midi: If not None, midi_event() is called with the midi.
     user: Any object, if not None, user_event() is called with the object.
+    pac:  if not None, pointandclick_event is called with the events
 
     """
-    __slots__ = ['midi', 'time', 'beat', 'user']
+    __slots__ = ['midi', 'time', 'beat', 'user', 'pac']
     def __init__(self):
         self.midi = None
         self.time = None
         self.beat = None
         self.user = None
+        self.pac = None
 
     def __repr__(self):
         l = []
@@ -383,6 +397,8 @@ class Event:
             l.append('midi')
         if self.user:
             l.append('user')
+        if self.pac:
+            l.append('pac')
         return '<Event ' + ', '.join(l) + '>'
 
 
@@ -400,6 +416,11 @@ def make_event_list(song, time=None, beat=None):
 
     for t, evs in song.music:
         d[t].midi = evs
+        d[t].pac = {}
+        for trk, tevs in evs.items():
+            pacs = [e for e in tevs if isinstance(e, event.PointAndClickEvent)]
+            if pacs:
+                d[t].pac[trk] = pacs
 
     if time:
         for t in range(0, song.length+1, time):
@@ -412,3 +433,14 @@ def make_event_list(song, time=None, beat=None):
     return [(t, d[t]) for t in sorted(d)]
 
 
+def make_pointandclick_index(events):
+    """Returns a dict mapping point-and-click links to times in the song"""
+
+    d = collections.defaultdict(lambda: [])
+    for t, ev in events:
+        if ev.pac:
+            for track in ev.pac:
+                for e in ev.pac[track]:
+                    if e.kind in ('start', 'mark'):
+                        d[e.link].append(t)
+    return d
