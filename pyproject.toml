@@ -32,6 +32,11 @@ Repository = "https://github.com/frescobaldi/frescobaldi"
 [project.scripts]
 frescobaldi = "frescobaldi.__main__:main"
 
+[project.optional-dependencies]
+test = [
+    "pytest>=8.3",
+]
+
 [tool.hatch.version]
 path = "frescobaldi/appinfo.py"
 pattern = "version = \"(?P<version>.*)\""
@@ -96,6 +101,9 @@ description = "LilyPond included file"
 extension = "ily"
 icon = "frescobaldi/icons/text-x-included-lilypond"
 url = "https://lilypond.org/"
+
+[tool.pytest.ini_options]
+pythonpath = ["frescobaldi"]
 
 [tool.ruff]
 # _ is currently added to builtins, so ruff can't find where it's defined.
