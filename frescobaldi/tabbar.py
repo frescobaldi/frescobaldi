@@ -73,7 +73,6 @@ class TabBar(QTabBar):
 
         style = """
 QTabBar::tab {
-    background: white;
     border-style: solid;
     border-width: 1px 0px;
     border-color: #ACACAC;
