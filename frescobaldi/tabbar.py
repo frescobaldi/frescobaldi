@@ -75,7 +75,7 @@ class TabBar(QTabBar):
 QTabBar::tab {
     border-style: solid;
     border-width: 1px 0px;
-    border-color: #ACACAC;
+    border-color: #575757;
     min-width: 8ex;
     padding: 2px 4px 2px 2px;
 }
