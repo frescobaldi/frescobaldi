@@ -87,10 +87,6 @@ QTabBar::tab:selected:active {
     color: white;
 }
 
-QTabBar::tab:selected:!active {
-    background: #E5E5E5;
-}
-
 QTabBar::tab:first,
 QTabBar::tab:only-one {
     border-left-width: 1px;
