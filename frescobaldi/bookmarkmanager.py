@@ -59,6 +59,8 @@ class BookmarkManager(plugin.MainWindowPlugin):
 
     def updateMarkStatus(self):
         view = self.mainwindow().currentView()
+        if view is None:
+            return
         self.actionCollection.view_bookmark.setChecked(
             bookmarks.bookmarks(view.document()).hasMark(view.textCursor().blockNumber(), 'mark'))
 
