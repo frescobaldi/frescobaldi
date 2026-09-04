@@ -58,9 +58,13 @@ class BookmarkManager(plugin.MainWindowPlugin):
         bookmarks.bookmarks(doc).marksChanged.connect(self.updateMarkStatus)
 
     def updateMarkStatus(self):
-        view = self.mainwindow().currentView()
-        self.actionCollection.view_bookmark.setChecked(
-            bookmarks.bookmarks(view.document()).hasMark(view.textCursor().blockNumber(), 'mark'))
+        try:
+            view = self.mainwindow().currentView()
+            self.actionCollection.view_bookmark.setChecked(
+                bookmarks.bookmarks(view.document()).hasMark(view.textCursor().blockNumber(), 'mark'))
+        except AttributeError:
+            pass    # on macOS there is no view if the last window is closed
+                    # but the application is still running (issue #2230)
 
     def markCurrentLine(self):
         view = self.mainwindow().currentView()
