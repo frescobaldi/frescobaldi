@@ -73,10 +73,9 @@ class TabBar(QTabBar):
 
         style = """
 QTabBar::tab {
-    background: white;
     border-style: solid;
     border-width: 1px 0px;
-    border-color: #ACACAC;
+    border-color: #575757;
     min-width: 8ex;
     padding: 2px 4px 2px 2px;
 }
@@ -86,10 +85,6 @@ QTabBar::tab:selected:active {
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                 stop: 0 #69B1FA, stop: 1 #0C80FF);
     color: white;
-}
-
-QTabBar::tab:selected:!active {
-    background: #E5E5E5;
 }
 
 QTabBar::tab:first,
