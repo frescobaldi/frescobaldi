@@ -362,4 +362,7 @@ class ShortcutCollection(ActionCollectionBase):
             if not other:
                 self.others[self.name].remove(ref)
             elif other is not self:
-                other.load()
+                try:
+                    other.load()
+                except RuntimeError:
+                    pass    # fix another Weird Mac Thing (issue #2223)
