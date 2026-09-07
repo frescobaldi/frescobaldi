@@ -34,15 +34,14 @@ list_items_end = re.compile(r"^\s*\]")
 
 def check_mandatory_keys(d, mandatory_keys):
     """Check if all mandatory keys are present. Raise a ValueError if not."""
-    if mandatory_keys:
-        missing = []
-        for key in mandatory_keys:
-            if key not in d.keys():
-                missing.append(key)
-        if missing:
-            raise ValueError(
-                _("VBCL Error: Missing mandatory key(s) '{keys}'").format(
-                    keys=', '.join(missing)))
+    missing = []
+    for key in mandatory_keys:
+        if key not in d.keys():
+            missing.append(key)
+    if missing:
+        raise ValueError(
+            _("VBCL Error: Missing mandatory key(s) '{keys}'").format(
+                keys=', '.join(missing)))
 
 
 def set_defaults(d, defaults):
@@ -51,10 +50,10 @@ def set_defaults(d, defaults):
         d[key] = d.get(key, defaults[key])
 
 
-def parse(lines, mandatory_keys, defaults):
+def parse(text, mandatory_keys=[], defaults={}):
     """Returns a dictionary corresponding to a parsed VBCL string list."""
     d = dict()
-    it = iter(lines)
+    it = iter(text.split('\n'))
 
     try:
         while True:
@@ -100,10 +99,10 @@ def parse(lines, mandatory_keys, defaults):
     return d
 
 
-def parse_file(filename, mandatory_keys=None, defaults=None):
+def parse_file(filename, mandatory_keys=[], defaults={}):
     """Returns a dictionary corresponding to a parsed VBCL config file.
     Raises an exception if the given file doesn't exist or isn't readable"""
 
     with open(filename, encoding='utf-8') as f:
-        cfg_dict = parse(f.read().split('\n'), mandatory_keys, defaults)
+        cfg_dict = parse(f.read(), mandatory_keys, defaults)
         return cfg_dict
