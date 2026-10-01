@@ -9,7 +9,7 @@ under the General Public License.
 
 ## Features
 
-- Powerful text editor with syntax highlighting and automatic completion
+- Powerful text editor with syntax highlighting, automatic completion, auto-indent, and code formatting
 - Music view with advanced two-way Point & Click
 - Midi player to proof-listen LilyPond-generated MIDI files
 - Midi capturing to enter music
