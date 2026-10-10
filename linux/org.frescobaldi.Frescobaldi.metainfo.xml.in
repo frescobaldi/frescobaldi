@@ -16,7 +16,7 @@
     </p>
     <p>Features:</p>
     <ul>
-      <li>Powerful text editor with syntax highlighting and automatic completion</li>
+      <li>Powerful text editor with syntax highlighting, automatic completion, auto-indent, and code formatting</li>
       <li>Music view with advanced Point &amp; Click</li>
       <li>Midi player to proof-listen LilyPond-generated MIDI files</li>
       <li>Midi capturing to enter music</li>
