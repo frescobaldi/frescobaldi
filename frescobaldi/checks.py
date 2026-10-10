@@ -124,6 +124,9 @@ except ImportError:
             "To fix this, install Qt 6.6 or newer.",
             can_continue=True)
     else:
+        # An ImportError here using Qt >= 6.6 indicates something exotic
+        # like a problem with the PyQt installation (see #2257), and
+        # definitely something bigger than we should attempt to handle here
         raise
 
 
