@@ -48,9 +48,6 @@ artifacts = [
 [tool.briefcase]
 project_name = "frescobaldi"
 bundle = "org.frescobaldi"
-# Briefcase does not support dynamic version yet.
-# https://github.com/beeware/briefcase/issues/474
-version = "4.0.7"
 
 [tool.briefcase.app.frescobaldi]
 formal_name = "Frescobaldi"
@@ -61,7 +58,7 @@ icon = "frescobaldi/icons/org.frescobaldi.Frescobaldi"
 requires = [
     "python-ly==0.9.10",
     "qpageview==1.0.5",
-    "pygame-ce==2.5.7"
+    "pygame-ce==2.5.8"
 ]
 
 [tool.briefcase.app.frescobaldi.macos]
@@ -78,10 +75,10 @@ requires = [
 [tool.briefcase.app.frescobaldi.windows]
 requires = [
   "PyQt6==6.11.0",
-  "PyQt6-Qt6==6.11.0",
-  "PyQt6-sip==13.11.1",
+  "PyQt6-Qt6==6.11.2",
+  "PyQt6-sip==13.13.0",
   "PyQt6-WebEngine==6.11.0",
-  "PyQt6-WebEngine-Qt6==6.11.0"
+  "PyQt6-WebEngine-Qt6==6.11.2"
 ]
 use_full_install_path = false
 
