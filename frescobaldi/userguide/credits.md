@@ -33,6 +33,9 @@ The following people contributed to {appname} (in alphabetical order):
 !Jörg Hoffmann:
 : Windows installers
 
+!inkandpaper-app:
+: New default theme based on Tabler Icons (light and dark styles)
+
 !Benjamin Johnson:
 : !_(Qt 6 port)_,
    _(Score Wizard improvements)_,
