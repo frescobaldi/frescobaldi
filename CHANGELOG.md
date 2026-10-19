@@ -9,6 +9,17 @@ Click on the version to see the complete list of commits in a release.
 
 ## [unreleased]
 
+## [4.0.8] - 2026-10-23
+
+### Changed
+
+- A new default theme replaced the old Tango theme (#2067). The new theme is based on [Tabler Icons](https://github.com/tabler/tabler-icons) and it's been designed to work well on light and dark modes.
+
+### Fixed
+
+- Minor bugfixes (#2213, #2242)
+
+
 ## [4.0.7] - 2026-05-29
 
 ### Fixed
@@ -1740,7 +1751,8 @@ Frescobaldi application itself has the PO files in i18n/frescobaldi, see
 
 * Initial release.
 
-[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.7...master
+[unreleased]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.8...master
+[4.0.8]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.7...v4.0.8
 [4.0.7]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.6...v4.0.7
 [4.0.6]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.5...v4.0.6
 [4.0.5]: https://github.com/frescobaldi/frescobaldi/compare/v4.0.4...v4.0.5
