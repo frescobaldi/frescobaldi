@@ -38,6 +38,82 @@ add the parts to the top level of the score view, and then the scores, without
 adding musical parts to the scores.
 The scores will then use the parts in the top level of the score.
 
+== Structuring pieces ==
+
+You can use the "Structure" part type in the "Special" category to lay out
+breaks, bar lines, and other structural elements separately from the music.
+For example, to lay out a 16-bar section in lines of 4 bars, you can use:
+
+```lilypond
+structure = {
+  \time 4/4
+  \repeat unfold 4 {
+    s1 * 4 |
+    \break
+  }
+  \bar "||"
+}
+```
+
+== Transposing instruments ==
+
+The Score Wizard sets up all instrument parts for entry at their
+sounding pitch. This has a number of practical advantages, like making
+it easier to share parts between instruments. It is also logical
+because transposition is a notation convention, not a property of the
+instrument itself.
+
+Transposition for such instruments is implemented in their part
+definitions. For example, the definition for a B-flat trumpet part
+may look like this:
+
+```lilypond
+trumpetBbPart = \new Staff \with {
+  instrumentName = "Trumpet in Bb"
+  shortInstrumentName = "Tr.Bb."
+  midiInstrument = "trumpet"
+} { \transposition bf \transpose bf c' \trumpetBb }
+```
+
+In this example, `\transpose bf c' \trumpetBb` changes a sounded B-flat
+to a written C. But since `\transpose` affects both printed and MIDI
+output, this results in an incorrect sounding pitch for the latter.
+We therefore also use `\transposition bf` (which only affects MIDI) to
+correct the sounding pitch back to B-flat.
+
+== Customizing MIDI output ==
+
+If "Place in a separate \score block" is checked on the *Score settings*
+tab, the Score Wizard will create separate `\score` blocks for print
+and MIDI output. Note the parts list is intentionally duplicated
+between blocks rather than defined using a variable:
+
+```lilypond
+\score {
+  <<
+    \structurePart
+    \flutePart
+    \pianoPart
+  >>
+  \layout { }
+}
+
+\score {
+  <<
+    \structurePart
+    \flutePart
+    \pianoPart
+  >>
+  \midi { }
+}
+```
+
+In this example, you could temporarily mute the flute part by commenting
+its line in the MIDI `\score` while leaving it in print to avoid disrupting
+the layout. A more advanced use might be to conserve MIDI channels in a
+large orchestral score; you could combine all the MIDI parts for a particular
+instrument while leaving them separate in print.
+
 #VARS
 key shortcut scorewiz scorewiz
 menu menu file -> Score &Wizard...
