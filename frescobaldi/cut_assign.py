@@ -88,6 +88,8 @@ def cut_assign(cursor):
             break
     insert = QTextCursor(block)
     text = cursor.selection().toPlainText()
+    if text.startswith("{") and text.endswith("}"):
+        text = text.removeprefix("{").removesuffix("}").strip()
     space = '\n' if '\n' in text else ' '
     text = ''.join((name, ' =', mode, ' {', space, text, space, '}\n\n'))
     with cursortools.compress_undo(cursor):
