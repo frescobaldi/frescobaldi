@@ -9,6 +9,10 @@ Click on the version to see the complete list of commits in a release.
 
 ## [unreleased]
 
+### Fixed
+
+- macOS: the PyQt 6.9 pin introduced in 4.0.7 was never applied, because the Briefcase table in `pyproject.toml` was named `macos` instead of `macOS`. The 4.0.7 package therefore bundled Qt 6.11.1, which crashes on macOS 27.2 when the mouse moves over a toolbar handle (QTBUG-147602) and is still affected by #2160. The pin is now effective.
+
 ## [4.0.7] - 2026-05-29
 
 ### Fixed
