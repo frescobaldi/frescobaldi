@@ -123,6 +123,11 @@ class Links:
             if b.document == doc:
                 return b
 
+    def linksForFile(self, filename):
+        """Returns the links dict for the given filename."""
+        if filename in self._links:
+            return self._links[filename]
+
 
 class BoundLinks:
     """Stores links as QTextCursors for a document."""
