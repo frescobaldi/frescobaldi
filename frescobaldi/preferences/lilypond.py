@@ -304,13 +304,28 @@ class InfoItem(QListWidgetItem):
 
         self.parent = infolist
 
-        if platform.system() == 'Linux':
-            archive = f"lilypond-{major}.{minor}.{micro}-linux-x86_64.tar.gz"
+        uname = platform.uname()
+        # equivalent to `uname -m`; values are inconsistent across platforms
+        machine = uname.machine.lower().replace("-", "_")
+        if machine == "amd64":  # some platforms like Windows use this...
+            machine = "x86_64"  # ...but LilyPond uses Linux's preferred name
+
+        if uname.system == 'Linux':
+            # LilyPond only provides binaries for x86_64
+            if machine != "x86_64":
+                raise AssertionError
+            archive = f"lilypond-{major}.{minor}.{micro}-linux-{machine}.tar.gz"
             self.archive_format = "gztar"
-        elif platform.system() == 'Darwin':
-            archive = f"lilypond-{major}.{minor}.{micro}-darwin-x86_64.tar.gz"
+        elif uname.system == 'Darwin':
+            # LilyPond provides binaries for ARM64 and x86_64
+            if machine not in ("arm64", "x86_64"):
+                raise AssertionError
+            archive = f"lilypond-{major}.{minor}.{micro}-darwin-{machine}.tar.gz"
             self.archive_format = "gztar"
-        elif platform.system() == 'Windows':
+        elif uname.system == 'Windows':
+            # LilyPond only provides binaries for x86_64, but current ARM64
+            # versions of Windows can also run them. Realistically 32-bit
+            # Windows doesn't matter here since PyQt6 has never supported it
             archive = f"lilypond-{major}.{minor}.{micro}-mingw-x86_64.zip"
             self.archive_format = "zip"
         else:
@@ -325,7 +340,7 @@ class InfoItem(QListWidgetItem):
         self.reply.finished.connect(self.downloadFinished)
         self.reply.errorOccurred.connect(self.downloadError)
 
-        if platform.system() == "Windows":
+        if uname.system == "Windows":
             exec_name = "lilypond.exe"
         else:
             exec_name = "lilypond"
