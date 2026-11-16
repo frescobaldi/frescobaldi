@@ -67,8 +67,12 @@ def saveSession(key):
     settings.setValue('numwindows', len(app.windows))
     for index, win in enumerate(app.windows):
         settings.beginGroup(f"mainwindow{index}")
-        win.writeSessionSettings(settings)
-        settings.setValue("active_document", win.currentDocument().url())
+        try:
+            win.writeSessionSettings(settings)
+            settings.setValue("active_document", win.currentDocument().url())
+        except RuntimeError:
+            # window already deleted? (see issue #2269)
+            continue
         settings.endGroup()
     settings.sync()
 
