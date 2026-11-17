@@ -56,6 +56,7 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac.tools_quick_remove_ornaments.triggered.connect(self.quickRemoveOrnaments)
         ac.tools_quick_remove_instrument_scripts.triggered.connect(self.quickRemoveInstrumentScripts)
         ac.tools_quick_remove_slurs.triggered.connect(self.quickRemoveSlurs)
+        ac.tools_quick_remove_ties.triggered.connect(self.quickRemoveTies)
         ac.tools_quick_remove_beams.triggered.connect(self.quickRemoveBeams)
         ac.tools_quick_remove_ligatures.triggered.connect(self.quickRemoveLigatures)
         ac.tools_quick_remove_dynamics.triggered.connect(self.quickRemoveDynamics)
@@ -83,6 +84,7 @@ class DocumentActions(plugin.MainWindowPlugin):
         self.actionCollection.tools_quick_remove_ornaments.setEnabled(selection)
         self.actionCollection.tools_quick_remove_instrument_scripts.setEnabled(selection)
         self.actionCollection.tools_quick_remove_slurs.setEnabled(selection)
+        self.actionCollection.tools_quick_remove_ties.setEnabled(selection)
         self.actionCollection.tools_quick_remove_beams.setEnabled(selection)
         self.actionCollection.tools_quick_remove_ligatures.setEnabled(selection)
         self.actionCollection.tools_quick_remove_dynamics.setEnabled(selection)
@@ -168,6 +170,10 @@ class DocumentActions(plugin.MainWindowPlugin):
         import quickremove
         quickremove.slurs(self.mainwindow().textCursor())
 
+    def quickRemoveTies(self):
+        import quickremove
+        quickremove.ties(self.mainwindow().textCursor())
+
     def quickRemoveBeams(self):
         import quickremove
         quickremove.beams(self.mainwindow().textCursor())
@@ -220,6 +226,7 @@ class Actions(actioncollection.ActionCollection):
         self.tools_quick_remove_ornaments = QAction(parent)
         self.tools_quick_remove_instrument_scripts = QAction(parent)
         self.tools_quick_remove_slurs = QAction(parent)
+        self.tools_quick_remove_ties = QAction(parent)
         self.tools_quick_remove_beams = QAction(parent)
         self.tools_quick_remove_ligatures = QAction(parent)
         self.tools_quick_remove_dynamics = QAction(parent)
@@ -251,6 +258,7 @@ class Actions(actioncollection.ActionCollection):
         self.tools_quick_remove_ornaments.setText(_("Remove &Ornaments"))
         self.tools_quick_remove_instrument_scripts.setText(_("Remove &Instrument Scripts"))
         self.tools_quick_remove_slurs.setText(_("Remove &Slurs"))
+        self.tools_quick_remove_ties.setText(_("Remove &Ties"))
         self.tools_quick_remove_beams.setText(_("Remove &Beams"))
         self.tools_quick_remove_ligatures.setText(_("Remove &Ligatures"))
         self.tools_quick_remove_dynamics.setText(_("Remove &Dynamics"))

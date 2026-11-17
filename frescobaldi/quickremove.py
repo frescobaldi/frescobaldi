@@ -126,7 +126,14 @@ def instrument_scripts(cursor):
 @remove
 def slurs(cursor):
     """Remove slurs from the cursor's selection."""
-    return find_positions(cursor, lambda t: isinstance(t, ly.lex.lilypond.Slur))
+    return find_positions(cursor,
+        lambda t: isinstance(t, ly.lex.lilypond.Slur) and not isinstance(t, ly.lex.lilypond.Tie))
+
+
+@remove
+def ties(cursor):
+    """Remove ties from the cursor's selection."""
+    return find_positions(cursor, lambda t: isinstance(t, ly.lex.lilypond.Tie))
 
 
 @remove
