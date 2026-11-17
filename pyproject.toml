@@ -64,9 +64,11 @@ requires = [
     "pygame-ce==2.5.7"
 ]
 
-[tool.briefcase.app.frescobaldi.macos]
+[tool.briefcase.app.frescobaldi.macOS]
 # macOS may crash if PyQt>6.9
 # https://github.com/frescobaldi/frescobaldi/issues/2160
+# Qt 6.11.0 and 6.11.1 also crash on macOS 27.2 whenever a pixmap cursor
+# is set, e.g. when hovering a toolbar handle (QTBUG-147602).
 requires = [
   "PyQt6==6.9.1",
   "PyQt6-Qt6==6.9.2",
