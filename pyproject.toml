@@ -64,9 +64,6 @@ requires = [
     "pygame-ce==2.5.7"
 ]
 
-# The table name must be spelled "macOS": Briefcase platform names are
-# case-sensitive and a "macos" table is silently ignored, which leaves
-# PyQt6 unpinned and bundles whatever is latest on PyPI at build time.
 [tool.briefcase.app.frescobaldi.macOS]
 # macOS may crash if PyQt>6.9
 # https://github.com/frescobaldi/frescobaldi/issues/2160
