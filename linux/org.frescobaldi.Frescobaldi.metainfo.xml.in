@@ -79,6 +79,7 @@
   <translation type="gettext">userguide</translation>
 
   <releases>
+    <release version="4.0.8" date="2026-10-23" />
     <release version="4.0.7" date="2026-05-29" />
     <release version="4.0.6" date="2026-04-28" />
     <release version="4.0.5" date="2026-02-11" />
