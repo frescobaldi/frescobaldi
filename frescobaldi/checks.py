@@ -114,13 +114,20 @@ if importlib.util.find_spec('qpageview') is None:
 try:
     from PyQt6.QtPdf import QPdfLinkModel
 except ImportError:
-    error("Point-and-click unavailable",
-        f"You are using an older Qt version ({qt_version.toString()}) "
-        "that lacks support for links in PDF documents. "
-        "Frescobaldi will run, but point-and-click will be unavailable."
-        "\n\n"
-        "To fix this, install Qt 6.6 or newer.",
-        can_continue=True)
+    # Does this indicate a missing feature or a bigger problem?
+    if qt_version < QVersionNumber(6, 6, 0):
+        error("Point-and-click unavailable",
+            f"You are using an older Qt version ({qt_version.toString()}) "
+            "that lacks support for links in PDF documents. "
+            "Frescobaldi will run, but point-and-click will be unavailable."
+            "\n\n"
+            "To fix this, install Qt 6.6 or newer.",
+            can_continue=True)
+    else:
+        # An ImportError here using Qt >= 6.6 indicates something exotic
+        # like a problem with the PyQt installation (see #2257), and
+        # definitely something bigger than we should attempt to handle here
+        raise
 
 
 # The python-ly check could also move where, but we don't do it now, because
